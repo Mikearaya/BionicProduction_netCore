@@ -1,0 +1,12 @@
+/var/www/html/BionicInventory/BionicInventory.Domain/bin/Debug/netstandard2.0/BionicInventory.Domain.deps.json
+/var/www/html/BionicInventory/BionicInventory.Domain/bin/Debug/netstandard2.0/BionicInventory.Domain.dll
+/var/www/html/BionicInventory/BionicInventory.Domain/bin/Debug/netstandard2.0/BionicInventory.Domain.pdb
+/var/www/html/BionicInventory/BionicInventory.Domain/bin/Debug/netstandard2.0/BionicInventory.Shared.dll
+/var/www/html/BionicInventory/BionicInventory.Domain/bin/Debug/netstandard2.0/BionicInventory.Shared.pdb
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.csprojAssemblyReference.cache
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.csproj.CoreCompileInputs.cache
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.AssemblyInfoInputs.cache
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.AssemblyInfo.cs
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.csproj.CopyComplete
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.dll
+/var/www/html/BionicInventory/BionicInventory.Domain/obj/Debug/netstandard2.0/BionicInventory.Domain.pdb

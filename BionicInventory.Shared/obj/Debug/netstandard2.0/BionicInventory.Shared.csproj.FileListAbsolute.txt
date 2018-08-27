@@ -1,0 +1,9 @@
+/var/www/html/BionicInventory/BionicInventory.Shared/bin/Debug/netstandard2.0/BionicInventory.Shared.deps.json
+/var/www/html/BionicInventory/BionicInventory.Shared/bin/Debug/netstandard2.0/BionicInventory.Shared.dll
+/var/www/html/BionicInventory/BionicInventory.Shared/bin/Debug/netstandard2.0/BionicInventory.Shared.pdb
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.csprojAssemblyReference.cache
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.csproj.CoreCompileInputs.cache
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.AssemblyInfoInputs.cache
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.AssemblyInfo.cs
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.dll
+/var/www/html/BionicInventory/BionicInventory.Shared/obj/Debug/netstandard2.0/BionicInventory.Shared.pdb
