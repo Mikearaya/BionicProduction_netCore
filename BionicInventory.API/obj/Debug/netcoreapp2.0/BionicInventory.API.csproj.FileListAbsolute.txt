@@ -16,3 +16,5 @@
 /var/www/html/BionicInventory/BionicInventory.API/obj/Debug/netcoreapp2.0/BionicInventory.API.csproj.CopyComplete
 /var/www/html/BionicInventory/BionicInventory.API/obj/Debug/netcoreapp2.0/BionicInventory.API.dll
 /var/www/html/BionicInventory/BionicInventory.API/obj/Debug/netcoreapp2.0/BionicInventory.API.pdb
+/var/www/html/BionicInventory/BionicInventory.API/bin/Debug/netcoreapp2.0/BionicInventory.DataStore.dll
+/var/www/html/BionicInventory/BionicInventory.API/bin/Debug/netcoreapp2.0/BionicInventory.DataStore.pdb

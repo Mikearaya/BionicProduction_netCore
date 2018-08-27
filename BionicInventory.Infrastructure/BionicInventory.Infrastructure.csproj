@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\BionicInventory.Domain\BionicInventory.Domain.csproj" />
     <ProjectReference Include="..\BionicInventory.Shared\BionicInventory.Shared.csproj" />
+    <ProjectReference Include="..\BionicInventory.Application\BionicInventory.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

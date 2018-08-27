@@ -19,6 +19,8 @@
   <ItemGroup>
     <ProjectReference Include="..\BionicInventory.Application\BionicInventory.Application.csproj" />
     <ProjectReference Include="..\BionicInventory.Shared\BionicInventory.Shared.csproj" />
+    <ProjectReference Include="..\BionicInventory.DataStore\BionicInventory.DataStore.csproj" />
+    <ProjectReference Include="..\BionicInventory.Infrastructure\BionicInventory.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
