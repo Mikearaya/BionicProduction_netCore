@@ -25,6 +25,7 @@
         "dependencies": {
           "BionicInventory.Application": "1.0.0",
           "BionicInventory.DataStore": "1.0.0",
+          "BionicInventory.Infrastructure": "1.0.0",
           "BionicInventory.Shared": "1.0.0",
           "Microsoft.AspNetCore.All": "2.0.8",
           "Microsoft.NETCore.App": "2.0.0"
@@ -3914,6 +3915,18 @@
           "BionicInventory.Domain.dll": {}
         }
       },
+      "BionicInventory.Infrastructure/1.0.0": {
+        "dependencies": {
+          "BionicInventory.Application": "1.0.0",
+          "BionicInventory.Shared": "1.0.0"
+        },
+        "runtime": {
+          "BionicInventory.Infrastructure.dll": {}
+        },
+        "compile": {
+          "BionicInventory.Infrastructure.dll": {}
+        }
+      },
       "BionicInventory.Shared/1.0.0": {
         "runtime": {
           "BionicInventory.Shared.dll": {}
@@ -6159,6 +6172,11 @@
       "sha512": ""
     },
     "BionicInventory.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BionicInventory.Infrastructure/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

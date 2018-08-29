@@ -1,15 +1,49 @@
+using System;
+using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Customers.Interfaces;
+using BionicInventory.Application.Customers.Models;
+using BionicInventory.Domain.Customers;
 
-namespace BionicInventory.Application.Customers.Commandes {
+namespace BionicInventory.Application.Customers.Commands {
     public class CustomersCommand : ICustomersCommand {
-        public void Create () {
-            throw new System.NotImplementedException ();
+        private readonly IInventoryDatabaseService _database;
+        private readonly ICustomersFactory _factory;
+        public CustomersCommand (
+            IInventoryDatabaseService database,
+            ICustomersFactory factory
+        ) {
+            _factory = factory;
+            _database = database;
         }
-        public void Delete () {
-            throw new System.NotImplementedException ();
+        public CustomerViewModel Create (NewCustomerModel newCustomer) {
+            try {
+                var customer = _factory.CustomerForCreation (newCustomer);
+                _database.Customer.Add (customer);
+                _database.Save ();
+                return _factory.CustomerForView (customer);
+            } catch (Exception) {
+                return null;
+            }
+
         }
-        public void Update () {
-            throw new System.NotImplementedException ();
+        public bool Delete (Customer deletedCustomer) {
+            try {
+                _database.Customer.Remove (deletedCustomer);
+                _database.Save ();
+                return true;
+            } catch (Exception) {
+                return false;
+            }
+        }
+        public bool Update (UpdatedCustomerModel updatedCustomer) {
+            try {
+                var customer = _factory.CustomerForUpdate (updatedCustomer);
+                _database.Customer.Add (customer);
+                _database.Save ();
+                return true;
+            } catch (Exception) {
+                return false;
+            }
         }
     }
 }

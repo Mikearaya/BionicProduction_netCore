@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Customers.Commands;
+using BionicInventory.Application.Customers.Factories;
+using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Queries;
 using BionicInventory.DataStore;
@@ -29,6 +32,8 @@ namespace BionicInventory.API
         {
             services.AddMvc();
             services.AddScoped<ICustomersQuery, CustomersQuery>();
+            services.AddScoped<ICustomersCommand, CustomersCommand>();
+            services.AddScoped<ICustomersFactory, CustomerFactories>();
             services.AddScoped<IInventoryDatabaseService, DatabaseService>();
         }
 

@@ -27,10 +27,15 @@ namespace BionicInventory.DataStore {
                     .HasColumnName ("main_phone")
                     .HasColumnType ("varchar(13)");
 
-                builder.Property (e => e.Name)
+                builder.Property (e => e.FirstName)
                     .IsRequired ()
-                    .HasColumnName ("name")
-                    .HasColumnType ("varchar(50)");
+                    .HasColumnName ("first_name")
+                    .HasColumnType ("varchar(20)");
+                
+                builder.Property (e => e.LastName)
+                    .IsRequired ()
+                    .HasColumnName ("last_name")
+                    .HasColumnType ("varchar(20)");
 
                 builder.Property (e => e.Tin)
                     .HasColumnName ("TIN")
@@ -40,6 +45,18 @@ namespace BionicInventory.DataStore {
                     .IsRequired ()
                     .HasColumnName ("type")
                     .HasColumnType ("varchar(45)");
+
+        builder.Property (e => e.DateAdded)
+                    .HasColumnName ("date_added")
+                    .HasColumnType ("datetime")
+                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
+
+                builder.Property (e => e.DateUpdated)
+                    .HasColumnName ("date_updated")
+                    .HasColumnType ("datetime")
+                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate ();
+
             }
         }
 }

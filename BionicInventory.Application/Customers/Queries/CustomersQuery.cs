@@ -12,14 +12,14 @@ namespace BionicInventory.Application.Customers.Queries
         public CustomersQuery(IInventoryDatabaseService database) {
             _database = database;
         }
-        public IEnumerable<Customer> GetAll()
+        public IEnumerable<Customer> GetAllCustomers()
         {
             return _database.Customer.ToList();
         }
 
-        public Customer GetById(uint customerId)
+        public Customer GetCustomerById(uint customerId)
         {
-            throw new System.NotImplementedException();
+            return _database.Customer.Find(customerId);
         }
     }
 }
