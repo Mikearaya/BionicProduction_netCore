@@ -1,15 +1,23 @@
 using System.Collections.Generic;
+using System.Linq;
+using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Domain.Employees;
 
 namespace BionicInventory.Application.Employees.Queries {
     public class EmployeesQuery : IEmployeesQuery {
-        public IEnumerable<Employee> GetAll () {
-            throw new System.NotImplementedException ();
+
+        public IInventoryDatabaseService _database { get; }
+
+        public EmployeesQuery (IInventoryDatabaseService database) {
+            _database = database;
         }
 
-        public Employee GetById (uint id) {
-            throw new System.NotImplementedException ();
+        public IEnumerable<Employee> GetAllEmployees () {
+            return _database.Employee.ToList ();
+        }
+        public Employee GetEmployeeById (uint id) {
+            return _database.Employee.Find (id);
         }
     }
 }

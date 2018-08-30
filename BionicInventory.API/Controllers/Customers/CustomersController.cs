@@ -68,5 +68,56 @@ namespace BionicInventory.API.Controllers.Customers {
 
         }
 
+        [HttpPut ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public IActionResult UpdateEmployeeRecord (uint id, [FromBody] UpdatedCustomerModel updatedData) {
+
+            if (ModelState.IsValid && updatedData != null) {
+                var customer = _query.GetCustomerById (id);
+
+                if (customer != null) {
+                    if (_command.Update (customer, updatedData)) {
+                        return StatusCode (204);
+                    } else {
+                        return StatusCode (500, "Something Wrong Happened Try Again");
+                    }
+                } else {
+                    return StatusCode (404);
+                }
+            } else {
+                return StatusCode (422, "One Or More Required Fields Missing, Try Again after correcting them");
+            }
+
+        }
+
+        [HttpDelete ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public IActionResult DeleteSingleCustomer (uint id) {
+
+            if (ModelState.IsValid && id != 0) {
+                var customer = _query.GetCustomerById (id);
+
+                if (customer != null) {
+
+                    if (_command.Delete (customer)) {
+                        return StatusCode (204);
+                    } else {
+                        return StatusCode (500, "Something Wrong Happened Try Again");
+                    }
+                } else {
+                    return StatusCode (404);
+                }
+
+            } else {
+                return StatusCode (422, "Customer Id Not Found to complete the delete operation");
+            }
+
+        }
+
     }
 }

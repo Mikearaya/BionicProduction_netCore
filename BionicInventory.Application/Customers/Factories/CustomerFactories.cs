@@ -16,31 +16,30 @@ namespace BionicInventory.Application.Customers.Factories {
             };
         }
 
-        public Customer CustomerForUpdate (UpdatedCustomerModel customer) {
-            return new Customer () {
-                Id = customer.ID,
-                    FirstName = customer.firstName,
-                    LastName = customer.lastName,
-                    Tin = customer.Tin,
-                    Email = customer.email,
-                    Type = customer.type,
-                    MainPhone = customer.mainPhone
+        public Customer CustomerForUpdate (Customer old, UpdatedCustomerModel customer) {
 
-            };
-        }
+            old.FirstName = customer.firstName;
+            old.LastName = customer.lastName;
+            old.Tin = customer.Tin;
+            old.Email = customer.email;
+            old.Type = customer.type;
+            old.MainPhone = customer.mainPhone;
 
-        public CustomerViewModel CustomerForView (Customer customer) {
-            return new CustomerViewModel () {
-                ID = customer.Id,
-                    FullName = customer.FirstName + ' ' + customer.LastName,
-                    Tin = customer.Tin,
-                    email = customer.Email,
-                    type = customer.Type,
-                    mainPhone = customer.MainPhone,
-                    DateAdded = customer.DateAdded,
-                    DateUpdated = customer.DateUpdated
-
-            };
-        }
+            return old;
     }
+
+    public CustomerViewModel CustomerForView (Customer customer) {
+        return new CustomerViewModel () {
+            ID = customer.Id,
+                FullName = customer.FirstName + ' ' + customer.LastName,
+                Tin = customer.Tin,
+                email = customer.Email,
+                type = customer.Type,
+                mainPhone = customer.MainPhone,
+                DateAdded = customer.DateAdded,
+                DateUpdated = customer.DateUpdated
+
+        };
+    }
+}
 }
