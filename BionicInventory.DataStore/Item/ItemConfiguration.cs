@@ -37,6 +37,10 @@ namespace BionicInventory.DataStore.Items {
                     .HasColumnName ("description")
                     .HasColumnType ("text");
 
+                builder.Property (e => e.UnitCost)
+                    .HasColumnType ("float")
+                    .HasColumnName ("unit_cost");
+
                 builder.Property (e => e.Name)
                     .IsRequired ()
                     .HasColumnName ("name")
@@ -44,7 +48,9 @@ namespace BionicInventory.DataStore.Items {
 
                 builder.Property (e => e.Photo).HasColumnName ("photo");
 
-                builder.Property (e => e.Weight).HasColumnName ("weight");
+                builder.Property (e => e.Weight)
+                    .HasColumnName ("weight")
+                    .HasColumnType ("float");
             }
         }
 }

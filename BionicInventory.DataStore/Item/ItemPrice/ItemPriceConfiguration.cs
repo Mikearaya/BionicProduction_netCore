@@ -44,7 +44,9 @@ namespace BionicInventory.DataStore.Items.ItemPrices {
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
-                builder.Property (e => e.Price).HasColumnName ("price");
+                builder.Property (e => e.Price)
+                    .HasColumnType ("float")
+                    .HasColumnName ("price");
 
                 builder.HasOne (d => d.Item)
                     .WithMany (p => p.ItemPrice)
