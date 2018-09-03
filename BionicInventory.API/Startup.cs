@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 1, 2018 8:42 PM
+ * @Last Modified Time: Sep 3, 2018 9:39 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.API.Commons;
 using BionicInventory.Application.Customers.Commands;
 using BionicInventory.Application.Customers.Factories;
 using BionicInventory.Application.Customers.Interfaces;
@@ -35,6 +36,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -46,9 +48,7 @@ namespace BionicInventory.API {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            services.AddMvc (options => {
-                options.OutputFormatters.Add (new XmlDataContractSerializerOutputFormatter ());
-            });
+            services.AddMvc ().AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddScoped<ICustomersQuery, CustomersQuery> ();
             services.AddScoped<ICustomersCommand, CustomersCommand> ();
             services.AddScoped<ICustomersFactory, CustomerFactories> ();
@@ -59,6 +59,13 @@ namespace BionicInventory.API {
             services.AddScoped<IEmployeesCommand, EmployeesCommand> ();
             services.AddScoped<IEmployeesFactory, EmployeesFactory> ();
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
+            services.AddScoped<IResponseFormatFactory, ResponseFromatFactory> ();
+              services.AddCors(options =>
+         {
+            options.AddPolicy("AllowSpecificOrigin",
+                builder1 => builder1.WithOrigins("http://localhost:4200"));
+        });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +74,7 @@ namespace BionicInventory.API {
                 app.UseDeveloperExceptionPage ();
                 app.UseDatabaseErrorPage ();
             }
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseMvc ();
 

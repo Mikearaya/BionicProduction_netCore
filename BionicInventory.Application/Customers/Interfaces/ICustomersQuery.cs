@@ -6,7 +6,7 @@ namespace BionicInventory.Application.Customers.Interfaces.Query
     public interface ICustomersQuery
     {
         Customer GetCustomerById(uint customerId);
-        IEnumerable<Customer> GetAllCustomers();
+        IList<Customer> GetAllCustomers();
     }
     
 }

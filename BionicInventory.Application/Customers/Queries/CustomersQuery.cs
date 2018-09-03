@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bionic_inventory.Application.Interfaces;
@@ -12,8 +13,11 @@ namespace BionicInventory.Application.Customers.Queries
         public CustomersQuery(IInventoryDatabaseService database) {
             _database = database;
         }
-        public IEnumerable<Customer> GetAllCustomers()
+        public IList<Customer> GetAllCustomers()
         {
+        
+            
+
             return _database.Customer.ToList();
         }
 

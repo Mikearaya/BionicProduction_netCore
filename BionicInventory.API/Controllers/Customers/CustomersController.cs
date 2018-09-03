@@ -1,8 +1,12 @@
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections;
+using System.Collections.Generic;
+using BionicInventory.Domain.Customers;
 
 namespace BionicInventory.API.Controllers.Customers {
     [InventoryAPI ("customers")]
@@ -11,21 +15,29 @@ namespace BionicInventory.API.Controllers.Customers {
         private readonly ICustomersCommand _command;
         private readonly ICustomersFactory _factory;
 
+        private readonly IResponseFormatFactory _responseFactory;
+
         public CustomersController (
             ICustomersQuery customersquery,
             ICustomersCommand customerCommand,
-            ICustomersFactory customerFactory
+            ICustomersFactory customerFactory,
+            IResponseFormatFactory responseFactory
         ) {
             _query = customersquery;
             _command = customerCommand;
             _factory = customerFactory;
+            _responseFactory = responseFactory;
         }
 
         [HttpGet]
-        [ProducesResponseType (200, Type = typeof (CustomerViewModel))]
+        [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
         public IActionResult GetAllCustomers () {
-            var x = _query.GetAllCustomers ();
-            return Ok (x);
+           
+            
+            var data = _query.GetAllCustomers ();
+
+            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>)_factory.CustomerForView(data));
+            return StatusCode(200, response);
         }
 
         [HttpGet ("{id}")]
@@ -120,4 +132,5 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
     }
+
 }
