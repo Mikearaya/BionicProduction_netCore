@@ -1,15 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections;
-using System.Collections.Generic;
 using BionicInventory.Domain.Customers;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Cors;
 
 namespace BionicInventory.API.Controllers.Customers {
+
     [InventoryAPI ("customers")]
+    [EnableCors("AllowAllOrigins")]
     public class CustomersController : Controller {
         private readonly ICustomersQuery _query;
         private readonly ICustomersCommand _command;
@@ -32,12 +35,21 @@ namespace BionicInventory.API.Controllers.Customers {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
         public IActionResult GetAllCustomers () {
-           
-            
+
             var data = _query.GetAllCustomers ();
 
-            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>)_factory.CustomerForView(data));
-            return StatusCode(200, response);
+            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>) _factory.CustomerForView (data));
+            return StatusCode (200, response);
+        }
+
+        [HttpOptions]
+        [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
+        public IActionResult GetAll () {
+
+            var data = _query.GetAllCustomers ();
+
+            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>) _factory.CustomerForView (data));
+            return StatusCode (200, response);
         }
 
         [HttpGet ("{id}")]

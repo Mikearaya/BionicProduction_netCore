@@ -9,7 +9,7 @@ namespace BionicInventory.Application.Customers.Factories {
             return new Customer () {
                 FirstName = customer.firstName,
                     LastName = customer.lastName,
-                    Tin = customer.Tin,
+                    Tin = customer.tin,
                     Email = customer.email,
                     Type = customer.type,
                     MainPhone = customer.mainPhone
@@ -31,9 +31,10 @@ namespace BionicInventory.Application.Customers.Factories {
 
         public CustomerViewModel CustomerForView (Customer customer) {
             return new CustomerViewModel () {
-                ID = customer.Id,
-                    FullName = customer.FirstName + ' ' + customer.LastName,
-                    Tin = customer.Tin,
+                    id = customer.Id,
+                    firstName = customer.FirstName,
+                    lastName = customer.LastName,
+                    tin = customer.Tin,
                     email = customer.Email,
                     type = customer.Type,
                     mainPhone = customer.MainPhone,
@@ -50,9 +51,10 @@ namespace BionicInventory.Application.Customers.Factories {
             foreach (var item in customer) {
 
                 customers.Add (new CustomerViewModel () {
-                    ID = item.Id,
-                        FullName = item.FirstName + ' ' + item.LastName,
-                        Tin = item.Tin,
+                        id = item.Id,
+                       firstName = item.FirstName,
+                       lastName = item.LastName,
+                        tin = item.Tin,
                         email = item.Email,
                         type = item.Type,
                         mainPhone = item.MainPhone,
