@@ -4,7 +4,7 @@ using BionicInventory.Domain.Employees;
 
 namespace BionicInventory.Application.Employees.Factories {
     public class EmployeesFactory : IEmployeesFactory {
-        public Employee EmployeeForInsert (EmployeeDto updateData) {
+        public Employee EmployeeForInsert (NewEmployeeDto updateData) {
 
             var employee = new Employee ();
 
@@ -14,7 +14,7 @@ namespace BionicInventory.Application.Employees.Factories {
             return employee;
         }
 
-        public Employee EmployeeForUpdate (Employee oldEmployee, EmployeeDto updateData) {
+        public Employee EmployeeForUpdate (Employee oldEmployee, UpdatedEmployeeDto updateData) {
 
 
             oldEmployee.FirstName = updateData.FirstName;

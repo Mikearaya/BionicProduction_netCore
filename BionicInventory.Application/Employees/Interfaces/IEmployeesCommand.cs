@@ -5,8 +5,8 @@ using BionicInventory.Domain.Employees;
 namespace BionicInventory.Application.Employees.Interfaces {
     public interface IEmployeesCommand {
 
-        EmployeeViewModel AddEmployee (EmployeeDto newEmployee);
-        bool UpdateEmployee (Employee oldEmployee, EmployeeDto updatedEmployee);
+        EmployeeViewModel AddEmployee (NewEmployeeDto newEmployee);
+        bool UpdateEmployee (Employee oldEmployee, UpdatedEmployeeDto updatedEmployee);
         bool DeleteEmployee (Employee employee);
 
     }

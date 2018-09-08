@@ -16,7 +16,7 @@ namespace BionicInventory.Application.Employees.Commands {
             _factory = factory;
         }
 
-        public EmployeeViewModel AddEmployee (EmployeeDto newEmployee) {
+        public EmployeeViewModel AddEmployee (NewEmployeeDto newEmployee) {
 
             try {
 
@@ -45,7 +45,7 @@ namespace BionicInventory.Application.Employees.Commands {
                 return false;
             }
         }
-        public bool UpdateEmployee (Employee oldEmployee, EmployeeDto updatedEmployee) {
+        public bool UpdateEmployee (Employee oldEmployee, UpdatedEmployeeDto updatedEmployee) {
 
             try {
 

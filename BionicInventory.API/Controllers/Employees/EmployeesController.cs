@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BionicInventory.API.Commons;
 using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.Employees.Models;
 using BionicInventory.Commons;
@@ -60,25 +61,30 @@ namespace BionicInventory.API.Controllers.Employees {
             try {
 
                 var employees = _query.GetAllEmployees ();
+                ResponseDataFormat response = new ResponseDataFormat();
+                
                 List<EmployeeViewModel> employeesList = new List<EmployeeViewModel> ();
 
                 foreach (var employee in employees) {
                     employeesList.Add (_factory.EmployeeForView (employee));
                 }
 
-                return StatusCode (200, employeesList);
+                response.Items = employeesList;
+                response.Count = employeesList.Count;
+
+                return StatusCode (200, response);
 
             } catch (System.Exception) {
 
                 return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
             }
         }
-
+//TODO Find better DTO solution for employee CRUD
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (EmployeeViewModel))]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult AddEmploeeRecord ([FromBody] EmployeeDto newEmployee) {
+        public IActionResult AddEmploeeRecord ([FromBody] NewEmployeeDto newEmployee) {
 
             if (ModelState.IsValid && newEmployee != null) {
 
@@ -102,7 +108,7 @@ namespace BionicInventory.API.Controllers.Employees {
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateEmployeeRecord ([FromBody] EmployeeDto updatedData) {
+        public IActionResult UpdateEmployeeRecord ([FromBody] UpdatedEmployeeDto updatedData) {
 
             if (ModelState.IsValid && updatedData != null) {
 
@@ -130,7 +136,7 @@ namespace BionicInventory.API.Controllers.Employees {
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateEmployeeRecord (uint id, [FromBody] EmployeeDto updatedData) {
+        public IActionResult UpdateEmployeeRecord (uint id, [FromBody] UpdatedEmployeeDto updatedData) {
 
             if (ModelState.IsValid && updatedData != null) {
 
