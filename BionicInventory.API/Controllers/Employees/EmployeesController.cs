@@ -98,6 +98,34 @@ namespace BionicInventory.API.Controllers.Employees {
             }
         }
 
+        [HttpPut]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public IActionResult UpdateEmployeeRecord ([FromBody] EmployeeDto updatedData) {
+
+            if (ModelState.IsValid && updatedData != null) {
+
+                var employee = _query.GetEmployeeById (updatedData.id);
+
+                if (employee != null) {
+
+                    if (_command.UpdateEmployee (employee, updatedData)) {
+                        return StatusCode (204);
+                    } else {
+                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                    }
+
+                } else {
+                    return StatusCode (404);
+                }
+
+            } else {
+                return StatusCode (422, "One or more required fields missing for employee");
+            }
+
+        }
+
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]

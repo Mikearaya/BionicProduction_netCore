@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Sep 8, 2018 2:14 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 8, 2018 2:38 AM
+ * @Description: Modify Here, Please 
+ */
 using System.Collections;
 using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
@@ -12,7 +20,6 @@ using Microsoft.AspNetCore.Cors;
 namespace BionicInventory.API.Controllers.Customers {
 
     [InventoryAPI ("customers")]
-    [EnableCors("AllowAllOrigins")]
     public class CustomersController : Controller {
         private readonly ICustomersQuery _query;
         private readonly ICustomersCommand _command;
@@ -101,6 +108,31 @@ namespace BionicInventory.API.Controllers.Customers {
 
             if (ModelState.IsValid && updatedData != null) {
                 var customer = _query.GetCustomerById (id);
+
+                if (customer != null) {
+                    if (_command.Update (customer, updatedData)) {
+                        return StatusCode (204);
+                    } else {
+                        return StatusCode (500, "Something Wrong Happened Try Again");
+                    }
+                } else {
+                    return StatusCode (404);
+                }
+            } else {
+                return StatusCode (422, "One Or More Required Fields Missing, Try Again after correcting them");
+            }
+
+        }
+
+        [HttpPut]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public IActionResult UpdateEmployeeRecord ([FromBody] UpdatedCustomerModel updatedData) {
+
+            if (ModelState.IsValid && updatedData != null) {
+                var customer = _query.GetCustomerById (updatedData.id);
 
                 if (customer != null) {
                     if (_command.Update (customer, updatedData)) {

@@ -27,7 +27,8 @@ namespace BionicInventory.Application.Employees.Factories {
 
             var employeeView = new EmployeeViewModel ();
             employeeView.id = employee.Id;
-            employeeView.fullName = employee.FirstName + ' ' + employee.LastName;
+            employeeView.firstName = employee.FirstName;
+            employeeView.lastName = employee.LastName;
             employeeView.dateAdded = employee.DateAdded;
             employeeView.dateUpdated = employee.DateUpdated;
 

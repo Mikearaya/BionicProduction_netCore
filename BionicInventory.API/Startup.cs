@@ -64,7 +64,7 @@ namespace BionicInventory.API {
              services.AddCors(options =>
     {
         options.AddPolicy("AllowAllOrigins",
-            builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
     });
             services.AddMvc ().AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ());
 
