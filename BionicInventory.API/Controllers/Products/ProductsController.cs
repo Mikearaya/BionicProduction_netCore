@@ -210,8 +210,7 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (204)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public IActionResult DeleteSingleProductRecord (uint id) {
-
+        public IActionResult DeleteProduct (uint id) {
             try {
 
                 var product = _query.GetProductById (id);
@@ -225,14 +224,13 @@ namespace BionicInventory.API.Controllers.Products {
                     }
 
                 } else {
-
                     return StatusCode (404);
                 }
-            } catch (Exception) {
 
+            } catch (Exception) {
                 return StatusCode (500, "Server Error, Try Again Later");
             }
         }
-    }
 
+    }
 }
