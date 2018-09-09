@@ -1,23 +1,28 @@
 /*
- * @CreateTime: Sep 9, 2018 6:14 PM
+ * @CreateTime: Sep 9, 2018 8:25 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:43 PM
+ * @Last Modified Time: Sep 9, 2018 8:30 PM
  * @Description: Modify Here, Please 
  */
-using System.Collections.Generic;
-using BionicInventory.Domain.Items.ItemPrices;
+
+using System.ComponentModel.DataAnnotations;
 
 namespace BionicInventory.Application.Products.Models {
-    public class ProductView {
-        public uint id;
+
+    public class NewProductDto {
+        [Required]
         public string code;
+        [Required]
         public string name;
-        public string description;
-        public float weight;
-        public float unitCost;
+        [Required]
         public string unit;
+        public string description;
+        [Required]
+        public float weight;
+        [Required]
+        public float unitCost;
         public string photo;
 
     }

@@ -14,7 +14,7 @@ using BionicInventory.Domain.Items.ItemPrices;
 
 namespace BionicInventory.Application.Products.Factories {
     public class ProductsFactory : IProductsFactory {
-        public Item CreateProductModel (ProductDTO newProduct) {
+        public Item CreateProductModel (NewProductDto newProduct) {
             var product = new Item ();
             product.Name = newProduct.name;
             product.Code = newProduct.code;
@@ -52,14 +52,14 @@ namespace BionicInventory.Application.Products.Factories {
             productView.photo = product.Photo;
             productView.code = product.Code;
             productView.unit = product.Unit;
-            productView.discription = product.Description;
+            productView.description = product.Description;
 
             return productView;
         }
 
-        public Item ProductUpdateModel(Item product, ProductDTO updatedProduct)
+        public Item ProductUpdateModel(Item product, UpdatedProductDto updatedProduct)
         {
-            product.Description = updatedProduct.discription;
+            product.Description = updatedProduct.description;
             product.Name = updatedProduct.name;
             product.UnitCost = updatedProduct.unitCost;
             product.Unit = updatedProduct.unit;

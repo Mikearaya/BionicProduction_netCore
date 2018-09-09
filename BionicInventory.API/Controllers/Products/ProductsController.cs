@@ -97,7 +97,7 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (422)]
         [ProducesResponseType (409)]
         [ProducesResponseType (500)]
-        public IActionResult AddProduct ([FromBody] ProductDTO newProduct) {
+        public IActionResult AddProduct ([FromBody] NewProductDto newProduct) {
             try {
 
                 if (ModelState.IsValid && newProduct != null) {
@@ -127,20 +127,12 @@ namespace BionicInventory.API.Controllers.Products {
             }
         }
 
-        [HttpPost ("{productId}/prices")]
-        [ProducesResponseType (201, Type = typeof (ProductView))]
-        [ProducesResponseType (404)]
-        [ProducesResponseType (422)]
-        [ProducesResponseType (500)]
-        public IActionResult AddProductPrices (uint productId, IEnumerable<ProductPriceDTO> prices) {
-            throw new NotImplementedException ();
-        }
 
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateProductRecord (uint id, [FromBody] ProductDTO updatedData) {
+        public IActionResult UpdateProductRecord (uint id, [FromBody] UpdatedProductDto updatedData) {
 
             try {
 
@@ -174,7 +166,7 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateProductRecord ([FromBody] ProductDTO updatedData) {
+        public IActionResult UpdateProductRecord ([FromBody] UpdatedProductDto updatedData) {
 
             try {
 

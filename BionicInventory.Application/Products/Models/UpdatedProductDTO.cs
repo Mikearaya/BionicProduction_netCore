@@ -1,15 +1,23 @@
 /*
+ * @CreateTime: Sep 9, 2018 8:25 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 9, 2018 8:25 PM
+ * @Description: Modify Here, Please 
+ */
+/*
  * @CreateTime: Sep 9, 2018 6:14 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:14 PM
+ * @Last Modified Time: Sep 9, 2018 8:30 PM
  * @Description: Modify Here, Please 
  */
 using System.ComponentModel.DataAnnotations;
 
 namespace BionicInventory.Application.Products.Models {
-    public class ProductDTO {
+    public class UpdatedProductDto {
 
         public uint id;
 
@@ -19,9 +27,8 @@ namespace BionicInventory.Application.Products.Models {
         public string name;
 
         [Required]
-
         public string unit;
-        public string discription;
+        public string description;
         [Required]
         public float weight;
         [Required]
