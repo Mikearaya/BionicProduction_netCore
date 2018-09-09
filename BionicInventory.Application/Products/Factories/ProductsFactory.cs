@@ -59,7 +59,6 @@ namespace BionicInventory.Application.Products.Factories {
 
         public Item ProductUpdateModel(Item product, ProductDTO updatedProduct)
         {
-            product.Code = updatedProduct.code;
             product.Description = updatedProduct.discription;
             product.Name = updatedProduct.name;
             product.UnitCost = updatedProduct.unitCost;
