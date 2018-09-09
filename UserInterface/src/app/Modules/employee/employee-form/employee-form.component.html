@@ -1,0 +1,91 @@
+
+<section>
+
+
+  <form name="employeeForm" class="bionic-form-alignment mat-elevation-z8" (ngSubmit)="onSubmit()"  [formGroup]="form">
+      <h4 class="text-center text-info" *ngIf="isSelfContained()"> {{title}}</h4>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required
+            />
+            <mat-error *ngIf="form.get('firstName').errors">
+                <div *ngIf="form.get('firstName').errors['required']"> First Name is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required >
+            <mat-error *ngIf="form.get('lastName').errors">
+                <div *ngIf="form.get('lastName').errors['required']"> Last Name is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Country" name="country" id="country" formControlName="country" required >
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="form.get('country').errors">
+                <div *ngIf="form.get('country').errors['required']"> Country is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="City" name="city" id="city" formControlName="city" required >
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="form.get('city').errors">
+                <div *ngIf="form.get('city').errors['required']"> City is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Sub-City" id="subCity" name="subCity" formControlName="subCity" required >
+            <mat-error *ngIf="form.get('city').errors">
+                <div *ngIf="form.get('city').errors['required']"> City is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="wereda" name="wereda" id="wereda" formControlName="wereda" >
+            <mat-error *ngIf="form.get('wereda').errors">
+                <div *ngIf="form.get('wereda').errors['required']"> Wereda is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Mobile Phone Number" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber" required
+              >
+            <mat-hint>The phone they currently use</mat-hint>
+            <mat-error *ngIf="form.get('phoneNumber').errors">
+                <div *ngIf="form.get('phoneNumber').errors['required']"> Main Mobile Number is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="House Number" id="houseNumber" name="houseNumber" formControlName="houseNumber" required >
+            <mat-hint>Permanent Address</mat-hint>
+            <mat-error *ngIf="form.get('houseNumber').errors">
+                <div *ngIf="form.get('houseNumber').errors['required']"> House Number is Required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <output *ngIf="errorMessages">
+        <div *ngFor="let error of errorMessages">{{error}}</div>
+      </output>
+      <app-form-options [submitDisabled]="form.invalid" [isSelfContained]="isSelfContained()"></app-form-options>
+  </form>
+
+</section>

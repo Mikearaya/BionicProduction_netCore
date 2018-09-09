@@ -1,0 +1,9 @@
+<ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowExcelExport]="true"
+  [toolbar]='toolbar' height='273px' id="employee" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)">
+  <e-columns>
+    <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of customerViewColumns" [validationRules]="col.validationRule"
+      [allowEditing]="col.editable" [field]='col.key' [isIdentity]="col.isIdentity" [headerText]='col.humanReadable'
+      [editType]="col.dataType"></e-column>
+
+  </e-columns>
+</ejs-grid>

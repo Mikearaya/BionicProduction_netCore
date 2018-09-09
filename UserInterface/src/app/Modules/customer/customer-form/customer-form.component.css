@@ -1,0 +1,6 @@
+output {
+  width: 100%;
+  color: red;
+  text-align: center;
+  border: 1px solid red;
+}
