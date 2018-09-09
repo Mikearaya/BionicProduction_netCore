@@ -35,6 +35,7 @@ namespace BionicInventory.Application.Products.Commands {
         }
 
         public Item CreateProduct (Item newItem) {
+
             try {
 
                 _database.Item.Add (newItem);
@@ -47,10 +48,17 @@ namespace BionicInventory.Application.Products.Commands {
         }
 
         public bool DeleteProduct (Item deletedItem) {
-            //TODO add exception handling
-            _database.Item.Remove (deletedItem);
-            _database.Save ();
-            return true;
+
+            try {
+
+                _database.Item.Remove (deletedItem);
+                _database.Save ();
+
+                return true;
+
+            } catch (Exception) {
+                return false;
+            }
         }
 
         public ProductView DeleteProductPrices (ProductPriceDTO productPrice) {
@@ -58,10 +66,16 @@ namespace BionicInventory.Application.Products.Commands {
         }
 
         public bool UpdateProduct (Item product) {
-            //TODO add exception handling
-            _database.Item.Add (product).State = EntityState.Modified;
-            _database.Save ();
-            return true;
+            try {
+
+                _database.Item.Add (product).State = EntityState.Modified;
+                _database.Save ();
+
+                return true;
+
+            } catch (Exception) {
+                return false;
+            }
         }
 
         public ProductView UpdateProductPrices (IEnumerable<ProductPriceDTO> productPrice) {

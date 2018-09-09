@@ -39,23 +39,29 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (500)]
         public IActionResult GetProductById (uint id) {
 
-            if (ModelState.IsValid && id != 0) {
+            try {
 
-                try {
-                    var product = _query.GetProductById (id);
+                if (ModelState.IsValid && id != 0) {
 
-                    if (product != null) {
-                        var productView = _factory.CreateProductView (product);
-                        return StatusCode (200, productView);
-                    } else {
-                        return StatusCode (404);
+                    try {
+                        var product = _query.GetProductById (id);
+
+                        if (product != null) {
+                            var productView = _factory.CreateProductView (product);
+                            return StatusCode (200, productView);
+                        } else {
+                            return StatusCode (404);
+                        }
+                    } catch (Exception) {
+                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
                     }
-                } catch (Exception) {
-                    return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+
+                } else {
+                    return StatusCode (422, "Invalid Parameter For Product Id");
                 }
 
-            } else {
-                return StatusCode (422, "Invalid Parameter For Product Id");
+            } catch (Exception) {
+                return StatusCode (500, "Server Error, Try Again Later");
             }
 
         }
@@ -82,7 +88,7 @@ namespace BionicInventory.API.Controllers.Products {
 
             } catch (System.Exception) {
 
-                return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                return StatusCode (500, "Server Error, Try Again Later");
             }
         }
 
@@ -94,30 +100,30 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult AddProduct ([FromBody] ProductDTO newProduct) {
             try {
 
-            if (ModelState.IsValid && newProduct != null) {
+                if (ModelState.IsValid && newProduct != null) {
 
-                if (!_query.IsProductCodeUnique (newProduct.code)) {
-                    return StatusCode (409, "item Code Already used for another item");
-                } else {
-
-                    var product = _factory.CreateProductModel (newProduct);
-
-                    var result = _command.CreateProduct (product);
-
-                    if (result != null) {
-                        ProductView productView = _factory.CreateProductView (result);
-                        return StatusCode (201, productView);
+                    if (!_query.IsProductCodeUnique (newProduct.code)) {
+                        return StatusCode (409, "item Code Already used for another item");
                     } else {
-                        return StatusCode (422, "One or more required fields missing for Product");
+
+                        var product = _factory.CreateProductModel (newProduct);
+
+                        var result = _command.CreateProduct (product);
+
+                        if (result != null) {
+                            ProductView productView = _factory.CreateProductView (result);
+                            return StatusCode (201, productView);
+                        } else {
+                            return StatusCode (422, "One or more required fields missing for Product");
+                        }
                     }
+
+                } else {
+                    return StatusCode (422, "One or more required fields missing for Product");
                 }
 
-            } else {
-                return StatusCode (422, "One or more required fields missing for Product");
-            }
-
-            } catch(Exception) {
-                return StatusCode(500);
+            } catch (Exception) {
+                return StatusCode (500, "Server Error, Try Again Later");
             }
         }
 
@@ -136,27 +142,32 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (500)]
         public IActionResult UpdateProductRecord (uint id, [FromBody] ProductDTO updatedData) {
 
-            if (ModelState.IsValid && updatedData != null) {
+            try {
 
-                var product = _query.GetProductById (id);
-                if (product != null) {
+                if (ModelState.IsValid && updatedData != null) {
 
-                    var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+                    var product = _query.GetProductById (id);
+                    if (product != null) {
 
-                    if (_command.UpdateProduct (updatedProduct)) {
-                        return StatusCode (204);
+                        var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+
+                        if (_command.UpdateProduct (updatedProduct)) {
+                            return StatusCode (204);
+                        } else {
+                            return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                        }
+
                     } else {
-                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                        return StatusCode (404);
                     }
 
                 } else {
-                    return StatusCode (404);
+                    return StatusCode (422, "One or more required fields missing for employee");
                 }
 
-            } else {
-                return StatusCode (422, "One or more required fields missing for employee");
+            } catch (Exception) {
+                return StatusCode (500, "Server Error, Try Again Later");
             }
-
         }
 
         [HttpPut]
@@ -165,25 +176,32 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (500)]
         public IActionResult UpdateProductRecord ([FromBody] ProductDTO updatedData) {
 
-            if (ModelState.IsValid && updatedData != null) {
+            try {
 
-                var product = _query.GetProductById (updatedData.id);
-                if (product != null) {
+                if (ModelState.IsValid && updatedData != null) {
 
-                    var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+                    var product = _query.GetProductById (updatedData.id);
+                    if (product != null) {
 
-                    if (_command.UpdateProduct (updatedProduct)) {
-                        return StatusCode (204);
+                        var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+
+                        if (_command.UpdateProduct (updatedProduct)) {
+                            return StatusCode (204);
+                        } else {
+                            return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                        }
+
                     } else {
-                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                        return StatusCode (404);
                     }
 
                 } else {
-                    return StatusCode (404);
+                    return StatusCode (422, "One or more required fields missing for employee");
                 }
 
-            } else {
-                return StatusCode (422, "One or more required fields missing for employee");
+            } catch (Exception) {
+
+                return StatusCode (500, "Server Error, Try Again Later");
             }
 
         }
@@ -195,6 +213,7 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult DeleteSingleProductRecord (uint id) {
 
             try {
+
                 var product = _query.GetProductById (id);
 
                 if (product != null) {
@@ -211,7 +230,7 @@ namespace BionicInventory.API.Controllers.Products {
                 }
             } catch (Exception) {
 
-                return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                return StatusCode (500, "Server Error, Try Again Later");
             }
         }
     }
