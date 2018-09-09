@@ -5,12 +5,12 @@ using BionicInventory.Domain.Items;
 
 namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsCommand  {
-        ProductView CreateProduct(ProductDTO newItem);
+        Item CreateProduct(Item newItem);
 
         ProductView AddProductPrices(Item product, IEnumerable<ProductPriceDTO> productPrice);
         ProductView UpdateProductPrices(IEnumerable<ProductPriceDTO> productPrice);
         ProductView DeleteProductPrices(ProductPriceDTO productPrice);
-        bool UpdateProduct(Item product, ProductDTO updatedItem);
+        bool UpdateProduct(Item product);
 
         bool DeleteProduct(Item deletedItem);
     }

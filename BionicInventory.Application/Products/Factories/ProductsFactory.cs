@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 1, 2018 8:16 PM
+ * @Last Modified Time: Sep 9, 2018 7:05 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -21,6 +21,7 @@ namespace BionicInventory.Application.Products.Factories {
             product.Weight = newProduct.weight;
             product.UnitCost = newProduct.unitCost;
             product.Photo = newProduct.photo;
+            product.Unit = newProduct.unit;
 
             return product;
         }
@@ -49,9 +50,24 @@ namespace BionicInventory.Application.Products.Factories {
             productView.weight = product.Weight;
             productView.unitCost = product.UnitCost;
             productView.photo = product.Photo;
+            productView.code = product.Code;
+            productView.unit = product.Unit;
             productView.discription = product.Description;
 
             return productView;
+        }
+
+        public Item ProductUpdateModel(Item product, ProductDTO updatedProduct)
+        {
+            product.Code = updatedProduct.code;
+            product.Description = updatedProduct.discription;
+            product.Name = updatedProduct.name;
+            product.UnitCost = updatedProduct.unitCost;
+            product.Unit = updatedProduct.unit;
+            product.Photo = updatedProduct.photo;
+            product.Weight = updatedProduct.weight;
+
+            return product;
         }
     }
 }

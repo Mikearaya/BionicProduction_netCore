@@ -21,6 +21,10 @@ namespace BionicInventory.DataStore.Items {
                     .IsRequired ()
                     .HasColumnName ("code")
                     .HasColumnType ("varchar(45)");
+                 builder.Property (e => e.Unit)
+                    .IsRequired ()
+                    .HasColumnName ("unit")
+                    .HasColumnType ("varchar(45)");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")

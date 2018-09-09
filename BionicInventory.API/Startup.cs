@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 3, 2018 9:39 PM
+ * @Last Modified Time: Sep 9, 2018 6:48 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -30,6 +30,7 @@ using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.ItemPrices;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
-using Microsoft.AspNetCore.Cors;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -49,7 +49,7 @@ namespace BionicInventory.API {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
-            
+
             services.AddScoped<ICustomersQuery, CustomersQuery> ();
             services.AddScoped<ICustomersCommand, CustomersCommand> ();
             services.AddScoped<ICustomersFactory, CustomerFactories> ();
@@ -61,11 +61,10 @@ namespace BionicInventory.API {
             services.AddScoped<IEmployeesFactory, EmployeesFactory> ();
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
             services.AddScoped<IResponseFormatFactory, ResponseFromatFactory> ();
-             services.AddCors(options =>
-    {
-        options.AddPolicy("AllowAllOrigins",
-            builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
-    });
+            services.AddCors (options => {
+                options.AddPolicy ("AllowAllOrigins",
+                    builder => builder.WithOrigins ("http://localhost:4200").AllowAnyMethod ().AllowAnyHeader ());
+            });
             services.AddMvc ().AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ());
 
         }
@@ -80,12 +79,6 @@ namespace BionicInventory.API {
 
             app.UseMvc ();
 
-            AutoMapper.Mapper.Initialize (conf => {
-                conf.CreateMap<Item, ProductDTO> ();
-                conf.CreateMap<ItemPrice, ProductPriceDTO> ();
-                conf.CreateMap<Item, ProductView> ()
-                    .ForMember (dest => dest.Prices, opt => opt.MapFrom (src => src.ItemPrice));
-            });
         }
     }
 }

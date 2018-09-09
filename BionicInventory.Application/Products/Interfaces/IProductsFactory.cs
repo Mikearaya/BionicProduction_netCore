@@ -14,6 +14,8 @@ using BionicInventory.Domain.Items.ItemPrices;
 namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsFactory {
         Item CreateProductModel (ProductDTO newProduct);
+
+        Item ProductUpdateModel (Item product, ProductDTO updatedProduct);
         ProductView CreateProductView (Item product);
         IEnumerable<ItemPrice> CreateProductPriceModel (Item product, IEnumerable<ProductPriceDTO> prices);
 

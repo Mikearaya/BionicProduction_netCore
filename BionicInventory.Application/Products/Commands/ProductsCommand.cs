@@ -1,8 +1,18 @@
+/*
+ * @CreateTime: Sep 9, 2018 5:57 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 9, 2018 6:59 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
 using System.Collections.Generic;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Domain.Items;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Products.Commands {
     public class ProductsCommand : IProductsCommand {
@@ -24,25 +34,34 @@ namespace BionicInventory.Application.Products.Commands {
 
         }
 
-        public ProductView CreateProduct (ProductDTO newItem) {
-            var product = _factory.CreateProductModel (newItem);
+        public Item CreateProduct (Item newItem) {
+            try {
 
-            _database.Item.Add (product);
-            _database.Save ();
+                _database.Item.Add (newItem);
+                _database.Save ();
 
-            return _factory.CreateProductView (product);
+                return newItem;
+            } catch (Exception) {
+                return null;
+            }
         }
 
         public bool DeleteProduct (Item deletedItem) {
-            throw new System.NotImplementedException ();
+            //TODO add exception handling
+            _database.Item.Remove (deletedItem);
+            _database.Save ();
+            return true;
         }
 
         public ProductView DeleteProductPrices (ProductPriceDTO productPrice) {
             throw new System.NotImplementedException ();
         }
 
-        public bool UpdateProduct (Item product, ProductDTO updatedItem) {
-            throw new System.NotImplementedException ();
+        public bool UpdateProduct (Item product) {
+            //TODO add exception handling
+            _database.Item.Add (product).State = EntityState.Modified;
+            _database.Save ();
+            return true;
         }
 
         public ProductView UpdateProductPrices (IEnumerable<ProductPriceDTO> productPrice) {

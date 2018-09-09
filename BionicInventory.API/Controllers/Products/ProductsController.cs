@@ -3,22 +3,21 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 1, 2018 9:14 PM
+ * @Last Modified Time: Sep 9, 2018 6:52 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BionicInventory.API.Controllers.Products
-{
-    [InventoryAPI("Products")]
-    public class ProductsController : Controller
-    {
-        
+namespace BionicInventory.API.Controllers.Products {
+    [InventoryAPI ("Products")]
+    public class ProductsController : Controller {
+
         private readonly IProductsCommand _command;
         private readonly IProductsQuery _query;
         private readonly IProductsFactory _factory;
@@ -69,13 +68,17 @@ namespace BionicInventory.API.Controllers.Products
             try {
 
                 var products = _query.GetAllProduct ();
+                ResponseDataFormat response = new ResponseDataFormat ();
+
                 List<ProductView> productsList = new List<ProductView> ();
 
                 foreach (var product in products) {
                     productsList.Add (_factory.CreateProductView (product));
                 }
+                response.Items = productsList;
+                response.Count = productsList.Count;
 
-                return StatusCode (200, productsList);
+                return StatusCode (200, response);
 
             } catch (System.Exception) {
 
@@ -86,32 +89,46 @@ namespace BionicInventory.API.Controllers.Products
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (ProductView))]
         [ProducesResponseType (422)]
+        [ProducesResponseType (409)]
         [ProducesResponseType (500)]
         public IActionResult AddProduct ([FromBody] ProductDTO newProduct) {
+            try {
 
             if (ModelState.IsValid && newProduct != null) {
-                    var product = _command.CreateProduct (newProduct);
-                    if (product != null) {
-                        return StatusCode (201, product);
+
+                if (!_query.IsProductCodeUnique (newProduct.code)) {
+                    return StatusCode (409, "item Code Already used for another item");
+                } else {
+
+                    var product = _factory.CreateProductModel (newProduct);
+
+                    var result = _command.CreateProduct (product);
+
+                    if (result != null) {
+                        ProductView productView = _factory.CreateProductView (result);
+                        return StatusCode (201, productView);
                     } else {
                         return StatusCode (422, "One or more required fields missing for Product");
                     }
+                }
 
             } else {
                 return StatusCode (422, "One or more required fields missing for Product");
             }
+
+            } catch(Exception) {
+                return StatusCode(500);
+            }
         }
 
-        [HttpPost("{productId}/prices")]
-        [ProducesResponseType(201, Type = typeof(ProductView))]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(422)]
-        [ProducesResponseType(500)]
-        public IActionResult AddProductPrices(uint productId, IEnumerable<ProductPriceDTO> prices) {
-            throw new NotImplementedException();
+        [HttpPost ("{productId}/prices")]
+        [ProducesResponseType (201, Type = typeof (ProductView))]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public IActionResult AddProductPrices (uint productId, IEnumerable<ProductPriceDTO> prices) {
+            throw new NotImplementedException ();
         }
-
-
 
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
@@ -124,7 +141,38 @@ namespace BionicInventory.API.Controllers.Products
                 var product = _query.GetProductById (id);
                 if (product != null) {
 
-                    if (_command.UpdateProduct (product, updatedData)) {
+                    var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+
+                    if (_command.UpdateProduct (updatedProduct)) {
+                        return StatusCode (204);
+                    } else {
+                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                    }
+
+                } else {
+                    return StatusCode (404);
+                }
+
+            } else {
+                return StatusCode (422, "One or more required fields missing for employee");
+            }
+
+        }
+
+        [HttpPut]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public IActionResult UpdateProductRecord ([FromBody] ProductDTO updatedData) {
+
+            if (ModelState.IsValid && updatedData != null) {
+
+                var product = _query.GetProductById (updatedData.id);
+                if (product != null) {
+
+                    var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+
+                    if (_command.UpdateProduct (updatedProduct)) {
                         return StatusCode (204);
                     } else {
                         return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
@@ -165,7 +213,7 @@ namespace BionicInventory.API.Controllers.Products
 
                 return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
             }
+        }
     }
-}
 
 }
