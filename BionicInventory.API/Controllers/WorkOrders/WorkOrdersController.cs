@@ -3,13 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 11:34 PM
+ * @Last Modified Time: Sep 10, 2018 11:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Application.ProductionOrders.Models;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,13 +20,16 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         private readonly IWorkOrdersCommand _command;
         private readonly IWorkOrdersQuery _query;
         private readonly IWorkOrdersFactory _factory;
+        private readonly IResponseFormatFactory _response;
 
         public WorkOrdersController (IWorkOrdersCommand commands,
             IWorkOrdersFactory factory,
-            IWorkOrdersQuery query) {
+            IWorkOrdersQuery query,
+            IResponseFormatFactory resposeFactory) {
             _command = commands;
             _query = query;
             _factory = factory;
+            _response = resposeFactory;
         }
 
         [HttpGet]
@@ -33,9 +37,19 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [ProducesResponseType (500)]
         public IActionResult GetAllWorkOrders () {
             try {
+                
                 var orders = _query.GetAllWorkOrders ();
-                var orderView = _factory.CreateWorkOrderViewList (orders);
-                return StatusCode (200, orderView);
+                
+                if (orders != null) {
+                
+                    var orderView = _factory.CreateWorkOrderViewList (orders);
+                    var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
+                    return StatusCode (200, response);
+                
+                } else {
+                    return StatusCode (200, orders);
+                }
+
             } catch (Exception) {
                 return StatusCode (500, "Error Occured Try again");
             }
@@ -60,9 +74,6 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 return StatusCode (500, "Error Occured Try again");
             }
         }
-        
-
-        
 
     }
 }
