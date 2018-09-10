@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 8:33 PM
+ * @Last Modified Time: Sep 10, 2018 10:41 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,9 +18,9 @@ namespace BionicInventory.Application.ProductionOrders.Models {
 
         public string product;
 
-        public uint costPerItem;
-        public DateTime dueDate;
-        public DateTime orderDate;
+        public float costPerItem;
+        public DateTime? dueDate;
+        public DateTime? orderDate;
 
         public uint quantity;
     }

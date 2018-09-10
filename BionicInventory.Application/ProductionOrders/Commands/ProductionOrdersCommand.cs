@@ -3,40 +3,45 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 8:43 PM
+ * @Last Modified Time: Sep 10, 2018 11:30 PM
  * @Description: Modify Here, Please 
  */
+using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Domain.ProductionOrders;
+using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Commands {
     public class WorkOrdersCommand : IWorkOrdersCommand {
-        public void Create () {
-            throw new System.NotImplementedException ();
-        }
+        private readonly IInventoryDatabaseService _database;
+//TODO Eception handler for work order command class
+        public WorkOrdersCommand (IInventoryDatabaseService database) {
+            _database = database;
 
+        }
         public ProductionOrder CreateNewWorkOrder (ProductionOrder newWorkOrder) {
-            throw new System.NotImplementedException ();
+            _database.ProductionOrder.Add(newWorkOrder);
+            _database.Save();
+            return newWorkOrder;
         }
 
-        public void Delete () {
-            throw new System.NotImplementedException ();
+        public bool DeleteWorkOrder(ProductionOrder deletedWorkOrder)
+        {
+            _database.ProductionOrder.Remove(deletedWorkOrder);
+            _database.Save();
+            return true;
+        }
+        public bool DeleteWorkOrderItem(ProductionOrderList deletedWorkOrder)
+        {
+            _database.ProductionOrderList.Remove(deletedWorkOrder);
+            _database.Save();
+            return true;
         }
 
-        public bool DeleteWorkOrderById (uint id) {
-            throw new System.NotImplementedException ();
-        }
-
-        public bool DeleteWorkOrderItemById (uint id) {
-            throw new System.NotImplementedException ();
-        }
-
-        public void Update () {
-            throw new System.NotImplementedException ();
-        }
-
-        public ProductionOrder UpdateWorkOrder (ProductionOrder newWorkOrder) {
-            throw new System.NotImplementedException ();
+        public ProductionOrder UpdateWorkOrder (ProductionOrder updatedWorkOrder) {
+            _database.ProductionOrder.Update(updatedWorkOrder);
+            _database.Save();
+            return updatedWorkOrder;
         }
     }
 }

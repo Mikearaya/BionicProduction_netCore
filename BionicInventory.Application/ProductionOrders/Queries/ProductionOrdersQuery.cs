@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 10:01 PM
+ * @Last Modified Time: Sep 10, 2018 11:10 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
     public class WorkOrdersQuery : IWorkOrdersQuery {
         private readonly IInventoryDatabaseService _database;
 
-        public WorkOrdersQuery(IInventoryDatabaseService database) {
+        public WorkOrdersQuery (IInventoryDatabaseService database) {
             _database = database;
         }
 
@@ -27,11 +27,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<ProductionOrder> GetAllWorkOrders () {
-           return _database.ProductionOrder.Include(p => p.ProductionOrderList ).ToList();
-        }
-
-        public ProductionOrder GetById (uint id) {
-            throw new System.NotImplementedException ();
+            return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList ();
         }
 
         public IEnumerable<ProductionOrder> GetCompletedWorkOrders () {
@@ -39,7 +35,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public ProductionOrder GetWorkOrderById (uint id) {
-            throw new System.NotImplementedException ();
+            return _database.ProductionOrder.Where (order => order.Id == id).Include (order => order.ProductionOrderList).FirstOrDefault();
         }
     }
 }

@@ -1,5 +1,5 @@
 /*
- * @CreateTime: Sep 10, 2018 8:33 PM
+ * @CreateTime: Sep 10, 2018 10:18 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
@@ -8,10 +8,10 @@
  */
 using System;
 
-namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList
-{
-    public class NewWorkOrdersListDto
-    {
+namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
+    public class UpdatedWorkOrdersListDto {
+
+        public uint Id;
         public uint ProductionOrderId;
         public uint ItemId;
         public uint Quantity;
