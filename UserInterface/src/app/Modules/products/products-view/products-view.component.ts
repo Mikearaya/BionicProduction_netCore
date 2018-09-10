@@ -31,10 +31,14 @@ export class ProductsViewComponent implements OnInit {
 
   public data: DataManager;
   public pageSettings: PageSettingsModel;
+  public allowResizing = true;
+  public showColumnChooser = true;
+  public allowReordering = true;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
+  public showColumnMenu = true;
 
       constructor(
                   private productApiService: ProductsAPIService,
@@ -56,7 +60,7 @@ export class ProductsViewComponent implements OnInit {
       validationRule: { required: true }, isIdentity : false
     },
     {
-      key: 'description', humanReadable: 'Discription', primaryKey: false, editable: true, dataType: 'TextBox',
+      key: 'discription', humanReadable: 'Discription', primaryKey: false, editable: true, dataType: 'TextBox',
       isIdentity : false
     },
     {

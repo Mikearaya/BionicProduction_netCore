@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Items;
 
-namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists
-{
-    public class ProductionOrderList
-    {
-        public ProductionOrderList()
-        {
-            FinishedProduct = new HashSet<FinishedProduct>();
+namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
+    public class ProductionOrderList {
+        public ProductionOrderList () {
+            FinishedProduct = new HashSet<FinishedProduct> ();
         }
 
         public uint Id { get; set; }
+
         public uint ProductionOrderId { get; set; }
+
         public uint ItemId { get; set; }
+
         public uint Quantity { get; set; }
+
         public float CostPerItem { get; set; }
-        public float PricePerItem { get; set; }
+        public bool Complete { get; set; }
+
+        public DateTime DueDate { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

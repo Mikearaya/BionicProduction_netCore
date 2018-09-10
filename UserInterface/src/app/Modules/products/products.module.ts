@@ -14,7 +14,7 @@ import { ProductsAPIService } from './products-api.service';
 import {
   PageService, SortService, FilterService, SearchService, GroupService,
   ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService,
-  EditService, ToolbarService, ExcelExportService, GridModule
+  EditService, ToolbarService, ExcelExportService, GridModule, ResizeService, ReorderService
 } from '@syncfusion/ej2-ng-grids';
 import { ProductsViewComponent } from './products-view/products-view.component';
 import { SharedModule } from '../shared/shared.module';
@@ -37,9 +37,11 @@ import { SharedModule } from '../shared/shared.module';
     ColumnChooserService,
     ColumnMenuService,
     ForeignKeyService,
+    ReorderService,
     RowDDService,
     EditService,
     ToolbarService,
-    ExcelExportService]
+    ExcelExportService,
+  ResizeService]
 })
 export class ProductsModule { }

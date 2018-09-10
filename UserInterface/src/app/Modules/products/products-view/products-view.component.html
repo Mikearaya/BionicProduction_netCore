@@ -1,7 +1,10 @@
-<ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowPaging]="pageSettings" [allowExcelExport]="true"
-  [toolbar]='toolbar' height='273px' id="customer" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)">
+<ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true"
+[allowResizing]="allowResizing" [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="true"
+  [toolbar]='toolbar'  id="product" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)"
+  [showColumnChooser]="showColumnChooser"
+  [showColumnMenu]="showColumnMenu">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of productsViewColumns" [validationRules]="col.validationRule"
+    <e-column [isPrimaryKey]="col.primaryKey" [width]="col.width"  *ngFor="let col of productsViewColumns" [validationRules]="col.validationRule"
       [allowEditing]="col.editable" [field]='col.key' [isIdentity]="col.isIdentity" [headerText]='col.humanReadable'
       [editType]="col.dataType"></e-column>
 

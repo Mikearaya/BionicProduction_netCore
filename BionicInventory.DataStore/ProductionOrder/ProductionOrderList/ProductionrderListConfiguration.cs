@@ -32,14 +32,18 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
+                
+                builder.Property (e => e.DueDate)
+                    .HasColumnName ("due_date")
+                    .HasColumnType ("datetime");
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
-
-                builder.Property (e => e.PricePerItem).HasColumnName ("price_per_item");
 
                 builder.Property (e => e.ProductionOrderId).HasColumnName ("PRODUCTION_ORDER_ID");
 
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
+
+                builder.Property (e => e.Complete).HasColumnName ("complete");
 
                 builder.HasOne (d => d.Item)
                     .WithMany (p => p.ProductionOrderList)

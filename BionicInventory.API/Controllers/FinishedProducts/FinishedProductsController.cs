@@ -13,13 +13,13 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         private readonly IFinishedProductsQuery _query;
         private readonly IFinishedProductsFactories _factory;
         private readonly IEmployeesQuery _employeesQuery;
-        private readonly IProductionOrdersQuery _productionOrderQuery;
+        private readonly IWorkOrdersQuery _productionOrderQuery;
 
         public FinishedProductsController (
             IFinishedProductsCommand command,
             IFinishedProductsQuery query,
             IFinishedProductsFactories factory,
-            IProductionOrdersQuery productionOrderQuery,
+            IWorkOrdersQuery productionOrderQuery,
             IEmployeesQuery employeesQuery
         ) {
             _command = command;
@@ -84,7 +84,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                 try {
                     var submittedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.submittedBy);
                     var recievedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.recievedBy);
-                    var order = _productionOrderQuery.GetById (newFinishedProduct.orderId);
+                    var order = _productionOrderQuery.GetWorkOrderById (newFinishedProduct.orderId);
 
                     var finishedProduct = _factory.NewFinishedProduct (order, submittedBy, recievedBy, newFinishedProduct.quantity);
 

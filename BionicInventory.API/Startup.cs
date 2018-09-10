@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:48 PM
+ * @Last Modified Time: Sep 10, 2018 10:04 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -20,6 +20,10 @@ using BionicInventory.Application.Employees.Commands;
 using BionicInventory.Application.Employees.Factories;
 using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.Employees.Queries;
+using BionicInventory.Application.ProductionOrders.Commands;
+using BionicInventory.Application.ProductionOrders.Factories;
+using BionicInventory.Application.ProductionOrders.Iterfaces;
+using BionicInventory.Application.ProductionOrders.Queries;
 using BionicInventory.Application.Products.Commands;
 using BionicInventory.Application.Products.Factories;
 using BionicInventory.Application.Products.Interfaces;
@@ -37,7 +41,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.Buffers;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -61,16 +67,29 @@ namespace BionicInventory.API {
             services.AddScoped<IEmployeesFactory, EmployeesFactory> ();
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
             services.AddScoped<IResponseFormatFactory, ResponseFromatFactory> ();
+            services.AddScoped<IWorkOrdersFactory, WorkOrderFactory> ();
+            services.AddScoped<IWorkOrdersQuery, WorkOrdersQuery> ();
+            services.AddScoped<IWorkOrdersCommand, WorkOrdersCommand> ();
+
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
                     builder => builder.WithOrigins ("http://localhost:4200").AllowAnyMethod ().AllowAnyHeader ());
             });
-            services.AddMvc ().AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ());
+            services.AddMvc (
+                options => {
+                    // Self referencing loop detected for property entity framework solution
+                    options.OutputFormatters.Clear ();
+                    options.OutputFormatters.Add (new JsonOutputFormatter (new JsonSerializerSettings () {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                    }, ArrayPool<char>.Shared));
+                }
+            ).AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ());
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
+
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
                 app.UseDatabaseErrorPage ();

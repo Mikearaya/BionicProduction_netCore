@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.FinishedProducts;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicInventory.Domain.Employees
 {
@@ -10,6 +11,7 @@ namespace BionicInventory.Domain.Employees
         {
             FinishedProductRecievedByNavigation = new HashSet<FinishedProduct>();
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct>();
+            ProductionOrderOrderedByNavigation = new HashSet<ProductionOrder>();
         }
 
         public uint Id { get; set; }
@@ -20,5 +22,6 @@ namespace BionicInventory.Domain.Employees
 
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
+        public ICollection<ProductionOrder> ProductionOrderOrderedByNavigation { get; set; }
     }
 }
