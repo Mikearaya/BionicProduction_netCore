@@ -44,6 +44,10 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Buffers;
+using BionicInventory.Application.FinishedProducts.Interfaces;
+using BionicInventory.Application.FinishedProducts.Factories;
+using BionicInventory.Application.FinishedProducts.Queries;
+using BionicInventory.Application.FinishedProducts.Commands;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -70,6 +74,9 @@ namespace BionicInventory.API {
             services.AddScoped<IWorkOrdersFactory, WorkOrderFactory> ();
             services.AddScoped<IWorkOrdersQuery, WorkOrdersQuery> ();
             services.AddScoped<IWorkOrdersCommand, WorkOrdersCommand> ();
+                 services.AddScoped<IFinishedProductsFactories , FinishedProductsFactory> ();
+            services.AddScoped<IFinishedProductsQuery, FinishedProductsQuery> ();
+            services.AddScoped<IFinishedProductsCommand, FinishedProductsCommand> ();
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",

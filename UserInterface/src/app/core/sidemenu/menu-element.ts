@@ -21,6 +21,13 @@ export const menus = [
       },
       {
         'name': 'Work Orders',
+        'link': 'workorders',
+        'icon': 'list',
+        'chip': false,
+        'open': false,
+      },
+      {
+        'name': 'Add Finished Orders',
         'link': 'material-widgets/list',
         'icon': 'list',
         'chip': false,

@@ -23,5 +23,7 @@ namespace BionicInventory.Application.ProductionOrders.Models {
         public DateTime? orderDate;
 
         public uint quantity;
+
+        public string status;
     }
 }

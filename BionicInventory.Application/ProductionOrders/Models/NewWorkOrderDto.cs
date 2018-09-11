@@ -3,23 +3,26 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 10:21 PM
+ * @Last Modified Time: Sep 11, 2018 2:09 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BionicInventory.Application.ProductionOrders.Models.WorkOrdersList;
 
 namespace BionicInventory.Application.ProductionOrders.Models
 {
     public class NewWorkOrderDto
     {
+        
        
         [Required]
-        public string Description;
+        public string Description {get; set;}
         [Required]
-        public uint OrderedBy;
+        public uint OrderedBy {get; set;}
 
-        public IList<NewWorkOrderDto> ProdutionOrdersList;
+        [Required]
+        public ICollection<NewWorkOrdersListDto> workOrderItems {get; set;}
         
     }
 }

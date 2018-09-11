@@ -27,7 +27,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<ProductionOrder> GetAllWorkOrders () {
-            return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList ();
+            return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList();
         }
 
         public IEnumerable<ProductionOrder> GetCompletedWorkOrders () {

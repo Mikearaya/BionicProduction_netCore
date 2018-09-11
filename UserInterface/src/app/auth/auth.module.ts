@@ -26,6 +26,8 @@ import { EmployeeModule } from '../Modules/employee/employee.module';
 import { CustomerModule } from '../Modules/customer/customer.module';
 import { SharedModule } from '../Modules/shared/shared.module';
 import { ProductsModule } from '../Modules/products/products.module';
+import { WorkOrderModule } from '../Modules/work-order/work-order.module';
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { ProductsModule } from '../Modules/products/products.module';
         CustomerModule,
         ProductsModule,
         EmployeeModule,
+        WorkOrderModule,
         RouterModule.forRoot(appRoutes),
         MatToolbarModule,
         DashboardCrmModule,

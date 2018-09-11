@@ -67,7 +67,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
 
                 return StatusCode (200, finishedProductsList);
 
-            } catch (System.Exception) {
+            } catch (Exception) {
 
                 return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
             }
@@ -109,6 +109,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         [ProducesResponseType (500)]
         public IActionResult UpdateFinishedProductRecord (uint id, [FromBody] FinishedProductDTO updatedData) {
 
+                try {
             if (ModelState.IsValid && updatedData != null) {
 
                 var finishedProduct = _query.GetFinishedProductById (id);
@@ -128,6 +129,9 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
             } else {
                 return StatusCode (422, "One or more required fields missing for employee");
             }
+                } catch(Exception e) {
+                    return StatusCode(500, e);
+                }
 
         }
 
