@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 12, 2018 12:48 AM
+ * @Last Modified Time: Sep 12, 2018 1:08 AM
  * @Description: Modify Here, Please
  */
 
@@ -14,12 +14,11 @@ export const workOrderBluePrint = [
   },
   {
     key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string',
-    editable: true, allowGrouping: true, dataType: 'TextBox',
-    validationRule: { required: true }, isIdentity: false, width: '100'
+    editable: true, allowGrouping: true, dataType: 'TextBox',   validationRule: { required: true }, isIdentity: false, width: '100'
   },
   {
-    key: 'orderId', humanReadable: 'ID', primaryKey: false, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
-    validationRule: { required: true }, isIdentity: false, width: '50'
+    key: 'orderId', humanReadable: 'ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
+    validationRule: { required: true }, isIdentity: true, width: '50'
   },
   {
     key: 'product', humanReadable: 'Product', primaryKey: false, type: 'string', allowGrouping: true, editable: true, dataType: 'TextBox',
