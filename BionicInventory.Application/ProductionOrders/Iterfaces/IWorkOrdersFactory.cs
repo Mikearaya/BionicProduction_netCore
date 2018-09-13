@@ -16,7 +16,7 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces
     {
         ProductionOrder CreateNewWorkOrder(NewWorkOrderDto newOrder);
 
-        ProductionOrder CreateUpdatedWorkOrder(ProductionOrder previousOrder, UpdatedWorkOrderDto newOrder);
+        ProductionOrder CreateUpdatedWorkOrder(UpdatedWorkOrderDto newOrder);
 
         IEnumerable<WorkOrderView> CreateWorkOrderViewList(IEnumerable<ProductionOrder> workOrder);
         IEnumerable<WorkOrderView> CreateWorkOrderView(ProductionOrder workOrder);

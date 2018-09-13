@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BionicInventory.Application.ProductionOrders.Models.WorkOrdersList;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
     public class UpdatedWorkOrderDto {
@@ -10,7 +11,7 @@ namespace BionicInventory.Application.ProductionOrders.Models {
         public string Description;
         [Required]
         public uint OrderedBy;
-
-        public IList<NewWorkOrderDto> ProdutionOrdersList;
+        [Required]
+        public ICollection<UpdatedWorkOrdersListDto> workOrderItems { get; set; }
     }
 }

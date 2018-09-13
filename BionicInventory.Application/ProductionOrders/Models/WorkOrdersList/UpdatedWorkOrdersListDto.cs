@@ -11,7 +11,7 @@ using System;
 namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
     public class UpdatedWorkOrdersListDto {
 
-        public uint Id;
+        public uint? Id;
         public uint ProductionOrderId;
         public uint ItemId;
         public uint Quantity;

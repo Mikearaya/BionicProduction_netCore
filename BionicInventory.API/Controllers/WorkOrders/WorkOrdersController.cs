@@ -37,6 +37,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
             _factory = factory;
             _response = resposeFactory;
             _productsQuery = productsQuery;
+
             _employeeQuery = employeeQuery;
         }
 
@@ -124,6 +125,51 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
             } catch (Exception) {
                 return StatusCode (500, "Server error Try Again");
+            }
+
+        }
+
+        [HttpPut]
+        [ProducesResponseType (204, Type = typeof (IEnumerable<WorkOrderView>))]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (409)]
+        [ProducesResponseType (500)]
+        public IActionResult UpdateWorkWorder ([FromBody] UpdatedWorkOrderDto updated) {
+
+            try {
+
+                if (!ModelState.IsValid || updated == null) {
+                    return StatusCode (422,ModelState);
+                }
+    
+
+                var employee = _employeeQuery.GetEmployeeById (updated.OrderedBy);
+
+                if (employee == null) {
+                    return StatusCode (404, "Employee Record Not Found");
+                }
+
+                foreach (var products in updated.workOrderItems) {
+                    var product = _productsQuery.GetProductById (products.ItemId);
+                    if (product == null) {
+                        return StatusCode (404, "Product Record Not Found");
+                    }
+                }
+
+                var workorder = _factory.CreateUpdatedWorkOrder (updated);
+
+                var result = _command.UpdateWorkOrder (workorder);
+
+                if (result != null) {
+
+                    return StatusCode (204);
+
+                } else {
+
+                    return StatusCode (500, "Server error Try Again");
+                }
+            } catch (Exception e) {
+                return StatusCode (500, e);
             }
 
         }

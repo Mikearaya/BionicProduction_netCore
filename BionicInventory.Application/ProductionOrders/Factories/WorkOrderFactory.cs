@@ -47,12 +47,28 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
             return productionOrder;
         }
 
-        public ProductionOrder CreateUpdatedWorkOrder (ProductionOrder previousOrder, UpdatedWorkOrderDto newOrder) {
+        public ProductionOrder CreateUpdatedWorkOrder (UpdatedWorkOrderDto newOrder) {
+ ProductionOrder productionOrder = new ProductionOrder () {
+                Description = newOrder.Description,
+                OrderedBy = newOrder.OrderedBy,
+                Id = newOrder.Id
 
-            previousOrder.Description = newOrder.Description;
-            previousOrder.OrderedBy = newOrder.OrderedBy;
-            previousOrder.ProductionOrderList = (Collection<ProductionOrderList>) newOrder.ProdutionOrdersList;
-            return previousOrder;
+
+            };
+
+            foreach (var item in newOrder.workOrderItems) {
+                ProductionOrderList list = new ProductionOrderList () {
+                    Id =  (item.Id > 0) ? (uint)item.Id: 0 ,
+                    ItemId = item.ItemId,
+                    CostPerItem = item.CostPerItem,
+                    Quantity = item.Quantity,
+                    DueDate = item.DueDate,
+
+                };
+                productionOrder.ProductionOrderList.Add (list);
+            }
+
+            return productionOrder;
         }
 
         public IEnumerable<WorkOrderView> CreateWorkOrderView (ProductionOrder workOrder) {
@@ -69,7 +85,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     description = workOrder.Description,
                     orderedBy = employee.FirstName + ' ' + employee.LastName,
                     product = product.Code,
-                    orderDate = workOrder.AddedOn,
+                    orderDate = item.DateAdded,
                     dueDate = item.DueDate,
                     costPerItem = item.CostPerItem,
                     quantity = item.Quantity
@@ -94,7 +110,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 view.id = order.Id;
                 view.description = order.Description;
                 view.orderedBy = employee.FirstName + ' ' + employee.LastName;
-                view.orderDate = order.AddedOn;
+                view.orderDate = orderList.DateAdded;
                     view.orderId = orderList.Id;
                     view.costPerItem = orderList.CostPerItem;
                     view.quantity = orderList.Quantity;
