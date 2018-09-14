@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 14, 2018 11:32 PM
+ * @Last Modified Time: Sep 15, 2018 12:28 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,8 +13,10 @@ namespace BionicInventory.Application.FinishedProducts.Models {
         public uint id;
         public uint orderId;
         public int quantity;
-        public string submittedBy;
-        public string recievedBy;
+        public uint submittedBy;
+        public uint recievedBy;
+        public string submitter;
+        public string reciever;
         public DateTime dateAdded;
         public DateTime dateUpdated;
     }

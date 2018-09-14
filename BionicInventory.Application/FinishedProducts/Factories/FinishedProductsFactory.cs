@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 12:15 AM
+ * @Last Modified Time: Sep 15, 2018 12:28 AM
  * @Description: Modify Here, Please 
  */
 
@@ -72,8 +72,10 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
                 FinishedProductsViewModel view = new FinishedProductsViewModel () {
                     id = finishedProduct.Id,
                     orderId = finishedProduct.OrderId,
-                    submittedBy = submittedBy.FullName (),
-                    recievedBy = recievedBy.FullName (),
+                    submitter = submittedBy.FullName (),
+                    reciever = recievedBy.FullName (),
+                    submittedBy = submittedBy.Id,
+                    recievedBy = recievedBy.Id,
                     quantity = finishedProduct.Quantity,
                     dateAdded = (DateTime) finishedProduct.DateAdded,
                     dateUpdated = (DateTime) finishedProduct.DateUpdated

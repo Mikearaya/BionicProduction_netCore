@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 12:09 AM
+ * @Last Modified Time: Sep 15, 2018 12:27 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -212,9 +212,10 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
 
                     return StatusCode (404);
                 }
-            } catch (Exception) {
+            } catch (Exception e) {
+                _logger.LogError (1, e.Message, e);
 
-                return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                return StatusCode (500, e);
             }
 
         }
