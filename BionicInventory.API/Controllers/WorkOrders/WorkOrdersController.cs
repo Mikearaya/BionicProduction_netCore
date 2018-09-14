@@ -4,7 +4,7 @@
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
  * @Last Modified Time: Sep 11, 2018 2:12 AM
- * @Description: Modify Here, Please 
+ * @Description: WorkOrder API Controller Class
  */
 using System;
 using System.Collections.Generic;
@@ -60,7 +60,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
 
             } catch (Exception e) {
-                return StatusCode (500, e);
+                return StatusCode (500, e.Message);
             }
         }
 
@@ -79,9 +79,34 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 var orderView = _factory.CreateWorkOrderView (order);
 
                 return StatusCode (200, order);
-            } catch (Exception) {
-                return StatusCode (500, "Error Occured Try again");
+
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
             }
+        }
+
+        [HttpGet ("{id}/items/{itemId}")]
+        [ProducesResponseType (200, Type = typeof (WorkOrderView))]
+        [ProducesResponseType (500)]
+        [ProducesResponseType (404)]
+        public IActionResult GetWorkOrderById (uint id, uint itemId) {
+
+            try {
+
+                var order = _query.GetWorkOrderById (id);
+                var orderItem = _query.GetWorkOrderItemById (itemId);
+
+                if (order == null || orderItem == null) {
+                    return StatusCode (404, orderItem);
+                }
+                var orderView = _factory.CreateWorkOrderView (orderItem);
+
+                return StatusCode (200, orderView);
+
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
+            }
+
         }
 
         [HttpPost]
@@ -123,8 +148,9 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
                     return StatusCode (500, "Server error Try Again");
                 }
-            } catch (Exception) {
-                return StatusCode (500, "Server error Try Again");
+
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
             }
 
         }
@@ -139,9 +165,8 @@ namespace BionicInventory.API.Controllers.WorkOrders {
             try {
 
                 if (!ModelState.IsValid || updated == null) {
-                    return StatusCode (422,ModelState);
+                    return StatusCode (422, ModelState);
                 }
-    
 
                 var employee = _employeeQuery.GetEmployeeById (updated.OrderedBy);
 
@@ -168,8 +193,65 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
                     return StatusCode (500, "Server error Try Again");
                 }
+
             } catch (Exception e) {
-                return StatusCode (500, e);
+                return StatusCode (500, e.Message);
+            }
+
+        }
+
+        [HttpDelete ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public IActionResult DeleteWorkOrder (uint id) {
+
+            try {
+                var work = _query.GetWorkOrderById (id);
+
+                if (work == null) {
+                    return StatusCode (404);
+                }
+
+                var result = _command.DeleteWorkOrder (work);
+
+                if (result) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Unknown Error Occured Try Again Late");
+                }
+
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
+            }
+
+        }
+
+        [HttpDelete ("{id}/items/{itemId}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public IActionResult DeleteWorkOrderItem (uint id, uint itemId) {
+
+            try {
+
+                var work = _query.GetWorkOrderById (id);
+                var workItem = _query.GetWorkOrderItemById (itemId);
+
+                if (work == null || workItem == null) {
+                    return StatusCode (404, workItem);
+                }
+
+                var result = _command.DeleteWorkOrderItem (workItem);
+
+                if (result) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Unknown Error Occured Try Again Late");
+                }
+
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
             }
 
         }

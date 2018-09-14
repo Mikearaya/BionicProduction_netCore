@@ -6,11 +6,13 @@
  * @Last Modified Time: Sep 10, 2018 11:10 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Domain.ProductionOrders;
+using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.ProductionOrders.Queries {
@@ -22,20 +24,44 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<ProductionOrder> GetAllActiveWorkOrders () {
-            //TODO
+            //TODO Implement GetAllActiveWorkOrders
             throw new System.NotImplementedException ();
         }
 
         public IEnumerable<ProductionOrder> GetAllWorkOrders () {
-            return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList();
+            try {
+
+                return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList ();
+
+            } catch (Exception) {
+                return null;
+            }
         }
 
         public IEnumerable<ProductionOrder> GetCompletedWorkOrders () {
+            //TODO Implement GetCompleteWorkOrders
             throw new System.NotImplementedException ();
         }
 
         public ProductionOrder GetWorkOrderById (uint id) {
-            return _database.ProductionOrder.Where (order => order.Id == id).Include (order => order.ProductionOrderList).FirstOrDefault();
+
+            try {
+
+                return _database.ProductionOrder.Where (order => order.Id == id).Include (order => order.ProductionOrderList).FirstOrDefault ();
+
+            } catch (Exception) {
+                return null;
+            }
+        }
+
+        public ProductionOrderList GetWorkOrderItemById (uint id) {
+            try {
+
+                return _database.ProductionOrderList.FirstOrDefault (item => item.Id == id);
+
+            } catch (Exception) {
+                return null;
+            }
         }
     }
 }

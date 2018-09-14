@@ -9,16 +9,15 @@
 using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
 using BionicInventory.Domain.ProductionOrders;
+using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersQuery {
 
         ProductionOrder GetWorkOrderById(uint id);
-
+        ProductionOrderList GetWorkOrderItemById(uint id);
         IEnumerable<ProductionOrder> GetAllActiveWorkOrders();
-
         IEnumerable<ProductionOrder> GetAllWorkOrders();
-
         IEnumerable<ProductionOrder> GetCompletedWorkOrders();
 
     }

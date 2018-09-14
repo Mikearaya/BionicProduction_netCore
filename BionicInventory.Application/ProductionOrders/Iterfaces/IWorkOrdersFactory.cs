@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using BionicInventory.Application.ProductionOrders.Models;
 using BionicInventory.Domain.ProductionOrders;
+using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Iterfaces
 {
@@ -20,5 +21,6 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces
 
         IEnumerable<WorkOrderView> CreateWorkOrderViewList(IEnumerable<ProductionOrder> workOrder);
         IEnumerable<WorkOrderView> CreateWorkOrderView(ProductionOrder workOrder);
+        WorkOrderView CreateWorkOrderView(ProductionOrderList workOrder);
     }
 }
