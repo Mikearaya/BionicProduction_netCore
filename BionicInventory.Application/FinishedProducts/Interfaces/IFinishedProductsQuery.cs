@@ -8,7 +8,7 @@ namespace BionicInventory.Application.FinishedProducts.Interfaces {
 
         FinishedProduct GetFinishedProductById (uint id);
 
-        FinishedProduct GetFinishedProductByOrder (ProductionOrder id);
+        IEnumerable<FinishedProduct> GetFinishedProductByOrder (uint orderId);
 
         IEnumerable<FinishedProduct> GetAllFinishedProducts ();
 

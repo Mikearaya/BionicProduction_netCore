@@ -23,5 +23,9 @@ namespace BionicInventory.Domain.Employees
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
         public ICollection<ProductionOrder> ProductionOrderOrderedByNavigation { get; set; }
+
+        public string FullName() {
+            return FirstName+' '+LastName;
+        }
     }
 }
