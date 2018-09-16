@@ -16,10 +16,13 @@ using BionicInventory.Commons;
 using BionicInventory.Domain.Customers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BionicInventory.API.Controllers.Customers {
 
+
     [InventoryAPI ("customers")]
+    [Authorize]
     public class CustomersController : Controller {
         private readonly ICustomersQuery _query;
         private readonly ICustomersCommand _command;

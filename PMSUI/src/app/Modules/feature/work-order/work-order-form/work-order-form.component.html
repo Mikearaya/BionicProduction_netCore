@@ -1,0 +1,13 @@
+<button  (click)="submitt()" >submitt</button>
+
+<input class="e-input" type="text" placeholder="Enter Name" />
+<ejs-grid [dataSource]='data' id="workorder" [editSettings]='editSettings' [toolbar]='toolbar' height='273px' >
+  <e-columns>
+      <e-column field='orderId' headerText='Order ID' textAlign='Right' isPrimaryKey='true' width=50></e-column>
+      <e-column field='itemId' headerText='Product' editType= 'text'  [validationRules]="productValidation" width=120></e-column>
+      <e-column field='quantity' headerText='Quantity' textAlign= 'Right' editType= 'numericedit' [validationRules]="quantityValidation" [edit]='numericParams' width=120 format= 'C2'></e-column>
+      <e-column field='dueDate' headerText='Date' editType= 'datepickeredit' [validationRules]="dueDateValidation" [edit]='dpParams'  width=150></e-column>
+      <e-column field="command"  width=60 [commands]='commands'></e-column>
+  </e-columns>
+  </ejs-grid>
+

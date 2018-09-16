@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 8:27 PM
+ * @Last Modified Time: Sep 15, 2018 11:53 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -17,7 +17,6 @@ namespace BionicInventory.Application.Products.Interfaces {
 
         Item ProductUpdateModel (Item product, UpdatedProductDto updatedProduct);
         ProductView CreateProductView (Item product);
-        IEnumerable<ItemPrice> CreateProductPriceModel (Item product, IEnumerable<ProductPriceDTO> prices);
 
     }
 }

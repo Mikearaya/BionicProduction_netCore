@@ -1,0 +1,15 @@
+<div class="wrapper">
+  <ejs-sidebar id="sidebar" #sidebar  [type]='type' [target]='target'>
+    <e-card>
+      <div id='treeparent'>
+        <ejs-treeview id='treeelement' [fields]='field'></ejs-treeview>
+      </div>
+    </e-card>
+  </ejs-sidebar>
+  <div id="head">
+    <button ejs-button id="toggle" #togglebtn cssClass="e-flat" iconCss="e-icons burg-icon" isToggle="true" (click)="btnClick()"
+      content="Open">
+    </button>
+  </div>
+  <div id="maincontent" class="content">
+  </div>

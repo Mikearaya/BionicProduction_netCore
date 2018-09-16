@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 10:04 PM
+ * @Last Modified Time: Sep 15, 2018 1:00 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -74,7 +74,7 @@ namespace BionicInventory.API {
             services.AddScoped<IWorkOrdersFactory, WorkOrderFactory> ();
             services.AddScoped<IWorkOrdersQuery, WorkOrdersQuery> ();
             services.AddScoped<IWorkOrdersCommand, WorkOrdersCommand> ();
-                 services.AddScoped<IFinishedProductsFactories , FinishedProductsFactory> ();
+            services.AddScoped<IFinishedProductsFactories , FinishedProductsFactory> ();
             services.AddScoped<IFinishedProductsQuery, FinishedProductsQuery> ();
             services.AddScoped<IFinishedProductsCommand, FinishedProductsCommand> ();
 

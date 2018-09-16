@@ -3,8 +3,8 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:59 PM
- * @Description: Modify Here, Please 
+ * @Last Modified Time: Sep 16, 2018 12:00 AM
+ * @Description: Products Command Class
  */
 using System;
 using System.Collections.Generic;
@@ -13,24 +13,22 @@ using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Domain.Items;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Products.Commands {
     public class ProductsCommand : IProductsCommand {
+
+        
         private readonly IProductsFactory _factory;
         private readonly IInventoryDatabaseService _database;
-        public ProductsCommand (IInventoryDatabaseService database, IProductsFactory factory) {
+        private readonly ILogger<ProductsCommand> _logger;
+
+        public ProductsCommand (IInventoryDatabaseService database,
+                                IProductsFactory factory,
+                                ILogger<ProductsCommand> logger) {
             _database = database;
             _factory = factory;
-
-        }
-        public ProductView AddProductPrices (Item product, IEnumerable<ProductPriceDTO> prices) {
-
-            var productPrice = _factory.CreateProductPriceModel (product, prices);
-            foreach (var price in productPrice) {
-                _database.ItemPrice.Add (price);
-            }
-            _database.Save ();
-            return _factory.CreateProductView (product);
+            _logger = logger;
 
         }
 
@@ -42,7 +40,9 @@ namespace BionicInventory.Application.Products.Commands {
                 _database.Save ();
 
                 return newItem;
-            } catch (Exception) {
+
+            } catch (Exception e) {
+                _logger.LogError(1, e.Message, e);
                 return null;
             }
         }
@@ -56,14 +56,12 @@ namespace BionicInventory.Application.Products.Commands {
 
                 return true;
 
-            } catch (Exception) {
+            } catch (Exception e) {
+                _logger.LogError(1, e.Message, e);
                 return false;
             }
         }
 
-        public ProductView DeleteProductPrices (ProductPriceDTO productPrice) {
-            throw new System.NotImplementedException ();
-        }
 
         public bool UpdateProduct (Item product) {
             try {
@@ -73,13 +71,12 @@ namespace BionicInventory.Application.Products.Commands {
 
                 return true;
 
-            } catch (Exception) {
+            } catch (Exception e) {
+                _logger.LogError(1, e.Message, e);
                 return false;
             }
         }
 
-        public ProductView UpdateProductPrices (IEnumerable<ProductPriceDTO> productPrice) {
-            throw new System.NotImplementedException ();
-        }
+   
     }
 }

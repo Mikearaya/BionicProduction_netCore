@@ -1,29 +1,52 @@
+/*
+ * @CreateTime: Sep 15, 2018 11:30 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 15, 2018 11:30 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Domain.Customers;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
-namespace BionicInventory.Application.Customers.Queries
-{
-    public class CustomersQuery : ICustomersQuery
-    {
+namespace BionicInventory.Application.Customers.Queries {
+    public class CustomersQuery : ICustomersQuery {
         private readonly IInventoryDatabaseService _database;
-        public CustomersQuery(IInventoryDatabaseService database) {
+        private readonly ILogger<CustomersQuery> _logger;
+
+        public CustomersQuery (IInventoryDatabaseService database,
+            ILogger<CustomersQuery> logger) {
             _database = database;
+            _logger = logger;
         }
-        public IList<Customer> GetAllCustomers()
-        {
-        
+        public IList<Customer> GetAllCustomers () {
             
+            try {
 
-            return _database.Customer.ToList();
+                return _database.Customer.AsNoTracking ().ToList ();
+
+            } catch (Exception e) {
+                _logger.LogError (1, e.Message, e);
+                return null;
+            }
         }
 
-        public Customer GetCustomerById(uint customerId)
-        {
-            return _database.Customer.Find(customerId);
+        public Customer GetCustomerById (uint customerId) {
+
+            try {
+
+                return _database.Customer.Find (customerId);
+
+            } catch (Exception e) {
+                _logger.LogError (1, e.Message, e);
+                return null;
+            }
         }
     }
 }

@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Sep 15, 2018 11:38 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 15, 2018 11:38 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 
 namespace BionicInventory.Application.Customers.Models {
