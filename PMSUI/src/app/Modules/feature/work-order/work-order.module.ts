@@ -11,15 +11,15 @@ import { CommonModule } from '@angular/common';
 
 import { WorkOrderRoutingModule } from './work-order-routing.module';
 import { WorkOrderAPIService } from './work-order-api.service';
-import {
-  PageService, SortService, FilterService, SearchService,
-  GridModule, GroupService, ColumnChooserService, ColumnMenuService,
-  ForeignKeyService, ReorderService, RowDDService, EditService,
-  ToolbarService, ExcelExportService, ResizeService, PdfExportService, CommandColumnService
-} from '@syncfusion/ej2-ng-grids';
+
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import {
+  GridModule, PdfExportService, PageService, CommandColumnService, SortService, FilterService,
+  SearchService, GroupService, ColumnChooserService, ColumnMenuService, ForeignKeyService, ReorderService,
+  RowDDService, EditService, ToolbarService, ExcelExportService, ResizeService
+} from '@syncfusion/ej2-angular-grids';
 
 @NgModule({
   imports: [

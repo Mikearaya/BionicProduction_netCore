@@ -1,5 +1,4 @@
 import { Location } from '@angular/common';
-import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CustomerService } from './../customer.service';
 
@@ -27,8 +26,7 @@ export class CustomerFormComponent implements OnInit {
               private customerService: CustomerService,
               private activatedRoute: ActivatedRoute,
               private location: Location,
-              private router: Router,
-              private snackBar: MatSnackBar) {
+              private router: Router) {
               this.generateForm();
 
 
@@ -111,16 +109,6 @@ onSubmit() {
   }
 
   handelSuccess(result: Customer) {
-    const snackBar = this.snackBar.open('Client Information Saved Successfully', 'Rent Vehicle?');
-    snackBar.afterDismissed().subscribe((snack: MatSnackBarDismiss) => {
-      if (snack.dismissedByAction) {
-        this.router.navigate(['rent/vehicle', { customerId: result.CUSTOMER_ID}]);
-      } else if (this.redirected === 'true') {
-        this.location.back();
-      } else {
-        this.router.navigate(['customers']);
-      }
-    });
 }
 
   cancel() {
@@ -128,7 +116,6 @@ onSubmit() {
   }
 handelError(error: HttpErrorResponse) {
   this.errorMessages = error.error;
-  this.snackBar.open('Error Occured While Saving Client Information');
 }
 
 }

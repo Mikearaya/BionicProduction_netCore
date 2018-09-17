@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, Inject, ViewChild } from '@angular/core';
 import { ButtonComponent } from '@syncfusion/ej2-ng-buttons';
-import { SidebarComponent, TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { SidebarComponent, TreeViewComponent, NodeClickEventArgs, NodeSelectEventArgs } from '@syncfusion/ej2-angular-navigations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pms-navigation',
@@ -11,30 +12,30 @@ export class PmsNavigationComponent {
   title = 'sidebar';
   @ViewChild('sidebar')
   public sidebar: SidebarComponent;
-  public type: 'Push';
+  public type: 'push';
   public target: 'content';
   @ViewChild('togglebtn')
   public togglebtn: ButtonComponent;
   public hierarchicalData: Object[] = [
     {
-      id: '1', name: 'ORGANIZATION',
+      id: 'oganizations', name: 'ORGANIZATION',
       subChild: [
         {
-          id: '01-02', name: 'Employees', navigteUrl: 'employees'
+          id: 'employees', name: 'EMPLOYEES'
         },
         {
-          id: '01-03', name: 'Clients', navigteUrl: 'customers'
+          id: 'customers', name: 'CUSTOMERS'
+        },
+        {
+          id: 'products', name: 'PRODUCTS'
         }
       ]
     },
     {
-      id: '02', name: 'Productions', navigateUrl: 'workorders'
+      id: 'workorders', name: 'PRODUCTION'
     },
     {
-      id: '03', name: 'REPORTS', navigateUrl: 'products'
-    },
-    {
-      id: '05', name: 'Sales', navigateUrl: 'salses'
+      id: '05', name: 'Sales'
     }
 
   ];
@@ -48,6 +49,16 @@ export class PmsNavigationComponent {
       this.sidebar.show();
     }
   }
-  constructor() { }
+
+  clickedNode(event: NodeSelectEventArgs) {
+    console.log(event.nodeData);
+    const node = event.nodeData;
+    if (node.parentId !== null) {
+      this.router.navigate([`home/${node.id}`]);
+    }
+  }
+  constructor(private router: Router) {
+
+  }
 
 }

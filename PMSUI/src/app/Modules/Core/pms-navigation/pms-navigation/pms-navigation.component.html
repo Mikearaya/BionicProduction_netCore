@@ -1,15 +1,16 @@
 <div class="wrapper">
-  <ejs-sidebar id="sidebar" #sidebar  [type]='type' [target]='target'>
-    <e-card>
+  <ejs-sidebar  id="sidebar" #sidebar  [type]="type" [target]='target'>
+
       <div id='treeparent'>
-        <ejs-treeview id='treeelement' [fields]='field'></ejs-treeview>
+        <ejs-treeview (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
       </div>
-    </e-card>
   </ejs-sidebar>
   <div id="head">
     <button ejs-button id="toggle" #togglebtn cssClass="e-flat" iconCss="e-icons burg-icon" isToggle="true" (click)="btnClick()"
       content="Open">
     </button>
   </div>
-  <div id="maincontent" class="content">
+  <div id="maincontent"  class="content">
+    <router-outlet ></router-outlet>
   </div>
+</div>

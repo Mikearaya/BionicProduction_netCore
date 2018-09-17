@@ -11,16 +11,20 @@ import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsAPIService } from './products-api.service';
-import {
-  PageService, SortService, FilterService, SearchService, GroupService,
-  ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService,
-  EditService, ToolbarService, ExcelExportService, GridModule, ResizeService, ReorderService
-} from '@syncfusion/ej2-ng-grids';
+
 import { ProductsViewComponent } from './products-view/products-view.component';
+import {
+  PageService, SortService, FilterService, SearchService, GridModule, GroupService,
+  ColumnChooserService, ColumnMenuService, ForeignKeyService, ReorderService, RowDDService,
+  EditService, ToolbarService, ExcelExportService, ResizeService
+} from '@syncfusion/ej2-angular-grids';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    GridModule,
+    ReactiveFormsModule,
     ProductsRoutingModule,
   ],
   declarations: [ProductsViewComponent],
@@ -39,6 +43,6 @@ import { ProductsViewComponent } from './products-view/products-view.component';
     EditService,
     ToolbarService,
     ExcelExportService,
-  ResizeService]
+    ResizeService]
 })
 export class ProductsModule { }

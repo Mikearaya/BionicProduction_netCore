@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EmployeeViewModel } from './employee-view/employee-view-datasource';
-
 
 @Injectable()
 export class EmployeeApiService {
@@ -36,17 +34,6 @@ export class EmployeeApiService {
     return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
-  displayEmployees(filter, sortColumn, sortOrder, pageNumber, pageSize): Observable<EmployeeViewModel> {
-   return this.httpClient.get<EmployeeViewModel>(`${this.url}/filter/`, {
-      params : {
-        filter_string: filter,
-        sort_column: sortColumn,
-        sort_order: sortOrder,
-        page_index: pageNumber,
-        page_size: pageSize
-      }
-    });
-  }
 
   private prepareRequestBody(employee: Employee): URLSearchParams {
     const requestBody = new URLSearchParams();

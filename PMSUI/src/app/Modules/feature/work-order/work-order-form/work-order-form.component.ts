@@ -3,8 +3,6 @@ import { EditSettingsModel, ToolbarItems, IEditCell, CommandModel, GridComponent
 import { EmployeeApiService } from '../../employee/employee-api.service';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { DataUtil } from '@syncfusion/ej2-data';
-import { DropDownListComponent } from '@syncfusion/ej2-ng-dropdowns';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
 /**
 * Reactive Forms Dialog template sample
@@ -12,7 +10,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 @Component({
   selector: 'app-work-order-form',
   templateUrl: './work-order-form.component.html',
-  styleUrls: ['./work-order-form.component.css', '../../../../node_modules/@syncfusion/ej2-inputs/styles/material.css'],
+  styleUrls: ['./work-order-form.component.css'],
 })
 
 export class WorkOrderFormComponent implements OnInit {

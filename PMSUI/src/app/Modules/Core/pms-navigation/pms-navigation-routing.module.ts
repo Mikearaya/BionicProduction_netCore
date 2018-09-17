@@ -6,8 +6,9 @@ import { PmsDashboardComponent } from './pms-dashboard/pms-dashboard.component';
 const routes: Routes = [{
   path: '', component: PmsNavigationComponent, children: [
     { path: 'dashboard', component: PmsDashboardComponent },
-    { path: 'workorders', loadChildren: '../../feature/work-order/work-order.module#WorkOrderModule' },
+
     { path: 'customers', loadChildren: '../../feature/customer/customer.module#CustomerModule' },
+    { path: 'workorders', loadChildren: '../../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'products', loadChildren: '../../feature/products/products.module#ProductsModule' },
     { path: 'employees', loadChildren: '../../feature/employee/employee.module#EmployeeModule' }
 

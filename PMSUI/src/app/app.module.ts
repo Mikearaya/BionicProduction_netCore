@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PmsNavigationModule } from './Modules/Core/pms-navigation/pms-navigation.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -11,8 +13,10 @@ import { PmsNavigationModule } from './Modules/Core/pms-navigation/pms-navigatio
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    PmsNavigationModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    AppRoutingModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

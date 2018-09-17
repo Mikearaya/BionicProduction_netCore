@@ -13,10 +13,10 @@ import {
   EditSettingsModel, CommandModel, RowSelectEventArgs
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import {  Router } from '@angular/router';
 import { ProductsAPIService } from '../products-api.service';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({

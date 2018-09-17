@@ -13,11 +13,12 @@ import {
   EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({

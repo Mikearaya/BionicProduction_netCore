@@ -3,7 +3,8 @@
   <e-columns>
     <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of customerViewColumns" [validationRules]="col.validationRule"
       [allowEditing]="col.editable" [field]='col.key' [isIdentity]="col.isIdentity" [headerText]='col.humanReadable'
-      [editType]="col.dataType"></e-column>
+      [editType]="col.dataType">
+    </e-column>
 
   </e-columns>
 </ejs-grid>
