@@ -48,7 +48,7 @@ namespace BionicInventory.DataStore
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=mikael;port=3306;",
-                x => x.MigrationsAssembly("BionicInventory.DataStore.Migrations.PMS_Migration"));
+                x => x.MigrationsAssembly("DataStore.Migrations"));
             }
         }
         public  DbSet<Address> Address { get; set; }

@@ -27,7 +27,8 @@
               "./node_modules/@syncfusion/ej2-base/styles/material.css",
               "./node_modules/@syncfusion/ej2-angular-navigations/styles/material.css",
               "./node_modules/@syncfusion/ej2-cards/styles/material.css",
-              "./node_modules/@syncfusion/ej2-ng-buttons/styles/material.css"
+              "./node_modules/@syncfusion/ej2-ng-buttons/styles/material.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": []
           },

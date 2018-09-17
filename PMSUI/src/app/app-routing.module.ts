@@ -3,8 +3,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { PmsNavigationModule } from './Modules/Core/pms-navigation/pms-navigation.module';
 
 const routes: Routes = [
-  { path: 'home', loadChildren: './Modules/Core/pms-navigation/pms-navigation.module#PmsNavigationModule' },
-  { path: '**', redirectTo: 'home/dashboard' },
+  { path: '', loadChildren: './Modules/Core/pms-navigation/pms-navigation.module#PmsNavigationModule' },
+  {path: '**', redirectTo: 'dashboard' }
+
 ];
 
 @NgModule({

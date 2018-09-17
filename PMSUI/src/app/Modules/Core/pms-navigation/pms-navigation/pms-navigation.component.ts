@@ -12,13 +12,13 @@ export class PmsNavigationComponent {
   title = 'sidebar';
   @ViewChild('sidebar')
   public sidebar: SidebarComponent;
-  public type: 'push';
+  public type: 'Push';
   public target: 'content';
   @ViewChild('togglebtn')
   public togglebtn: ButtonComponent;
   public hierarchicalData: Object[] = [
     {
-      id: 'oganizations', name: 'ORGANIZATION',
+      id: 'home/employees', name: 'ORGANIZATION',
       subChild: [
         {
           id: 'employees', name: 'EMPLOYEES'
@@ -51,10 +51,10 @@ export class PmsNavigationComponent {
   }
 
   clickedNode(event: NodeSelectEventArgs) {
-    console.log(event.nodeData);
+    console.log(event);
     const node = event.nodeData;
-    if (node.parentId !== null) {
-      this.router.navigate([`home/${node.id}`]);
+    if (!node.parentId) {
+      this.router.navigate([`${node.id}`]);
     }
   }
   constructor(private router: Router) {
