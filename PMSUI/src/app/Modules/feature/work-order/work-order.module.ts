@@ -15,7 +15,7 @@ import { WorkOrderAPIService } from './work-order-api.service';
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
 import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
-import {  DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   GridModule, PdfExportService, PageService, CommandColumnService, SortService, FilterService,
@@ -23,31 +23,39 @@ import {
   RowDDService, EditService, ToolbarService, ExcelExportService, ResizeService
 } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import {  HttpClientModule } from '@angular/common/http';
-import { WorkOrderComponent } from './work-order.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 
 
 @NgModule({
   imports: [
+    // angular
     CommonModule,
-    GridModule,
     ReactiveFormsModule,
-    WorkOrderRoutingModule,
-  HttpClientModule,
+    HttpClientModule,
+    // syncfustion
+    GridModule,
     DatePickerModule,
     DropDownListModule,
+    ButtonModule,
+    // application
+    WorkOrderRoutingModule,
 
   ],
-  declarations: [WorkOrderFormComponent,
+  declarations: [
+    // application
+    WorkOrderFormComponent,
     WorkOrderViewComponent,
-    NumericTextBoxComponent,
-    WorkOrderComponent
-    ],
+    // syncfusion
+    NumericTextBoxComponent
+  ],
   providers: [
-    ToolbarService,
+    // application
     WorkOrderAPIService,
+    // syncfusion
+    ToolbarService,
     PdfExportService,
-    , PageService,
+    PageService,
     CommandColumnService,
     SortService,
     FilterService,

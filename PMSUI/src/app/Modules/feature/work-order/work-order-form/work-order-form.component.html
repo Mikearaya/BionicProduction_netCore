@@ -1,16 +1,60 @@
-<button (click)="submitt()">submitt</button>
+<section class="e-card">
+  <form [formGroup]="workOrderForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()" >
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
+            placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
+            [dataSource]="employeesList"> </ejs-dropdownlist>
 
-<input class="e-input" type="text" placeholder="Enter Name" />
-<ejs-grid [dataSource]='data' id="workorder" [editSettings]='editSettings' [toolbar]='toolbar' (actionBegin)="actionBegin($event)"
-(actionComplete)="actionComplete($event)" height='273px'>
-  <e-columns>
-    <e-column field='orderId' headerText='Order ID' textAlign='Right' [visible]="idVisable" isPrimaryKey='true' width=50></e-column>
-    <e-column field='itemId' headerText='Product' editType="dropdownedit" [edit]="productData"
-     [validationRules]="productValidation" width=120></e-column>
-    <e-column field='quantity' headerText='Quantity' textAlign='Right' editType='numericedit' [validationRules]="quantityValidation"
-      [edit]='numericParams' width=120 ></e-column>
-    <e-column field='dueDate' headerText='Date' editType='datepickeredit'  [validationRules]="dueDateValidation" [edit]='dpParams'
-      width=150></e-column>
-    <e-column field="command" width=60 [commands]='commands'></e-column>
-  </e-columns>
-</ejs-grid>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class=" e-success ">
+            <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
+          </div>
+        </div>
+      </div>
+      <div formArrayName="orders">
+        <div class="row" *ngFor="let order of orders.controls; let i=index; let last=last;" [formGroup]="order">
+          <div class="col-sm-3 col-xs-12">
+
+
+            <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="'itemId'+i"
+              placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
+            </ejs-dropdownlist>
+
+          </div>
+          <div class="col-sm-3 col-xs-12">
+            <div class=" e-success">
+              <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
+                [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i"></ejs-numerictextbox>
+            </div>
+          </div>
+          <div class="col-sm-3 col-xs-12">
+
+            <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [attr.id]="'dueDate'+i" [attr.name]="'dueDate'+i"
+              format="yyyy-MM-dd"></ejs-datepicker>
+
+          </div>
+          <div class="col-sm-3 col-xs-12">
+
+            <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last" (click)="addOrder()">add</button>
+            <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="orders.length == 1" (click)="orders.removeAt(i)">remove</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col col-xs-12">
+          <button type="submit" [disabled]="workOrderForm.invalid" ejs-button>Submit</button>
+          <button type="button" ejs-button>Cancel</button>
+        </div>
+      </div>
+    </div>
+    <p>
+      Form Status: {{workOrderForm.status }}
+      Form : {{workOrderForm.value | json}}
+    </p>
+
+  </form>
+</section>

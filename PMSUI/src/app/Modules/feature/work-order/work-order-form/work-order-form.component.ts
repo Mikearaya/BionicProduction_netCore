@@ -4,8 +4,9 @@ import {
   GridComponent, DialogEditEventArgs, SaveEventArgs
 } from '@syncfusion/ej2-angular-grids';
 import { WorkOrderAPIService } from '../work-order-api.service';
-import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
+import { UrlAdaptor, DataManager, Query, ODataAdaptor, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 
 @Component({
@@ -37,48 +38,71 @@ export class WorkOrderFormComponent implements OnInit {
   private orderData: OrderModel;
   public orderForm: FormGroup;
   public pageSettings: Object;
-  public shipCityDistinctData: Object[];
-  public shipCountryDistinctData: Object[];
-  constructor(private workOrderApi: WorkOrderAPIService) {
 
-    this.orderData = new OrderModel();
 
+  public itemId: FormControl;
+  public workOrderForm: FormGroup;
+
+  public employeeQuery: Query = new Query().select(['firstName', 'id']);
+  public employeeFields: Object = { text: 'firstName', value: 'id' };
+
+  public itemQuery: Query = new Query().select(['code', 'id']);
+  public itemFields: Object = { text: 'code', value: 'id' };
+
+  public itemsList: any[];
+  public employeesList: any[];
+
+  constructor(private workOrderApi: WorkOrderAPIService,
+    private formBuilder: FormBuilder) {
+
+    this.createForm();
+
+  }
+
+  createForm(): void {
+    this.workOrderForm = this.formBuilder.group({
+      orderedBy: ['', Validators.required],
+      description: ['', Validators.required],
+      orders: this.formBuilder.array([
+        this.formBuilder.group({
+          itemId: ['', Validators.required],
+          quantity: ['', [Validators.required, Validators.min(0)]],
+          dueDate: [new Date(), Validators.required]
+        })
+      ])
+    });
+  }
+  get orders() {
+    return this.workOrderForm.get('orders') as FormArray;
+  }
+
+  addOrder() {
+    this.orders.push(this.formBuilder.group({
+      itemId: ['', Validators.required],
+      quantity: ['', Validators.required],
+      dueDate: [new Date(), Validators.required]
+    }));
   }
   ngOnInit(): void {
-    this.shipCityDistinctData = ['Addis Ababa', 'Nazret'];
-    this.shipCountryDistinctData = ['Ethiopia', 'Kenya'];
+
+    const dm: DataManager = new DataManager(
+      { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+
+    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
+    this.workOrderApi.getAllProducts().subscribe(
+      result => this.itemsList = result['Items']
+    );
+
     this.data = [];
-    this.productData = { params: { value: 'Germany' } };
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add'];
-    this.numericParams = { params: { decimals: 2, value: 5 } };
-    this.ddParams = { params: { value: 'Germany' } };
-    this.dpParams = { params: { value: new Date() } };
-    this.productValidation = { required: true };
-    this.quantityValidation = { required: true };
-    this.employeeData = [{ name: 'Mike', Id: 2 }, { name: 'Ermias', id: 1 }];
-    this.dueDateValidation = { required: true };
-    this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-    { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
-    { type: 'Save', buttonOption: { cssClass: 'e-flat', iconCss: 'e-update e-icons' } },
-    { type: 'Cancel', buttonOption: { cssClass: 'e-flat', iconCss: 'e-cancel-icon e-icons' } }];
+
   }
 
-  submitt() {
-    alert('hello');
-    this.workOrderApi.addWorkOrder(this.data).subscribe(result => console.log(result));
-  }
 
-  createFormGroup(data: IOrderModel): FormGroup {
-    return new FormGroup({
-      OrderID: new FormControl(data.OrderID, Validators.required)
-      , OrderDate: new FormControl(data.OrderDate, this.dateValidator()),
-      CustomerName: new FormControl(data.CustomerName, Validators.required),
-      Freight: new FormControl(data.Freight),
-      ShipAddress: new FormControl(data.ShipAddress),
-      ShipCity: new FormControl(data.ShipCity),
-      ShipCountry: new FormControl(data.ShipCountry)
-    });
+  onSubmit() {
+    const form = this.workOrderForm.value;
+    console.log(form);
   }
 
   dateValidator() {
@@ -89,42 +113,6 @@ export class WorkOrderFormComponent implements OnInit {
     };
   }
 
-  actionBegin(args: SaveEventArgs): void {
-    this.productData = { params: { value: 'Germany' } };
-    console.log('order begin');
-    console.log(args);
-
-    if (args.requestType === 'beginEdit' || args.requestType === 'add') {
-    }
-
-    if (args.requestType === 'save') {
-const detail = new OrderDetail();
-      detail.itemId = args.data['itemId'];
-      detail.quantity = args.data['quantity'];
-      detail.dueDate = (<Date>args.data['dueDate']).toISOString();
-      console.log(detail);
-      this.orderData.workOrderItems.push(detail);
-      this.orderData.orderedBy = 1;
-      this.orderData.description = 'described';
-      console.log(this.orderData);
-this.workOrderApi.addWorkOrder(this.orderData).subscribe(result => console.log(result));
-    }
-  }
-
-  actionComplete(args: DialogEditEventArgs): void {
-
-    if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
-      if (Browser.isDevice) {
-      }
-      // Set initail Focus
-      if (args.requestType === 'beginEdit') {
-      } else if (args.requestType === 'add') {
-      }
-    }
-  }
-
-  get OrderID(): AbstractControl { return this.orderForm.get('OrderID'); }
-  get CustomerName(): AbstractControl { return this.orderForm.get('CustomerName'); }
 
 
 }

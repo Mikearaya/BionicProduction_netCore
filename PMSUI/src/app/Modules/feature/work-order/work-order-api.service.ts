@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class WorkOrderAPIService {
   private url = 'http://localhost:5000/api/workorders';
+  private productsIrl = 'http://localhost:5000/api/products';
     private httpBody: URLSearchParams;
 
     constructor(private httpClient: HttpClient) {
@@ -21,6 +22,10 @@ export class WorkOrderAPIService {
 
     getWorkOrderById(id: number): Observable<WorkOrder> {
         return this.httpClient.get<WorkOrder>(`${this.url}/${id}`);
+    }
+
+    getAllProducts(): Observable<any[]> {
+        return this.httpClient.get<any[]>(`${this.productsIrl}`);
     }
 
     getAllWorkOrders(): Observable<WorkOrder[]> {
