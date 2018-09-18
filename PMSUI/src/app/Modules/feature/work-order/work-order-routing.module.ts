@@ -12,12 +12,11 @@ import { WorkOrderViewComponent } from './work-order-view/work-order-view.compon
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 
 const routes: Routes = [
-  {
-    path: '', component: WorkOrderViewComponent, children: [
-      { path: 'new', component: WorkOrderFormComponent },
-      { path: ':workOrderId/update', component: WorkOrderFormComponent }
-    ]
-  }
+  { path: '', component: WorkOrderViewComponent },
+  { path: 'new', component: WorkOrderFormComponent },
+  { path: ':workOrderId/update', component: WorkOrderFormComponent }
+
+
 ];
 
 @NgModule({

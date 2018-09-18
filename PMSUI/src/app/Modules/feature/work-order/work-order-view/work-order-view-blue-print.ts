@@ -35,12 +35,12 @@ export const workOrderBluePrint = [
     validationRule: { required: true }, isIdentity: false, width: '70'
   },
   {
-    key: 'orderDate', humanReadable: 'Ordered', type: 'date', primaryKey: false, allowGrouping: true, format: 'yMMMd',
+    key: 'orderDate', humanReadable: 'Ordered', type: 'date', primaryKey: false, allowGrouping: true, format: 'yMd',
     editable: true, dataType: 'datetime',
     validationRule: { required: true }, isIdentity: false, width: '100'
   },
   {
-    key: 'dueDate', humanReadable: 'Due Date', allowGrouping: true, format: 'yMMMEd',
+    key: 'dueDate', humanReadable: 'Due Date', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '100'
   },

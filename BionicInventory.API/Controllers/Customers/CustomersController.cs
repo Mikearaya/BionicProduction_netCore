@@ -22,7 +22,6 @@ namespace BionicInventory.API.Controllers.Customers {
 
 
     [InventoryAPI ("customers")]
-    [Authorize]
     public class CustomersController : Controller {
         private readonly ICustomersQuery _query;
         private readonly ICustomersCommand _command;

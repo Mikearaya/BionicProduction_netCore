@@ -87,10 +87,11 @@ export class WorkOrderViewComponent implements OnInit {
   }
 
   clickHandler(args: ClickEventArgs): void {
-
+alert('work');
     if (args.item.id === 'workorder_add') {
-
-    } else if (args.item.id === 'workorder_update') {
+        console.log('in');
+        this.route.navigate(['workorders/new']);
+    } else if (args.item.id === 'workorder_edit') {
       // console.log(args);
     } else if (args.item.id === 'workorder_delete') {
 
@@ -112,7 +113,10 @@ export class WorkOrderViewComponent implements OnInit {
       this.grid.pdfExport();
     } else if (args.item.id === 'workorder_print') {
       this.grid.print();
-    }
+    } else if (args.item.id === 'workorder_add') {
+      console.log('in');
+      this.route.navigate(['workorders/new']);
+  }
   }
 
 }

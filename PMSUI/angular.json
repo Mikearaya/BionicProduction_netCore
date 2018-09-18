@@ -27,9 +27,13 @@
               "./node_modules/@syncfusion/ej2-base/styles/material.css",
               "./node_modules/@syncfusion/ej2-angular-navigations/styles/material.css",
               "./node_modules/@syncfusion/ej2-cards/styles/material.css",
-              "./node_modules/@syncfusion/ej2-ng-buttons/styles/material.css",
-              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
-            ],
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/@syncfusion/ej2-angular-buttons/styles/material.css",
+              "./node_modules/@syncfusion/ej2-angular-inputs/styles/material.css",
+              "./node_modules/@syncfusion/ej2-angular-popups/styles/material.css",
+              "./node_modules/@syncfusion/ej2-angular-lists/styles/material.css",
+              "./node_modules/@syncfusion/ej2-angular-calendars/styles/material.css",
+              "./node_modules/@syncfusion/ej2-angular-grids/styles/material.css"            ],
             "scripts": []
           },
           "configurations": {
