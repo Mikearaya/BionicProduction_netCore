@@ -47,7 +47,7 @@ namespace BionicInventory.Application.Customers.Factories {
 
                 old.FirstName = customer.firstName;
                 old.LastName = customer.lastName;
-                old.Tin = customer.Tin;
+                old.Tin = customer.tin;
                 old.Email = customer.email;
                 old.Type = customer.type;
                 old.MainPhone = customer.mainPhone;

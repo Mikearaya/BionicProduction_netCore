@@ -4,14 +4,10 @@ import {
   GridComponent, DialogEditEventArgs, SaveEventArgs
 } from '@syncfusion/ej2-angular-grids';
 import { WorkOrderAPIService } from '../work-order-api.service';
-import { DataUtil } from '@syncfusion/ej2-data';
 import { FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
-import { Dialog } from '@syncfusion/ej2-popups';
 
-/**
-* Reactive Forms Dialog template sample
-*/
+
 @Component({
   selector: 'app-work-order-form',
   templateUrl: './work-order-form.component.html',

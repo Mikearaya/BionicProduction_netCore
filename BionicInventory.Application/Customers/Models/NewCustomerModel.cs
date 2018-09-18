@@ -6,13 +6,11 @@
  * @Last Modified Time: Sep 15, 2018 11:40 PM
  * @Description: Modify Here, Please 
  */
+using System.ComponentModel.DataAnnotations;
+
 namespace BionicInventory.Application.Customers.Models {
-    public class NewCustomerModel {
-        public string firstName;
-        public string lastName;
-        public string tin;
-        public string email;
-        public string type;
-        public string mainPhone;
+    public class NewCustomerModel: CustomerDto {
+
+    
     }
 }

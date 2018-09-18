@@ -6,6 +6,7 @@
  * @Last Modified Time: Sep 8, 2018 2:38 AM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
@@ -14,12 +15,12 @@ using BionicInventory.Application.Customers.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Customers;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.Customers {
-
 
     [InventoryAPI ("customers")]
     public class CustomersController : Controller {
@@ -28,17 +29,20 @@ namespace BionicInventory.API.Controllers.Customers {
         private readonly ICustomersFactory _factory;
 
         private readonly IResponseFormatFactory _responseFactory;
+        private readonly ILogger<CustomersController> _logger;
 
         public CustomersController (
             ICustomersQuery customersquery,
             ICustomersCommand customerCommand,
             ICustomersFactory customerFactory,
-            IResponseFormatFactory responseFactory
+            IResponseFormatFactory responseFactory,
+            ILogger<CustomersController> logger
         ) {
             _query = customersquery;
             _command = customerCommand;
             _factory = customerFactory;
             _responseFactory = responseFactory;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -83,96 +87,96 @@ namespace BionicInventory.API.Controllers.Customers {
 
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (CustomerViewModel))]
+        [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
         public IActionResult AddNewCustomer ([FromBody] NewCustomerModel data) {
+            try {
+                if (data == null) {
+                    return StatusCode (400);
+                }
 
-            if (ModelState.IsValid && data != null) {
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
                 var customer = _command.Create (data);
 
                 if (customer != null) {
                     return StatusCode (201, customer);
                 } else {
-                    return StatusCode (500, "Something Wrong Happened Try Again");
+                    return StatusCode (500, "Something Went Wrong please try again later");
                 }
-            } else {
-                return StatusCode (422, "One Or More Required Fields Missing, Try Again after correcting them");
-            }
 
-        }
-
-        [HttpPut ("{id}")]
-        [ProducesResponseType (204)]
-        [ProducesResponseType (404)]
-        [ProducesResponseType (422)]
-        [ProducesResponseType (500)]
-        public IActionResult UpdateEmployeeRecord (uint id, [FromBody] UpdatedCustomerModel updatedData) {
-
-            if (ModelState.IsValid && updatedData != null) {
-                var customer = _query.GetCustomerById (id);
-
-                if (customer != null) {
-                    if (_command.Update (customer, updatedData)) {
-                        return StatusCode (204);
-                    } else {
-                        return StatusCode (500, "Something Wrong Happened Try Again");
-                    }
-                } else {
-                    return StatusCode (404);
-                }
-            } else {
-                return StatusCode (422, "One Or More Required Fields Missing, Try Again after correcting them");
+            } catch (Exception e) {
+                _logger.LogError (500, e.StackTrace, e.Message);
+                return StatusCode (500, e.Message);
             }
 
         }
 
         [HttpPut]
+        [HttpPut ("{id}")]
         [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateEmployeeRecord ([FromBody] UpdatedCustomerModel updatedData) {
+        public IActionResult UpdateEmployeeRecord (uint? id, [FromBody] UpdatedCustomerModel updatedData) {
 
-            if (ModelState.IsValid && updatedData != null) {
+            try {
+                if (updatedData == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
                 var customer = _query.GetCustomerById (updatedData.id);
 
-                if (customer != null) {
-                    if (_command.Update (customer, updatedData)) {
-                        return StatusCode (204);
-                    } else {
-                        return StatusCode (500, "Something Wrong Happened Try Again");
-                    }
-                } else {
+                if (customer == null) {
                     return StatusCode (404);
                 }
-            } else {
-                return StatusCode (422, "One Or More Required Fields Missing, Try Again after correcting them");
+
+                if (_command.Update (customer, updatedData)) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Something Wrong Happened Try Again");
+                }
+            } catch (Exception e) {
+                _logger.LogError (500, e.StackTrace, e.Message);
+                return StatusCode (500, e.Message);
             }
 
         }
 
         [HttpDelete ("{id}")]
         [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public IActionResult DeleteSingleCustomer (uint id) {
 
-            if (ModelState.IsValid && id != 0) {
+            try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
                 var customer = _query.GetCustomerById (id);
 
-                if (customer != null) {
-
-                    if (_command.Delete (customer)) {
-                        return StatusCode (204);
-                    } else {
-                        return StatusCode (500, "Something Wrong Happened Try Again");
-                    }
-                } else {
+                if (customer == null) {
                     return StatusCode (404);
                 }
 
-            } else {
-                return StatusCode (422, "Customer Id Not Found to complete the delete operation");
+                if (_command.Delete (customer)) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Something Wrong Happened Try Again");
+                }
+
+            } catch (Exception e) {
+                _logger.LogError (500, e.StackTrace, e.Message);
+                return StatusCode (500, e.Message);
             }
 
         }
