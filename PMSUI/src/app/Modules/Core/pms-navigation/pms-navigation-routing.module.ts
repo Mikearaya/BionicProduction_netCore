@@ -10,7 +10,8 @@ const routes: Routes = [{
     { path: 'customers', loadChildren: '../../feature/customer/customer.module#CustomerModule' },
     { path: 'workorders', loadChildren: '../../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'products', loadChildren: '../../feature/products/products.module#ProductsModule' },
-    { path: 'employees', loadChildren: '../../feature/employee/employee.module#EmployeeModule' }
+    { path: 'employees', loadChildren: '../../feature/employee/employee.module#EmployeeModule' },
+    { path: 'finishedProducts', loadChildren: '../../feature/finished-products/finished-products.module#FinishedProductsModule' }
 
   ]
 }];

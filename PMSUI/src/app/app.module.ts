@@ -11,9 +11,7 @@ import { FinishedProductsViewComponent } from './Modules/feature/finished-produc
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FinishedProductFormComponent,
-    FinishedProductsViewComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

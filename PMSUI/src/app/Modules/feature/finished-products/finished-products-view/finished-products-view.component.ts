@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 20, 2018 12:43 AM
+ * @Last Modified Time: Sep 20, 2018 1:34 AM
  * @Description: Modify Here, Please
  */
 
@@ -18,6 +18,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { FinishedProductsApiService } from '../finished-products-api.service';
+import { finishedProductsBluePrint } from './finished-products-column-blue-print';
 
 
 @Component({
@@ -51,7 +52,7 @@ export class FinishedProductsViewComponent implements OnInit {
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  columnBluePrint = '';
+  columnBluePrint = finishedProductsBluePrint;
 
   public dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/api/finished_products',
@@ -73,7 +74,7 @@ export class FinishedProductsViewComponent implements OnInit {
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: true,
-      disablePageWiseAggregates: true, columns: ['id']
+      disablePageWiseAggregates: true
     };
   }
 
