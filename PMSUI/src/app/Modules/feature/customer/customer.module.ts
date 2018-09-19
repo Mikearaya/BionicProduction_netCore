@@ -5,35 +5,46 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerService } from './customer.service';
 import { CustomerViewComponent } from './customer-view/customer-view.component';
 
-import { HttpClientModule } from '@angular/common/http';
 import {
-  GridModule, PageService, SortService, FilterService, SearchService, GroupService,
-  ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService, EditService,
-  ToolbarService, ExcelExportService
+    GridModule, PageService, SortService, FilterService, SearchService, GroupService,
+    ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService, EditService,
+    ToolbarService, ExcelExportService
 } from '@syncfusion/ej2-angular-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [
-    CustomerRoutingModule,
-    CommonModule,
-    GridModule,
-    ReactiveFormsModule],
-  declarations: [CustomerFormComponent, CustomerViewComponent],
-  exports: [],
-  providers: [CustomerService, PageService,
-    SortService,
-    FilterService,
-    SearchService,
-    GroupService,
-    ColumnChooserService,
-    ColumnMenuService,
-    ForeignKeyService,
-    RowDDService,
-    EditService,
-    ToolbarService,
-    ExcelExportService]
+    imports: [
+        // application
+        CustomerRoutingModule,
+        // angular
+        ReactiveFormsModule,
+        CommonModule,
+        // syncfusion
+        GridModule,
+    ],
+    declarations: [
+        // application
+        CustomerFormComponent,
+        CustomerViewComponent],
+    providers: [
+        // application
+        CustomerService,
+        // syncfusion
+        PageService,
+        SortService,
+        FilterService,
+        SearchService,
+        GroupService,
+        ColumnChooserService,
+        ColumnMenuService,
+        ForeignKeyService,
+        RowDDService,
+        EditService,
+        ToolbarService,
+        ExcelExportService
+    ],
+    exports: []
 
 })
 export class CustomerModule { }

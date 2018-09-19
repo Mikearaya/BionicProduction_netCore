@@ -14,13 +14,24 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  imports: [EmployeeRoutingModule,
+  imports: [
+    // application
+    EmployeeRoutingModule,
+    // angular
     CommonModule,
-    GridModule,
     ReactiveFormsModule,
+    // syncfusion
+    GridModule
   ],
-  declarations: [EmployeeFormComponent, EmployeeViewComponent],
-  providers: [EmployeeApiService,
+  declarations: [
+    // application
+    EmployeeFormComponent,
+    EmployeeViewComponent
+  ],
+  providers: [
+    // application
+    EmployeeApiService,
+    // syncfusion
     PageService,
     SortService,
     FilterService,
@@ -32,6 +43,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     RowDDService,
     EditService,
     ToolbarService,
-    ExcelExportService]
+    ExcelExportService
+  ]
 })
 export class EmployeeModule { }

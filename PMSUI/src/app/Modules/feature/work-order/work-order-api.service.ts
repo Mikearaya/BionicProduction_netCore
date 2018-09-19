@@ -32,9 +32,9 @@ export class WorkOrderAPIService {
         return this.httpClient.get<WorkOrder[]>(`${this.url}`);
     }
 
-    addWorkOrder(newWorkOrder: any ): Observable<WorkOrder> {
+    addWorkOrder(newWorkOrder: any ): Observable<WorkOrderView> {
 
-        return this.httpClient.post<WorkOrder>(`${this.url}`, newWorkOrder);
+        return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder);
     }
     updateWorkOrder(updatedWorkOrder: WorkOrder): Observable<WorkOrder> {
         this.httpBody = this.prepareRequestBody(updatedWorkOrder);
@@ -63,10 +63,14 @@ export class WorkOrderAPIService {
 }
 
 export class WorkOrder {
+  constructor() {
+    this.workOrders = [];
+    this.id = 0;
+  }
   id?: number;
   description: string;
   orderedBy: number;
-  workOrderItems: WorkOrderItem[];
+  workOrders: WorkOrderItem[];
 }
 
 
@@ -75,6 +79,20 @@ export class WorkOrderItem {
   id?: number;
   quantity: number;
   dueDate: Date;
-  product: number;
+  itemId: number;
 
+}
+
+export class WorkOrderView {
+
+  id: number;
+  orderedBy: string;
+  description: string;
+  orderId: number;
+  product: string;
+  costPerItem: number;
+  dueDate: Date;
+  orderDate: Date;
+  quantity: number;
+  status: string;
 }

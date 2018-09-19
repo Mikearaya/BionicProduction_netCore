@@ -59,7 +59,8 @@ export class WorkOrderViewComponent implements OnInit {
     updateUrl: 'http://localhost:5000/api/workorders',
     insertUrl: 'http://localhost:5000/api/workorders',
     removeUrl: 'http://localhost:5000/api/workorders',
-    adaptor: new WebApiAdaptor
+    adaptor: new WebApiAdaptor,
+    offline: true
   });
 
 

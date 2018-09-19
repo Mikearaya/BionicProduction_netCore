@@ -10,19 +10,11 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using BionicInventory.Application.ProductionOrders.Models.WorkOrdersList;
 
-namespace BionicInventory.Application.ProductionOrders.Models
-{
-    public class NewWorkOrderDto
-    {
-        
-       
-        [Required]
-        public string Description {get; set;}
-        [Required]
-        public uint OrderedBy {get; set;}
+namespace BionicInventory.Application.ProductionOrders.Models {
+    public class NewWorkOrderDto : WorkOrderDto {
 
         [Required]
-        public ICollection<NewWorkOrdersListDto> workOrderItems {get; set;}
-        
+        public IEnumerable<NewWorkOrdersListDto> workOrders { get; set; }
+
     }
 }

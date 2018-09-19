@@ -3,15 +3,13 @@ using System.ComponentModel.DataAnnotations;
 using BionicInventory.Application.ProductionOrders.Models.WorkOrdersList;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
-    public class UpdatedWorkOrderDto {
+    public class UpdatedWorkOrderDto : WorkOrderDto {
 
         [Key]
-        public uint Id;
+        public uint Id { get; set; }
+
         [Required]
-        public string Description;
-        [Required]
-        public uint OrderedBy;
-        [Required]
-        public ICollection<UpdatedWorkOrdersListDto> workOrderItems { get; set; }
+        public IEnumerable<UpdatedWorkOrdersListDto> workOrders { get; set; }
+
     }
 }

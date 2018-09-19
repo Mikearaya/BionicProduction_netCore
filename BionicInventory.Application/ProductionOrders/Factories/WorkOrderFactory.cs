@@ -37,14 +37,16 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 };
 
-                foreach (var item in newOrder.workOrderItems) {
-                    ProductionOrderList list = new ProductionOrderList () {
-                        ItemId = item.ItemId,
-                        CostPerItem = item.CostPerItem,
-                        Quantity = item.Quantity,
-                        DueDate = item.DueDate,
+                foreach (var item in newOrder.workOrders) {
+                    ProductionOrderList list = new ProductionOrderList ();
+                    
+                        list.ItemId = item.ItemId;
+                        var product = _productsQuery.GetProductById(item.ItemId);
 
-                    };
+                        list.CostPerItem = product.UnitCost;
+                        list.Quantity = item.Quantity;
+                        list.DueDate = item.DueDate;
+
                     productionOrder.ProductionOrderList.Add (list);
                 }
 
@@ -66,13 +68,15 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 };
 
-                foreach (var item in newOrder.workOrderItems) {
-                    ProductionOrderList list = new ProductionOrderList () {
-                        Id = (item.Id > 0) ? (uint) item.Id : 0,
-                        ItemId = item.ItemId,
-                        CostPerItem = item.CostPerItem,
-                        Quantity = item.Quantity,
-                        DueDate = item.DueDate,
+                foreach (var item in newOrder.workOrders) {
+                    ProductionOrderList list = new ProductionOrderList (); {
+                    var product = _productsQuery.GetProductById(item.ItemId);
+
+                        list.Id = (item.Id > 0) ? (uint) item.Id : 0;
+                        list.ItemId = item.ItemId;                
+                        list.CostPerItem = product.UnitCost;
+                        list.Quantity = item.Quantity;
+                        list.DueDate = item.DueDate;
 
                     };
                     productionOrder.ProductionOrderList.Add (list);
@@ -86,8 +90,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
         }
 
         public IEnumerable<WorkOrderView> CreateWorkOrderView (ProductionOrder workOrder) {
-
-            try {
 
                 var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
 
@@ -110,11 +112,8 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     workorderView.Add (view);
 
                 }
-                return workorderView;
-
-            } catch (Exception) {
-                return null;
-            }
+                
+            return workorderView;
 
         }
 

@@ -10,20 +10,20 @@ using System;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
     public class WorkOrderView {
-        public uint id;
-        public string orderedBy;
-        public string description;
+        public uint id { get; set; }
+        public string orderedBy { get; set; }
+        public string description { get; set; }
 
-        public uint orderId;
+        public uint orderId { get; set; }
 
-        public string product;
+        public string product { get; set; }
 
-        public float costPerItem;
-        public DateTime? dueDate;
-        public DateTime? orderDate;
+        public float costPerItem { get; set; }
+        public DateTime? dueDate { get; set; }
+        public DateTime? orderDate { get; set; }
 
-        public uint quantity;
+        public uint quantity { get; set; }
 
-        public string status;
+        public string status { get; set; }
     }
 }

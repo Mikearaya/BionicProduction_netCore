@@ -15,6 +15,7 @@ using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.WorkOrders {
     [InventoryAPI ("workorders")]
@@ -24,6 +25,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         private readonly IWorkOrdersFactory _factory;
         private readonly IResponseFormatFactory _response;
         private readonly IProductsQuery _productsQuery;
+        private readonly ILogger<WorkOrdersController> _logger;
         private readonly IEmployeesQuery _employeeQuery;
 
         public WorkOrdersController (IWorkOrdersCommand commands,
@@ -31,12 +33,14 @@ namespace BionicInventory.API.Controllers.WorkOrders {
             IWorkOrdersQuery query,
             IResponseFormatFactory resposeFactory,
             IEmployeesQuery employeeQuery,
-            IProductsQuery productsQuery) {
+            IProductsQuery productsQuery,
+            ILogger<WorkOrdersController> logger) {
             _command = commands;
             _query = query;
             _factory = factory;
             _response = resposeFactory;
             _productsQuery = productsQuery;
+            _logger = logger;
 
             _employeeQuery = employeeQuery;
         }
@@ -54,12 +58,13 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     var orderView = _factory.CreateWorkOrderViewList (orders);
                     var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
                     return StatusCode (200, response);
-
+                    //TODO ReFactor this Section
                 } else {
                     return StatusCode (200, orders);
                 }
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
         }
@@ -67,10 +72,16 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet ("{id}")]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         public IActionResult GetWorkOrderById (uint id) {
 
             try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
                 var order = _query.GetWorkOrderById (id);
 
                 if (order == null) {
@@ -81,6 +92,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 return StatusCode (200, order);
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
         }
@@ -88,22 +100,28 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet ("{id}/items/{itemId}")]
         [ProducesResponseType (200, Type = typeof (WorkOrderView))]
         [ProducesResponseType (500)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         public IActionResult GetWorkOrderById (uint id, uint itemId) {
 
             try {
 
+                if (id == 0 || itemId == 0) {
+                    return StatusCode (400, "Item or order id can not be null");
+                }
+
                 var order = _query.GetWorkOrderById (id);
                 var orderItem = _query.GetWorkOrderItemById (itemId);
 
                 if (order == null || orderItem == null) {
-                    return StatusCode (404, orderItem);
+                    return StatusCode (404, "order not Found");
                 }
                 var orderView = _factory.CreateWorkOrderView (orderItem);
 
                 return StatusCode (200, orderView);
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
 
@@ -118,8 +136,12 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
             try {
 
-                if (!ModelState.IsValid || newWork == null) {
-                    return StatusCode (422);
+                if (newWork == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
                 }
 
                 var employee = _employeeQuery.GetEmployeeById (newWork.OrderedBy);
@@ -128,7 +150,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (404, "Employee Record Not Found");
                 }
 
-                foreach (var products in newWork.workOrderItems) {
+                foreach (var products in newWork.workOrders) {
                     var product = _productsQuery.GetProductById (products.ItemId);
                     if (product == null) {
                         return StatusCode (404, "Product Record Not Found");
@@ -150,6 +172,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
 
@@ -158,14 +181,18 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpPut]
         [ProducesResponseType (204, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (422)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (409)]
         [ProducesResponseType (500)]
         public IActionResult UpdateWorkWorder ([FromBody] UpdatedWorkOrderDto updated) {
 
             try {
 
-                if (!ModelState.IsValid || updated == null) {
-                    return StatusCode (422, ModelState);
+                if (updated == null) {
+                    return StatusCode (400, ModelState);
+                }
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
                 }
 
                 var employee = _employeeQuery.GetEmployeeById (updated.OrderedBy);
@@ -174,7 +201,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (404, "Employee Record Not Found");
                 }
 
-                foreach (var products in updated.workOrderItems) {
+                foreach (var products in updated.workOrders) {
                     var product = _productsQuery.GetProductById (products.ItemId);
                     if (product == null) {
                         return StatusCode (404, "Product Record Not Found");
@@ -195,6 +222,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
 
@@ -202,11 +230,17 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
         [HttpDelete ("{id}")]
         [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public IActionResult DeleteWorkOrder (uint id) {
 
             try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
                 var work = _query.GetWorkOrderById (id);
 
                 if (work == null) {
@@ -222,6 +256,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
 
@@ -235,11 +270,15 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
             try {
 
+                if (id == 0 || itemId == 0) {
+                    return StatusCode (400, "Item or order id can not be null");
+                }
+
                 var work = _query.GetWorkOrderById (id);
                 var workItem = _query.GetWorkOrderItemById (itemId);
 
                 if (work == null || workItem == null) {
-                    return StatusCode (404, workItem);
+                    return StatusCode (404, "Work Order Not Found");
                 }
 
                 var result = _command.DeleteWorkOrderItem (workItem);
@@ -251,6 +290,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 }
 
             } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);
             }
 

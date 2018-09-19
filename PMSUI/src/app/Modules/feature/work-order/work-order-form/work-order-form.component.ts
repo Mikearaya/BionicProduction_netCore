@@ -3,10 +3,11 @@ import {
   EditSettingsModel, ToolbarItems, IEditCell, CommandModel,
   GridComponent, DialogEditEventArgs, SaveEventArgs
 } from '@syncfusion/ej2-angular-grids';
-import { WorkOrderAPIService } from '../work-order-api.service';
+import { WorkOrderAPIService, WorkOrder, WorkOrderView } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
 import { UrlAdaptor, DataManager, Query, ODataAdaptor, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -33,7 +34,6 @@ export class WorkOrderFormComponent implements OnInit {
   public commands: CommandModel[];
   public productData: IEditCell;
   public employeeData: Object[];
-  public fields: Object = { text: 'name', value: 'Id' };
   public idVisable: Boolean = false;
   private orderData: OrderModel;
   public orderForm: FormGroup;
@@ -43,19 +43,25 @@ export class WorkOrderFormComponent implements OnInit {
   public itemId: FormControl;
   public workOrderForm: FormGroup;
 
-  public employeeQuery: Query = new Query().select(['firstName', 'id']);
-  public employeeFields: Object = { text: 'firstName', value: 'id' };
+  public employeeQuery: Query;
+  public employeeFields: Object;
 
-  public itemQuery: Query = new Query().select(['code', 'id']);
-  public itemFields: Object = { text: 'code', value: 'id' };
+  public itemQuery: Query;
+  public itemFields: Object;
 
   public itemsList: any[];
   public employeesList: any[];
+  public today: Date;
 
   constructor(private workOrderApi: WorkOrderAPIService,
     private formBuilder: FormBuilder) {
 
     this.createForm();
+    this.today = new Date();
+    this.employeeQuery = new Query().select(['firstName', 'id']);
+    this.employeeFields = { text: 'firstName', value: 'id' };
+    this.itemQuery = new Query().select(['code', 'id']);
+    this.itemFields = { text: 'code', value: 'id' };
 
   }
 
@@ -100,9 +106,33 @@ export class WorkOrderFormComponent implements OnInit {
   }
 
 
+
   onSubmit() {
     const form = this.workOrderForm.value;
     console.log(form);
+    const order = this.prepareFormData(form);
+    console.log('ORDER');
+    console.log(order);
+    this.workOrderApi.addWorkOrder(order).subscribe(
+      (success: WorkOrderView) => console.log(success),
+      (error: HttpErrorResponse) => console.log(error)
+    );
+  }
+
+
+  prepareFormData(form: any): WorkOrder {
+  const order = new WorkOrder();
+    order.orderedBy = form.orderedBy;
+    order.description = form.description;
+    form.orders.forEach(element => {
+      order.workOrders.push({
+        itemId : element.itemId,
+        quantity : element.quantity,
+        dueDate : element.dueDate
+      });
+    });
+
+    return order;
   }
 
   dateValidator() {
@@ -115,16 +145,6 @@ export class WorkOrderFormComponent implements OnInit {
 
 
 
-}
-
-export interface IOrderModel {
-  OrderID?: number;
-  CustomerName?: string;
-  ShipCity?: string;
-  OrderDate?: Date;
-  Freight?: number;
-  ShipCountry?: string;
-  ShipAddress?: string;
 }
 
 export class OrderModel {

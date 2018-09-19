@@ -22,14 +22,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
+    // angular
     CommonModule,
-    GridModule,
     ReactiveFormsModule,
+    // application
     ProductsRoutingModule,
+    // syncfusion
+    GridModule
   ],
   declarations: [ProductsViewComponent],
-  providers: [ProductsAPIService,
-    , PageService,
+  providers: [
+    // application
+    ProductsAPIService,
+    // syncfusion
+    PageService,
     SortService,
     FilterService,
     SearchService,
@@ -43,6 +49,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EditService,
     ToolbarService,
     ExcelExportService,
-    ResizeService]
+    ResizeService
+  ]
 })
 export class ProductsModule { }
