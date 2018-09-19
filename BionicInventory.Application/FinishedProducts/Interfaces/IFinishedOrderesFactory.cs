@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 14, 2018 11:14 PM
+ * @Last Modified Time: Sep 20, 2018 12:00 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Application.FinishedProducts.Models;
@@ -15,7 +15,7 @@ namespace BionicInventory.Application.FinishedProducts.Interfaces {
     public interface IFinishedProductsFactories {
 
         FinishedProduct NewFinishedProduct(ProductionOrderList order, Employee submited, Employee ordered, int quantity);
-        FinishedProduct FinishedProductForUpdate(FinishedProduct current, FinishedProductDTO updated);
+        FinishedProduct FinishedProductForUpdate(UpdatedFinishedProductDto updated);
 
         FinishedProductsViewModel FinishedProductForView(FinishedProduct finishedProduct);
 

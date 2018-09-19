@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 12:28 AM
+ * @Last Modified Time: Sep 20, 2018 12:02 AM
  * @Description: Modify Here, Please 
  */
 
@@ -31,8 +31,6 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
             _employeeQuery = employeesQuery;
         }
         public FinishedProduct NewFinishedProduct (ProductionOrderList order, Employee submited, Employee recieved, int quantity) {
-
-            try {
                 var finishedProduct = new FinishedProduct ();
                 finishedProduct.OrderId = order.Id;
                 finishedProduct.SubmittedBy = submited.Id;
@@ -40,32 +38,19 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
                 finishedProduct.Quantity = quantity;
 
                 return finishedProduct;
-
-            } catch (Exception e) {
-                _logger.LogError (null, e.Message, e);
-                return null;
-            }
         }
 
-        public FinishedProduct FinishedProductForUpdate (FinishedProduct current, FinishedProductDTO updated) {
-
-            try {
-
+        public FinishedProduct FinishedProductForUpdate ( UpdatedFinishedProductDto updated) {
+                FinishedProduct current = new FinishedProduct();
                 current.OrderId = updated.orderId;
                 current.SubmittedBy = updated.submittedBy;
                 current.RecievedBy = updated.recievedBy;
                 current.Quantity = updated.quantity;
                 return current;
-
-            } catch (Exception e) {
-                _logger.LogError (null, e.Message, e);
-                return null;
-            }
         }
 
         public FinishedProductsViewModel FinishedProductForView (FinishedProduct finishedProduct) {
 
-            try {
                 var submittedBy = _employeeQuery.GetEmployeeById (finishedProduct.SubmittedBy);
                 var recievedBy = _employeeQuery.GetEmployeeById (finishedProduct.RecievedBy);
 
@@ -84,10 +69,6 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
 
                 return view;
 
-            } catch (Exception e) {
-                _logger.LogError (1, e.Message, e);
-                return null;
-            }
         }
 
     }

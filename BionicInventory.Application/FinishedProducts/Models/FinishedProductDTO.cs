@@ -9,18 +9,19 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace BionicInventory.Application.FinishedProducts.Models {
-    public class FinishedProductDTO {
-        [Key]
-        public uint? id;
+    public abstract class FinishedProductDTO {
 
         [Required]
-        public uint orderId;
+        public uint orderId { get; set; }
+
         [Required]
-        public int quantity;
+        public int quantity { get; set; }
+
         [Required]
-        public uint recievedBy;
+        public uint recievedBy { get; set; }
+
         [Required]
-        public uint submittedBy;
+        public uint submittedBy { get; set; }
 
     }
 }

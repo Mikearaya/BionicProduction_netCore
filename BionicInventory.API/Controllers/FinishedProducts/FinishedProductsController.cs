@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 12:27 AM
+ * @Last Modified Time: Sep 20, 2018 12:23 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,6 +12,7 @@ using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Models;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -47,19 +48,27 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         [HttpGet ("{id}")]
         [ProducesResponseType (200, Type = typeof (FinishedProductsViewModel))]
         [ProducesResponseType (404)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
         public IActionResult GetFinishedProductsById (uint id) {
 
             try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
                 var finishedProduct = _query.GetFinishedProductById (id);
 
-                if (finishedProduct != null) {
-                    var finishedProductView = _factory.FinishedProductForView (finishedProduct);
-                    return StatusCode (200, finishedProductView);
-                } else {
+                if (finishedProduct == null) {
                     return StatusCode (404);
                 }
+
+                var finishedProductView = _factory.FinishedProductForView (finishedProduct);
+
+                return StatusCode (200, finishedProductView);
+
             } catch (Exception e) {
                 _logger.LogError (e.Message);
                 return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
@@ -92,45 +101,47 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (FinishedProductsViewModel))]
         [ProducesResponseType (422)]
+        [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult AddFinishedProduct ([FromBody] FinishedProductDTO newFinishedProduct) {
+        public IActionResult AddFinishedProduct ([FromBody] NewFinishedProductDto newFinishedProduct) {
 
             try {
 
-                if (ModelState.IsValid && newFinishedProduct != null) {
+                if (newFinishedProduct == null) {
+                    return StatusCode (400);
+                }
 
-                    var submittedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.submittedBy);
-                    var recievedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.recievedBy);
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+                var submittedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.submittedBy);
+                var recievedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.recievedBy);
 
-                    if (submittedBy == null || recievedBy == null) {
-                        return StatusCode (404, "Employee Not Found");
-                    }
+                if (submittedBy == null || recievedBy == null) {
+                    return StatusCode (404, "Employee Not Found");
+                }
 
-                    var order = _productionOrderQuery.GetWorkOrderItemById (newFinishedProduct.orderId);
+                var order = _productionOrderQuery.GetWorkOrderItemById (newFinishedProduct.orderId);
 
-                    if (order == null) {
-                        return StatusCode (404, "Order Not Found");
-                    }
+                if (order == null) {
+                    return StatusCode (404, "Order Not Found");
+                }
 
-                    var finishedProduct = _factory.NewFinishedProduct (order, submittedBy, recievedBy, newFinishedProduct.quantity);
+                var finishedProduct = _factory.NewFinishedProduct (order, submittedBy, recievedBy, newFinishedProduct.quantity);
 
-                    var result = _command.AddFinishedProduct (finishedProduct);
+                var result = _command.AddFinishedProduct (finishedProduct);
 
-                    if (result != null) {
+                if (result != null) {
 
-                        var finishedProductView = _factory.FinishedProductForView (result);
-                        return StatusCode (201, finishedProductView);
-
-                    } else {
-                        return StatusCode (422, "One or more required fields missing for employee");
-                    }
+                    var finishedProductView = _factory.FinishedProductForView (result);
+                    return StatusCode (201, finishedProductView);
 
                 } else {
-                    return StatusCode (422, "One or more required fields missing for employee");
+                    return StatusCode (500, "Unkown Error Please try again later");
                 }
 
             } catch (Exception e) {
-                _logger.LogError (1, e.Message, e);
+                _logger.LogError (500, e.Message, e);
                 return StatusCode (500);
             }
         }
@@ -139,52 +150,50 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateFinishedProductRecord (uint id, [FromBody] FinishedProductDTO updatedData) {
+        public IActionResult UpdateFinishedProductRecord (uint id, [FromBody] UpdatedFinishedProductDto updatedData) {
 
             try {
-                if (ModelState.IsValid && updatedData != null) {
-
-                    uint finishedProductId = 0;
-
-                    if (id == 0) {
-                        finishedProductId = (uint) updatedData.id;
-                    } else {
-                        finishedProductId = id;
-                    }
-                    var finishedProduct = _query.GetFinishedProductById (finishedProductId);
-
-                    if (finishedProduct == null) {
-                        return StatusCode (404, finishedProductId);
-                    }
-
-                    var submittedBy = _employeesQuery.GetEmployeeById (updatedData.submittedBy);
-                    var recievedBy = _employeesQuery.GetEmployeeById (updatedData.recievedBy);
-
-                    if (submittedBy == null || recievedBy == null) {
-                        return StatusCode (404, "Employee Not Found");
-                    }
-
-                    var order = _productionOrderQuery.GetWorkOrderItemById (updatedData.orderId);
-
-                    if (order == null) {
-                        return StatusCode (404, "Order Not Found");
-                    }
-
-                    var updatedFinishedProduct = _factory.FinishedProductForUpdate (finishedProduct, updatedData);
-
-                    if (_command.UpdateFinishedProduct (updatedFinishedProduct)) {
-                        return StatusCode (204);
-                    } else {
-                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
-                    }
-
-                } else {
-
-                    return StatusCode (422, "One or more required fields missing for employee");
+                if (updatedData == null) {
+                    return StatusCode (400);
                 }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                id = (id == 0) ? (uint) updatedData.id : id;
+
+                var finishedProduct = _query.GetFinishedProductById (id);
+
+                if (finishedProduct == null) {
+                    return StatusCode (404, $"Product with id: {id} Not Found : ");
+                }
+
+                var submittedBy = _employeesQuery.GetEmployeeById (updatedData.submittedBy);
+                var recievedBy = _employeesQuery.GetEmployeeById (updatedData.recievedBy);
+
+                if (submittedBy == null || recievedBy == null) {
+                    return StatusCode (404, "Employee Not Found");
+                }
+
+                var order = _productionOrderQuery.GetWorkOrderItemById (updatedData.orderId);
+
+                if (order == null) {
+                    return StatusCode (404, "Order Not Found");
+                }
+
+                var updatedFinishedProduct = _factory.FinishedProductForUpdate (updatedData);
+
+                if (_command.UpdateFinishedProduct (updatedFinishedProduct)) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
+                }
+
             } catch (Exception e) {
-                _logger.LogError (1, e.Message, e);
+                _logger.LogError (500, e.Message, e);
 
                 return StatusCode (500, e);
             }
@@ -198,26 +207,29 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         public IActionResult DeleteSingleFinishedProductEntry (uint id) {
 
             try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
                 var finishedProduct = _query.GetFinishedProductById (id);
 
-                if (finishedProduct != null) {
-
-                    if (_command.DeleteFinishedProduct (finishedProduct)) {
-                        return StatusCode (204);
-                    } else {
-                        return StatusCode (422);
-                    }
-
-                } else {
-
-                    return StatusCode (404);
+                if (finishedProduct == null) {
+                    return StatusCode (422);
                 }
-            } catch (Exception e) {
-                _logger.LogError (1, e.Message, e);
 
-                return StatusCode (500, e);
-            }
+                if (_command.DeleteFinishedProduct (finishedProduct)) {
+                    return StatusCode (204);
+                } else {
+                    return StatusCode (500, "Unknown Error Pleace try again later");
+                }
 
+
+        } catch (Exception e) {
+            _logger.LogError (500, e.Message, e);
+
+            return StatusCode (500, e);
         }
+
     }
+}
 }

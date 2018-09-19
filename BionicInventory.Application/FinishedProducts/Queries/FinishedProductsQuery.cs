@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 14, 2018 11:01 PM
+ * @Last Modified Time: Sep 20, 2018 12:04 AM
  * @Description: FinishedProducts database Query Class
  */
 using System;
@@ -13,6 +13,7 @@ using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.ProductionOrders;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.FinishedProducts.Queries {
@@ -31,7 +32,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
             try {
 
-                return _database.FinishedProduct.ToList ();
+                return _database.FinishedProduct.AsNoTracking().ToList ();
 
             } catch (Exception e) {
 
@@ -61,7 +62,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
             try {
 
-                return _database.FinishedProduct.Where (prod => prod.Order.Id == orderId).ToList ();
+                return _database.FinishedProduct.Where (prod => prod.Order.Id == orderId).AsNoTracking().ToList ();
 
             } catch (Exception e) {
 
