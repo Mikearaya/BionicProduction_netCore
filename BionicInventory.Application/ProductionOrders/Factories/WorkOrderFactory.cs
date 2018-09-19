@@ -39,13 +39,13 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 foreach (var item in newOrder.workOrders) {
                     ProductionOrderList list = new ProductionOrderList ();
-                    
-                        list.ItemId = item.ItemId;
-                        var product = _productsQuery.GetProductById(item.ItemId);
 
-                        list.CostPerItem = product.UnitCost;
-                        list.Quantity = item.Quantity;
-                        list.DueDate = item.DueDate;
+                    list.ItemId = item.ItemId;
+                    var product = _productsQuery.GetProductById (item.ItemId);
+
+                    list.CostPerItem = product.UnitCost;
+                    list.Quantity = item.Quantity;
+                    list.DueDate = item.DueDate;
 
                     productionOrder.ProductionOrderList.Add (list);
                 }
@@ -59,7 +59,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
         public ProductionOrder CreateUpdatedWorkOrder (UpdatedWorkOrderDto newOrder) {
 
-            try {
 
                 ProductionOrder productionOrder = new ProductionOrder () {
                     Description = newOrder.Description,
@@ -70,10 +69,10 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 foreach (var item in newOrder.workOrders) {
                     ProductionOrderList list = new ProductionOrderList (); {
-                    var product = _productsQuery.GetProductById(item.ItemId);
+                        var product = _productsQuery.GetProductById (item.ItemId);
 
                         list.Id = (item.Id > 0) ? (uint) item.Id : 0;
-                        list.ItemId = item.ItemId;                
+                        list.ItemId = item.ItemId;
                         list.CostPerItem = product.UnitCost;
                         list.Quantity = item.Quantity;
                         list.DueDate = item.DueDate;
@@ -84,97 +83,83 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 return productionOrder;
 
-            } catch (Exception) {
-                return null;
-            }
         }
 
         public IEnumerable<WorkOrderView> CreateWorkOrderView (ProductionOrder workOrder) {
 
-                var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
+            var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
 
-                List<WorkOrderView> workorderView = new List<WorkOrderView> ();
+            List<WorkOrderView> workorderView = new List<WorkOrderView> ();
 
-                foreach (var item in workOrder.ProductionOrderList) {
-                    var product = _productsQuery.GetProductById (item.ItemId);
-                    WorkOrderView view = new WorkOrderView () {
-                        id = item.ProductionOrderId,
-                        orderId = item.Id,
-                        description = workOrder.Description,
-                        orderedBy = employee.FirstName + ' ' + employee.LastName,
-                        product = product.Code,
-                        orderDate = item.DateAdded,
-                        dueDate = item.DueDate,
-                        costPerItem = item.CostPerItem,
-                        quantity = item.Quantity
-                    };
-                    view.status = (item.Complete) ? "Complete" : "Active";
-                    workorderView.Add (view);
+            foreach (var item in workOrder.ProductionOrderList) {
+                var product = _productsQuery.GetProductById (item.ItemId);
+                WorkOrderView view = new WorkOrderView () {
+                    id = item.ProductionOrderId,
+                    orderId = item.Id,
+                    description = workOrder.Description,
+                    orderedBy = employee.FirstName + ' ' + employee.LastName,
+                    product = product.Code,
+                    orderDate = item.DateAdded,
+                    dueDate = item.DueDate,
+                    costPerItem = item.CostPerItem,
+                    quantity = item.Quantity
+                };
+                view.status = (item.Complete) ? "Complete" : "Active";
+                workorderView.Add (view);
 
-                }
-                
+            }
+
             return workorderView;
 
         }
 
         public IEnumerable<WorkOrderView> CreateWorkOrderViewList (IEnumerable<ProductionOrder> workOrder) {
 
-            try {
-                List<WorkOrderView> workorderView = new List<WorkOrderView> ();
-                foreach (var order in workOrder) {
-                    var employee = _employeeQuery.GetEmployeeById (order.OrderedBy);
+            List<WorkOrderView> workorderView = new List<WorkOrderView> ();
+            foreach (var order in workOrder) {
+                var employee = _employeeQuery.GetEmployeeById (order.OrderedBy);
 
-                    foreach (var orderList in order.ProductionOrderList) {
-                        var product = _productsQuery.GetProductById (orderList.ItemId);
-                        WorkOrderView view = new WorkOrderView ();
-                        view.id = order.Id;
-                        view.description = order.Description;
-                        view.orderedBy = employee.FirstName + ' ' + employee.LastName;
-                        view.orderDate = orderList.DateAdded;
-                        view.orderId = orderList.Id;
-                        view.costPerItem = orderList.CostPerItem;
-                        view.quantity = orderList.Quantity;
-                        view.dueDate = orderList.DueDate;
-                        view.product = product.Code;
-                        view.status = (orderList.Complete) ? "Complete" : "Active";
-                        workorderView.Add (view);
-                    }
-
+                foreach (var orderList in order.ProductionOrderList) {
+                    var product = _productsQuery.GetProductById (orderList.ItemId);
+                    WorkOrderView view = new WorkOrderView ();
+                    view.id = order.Id;
+                    view.description = order.Description;
+                    view.orderedBy = employee.FirstName + ' ' + employee.LastName;
+                    view.orderDate = orderList.DateAdded;
+                    view.orderId = orderList.Id;
+                    view.costPerItem = orderList.CostPerItem;
+                    view.quantity = orderList.Quantity;
+                    view.dueDate = orderList.DueDate;
+                    view.product = product.Code;
+                    view.status = (orderList.Complete) ? "Complete" : "Active";
+                    workorderView.Add (view);
                 }
-                return workorderView;
 
-            } catch (Exception) {
-                return null;
             }
+            return workorderView;
 
         }
 
         public WorkOrderView CreateWorkOrderView (ProductionOrderList workOrder) {
 
-            try {
-                var employee = _employeeQuery.GetEmployeeById (workOrder.ProductionOrder.OrderedBy);
+            var employee = _employeeQuery.GetEmployeeById (workOrder.ProductionOrder.OrderedBy);
 
-                var product = _productsQuery.GetProductById (workOrder.ItemId);
+            var product = _productsQuery.GetProductById (workOrder.ItemId);
 
-                WorkOrderView view = new WorkOrderView () {
-                    orderId = workOrder.ProductionOrderId,
-                    id = workOrder.Id,
-                    description = workOrder.ProductionOrder.Description,
-                    orderedBy = employee.FirstName + ' ' + employee.LastName,
-                    product = product.Code,
-                    orderDate = workOrder.DateAdded,
-                    dueDate = workOrder.DueDate,
-                    costPerItem = workOrder.CostPerItem,
-                    quantity = workOrder.Quantity
-                };
-                view.status = (workOrder.Complete) ? "Complete" : "Active";
+            WorkOrderView view = new WorkOrderView () {
+                orderId = workOrder.ProductionOrderId,
+                id = workOrder.Id,
+                description = workOrder.ProductionOrder.Description,
+                orderedBy = employee.FirstName + ' ' + employee.LastName,
+                product = product.Code,
+                orderDate = workOrder.DateAdded,
+                dueDate = workOrder.DueDate,
+                costPerItem = workOrder.CostPerItem,
+                quantity = workOrder.Quantity
+            };
+            view.status = (workOrder.Complete) ? "Complete" : "Active";
 
-                return view;
-
-            } catch (Exception) {
-                return null;
-            }
-
+            return view;
         }
 
     }
