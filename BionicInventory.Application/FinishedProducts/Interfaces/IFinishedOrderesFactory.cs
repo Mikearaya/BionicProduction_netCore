@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 20, 2018 12:00 AM
+ * @Last Modified Time: Sep 21, 2018 10:26 PM
  * @Description: Modify Here, Please 
  */
+using System.Collections.Generic;
 using BionicInventory.Application.FinishedProducts.Models;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
@@ -18,6 +19,8 @@ namespace BionicInventory.Application.FinishedProducts.Interfaces {
         FinishedProduct FinishedProductForUpdate(UpdatedFinishedProductDto updated);
 
         FinishedProductsViewModel FinishedProductForView(FinishedProduct finishedProduct);
+
+        List<FinishedProductsViewModel> FinishedProductForView(List<FinishedProduct> finishedProduct);
 
     }
 }

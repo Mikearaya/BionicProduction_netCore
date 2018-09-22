@@ -3,21 +3,27 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 12:28 AM
+ * @Last Modified Time: Sep 21, 2018 10:32 PM
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Collections.Generic;
 
 namespace BionicInventory.Application.FinishedProducts.Models {
     public class FinishedProductsViewModel {
-        public uint id;
-        public uint orderId;
-        public int quantity;
-        public uint submittedBy;
-        public uint recievedBy;
-        public string submitter;
-        public string reciever;
-        public DateTime dateAdded;
-        public DateTime dateUpdated;
+        public uint id { get; set; }
+        public uint orderId { get; set; }
+        public string product { get; set; }
+
+        public float cost { get; set; }
+        public int quantity { get; set; }
+        public uint submittedBy { get; set; }
+        public uint recievedBy { get; set; }
+        public string submitter { get; set; }
+        public string reciever { get; set; }
+        public DateTime dateAdded { get; set; }
+        public DateTime dateUpdated { get; set; }
+
+        public IEnumerable<FinishedProductsViewModel> finished{ get; set; }
     }
 }

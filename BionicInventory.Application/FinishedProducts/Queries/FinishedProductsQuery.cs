@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 20, 2018 12:04 AM
+ * @Last Modified Time: Sep 21, 2018 10:43 PM
  * @Description: FinishedProducts database Query Class
  */
 using System;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
+using BionicInventory.Application.FinishedProducts.Models;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.ProductionOrders;
 using Microsoft.EntityFrameworkCore;
@@ -28,12 +29,25 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
             _logger = logger;
 
         }
-        public IEnumerable<FinishedProduct> GetAllFinishedProducts () {
+        public List<FinishedProductsViewModel> GetAllFinishedProducts () {
 
             try {
 
-                return _database.FinishedProduct.AsNoTracking().ToList ();
+                return _database.FinishedProduct
+                    .Select (fin => new FinishedProductsViewModel () {
+                        id = fin.Id,
 
+                            quantity = fin.Quantity,
+                            recievedBy = fin.RecievedBy,
+                            submittedBy = fin.SubmittedBy,
+                            product = fin.Order.Item.Code,
+                            orderId = fin.OrderId,
+                            cost = fin.Order.CostPerItem,
+                            dateAdded = (DateTime) fin.DateAdded,
+                            submitter = fin.SubmittedByNavigation.FirstName + ' ' + fin.SubmittedByNavigation.LastName,
+                            reciever = fin.RecievedByNavigation.FirstName + ' ' + fin.RecievedByNavigation.LastName,
+                            dateUpdated = (DateTime) fin.DateUpdated
+                    }).ToList ();
             } catch (Exception e) {
 
                 _logger.LogError (100, e.Message, e);
@@ -62,7 +76,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
             try {
 
-                return _database.FinishedProduct.Where (prod => prod.Order.Id == orderId).AsNoTracking().ToList ();
+                return _database.FinishedProduct.Where (prod => prod.Order.Id == orderId).AsNoTracking ().ToList ();
 
             } catch (Exception e) {
 

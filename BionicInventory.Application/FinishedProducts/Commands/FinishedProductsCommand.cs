@@ -3,10 +3,11 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 20, 2018 12:26 AM
+ * @Last Modified Time: Sep 21, 2018 11:24 PM
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Collections.Generic;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Models;
@@ -28,48 +29,62 @@ namespace BionicInventory.Application.FinishedProducts.Commands {
             _logger = logger;
         }
 
-        public FinishedProduct AddFinishedProduct (FinishedProduct finishedProduct) {
+        public List<FinishedProduct> AddFinishedProduct (List<FinishedProduct> finishedProducts) {
 
             try {
+                List<FinishedProduct> newItemsList = new List<FinishedProduct> ();
+                foreach (var item in finishedProducts) {
+                    for (var i = 0; i < (int) item.Quantity; i++) {
+                        _logger.LogError (null, i);
+                        FinishedProduct newItem = new FinishedProduct ();
 
-                _database.FinishedProduct.Add (finishedProduct);
+                        newItem.Id = item.Id;
+                        newItem.Quantity = item.Quantity;
+                        newItem.OrderId = item.OrderId;
+                        newItem.SubmittedBy = item.SubmittedBy;
+                        newItem.RecievedBy = item.RecievedBy;
+
+                        newItemsList.Add (newItem);
+                        _database.FinishedProduct.AddRange (newItemsList);
+                    }
+
+                }
                 _database.Save ();
 
-                return finishedProduct;
-
+            return newItemsList;
             } catch (Exception e) {
-                _logger.LogError (null, e.Message, e);
-                return null;
-            }
-        }
-
-        public bool DeleteFinishedProduct (FinishedProduct finishedProduct) {
-
-            try {
-
-                _database.FinishedProduct.Remove (finishedProduct);
-                _database.Save ();
-                return true;
-
-            } catch (Exception e) {
-
-                _logger.LogError (null, e.Message, e);
-                return false;
-            }
-        }
-
-        public bool UpdateFinishedProduct (FinishedProduct finishedProduct) {
-
-            try {
-
-                _database.FinishedProduct.Update (finishedProduct);
-                _database.Save ();
-                return true;
-
-            } catch (Exception e) {
-                _logger.LogError (null, e.Message, e);
-                return false;
-            }
+            _logger.LogError (null, e.Message, e);
+            return null;
         }
     }
+
+    public bool DeleteFinishedProduct (FinishedProduct finishedProduct) {
+
+        try {
+
+            _database.FinishedProduct.Remove (finishedProduct);
+            _database.Save ();
+            return true;
+
+        } catch (Exception e) {
+
+            _logger.LogError (null, e.Message, e);
+            return false;
+        }
+    }
+
+    public bool UpdateFinishedProduct (FinishedProduct finishedProduct) {
+
+        try {
+
+            _database.FinishedProduct.Update (finishedProduct);
+            _database.Save ();
+            return true;
+
+        } catch (Exception e) {
+            _logger.LogError (null, e.Message, e);
+            return false;
+        }
+    }
+}
 }

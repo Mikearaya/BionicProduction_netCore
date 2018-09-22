@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 20, 2018 12:23 AM
+ * @Last Modified Time: Sep 21, 2018 10:45 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -16,6 +16,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BionicInventory.Domain.FinishedProducts;
 
 namespace BionicInventory.API.Controllers.FinishedProducts {
 
@@ -86,11 +87,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                 var finishedProducts = _query.GetAllFinishedProducts ();
                 List<FinishedProductsViewModel> finishedProductsList = new List<FinishedProductsViewModel> ();
 
-                foreach (var finishedProduct in finishedProducts) {
-                    finishedProductsList.Add (_factory.FinishedProductForView (finishedProduct));
-                }
-
-                return StatusCode (200, finishedProductsList);
+                return StatusCode (200, finishedProducts);
 
             } catch (Exception e) {
                 _logger.LogError (e.Message);
@@ -103,9 +100,10 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
         [ProducesResponseType (422)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult AddFinishedProduct ([FromBody] NewFinishedProductDto newFinishedProduct) {
+        public IActionResult AddFinishedProduct ([FromBody] IEnumerable<NewFinishedProductDto> newFinishedProduct) {
 
-            try {
+            
+                List<FinishedProduct> finishedProductsList = new List<FinishedProduct>();
 
                 if (newFinishedProduct == null) {
                     return StatusCode (400);
@@ -114,22 +112,28 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                 if (!ModelState.IsValid) {
                     return new InvalidInputResponse (ModelState);
                 }
-                var submittedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.submittedBy);
-                var recievedBy = _employeesQuery.GetEmployeeById (newFinishedProduct.recievedBy);
+                foreach (var item in newFinishedProduct) {
+                    var submittedBy = _employeesQuery.GetEmployeeById (item.submittedBy);
+                    var recievedBy = _employeesQuery.GetEmployeeById (item.recievedBy);
 
-                if (submittedBy == null || recievedBy == null) {
-                    return StatusCode (404, "Employee Not Found");
+                    if (submittedBy == null || recievedBy == null) {
+                        return StatusCode (404, "Employee Not Found");
+                    }
+
+                    var order = _productionOrderQuery.GetWorkOrderItemById (item.orderId);
+                    if (order == null) {
+                        return StatusCode (404, "Order Not Found");
+                    }
+
+                    var finishedProduct = _factory.NewFinishedProduct (order, submittedBy, recievedBy, item.quantity);
+                
+
+                    finishedProductsList.Add(finishedProduct);
                 }
 
-                var order = _productionOrderQuery.GetWorkOrderItemById (newFinishedProduct.orderId);
+                
 
-                if (order == null) {
-                    return StatusCode (404, "Order Not Found");
-                }
-
-                var finishedProduct = _factory.NewFinishedProduct (order, submittedBy, recievedBy, newFinishedProduct.quantity);
-
-                var result = _command.AddFinishedProduct (finishedProduct);
+                var result = _command.AddFinishedProduct (finishedProductsList);
 
                 if (result != null) {
 
@@ -140,10 +144,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                     return StatusCode (500, "Unkown Error Please try again later");
                 }
 
-            } catch (Exception e) {
-                _logger.LogError (500, e.Message, e);
-                return StatusCode (500);
-            }
+     
         }
 
         [HttpPut]
@@ -223,13 +224,12 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                     return StatusCode (500, "Unknown Error Pleace try again later");
                 }
 
+            } catch (Exception e) {
+                _logger.LogError (500, e.Message, e);
 
-        } catch (Exception e) {
-            _logger.LogError (500, e.Message, e);
+                return StatusCode (500, e);
+            }
 
-            return StatusCode (500, e);
         }
-
     }
-}
 }
