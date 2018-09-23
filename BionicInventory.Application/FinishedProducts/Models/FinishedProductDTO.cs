@@ -21,7 +21,7 @@ namespace BionicInventory.Application.FinishedProducts.Models {
         public uint recievedBy { get; set; }
 
         [Required]
-        public uint submittedBy { get; set; }
+        public uint submitedBy { get; set; }
 
     }
 }

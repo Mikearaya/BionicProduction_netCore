@@ -113,7 +113,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                     return new InvalidInputResponse (ModelState);
                 }
                 foreach (var item in newFinishedProduct) {
-                    var submittedBy = _employeesQuery.GetEmployeeById (item.submittedBy);
+                    var submittedBy = _employeesQuery.GetEmployeeById (item.submitedBy);
                     var recievedBy = _employeesQuery.GetEmployeeById (item.recievedBy);
 
                     if (submittedBy == null || recievedBy == null) {
@@ -172,7 +172,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                     return StatusCode (404, $"Product with id: {id} Not Found : ");
                 }
 
-                var submittedBy = _employeesQuery.GetEmployeeById (updatedData.submittedBy);
+                var submittedBy = _employeesQuery.GetEmployeeById (updatedData.submitedBy);
                 var recievedBy = _employeesQuery.GetEmployeeById (updatedData.recievedBy);
 
                 if (submittedBy == null || recievedBy == null) {

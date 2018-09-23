@@ -21,6 +21,9 @@ import {
   ColumnMenuService, ForeignKeyService, ReorderService, RowDDService, EditService,
   ExcelExportService, ResizeService
 } from '@syncfusion/ej2-angular-grids';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
+import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 
 @NgModule({
   imports: [
@@ -31,12 +34,16 @@ import {
     // application
     FinishedProductsRoutingModule,
     // syncfusion
-    GridModule
+    GridModule,
+    DropDownListModule,
+    ButtonModule
   ],
   declarations: [
     // application
     FinishedProductFormComponent,
-    FinishedProductsViewComponent
+    FinishedProductsViewComponent,
+    // syncfusion
+    NumericTextBoxComponent
   ],
   providers: [
     // application

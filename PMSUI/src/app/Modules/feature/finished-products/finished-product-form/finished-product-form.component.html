@@ -1,3 +1,43 @@
-<p>
-  finished-product-form works!
-</p>
+<section class="e-card">
+  <form [formGroup]="finishedProductsForm" name="finishedProducts" novalidate (ngSubmit)="onSubmit()">
+    <div class="container" formArrayName="submitionForm">
+      <div class="row" *ngFor="let product of submitionForm.controls; let index=index; let last=last;" [formGroup]="product">
+        <div class="col-2 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" name="orderId" formControlName="orderId" id='orderId' placeholder="Order Id"
+            floatLabelType="Auto" [query]="orderQuery" [fields]="orderFields" [dataSource]="orderList">
+          </ejs-dropdownlist>
+        </div>
+        <div class="col-2 col-xs-12">
+          <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
+            [attr.name]="'quantity'+index" placeholder="Quantity" [attr.id]="'quantity'+index"></ejs-numerictextbox>
+        </div>
+        <div class="col-3 col-xs-12">
+
+          <ejs-dropdownlist formControlName="submitedBy" [allowFiltering]="true" floatLabelType="Auto" placeholder="Submitted By" [attr.name]="'submitedBy'+index"
+            [attr.id]="'submitedBy'+index" [query]="employeeQuery" [fields]="employeeFields" [dataSource]="employeeList">
+          </ejs-dropdownlist>
+        </div>
+        <div class="col-3 col-xs-12">
+          <ejs-dropdownlist formControlName="recievedBy" placeholder="Recieved By" floatLabelType="Auto" [allowFiltering]="true" [attr.name]="'recievedBy'+index"
+            [attr.id]="'recievedBy'+index" [query]="employeeQuery" [fields]="employeeFields"  [dataSource]="employeeList">
+          </ejs-dropdownlist>
+        </div>
+        <div class="col-2 col-xs-12">
+          <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="submitionForm.invalid || !last"
+            (click)="addForm()">add</button>
+          <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="submitionForm.length == 1"
+            (click)="submitionForm.removeAt(index)">remove</button>
+
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-12 form-buttons">
+          <button ejs-button type="submit" [disabled]="finishedProductsForm.invalid"> Submit</button>
+          <button ejs-button type="button"> Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

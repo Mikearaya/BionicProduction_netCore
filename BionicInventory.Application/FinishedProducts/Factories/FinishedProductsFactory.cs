@@ -44,7 +44,7 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
         public FinishedProduct FinishedProductForUpdate (UpdatedFinishedProductDto updated) {
             FinishedProduct current = new FinishedProduct ();
             current.OrderId = updated.orderId;
-            current.SubmittedBy = updated.submittedBy;
+            current.SubmittedBy = updated.submitedBy;
             current.RecievedBy = updated.recievedBy;
             current.Quantity = updated.quantity;
             return current;

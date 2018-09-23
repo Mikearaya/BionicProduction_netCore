@@ -23,7 +23,5 @@ namespace BionicInventory.Application.FinishedProducts.Models {
         public string reciever { get; set; }
         public DateTime dateAdded { get; set; }
         public DateTime dateUpdated { get; set; }
-
-        public IEnumerable<FinishedProductsViewModel> finished{ get; set; }
     }
 }

@@ -33,21 +33,46 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
             try {
 
-                return _database.FinishedProduct
-                    .Select (fin => new FinishedProductsViewModel () {
-                        id = fin.Id,
+                var result = _database.FinishedProduct
+                    .GroupBy (prod => prod.Order.Id)
+                    .Select (finished => new {
+                        orderId = finished.Key,
+                            quantity = finished.Count (),
+                            FinishedProduct = finished.Where (r => r.OrderId == finished.Key).Select (detail => new {
+                                Id = detail.Id,
+                                    submittedBy = detail.SubmittedBy,
+                                    recievedBy = detail.RecievedBy,
+                                    product = detail.Order.Item.Code,
+                                    cost = detail.Order.CostPerItem,
+                                    DateAdded = detail.DateAdded,
+                                    DateUpdated = detail.DateUpdated,
 
-                            quantity = fin.Quantity,
-                            recievedBy = fin.RecievedBy,
-                            submittedBy = fin.SubmittedBy,
-                            product = fin.Order.Item.Code,
-                            orderId = fin.OrderId,
-                            cost = fin.Order.CostPerItem,
-                            dateAdded = (DateTime) fin.DateAdded,
-                            submitter = fin.SubmittedByNavigation.FirstName + ' ' + fin.SubmittedByNavigation.LastName,
-                            reciever = fin.RecievedByNavigation.FirstName + ' ' + fin.RecievedByNavigation.LastName,
-                            dateUpdated = (DateTime) fin.DateUpdated
+                                    submitter = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName,
+                                    reciever = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName
+                            }).FirstOrDefault ()
                     }).ToList ();
+
+                List<FinishedProductsViewModel> view = new List<FinishedProductsViewModel> ();
+                foreach (var item in result) {
+
+                    view.Add (new FinishedProductsViewModel () {
+                        id = item.FinishedProduct.Id,
+                            quantity = item.quantity,
+                            submittedBy = item.FinishedProduct.submittedBy,
+                            recievedBy = item.FinishedProduct.recievedBy,
+                            product = item.FinishedProduct.product,
+                            cost = item.FinishedProduct.cost,
+                            orderId = item.orderId,
+                            submitter = item.FinishedProduct.submitter,
+                            reciever = item.FinishedProduct.reciever,
+
+                            dateAdded = (DateTime) item.FinishedProduct.DateAdded,
+                            dateUpdated = (DateTime) item.FinishedProduct.DateUpdated
+                    });
+
+                }
+
+                return view;
             } catch (Exception e) {
 
                 _logger.LogError (100, e.Message, e);
