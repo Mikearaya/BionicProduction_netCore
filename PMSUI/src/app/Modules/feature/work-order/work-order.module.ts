@@ -25,6 +25,7 @@ import {
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
@@ -40,14 +41,13 @@ import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
     ButtonModule,
     // application
     WorkOrderRoutingModule,
+    SharedModule
 
   ],
   declarations: [
     // application
     WorkOrderFormComponent,
-    WorkOrderViewComponent,
-    // syncfusion
-    NumericTextBoxComponent
+    WorkOrderViewComponent
   ],
   providers: [
     // application

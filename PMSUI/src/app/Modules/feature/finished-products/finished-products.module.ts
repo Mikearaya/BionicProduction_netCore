@@ -24,6 +24,7 @@ import {
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
     ReactiveFormsModule,
     // application
     FinishedProductsRoutingModule,
+    SharedModule,
     // syncfusion
     GridModule,
     DropDownListModule,
@@ -41,9 +43,7 @@ import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
   declarations: [
     // application
     FinishedProductFormComponent,
-    FinishedProductsViewComponent,
-    // syncfusion
-    NumericTextBoxComponent
+    FinishedProductsViewComponent
   ],
   providers: [
     // application
