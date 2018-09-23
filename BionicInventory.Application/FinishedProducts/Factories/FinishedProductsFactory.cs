@@ -52,20 +52,10 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
 
         public FinishedProductsViewModel FinishedProductForView (FinishedProduct finishedProduct) {
 
-            var submittedBy = _employeeQuery.GetEmployeeById (finishedProduct.SubmittedBy);
-            var recievedBy = _employeeQuery.GetEmployeeById (finishedProduct.RecievedBy);
 
             FinishedProductsViewModel view = new FinishedProductsViewModel () {
-                id = finishedProduct.Id,
-                orderId = finishedProduct.OrderId,
-                submitter = submittedBy.FullName (),
-                reciever = recievedBy.FullName (),
-                submittedBy = submittedBy.Id,
-                recievedBy = recievedBy.Id,
+             
                 quantity = finishedProduct.Quantity,
-                dateAdded = (DateTime) finishedProduct.DateAdded,
-                dateUpdated = (DateTime) finishedProduct.DateUpdated
-
             };
 
             return view;
@@ -78,21 +68,8 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
 
             foreach (var item in finishedProducts) {
 
-                var submittedBy = _employeeQuery.GetEmployeeById (item.SubmittedBy);
-                var recievedBy = _employeeQuery.GetEmployeeById (item.RecievedBy);
-
                 FinishedProductsViewModel view = new FinishedProductsViewModel () {
-                    id = item.Id,
-                    orderId = item.OrderId,
-                    submitter = submittedBy.FullName (),
-                    reciever = recievedBy.FullName (),
-                    submittedBy = submittedBy.Id,
-                    recievedBy = recievedBy.Id,
                     quantity = item.Quantity,
-                
-                    dateAdded = (DateTime) item.DateAdded,
-                    dateUpdated = (DateTime) item.DateUpdated
-
                 };
                 finishedProductsList.Add (view);
 

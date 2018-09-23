@@ -85,8 +85,6 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
             try {
 
                 var finishedProducts = _query.GetAllFinishedProducts ();
-                List<FinishedProductsViewModel> finishedProductsList = new List<FinishedProductsViewModel> ();
-
                 return StatusCode (200, finishedProducts);
 
             } catch (Exception e) {

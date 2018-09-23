@@ -35,7 +35,7 @@ export class PmsNavigationComponent {
       id: 'workorders', name: 'PRODUCTION'
     },
     {
-      id: 'finishedProducts', name: 'Finished Products'
+      id: 'finishedProducts', name: 'STOCK'
     }
 
   ];

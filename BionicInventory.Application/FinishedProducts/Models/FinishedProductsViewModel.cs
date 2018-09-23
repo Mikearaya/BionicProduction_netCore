@@ -11,17 +11,9 @@ using System.Collections.Generic;
 
 namespace BionicInventory.Application.FinishedProducts.Models {
     public class FinishedProductsViewModel {
-        public uint id { get; set; }
-        public uint orderId { get; set; }
         public string product { get; set; }
 
         public float cost { get; set; }
         public int quantity { get; set; }
-        public uint submittedBy { get; set; }
-        public uint recievedBy { get; set; }
-        public string submitter { get; set; }
-        public string reciever { get; set; }
-        public DateTime dateAdded { get; set; }
-        public DateTime dateUpdated { get; set; }
     }
 }

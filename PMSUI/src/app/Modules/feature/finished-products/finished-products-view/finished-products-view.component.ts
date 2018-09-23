@@ -36,12 +36,16 @@ export class FinishedProductsViewComponent implements OnInit {
   public allowResizing = true;
   public showColumnChooser = true;
   public allowReordering = true;
+  public allowGrouping = false;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
-  public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
   public groupOptions: GroupSettingsModel;
-  public showColumnMenu = true;
+  public showColumnMenu = false;
+  public allowPdfExport = true;
+  public allowExcelExport = true;
+  public allowFiltering = true;
+  public allowSorting = true;
 
   constructor(
     private finishedProductsApi: FinishedProductsApiService,
@@ -66,41 +70,16 @@ export class FinishedProductsViewComponent implements OnInit {
     this.data = this.dataManager;
 
     this.pageSettings = { pageSize: 6 };
-    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'Print', 'PdfExport'];
-    this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-    { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
-
+    this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
-      showDropArea: true,
+      showDropArea: false,
       disablePageWiseAggregates: true
     };
-  }
 
-  rowSelected(args: RowSelectEventArgs) {
-    const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-    // alert(selectedrowindex); // To alert the selected row indexes.
-    const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
-  }
-
-  clickHandler(args: ClickEventArgs): void {
-    alert('work');
-    if (args.item.id === 'finishedProducts_add') {
-      console.log('in');
-      this.route.navigate(['finishedProducts/new']);
-    } else if (args.item.id === 'finishedProducts_edit') {
-      // console.log(args);
-    } else if (args.item.id === 'finishedProducts_delete') {
-
-    }
-    if (args.item.id === 'expandall') {
-      this.grid.groupModule.expandAll();
-    }
-
-    if (args.item.id === 'collapseall') {
-      this.grid.groupModule.collapseAll();
-    }
+    this.filterSetting = {
+      type: 'Menu'
+   };
   }
 
 

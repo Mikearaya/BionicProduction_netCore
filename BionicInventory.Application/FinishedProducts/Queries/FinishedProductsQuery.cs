@@ -34,21 +34,23 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
             try {
 
                 var result = _database.FinishedProduct
-                    .GroupBy (prod => prod.Order.Id)
+                    .GroupBy (prod => prod.Order.ItemId)
                     .Select (finished => new {
-                        orderId = finished.Key,
-                            quantity = finished.Count (),
-                            FinishedProduct = finished.Where (r => r.OrderId == finished.Key).Select (detail => new {
-                                Id = detail.Id,
-                                    submittedBy = detail.SubmittedBy,
-                                    recievedBy = detail.RecievedBy,
-                                    product = detail.Order.Item.Code,
-                                    cost = detail.Order.CostPerItem,
-                                    DateAdded = detail.DateAdded,
-                                    DateUpdated = detail.DateUpdated,
 
-                                    submitter = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName,
-                                    reciever = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName
+                        quantity = finished.Count (),
+                            cost = finished.Sum (su => su.Order.CostPerItem),
+                            FinishedProduct = finished.Where (r => r.Order.ItemId == finished.Key).Select (detail => new {
+                                //   orderId = detail.OrderId,
+                                //     Id = detail.Id,
+                                //         submittedBy = detail.SubmittedBy,
+                                //       recievedBy = detail.RecievedBy,
+                                product = detail.Order.Item.Code,
+                                    cost = detail.Order.CostPerItem,
+                                    //   DateAdded = detail.DateAdded,
+                                    // DateUpdated = detail.DateUpdated,
+
+                                    // submitter = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName,
+                                    // reciever = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName
                             }).FirstOrDefault ()
                     }).ToList ();
 
@@ -56,18 +58,18 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                 foreach (var item in result) {
 
                     view.Add (new FinishedProductsViewModel () {
-                        id = item.FinishedProduct.Id,
-                            quantity = item.quantity,
-                            submittedBy = item.FinishedProduct.submittedBy,
-                            recievedBy = item.FinishedProduct.recievedBy,
+                        //   id = item.FinishedProduct.Id,
+                        quantity = item.quantity,
+                            //        submittedBy = item.FinishedProduct.submittedBy,
+                            //      recievedBy = item.FinishedProduct.recievedBy,
                             product = item.FinishedProduct.product,
-                            cost = item.FinishedProduct.cost,
-                            orderId = item.orderId,
-                            submitter = item.FinishedProduct.submitter,
-                            reciever = item.FinishedProduct.reciever,
+                            cost = item.cost,
+                            //       orderId = item.FinishedProduct.orderId,
+                            //      submitter = item.FinishedProduct.submitter,
+                            //    reciever = item.FinishedProduct.reciever,
 
-                            dateAdded = (DateTime) item.FinishedProduct.DateAdded,
-                            dateUpdated = (DateTime) item.FinishedProduct.DateUpdated
+                            //                            dateAdded = (DateTime) item.FinishedProduct.DateAdded,
+                            //                          dateUpdated = (DateTime) item.FinishedProduct.DateUpdated
                     });
 
                 }

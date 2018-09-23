@@ -1,12 +1,34 @@
-<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="true" [allowResizing]="allowResizing"
-  [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="true" [toolbar]='toolbar' id="finishedProducts"
-  (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
-  [showColumnMenu]="showColumnMenu" [groupSettings]='groupOptions' [allowFiltering]="true" [allowSorting]="true"
-  allowPdfExport="true">
+<ejs-grid #grid id="finishedProducts"
+                [dataSource]='dataManager'
+                [allowGrouping]="allowGrouping"
+                [allowResizing]="allowResizing"
+                [allowReordering]="allowReordering"
+                [allowPaging]="pageSettings"
+                [allowExcelExport]="allowExcelExport"
+                [toolbar]='toolbar'
+                (toolbarClick)='toolbarClick($event)'
+                [showColumnChooser]="showColumnChooser"
+                [showColumnMenu]="showColumnMenu"
+                [filterSettings]='filterSetting'
+                [groupSettings]='groupOptions'
+                [allowFiltering]="true"
+                [allowSorting]="allowSorting"
+                [allowPdfExport]="allowPdfExport">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" textAlign="left" [width]="col.width" *ngFor="let col of columnBluePrint"
-      [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping" [isIdentity]="col.isIdentity"
-      [headerText]='col.humanReadable' [type]="col.type" [format]="col.format"  [visible]="col.visable"></e-column>
+    <e-column *ngFor="let col of columnBluePrint"
+               [textAlign]="col.align"
+              [width]="col.width"
+              [allowEditing]="col.editable"
+              [field]='col.key'
+              [allowFiltering]="col.allowFiltering"
+              [allowGrouping]="col.allowGrouping"
+              [isIdentity]="col.isIdentity"
+              [headerText]='col.humanReadable'
+              [type]="col.type"
+              [format]="col.format"
+              [visible]="col.visable"
+              >
+      </e-column>
 
   </e-columns>
 </ejs-grid>
