@@ -18,11 +18,13 @@ namespace BionicInventory.Application.ProductionOrders.Models {
 
         public string product { get; set; }
 
-        public float costPerItem { get; set; }
         public DateTime? dueDate { get; set; }
         public DateTime? orderDate { get; set; }
 
-        public uint quantity { get; set; }
+        public int quantity { get; set; }
+        public int remaining { get; set; }
+
+        public int completed { get; set; }
 
         public string status { get; set; }
     }

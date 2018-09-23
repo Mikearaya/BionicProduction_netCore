@@ -79,7 +79,7 @@ export class FinishedProductsViewComponent implements OnInit {
 
     this.filterSetting = {
       type: 'Menu'
-   };
+    };
   }
 
 

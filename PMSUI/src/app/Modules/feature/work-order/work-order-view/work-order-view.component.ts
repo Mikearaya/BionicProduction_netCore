@@ -33,15 +33,22 @@ export class WorkOrderViewComponent implements OnInit {
 
   public data: DataManager;
   public pageSettings: PageSettingsModel;
-  public allowResizing = true;
-  public showColumnChooser = true;
-  public allowReordering = true;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
   public groupOptions: GroupSettingsModel;
-  public showColumnMenu = true;
+  public allowResizing = true;
+  public showColumnChooser = true;
+  public allowReordering = true;
+
+  public showColumnMenu = false;
+  public allowFiltering = true;
+  public allowSorting = true;
+  public allowGrouping = true;
+  public allowExcelExport = true;
+  public allowPdfExport = true;
+  public allowPaging = true;
 
   constructor(
     private workOrderApi: WorkOrderAPIService,
@@ -56,9 +63,6 @@ export class WorkOrderViewComponent implements OnInit {
 
   public dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/api/workorders',
-    updateUrl: 'http://localhost:5000/api/workorders',
-    insertUrl: 'http://localhost:5000/api/workorders',
-    removeUrl: 'http://localhost:5000/api/workorders',
     adaptor: new WebApiAdaptor,
     offline: true
   });
@@ -68,16 +72,16 @@ export class WorkOrderViewComponent implements OnInit {
 
     this.data = this.dataManager;
 
-    this.pageSettings = { pageSize: 6 };
+    this.pageSettings = { pageSize: 10 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'Print', 'PdfExport'];
-    this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-    { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
-
+    this.toolbar = ['Add', 'Edit', 'Delete', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: true,
-      disablePageWiseAggregates: true, columns: ['id']
+      disablePageWiseAggregates: true
+    };
+    this.filterSetting = {
+      type: 'Menu'
     };
   }
 
@@ -85,25 +89,6 @@ export class WorkOrderViewComponent implements OnInit {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
     // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
-  }
-
-  clickHandler(args: ClickEventArgs): void {
-alert('work');
-    if (args.item.id === 'workorder_add') {
-        console.log('in');
-        this.route.navigate(['workorders/new']);
-    } else if (args.item.id === 'workorder_edit') {
-      // console.log(args);
-    } else if (args.item.id === 'workorder_delete') {
-
-    }
-    if (args.item.id === 'expandall') {
-      this.grid.groupModule.expandAll();
-    }
-
-    if (args.item.id === 'collapseall') {
-      this.grid.groupModule.collapseAll();
-    }
   }
 
 
@@ -115,9 +100,13 @@ alert('work');
     } else if (args.item.id === 'workorder_print') {
       this.grid.print();
     } else if (args.item.id === 'workorder_add') {
-      console.log('in');
+
       this.route.navigate(['workorders/new']);
-  }
+    } else if (args.item.id === 'workorder_edit') {
+      // console.log(args);
+    } else if (args.item.id === 'workorder_delete') {
+
+    }
   }
 
 }

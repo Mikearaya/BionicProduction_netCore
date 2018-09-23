@@ -1,8 +1,10 @@
-<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="true" [allowResizing]="allowResizing"
-  [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="true" [toolbar]='toolbar' id="workorder"
+<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
+  [allowReordering]="allowReordering" [allowPaging]="allowPaging" [pageSettings]="pageSettings" [allowExcelExport]="allowExcelExport"
+  [toolbar]='toolbar' id="workorder"
   (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
-  [showColumnMenu]="showColumnMenu"  [groupSettings]='groupOptions' [allowFiltering]="true" [allowSorting]="true"
-  allowPdfExport="true">
+  [showColumnMenu]="showColumnMenu" [filterSettings]="filterSetting"  [groupSettings]='groupOptions' [allowFiltering]="allowFiltering"
+  [allowSorting]="allowSorting"
+  [allowPdfExport]="allowPdfExport">
   <e-columns>
     <e-column [isPrimaryKey]="col.primaryKey" textAlign="left"  [width]="col.width" *ngFor="let col of columnBluePrint"
       [validationRules]="col.validationRule" [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping"

@@ -101,8 +101,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     product = product.Code,
                     orderDate = item.DateAdded,
                     dueDate = item.DueDate,
-                    costPerItem = item.CostPerItem,
-                    quantity = item.Quantity
+                    quantity = (int) item.Quantity
                 };
                 view.status = (item.Complete) ? "Complete" : "Active";
                 workorderView.Add (view);
@@ -127,8 +126,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     view.orderedBy = employee.FirstName + ' ' + employee.LastName;
                     view.orderDate = orderList.DateAdded;
                     view.orderId = orderList.Id;
-                    view.costPerItem = orderList.CostPerItem;
-                    view.quantity = orderList.Quantity;
+                    view.quantity = (int) orderList.Quantity;
                     view.dueDate = orderList.DueDate;
                     view.product = product.Code;
                     view.status = (orderList.Complete) ? "Complete" : "Active";
@@ -154,8 +152,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 product = product.Code,
                 orderDate = workOrder.DateAdded,
                 dueDate = workOrder.DueDate,
-                costPerItem = workOrder.CostPerItem,
-                quantity = workOrder.Quantity
+                quantity = (int) workOrder.Quantity
             };
             view.status = (workOrder.Complete) ? "Complete" : "Active";
 

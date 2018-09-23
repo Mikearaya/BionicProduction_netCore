@@ -51,13 +51,13 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         public IActionResult GetAllWorkOrders () {
             try {
 
-                var orders = _query.GetAllWorkOrders ();
+                var orders = _query.GetAllActiveWorkOrders ();
 
                 if (orders != null) {
 
-                    var orderView = _factory.CreateWorkOrderViewList (orders);
-                    var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
-                    return StatusCode (200, response);
+                    //var orderView = _factory.CreateWorkOrderViewList (orders);
+                //    var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
+                    return StatusCode (200, orders);
                     //TODO ReFactor this Section
                 } else {
                     return StatusCode (200, orders);
