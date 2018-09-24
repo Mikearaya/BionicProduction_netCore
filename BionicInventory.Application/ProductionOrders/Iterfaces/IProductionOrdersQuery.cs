@@ -17,7 +17,8 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces {
 
         ProductionOrder GetWorkOrderById(uint id);
         ProductionOrderList GetWorkOrderItemById(uint id);
-        IEnumerable<WorkOrderView> GetAllActiveWorkOrders();
+        IEnumerable<ActiveOrdersView> GetActiveWorkOrders();
+        IEnumerable<WorkOrderView> GetWorkOrdersStatus();
         IEnumerable<ProductionOrder> GetAllWorkOrders();
         IEnumerable<ProductionOrder> GetCompletedWorkOrders();
 

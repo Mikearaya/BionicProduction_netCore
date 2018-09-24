@@ -48,12 +48,18 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllWorkOrders () {
+        public IActionResult GetAllWorkOrders (String status = "ALL") {
             try {
-
-                var orders = _query.GetAllActiveWorkOrders ();
-
-                if (orders != null) {
+                if (status == "ALL") {
+                var orders = _query.GetWorkOrdersStatus ();
+                return StatusCode (200, orders);
+                } else {
+                    var orders = _query.GetActiveWorkOrders();
+                    return StatusCode (200, orders);
+                }
+                /*
+                
+                                if (orders != null) {
 
                     //var orderView = _factory.CreateWorkOrderViewList (orders);
                 //    var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
@@ -62,7 +68,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                 } else {
                     return StatusCode (200, orders);
                 }
-
+    */
             } catch (Exception e) {
                 _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);

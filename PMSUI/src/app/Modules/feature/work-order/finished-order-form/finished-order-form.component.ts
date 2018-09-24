@@ -42,7 +42,7 @@ export class FinishedOrderFormComponent implements OnInit {
         employee.ready.then((e: ReturnOption) => this.employeeList = <Object[]>e.result).catch((e) => true);
 
         const order: DataManager = new DataManager(
-            { url: 'http://localhost:5000/api/workorders', adaptor: new WebApiAdaptor, offline: true },
+            { url: 'http://localhost:5000/api/workorders?status=active', adaptor: new WebApiAdaptor, offline: true },
             new Query().take(8)
         );
 

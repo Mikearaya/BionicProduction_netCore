@@ -19,11 +19,7 @@ namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
         public uint Quantity { get; set; }
 
         [Required]
-        public float CostPerItem { get; set; }
-
-        [Required]
         public DateTime DueDate { get; set; }
 
-        public bool? Complete { get; set; }
     }
 }
