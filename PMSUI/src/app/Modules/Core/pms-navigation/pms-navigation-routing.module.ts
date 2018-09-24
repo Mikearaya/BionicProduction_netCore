@@ -11,7 +11,7 @@ const routes: Routes = [{
     { path: 'workorders', loadChildren: '../../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'products', loadChildren: '../../feature/products/products.module#ProductsModule' },
     { path: 'employees', loadChildren: '../../feature/employee/employee.module#EmployeeModule' },
-    { path: 'finishedProducts', loadChildren: '../../feature/finished-products/finished-products.module#FinishedProductsModule' }
+    { path: 'stock', loadChildren: '../../feature/current-stock/current-stock.module#StockModule' }
 
   ]
 }];

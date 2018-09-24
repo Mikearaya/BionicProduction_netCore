@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { FinishedProductsApiService, FinishedProductsView } from '../finished-products-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Query, WebApiAdaptor, DataManager, ReturnOption } from '@syncfusion/ej2-data';
 import { Location } from '@angular/common';
+import { FinishedOrderApiService } from '../finished-order-api.service';
+
 
 @Component({
-    selector: 'app-finished-product-form',
-    templateUrl: './finished-product-form.component.html',
-    styleUrls: ['./finished-product-form.component.css']
+    selector: 'app-finished-order-form',
+    templateUrl: './finished-order-form.component.html',
+    styleUrls: ['./finished-order-form.component.css']
 })
-export class FinishedProductFormComponent implements OnInit {
+export class FinishedOrderFormComponent implements OnInit {
 
     public finishedProductsForm: FormGroup;
     public employeeQuery: Query;
@@ -22,14 +23,14 @@ export class FinishedProductFormComponent implements OnInit {
     public orderList: any[];
 
     constructor(private formBuilder: FormBuilder,
-        private finishedProductsApi: FinishedProductsApiService,
+        private finishedProductsApi: FinishedOrderApiService,
         private activatedRoute: ActivatedRoute,
         private location: Location) {
 
         this.employeeQuery = new Query().select(['firstName', 'id']);
         this.employeeFields = { text: 'firstName', value: 'id' };
-        this.orderQuery = new Query().select(['orderId']);
-        this.orderFields = { text: 'orderId', value: 'orderId' };
+        this.orderQuery = new Query().select(['id']);
+        this.orderFields = { text: 'id', value: 'id' };
         this.createForm();
     }
 

@@ -9,10 +9,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { FinishedProductsRoutingModule } from './finished-products-routing.module';
-import { FinishedProductsApiService } from './finished-products-api.service';
-import { FinishedProductFormComponent } from './finished-product-form/finished-product-form.component';
-import { FinishedProductsViewComponent } from './finished-products-view/finished-products-view.component';
+
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
@@ -22,9 +19,10 @@ import {
   ExcelExportService, ResizeService
 } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
+import { CurrentStockViewComponent } from './current-stock-view/current-stock-view.component';
+import { StockRoutingModule } from './current-stock-routing.module';
 
 @NgModule({
   imports: [
@@ -33,7 +31,7 @@ import { SharedModule } from '../../shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     // application
-    FinishedProductsRoutingModule,
+    StockRoutingModule,
     SharedModule,
     // syncfusion
     GridModule,
@@ -42,12 +40,10 @@ import { SharedModule } from '../../shared/shared.module';
   ],
   declarations: [
     // application
-    FinishedProductFormComponent,
-    FinishedProductsViewComponent
+    CurrentStockViewComponent
   ],
   providers: [
     // application
-    FinishedProductsApiService,
 
     // syncfusion
     ToolbarService,
@@ -69,4 +65,4 @@ import { SharedModule } from '../../shared/shared.module';
     ExcelExportService,
     ResizeService]
 })
-export class FinishedProductsModule { }
+export class StockModule { }

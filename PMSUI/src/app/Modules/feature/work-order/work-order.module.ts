@@ -26,6 +26,8 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
+import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
+import { FinishedOrderApiService } from './finished-order-api.service';
 
 
 @NgModule({
@@ -47,9 +49,11 @@ import { SharedModule } from '../../shared/shared.module';
   declarations: [
     // application
     WorkOrderFormComponent,
+    FinishedOrderFormComponent,
     WorkOrderViewComponent
   ],
   providers: [
+    FinishedOrderApiService,
     // application
     WorkOrderAPIService,
     // syncfusion

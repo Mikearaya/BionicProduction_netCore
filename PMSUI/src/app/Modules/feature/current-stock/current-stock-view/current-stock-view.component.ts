@@ -17,17 +17,17 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
-import { FinishedProductsApiService } from '../finished-products-api.service';
-import { finishedProductsBluePrint } from './finished-products-column-blue-print';
+
+import { finishedProductsBluePrint } from './current-stock-column-blue-print';
 
 
 @Component({
-  selector: 'app-finished-products-view',
-  templateUrl: './finished-products-view.component.html',
-  styleUrls: ['./finished-products-view.component.css']
+  selector: 'app-current-stock-view',
+  templateUrl: './current-stock-view.component.html',
+  styleUrls: ['./current-stock-view.component.css']
 })
 
-export class FinishedProductsViewComponent implements OnInit {
+export class CurrentStockViewComponent implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
 
@@ -48,7 +48,6 @@ export class FinishedProductsViewComponent implements OnInit {
   public allowSorting = true;
 
   constructor(
-    private finishedProductsApi: FinishedProductsApiService,
     private route: Router) {
 
   }

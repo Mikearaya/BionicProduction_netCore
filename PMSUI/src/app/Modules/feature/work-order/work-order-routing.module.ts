@@ -10,10 +10,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
+import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
 
 const routes: Routes = [
   { path: '', component: WorkOrderViewComponent },
   { path: 'new', component: WorkOrderFormComponent },
+  { path: 'completed', component: FinishedOrderFormComponent },
   { path: ':workOrderId/update', component: WorkOrderFormComponent }
 
 

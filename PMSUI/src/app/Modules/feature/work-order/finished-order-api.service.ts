@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class FinishedProductsApiService {
+export class FinishedOrderApiService {
   private url = 'http://localhost:5000/api/finished_products';
 
   constructor(private httpClient: HttpClient) { }
