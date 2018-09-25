@@ -7,12 +7,14 @@ import {
   EditService, ResizeService
 } from '@syncfusion/ej2-angular-grids';
 import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
+import { RadioButtonModule } from '@syncfusion/ej2-ng-buttons';
 
 @NgModule({
   imports: [
+    RadioButtonModule
   ],
   declarations: [ NumericTextBoxComponent],
-  exports: [ NumericTextBoxComponent ],
+  exports: [ NumericTextBoxComponent, RadioButtonModule ],
   providers: []
 
 })

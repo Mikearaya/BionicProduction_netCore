@@ -19,25 +19,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class WorkOrderFormComponent implements OnInit {
 
-  @ViewChild('grid')
-  public grid: GridComponent;
-  public data: Object[];
-  public editSettings: EditSettingsModel;
-  public toolbar: ToolbarItems[];
-  public numericParams: IEditCell;
-  public ddParams: IEditCell;
-  public dpParams: IEditCell;
-  public boolParams: IEditCell;
-  public productValidation: Object;
-  public quantityValidation: Object;
-  public dueDateValidation: Object;
   public commands: CommandModel[];
-  public productData: IEditCell;
+
   public employeeData: Object[];
   public idVisable: Boolean = false;
   private orderData: OrderModel;
   public orderForm: FormGroup;
-  public pageSettings: Object;
+
 
 
   public itemId: FormControl;
@@ -101,7 +89,6 @@ export class WorkOrderFormComponent implements OnInit {
       result => this.itemsList = result['Items']
     );
 
-    this.data = [];
 
   }
 

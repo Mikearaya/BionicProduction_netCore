@@ -1,3 +1,76 @@
-<p>
-  sale-order-form works!
-</p>
+<section class="e-card">
+  <form [formGroup]="salesOrderForm" novalidate id="salesOrderForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" name="client" formControlName="client" id='client' placeholder="Client"
+            floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList">
+          </ejs-dropdownlist>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
+            placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
+            [dataSource]="employeesList"> </ejs-dropdownlist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <div class=" e-success">
+            <ejs-numerictextbox class="e-input" min="0" floatLabelType="Auto" formControlName="initialPayment" name="initialPayment"
+              placeholder="Initial Payment" id="initialPayment"> </ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xs-12 text-center">
+          <p><strong>Payment Method </strong> </p>
+            <ejs-radiobutton name="paymentMethod"  formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
+            <ejs-radiobutton name="paymentMethod"  formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class=" e-success ">
+            <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
+          </div>
+        </div>
+      </div>
+      <div formArrayName="orders">
+        <div class="row" *ngFor="let order of orders.controls; let i=index; let last=last;" [formGroup]="order">
+          <div class="col-sm-3 col-xs-12">
+
+
+            <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="'itemId'+i"
+              placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
+            </ejs-dropdownlist>
+
+          </div>
+          <div class="col-sm-3 col-xs-12">
+
+              <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
+                [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i"> </ejs-numerictextbox>
+          </div>
+          <div class="col-sm-4 col-xs-12">
+
+            <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
+              [attr.name]="'dueDate'+i" format="yyyy-MM-dd"></ejs-datepicker>
+
+          </div>
+          <div class="col-sm-2 col-xs-12">
+
+            <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last"
+              (click)="addOrder()">add</button>
+            <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="orders.length == 1"
+              (click)="orders.removeAt(i)">remove</button>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col col-xs-12">
+          <button type="submit" [disabled]="salesOrderForm.invalid" ejs-button>Submit</button>
+          <button type="button" ejs-button>Cancel</button>
+        </div>
+      </div>
+    </div>
+<code>
+  Form {{ salesOrderForm.value | json}}
+</code>
+  </form>
+</section>

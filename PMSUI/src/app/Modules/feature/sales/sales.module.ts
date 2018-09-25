@@ -7,13 +7,21 @@ import { SaleOrderViewComponent } from './sale-order-view/sale-order-view.compon
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { SaleOrderApiService } from './sale-order-api.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SalesRoutingModule,
     ReactiveFormsModule,
-    GridModule
+    GridModule,
+    DatePickerModule,
+    DropDownListModule,
+    ButtonModule,
+    SharedModule
   ],
   declarations: [SaleOrderFormComponent, SaleOrderViewComponent],
   providers: [SaleOrderApiService]
