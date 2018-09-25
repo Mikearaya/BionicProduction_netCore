@@ -15,7 +15,6 @@ namespace BionicProduction.Migration.Database
         public DateTime IssuedOn { get; set; }
         public DateTime DueDate { get; set; }
         public float InitialPayment { get; set; }
-        public float PaymentAmount { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

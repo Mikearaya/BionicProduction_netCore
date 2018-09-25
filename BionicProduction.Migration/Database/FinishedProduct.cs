@@ -12,11 +12,11 @@ namespace BionicProduction.Migration.Database
 
         public uint Id { get; set; }
         public uint OrderId { get; set; }
-        public int Quantity { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public uint SubmittedBy { get; set; }
         public uint RecievedBy { get; set; }
+        public int? Quantity { get; set; }
 
         public ProductionOrderList Order { get; set; }
         public Employee RecievedByNavigation { get; set; }

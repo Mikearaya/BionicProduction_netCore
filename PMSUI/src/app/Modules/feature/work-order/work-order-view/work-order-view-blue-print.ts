@@ -15,12 +15,16 @@ export const workOrderBluePrint = [
     allowGrouping: true, editable: false, width: '30', isIdentity: true
   },
   {
-    key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string',
-    editable: true, allowGrouping: true, dataType: 'TextBox',   validationRule: { required: true }, isIdentity: false, width: '40'
-  },
-  {
     key: 'id', humanReadable: 'ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
     validationRule: { required: true }, isIdentity: true, width: '20'
+  }  ,
+  {
+    key: 'client', humanReadable: 'For', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
+    isIdentity: false, width: '30'
+  },
+  {
+    key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string',
+    editable: true, allowGrouping: true, dataType: 'TextBox', validationRule: { required: true }, isIdentity: false, width: '40'
   },
   {
     key: 'product', humanReadable: 'Product', primaryKey: false, type: 'string', allowGrouping: true, editable: true, dataType: 'TextBox',
@@ -30,16 +34,6 @@ export const workOrderBluePrint = [
     key: 'quantity', humanReadable: 'Total', primaryKey: false, allowGrouping: true, type: 'number',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
-  },
-  {
-    key: 'completed', humanReadable: 'Completed', type: 'number', primaryKey: false, format: '',
-    allowGrouping: true, editable: true, dataType: 'numericedit',
-    validationRule: { required: true }, isIdentity: false, width: '40'
-  },
-  {
-    key: 'remaining', humanReadable: 'Remaining', type: 'number', primaryKey: false, allowGrouping: true, format: '',
-    editable: true, dataType: 'numericedit',
-    validationRule: { required: true }, isIdentity: false, width: '40'
   },
   {
     key: 'orderDate', humanReadable: 'Order Date', allowGrouping: true, format: 'yMd',

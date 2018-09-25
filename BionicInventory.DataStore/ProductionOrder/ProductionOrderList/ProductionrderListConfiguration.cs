@@ -18,6 +18,9 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                 builder.HasIndex (e => e.ProductionOrderId)
                     .HasName ("fk_IN_ORDER_LIST_id_idx");
 
+                builder.HasIndex (e => e.PurchaseOrderId)
+                    .HasName ("fk_PRODUCTION_ORDER_LIST_sales_id_idx");
+
                 builder.Property (e => e.Id).HasColumnName ("ID");
 
                 builder.Property (e => e.CostPerItem).HasColumnName ("cost_per_item");
@@ -32,18 +35,18 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
-                
+
                 builder.Property (e => e.DueDate)
                     .HasColumnName ("due_date")
                     .HasColumnType ("datetime");
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
+                builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
+
                 builder.Property (e => e.ProductionOrderId).HasColumnName ("PRODUCTION_ORDER_ID");
 
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
-
-                builder.Property (e => e.Complete).HasColumnName ("complete");
 
                 builder.HasOne (d => d.Item)
                     .WithMany (p => p.ProductionOrderList)
@@ -54,6 +57,12 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .WithMany (p => p.ProductionOrderList)
                     .HasForeignKey (d => d.ProductionOrderId)
                     .HasConstraintName ("fk_IN_ORDER_LIST_id");
+
+                builder.HasOne(d => d.PurchaseOrder)
+                    .WithOne(p => p.ProductionOrderList)
+                    .HasForeignKey<ProductionOrderList>(d => d.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_PRODUCTION_ORDER_LIST_sales_id");
 
             }
         }

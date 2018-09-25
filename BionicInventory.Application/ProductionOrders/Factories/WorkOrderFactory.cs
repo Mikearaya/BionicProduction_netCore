@@ -103,7 +103,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     dueDate = item.DueDate,
                     quantity = (int) item.Quantity
                 };
-                view.status = (item.Complete) ? "Complete" : "Active";
                 workorderView.Add (view);
 
             }
@@ -129,7 +128,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     view.quantity = (int) orderList.Quantity;
                     view.dueDate = orderList.DueDate;
                     view.product = product.Code;
-                    view.status = (orderList.Complete) ? "Complete" : "Active";
                     workorderView.Add (view);
                 }
 
@@ -154,7 +152,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 dueDate = workOrder.DueDate,
                 quantity = (int) workOrder.Quantity
             };
-            view.status = (workOrder.Complete) ? "Complete" : "Active";
 
             return view;
         }

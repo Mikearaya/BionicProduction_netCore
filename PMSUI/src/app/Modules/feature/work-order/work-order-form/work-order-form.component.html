@@ -1,5 +1,5 @@
 <section class="e-card">
-  <form [formGroup]="workOrderForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="workOrderForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()">
     <div class="container">
       <div class="row">
         <div class="col-sm-6 col-xs-12">
@@ -32,14 +32,16 @@
           </div>
           <div class="col-sm-3 col-xs-12">
 
-            <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i" [attr.name]="'dueDate'+i"
-              format="yyyy-MM-dd"></ejs-datepicker>
+            <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
+              [attr.name]="'dueDate'+i" format="yyyy-MM-dd"></ejs-datepicker>
 
           </div>
           <div class="col-sm-3 col-xs-12">
 
-            <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last" (click)="addOrder()">add</button>
-            <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="orders.length == 1" (click)="orders.removeAt(i)">remove</button>
+            <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last"
+              (click)="addOrder()">add</button>
+            <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="orders.length == 1"
+              (click)="orders.removeAt(i)">remove</button>
 
           </div>
         </div>
@@ -51,10 +53,6 @@
         </div>
       </div>
     </div>
-    <p>
-      Form Status: {{workOrderForm.status }}
-      Form : {{workOrderForm.value | json}}
-    </p>
 
   </form>
 </section>

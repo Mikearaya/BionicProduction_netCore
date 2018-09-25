@@ -200,7 +200,8 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Quantity)
                     .HasColumnName("quantity")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.RecievedBy).HasColumnName("recieved_by");
 
@@ -327,6 +328,11 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.InvoiceNo).HasColumnName("INVOICE_NO");
 
                 entity.Property(e => e.PreparedBy).HasColumnName("PREPARED_BY");
+
+                entity.Property(e => e.PrintCount)
+                    .HasColumnName("print_count")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.HasOne(d => d.Cashier)
                     .WithMany(p => p.InvoicePaymentsCashier)
@@ -513,12 +519,11 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.ProductionOrderId)
                     .HasName("fk_IN_ORDER_LIST_id_idx");
 
-                entity.Property(e => e.Id).HasColumnName("ID");
+                entity.HasIndex(e => e.PurchaseOrderId)
+                    .HasName("PURCHASE_ORDER_ID_UNIQUE")
+                    .IsUnique();
 
-                entity.Property(e => e.Complete)
-                    .HasColumnName("complete")
-                    .HasColumnType("tinyint(1)")
-                    .HasDefaultValueSql("'0'");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.CostPerItem).HasColumnName("cost_per_item");
 
@@ -541,6 +546,8 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.ProductionOrderId).HasColumnName("PRODUCTION_ORDER_ID");
 
+                entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
+
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.HasOne(d => d.Item)
@@ -552,6 +559,12 @@ namespace BionicProduction.Migration.Database
                     .WithMany(p => p.ProductionOrderList)
                     .HasForeignKey(d => d.ProductionOrderId)
                     .HasConstraintName("fk_IN_ORDER_LIST_id");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithOne(p => p.ProductionOrderList)
+                    .HasForeignKey<ProductionOrderList>(d => d.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_PRODUCTION_ORDER_LIST_sales_id");
             });
 
             modelBuilder.Entity<PurchaseOrder>(entity =>
@@ -585,8 +598,6 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.IssuedOn)
                     .HasColumnName("issued_on")
                     .HasColumnType("datetime");
-
-                entity.Property(e => e.PaymentAmount).HasColumnName("payment_amount");
 
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.PurchaseOrder)

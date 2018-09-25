@@ -12,6 +12,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public uint PreparedBy { get; set; }
         public uint CashierId { get; set; }
+        public int? PrintCount { get; set; }
 
         public Employee Cashier { get; set; }
         public Invoice InvoiceNoNavigation { get; set; }

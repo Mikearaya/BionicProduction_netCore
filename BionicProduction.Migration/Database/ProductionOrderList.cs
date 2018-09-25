@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BionicProduction.Migration.Database
-{
-    public partial class ProductionOrderList
-    {
-        public ProductionOrderList()
-        {
-            FinishedProduct = new HashSet<FinishedProduct>();
+namespace BionicProduction.Migration.Database {
+    public partial class ProductionOrderList {
+        public ProductionOrderList () {
+            FinishedProduct = new HashSet<FinishedProduct> ();
         }
 
         public uint Id { get; set; }
@@ -18,10 +15,11 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime DueDate { get; set; }
-        public sbyte? Complete { get; set; }
+        public uint? PurchaseOrderId { get; set; }
 
         public Item Item { get; set; }
         public ProductionOrder ProductionOrder { get; set; }
+        public PurchaseOrderDetail PurchaseOrder { get; set; }
         public ICollection<FinishedProduct> FinishedProduct { get; set; }
     }
 }

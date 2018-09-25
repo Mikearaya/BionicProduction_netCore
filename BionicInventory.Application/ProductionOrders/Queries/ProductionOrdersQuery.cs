@@ -49,7 +49,8 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                 product = pro.Item.Code,
                                 orderDate = pro.ProductionOrder.AddedOn,
                                 dueDate = pro.DueDate,
-                                total = pro.Quantity
+                                total = pro.Quantity,
+                                type = (pro.PurchaseOrderId == null) ? "Ineternal" : "Sales"
                         })
                 }).ToList ();
 
@@ -70,6 +71,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                     v.orderedBy = r.orderedBy;
                     v.orderId = r.orderId;
                     v.status = (v.completed == v.quantity) ? "Completed" : "Active";
+                    v.client = r.type;
                 }
 
                 view.Add (v);
