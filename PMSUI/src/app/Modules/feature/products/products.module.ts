@@ -35,21 +35,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     // application
     ProductsAPIService,
     // syncfusion
-    PageService,
-    SortService,
-    FilterService,
-    SearchService,
-    GridModule,
-    GroupService,
-    ColumnChooserService,
-    ColumnMenuService,
-    ForeignKeyService,
-    ReorderService,
-    RowDDService,
-    EditService,
-    ToolbarService,
-    ExcelExportService,
-    ResizeService
   ]
 })
 export class ProductsModule { }

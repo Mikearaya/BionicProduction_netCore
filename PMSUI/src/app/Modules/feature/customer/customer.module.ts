@@ -31,18 +31,6 @@ import { CommonModule } from '@angular/common';
         // application
         CustomerService,
         // syncfusion
-        PageService,
-        SortService,
-        FilterService,
-        SearchService,
-        GroupService,
-        ColumnChooserService,
-        ColumnMenuService,
-        ForeignKeyService,
-        RowDDService,
-        EditService,
-        ToolbarService,
-        ExcelExportService
     ],
     exports: []
 

@@ -26,16 +26,33 @@ export class PmsNavigationComponent {
         { id: 'products', name: 'PRODUCTS' }
       ]
     },
+    { id: 'stock', name: 'STOCK' },
     {
     id: '2',  name: 'PRODUCTION',
       subChild: [
-        { id: 'workorders', name: 'WORK ORDER' },
-        { id: 'workorders/completed', name: 'ADD FINISHED ORDERS' }
+        { id: 'workorders', name: 'WORK ORDERS' },
+        { id: 'workorders/request', name: 'PENDING REQUESTS' },
+        { id: 'workorders/completed', name: 'COMPLETED ORDERS' }
       ]
     },
-    { id: 'stock', name: 'STOCK' },
-    { id: 'reports', name: 'REPORT'},
-    { id: 'settings', name: 'SETTING'}
+    {
+      id: '345',  name: 'SALES',
+        subChild: [
+          { id: 'sales', name: 'SALES ORDERS' },
+          { id: 'invoices', name: 'INVOICE' }
+        ]
+      },
+
+    { id: 'reports', name: 'REPORT', subChild: [
+      { id: '22', name: 'PRODUCTION REPORTS' },
+      { id: '33', name: 'SALES REPORTS' }
+    ]
+  },
+    { id: 'settings', name: 'SETTING', subChild: [
+      { id: '44', name: 'USER MANAGMENT' },
+      { id: '55', name: 'SYSTEM SETTINGS' }
+    ]
+  }
 
   ];
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild' };

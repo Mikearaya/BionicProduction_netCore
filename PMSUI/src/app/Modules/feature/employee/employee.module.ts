@@ -30,20 +30,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   providers: [
     // application
-    EmployeeApiService,
-    // syncfusion
-    PageService,
-    SortService,
-    FilterService,
-    SearchService,
-    GroupService,
-    ColumnChooserService,
-    ColumnMenuService,
-    ForeignKeyService,
-    RowDDService,
-    EditService,
-    ToolbarService,
-    ExcelExportService
+    EmployeeApiService
   ]
 })
 export class EmployeeModule { }

@@ -42,27 +42,6 @@ import { StockRoutingModule } from './current-stock-routing.module';
     // application
     CurrentStockViewComponent
   ],
-  providers: [
-    // application
-
-    // syncfusion
-    ToolbarService,
-    PdfExportService,
-    PageService,
-    CommandColumnService,
-    SortService,
-    FilterService,
-    SearchService,
-    GridModule,
-    GroupService,
-    ColumnChooserService,
-    ColumnMenuService,
-    ForeignKeyService,
-    ReorderService,
-    RowDDService,
-    EditService,
-    ToolbarService,
-    ExcelExportService,
-    ResizeService]
+  providers: []
 })
 export class StockModule { }

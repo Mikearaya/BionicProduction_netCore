@@ -57,24 +57,6 @@ import { FinishedOrderApiService } from './finished-order-api.service';
     // application
     WorkOrderAPIService,
     // syncfusion
-    ToolbarService,
-    PdfExportService,
-    PageService,
-    CommandColumnService,
-    SortService,
-    FilterService,
-    SearchService,
-    GridModule,
-    GroupService,
-    ColumnChooserService,
-    ColumnMenuService,
-    ForeignKeyService,
-    ReorderService,
-    RowDDService,
-    EditService,
-    ToolbarService,
-    ExcelExportService,
-    ResizeService
   ]
 })
 export class WorkOrderModule { }
