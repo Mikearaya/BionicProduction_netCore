@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Sep 26, 2018 8:55 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Sep 26, 2018 9:27 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +16,12 @@ using BionicInventory.Domain.PurchaseOrders;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Queries {
-    public class SalesOrdersQuery : ISalesOrdersQuery {
+    public class SalesOrderQuery : ISalesOrderQuery {
         private readonly IInventoryDatabaseService _database;
-        private readonly ILogger<SalesOrdersQuery> _logger;
+        private readonly ILogger<SalesOrderQuery> _logger;
 
-        public SalesOrdersQuery (IInventoryDatabaseService databse,
-            ILogger<SalesOrdersQuery> logger) {
+        public SalesOrderQuery (IInventoryDatabaseService databse,
+            ILogger<SalesOrderQuery> logger) {
             _database = databse;
             _logger = logger;
         }
@@ -26,8 +34,10 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     CreatedBy = $"{sales.PurchaseOrder.CreatedByNavigation.FullName()}",
                     Quantity = sales.Quantity,
                     ItemCode = sales.Item.Code,
-                    UnitPrice = sales.PricePerItem,
-                    totalAmount = sales.PricePerItem * sales.Quantity,
+                    UnitPrice = (float) sales.PricePerItem,
+                    paidAmount = (float) sales.PurchaseOrder.InitialPayment,
+                    remainingPayment = ((double)sales.PricePerItem * sales.Quantity) - sales.PurchaseOrder.InitialPayment,
+                    totalAmount = (double)sales.PricePerItem * sales.Quantity,
                     OrderedOn = (DateTime) sales.DateAdded,
                     DueDate = sales.DueDate
 

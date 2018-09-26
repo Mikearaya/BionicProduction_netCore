@@ -23,11 +23,7 @@ namespace BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails {
                     .HasName ("fk_OUT_ORDER_LIST_order_idx");
 
                 builder.Property (e => e.Id).HasColumnName ("ID");
-
-                builder.Property (e => e.AddedPricePerItem)
-                    .HasColumnName ("added_price_per_item")
-                    .HasDefaultValueSql ("'0'");
-
+                
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")
                     .HasColumnType ("datetime")

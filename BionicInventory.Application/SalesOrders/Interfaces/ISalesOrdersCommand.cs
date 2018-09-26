@@ -3,7 +3,7 @@ using BionicInventory.Application.Interfaces;
 using BionicInventory.Domain.PurchaseOrders;
 
 namespace BionicInventory.Application.SalesOrders.Interfaces {
-    public interface ISalesOrdersCommand {
+    public interface ISalesOrderCommand {
 
         IEnumerable<PurchaseOrder> CreateSalesOrder(IEnumerable<PurchaseOrder> orders);
 

@@ -10,14 +10,15 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Application.SalesOrders.Factory
 {
-    public class SalesrderFactory : ISalesOrderFactory
+    public class SalesOrderFactory : ISalesOrderFactory
     {
-        public PurchaseOrder CreateNewSaleOrder(Customer customers, Employee createdBy, Item item, uint quantity, DateTime dueDate, float unitPrice, float downPayment )
+        public PurchaseOrder CreateNewSaleOrder(Customer customers, Employee createdBy, Item item, uint quantity, DateTime dueDate, float unitPrice, float downPayment, string method = "CASH" )
         {
             PurchaseOrder newOrder = new PurchaseOrder() {
                 ClientId = customers.Id,
                 CreatedBy = createdBy.Id,
                 InitialPayment = downPayment,
+                PaymentMethod = method
             };
             newOrder.PurchaseOrderDetail.Add(new PurchaseOrderDetail(){
                 ItemId = item.Id,

@@ -5,12 +5,12 @@ using BionicInventory.Domain.PurchaseOrders;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Commands {
-    public class SalesOrdersCommand : ISalesOrdersCommand {
+    public class SalesOrderCommand : ISalesOrderCommand {
         private readonly IInventoryDatabaseService _database;
-        private readonly ILogger<SalesOrdersCommand> _logger;
+        private readonly ILogger<SalesOrderCommand> _logger;
 
-        public SalesOrdersCommand (IInventoryDatabaseService database,
-            ILogger<SalesOrdersCommand> logger) {
+        public SalesOrderCommand (IInventoryDatabaseService database,
+            ILogger<SalesOrderCommand> logger) {
             _database = database;
             _logger = logger;
         }

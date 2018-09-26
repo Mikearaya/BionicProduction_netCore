@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 8:45 PM
+ * @Last Modified Time: Sep 26, 2018 9:20 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -11,14 +11,32 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BionicInventory.Application.SalesOrders.Models {
     public abstract class SalesOrderDto {
-        
-        public uint Id { get; set; }
+
+        const string cash = "CASH";
+        const string check = "CHECK";
+        private string _paymentMethod = "CHECK";
         [Required]
         public uint ClientId { get; set; }
+
         [Required]
-        public string PaymentMethod {get; set;}
+        public string PaymentMethod {
+            get {
+                return _paymentMethod.Trim ().ToUpper ();
+            }
+            set {
+                _paymentMethod =
+                    (
+                        value.ToString ().ToUpper () != "CASH" &&
+                        value.ToString ().ToUpper () != "CHECK"
+                    ) ?
+                    "CASH" :
+                    value.ToString ().ToUpper ();
+            }
+        }
+
         [Required]
         public float InitialPayment { get; set; }
+
         [Required]
         public uint CreatedBy { get; set; }
 

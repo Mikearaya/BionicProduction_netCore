@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 8:30 PM
+ * @Last Modified Time: Sep 26, 2018 9:19 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -48,10 +48,6 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .ValueGeneratedOnAddOrUpdate ();
 
                 builder.Property (e => e.InitialPayment).HasColumnName ("initial_payment");
-
-                builder.Property (e => e.IssuedOn)
-                    .HasColumnName ("issued_on")
-                    .HasColumnType ("datetime");
 
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.PurchaseOrder)

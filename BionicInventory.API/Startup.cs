@@ -3,10 +3,11 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 1:00 AM
+ * @Last Modified Time: Sep 26, 2018 8:56 PM
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,10 @@ using BionicInventory.Application.Employees.Commands;
 using BionicInventory.Application.Employees.Factories;
 using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.Employees.Queries;
+using BionicInventory.Application.FinishedProducts.Commands;
+using BionicInventory.Application.FinishedProducts.Factories;
+using BionicInventory.Application.FinishedProducts.Interfaces;
+using BionicInventory.Application.FinishedProducts.Queries;
 using BionicInventory.Application.ProductionOrders.Commands;
 using BionicInventory.Application.ProductionOrders.Factories;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
@@ -29,6 +34,10 @@ using BionicInventory.Application.Products.Factories;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Application.Products.Queries;
+using BionicInventory.Application.SalesOrders.Commands;
+using BionicInventory.Application.SalesOrders.Factory;
+using BionicInventory.Application.SalesOrders.Interfaces;
+using BionicInventory.Application.SalesOrders.Queries;
 using BionicInventory.API.Commons;
 using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
@@ -43,11 +52,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Buffers;
-using BionicInventory.Application.FinishedProducts.Interfaces;
-using BionicInventory.Application.FinishedProducts.Factories;
-using BionicInventory.Application.FinishedProducts.Queries;
-using BionicInventory.Application.FinishedProducts.Commands;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -74,9 +78,12 @@ namespace BionicInventory.API {
             services.AddScoped<IWorkOrdersFactory, WorkOrderFactory> ();
             services.AddScoped<IWorkOrdersQuery, WorkOrdersQuery> ();
             services.AddScoped<IWorkOrdersCommand, WorkOrdersCommand> ();
-            services.AddScoped<IFinishedProductsFactories , FinishedProductsFactory> ();
+            services.AddScoped<IFinishedProductsFactories, FinishedProductsFactory> ();
             services.AddScoped<IFinishedProductsQuery, FinishedProductsQuery> ();
             services.AddScoped<IFinishedProductsCommand, FinishedProductsCommand> ();
+            services.AddScoped<ISalesOrderFactory, SalesOrderFactory> ();
+            services.AddScoped<ISalesOrderQuery, SalesOrderQuery> ();
+            services.AddScoped<ISalesOrderCommand, SalesOrderCommand> ();
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
@@ -97,7 +104,7 @@ namespace BionicInventory.API {
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
 
-            loggerFactory.AddConsole();
+            loggerFactory.AddConsole ();
 
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();

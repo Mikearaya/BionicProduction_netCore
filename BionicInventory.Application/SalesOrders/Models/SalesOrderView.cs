@@ -11,7 +11,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public float UnitPrice { get; set; }
 
         public double remainingPayment {get; set;}
-
+        public float paidAmount {get; set;}
         public double totalAmount {get; set;}
         public DateTime OrderedOn { get; set; }
         public DateTime DueDate { get; set; }
