@@ -12,6 +12,7 @@ namespace BionicProduction.Migration.Database
             InvoicePaymentsCashier = new HashSet<InvoicePayments>();
             InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments>();
             ProductionOrder = new HashSet<ProductionOrder>();
+            PurchaseOrder = new HashSet<PurchaseOrder>();
         }
 
         public uint Id { get; set; }
@@ -25,5 +26,6 @@ namespace BionicProduction.Migration.Database
         public ICollection<InvoicePayments> InvoicePaymentsCashier { get; set; }
         public ICollection<InvoicePayments> InvoicePaymentsPreparedByNavigation { get; set; }
         public ICollection<ProductionOrder> ProductionOrder { get; set; }
+        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
     }
 }

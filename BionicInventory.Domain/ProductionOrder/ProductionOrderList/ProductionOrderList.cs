@@ -6,9 +6,8 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
     public class ProductionOrderList {
-        public ProductionOrderList()
-        {
-            FinishedProduct = new HashSet<FinishedProduct>();
+        public ProductionOrderList () {
+            FinishedProduct = new HashSet<FinishedProduct> ();
         }
 
         public uint Id { get; set; }

@@ -1,17 +1,34 @@
+using System.Collections.Generic;
+using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
+using BionicInventory.Domain.PurchaseOrders;
+using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Commands {
     public class SalesOrdersCommand : ISalesOrdersCommand {
-        public void Create () {
-            throw new System.NotImplementedException ();
+        private readonly IInventoryDatabaseService _database;
+        private readonly ILogger<SalesOrdersCommand> _logger;
+
+        public SalesOrdersCommand (IInventoryDatabaseService database,
+            ILogger<SalesOrdersCommand> logger) {
+            _database = database;
+            _logger = logger;
+        }
+        public IEnumerable<PurchaseOrder> CreateSalesOrder (IEnumerable<PurchaseOrder> orders) {
+            _database.PurchaseOrder.AddRange (orders);
+            _database.Save ();
+            return orders;
         }
 
-        public void Delete () {
-            throw new System.NotImplementedException ();
+        public bool DeleteSalesOrders (PurchaseOrder order) {
+            _database.PurchaseOrder.Remove (order);
+            return true;
         }
 
-        public void Update () {
-            throw new System.NotImplementedException ();
+        public bool UpdateSalesOrder (IEnumerable<PurchaseOrder> orders) {
+            _database.PurchaseOrder.UpdateRange (orders);
+            _database.Save ();
+            return true;
         }
     }
 }

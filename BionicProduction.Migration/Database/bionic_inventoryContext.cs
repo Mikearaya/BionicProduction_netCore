@@ -37,7 +37,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=mikael;port=3306;database=bionic_inventory;");
+                optionsBuilder.UseMySql("server=localhost;user=mikael;database=bionic_inventory;port=3306;");
             }
         }
 
@@ -574,9 +574,14 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.ClientId)
                     .HasName("fk_PURCHASE_ORDER_customer_idx");
 
+                entity.HasIndex(e => e.CreatedBy)
+                    .HasName("fk_PURCHASE_ORDER_employee_idx");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ClientId).HasColumnName("CLIENT_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -603,6 +608,11 @@ namespace BionicProduction.Migration.Database
                     .WithMany(p => p.PurchaseOrder)
                     .HasForeignKey(d => d.ClientId)
                     .HasConstraintName("fk_PURCHASE_ORDER_customer");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.PurchaseOrder)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("fk_PURCHASE_ORDER_employee");
             });
 
             modelBuilder.Entity<PurchaseOrderDetail>(entity =>

@@ -15,6 +15,10 @@ namespace BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails {
                 builder.HasIndex (e => e.ItemId)
                     .HasName ("fk_OUT_ORDER_LIST_item_idx");
 
+                builder.Property (e => e.DueDate)
+                    .HasColumnName ("due_date")
+                    .HasColumnType ("datetime");
+
                 builder.HasIndex (e => e.PurchaseOrderId)
                     .HasName ("fk_OUT_ORDER_LIST_order_idx");
 

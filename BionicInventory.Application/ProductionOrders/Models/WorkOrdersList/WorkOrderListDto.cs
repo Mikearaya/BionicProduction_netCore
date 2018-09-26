@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 19, 2018 10:43 PM
+ * @Last Modified Time: Sep 26, 2018 1:31 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -20,6 +20,7 @@ namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
 
         [Required]
         public DateTime DueDate { get; set; }
+
 
     }
 }

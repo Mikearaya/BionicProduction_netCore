@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BionicProduction.Migration.Database {
-    public partial class ProductionOrderList {
-        public ProductionOrderList () {
-            FinishedProduct = new HashSet<FinishedProduct> ();
+namespace BionicProduction.Migration.Database
+{
+    public partial class ProductionOrderList
+    {
+        public ProductionOrderList()
+        {
+            FinishedProduct = new HashSet<FinishedProduct>();
         }
 
         public uint Id { get; set; }
