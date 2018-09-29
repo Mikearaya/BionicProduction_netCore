@@ -25,19 +25,19 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<ActiveOrdersView> GetActiveWorkOrders () {
-            return _database.ProductionOrderList.Where(
+            return _database.ProductionOrderList.Where (
                 production => production.Quantity > production.FinishedProduct.Where (fin => fin.OrderId == production.Id).Count ()
-            ).Select(orders => new ActiveOrdersView {
-                    id = orders.Id,
+            ).Select (orders => new ActiveOrdersView {
+                id = orders.Id,
                     orderId = orders.ProductionOrderId,
                     dueDate = orders.DueDate,
                     total = orders.Quantity,
                     remaining = (int) orders.Quantity - orders.FinishedProduct.Where (fin => fin.OrderId == orders.Id).Count ()
-            }).ToList();
+            }).ToList ();
 
         }
         public IEnumerable<WorkOrderView> GetWorkOrdersStatus () {
-        
+
             var x = _database.ProductionOrderList.GroupBy (po => po.Id)
                 .Select (production => new {
                     id = production.Key,
@@ -115,6 +115,19 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             } catch (Exception) {
                 return null;
             }
+        }
+
+        public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
+            return _database.PurchaseOrderDetail.Include(ga => ga.ProductionOrderList).GroupBy(aa => aa.Item.Id)
+                .Select (WO => new  WorkOrderView() {
+                    quantity = (int) WO.Where(sd => sd.ProductionOrderList == null).Sum(s => s.Quantity)
+                }).ToList();
+                var x = _database.Item.GroupBy(sd => sd.Id).Select(g => new {
+                    aa = g.Select(sd => new WorkOrderView() {
+                        quantity = sd.PurchaseOrderDetail.Where(dd => dd.ProductionOrderList == null).Count(),
+                        remaining = sd.PurchaseOrderDetail.Where(dd => dd.ProductionOrderList != null).Count(),
+                    })
+                }).ToList();
         }
     }
 }

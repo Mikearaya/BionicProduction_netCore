@@ -4,15 +4,12 @@ using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.Sale;
 
-
-namespace BionicInventory.Domain.FinishedProducts
-{
-    public class FinishedProduct
-    {
-        public FinishedProduct()
-        {
-            InvoiceDetail = new HashSet<InvoiceDetail>();
+namespace BionicInventory.Domain.FinishedProducts {
+    public class FinishedProduct {
+        public FinishedProduct () {
+            InvoiceDetail = new HashSet<InvoiceDetail> ();
         }
 
         public uint Id { get; set; }
@@ -25,6 +22,7 @@ namespace BionicInventory.Domain.FinishedProducts
 
         public ProductionOrderList Order { get; set; }
         public Employee RecievedByNavigation { get; set; }
+        public Sales Sale { get; set; }
         public Employee SubmittedByNavigation { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
     }

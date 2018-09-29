@@ -18,6 +18,11 @@ namespace BionicInventory.DataStore.Invoices
         {
             builder.ToTable("INVOICE");
 
+                    builder.Property(e => e.PrintCount)
+                    .HasColumnName("print_count")
+                    .HasDefaultValueSql("'0'");
+
+
                 builder.HasIndex(e => e.PurchaseOrderId)
                     .HasName("PURCHASE_ORDER_ID_UNIQUE")
                     .IsUnique();

@@ -51,7 +51,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         public IActionResult GetAllWorkOrders (String status = "ALL") {
             try {
                 if (status == "ALL") {
-                var orders = _query.GetWorkOrdersStatus ();
+                var orders = _query.GetPendingWorkOrders ();
                 return StatusCode (200, orders);
                 } else {
                     var orders = _query.GetActiveWorkOrders();

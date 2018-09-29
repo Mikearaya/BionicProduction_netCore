@@ -41,18 +41,22 @@
             </ejs-dropdownlist>
 
           </div>
-          <div class="col-sm-3 col-xs-12">
+          <div class="col-sm-2 col-xs-12">
 
-              <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
+              <ejs-numerictextbox [attr.class]="'e-input'" min="1" floatLabelType="Auto" formControlName="quantity"
                 [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i"> </ejs-numerictextbox>
           </div>
-          <div class="col-sm-4 col-xs-12">
+          <div class="col-sm-2 col-xs-12">
 
+            <ejs-numerictextbox [attr.class]="'e-input'" min="1" floatLabelType="Auto" formControlName="unitPrice"
+              [attr.name]="'price'+i" placeholder="Unit Price" [attr.id]="'Price'+i"> </ejs-numerictextbox>
+        </div>
+          <div class="col-sm-3 col-xs-12">
             <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
               [attr.name]="'dueDate'+i" format="yyyy-MM-dd"></ejs-datepicker>
 
           </div>
-          <div class="col-sm-2 col-xs-12">
+          <div class="col-sm-2 col-xs-12" >
 
             <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last"
               (click)="addOrder()">add</button>

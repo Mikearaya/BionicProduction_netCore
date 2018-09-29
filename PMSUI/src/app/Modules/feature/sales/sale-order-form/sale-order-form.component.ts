@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { SaleOrderApiService } from '../sale-order-api.service';
+import { SaleOrderApiService, SalesOrder } from '../sale-order-api.service';
 import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -58,7 +59,8 @@ export class SaleOrderFormComponent implements OnInit {
       orders: this.formBuilder.array([
         this.formBuilder.group({
           itemId: ['', Validators.required],
-          quantity: ['', [Validators.required, Validators.min(0)]],
+          unitPrice: [0, [Validators.required, Validators.min(0)]],
+          quantity: [1, [Validators.required, Validators.min(1)]],
           dueDate: [new Date(), Validators.required]
         })
       ])
@@ -71,7 +73,8 @@ export class SaleOrderFormComponent implements OnInit {
   addOrder() {
     this.orders.push(this.formBuilder.group({
       itemId: ['', Validators.required],
-      quantity: ['', Validators.required],
+      unitPrice: [0, [Validators.required, Validators.min(0)]],
+      quantity: [1, [Validators.required, Validators.min(1)]],
       dueDate: [new Date(), Validators.required]
     }));
   }
@@ -105,24 +108,25 @@ export class SaleOrderFormComponent implements OnInit {
   onSubmit() {
     const form = this.salesOrderForm.value;
     const order = this.prepareFormData(form);
-    console.log('ORDER');
 
-   /* this.workOrderApi.addWorkOrder(order).subscribe(
-      (success: WorkOrderView) => console.log(success),
+
+    this.salesOrderApi.createSalesOrder(order).subscribe(
+      (success: SalesOrder) => console.log(success),
       (error: HttpErrorResponse) => console.log(error)
-    );*/
+    );
   }
 
 
   prepareFormData(form: any): SalesOrder {
-  const order = new SalesOrder();
-    order.orderedBy = form.orderedBy;
-    order.description = form.description;
+    const order = new SalesOrder();
+    order.createdBy = form.orderedBy;
+    order.clientId = form.client;
     form.orders.forEach(element => {
-      order.saleOrderList.push({
-        itemId : element.itemId,
-        quantity : element.quantity,
-        dueDate : element.dueDate
+      order.orderDetail.push({
+        itemId: element.itemId,
+        quantity: element.quantity,
+        dueDate: element.dueDate,
+        unitPrice: element.unitPrice
       });
     });
 
@@ -138,20 +142,4 @@ export class SaleOrderFormComponent implements OnInit {
   }
 
 
-}
-
-export class SalesOrder {
-  id?: number;
-  orderedBy: number;
-  customerId: number;
-  description: number;
-  paymentMethod: string;
-  saleOrderList: SaleOrderDetail[] = [];
-}
-
-export class SaleOrderDetail {
-  id?: number;
-  itemId: number;
-  quantity: number;
-  dueDate: Date;
 }

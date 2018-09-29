@@ -28,7 +28,7 @@ namespace BionicInventory.DataStore.ProductionOrders {
                 builder.Property (e => e.OrderedBy)
                     .HasColumnName ("ordered_by");
 
-    builder.HasOne (d => d.Employee)
+                builder.HasOne (d => d.Employee)
                     .WithMany (p => p.ProductionOrder)
                     .HasForeignKey (d => d.OrderedBy)
                     .HasConstraintName ("fk_PRODUCTION_ORDERED_BY");

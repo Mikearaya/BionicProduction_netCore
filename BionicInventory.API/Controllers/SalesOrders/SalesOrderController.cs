@@ -94,7 +94,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                 ModelState.AddModelError ("CreatedBy", $"Employee with id: {newOrder.CreatedBy} Not Found");
             }
 
-            foreach (var orderDetail in newOrder.SalesDetail) {
+            foreach (var orderDetail in newOrder.orderDetail) {
                 var product = _itemQuery.GetProductById (orderDetail.ItemId);
                 if (product == null) {
                     ModelState.AddModelError ("ItemId", $"Product With id: {orderDetail.ItemId} Not Found");
@@ -109,7 +109,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                     product,
                     orderDetail.Quantity,
                     orderDetail.DueDate,
-                    orderDetail.PricePerItem,
+                    orderDetail.UnitPrice,
                     newOrder.InitialPayment,
                     newOrder.PaymentMethod
                     );

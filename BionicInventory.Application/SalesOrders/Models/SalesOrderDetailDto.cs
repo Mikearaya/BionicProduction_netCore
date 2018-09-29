@@ -18,7 +18,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         [Required]
         public DateTime DueDate { get; set; }
         [Required]
-        public float PricePerItem { get; set; }
+        public float UnitPrice { get; set; }
 
     }
 }

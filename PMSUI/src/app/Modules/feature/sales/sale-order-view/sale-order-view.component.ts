@@ -50,7 +50,7 @@ export class SaleOrderViewComponent implements OnInit {
   columnBluePrint = salesOrderBluePrint;
 
   public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/sales',
+    url: 'http://localhost:5000/api/salesorders',
     adaptor: new WebApiAdaptor,
     offline: true
   });

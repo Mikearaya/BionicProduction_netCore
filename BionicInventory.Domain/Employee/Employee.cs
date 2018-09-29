@@ -4,6 +4,7 @@ using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.Sale;
 
 namespace BionicInventory.Domain.Employees
 {
@@ -17,6 +18,7 @@ namespace BionicInventory.Domain.Employees
             InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments>();
             ProductionOrder = new HashSet<ProductionOrder>();
             PurchaseOrder = new HashSet<PurchaseOrder>();
+            Sales = new HashSet<Sales>();
         }
 
         public uint Id { get; set; }
@@ -31,6 +33,7 @@ namespace BionicInventory.Domain.Employees
         public ICollection<InvoicePayments> InvoicePaymentsPreparedByNavigation { get; set; }
         public ICollection<ProductionOrder> ProductionOrder { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public ICollection<Sales> Sales { get; set; }
 
         public string FullName() {
             return FirstName+' '+LastName;
