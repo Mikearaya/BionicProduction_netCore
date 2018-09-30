@@ -84,7 +84,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
 
             try {
 
-                var finishedProducts = _query.GetAllFinishedProducts ();
+                var finishedProducts = _query.GetStockReport();
                 return StatusCode (200, finishedProducts);
 
             } catch (Exception e) {

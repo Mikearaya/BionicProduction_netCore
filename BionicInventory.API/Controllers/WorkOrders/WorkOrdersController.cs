@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 11, 2018 2:12 AM
+ * @Last Modified Time: Sep 29, 2018 10:38 PM
  * @Description: WorkOrder API Controller Class
  */
 using System;
@@ -51,7 +51,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         public IActionResult GetAllWorkOrders (String status = "ALL") {
             try {
                 if (status == "ALL") {
-                var orders = _query.GetPendingWorkOrders ();
+                var orders = _query.GetWorkOrdersStatus();
                 return StatusCode (200, orders);
                 } else {
                     var orders = _query.GetActiveWorkOrders();

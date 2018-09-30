@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 21, 2018 10:43 PM
+ * @Last Modified Time: Sep 30, 2018 5:46 PM
  * @Description: FinishedProducts database Query Class
  */
 using System;
@@ -40,17 +40,8 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                         quantity = finished.Count (),
                             cost = finished.Sum (su => su.Order.CostPerItem),
                             FinishedProduct = finished.Where (r => r.Order.ItemId == finished.Key).Select (detail => new {
-                                //   orderId = detail.OrderId,
-                                //     Id = detail.Id,
-                                //         submittedBy = detail.SubmittedBy,
-                                //       recievedBy = detail.RecievedBy,
                                 product = detail.Order.Item.Code,
                                     cost = detail.Order.CostPerItem,
-                                    //   DateAdded = detail.DateAdded,
-                                    // DateUpdated = detail.DateUpdated,
-
-                                    // submitter = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName,
-                                    // reciever = detail.RecievedByNavigation.FirstName + ' ' + detail.RecievedByNavigation.LastName
                             }).FirstOrDefault ()
                     }).ToList ();
 
@@ -58,18 +49,9 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                 foreach (var item in result) {
 
                     view.Add (new FinishedProductsViewModel () {
-                        //   id = item.FinishedProduct.Id,
                         quantity = item.quantity,
-                            //        submittedBy = item.FinishedProduct.submittedBy,
-                            //      recievedBy = item.FinishedProduct.recievedBy,
                             product = item.FinishedProduct.product,
-                            cost = item.cost,
-                            //       orderId = item.FinishedProduct.orderId,
-                            //      submitter = item.FinishedProduct.submitter,
-                            //    reciever = item.FinishedProduct.reciever,
-
-                            //                            dateAdded = (DateTime) item.FinishedProduct.DateAdded,
-                            //                          dateUpdated = (DateTime) item.FinishedProduct.DateUpdated
+                            cost = item.cost
                     });
 
                 }
@@ -110,6 +92,50 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                 _logger.LogError (100, e.Message, e);
                 return null;
             }
+
+        }
+
+        public IEnumerable<StockStatusView> GetStockReport () {
+
+            var stock = _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
+                manufOrder => manufOrder.ItemId,
+                (product, manufactureOrder) => new StockStatusView () {
+
+                        ItemId = product.Id,
+
+                        itemCode = product.Code,
+
+                        itemName = product.Name,
+
+                        averageCost = manufactureOrder.Sum (item => item.CostPerItem) / manufactureOrder.Count (),
+
+                        inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.Sale == null).Count ()),
+
+                        totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.Sale != null)))),
+
+                        booked = manufactureOrder.Sum (MO => MO.FinishedProduct
+                            .Where (fin => fin.Order.PurchaseOrder != null && fin.Sale == null && fin.OrderId == MO.Id).Count ()),
+
+                        available = manufactureOrder.Sum (MO => MO.FinishedProduct
+                            .Where (fin => fin.Order.PurchaseOrder == null && fin.Sale == null && fin.OrderId == MO.Id).Count ()),
+
+                        expectedAvailable = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
+                            MO.FinishedProduct.Count (fin => fin.Sale == null || fin.Order.Id == MO.Id)),
+
+                        expectedBooked = (int) manufactureOrder.Where (MO => MO.PurchaseOrder != null).Sum (MO => MO.Quantity - MO.FinishedProduct
+                            .Count (fin => fin.Sale == null || fin.Order.Id == MO.Id)),
+
+                        totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => fin.Sale == null || fin.Order != null))
+                }).GroupBy (manuf => manuf.ItemId).ToList ();
+
+            List<StockStatusView> stockStatus = new List<StockStatusView> ();
+            foreach (var item in stock) {
+                foreach (var status in item) {
+                    stockStatus.Add (status);
+
+                }
+            }
+            return stockStatus;
 
         }
     }

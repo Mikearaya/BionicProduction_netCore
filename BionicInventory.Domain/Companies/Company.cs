@@ -1,3 +1,5 @@
+using System;
+
 namespace BionicInventory.Domain.Companies {
     public class Company {
         public uint Id { get; set; }

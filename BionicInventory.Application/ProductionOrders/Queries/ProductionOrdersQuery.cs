@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 11:10 PM
+ * @Last Modified Time: Sep 30, 2018 5:44 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -37,24 +37,29 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
         }
         public IEnumerable<WorkOrderView> GetWorkOrdersStatus () {
+        
+                        var x = _database.ProductionOrderList.GroupBy (po => po.Id)
+                            .Select (production => new {
+                                id = production.Key,
+                                    status = production.Select (pro => new {
+                                        remaining = pro.Quantity - pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
+                                        booked = pro.FinishedProduct.Where(fin => fin.Order.PurchaseOrder != null && fin.Sale == null && fin.OrderId == pro.Id ).Count(),
+                                        available = pro.FinishedProduct.Where(fin => fin.Order.PurchaseOrder == null && fin.Sale == null && fin.OrderId == pro.Id ).Count(),
 
-            var x = _database.ProductionOrderList.GroupBy (po => po.Id)
-                .Select (production => new {
-                    id = production.Key,
-                        status = production.Select (pro => new {
-                            remaining = pro.Quantity - pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
-                                Description = pro.ProductionOrder.Description,
-                                orderedBy = $"{pro.ProductionOrder.Employee.FirstName} {pro.ProductionOrder.Employee.LastName}",
-                                orderId = pro.ProductionOrderId,
-                                product = pro.Item.Code,
-                                orderDate = pro.ProductionOrder.AddedOn,
-                                dueDate = pro.DueDate,
-                                total = pro.Quantity,
-                                type = (pro.PurchaseOrderId == null) ? "Ineternal" : "Sales"
-                        })
-                }).ToList ();
+                                            Description = pro.ProductionOrder.Description,
+                                            orderedBy = $"{pro.ProductionOrder.Employee.FirstName} {pro.ProductionOrder.Employee.LastName}",
+                                            orderId = pro.ProductionOrderId,
+                                            product = pro.Item.Code,
+                                            orderDate = pro.ProductionOrder.AddedOn,
+                                            dueDate = pro.DueDate,
+                                            total = pro.Quantity,
+                                            type = (pro.PurchaseOrderId == null) ? "Internal" : "Sales"
+                                    })
+                            }).ToList ();
+    
 
             List<WorkOrderView> view = new List<WorkOrderView> ();
+        
             foreach (var item in x) {
 
                 WorkOrderView v = new WorkOrderView ();
@@ -68,6 +73,8 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                     v.orderDate = r.orderDate;
                     v.product = r.product;
                     v.quantity = (int) r.total;
+                    v.booked = r.booked;
+                    v.available = r.available;
                     v.orderedBy = r.orderedBy;
                     v.orderId = r.orderId;
                     v.status = (v.completed == v.quantity) ? "Completed" : "Active";
@@ -77,6 +84,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                 view.Add (v);
 
             }
+
             return view;
 
         }
@@ -118,16 +126,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
-            return _database.PurchaseOrderDetail.Include(ga => ga.ProductionOrderList).GroupBy(aa => aa.Item.Id)
-                .Select (WO => new  WorkOrderView() {
-                    quantity = (int) WO.Where(sd => sd.ProductionOrderList == null).Sum(s => s.Quantity)
-                }).ToList();
-                var x = _database.Item.GroupBy(sd => sd.Id).Select(g => new {
-                    aa = g.Select(sd => new WorkOrderView() {
-                        quantity = sd.PurchaseOrderDetail.Where(dd => dd.ProductionOrderList == null).Count(),
-                        remaining = sd.PurchaseOrderDetail.Where(dd => dd.ProductionOrderList != null).Count(),
-                    })
-                }).ToList();
+            throw new NotImplementedException ();
         }
     }
 }
