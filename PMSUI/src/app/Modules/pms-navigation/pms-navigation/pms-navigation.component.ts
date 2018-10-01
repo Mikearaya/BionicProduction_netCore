@@ -31,7 +31,7 @@ export class PmsNavigationComponent {
     id: '2',  name: 'PRODUCTION',
       subChild: [
         { id: 'workorders', name: 'WORK ORDERS' },
-        { id: 'workorders/request', name: 'PENDING REQUESTS' },
+        { id: 'workorders/pending', name: 'PENDING REQUESTS' },
         { id: 'workorders/completed', name: 'COMPLETED ORDERS' }
       ]
     },

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 12, 2018 12:49 AM
+ * @Last Modified Time: Oct 1, 2018 10:00 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -28,6 +28,7 @@ import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
 import { FinishedOrderApiService } from './finished-order-api.service';
+import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { FinishedOrderApiService } from './finished-order-api.service';
     // application
     WorkOrderFormComponent,
     FinishedOrderFormComponent,
-    WorkOrderViewComponent
+    WorkOrderViewComponent,
+    PendingOrdersViewComponent
   ],
   providers: [
     FinishedOrderApiService,

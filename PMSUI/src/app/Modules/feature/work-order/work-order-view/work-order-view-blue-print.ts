@@ -12,14 +12,14 @@ export const workOrderBluePrint = [
     key: 'orderId',
     humanReadable: 'Order ID',
     type: 'number', primaryKey: true,
-    allowGrouping: true, editable: false, width: '30', isIdentity: true
+    allowGrouping: true, editable: false, width: '30', visable: false, isIdentity: true
   },
   {
     key: 'id', humanReadable: 'ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
     validationRule: { required: true }, isIdentity: true, width: '20'
   }  ,
   {
-    key: 'client', humanReadable: 'For', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'client', humanReadable: 'Customer', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
@@ -36,7 +36,7 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '30'
   },
   {
-    key: 'orderDate', humanReadable: 'Order Date', allowGrouping: true, format: 'yMd',
+    key: 'orderDate', humanReadable: 'Order Date', visable: false, allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '40'
   },
