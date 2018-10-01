@@ -9,7 +9,7 @@
 namespace BionicInventory.Application.FinishedProducts.Models {
     public class StockStatusView {
 
-        public uint ItemId { get; set; }
+        public uint itemId { get; set; }
 
         public string itemName { get; set; }
 

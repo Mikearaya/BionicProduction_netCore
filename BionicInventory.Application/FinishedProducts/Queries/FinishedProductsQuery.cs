@@ -101,7 +101,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                 manufOrder => manufOrder.ItemId,
                 (product, manufactureOrder) => new StockStatusView () {
 
-                        ItemId = product.Id,
+                        itemId = product.Id,
 
                         itemCode = product.Code,
 
@@ -126,7 +126,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                             .Count (fin => fin.Sale == null || fin.Order.Id == MO.Id)),
 
                         totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => fin.Sale == null || fin.Order != null))
-                }).GroupBy (manuf => manuf.ItemId).ToList ();
+                }).GroupBy (manuf => manuf.itemId).ToList ();
 
             List<StockStatusView> stockStatus = new List<StockStatusView> ();
             foreach (var item in stock) {

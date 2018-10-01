@@ -48,27 +48,25 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllWorkOrders (String status = "ALL") {
+        public IActionResult GetAllWorkOrders (String type = "ALL") {
             try {
-                if (status == "ALL") {
-                var orders = _query.GetWorkOrdersStatus();
-                return StatusCode (200, orders);
+                Object orders = null;
+                if (type.ToUpper () == "PENDING") {
+                    orders = _query.GetPendingWorkOrders ();
+                } else if (type.ToUpper () == "ACTIVE") {
+                    orders = _query.GetActiveWorkOrders ();
                 } else {
-                    var orders = _query.GetActiveWorkOrders();
-                    return StatusCode (200, orders);
+                    orders = _query.GetWorkOrdersStatus ();
                 }
-                /*
-                
-                                if (orders != null) {
 
-                    //var orderView = _factory.CreateWorkOrderViewList (orders);
-                //    var response = _response.DataForPresentation ((List<WorkOrderView>) orderView);
+                if (orders != null) {
+
                     return StatusCode (200, orders);
-                    //TODO ReFactor this Section
+
                 } else {
-                    return StatusCode (200, orders);
+                    return StatusCode (500);
                 }
-    */
+
             } catch (Exception e) {
                 _logger.LogError (500, e.Message, e);
                 return StatusCode (500, e.Message);

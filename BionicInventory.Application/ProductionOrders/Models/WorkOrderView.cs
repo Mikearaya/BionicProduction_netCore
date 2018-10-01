@@ -22,19 +22,10 @@ namespace BionicInventory.Application.ProductionOrders.Models {
         public DateTime? orderDate { get; set; }
 
         public int quantity { get; set; }
-        public int remaining { get; set; }
-
-        public int completed { get; set; }
-
-        // test purpose
-
-        public int booked {get; set;}
-        public int available {get; set;}
-        public long expectedAvailable {get; set;}
-        public long expectedBooked {get; set;}
-        
 
         public string client { get; set; }
+
+        public string type { get; set; }
 
         public string status { get; set; }
     }

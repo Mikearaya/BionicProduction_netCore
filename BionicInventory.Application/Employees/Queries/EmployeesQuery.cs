@@ -32,7 +32,13 @@ namespace BionicInventory.Application.Employees.Queries {
 
             try {
 
-                return _database.Employee.AsNoTracking ().ToList ();
+                return _database.Employee.AsNoTracking ().Select(employee => new Employee(){
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    DateAdded = employee.DateAdded,
+                    DateUpdated = employee.DateUpdated
+                }).ToList ();
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
@@ -43,7 +49,13 @@ namespace BionicInventory.Application.Employees.Queries {
 
             try {
                 
-                return _database.Employee.Find (id);
+                return _database.Employee.Select(employee => new Employee(){
+                    Id = employee.Id,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    DateAdded = employee.DateAdded,
+                    DateUpdated = employee.DateUpdated
+                }).FirstOrDefault(employee => employee.Id == id);
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
