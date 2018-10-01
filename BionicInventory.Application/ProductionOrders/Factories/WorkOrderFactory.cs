@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 11, 2018 2:09 AM
+ * @Last Modified Time: Oct 1, 2018 9:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -89,11 +89,11 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
             var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
 
-            List<WorkOrderView> workorderView = new List<WorkOrderView> ();
+            List<ManufactureOrderView> workorderView = new List<ManufactureOrderView> ();
 
             foreach (var item in workOrder.ProductionOrderList) {
                 var product = _productsQuery.GetProductById (item.ItemId);
-                WorkOrderView view = new WorkOrderView () {
+                ManufactureOrderView view = new ManufactureOrderView () {
                     id = item.ProductionOrderId,
                     orderId = item.Id,
                     description = workOrder.Description,
@@ -113,13 +113,13 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
         public IEnumerable<WorkOrderView> CreateWorkOrderViewList (IEnumerable<ProductionOrder> workOrder) {
 
-            List<WorkOrderView> workorderView = new List<WorkOrderView> ();
+            List<ManufactureOrderView> workorderView = new List<ManufactureOrderView> ();
             foreach (var order in workOrder) {
                 var employee = _employeeQuery.GetEmployeeById (order.OrderedBy);
 
                 foreach (var orderList in order.ProductionOrderList) {
                     var product = _productsQuery.GetProductById (orderList.ItemId);
-                    WorkOrderView view = new WorkOrderView ();
+                    ManufactureOrderView view = new ManufactureOrderView ();
                     view.id = order.Id;
                     view.description = order.Description;
                     view.orderedBy = employee.FirstName + ' ' + employee.LastName;
@@ -142,7 +142,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
             var product = _productsQuery.GetProductById (workOrder.ItemId);
 
-            WorkOrderView view = new WorkOrderView () {
+            ManufactureOrderView view = new ManufactureOrderView () {
                 orderId = workOrder.ProductionOrderId,
                 id = workOrder.Id,
                 description = workOrder.ProductionOrder.Description,

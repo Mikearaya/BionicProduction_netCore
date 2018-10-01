@@ -1,20 +1,26 @@
 /*
+ * @CreateTime: Oct 1, 2018 9:37 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 1, 2018 9:37 PM
+ * @Description: Modify Here, Please 
+ */
+/*
  * @CreateTime: Sep 10, 2018 8:33 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 29, 2018 11:45 PM
+ * @Last Modified Time: Oct 1, 2018 9:38 PM
  * @Description: Modify Here, Please 
  */
 using System;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
-    public class WorkOrderView {
-        public uint id { get; set; }
+    public abstract class WorkOrderView {
+    
         public string orderedBy { get; set; }
         public string description { get; set; }
-
-        public uint orderId { get; set; }
 
         public string product { get; set; }
 
@@ -25,8 +31,5 @@ namespace BionicInventory.Application.ProductionOrders.Models {
 
         public string client { get; set; }
 
-        public string type { get; set; }
-
-        public string status { get; set; }
     }
 }
