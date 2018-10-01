@@ -40,5 +40,12 @@ namespace BionicInventory.Application.SalesOrders.Models {
         [Required]
         public uint CreatedBy { get; set; }
 
+        [Required]
+        [MaxLength (45)]
+        public string Title { get; set; }
+
+        [MaxLength (255)]
+        public string Description { get; set; }
+
     }
 }

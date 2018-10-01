@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 9:27 PM
+ * @Last Modified Time: Oct 1, 2018 11:44 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -26,19 +26,21 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             _logger = logger;
         }
         public IEnumerable<SalesOrderView> GetAllSalesOrders () {
-
+                
             return _database.PurchaseOrderDetail.Select (sales => new SalesOrderView () {
                 Id = sales.PurchaseOrderId,
-                    CustomerName = sales.PurchaseOrder.Client.FirstName + " " + sales.PurchaseOrder.Client.LastName,
+                    CustomerName = $"{sales.PurchaseOrder.Client.FirstName} {sales.PurchaseOrder.Client.LastName}",
                     OrderCode = $"{sales.PurchaseOrder.Id}-{sales.Id}",
                     CreatedBy = $"{sales.PurchaseOrder.CreatedByNavigation.FullName()}",
                     Quantity = sales.Quantity,
                     ItemCode = sales.Item.Code,
                     UnitPrice = (float) sales.PricePerItem,
-                    paidAmount = (float) sales.PurchaseOrder.InitialPayment,
-                    remainingPayment = ((double)sales.PricePerItem * sales.Quantity) - sales.PurchaseOrder.InitialPayment,
-                    totalAmount = (double)sales.PricePerItem * sales.Quantity,
+                    paidAmount = (float) sales.PurchaseOrder.InitialPayment + sales.PurchaseOrder.Invoice.InvoicePayments.Sum(pay => pay.Amount),
+                    remainingPayment = ((double) sales.PricePerItem * sales.Quantity) - sales.PurchaseOrder.InitialPayment,
+                    totalPrice = (double) sales.PricePerItem * sales.Quantity,
                     OrderedOn = (DateTime) sales.DateAdded,
+                    PaymentMethod = sales.PurchaseOrder.PaymentMethod,
+                    Status = (sales.ProductionOrderList == null)  ?  "PENDING" : "IN-PRDUCTION",
                     DueDate = sales.DueDate
 
             }).ToList ();
@@ -46,14 +48,14 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         }
 
         public PurchaseOrder GetSalesOrderById (uint id) {
-            return _database.PurchaseOrder.Where(order => order.Id == id).Select (sales => new PurchaseOrder () {
+            return _database.PurchaseOrder.Where (order => order.Id == id).Select (sales => new PurchaseOrder () {
                 Id = sales.Id,
-                ClientId = sales.ClientId,
-                InitialPayment = sales.InitialPayment,
-                CreatedBy = sales.CreatedBy,
-                PaymentMethod = sales.PaymentMethod,
-                PurchaseOrderDetail = sales.PurchaseOrderDetail.Where(detail => detail.PurchaseOrderId == id ).ToList()
-            }).FirstOrDefault();
+                    ClientId = sales.ClientId,
+                    InitialPayment = sales.InitialPayment,
+                    CreatedBy = sales.CreatedBy,
+                    PaymentMethod = sales.PaymentMethod,
+                    PurchaseOrderDetail = sales.PurchaseOrderDetail.Where (detail => detail.PurchaseOrderId == id).ToList ()
+            }).FirstOrDefault ();
         }
     }
 }

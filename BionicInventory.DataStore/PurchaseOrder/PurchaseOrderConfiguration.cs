@@ -58,6 +58,16 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .WithMany (p => p.PurchaseOrder)
                     .HasForeignKey (d => d.CreatedBy)
                     .HasConstraintName ("fk_PURCHASE_ORDER_employee");
+                
+            builder.Property (e => e.Description)
+                .IsRequired ()
+                .HasColumnName ("description")
+                .HasColumnType ("varchar(255)");
+
+            builder.Property (e => e.Title)
+                .IsRequired ()
+                .HasColumnName ("title")
+                .HasColumnType ("varchar(45)");
             }
         }
 }

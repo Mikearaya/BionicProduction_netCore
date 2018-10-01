@@ -29,6 +29,8 @@ namespace BionicInventory.Domain.PurchaseOrders {
 
         public string PaymentMethod { get; set; }
 
+        public string Title {get; set;}
+        public string Description {get; set;}
         public Customer Client { get; set; }
         public Employee CreatedByNavigation { get; set; }
         public Invoice Invoice { get; set; }

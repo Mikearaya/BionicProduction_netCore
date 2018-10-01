@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Oct 1, 2018 11:20 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 1, 2018 11:20 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 
 namespace BionicInventory.Application.SalesOrders.Models {
@@ -9,10 +17,11 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public string ItemCode { get; set; }
         public uint Quantity { get; set; }
         public float UnitPrice { get; set; }
-
-        public double remainingPayment {get; set;}
-        public float paidAmount {get; set;}
-        public double totalAmount {get; set;}
+        public double remainingPayment { get; set; }
+        public float paidAmount { get; set; }
+        public string PaymentMethod { get; set; }
+        public string Status { get; set; }
+        public double totalPrice { get; set; }
         public DateTime OrderedOn { get; set; }
         public DateTime DueDate { get; set; }
     }
