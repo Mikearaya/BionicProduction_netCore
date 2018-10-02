@@ -37,12 +37,12 @@ namespace BionicInventory.DataStore.Sale {
             builder.Property (e => e.StoreKeeper).HasColumnName ("STORE_KEEPER");
 
             builder.HasOne (d => d.Invoice)
-                .WithMany (p => p.Sale)
+                .WithMany (p => p.Sales)
                 .HasForeignKey (d => d.InvoiceId)
                 .HasConstraintName ("fk_SALE_ivoice");
 
             builder.HasOne (d => d.Stock)
-                .WithOne (p => p.Sale)
+                .WithOne (p => p.Sales)
                 .HasForeignKey<Sales> (d => d.StockId)
                 .HasConstraintName ("fk_SALE_product");
 

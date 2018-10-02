@@ -14,6 +14,8 @@ namespace BionicInventory.Application.SalesOrders.Models {
 
         const string cash = "CASH";
         const string check = "CHECK";
+
+        private float _minimumQuantity = 0;
         private string _paymentMethod = "CHECK";
         [Required]
         public uint ClientId { get; set; }
@@ -40,8 +42,6 @@ namespace BionicInventory.Application.SalesOrders.Models {
         [Required]
         public uint CreatedBy { get; set; }
 
-        [Required]
-        [MaxLength (45)]
         public string Title { get; set; }
 
         [MaxLength (255)]

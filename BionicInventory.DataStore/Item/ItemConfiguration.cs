@@ -44,6 +44,10 @@ namespace BionicInventory.DataStore.Items {
                 builder.Property (e => e.UnitCost)
                     .HasColumnType ("float")
                     .HasColumnName ("unit_cost");
+                
+                builder.Property (e => e.MinimumQuantity)
+                    .HasColumnType ("float")
+                    .HasColumnName ("minimum_quantity");
 
                 builder.Property (e => e.Name)
                     .IsRequired ()

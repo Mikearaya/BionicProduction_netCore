@@ -4,7 +4,7 @@
   [showColumnChooser]="showColumnChooser"
   [showColumnMenu]="showColumnMenu">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of productsViewColumns" [validationRules]="col.validationRule"
+    <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of columnBluePrint" [validationRules]="col.validationRule"
       [allowEditing]="col.editable" [field]='col.key' [width]="col.width" [isIdentity]="col.isIdentity" [headerText]='col.humanReadable'
       [editType]="col.dataType"></e-column>
 

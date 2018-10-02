@@ -35,14 +35,14 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     Quantity = sales.Quantity,
                     ItemCode = sales.Item.Code,
                     UnitPrice = (float) sales.PricePerItem,
-                    paidAmount = (float) sales.PurchaseOrder.InitialPayment + sales.PurchaseOrder.Invoice.InvoicePayments.Sum(pay => pay.Amount),
+                    paidAmount = (float) sales.PurchaseOrder.InitialPayment,  //+ sales.PurchaseOrder.Invoice.InvoicePayments.Sum(pay => pay.Amount),
                     remainingPayment = ((double) sales.PricePerItem * sales.Quantity) - sales.PurchaseOrder.InitialPayment,
                     totalPrice = (double) sales.PricePerItem * sales.Quantity,
                     OrderedOn = (DateTime) sales.DateAdded,
                     PaymentMethod = sales.PurchaseOrder.PaymentMethod,
                     Status = (sales.ProductionOrderList == null)  ?  "PENDING" : "IN-PRDUCTION",
                     DueDate = sales.DueDate
-
+//TODO : Payment amount calculation 
             }).ToList ();
 
         }

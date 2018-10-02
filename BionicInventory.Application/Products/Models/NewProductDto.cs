@@ -3,27 +3,15 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 8:30 PM
+ * @Last Modified Time: Oct 2, 2018 10:48 PM
  * @Description: Modify Here, Please 
  */
 
-using System.ComponentModel.DataAnnotations;
-
 namespace BionicInventory.Application.Products.Models {
 
-    public class NewProductDto {
-        [Required]
-        public string code;
-        [Required]
-        public string name;
-        [Required]
-        public string unit;
-        public string description;
-        [Required]
-        public float weight;
-        [Required]
-        public float unitCost;
-        public string photo;
+    public class NewProductDto: ProductDto {
+
+        
 
     }
 }

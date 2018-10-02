@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Oct 2, 2018 8:32 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 2, 2018 9:14 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;

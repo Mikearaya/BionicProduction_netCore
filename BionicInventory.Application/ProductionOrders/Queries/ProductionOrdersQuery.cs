@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 1, 2018 9:41 PM
+ * @Last Modified Time: Oct 2, 2018 9:07 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -45,7 +45,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                             remaining = pro.Quantity - pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
 
                                 Description = pro.ProductionOrder.Description,
-                                orderedBy = $"{pro.ProductionOrder.Employee.FirstName} {pro.ProductionOrder.Employee.LastName}",
+                                orderedBy = $"{pro.ProductionOrder.OrderedByNavigation.FirstName} {pro.ProductionOrder.OrderedByNavigation.LastName}",
                                 orderId = pro.ProductionOrderId,
                                 product = pro.Item.Code,
                                 orderDate = pro.ProductionOrder.AddedOn,
@@ -127,7 +127,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Select (po => new PendingOrdersView () {
                     purchaseOrderItemId = po.Id,
-                        description = "No Discription",
+                        description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
                         purchaseOrderId = po.PurchaseOrderId,
                         product = po.Item.Code,

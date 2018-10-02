@@ -18,7 +18,7 @@ namespace BionicInventory.Domain.ProductionOrders
         public DateTime? AddedOn { get; set; }
         public DateTime? UpdatedOn { get; set; }
 
-        public Employee Employee { get; set; }
+        public Employee OrderedByNavigation { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
     }
 }

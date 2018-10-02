@@ -14,6 +14,7 @@ namespace BionicInventory.Application.Products.Models {
         public uint id;
         public string code;
         public string name;
+        public float minimumQuantity;
         public string description;
         public float weight;
         public float unitCost;

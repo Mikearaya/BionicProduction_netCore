@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * @CreateTime: Oct 2, 2018 8:33 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 2, 2018 8:34 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices;
@@ -8,22 +16,17 @@ using BionicInventory.Domain.Sale;
 
 namespace BionicInventory.Domain.FinishedProducts {
     public class FinishedProduct {
-        public FinishedProduct () {
-            InvoiceDetail = new HashSet<InvoiceDetail> ();
-        }
-
         public uint Id { get; set; }
         public uint OrderId { get; set; }
-        public int Quantity { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public uint SubmittedBy { get; set; }
         public uint RecievedBy { get; set; }
+        public int? Quantity { get; set; }
 
         public ProductionOrderList Order { get; set; }
         public Employee RecievedByNavigation { get; set; }
-        public Sales Sale { get; set; }
         public Employee SubmittedByNavigation { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
+        public Sales Sales { get; set; }
     }
 }

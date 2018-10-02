@@ -8,7 +8,7 @@ using BionicInventory.Domain.PurchaseOrders;
 
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderFactory {
-        PurchaseOrder CreateNewSaleOrder (Customer customers, Employee createdBy, Item item, uint quantity, DateTime dueDate,  float unitPrice, float downPayment, string method);
+        PurchaseOrder CreateNewSaleOrder (Customer customers, Employee createdBy, Item item, uint quantity, DateTime dueDate,  float unitPrice, float downPayment, string description, string method);
         IEnumerable<PurchaseOrder> CreateUpdatesSaleOrder (IEnumerable<UpdatedSalesOrderDto> newOrder);
         SalesOrderView CreateSaleOrderView (PurchaseOrder newOrder);
     }

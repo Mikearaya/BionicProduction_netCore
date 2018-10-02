@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 21, 2018 11:09 PM
+ * @Last Modified Time: Oct 2, 2018 8:36 PM
  * @Description: Modify Here, Please 
  */
 
@@ -50,31 +50,14 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
             return current;
         }
 
-        public FinishedProductsViewModel FinishedProductForView (FinishedProduct finishedProduct) {
-
-
-            FinishedProductsViewModel view = new FinishedProductsViewModel () {
-             
-                quantity = finishedProduct.Quantity,
-            };
-
-            return view;
-
+        public FinishedProductsViewModel FinishedProductForView(FinishedProduct finishedProduct)
+        {
+            throw new NotImplementedException();
         }
 
-        public List<FinishedProductsViewModel> FinishedProductForView (List<FinishedProduct> finishedProducts) {
-
-            List<FinishedProductsViewModel> finishedProductsList = new List<FinishedProductsViewModel> ();
-
-            foreach (var item in finishedProducts) {
-
-                FinishedProductsViewModel view = new FinishedProductsViewModel () {
-                    quantity = item.Quantity,
-                };
-                finishedProductsList.Add (view);
-
-            }
-            return finishedProductsList;
+        public List<FinishedProductsViewModel> FinishedProductForView(List<FinishedProduct> finishedProduct)
+        {
+            throw new NotImplementedException();
         }
     }
 }

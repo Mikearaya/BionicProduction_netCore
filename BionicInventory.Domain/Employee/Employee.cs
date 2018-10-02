@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * @CreateTime: Oct 2, 2018 8:33 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 2, 2018 8:33 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices.InvoicePayment;

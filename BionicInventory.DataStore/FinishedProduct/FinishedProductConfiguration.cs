@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Oct 2, 2018 8:42 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 2, 2018 8:42 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +19,7 @@ namespace BionicInventory.DataStore.FinishedProducts {
 
             public void Configure (EntityTypeBuilder<FinishedProduct> builder) {
                 builder.ToTable ("FINISHED_PRODUCT");
+
                 builder.HasIndex (e => e.OrderId)
                     .HasName ("fk_FINISHED_ORDER_id_idx");
 
@@ -37,7 +46,8 @@ namespace BionicInventory.DataStore.FinishedProducts {
 
                 builder.Property (e => e.Quantity)
                     .HasColumnName ("quantity")
-                    .HasColumnType ("int(11)");
+                    .HasColumnType ("int(11)")
+                    .HasDefaultValueSql ("'0'");
 
                 builder.Property (e => e.RecievedBy).HasColumnName ("recieved_by");
 

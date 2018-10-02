@@ -15,6 +15,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public string OrderCode { get; set; }
         public string CreatedBy { get; set; }
         public string ItemCode { get; set; }
+        public string Description { get; set; }
         public uint Quantity { get; set; }
         public float UnitPrice { get; set; }
         public double remainingPayment { get; set; }

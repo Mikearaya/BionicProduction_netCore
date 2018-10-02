@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 9:19 PM
+ * @Last Modified Time: Oct 2, 2018 9:02 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -37,17 +37,26 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
-                builder.Property (e => e.PaymentMethod)
-                    .IsRequired ()
-                    .HasColumnName ("payment_method");
-
                 builder.Property (e => e.DateUpdated)
                     .HasColumnName ("date_updated")
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
 
+                builder.Property (e => e.Description)
+                    .HasColumnName ("description")
+                    .HasColumnType ("varchar(255)");
+
+                builder.Property (e => e.PaymentMethod)
+                    .IsRequired ()
+                    .HasColumnName ("payment_method");
+
                 builder.Property (e => e.InitialPayment).HasColumnName ("initial_payment");
+
+                builder.Property (e => e.Title)
+                    .IsRequired ()
+                    .HasColumnName ("title")
+                    .HasColumnType ("varchar(45)");
 
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.PurchaseOrder)
@@ -58,16 +67,6 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .WithMany (p => p.PurchaseOrder)
                     .HasForeignKey (d => d.CreatedBy)
                     .HasConstraintName ("fk_PURCHASE_ORDER_employee");
-                
-            builder.Property (e => e.Description)
-                .IsRequired ()
-                .HasColumnName ("description")
-                .HasColumnType ("varchar(255)");
-
-            builder.Property (e => e.Title)
-                .IsRequired ()
-                .HasColumnName ("title")
-                .HasColumnType ("varchar(45)");
             }
         }
 }
