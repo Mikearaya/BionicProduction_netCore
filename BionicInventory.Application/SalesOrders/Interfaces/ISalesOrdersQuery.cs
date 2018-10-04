@@ -10,11 +10,14 @@ using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
 using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderQuery  {
 
         IEnumerable<SalesOrderView> GetAllSalesOrders();
         PurchaseOrder GetSalesOrderById(uint id);
+
+        PurchaseOrderDetail GetSalesOrderItemById(uint id);
     }
 }

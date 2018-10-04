@@ -10,3 +10,8 @@
 .e-card {
   margin-left: 20px;
 }
+
+.order-items-block {
+  margin: 10px;
+  border: 1px solid rgb(64, 64, 160);
+}

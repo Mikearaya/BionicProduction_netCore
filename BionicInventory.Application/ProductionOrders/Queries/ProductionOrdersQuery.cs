@@ -123,6 +123,25 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             }
         }
 
+        public IEnumerable<WorkOrderView> GetPendingWorkOrders (uint manufactureRequestId = 0) {
+            return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
+                .Where (request => request.PurchaseOrder.Id == manufactureRequestId)
+                .Select (po => new PendingOrdersView () {
+                    purchaseOrderItemId = po.Id,
+                        description = po.PurchaseOrder.Description,
+                        orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
+                        purchaseOrderId = po.PurchaseOrderId,
+                        product = po.Item.Code,
+                        orderDate = po.DateAdded,
+                        dueDate = po.DueDate,
+                        quantity = (int) po.Quantity,
+                        client = (po.PurchaseOrder != null) ?
+                        $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
+
+                }).ToList ();
+
+        }
+
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Select (po => new PendingOrdersView () {
@@ -138,6 +157,16 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
                 }).ToList ();
+        }
+
+        public bool saleOrderProductionExits(uint id)
+        {
+            var order = _database.ProductionOrderList.Where(orders => orders.PurchaseOrderId == id)
+                    .Select(result => new ProductionOrderList() {
+                        Id = result.Id
+                    }).FirstOrDefault();
+
+            return (order == null) ? false : true;
         }
     }
 }

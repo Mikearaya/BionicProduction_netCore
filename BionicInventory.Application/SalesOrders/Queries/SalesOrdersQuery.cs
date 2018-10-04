@@ -13,6 +13,7 @@ using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
 using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Queries {
@@ -33,6 +34,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     OrderCode = $"{sales.PurchaseOrder.Id}-{sales.Id}",
                     CreatedBy = $"{sales.PurchaseOrder.CreatedByNavigation.FullName()}",
                     Quantity = sales.Quantity,
+                    Description = sales.PurchaseOrder.Description,
                     ItemCode = sales.Item.Code,
                     UnitPrice = (float) sales.PricePerItem,
                     paidAmount = (float) sales.PurchaseOrder.InitialPayment,  //+ sales.PurchaseOrder.Invoice.InvoicePayments.Sum(pay => pay.Amount),
@@ -57,5 +59,23 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     PurchaseOrderDetail = sales.PurchaseOrderDetail.Where (detail => detail.PurchaseOrderId == id).ToList ()
             }).FirstOrDefault ();
         }
+
+        public PurchaseOrderDetail GetSalesOrderItemById(uint id)
+        {
+            return _database.PurchaseOrderDetail
+                                .Where(order => order.Id == id)
+                                .Select(orderItem => new PurchaseOrderDetail(){
+                                    Id = orderItem.Id,
+                                    PricePerItem = orderItem.PricePerItem,
+                                    PurchaseOrderId = orderItem.PurchaseOrderId,
+                                    ItemId = orderItem.ItemId,
+                                    Quantity = orderItem.Quantity,
+                                    DateAdded = orderItem.DateAdded,
+                                    DateUpdated = orderItem.DateUpdated,
+                                    DueDate = orderItem.DueDate
+                                }).FirstOrDefault();
+        }
+
+
     }
 }

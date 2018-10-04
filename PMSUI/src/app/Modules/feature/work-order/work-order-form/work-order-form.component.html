@@ -14,7 +14,7 @@
           </div>
         </div>
       </div>
-      <div formArrayName="orders">
+      <div formArrayName="orders" class="order-items-block">
         <div class="row" *ngFor="let order of orders.controls; let i=index; let last=last;" [formGroup]="order">
           <div class="col-sm-3 col-xs-12">
 

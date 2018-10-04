@@ -9,12 +9,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment.prod';
 
 @Injectable()
 export class WorkOrderAPIService {
   private url = 'http://localhost:5000/api/workorders';
   private productsIrl = 'http://localhost:5000/api/products';
     private httpBody: URLSearchParams;
+
 
     constructor(private httpClient: HttpClient) {
         this.httpBody = new URLSearchParams();
@@ -27,6 +29,15 @@ export class WorkOrderAPIService {
     getAllProducts(): Observable<any[]> {
         return this.httpClient.get<any[]>(`${this.productsIrl}`);
     }
+
+    getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {
+      return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
+    }
+
+    getPendingWorkOrderById(id: number): Observable<PendingManufactureOrdersView[]> {
+      return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending&salesOrderId=${id}`);
+    }
+
 
     getAllWorkOrders(): Observable<WorkOrder[]> {
         return this.httpClient.get<WorkOrder[]>(`${this.url}`);
@@ -95,4 +106,16 @@ export class WorkOrderView {
   orderDate: Date;
   quantity: number;
   status: string;
+}
+
+export interface PendingManufactureOrdersView {
+  purchaseOrderId: number;
+  purchaseOrderItemId: number;
+  client: string;
+  description: string;
+  product: string;
+  quantity: string;
+  orderDate: Date;
+  dueDate: Date;
+  orderedBy: string;
 }

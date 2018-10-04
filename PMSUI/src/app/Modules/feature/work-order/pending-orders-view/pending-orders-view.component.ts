@@ -58,7 +58,6 @@ export class PendingOrdersViewComponent implements OnInit {
     offline: true
   });
 
-
   ngOnInit(): void {
 
     this.data = this.dataManager;
@@ -67,6 +66,11 @@ export class PendingOrdersViewComponent implements OnInit {
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
     this.toolbar = ['Delete', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'purchaseOrderItemId' }] };
+    this.commands = [
+      { type: 'Edit', buttonOption: {  content: 'CREATE ORDERED', cssClass:  'e-flat e-success', iconCss: 'e-check e-icons' } },
+      { type: 'Delete', buttonOption: { content: 'REJECT', cssClass: 'e-flat e-delete e-danger', iconCss: 'e-delete e-icons' } }
+    ];
+
     this.groupOptions = {
       showDropArea: true,
       disablePageWiseAggregates: true

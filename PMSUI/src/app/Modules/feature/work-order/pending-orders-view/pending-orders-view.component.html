@@ -6,8 +6,46 @@
   [allowSorting]="allowSorting"
   [allowPdfExport]="allowPdfExport">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" textAlign="left"  [width]="col.width" *ngFor="let col of columnBluePrint"
-     [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping"
-      [isIdentity]="col.isIdentity" [visible]="col.visable" [headerText]='col.humanReadable' [format]='col.format' [type]="col.type" [editType]="col.dataType"></e-column>
+    <e-column isPrimaryKey="true" textAlign="left"  width="30"
+      field='purchaseOrderId'
+      isIdentity="true" visible="false" headerText='ID'  type="number" >
+    </e-column>
+    <e-column isPrimaryKey="true" textAlign="left"  width="30"
+      field='purchaseOrderItemId'
+      isIdentity="true" headerText='ID'  type="number" >
+    </e-column>
+    <e-column textAlign="left"
+      field='client'
+      isIdentity="true" headerText='ID'   type="string" allowGrouping="true" width="30px" >
+    </e-column>
+    <e-column textAlign="left"
+      field="description"
+      isIdentity="true" headerText="DESCRIPTION" type="string" allowGrouping="true" width="40px" >
+    </e-column>
+    <e-column textAlign="left"  width="20px"
+    field='product'
+    isIdentity="true" headerText='PRODUCT'   type="string" allowGrouping="true" width="25px" >
+  </e-column>
+  <e-column textAlign="left"  width="20px"
+      field='quantity'
+      isIdentity="true" headerText='QUANTITY'    type="string" allowGrouping="true" width="20px" >
+
+    </e-column>
+    <e-column textAlign="left"  width="20px"
+      field='orderDate'
+      isIdentity="true" headerText='ORDERED'    type="date" format="yMd" allowGrouping="true" width="25px" >
+
+    </e-column>
+    <e-column textAlign="left"  width="20px"
+      field='dueDate'
+      isIdentity="true" headerText='Due.'    type="date" format="yMd" allowGrouping="true" width="25px" >
+
+    </e-column>
+    <e-column textAlign="left"  width="20px"
+      field='orderedBy'
+      isIdentity="true" headerText='ORDERED BY'    type="string"  allowGrouping="true" width="30px" >
+
+    </e-column>
+    <e-column headerText='' width='30px' [commands]='commands'></e-column>
   </e-columns>
 </ejs-grid>

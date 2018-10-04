@@ -14,7 +14,7 @@ namespace BionicInventory.DataStore.Invoices.InvoicePayment {
 
                 builder.HasIndex (e => e.CashierId)
                     .HasName ("fk_INVOICE_PAYMENTS_cashier_idx");
-
+ 
                 builder.HasIndex (e => e.InvoiceNo)
                     .HasName ("fk_INVOICE_PAYMENTS_INVOICE_idx");
 

@@ -20,7 +20,10 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces {
         IEnumerable<ActiveOrdersView> GetActiveWorkOrders();
         IEnumerable<WorkOrderView> GetWorkOrdersStatus();
         IEnumerable<ProductionOrder> GetAllWorkOrders();
+        bool saleOrderProductionExits(uint id);
         IEnumerable<ProductionOrder> GetCompletedWorkOrders();
+        IEnumerable<WorkOrderView> GetPendingWorkOrders(uint manufactureRequestId);
+
         IEnumerable<WorkOrderView> GetPendingWorkOrders();
 
     }

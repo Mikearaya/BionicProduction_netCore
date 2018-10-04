@@ -36,17 +36,18 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     OrderedBy = newOrder.OrderedBy
 
                 };
-
+                
                 foreach (var item in newOrder.workOrders) {
                     ProductionOrderList list = new ProductionOrderList ();
 
                     list.ItemId = item.ItemId;
                     var product = _productsQuery.GetProductById (item.ItemId);
-
                     list.CostPerItem = product.UnitCost;
                     list.Quantity = item.Quantity;
                     list.DueDate = item.DueDate;
-
+                    if (item.PurchaseOrderItemId != 0) {
+                        list.PurchaseOrderId = item.PurchaseOrderItemId;
+                    }
                     productionOrder.ProductionOrderList.Add (list);
                 }
 
@@ -59,29 +60,28 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
         public ProductionOrder CreateUpdatedWorkOrder (UpdatedWorkOrderDto newOrder) {
 
+            ProductionOrder productionOrder = new ProductionOrder () {
+                Description = newOrder.Description,
+                OrderedBy = newOrder.OrderedBy,
+                Id = newOrder.Id
 
-                ProductionOrder productionOrder = new ProductionOrder () {
-                    Description = newOrder.Description,
-                    OrderedBy = newOrder.OrderedBy,
-                    Id = newOrder.Id
+            };
+
+            foreach (var item in newOrder.workOrders) {
+                ProductionOrderList list = new ProductionOrderList (); {
+                    var product = _productsQuery.GetProductById (item.ItemId);
+
+                    list.Id = (item.Id > 0) ? (uint) item.Id : 0;
+                    list.ItemId = item.ItemId;
+                    list.CostPerItem = product.UnitCost;
+                    list.Quantity = item.Quantity;
+                    list.DueDate = item.DueDate;
 
                 };
+                productionOrder.ProductionOrderList.Add (list);
+            }
 
-                foreach (var item in newOrder.workOrders) {
-                    ProductionOrderList list = new ProductionOrderList (); {
-                        var product = _productsQuery.GetProductById (item.ItemId);
-
-                        list.Id = (item.Id > 0) ? (uint) item.Id : 0;
-                        list.ItemId = item.ItemId;
-                        list.CostPerItem = product.UnitCost;
-                        list.Quantity = item.Quantity;
-                        list.DueDate = item.DueDate;
-
-                    };
-                    productionOrder.ProductionOrderList.Add (list);
-                }
-
-                return productionOrder;
+            return productionOrder;
 
         }
 

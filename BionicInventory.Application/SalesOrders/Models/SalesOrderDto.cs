@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 9:20 PM
+ * @Last Modified Time: Oct 2, 2018 11:30 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -15,7 +15,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         const string cash = "CASH";
         const string check = "CHECK";
 
-        private float _minimumQuantity = 0;
+      
         private string _paymentMethod = "CHECK";
         [Required]
         public uint ClientId { get; set; }

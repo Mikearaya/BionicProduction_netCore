@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
     public abstract class WorkOrderListDto {
 
+        private uint _saleOrderId = 0;
         [Required]
         public uint ItemId { get; set; }
 
@@ -21,6 +22,14 @@ namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
         [Required]
         public DateTime DueDate { get; set; }
 
+        public uint? PurchaseOrderItemId {
+            get {
+                return _saleOrderId;
+            }
+            set {
+                _saleOrderId = (value != 0) ? (uint) value : 0;
+            }
+        }
 
     }
 }

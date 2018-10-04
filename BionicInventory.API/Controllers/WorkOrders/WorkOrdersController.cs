@@ -16,6 +16,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BionicInventory.Application.SalesOrders.Interfaces;
 
 namespace BionicInventory.API.Controllers.WorkOrders {
     [InventoryAPI ("workorders")]
@@ -28,18 +29,22 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         private readonly ILogger<WorkOrdersController> _logger;
         private readonly IEmployeesQuery _employeeQuery;
 
+        private readonly ISalesOrderQuery _salesQuery;
+
         public WorkOrdersController (IWorkOrdersCommand commands,
             IWorkOrdersFactory factory,
             IWorkOrdersQuery query,
             IResponseFormatFactory resposeFactory,
             IEmployeesQuery employeeQuery,
             IProductsQuery productsQuery,
-            ILogger<WorkOrdersController> logger) {
+            ILogger<WorkOrdersController> logger,
+            ISalesOrderQuery salesQuery) {
             _command = commands;
             _query = query;
             _factory = factory;
             _response = resposeFactory;
             _productsQuery = productsQuery;
+            _salesQuery = salesQuery;
             _logger = logger;
 
             _employeeQuery = employeeQuery;
@@ -48,11 +53,16 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllWorkOrders (String type = "ALL") {
+        public IActionResult GetAllWorkOrders (String type = "ALL", uint requestedOrderId = 0) {
             try {
                 Object orders = null;
                 if (type.ToUpper () == "PENDING") {
-                    orders = _query.GetPendingWorkOrders ();
+                    if(requestedOrderId != 0) {
+                    orders = _query.GetPendingWorkOrders (requestedOrderId);
+                    } else {
+                        orders = _query.GetPendingWorkOrders ();
+                    }
+
                 } else if (type.ToUpper () == "ACTIVE") {
                     orders = _query.GetActiveWorkOrders ();
                 } else {
@@ -137,9 +147,6 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [ProducesResponseType (409)]
         [ProducesResponseType (500)]
         public IActionResult CreateNewWorkWorder ([FromBody] NewWorkOrderDto newWork) {
-
-            try {
-
                 if (newWork == null) {
                     return StatusCode (400);
                 }
@@ -159,6 +166,18 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     if (product == null) {
                         return StatusCode (404, "Product Record Not Found");
                     }
+
+                    if(products.PurchaseOrderItemId != 0) {
+                        var salesOrder = _salesQuery.GetSalesOrderItemById((uint)products.PurchaseOrderItemId);
+                        if(salesOrder == null) {
+                            return StatusCode (404, $"Sales Order with id {products.PurchaseOrderItemId} Not Found");
+                        }
+
+                        if(_query.saleOrderProductionExits((uint)products.PurchaseOrderItemId)) {
+                            ModelState.AddModelError("PurchaseOrderId", $"Sale Order With Id : {products.PurchaseOrderItemId} already has a manufacturing Order");
+                            return new InvalidInputResponse(ModelState);
+                        }
+                    }
                 }
 
                 var workorder = _factory.CreateNewWorkOrder (newWork);
@@ -175,10 +194,6 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (500, "Server error Try Again");
                 }
 
-            } catch (Exception e) {
-                _logger.LogError (500, e.Message, e);
-                return StatusCode (500, e.Message);
-            }
 
         }
 

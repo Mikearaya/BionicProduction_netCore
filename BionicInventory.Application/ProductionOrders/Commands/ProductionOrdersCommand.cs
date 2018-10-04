@@ -22,15 +22,11 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
         }
         public ProductionOrder CreateNewWorkOrder (ProductionOrder newWorkOrder) {
 
-            try {
 
                 _database.ProductionOrder.Add (newWorkOrder);
                 _database.Save ();
                 return newWorkOrder;
 
-            } catch (Exception) {
-                return null;
-            }
         }
 
         public bool DeleteWorkOrder (ProductionOrder deletedWorkOrder) {
