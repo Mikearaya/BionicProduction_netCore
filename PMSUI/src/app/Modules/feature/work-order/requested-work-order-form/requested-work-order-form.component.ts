@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { WorkOrderAPIService, PendingManufactureOrdersView } from '../work-order-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { data } from './datasource';
+import { GridComponent } from '@syncfusion/ej2-ng-grids';
+
 
 @Component({
   selector: 'app-requested-work-order-form',
@@ -11,10 +14,16 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 })
 export class RequestedWorkOrderFormComponent implements OnInit {
 
+  @ViewChild('grid')
+  public grid: GridComponent;
+
+
+
   private purchaseOrderId: number;
   public requestedItems: PendingManufactureOrdersView[];
   public workRequestForm: FormGroup;
-
+  public dropData: string[];
+  public dataaa: any;
   constructor(private workOrderApi: WorkOrderAPIService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
@@ -26,9 +35,12 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     this.purchaseOrderId = + this.activatedRoute.snapshot.paramMap.get('salesOrderId');
     this.workOrderApi.getPendingWorkOrderById(this.purchaseOrderId)
       .subscribe(
-        (data: PendingManufactureOrdersView[]) => this.requestedItems = data,
+        (dataa: PendingManufactureOrdersView[]) => this.requestedItems = dataa,
         (error: HttpErrorResponse) => console.log(error)
       );
+
+    this.dataaa = data;
+    this.dropData = ['Order Placed', 'Processing', 'Delivered'];
 
   }
 

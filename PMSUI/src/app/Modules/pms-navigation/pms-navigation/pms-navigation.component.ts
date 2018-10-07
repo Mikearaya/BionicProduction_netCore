@@ -1,6 +1,6 @@
-import { Component, ViewEncapsulation, Inject, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ButtonComponent } from '@syncfusion/ej2-ng-buttons';
-import { SidebarComponent, TreeViewComponent, NodeClickEventArgs, NodeSelectEventArgs } from '@syncfusion/ej2-angular-navigations';
+import { SidebarComponent, NodeSelectEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { Router } from '@angular/router';
 
 @Component({

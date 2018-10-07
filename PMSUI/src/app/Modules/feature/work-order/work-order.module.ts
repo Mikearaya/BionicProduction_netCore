@@ -14,21 +14,21 @@ import { WorkOrderAPIService } from './work-order-api.service';
 
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
-import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
+
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  GridModule, PdfExportService, PageService, CommandColumnService, SortService, FilterService,
-  SearchService, GroupService, ColumnChooserService, ColumnMenuService, ForeignKeyService, ReorderService,
-  RowDDService, EditService, ToolbarService, ExcelExportService, ResizeService
-} from '@syncfusion/ej2-angular-grids';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+  GridModule
+} from '@syncfusion/ej2-ng-grids';
+import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
 import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
+import { RequestedWorkOrderFormComponent } from './requested-work-order-form/requested-work-order-form.component';
+
 
 
 @NgModule({
@@ -50,6 +50,7 @@ import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders
   declarations: [
     // application
     WorkOrderFormComponent,
+    RequestedWorkOrderFormComponent,
     FinishedOrderFormComponent,
     WorkOrderViewComponent,
     PendingOrdersViewComponent

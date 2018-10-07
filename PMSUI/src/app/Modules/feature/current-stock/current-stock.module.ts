@@ -13,12 +13,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
-  GridModule, ToolbarService, PdfExportService, PageService, CommandColumnService,
-  SortService, FilterService, SearchService, GroupService, ColumnChooserService,
-  ColumnMenuService, ForeignKeyService, ReorderService, RowDDService, EditService,
-  ExcelExportService, ResizeService
-} from '@syncfusion/ej2-angular-grids';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+  GridModule
+} from '@syncfusion/ej2-ng-grids';
+import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { CurrentStockViewComponent } from './current-stock-view/current-stock-view.component';

@@ -6,7 +6,7 @@ import {
   SearchService, GroupService, ColumnChooserService,
   ColumnMenuService, ForeignKeyService, ReorderService,
   RowDDService, EditService, ExcelExportService, ResizeService
-} from '@syncfusion/ej2-angular-grids';
+} from '@syncfusion/ej2-ng-grids';
 
 
 @NgModule({

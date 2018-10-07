@@ -6,10 +6,8 @@ import { CustomerService } from './customer.service';
 import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 import {
-    GridModule, PageService, SortService, FilterService, SearchService, GroupService,
-    ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService, EditService,
-    ToolbarService, ExcelExportService
-} from '@syncfusion/ej2-angular-grids';
+    GridModule
+} from '@syncfusion/ej2-ng-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 

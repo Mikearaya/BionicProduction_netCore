@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import {  HttpErrorResponse } from '@angular/common/http';
 import { CustomerService } from './../customer.service';
 
 import { Component, OnInit, Input } from '@angular/core';

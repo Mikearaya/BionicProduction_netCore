@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import { GridComponent } from '@syncfusion/ej2-ng-grids';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel,
   EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs

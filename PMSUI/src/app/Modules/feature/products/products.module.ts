@@ -14,10 +14,9 @@ import { ProductsAPIService } from './products-api.service';
 
 import { ProductsViewComponent } from './products-view/products-view.component';
 import {
-  PageService, SortService, FilterService, SearchService, GridModule, GroupService,
-  ColumnChooserService, ColumnMenuService, ForeignKeyService, ReorderService, RowDDService,
-  EditService, ToolbarService, ExcelExportService, ResizeService
-} from '@syncfusion/ej2-angular-grids';
+  GridModule
+
+} from '@syncfusion/ej2-ng-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

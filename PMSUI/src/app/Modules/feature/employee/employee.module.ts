@@ -6,10 +6,8 @@ import { EmployeeApiService } from './employee-api.service';
 
 import { CommonModule } from '@angular/common';
 import {
-  GridModule, SortService, PageService, FilterService, SearchService, GroupService,
-  ColumnChooserService, ColumnMenuService, ForeignKeyService, RowDDService, EditService,
-  ToolbarService, ExcelExportService
-} from '@syncfusion/ej2-angular-grids';
+  GridModule
+} from '@syncfusion/ej2-ng-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 
 

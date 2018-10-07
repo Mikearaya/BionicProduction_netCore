@@ -1,4 +1,4 @@
-<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
+<ejs-grid  #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
   [allowReordering]="allowReordering" [allowPaging]="allowPaging" [pageSettings]="pageSettings" [allowExcelExport]="allowExcelExport"
   [toolbar]='toolbar' id="workorder"
   (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
@@ -6,7 +6,7 @@
   [allowSorting]="allowSorting"
   [allowPdfExport]="allowPdfExport">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" textAlign="left"  [width]="col.width" *ngFor="let col of columnBluePrint"
+    <e-column  [isPrimaryKey]="col.primaryKey" textAlign="left"  [width]="col.width" *ngFor="let col of columnBluePrint"
       [validationRules]="col.validationRule" [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping"
       [isIdentity]="col.isIdentity" [visible]="col.visable" [headerText]='col.humanReadable' [format]='col.format' [type]="col.type" [editType]="col.dataType"></e-column>
 

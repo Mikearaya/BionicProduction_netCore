@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
-  EditSettingsModel, ToolbarItems, IEditCell, CommandModel,
-  GridComponent, DialogEditEventArgs, SaveEventArgs
-} from '@syncfusion/ej2-angular-grids';
+  CommandModel
+} from '@syncfusion/ej2-ng-grids';
 import { WorkOrderAPIService, WorkOrder, WorkOrderView } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
@@ -108,14 +107,14 @@ export class WorkOrderFormComponent implements OnInit {
 
 
   prepareFormData(form: any): WorkOrder {
-  const order = new WorkOrder();
+    const order = new WorkOrder();
     order.orderedBy = form.orderedBy;
     order.description = form.description;
     form.orders.forEach(element => {
       order.workOrders.push({
-        itemId : element.itemId,
-        quantity : element.quantity,
-        dueDate : element.dueDate
+        itemId: element.itemId,
+        quantity: element.quantity,
+        dueDate: element.dueDate
       });
     });
 

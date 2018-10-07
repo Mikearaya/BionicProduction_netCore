@@ -10,13 +10,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel
+  CommandModel, GroupSettingsModel
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import { GridComponent } from '@syncfusion/ej2-ng-grids';
 
 import { finishedProductsBluePrint } from './current-stock-column-blue-print';
 
