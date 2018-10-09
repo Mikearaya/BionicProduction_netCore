@@ -17,8 +17,9 @@ import { RequestedWorkOrderFormComponent } from './requested-work-order-form/req
 const routes: Routes = [
   { path: '', component: WorkOrderViewComponent },
   { path: 'new', component: WorkOrderFormComponent },
-  { path: 'pending', component: RequestedWorkOrderFormComponent },
+  { path: 'pending', component: PendingOrdersViewComponent },
   { path: 'completed', component: FinishedOrderFormComponent },
+  {path: 'request/:salesOrderId', component: RequestedWorkOrderFormComponent},
   { path: ':workOrderId/update', component: WorkOrderFormComponent }
 
 

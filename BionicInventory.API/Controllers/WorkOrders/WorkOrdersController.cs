@@ -53,12 +53,12 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllWorkOrders (String type = "ALL", uint requestedOrderId = 0) {
+        public IActionResult GetAllWorkOrders (String type = "ALL", uint salesOrderId = 0) {
             try {
                 Object orders = null;
                 if (type.ToUpper () == "PENDING") {
-                    if(requestedOrderId != 0) {
-                    orders = _query.GetPendingWorkOrders (requestedOrderId);
+                    if(salesOrderId != 0) {
+                    orders = _query.GetPendingWorkOrders (salesOrderId);
                     } else {
                         orders = _query.GetPendingWorkOrders ();
                     }

@@ -29,7 +29,7 @@ namespace BionicInventory.Application.ProductionOrders.Models {
 
         public int quantity { get; set; }
 
-        public string client { get; set; }
+        public string customer { get; set; }
 
     }
 }

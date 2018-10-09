@@ -19,7 +19,7 @@ export const workOrderBluePrint = [
     validationRule: { required: true }, isIdentity: true, width: '20'
   }  ,
   {
-    key: 'client', humanReadable: 'Customer', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'customer', humanReadable: 'Customer', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {

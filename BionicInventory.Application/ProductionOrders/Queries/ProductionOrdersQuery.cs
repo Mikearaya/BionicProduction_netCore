@@ -51,7 +51,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                 orderDate = pro.ProductionOrder.AddedOn,
                                 dueDate = pro.DueDate,
                                 total = pro.Quantity,
-                                client = (pro.PurchaseOrder != null) ?
+                                customer = (pro.PurchaseOrder != null) ?
                                 $"{pro.PurchaseOrder.PurchaseOrder.Client.FirstName} {pro.PurchaseOrder.PurchaseOrder.Client.LastName}" : "",
                                 type = (pro.PurchaseOrderId == null) ? "Work-to-Stock" : "Work-to-Order"
                         })
@@ -73,7 +73,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                     v.orderDate = r.orderDate;
                     v.product = r.product;
                     v.quantity = (int) r.total;
-                    v.client = r.client;
+                    v.customer = r.customer;
                     v.orderedBy = r.orderedBy;
                     v.orderId = r.orderId;
                     v.type = r.type;
@@ -127,15 +127,15 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Where (request => request.PurchaseOrder.Id == manufactureRequestId)
                 .Select (po => new PendingOrdersView () {
-                    purchaseOrderItemId = po.Id,
+                    salesOrderItemId = po.Id,
                         description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
-                        purchaseOrderId = po.PurchaseOrderId,
+                        salesOrderId = po.PurchaseOrderId,
                         product = po.Item.Code,
                         orderDate = po.DateAdded,
                         dueDate = po.DueDate,
                         quantity = (int) po.Quantity,
-                        client = (po.PurchaseOrder != null) ?
+                        customer = (po.PurchaseOrder != null) ?
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
                 }).ToList ();
@@ -145,15 +145,15 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Select (po => new PendingOrdersView () {
-                    purchaseOrderItemId = po.Id,
+                    salesOrderItemId = po.Id,
                         description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
-                        purchaseOrderId = po.PurchaseOrderId,
+                        salesOrderId = po.PurchaseOrderId,
                         product = po.Item.Code,
                         orderDate = po.DateAdded,
                         dueDate = po.DueDate,
                         quantity = (int) po.Quantity,
-                        client = (po.PurchaseOrder != null) ?
+                        customer = (po.PurchaseOrder != null) ?
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
                 }).ToList ();

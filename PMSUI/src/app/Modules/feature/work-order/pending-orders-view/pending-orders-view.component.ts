@@ -10,7 +10,6 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
-import { pendingOrdersBluePrint } from './pending-orders-view-blue-print';
 
 @Component({
   selector: 'app-pending-orders-view',
@@ -50,8 +49,6 @@ export class PendingOrdersViewComponent implements OnInit {
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  columnBluePrint = pendingOrdersBluePrint;
-
   public dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/api/workorders?type=pending',
     adaptor: new WebApiAdaptor,
@@ -87,6 +84,7 @@ export class PendingOrdersViewComponent implements OnInit {
 
     console.log('Selected Record');
     console.log(selectedrecords);
+    this.route.navigate([`workorders/request/${selectedrecords[0]['salesOrderId']}`]);
     console.log('selected index');
     console.log(selectedrowindex);
   }

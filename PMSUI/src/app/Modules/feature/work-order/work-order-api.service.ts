@@ -34,7 +34,7 @@ export class WorkOrderAPIService {
       return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
     }
 
-    getPendingWorkOrderById(id: number): Observable<PendingManufactureOrdersView[]> {
+    getWorkOrderRequestById(id: number): Observable<PendingManufactureOrdersView[]> {
       return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending&salesOrderId=${id}`);
     }
 
@@ -109,9 +109,9 @@ export class WorkOrderView {
 }
 
 export interface PendingManufactureOrdersView {
-  purchaseOrderId: number;
-  purchaseOrderItemId: number;
-  client: string;
+  salesOrderId: number;
+  salesOrderItemId: number;
+  customer: string;
   description: string;
   product: string;
   quantity: string;

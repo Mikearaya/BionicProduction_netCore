@@ -28,6 +28,7 @@ import { FinishedOrderFormComponent } from './finished-order-form/finished-order
 import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
 import { RequestedWorkOrderFormComponent } from './requested-work-order-form/requested-work-order-form.component';
+import { NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
 
 
 

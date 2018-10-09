@@ -1,19 +1,79 @@
+<section class="e-card">
+  <form [formGroup]="workRequestForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()">
+    <div class="container-fluid">
+        <div class="row">
+            <div class=" col col-xs-12">
+              <button type="submit" class='e-success' [disabled]="workRequestForm.invalid" ejs-button>Submit</button>
+              <button type="button" class='e-danger' ejs-button>Cancel</button>
+            </div>
+          </div>
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
+            placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
+            [dataSource]="employeesList"> </ejs-dropdownlist>
 
-<div class="control-section">
-<ejs-grid   id="Grid" #grid [dataSource]='dataaa' [height]='300' >
-    <e-columns>
-        <e-column headerText="Orders"  width='200'  >
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class=" e-success ">
+            <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
+          </div>
+        </div>
+      </div>
+      <div class="row" >
+        <div class="col-sm-12 col-xs-12">
+          <table class="order-items-block" class='table table-striped' width='100'>
+            <thead>
+              <tr>
+                  <th>Product</th>
+                  <th>ID</th>
 
-          <ng-template #template let-data >
-            <div>{{data.OrderID}}</div>
-          </ng-template>
+                <th>Quantity</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Due Date</th>
+                <th>Approved</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="items"  >
 
-        </e-column>
-        <e-column  field='OrderID'  headerText='Order ID' textAlign='Right' width=90></e-column>
-        <e-column field='CustomerID' headerText='Customer ID' width=120></e-column>
-        <e-column field='Freight' headerText='Freight' textAlign='Right' format='C2' width=90></e-column>
-        <e-column field='OrderDate' headerText='Order Date' textAlign='Right' format='yMd' width=120></e-column>
-    </e-columns>
-  </ejs-grid>
+              <tr  *ngFor="let item of items.controls; let i=index; let last=last;" [formGroup]="item">
+                  <td class='product' >
+                      {{saleOrder[i]['product']}}
+                      </td>
+                <td class='id'>
+                    CO-{{saleOrder[i]['salesOrderItemId']}}
+                </td>
 
-</div>
+                <td  class="quantity">
+
+                    {{saleOrder[i]['quantity'] }}
+                </td>
+                <td class='date-fields' >
+                  <ejs-datepicker id="start" name="start" formControlName="start" floatLabelType='Auto'></ejs-datepicker>
+                </td>
+                <td class='date-fields'>
+                  <ejs-datepicker id="end" name="end" formControlName="end" floatLabelType='Auto'></ejs-datepicker>
+                </td>
+                <td class='date-fields'>
+                    {{saleOrder[i]['dueDate'] }}
+                  </td>
+                <td class='quantity'>
+                  <ejs-numerictextbox name='grantedQuantity' id='grantedQuantity' [min]='0' [max]="saleOrder[i]['quantity']" formControlName="quantity"></ejs-numerictextbox>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+        </div>
+      </div>
+ <code>     {{workRequestForm.value | json}}</code>
+      <div class="row">
+          <div class=" col col-xs-12">
+            <button type="submit" [disabled]="workRequestForm.invalid" class='e-success' ejs-button>Submit</button>
+            <button type="button" class='e-danger' ejs-button>Cancel</button>
+          </div>
+        </div>
+      </div>
+      </form>
+      </section>

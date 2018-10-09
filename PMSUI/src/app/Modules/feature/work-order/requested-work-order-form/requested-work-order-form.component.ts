@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { WorkOrderAPIService, PendingManufactureOrdersView } from '../work-order-api.service';
+import { WorkOrderAPIService, PendingManufactureOrdersView, WorkOrder, WorkOrderView } from '../work-order-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { data } from './datasource';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent, RowSelectEventArgs, SaveEventArgs } from '@syncfusion/ej2-ng-grids';
+import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
 
 
 @Component({
@@ -14,65 +14,80 @@ import { GridComponent } from '@syncfusion/ej2-ng-grids';
 })
 export class RequestedWorkOrderFormComponent implements OnInit {
 
-  @ViewChild('grid')
-  public grid: GridComponent;
+  public employeeQuery: Query;
+  public employeeFields: Object;
+  public employeesList: any[];
 
-
-
-  private purchaseOrderId: number;
-  public requestedItems: PendingManufactureOrdersView[];
+  private salesOrderId: number;
+  public salesOrder: PendingManufactureOrdersView[] = [];
   public workRequestForm: FormGroup;
   public dropData: string[];
-  public dataaa: any;
-  constructor(private workOrderApi: WorkOrderAPIService,
+  public saleOrder: any;
+
+  constructor(
+    private workOrderApi: WorkOrderAPIService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
+     this.createForm();
+    this.employeeQuery = new Query().select(['firstName', 'id']);
+    this.employeeFields = { text: 'firstName', value: 'id' };
 
-    this.createForm();
   }
 
   ngOnInit() {
-    this.purchaseOrderId = + this.activatedRoute.snapshot.paramMap.get('salesOrderId');
-    this.workOrderApi.getPendingWorkOrderById(this.purchaseOrderId)
+    this.salesOrderId = + this.activatedRoute.snapshot.paramMap.get('salesOrderId');
+    this.workOrderApi.getWorkOrderRequestById(this.salesOrderId)
       .subscribe(
-        (dataa: PendingManufactureOrdersView[]) => this.requestedItems = dataa,
+        (data: PendingManufactureOrdersView[]) => this.addForm(data),
         (error: HttpErrorResponse) => console.log(error)
       );
+    const dm: DataManager = new DataManager(
+      { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
 
-    this.dataaa = data;
-    this.dropData = ['Order Placed', 'Processing', 'Delivered'];
-
+    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
   }
 
+  onSubmit() {
+    const form = this.workRequestForm.value;
+    console.log(form);
+
+  }
   createForm() {
     this.workRequestForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
       description: ['', Validators.required],
-      orders: this.formBuilder.array([
-
-      ])
+      salesOrderId: ['', Validators.required],
+      items: this.formBuilder.array([])
     });
   }
 
-  get orders() {
-    return this.workRequestForm.get('orders') as FormArray;
+
+
+  get items(): FormArray {
+    return this.workRequestForm.get('items') as FormArray;
   }
 
   addForm(requestedItems: PendingManufactureOrdersView[]) {
-
+    console.log(this.workRequestForm);
+    this.saleOrder = requestedItems;
     this.workRequestForm = this.formBuilder.group({
-      requestedBy: [requestedItems[0].orderedBy, Validators.required],
+      orderedBy: [requestedItems[0].orderedBy, Validators.required],
       description: ['', Validators.required],
-      salesOrderId: [this.purchaseOrderId, Validators.required],
-      orderedBy: ['', Validators.required],
+      salesOrderId: [this.salesOrderId, Validators.required],
+      items: this.formBuilder.array([])
     });
 
     requestedItems.forEach(element => {
-      this.orders.push(this.formBuilder.group({
-        salesOrderItemId: [element.purchaseOrderItemId, Validators.required],
+      const maxQuantity: number = + element.quantity;
+      this.items.push(this.formBuilder.group({
+        salesOrderId: [element.salesOrderItemId, Validators.required],
         itemId: [element.product, Validators.required],
-        approvedQuantity: [element.quantity, [Validators.required, Validators.min(0)]],
-        dueDate: [element.dueDate, [Validators.required, Validators.min]]
+        start: ['', Validators.required],
+        end: ['', Validators.required],
+        quantity: [0, [Validators.required, Validators.min(0), Validators.max(maxQuantity)]],
+        dueDate: [element.dueDate, Validators.required]
       }));
     });
   }

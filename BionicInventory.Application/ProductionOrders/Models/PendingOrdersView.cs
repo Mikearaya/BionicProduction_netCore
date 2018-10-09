@@ -1,8 +1,13 @@
+using System;
+
 namespace BionicInventory.Application.ProductionOrders.Models
 {
     public class PendingOrdersView: WorkOrderView
     {
-        public uint purchaseOrderId {get; set;}
-        public uint purchaseOrderItemId {get; set;} 
+        public uint salesOrderId {get; set;}
+        public uint salesOrderItemId {get; set;} 
+        public DateTime start{get; set;}
+        public DateTime end{get; set;}
+        public uint grantedQuantity {get; set;}
     }
 }
