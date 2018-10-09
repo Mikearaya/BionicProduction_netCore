@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 1, 2018 9:42 PM
+ * @Last Modified Time: Oct 9, 2018 11:20 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -37,7 +37,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 };
                 
-                foreach (var item in newOrder.workOrders) {
+                foreach (var item in newOrder.orderItems) {
                     ProductionOrderList list = new ProductionOrderList ();
 
                     list.ItemId = item.ItemId;

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 1, 2018 10:00 PM
+ * @Last Modified Time: Oct 10, 2018 12:48 AM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -15,7 +15,7 @@ import { WorkOrderAPIService } from './work-order-api.service';
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
 
-import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+import { DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   GridModule
@@ -41,8 +41,8 @@ import { NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
     // syncfustion
     GridModule,
     DatePickerModule,
+    DateTimePickerModule,
     DropDownListModule,
-    ButtonModule,
     // application
     WorkOrderRoutingModule,
     SharedModule

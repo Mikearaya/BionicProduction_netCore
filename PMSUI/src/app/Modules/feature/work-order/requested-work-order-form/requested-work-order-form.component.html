@@ -1,32 +1,34 @@
 <section class="e-card">
   <form [formGroup]="workRequestForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()">
     <div class="container-fluid">
-        <div class="row">
-            <div class=" col col-xs-12">
-              <button type="submit" class='e-success' [disabled]="workRequestForm.invalid" ejs-button>Submit</button>
-              <button type="button" class='e-danger' ejs-button>Cancel</button>
-            </div>
-          </div>
+      <app-form-options [submitDisabled]="workRequestForm.invalid "></app-form-options>
       <div class="row">
         <div class="col-sm-6 col-xs-12">
-          <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
-            placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
-            [dataSource]="employeesList"> </ejs-dropdownlist>
+          <div class="row">
+            <div class="col-12">
+              <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
+                placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
+                [dataSource]="employeesList"> </ejs-dropdownlist>
+            </div>
+            <div class="col-12">
+              <div class=" e-success ">
+                <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
+              </div>
+            </div>
+          </div>
+
 
         </div>
         <div class="col-sm-6 col-xs-12">
-          <div class=" e-success ">
-            <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
-          </div>
         </div>
       </div>
-      <div class="row" >
+      <div class="row order-items-section">
         <div class="col-sm-12 col-xs-12">
           <table class="order-items-block" class='table table-striped' width='100'>
             <thead>
               <tr>
-                  <th>Product</th>
-                  <th>ID</th>
+                <th>Product</th>
+                <th>ID</th>
 
                 <th>Quantity</th>
                 <th>Start</th>
@@ -35,31 +37,32 @@
                 <th>Approved</th>
               </tr>
             </thead>
-            <tbody formArrayName="items"  >
+            <tbody formArrayName="items">
 
-              <tr  *ngFor="let item of items.controls; let i=index; let last=last;" [formGroup]="item">
-                  <td class='product' >
-                      {{saleOrder[i]['product']}}
-                      </td>
+              <tr *ngFor="let item of items.controls; let i=index; let last=last;" [formGroup]="item">
+                <td class='product'>
+                  {{saleOrder[i]['product']}}
+                </td>
                 <td class='id'>
-                    CO-{{saleOrder[i]['salesOrderItemId']}}
+                  CO-{{saleOrder[i]['salesOrderItemId']}}
                 </td>
 
-                <td  class="quantity">
+                <td class="quantity">
 
-                    {{saleOrder[i]['quantity'] }}
-                </td>
-                <td class='date-fields' >
-                  <ejs-datepicker id="start" name="start" formControlName="start" floatLabelType='Auto'></ejs-datepicker>
+                  {{saleOrder[i]['quantity'] }}
                 </td>
                 <td class='date-fields'>
-                  <ejs-datepicker id="end" name="end" formControlName="end" floatLabelType='Auto'></ejs-datepicker>
+                  <ejs-datetimepicker id="start" name="start" formControlName="start" floatLabelType='Auto'></ejs-datetimepicker>
                 </td>
                 <td class='date-fields'>
-                    {{saleOrder[i]['dueDate'] }}
-                  </td>
+                  <ejs-datetimepicker id="end" name="end" formControlName="end" floatLabelType='Auto'></ejs-datetimepicker>
+                </td>
+                <td class='date-fields'>
+                  {{saleOrder[i]['dueDate'] }}
+                </td>
                 <td class='quantity'>
-                  <ejs-numerictextbox name='grantedQuantity' id='grantedQuantity' [min]='0' [max]="saleOrder[i]['quantity']" formControlName="quantity"></ejs-numerictextbox>
+                  <ejs-numerictextbox name='grantedQuantity' id='grantedQuantity' [min]='0' [max]="saleOrder[i]['quantity']"
+                    formControlName="quantity"></ejs-numerictextbox>
                 </td>
               </tr>
             </tbody>
@@ -67,13 +70,7 @@
           </table>
         </div>
       </div>
- <code>     {{workRequestForm.value | json}}</code>
-      <div class="row">
-          <div class=" col col-xs-12">
-            <button type="submit" [disabled]="workRequestForm.invalid" class='e-success' ejs-button>Submit</button>
-            <button type="button" class='e-danger' ejs-button>Cancel</button>
-          </div>
-        </div>
-      </div>
-      </form>
-      </section>
+      <app-form-options [submitDisabled]="workRequestForm.invalid "></app-form-options>
+    </div>
+  </form>
+</section>

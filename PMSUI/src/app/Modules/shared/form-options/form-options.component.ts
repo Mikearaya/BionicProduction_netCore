@@ -1,5 +1,14 @@
+/*
+ * @CreateTime: Oct 10, 2018 12:25 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 10, 2018 12:25 AM
+ * @Description: Modify Here, Please
+ */
 import { Location } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
+
 
 
 @Component({
@@ -17,7 +26,7 @@ export class FormOptionsComponent implements OnInit {
     this.cancelDisabled = false;
     this.submitDisabled = false;
     this.isSelfContained = true;
-   }
+}
 
   ngOnInit() {
   }
@@ -25,5 +34,6 @@ export class FormOptionsComponent implements OnInit {
   cancel() {
     this.location.back();
   }
+
 
 }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 29, 2018 10:38 PM
+ * @Last Modified Time: Oct 9, 2018 11:20 PM
  * @Description: WorkOrder API Controller Class
  */
 using System;
@@ -161,7 +161,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (404, "Employee Record Not Found");
                 }
 
-                foreach (var products in newWork.workOrders) {
+                foreach (var products in newWork.orderItems) {
                     var product = _productsQuery.GetProductById (products.ItemId);
                     if (product == null) {
                         return StatusCode (404, "Product Record Not Found");

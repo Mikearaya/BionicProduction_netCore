@@ -28,7 +28,8 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     private workOrderApi: WorkOrderAPIService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder) {
-     this.createForm();
+
+    this.createForm();
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
 
@@ -51,7 +52,14 @@ export class RequestedWorkOrderFormComponent implements OnInit {
 
   onSubmit() {
     const form = this.workRequestForm.value;
-    console.log(form);
+    const workOrder = this.prepareFormData(form);
+    this.workOrderApi.addWorkOrder(workOrder).subscribe(
+      (success: WorkOrderView) => {
+        console.log(success);
+        alert('Manufacture Order Created Successfully');
+      },
+      (error: HttpErrorResponse) => console.log(error)
+    );
 
   }
   createForm() {
@@ -70,20 +78,18 @@ export class RequestedWorkOrderFormComponent implements OnInit {
   }
 
   addForm(requestedItems: PendingManufactureOrdersView[]) {
-    console.log(this.workRequestForm);
     this.saleOrder = requestedItems;
     this.workRequestForm = this.formBuilder.group({
       orderedBy: [requestedItems[0].orderedBy, Validators.required],
       description: ['', Validators.required],
-      salesOrderId: [this.salesOrderId, Validators.required],
       items: this.formBuilder.array([])
     });
 
     requestedItems.forEach(element => {
       const maxQuantity: number = + element.quantity;
       this.items.push(this.formBuilder.group({
-        salesOrderId: [element.salesOrderItemId, Validators.required],
-        itemId: [element.product, Validators.required],
+        customerOrderItemId: [element.salesOrderItemId, Validators.required],
+        itemId: [element.productId, Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
         quantity: [0, [Validators.required, Validators.min(0), Validators.max(maxQuantity)]],
@@ -92,5 +98,21 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     });
   }
 
+  prepareFormData(form: any): WorkOrder {
+    const order = new WorkOrder();
+    order.orderedBy = form.orderedBy;
+    order.description = form.description;
+    form.items.forEach(element => {
+      order.orderItems.push({
+        itemId: element.itemId,
+        quantity: element.quantity,
+        dueDate: element.dueDate,
+        start: element.startDate,
+        purchaseOrderItemId : element.customerOrderItemId
+      });
+    });
+
+    return order;
+  }
 
 }

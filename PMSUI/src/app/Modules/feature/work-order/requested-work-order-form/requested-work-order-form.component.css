@@ -5,10 +5,12 @@ table td,
   border-top: 1px solid #dee2e6;
 }
 
-
+.order-items-section.row {
+  margin-top: 1em;
+}
 td.date-fields {
   text-align: center;
-  width: 13%;
+  width: 15%;
 }
 
 td.product {

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 12, 2018 12:49 AM
+ * @Last Modified Time: Oct 9, 2018 11:44 PM
  * @Description: Modify Here, Please
  */
 import { Injectable } from '@angular/core';
@@ -75,23 +75,27 @@ export class WorkOrderAPIService {
 
 export class WorkOrder {
   constructor() {
-    this.workOrders = [];
+    this.orderItems = [];
     this.id = 0;
   }
   id?: number;
   description: string;
   orderedBy: number;
-  workOrders: WorkOrderItem[];
+  orderItems: WorkOrderItem[] = [];
 }
 
 
 
 export class WorkOrderItem {
+  constructor() {
+    this.purchaseOrderItemId = 0;
+  }
   id?: number;
   quantity: number;
   dueDate: Date;
   start: Date;
   itemId: number;
+  purchaseOrderItemId?: number;
 
 }
 
@@ -116,6 +120,8 @@ export interface PendingManufactureOrdersView {
   customer: string;
   description: string;
   product: string;
+  productName: string;
+  productId: number;
   quantity: string;
   orderDate: Date;
   start: Date;

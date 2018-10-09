@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 11, 2018 2:09 AM
+ * @Last Modified Time: Oct 9, 2018 11:20 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace BionicInventory.Application.ProductionOrders.Models {
     public class NewWorkOrderDto : WorkOrderDto {
 
         [Required]
-        public IEnumerable<NewWorkOrdersListDto> workOrders { get; set; }
+        public IEnumerable<NewWorkOrdersListDto> orderItems { get; set; }
 
     }
 }

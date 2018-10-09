@@ -97,10 +97,7 @@ export class WorkOrderFormComponent implements OnInit {
 
   onSubmit() {
     const form = this.workOrderForm.value;
-    console.log(form);
     const order = this.prepareFormData(form);
-    console.log('ORDER');
-    console.log(order);
     this.workOrderApi.addWorkOrder(order).subscribe(
       (success: WorkOrderView) => console.log(success),
       (error: HttpErrorResponse) => console.log(error)
@@ -113,7 +110,7 @@ export class WorkOrderFormComponent implements OnInit {
     order.orderedBy = form.orderedBy;
     order.description = form.description;
     form.orders.forEach(element => {
-      order.workOrders.push({
+      order.orderItems.push({
         itemId: element.itemId,
         quantity: element.quantity,
         dueDate: element.dueDate,

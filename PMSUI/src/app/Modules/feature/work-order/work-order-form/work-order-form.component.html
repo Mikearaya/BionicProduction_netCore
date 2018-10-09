@@ -1,6 +1,7 @@
 <section class="e-card">
   <form [formGroup]="workOrderForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()">
     <div class="container">
+        <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
@@ -52,12 +53,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
-        <div class=" col col-xs-12">
-          <button type="submit" [disabled]="workOrderForm.invalid" ejs-button>Submit</button>
-          <button type="button" ejs-button>Cancel</button>
-        </div>
-      </div>
+      <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
     </div>
 
   </form>

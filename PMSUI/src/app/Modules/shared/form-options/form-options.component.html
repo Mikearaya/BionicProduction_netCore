@@ -1,6 +1,6 @@
 <div class="row" *ngIf="isSelfContained">
   <div class="form-button-box">
-    <button mat-raised-button type="submit" [disabled]="submitDisabled"   color="primary">Submit</button>
-    <button mat-raised-button type="button" [disabled]="cancelDisabled" (click)="cancel()" color="warn">Cancel</button>
+    <button type="submit" [disabled]="submitDisabled" class='e-success' ejs-button>Submit</button>
+    <button type="button" class='e-danger' ejs-button>Cancel</button>
   </div>
 </div>

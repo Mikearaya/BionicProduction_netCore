@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 9:07 PM
+ * @Last Modified Time: Oct 9, 2018 11:19 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -90,7 +90,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         public IEnumerable<ProductionOrder> GetAllWorkOrders () {
             try {
 
-                return _database.ProductionOrder.Include (p => p.ProductionOrderList).ToList ();
+                return _database.ProductionOrder.Include (p => p.ProductionOrderList).AsNoTracking().ToList ();
 
             } catch (Exception) {
                 return null;
@@ -127,11 +127,13 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Where (request => request.PurchaseOrder.Id == manufactureRequestId)
                 .Select (po => new PendingOrdersView () {
-                    salesOrderItemId = po.Id,
+                        salesOrderItemId = po.Id,
                         description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
                         salesOrderId = po.PurchaseOrderId,
                         product = po.Item.Code,
+                        productId = po.Item.Id,
+                        productName = po.Item.Name,
                         orderDate = po.DateAdded,
                         dueDate = po.DueDate,
                         quantity = (int) po.Quantity,
@@ -150,6 +152,8 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
                         salesOrderId = po.PurchaseOrderId,
                         product = po.Item.Code,
+                        productId = po.Item.Id,
+                        productName = po.Item.Name,
                         orderDate = po.DateAdded,
                         dueDate = po.DueDate,
                         quantity = (int) po.Quantity,

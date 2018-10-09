@@ -3,14 +3,17 @@
 import { NgModule } from '@angular/core';
 import { FormOptionsComponent } from './form-options/form-options.component';
 import { NumericTextBoxComponent } from '@syncfusion/ej2-angular-inputs';
-import { RadioButtonModule } from '@syncfusion/ej2-ng-buttons';
+import { RadioButtonModule, ButtonModule } from '@syncfusion/ej2-ng-buttons';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
-    RadioButtonModule
+    CommonModule,
+    RadioButtonModule,
+    ButtonModule,
   ],
-  declarations: [ NumericTextBoxComponent],
-  exports: [ NumericTextBoxComponent, RadioButtonModule ],
+  declarations: [FormOptionsComponent, NumericTextBoxComponent],
+  exports: [ NumericTextBoxComponent, RadioButtonModule, FormOptionsComponent, ButtonModule ],
   providers: []
 
 })
