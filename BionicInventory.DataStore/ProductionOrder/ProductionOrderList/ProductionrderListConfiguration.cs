@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Oct 9, 2018 11:04 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 9, 2018 11:04 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +46,13 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .ValueGeneratedOnAddOrUpdate ();
 
                 builder.Property (e => e.DueDate)
+                .IsRequired()
                     .HasColumnName ("due_date")
+                    .HasColumnType ("datetime");
+            
+            builder.Property (e => e.Start)
+                .IsRequired()
+                    .HasColumnName ("start")
                     .HasColumnType ("datetime");
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");

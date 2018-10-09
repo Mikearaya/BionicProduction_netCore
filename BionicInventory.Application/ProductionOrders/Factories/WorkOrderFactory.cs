@@ -45,6 +45,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     list.CostPerItem = product.UnitCost;
                     list.Quantity = item.Quantity;
                     list.DueDate = item.DueDate;
+                    list.Start = item.Start;
                     if (item.PurchaseOrderItemId != 0) {
                         list.PurchaseOrderId = item.PurchaseOrderItemId;
                     }
@@ -76,6 +77,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     list.CostPerItem = product.UnitCost;
                     list.Quantity = item.Quantity;
                     list.DueDate = item.DueDate;
+                    list.Start = item.Start;
 
                 };
                 productionOrder.ProductionOrderList.Add (list);
@@ -99,6 +101,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     description = workOrder.Description,
                     orderedBy = employee.FirstName + ' ' + employee.LastName,
                     product = product.Code,
+                    start = item.Start,
                     orderDate = item.DateAdded,
                     dueDate = item.DueDate,
                     quantity = (int) item.Quantity
@@ -126,6 +129,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     view.orderDate = orderList.DateAdded;
                     view.orderId = orderList.Id;
                     view.quantity = (int) orderList.Quantity;
+                    view.start = orderList.Start;
                     view.dueDate = orderList.DueDate;
                     view.product = product.Code;
                     workorderView.Add (view);

@@ -21,6 +21,8 @@ namespace BionicInventory.Application.ProductionOrders.Models.WorkOrdersList {
 
         [Required]
         public DateTime DueDate { get; set; }
+        [Required]
+        public DateTime Start { get; set; }
 
         public uint? PurchaseOrderItemId {
             get {

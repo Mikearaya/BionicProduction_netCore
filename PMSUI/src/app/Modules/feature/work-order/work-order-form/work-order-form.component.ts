@@ -60,7 +60,8 @@ export class WorkOrderFormComponent implements OnInit {
         this.formBuilder.group({
           itemId: ['', Validators.required],
           quantity: ['', [Validators.required, Validators.min(0)]],
-          dueDate: [new Date(), Validators.required]
+          dueDate: [new Date(), Validators.required],
+          startDate: [new Date(), Validators.required]
         })
       ])
     });
@@ -73,6 +74,7 @@ export class WorkOrderFormComponent implements OnInit {
     this.orders.push(this.formBuilder.group({
       itemId: ['', Validators.required],
       quantity: ['', Validators.required],
+      startDate: [new Date(), Validators.required],
       dueDate: [new Date(), Validators.required]
     }));
   }
@@ -114,7 +116,8 @@ export class WorkOrderFormComponent implements OnInit {
       order.workOrders.push({
         itemId: element.itemId,
         quantity: element.quantity,
-        dueDate: element.dueDate
+        dueDate: element.dueDate,
+        start: element.startDate
       });
     });
 

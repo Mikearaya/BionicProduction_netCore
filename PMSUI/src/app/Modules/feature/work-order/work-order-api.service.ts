@@ -90,6 +90,7 @@ export class WorkOrderItem {
   id?: number;
   quantity: number;
   dueDate: Date;
+  start: Date;
   itemId: number;
 
 }
@@ -103,6 +104,7 @@ export class WorkOrderView {
   product: string;
   costPerItem: number;
   dueDate: Date;
+  start: Date;
   orderDate: Date;
   quantity: number;
   status: string;
@@ -116,6 +118,7 @@ export interface PendingManufactureOrdersView {
   product: string;
   quantity: string;
   orderDate: Date;
+  start: Date;
   dueDate: Date;
   orderedBy: string;
 }

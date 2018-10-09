@@ -41,7 +41,12 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '40'
   },
   {
-    key: 'dueDate', humanReadable: 'Due Date', allowGrouping: true, format: 'yMd',
+    key: 'start', humanReadable: 'Start', visable: false, allowGrouping: true, format: 'yMd',
+    primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
+    isIdentity: false, width: '40'
+  },
+  {
+    key: 'dueDate', humanReadable: 'End', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datePickeredit',
     isIdentity: false, width: '40'
   },

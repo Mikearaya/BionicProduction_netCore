@@ -18,6 +18,7 @@ namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
         public float CostPerItem { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public DateTime Start { get; set; }
         public DateTime DueDate { get; set; }
         public uint? PurchaseOrderId { get; set; }
 

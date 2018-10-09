@@ -9,5 +9,6 @@ namespace BionicInventory.Application.ProductionOrders.Models
         public uint total {get; set;}
         public int remaining {get; set;}
         public DateTime dueDate {get; set;}
+        public DateTime Start {get; set;}
     }
 }

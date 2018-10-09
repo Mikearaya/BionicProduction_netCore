@@ -8,7 +8,7 @@
             [dataSource]="employeesList"> </ejs-dropdownlist>
 
         </div>
-        <div class="col-sm-6 col-xs-12">
+        <div class="col-sm-3 col-xs-12">
           <div class=" e-success ">
             <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
           </div>
@@ -33,6 +33,12 @@
           <div class="col-sm-3 col-xs-12">
 
             <ejs-datepicker floatLabelType="Auto" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
+              [attr.name]="'dueDate'+i" format="yyyy-MM-dd"></ejs-datepicker>
+
+          </div>
+          <div class="col-sm-3 col-xs-12">
+
+            <ejs-datepicker floatLabelType="Auto" formControlName="startDate" [min]="today" [attr.id]="'dueDate'+i"
               [attr.name]="'dueDate'+i" format="yyyy-MM-dd"></ejs-datepicker>
 
           </div>
