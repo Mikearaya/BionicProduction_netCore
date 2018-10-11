@@ -1,16 +1,16 @@
-<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" (queryCellInfo)='tooltip($event)'
-  [allowResizing]="allowResizing" [allowReordering]="allowReordering" [allowPaging]="allowPaging" [allowTextWrap]="allowTextWrap"
-  [textWrapSettings]="textWrapSettings" [pageSettings]="pageSettings"
-  [allowExcelExport]="allowExcelExport"
-  [toolbar]='toolbar'
+<ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping"
+  (queryCellInfo)='tooltip($event)' [allowResizing]="allowResizing" [allowReordering]="allowReordering" [allowPaging]="allowPaging"
+  [allowTextWrap]="allowTextWrap" [textWrapSettings]="textWrapSettings" [pageSettings]="pageSettings"
+  [allowExcelExport]="allowExcelExport" (dataBound)="dataBound()" (rowDataBound)="rowDataBound($event)" [toolbar]='toolbar'
   id="workorder" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
   [showColumnMenu]="showColumnMenu" [filterSettings]="filterSetting" [groupSettings]='groupOptions' [allowFiltering]="allowFiltering"
   [allowSorting]="allowSorting" [allowPdfExport]="allowPdfExport">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" textAlign="left" [width]="col.width" *ngFor="let col of columnBluePrint"
+    <e-column [customAttributes]="customAttributes" [isPrimaryKey]="col.primaryKey" textAlign="left" [width]="col.width" *ngFor="let col of columnBluePrint"
       [validationRules]="col.validationRule" [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping"
       [isIdentity]="col.isIdentity" [visible]="col.visable" [headerText]='col.humanReadable' [format]='col.format'
       [type]="col.type" [editType]="col.dataType"></e-column>
+    <e-column [customAttributes]="customAttributes"  width=20 [commands]='commands'></e-column>
 
   </e-columns>
 </ejs-grid>

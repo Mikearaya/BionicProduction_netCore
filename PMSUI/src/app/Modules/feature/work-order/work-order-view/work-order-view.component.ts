@@ -10,7 +10,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel, TextWrapSettings, TextWrapSettingsModel, QueryCellInfoEventArgs
+  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel,
+  TextWrapSettingsModel, QueryCellInfoEventArgs, RowDataBoundEventArgs, Column, IRow
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
@@ -20,6 +21,7 @@ import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
 import { Tooltip } from '@syncfusion/ej2-popups';
+import { closest } from '@syncfusion/ej2-base';
 
 
 @Component({
@@ -63,7 +65,7 @@ export class WorkOrderViewComponent implements OnInit {
 
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
-
+  public customAttributes: Object;
   columnBluePrint = workOrderBluePrint;
 
   public dataManager: DataManager = new DataManager({
@@ -81,8 +83,8 @@ export class WorkOrderViewComponent implements OnInit {
     this.data = this.dataManager;
 
     this.pageSettings = { pageSize: 10 };
-    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
+    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: false, allowAdding: false, allowDeleting: true };
+    this.toolbar = ['Add', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: true,
@@ -91,22 +93,58 @@ export class WorkOrderViewComponent implements OnInit {
     this.filterSetting = {
       type: 'Menu'
     };
+    this.customAttributes = { class: 'custom-grid-header' };
+    this.commands = [{
+      type: 'Edit', buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+        click: this.editWorkOrder.bind(this)
+      }
+    },
+    {
+      type: 'Delete', buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-delete e-icons',
+        click: this.deleteWorkOrder.bind(this)
+      }
+    }];
   }
 
+  editWorkOrder(args: Event) {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.route.navigate([`workorders/${rowObj.data['orderId']}/update`]);
+  }
+  deleteWorkOrder(args: any) {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.workOrderApi.deleteSingleWorkOrder(rowObj.data['orderId']).subscribe(
+      succ => this.grid.refresh(),
+      err => console.log(err));
+  }
   tooltip(args: QueryCellInfoEventArgs) {
     const cell = args.cell;
-    //const tooltip: Tooltip = new Tooltip({
-     // content: args.data[args.column.field].toString();
-    //}, cell)
+    // const tooltip: Tooltip = new Tooltip({
+    // content: args.data[args.column.field].toString();
+    // }, cell)
   }
 
+  dataBound() {
 
+  }
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
+
     // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
+  rowDataBound(args: RowDataBoundEventArgs) {
+    if (args.data['status'] === 'COMPLETE') {
+
+      args.row.classList.add('completed-orders');
+    } else if (args.data['status'] === 'IN-PROGRESS') {
+      args.row.classList.add('in-progress-orders');
+    } else {
+      args.row.classList.add('new-orders');
+    }
+  }
 
   toolbarClick(args: ClickEventArgs): void {
     if (args.item.id === 'workorder_excelexport') {

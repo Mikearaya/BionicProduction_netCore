@@ -3,3 +3,23 @@
 section.e-card {
   margin: 10px;
 }
+
+ejs-grid {
+margin: 1.5em;
+}
+
+
+
+.e-grid .e-rowcell.custom-grid-header{
+  background-color: #ecedee;
+  color: 'red';
+  font-family: 'Bell MT';
+  font-size: 12px;
+}
+
+.e-grid .e-headercell.custom-grid-header{
+  background-color: #2382c3;
+  color: white;
+  font-family: 'Bell MT';
+  font-size: 20px;
+}

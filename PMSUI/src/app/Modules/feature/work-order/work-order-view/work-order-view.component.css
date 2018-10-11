@@ -6,3 +6,16 @@
  * @Last Modified Time: Sep 12, 2018 12:48 AM
  * @Description: Modify Here, Please
  */
+
+
+ tr.in-progress-orders {
+   background-color: rgb(255, 255, 255);
+ }
+
+tr.completed-orders {
+   background-color: rgb(81, 228, 81);
+ }
+
+ .new-orders {
+   background-color: rgb(219, 169, 43);
+ }

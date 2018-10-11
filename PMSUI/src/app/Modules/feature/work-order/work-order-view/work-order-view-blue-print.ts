@@ -15,7 +15,7 @@ export const workOrderBluePrint = [
     allowGrouping: true, editable: false, width: '20', visable: false, isIdentity: true
   },
   {
-    key: 'id', humanReadable: 'WO-ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
+    key: 'id', humanReadable: 'ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
     validationRule: { required: true }, isIdentity: true, width: '20'
   }  ,
   {
@@ -23,7 +23,7 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '25'
   },
   {
-    key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string',
+    key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string', visable: false,
     editable: true, allowGrouping: true, dataType: 'TextBox', validationRule: { required: true }, isIdentity: false, width: '40'
   },
   {
