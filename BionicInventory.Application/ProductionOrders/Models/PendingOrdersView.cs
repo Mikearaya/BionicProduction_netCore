@@ -8,5 +8,6 @@ namespace BionicInventory.Application.ProductionOrders.Models
         public uint productId {get; set;}
         public uint salesOrderItemId {get; set;} 
         public uint grantedQuantity {get; set;}
+        public int itemCount {get; set;}
     }
 }

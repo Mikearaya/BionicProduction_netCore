@@ -145,22 +145,35 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
-            return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
-                .Select (po => new PendingOrdersView () {
-                    salesOrderItemId = po.Id,
+            var workRequests = _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
+            .GroupBy(request => request.PurchaseOrderId)
+           .Select(customerOrder => new {
+                Id = customerOrder.Key,
+                totalItems = customerOrder.Count(),
+                quantity = customerOrder.Sum(order => order.Quantity),
+                manufactureRequests = customerOrder.Select (po => new PendingOrdersView () {
                         description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
                         salesOrderId = po.PurchaseOrderId,
-                        product = po.Item.Code,
-                        productId = po.Item.Id,
                         productName = po.Item.Name,
                         orderDate = po.DateAdded,
-                        dueDate = po.DueDate,
-                        quantity = (int) po.Quantity,
                         customer = (po.PurchaseOrder != null) ?
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
-                }).ToList ();
+                })
+            }).ToList();
+                
+                List<PendingOrdersView>  requestedView = new List<PendingOrdersView>();
+                foreach (var item in workRequests)
+                {
+                    foreach (var request in item.manufactureRequests)
+                    {
+                        request.quantity = (int) item.quantity;
+                        request.itemCount = item.totalItems;
+                        requestedView.Add(request);
+                    }
+                }
+            return requestedView;                
         }
 
         public bool saleOrderProductionExits(uint id)

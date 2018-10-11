@@ -5,37 +5,33 @@
   [filterSettings]="filterSetting" [groupSettings]='groupOptions' [allowFiltering]="allowFiltering" [allowSorting]="allowSorting"
   [allowPdfExport]="allowPdfExport">
   <e-columns>
-    <e-column isPrimaryKey="true" textAlign="left" width="30" field='salesOrderId' isIdentity="true" [visible]="false"
+    <e-column isPrimaryKey="true" textAlign="left" width="30" field='salesOrderId' isIdentity="true"
       headerText='ID' type="number">
     </e-column>
-    <e-column isPrimaryKey="true" textAlign="left" width="30" field='salesOrderItemId' isIdentity="true" headerText='ID'
-      type="number">
-    </e-column>
-    <e-column textAlign="left" field='customer' isIdentity="true" headerText='CUSTOMER' type="string" allowGrouping="true"
+    <e-column textAlign="left" field='customer'  headerText='CUSTOMER' type="string" allowGrouping="true"
       width="30px">
     </e-column>
-    <e-column textAlign="left" field="description" isIdentity="true" headerText="DESCRIPTION" type="string"
+    <e-column textAlign="left" field="description"  headerText="DESCRIPTION" type="string"
       allowGrouping="true" width="40px">
     </e-column>
-    <e-column textAlign="left" width="20px" field='product' isIdentity="true" headerText='PRODUCT' type="string"
+    <e-column textAlign="left" width="20px" field='itemCount'  headerText='ITEMS' type="numeric"
       allowGrouping="true" width="25px">
     </e-column>
-    <e-column textAlign="left" width="20px" field='quantity' isIdentity="true" headerText='QUANTITY' type="string"
+    <e-column textAlign="left" width="20px" field='quantity'  headerText='QUANTITY' type="numeric"
       allowGrouping="true" width="20px">
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='orderDate' isIdentity="true" headerText='ORDERED' type="date" format="yMd"
+    <e-column textAlign="left" width="20px" field='orderDate'  headerText='ORDERED' type="date" format="yMd"
       allowGrouping="true" width="25px">
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='dueDate' isIdentity="true" headerText='Due.' type="date" format="yMd"
+    <e-column textAlign="left" width="20px" field='dueDate'  headerText='Due.' type="date" format="yMd"
       allowGrouping="true" width="25px">
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='orderedBy' isIdentity="true" headerText='ORDERED BY' type="string"
+    <e-column textAlign="left" width="20px" field='orderedBy'  headerText='ORDERED BY' type="string"
       allowGrouping="true" width="30px">
 
     </e-column>
-    <e-column headerText='' width='30px' [commands]='commands'></e-column>
   </e-columns>
 </ejs-grid>

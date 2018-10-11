@@ -134,9 +134,9 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                 var result = _command.AddFinishedProduct (finishedProductsList);
 
                 if (result != null) {
-
-                    var finishedProductView = _factory.FinishedProductForView (result);
-                    return StatusCode (201, finishedProductView);
+                //TODO: Finished products view Convert
+                   // var finishedProductView = _factory.FinishedProductForView (result);
+                    return StatusCode (201, result);
 
                 } else {
                     return StatusCode (500, "Unkown Error Please try again later");

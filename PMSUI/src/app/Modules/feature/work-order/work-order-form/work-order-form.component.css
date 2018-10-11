@@ -15,3 +15,62 @@
   margin: 10px;
   border: 1px solid rgb(64, 64, 160);
 }
+
+.index {
+  background-color: black;
+  color: white;
+}
+
+table td,
+.table th {
+  padding: .2em !important;
+  vertical-align: bottom !important ;
+  border-top: 1px solid #dee2e6;
+}
+
+.order-items-section.row {
+  margin-top: 1em;
+}
+td.date-fields {
+  text-align: center;
+  width: 23%;
+}
+
+td.product {
+  width: 25%;
+}
+
+td.quantity {
+  width: 12%;
+}
+td.options {
+  width: 10%;
+}
+td.id {
+  width: 7%;
+}
+
+
+thead tr {
+  text-align: center;
+  font-size: .8em;
+}
+
+tbody tr {
+  font-size: .8em;
+  text-align: center;
+}
+
+tr  input {
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: center !important;
+}
+
+td.index {
+  width: 3%;
+}
+
+span.e-spin-up,  span.e-spin-down {
+  display: none !important;
+}

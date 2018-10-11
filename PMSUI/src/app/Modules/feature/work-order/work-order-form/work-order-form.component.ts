@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Location} from '@angular/common';
 import {
   CommandModel
 } from '@syncfusion/ej2-ng-grids';
@@ -41,7 +42,8 @@ export class WorkOrderFormComponent implements OnInit {
   public today: Date;
 
   constructor(private workOrderApi: WorkOrderAPIService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private location: Location) {
 
     this.createForm();
     this.today = new Date();
@@ -60,8 +62,8 @@ export class WorkOrderFormComponent implements OnInit {
         this.formBuilder.group({
           itemId: ['', Validators.required],
           quantity: ['', [Validators.required, Validators.min(0)]],
-          dueDate: [new Date(), Validators.required],
-          startDate: [new Date(), Validators.required]
+          dueDate: ['', Validators.required],
+          startDate: ['', Validators.required]
         })
       ])
     });
@@ -74,8 +76,8 @@ export class WorkOrderFormComponent implements OnInit {
     this.orders.push(this.formBuilder.group({
       itemId: ['', Validators.required],
       quantity: ['', Validators.required],
-      startDate: [new Date(), Validators.required],
-      dueDate: [new Date(), Validators.required]
+      startDate: [ '', Validators.required],
+      dueDate: ['', Validators.required]
     }));
   }
   ngOnInit(): void {
@@ -99,7 +101,12 @@ export class WorkOrderFormComponent implements OnInit {
     const form = this.workOrderForm.value;
     const order = this.prepareFormData(form);
     this.workOrderApi.addWorkOrder(order).subscribe(
-      (success: WorkOrderView) => console.log(success),
+      (success: WorkOrderView) => {
+        this.location.back();
+        alert('Work Order Created Successfully');
+
+
+      },
       (error: HttpErrorResponse) => console.log(error)
     );
   }

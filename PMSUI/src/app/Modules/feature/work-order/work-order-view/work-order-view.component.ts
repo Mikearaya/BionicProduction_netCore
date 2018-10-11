@@ -10,7 +10,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel
+  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel, TextWrapSettings, TextWrapSettingsModel, QueryCellInfoEventArgs
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { Tooltip } from '@syncfusion/ej2-popups';
 
 
 @Component({
@@ -30,6 +31,7 @@ import { GridComponent } from '@syncfusion/ej2-ng-grids';
 export class WorkOrderViewComponent implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
+  public textWrapSettings: TextWrapSettingsModel;
 
   public data: DataManager;
   public pageSettings: PageSettingsModel;
@@ -41,6 +43,7 @@ export class WorkOrderViewComponent implements OnInit {
   public allowResizing = true;
   public showColumnChooser = true;
   public allowReordering = true;
+  public allowTextWrap = true;
 
   public showColumnMenu = false;
   public allowFiltering = true;
@@ -53,8 +56,10 @@ export class WorkOrderViewComponent implements OnInit {
   constructor(
     private workOrderApi: WorkOrderAPIService,
     private route: Router) {
+    this.textWrapSettings = { wrapMode: 'Header' };
 
   }
+
 
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
@@ -62,6 +67,9 @@ export class WorkOrderViewComponent implements OnInit {
   columnBluePrint = workOrderBluePrint;
 
   public dataManager: DataManager = new DataManager({
+
+
+
     url: 'http://localhost:5000/api/workorders',
     adaptor: new WebApiAdaptor,
     offline: true
@@ -84,6 +92,14 @@ export class WorkOrderViewComponent implements OnInit {
       type: 'Menu'
     };
   }
+
+  tooltip(args: QueryCellInfoEventArgs) {
+    const cell = args.cell;
+    //const tooltip: Tooltip = new Tooltip({
+     // content: args.data[args.column.field].toString();
+    //}, cell)
+  }
+
 
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.

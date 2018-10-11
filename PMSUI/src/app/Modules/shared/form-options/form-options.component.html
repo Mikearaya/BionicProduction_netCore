@@ -1,6 +1,6 @@
 <div class="row" *ngIf="isSelfContained">
   <div class="form-button-box">
-    <button type="submit" [disabled]="submitDisabled" class='e-success' ejs-button>Submit</button>
-    <button type="button" class='e-danger' ejs-button>Cancel</button>
+    <button type="submit" [disabled]="submitDisabled" class='e-success' iconCss= "e-icons e-save" iconPossition="Right" ejs-button>Submit</button>
+    <button type="button" class='e-danger' (click)="cancel()" iconCss= "e-icons e-cancel" iconPossition="Right" ejs-button>Cancel</button>
   </div>
 </div>

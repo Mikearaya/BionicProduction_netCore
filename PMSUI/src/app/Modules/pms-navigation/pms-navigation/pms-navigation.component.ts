@@ -22,7 +22,6 @@ export class PmsNavigationComponent {
       subChild: [
         { id: 'profile', name: 'PROFILE' },
         { id: 'employees', name: 'EMPLOYEES' },
-        { id: 'customers', name: 'CUSTOMERS' },
         { id: 'products', name: 'PRODUCTS' }
       ]
     },
@@ -30,16 +29,17 @@ export class PmsNavigationComponent {
     {
     id: '2',  name: 'PRODUCTION',
       subChild: [
-        { id: 'workorders', name: 'WORK ORDERS' },
-        { id: 'workorders/pending', name: 'PENDING REQUESTS' },
-        { id: 'workorders/completed', name: 'COMPLETED ORDERS' }
+        { id: 'workorders', name: 'MANUFACTURE ORDERS' },
+        { id: 'workorders/pending', name: 'PRODUCTION REQUESTS' },
+        { id: 'workorders/completed', name: 'COMPLATED PRODUCTION' }
       ]
     },
     {
       id: '345',  name: 'SALES',
         subChild: [
-          { id: 'sales', name: 'SALES ORDERS' },
-          { id: 'invoices', name: 'INVOICE' }
+          { id: 'customer', name: 'CUSTOMERS' },
+          { id: 'sales', name: 'CUSTOMER ORDERS' },
+          { id: 'invoices', name: 'INVOICES' }
         ]
       },
 

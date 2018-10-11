@@ -17,6 +17,10 @@ td.product {
   width: 35%;
 }
 
+hr {
+  height: 1px;
+  width: 100%;
+}
 td.quantity {
   width: 10%;
 }

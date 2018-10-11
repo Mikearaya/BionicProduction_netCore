@@ -106,6 +106,7 @@ export class WorkOrderView {
   description: string;
   orderId: number;
   product: string;
+  itemCount: number;
   costPerItem: number;
   dueDate: Date;
   start: Date;
