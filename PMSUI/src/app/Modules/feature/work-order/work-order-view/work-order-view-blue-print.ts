@@ -42,7 +42,7 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '28'
   },
   {
-    key: 'orderDate', humanReadable: 'Order Date', visable: true, allowGrouping: true, format: 'yMd',
+    key: 'orderDate', humanReadable: 'Start', visable: true, allowGrouping: true,
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '30'
   },

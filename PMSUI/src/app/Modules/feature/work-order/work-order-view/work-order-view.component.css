@@ -8,12 +8,10 @@
  */
 
 
- tr.in-progress-orders {
+tr.in-progress-orders td:not(:last-child) {
   background-color: rgb(216, 216, 91);
- }
+}
 
-tr.completed-orders {
-   background-color: rgb(64, 211, 64);
- }
-
-
+tr.completed-orders td:not(:last-child) {
+  background-color: rgb(149, 228, 149);
+}
