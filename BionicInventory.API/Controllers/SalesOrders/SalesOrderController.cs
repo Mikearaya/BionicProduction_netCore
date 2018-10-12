@@ -111,6 +111,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                     orderDetail.DueDate,
                     orderDetail.UnitPrice,
                     newOrder.InitialPayment,
+                    newOrder.Title,
                     newOrder.Description,
                     newOrder.PaymentMethod
                     );

@@ -45,7 +45,7 @@ export class WorkOrderViewComponent implements OnInit {
   public allowResizing = true;
   public showColumnChooser = true;
   public allowReordering = true;
-  public allowTextWrap = true;
+  public allowTextWrap = false;
 
   public showColumnMenu = false;
   public allowFiltering = true;
@@ -58,7 +58,7 @@ export class WorkOrderViewComponent implements OnInit {
   constructor(
     private workOrderApi: WorkOrderAPIService,
     private route: Router) {
-    this.textWrapSettings = { wrapMode: 'Header' };
+   this.textWrapSettings = { wrapMode: 'Header' };
 
   }
 
@@ -136,13 +136,13 @@ export class WorkOrderViewComponent implements OnInit {
   }
 
   rowDataBound(args: RowDataBoundEventArgs) {
-    if (args.data['status'] === 'COMPLETE') {
+    if (args.data['status'] === 'COMPLETED') {
 
       args.row.classList.add('completed-orders');
     } else if (args.data['status'] === 'IN-PROGRESS') {
       args.row.classList.add('in-progress-orders');
     } else {
-      args.row.classList.add('new-orders');
+      args.row.classList.add('queued-orders');
     }
   }
 

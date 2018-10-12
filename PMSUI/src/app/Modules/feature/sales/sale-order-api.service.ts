@@ -34,6 +34,8 @@ export class SalesOrder {
 id?: number;
 clientId: number;
 createdBy: number;
+description: string;
+title: string;
 initialPayment: number;
 paymentMethod: number;
 orderDetail: SalesOrderDetail[] = [];

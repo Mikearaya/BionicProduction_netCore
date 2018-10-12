@@ -23,7 +23,7 @@ namespace BionicInventory.Application.ProductionOrders.Models {
         public string description { get; set; }
 
         public string product { get; set; }
-
+        public double cost {get; set;}
         public string productName {get; set;}
         public DateTime? start { get; set; }
         public DateTime? dueDate { get; set; }

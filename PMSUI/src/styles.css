@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 section.e-card {
-  margin: 10px;
+  margin: 1em;
 }
 
 ejs-grid {
@@ -11,8 +11,6 @@ margin: 1.5em;
 
 
 .e-grid .e-rowcell.custom-grid-header{
-  background-color: #ecedee;
-  color: 'red';
   font-family: 'Bell MT';
   font-size: 12px;
 }
@@ -21,5 +19,6 @@ margin: 1.5em;
   background-color: #2382c3;
   color: white;
   font-family: 'Bell MT';
-  font-size: 20px;
+  font-size: 16px;
+  word-wrap: break-word;
 }

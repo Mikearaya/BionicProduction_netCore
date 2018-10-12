@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { SaleOrderApiService, SalesOrder } from '../sale-order-api.service';
 import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
@@ -36,7 +37,8 @@ export class SaleOrderFormComponent implements OnInit {
   public today: Date;
 
   constructor(private salesOrderApi: SaleOrderApiService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private location: Location) {
 
     this.createForm();
     this.today = new Date();
@@ -55,13 +57,14 @@ export class SaleOrderFormComponent implements OnInit {
       client: ['', Validators.required],
       paymentMethod: ['Check', Validators.required],
       initialPayment: [0],
+      title: ['', Validators.required],
       description: ['', Validators.required],
       orders: this.formBuilder.array([
         this.formBuilder.group({
           itemId: ['', Validators.required],
           unitPrice: [0, [Validators.required, Validators.min(0)]],
           quantity: [1, [Validators.required, Validators.min(1)]],
-          dueDate: [new Date(), Validators.required]
+          dueDate: ['', Validators.required]
         })
       ])
     });
@@ -75,7 +78,7 @@ export class SaleOrderFormComponent implements OnInit {
       itemId: ['', Validators.required],
       unitPrice: [0, [Validators.required, Validators.min(0)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
-      dueDate: [new Date(), Validators.required]
+      dueDate: ['', Validators.required]
     }));
   }
   ngOnInit(): void {
@@ -111,7 +114,10 @@ export class SaleOrderFormComponent implements OnInit {
 
 
     this.salesOrderApi.createSalesOrder(order).subscribe(
-      (success: SalesOrder) => console.log(success),
+      (success: SalesOrder) => {
+        this.location.back();
+        alert('Customer order added Successfuly');
+      },
       (error: HttpErrorResponse) => console.log(error)
     );
   }
@@ -121,6 +127,8 @@ export class SaleOrderFormComponent implements OnInit {
     const order = new SalesOrder();
     order.createdBy = form.orderedBy;
     order.clientId = form.client;
+    order.title = form.title;
+    order.description = form.description;
     form.orders.forEach(element => {
       order.orderDetail.push({
         itemId: element.itemId,

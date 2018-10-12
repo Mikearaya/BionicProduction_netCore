@@ -43,7 +43,7 @@ export class SaleOrderViewComponent implements OnInit {
     private route: Router) {
 
   }
-
+public customAttributes: Object;
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
@@ -71,6 +71,7 @@ export class SaleOrderViewComponent implements OnInit {
     this.filterSetting = {
       type: 'Menu'
     };
+    this.customAttributes = { class: 'custom-grid-header' };
   }
 
   rowSelected(args: RowSelectEventArgs) {

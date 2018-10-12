@@ -12,14 +12,15 @@ export const salesOrderBluePrint = [
     key: 'Id',
     humanReadable: 'ID',
     type: 'number', primaryKey: true,
-    allowGrouping: true, editable: false, width: '30', isIdentity: true
+    allowGrouping: true, editable: false, width: '20', isIdentity: true
   },
   {
-    key: 'OrdderCode', humanReadable: 'CODE', primaryKey: true, type: 'string', editable: false, allowGrouping: false, dataType: 'TextBox',
-    validationRule: { required: true }, isIdentity: true, width: '20'
+    key: 'OrderCode', humanReadable: 'CODE', primaryKey: true, type: 'string', editable: false, allowGrouping: false, dataType: 'TextBox',
+    validationRule: { required: true }, isIdentity: true, width: '20', visable: false
   },
   {
-    key: 'CustomerName', humanReadable: 'For', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'CustomerName', humanReadable: 'CUSTOMER', type: 'string', primaryKey: false,
+    allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
@@ -28,46 +29,46 @@ export const salesOrderBluePrint = [
   },
   {
     key: 'Quantity', humanReadable: 'Quantity', primaryKey: false, type: 'number', allowGrouping: true, editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '40'
+    isIdentity: false, width: '25'
   },
   {
     key: 'UnitPrice', humanReadable: 'Unit Price', primaryKey: false, allowGrouping: true, type: 'number',
     editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '30'
+    isIdentity: false, width: '25'
   },
   {
-    key: 'totalAmount', humanReadable: 'Total', primaryKey: false, allowGrouping: true, type: 'number',
+    key: 'totalPrice', humanReadable: 'Sub Total', primaryKey: false, allowGrouping: true, type: 'number',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
-    key: 'paidAmount', humanReadable: 'Paid', primaryKey: false, allowGrouping: true, type: 'number',
+    key: 'Status', humanReadable: 'STATUS', primaryKey: false, allowGrouping: true, type: 'string',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
     key: 'remainingPayment', humanReadable: 'Remaining', primaryKey: false, allowGrouping: true, type: 'number',
-    editable: true, dataType: 'TextBox',
+    editable: true, dataType: 'TextBox', visable: false,
     isIdentity: false, width: '30'
   },
   {
-    key: 'paymentMethod', humanReadable: 'Payment Mathod', primaryKey: false, allowGrouping: true, type: 'string',
+    key: 'PaymentMethod', humanReadable: 'Payment Mathod', primaryKey: false, allowGrouping: true, type: 'string',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
     key: 'OrderedOn', humanReadable: 'Order Date', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
-    isIdentity: false, width: '40', visable: false
+    isIdentity: false, width: '30', visable: false
   },
   {
     key: 'DueDate', humanReadable: 'Due Date', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datePickeredit',
-    isIdentity: false, width: '40'
+    isIdentity: false, width: '30'
   },
   {
     key: 'CreatedBy', humanReadable: 'Ordered By', type: 'string',
     primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '40'
+    isIdentity: false, width: '40', visable: false
   }
 ];

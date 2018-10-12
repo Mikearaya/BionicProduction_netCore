@@ -33,7 +33,8 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 ProductionOrder productionOrder = new ProductionOrder () {
                     Description = newOrder.Description,
-                    OrderedBy = newOrder.OrderedBy
+                    OrderedBy = newOrder.OrderedBy,
+              
 
                 };
                 

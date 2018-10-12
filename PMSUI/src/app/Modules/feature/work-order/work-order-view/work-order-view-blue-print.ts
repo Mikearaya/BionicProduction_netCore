@@ -20,20 +20,26 @@ export const workOrderBluePrint = [
   }  ,
   {
     key: 'customer', humanReadable: 'Customer', type: 'string', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '25'
+    isIdentity: false, width: '28'
   },
   {
     key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string', visable: false,
     editable: true, allowGrouping: true, dataType: 'TextBox', validationRule: { required: true }, isIdentity: false, width: '40'
   },
   {
-    key: 'product', humanReadable: 'Product', primaryKey: false, type: 'string', allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'productName', humanReadable: 'Product', primaryKey: false, type: 'string',
+    allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '25'
   },
   {
     key: 'quantity', humanReadable: 'Total', primaryKey: false, allowGrouping: true, type: 'number',
     editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '20'
+    isIdentity: false, width: '25'
+  },
+  {
+    key: 'cost', humanReadable: 'Total Cost', primaryKey: false, allowGrouping: true, type: 'number',
+    editable: true, dataType: 'TextBox', format : 'C2',
+    isIdentity: false, width: '28'
   },
   {
     key: 'orderDate', humanReadable: 'Order Date', visable: true, allowGrouping: true, format: 'yMd',
@@ -41,7 +47,7 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '30'
   },
   {
-    key: 'start', humanReadable: 'Start', visable: false, allowGrouping: true, format: 'yMd',
+    key: 'start', humanReadable: 'Start', visable: false, allowGrouping: true,  format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '30'
   },
@@ -53,7 +59,7 @@ export const workOrderBluePrint = [
   {
     key: 'orderedBy', humanReadable: 'Ordered By', type: 'string',
     primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '25'
+    isIdentity: false, width: '25', visable: false
   },
   {
     key: 'status', humanReadable: 'Status', type: 'boolean', primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',

@@ -1,6 +1,6 @@
 <ejs-grid #grid [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping"
   (queryCellInfo)='tooltip($event)' [allowResizing]="allowResizing" [allowReordering]="allowReordering" [allowPaging]="allowPaging"
-  [allowTextWrap]="allowTextWrap" [textWrapSettings]="textWrapSettings" [pageSettings]="pageSettings"
+  [allowTextWrap]="allowTextWrap" [pageSettings]="pageSettings" [textWrapSettings]="textWrapSettings"
   [allowExcelExport]="allowExcelExport" (dataBound)="dataBound()" (rowDataBound)="rowDataBound($event)" [toolbar]='toolbar'
   id="workorder" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
   [showColumnMenu]="showColumnMenu" [filterSettings]="filterSetting" [groupSettings]='groupOptions' [allowFiltering]="allowFiltering"

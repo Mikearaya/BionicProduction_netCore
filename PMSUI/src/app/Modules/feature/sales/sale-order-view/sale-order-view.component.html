@@ -7,8 +7,10 @@
   [allowPdfExport]="allowPdfExport">
   <e-columns>
     <e-column [isPrimaryKey]="col.primaryKey" textAlign="left"  [width]="col.width" *ngFor="let col of columnBluePrint"
-      [validationRules]="col.validationRule" [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping"
-      [isIdentity]="col.isIdentity" [headerText]='col.humanReadable' [format]='col.format' [type]="col.type" [editType]="col.dataType"></e-column>
+      [validationRules]="col.validationRule" [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping" [visible]='col.visable'
+      [isIdentity]="col.isIdentity"    [headerText]='col.humanReadable' [format]='col.format' [type]="col.type" [editType]="col.dataType"
+      [customAttributes]="customAttributes"
+      ></e-column>
 
   </e-columns>
 </ejs-grid>

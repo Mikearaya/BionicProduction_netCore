@@ -46,6 +46,7 @@ export class PendingOrdersViewComponent implements OnInit {
 
   }
 
+  public customAttributes: Object;
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
@@ -56,6 +57,8 @@ export class PendingOrdersViewComponent implements OnInit {
   });
 
   ngOnInit(): void {
+
+    this.customAttributes = {class: 'custom-grid-header'};
 
     this.data = this.dataManager;
 

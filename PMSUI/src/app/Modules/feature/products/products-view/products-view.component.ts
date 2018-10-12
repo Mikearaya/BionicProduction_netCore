@@ -47,6 +47,8 @@ export class ProductsViewComponent implements OnInit {
 
     }
 
+    public customAttributes: Object;
+
     public commands: CommandModel[];
     public printMode: 'CurrentPage';
     public columnBluePrint = productsViewBluePrint;
@@ -62,10 +64,7 @@ export class ProductsViewComponent implements OnInit {
 
 
     ngOnInit(): void {
-
-        this.data = this.dataManager;
-
-        this.pageSettings = { pageSize: 6 };
+this.customAttributes = {class : 'custom-grid-header'};
         this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
         this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'ColumnChooser'];
         this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },

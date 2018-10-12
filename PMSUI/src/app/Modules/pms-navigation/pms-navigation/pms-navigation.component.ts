@@ -37,7 +37,7 @@ export class PmsNavigationComponent {
     {
       id: '345',  name: 'SALES',
         subChild: [
-          { id: 'customer', name: 'CUSTOMERS' },
+          { id: 'customers', name: 'CUSTOMERS' },
           { id: 'sales', name: 'CUSTOMER ORDERS' },
           { id: 'invoices', name: 'INVOICES' }
         ]

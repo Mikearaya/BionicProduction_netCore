@@ -42,11 +42,12 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                 .Select (production => new {
                     id = production.Key,
                         status = production.Select (pro => new {
-                            remaining = pro.Quantity - pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
-
+                            completed = pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
+                        totalCost = pro.CostPerItem * pro.Quantity,
                                 Description = pro.ProductionOrder.Description,
                                 orderedBy = $"{pro.ProductionOrder.OrderedByNavigation.FirstName} {pro.ProductionOrder.OrderedByNavigation.LastName}",
                                 orderId = pro.ProductionOrderId,
+                                productName = pro.Item.Name,
                                 product = pro.Item.Code,
                                 orderDate = pro.ProductionOrder.AddedOn,
                                 dueDate = pro.DueDate,
@@ -65,13 +66,23 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                 v.id = item.id;
 
                 foreach (var r in item.status) {
-                    var remaining = r.total - r.remaining;
+                    var remaining = r.total - r.completed;
 
-                    v.status = (remaining == 0) ? "COMPLETE" : "IN-PROGRESS";
+                    if(r.completed == 0) {
+                        v.status = "QUEUED";
+                    } else if( r.completed > 0 && r.total > r.completed) {
+                        v.status = "IN-PROGRESS";
+                    } else if (r.completed == r.total) {
+                        v.status = "COMPLETED";
+                    } else if(r.completed > r.total) {
+                        v.status = "OVER-MADE";
+                    }
+                    v.cost = r.totalCost;
                     v.description = r.Description;
                     v.dueDate = r.dueDate;
                     v.orderDate = r.orderDate;
                     v.product = r.product;
+                    v.productName = r.productName;
                     v.quantity = (int) r.total;
                     v.customer = r.customer;
                     v.orderedBy = r.orderedBy;

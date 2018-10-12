@@ -30,6 +30,7 @@ import { finishedProductsBluePrint } from './current-stock-column-blue-print';
 export class CurrentStockViewComponent implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
+  public customAttributes: Object;
 
   public data: DataManager;
   public pageSettings: PageSettingsModel;
@@ -67,6 +68,7 @@ export class CurrentStockViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.data = this.dataManager;
+    this.customAttributes = {class: 'custom-grid-header'};
 
     this.pageSettings = { pageSize: 6 };
     this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];
