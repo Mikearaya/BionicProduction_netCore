@@ -1,4 +1,5 @@
-<ejs-grid #grid  [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
+
+<ejs-grid class="e-card" #grid  [dataSource]='dataManager' [editSettings]='editSettings' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
   [allowReordering]="allowReordering" [allowPaging]="allowPaging" [pageSettings]="pageSettings" [allowExcelExport]="allowExcelExport"
   [toolbar]='toolbar' id="salesorder"
   (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"

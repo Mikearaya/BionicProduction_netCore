@@ -46,10 +46,10 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpGet]
-        [ProducesResponseType (200, Type = typeof (IEnumerable<SalesOrderView>))]
+        [ProducesResponseType (200, Type = typeof (IEnumerable<CustomerOrdersView>))]
         [ProducesResponseType (500)]
         public IActionResult GetAllSalesOrders () {
-            var salesOrders = _query.GetAllSalesOrders ();
+            var salesOrders = _query.GetAllCustomerOrders ();
             return StatusCode (200, salesOrders);
         }
 

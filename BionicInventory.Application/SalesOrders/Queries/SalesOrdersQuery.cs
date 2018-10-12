@@ -26,7 +26,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             _database = databse;
             _logger = logger;
         }
-        public IEnumerable<SalesOrderView> GetAllSalesOrders () {
+        public IEnumerable<SalesOrderView> GetCustomerOrderDetail () {
                 
             return _database.PurchaseOrderDetail.Select (sales => new SalesOrderView () {
                 Id = sales.PurchaseOrderId,
@@ -49,6 +49,70 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         }
 
+ public IEnumerable<CustomerOrdersView> GetAllCustomerOrders () {
+                
+            var salesOrders =   _database.PurchaseOrderDetail
+                        .GroupBy(customerOrder => customerOrder.PurchaseOrderId)
+                        .Select(order => new {
+                            ID = order.Key,
+                            itemCount = order.Count(),
+                            totalPrice = order.Sum(price => price.PricePerItem * price.Quantity),
+                            totalCost = order.Sum(itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
+                            totalQuantity = order.Sum(itemQuantity => itemQuantity.Quantity),
+                    
+                            detail = order.Select(CO => new {
+                                customerName = $"{CO.PurchaseOrder.Client.FirstName} {CO.PurchaseOrder.Client.LastName} ",
+                                addedBy = $"{CO.PurchaseOrder.CreatedByNavigation} {CO.PurchaseOrder.CreatedByNavigation.LastName}",
+                                dateAdded = CO.PurchaseOrder.DateAdded,
+                                dateUpdated = CO.PurchaseOrder.DateUpdated,
+                                description = CO.PurchaseOrder.Description,
+                                pamentMethod = CO.PurchaseOrder.PaymentMethod,
+                                status =  (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count() : -1,
+
+
+                            }),
+
+
+                        });
+            List<CustomerOrdersView> salesView = new List<CustomerOrdersView>();
+
+                    foreach (var order in salesOrders)
+                    {
+                    CustomerOrdersView    salesOrder = new CustomerOrdersView() {
+                        Id = order.ID.ToString(),
+                        totalCost = order.totalCost,
+                        totalPrice = order.totalPrice,
+                        totalQuantity = (uint) order.totalQuantity,
+                        totalProducts = (uint) order.itemCount
+                    };
+                            var sum = 0;
+                            foreach (var item in order.detail) 
+                            {
+                                salesOrder.Description = item.description;
+                                salesOrder.CreatedBy = item.addedBy;
+                                salesOrder.CustomerName = item.customerName;
+                                salesOrder.DateAdded = (DateTime) item.dateAdded;
+                                salesOrder.DateUpdated = (DateTime) item.dateUpdated;
+                                salesOrder.PaymentMethod = item.pamentMethod;
+                                sum += item.status;
+
+                                
+                            }
+
+                            if(sum < 0) {
+                                    salesOrder.Status = "PENDING";
+                            } else if(sum == order.totalQuantity) {
+                                    salesOrder.Status = "DONE";
+                            } else {
+                                salesOrder.Status = "IN PROGRESS";
+                            }
+
+                        salesView.Add(salesOrder);
+                    }
+
+            return salesView;
+
+        }
         public PurchaseOrder GetSalesOrderById (uint id) {
             return _database.PurchaseOrder.Where (order => order.Id == id).Select (sales => new PurchaseOrder () {
                 Id = sales.Id,

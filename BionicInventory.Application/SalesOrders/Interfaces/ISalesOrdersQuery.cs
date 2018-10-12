@@ -15,8 +15,9 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderQuery  {
 
-        IEnumerable<SalesOrderView> GetAllSalesOrders();
-        PurchaseOrder GetSalesOrderById(uint id);
+        IEnumerable<SalesOrderView> GetCustomerOrderDetail();
+  IEnumerable<CustomerOrdersView> GetAllCustomerOrders();
+          PurchaseOrder GetSalesOrderById(uint id);
 
         PurchaseOrderDetail GetSalesOrderItemById(uint id);
     }
