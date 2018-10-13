@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 10:49 PM
+ * @Last Modified Time: Oct 13, 2018 8:10 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -48,7 +48,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<CustomerOrdersView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllSalesOrders () {
+        public IActionResult GetAllSalesOrders (int pageNumber = 1, int pageSize = 10) {
             var salesOrders = _query.GetAllCustomerOrders ();
             return StatusCode (200, salesOrders);
         }
@@ -58,8 +58,13 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public IActionResult GetSalesOrderById (uint id) {
-            var result = _query.GetSalesOrderById (id);
+        public IActionResult GetSalesOrderById (string id) {
+
+        var idValid = _factory.ExtractId(id);
+    if(idValid == 0) {
+        return StatusCode(400, "Invelid Customer Id");
+    }
+            var result = _query.GetCustomerOrderDetail (idValid);
             if (result == null) {
                 return StatusCode (404);
             }

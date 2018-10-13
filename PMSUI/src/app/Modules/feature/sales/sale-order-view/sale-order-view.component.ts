@@ -62,7 +62,7 @@ public customAttributes: Object;
 
     this.pageSettings = { pageSize: 10 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
+    this.toolbar = ['Add', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: true,

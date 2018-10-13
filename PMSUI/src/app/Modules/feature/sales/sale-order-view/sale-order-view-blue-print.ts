@@ -15,7 +15,7 @@ export const salesOrderBluePrint = [
     allowGrouping: true, editable: false, width: '20', isIdentity: true
   },
   {
-    key: 'CustomerName', humanReadable: 'CUSTOMER', type: 'string', primaryKey: false,
+    key: 'CustomerName', humanReadable: 'Customer', type: 'string', primaryKey: false,
     allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '35'
   },
@@ -26,7 +26,7 @@ export const salesOrderBluePrint = [
   },
 
   {
-    key: 'Description', humanReadable: 'DESCRIPTION', primaryKey: false, type: 'string',
+    key: 'Description', humanReadable: 'Description', primaryKey: false, type: 'string',
     editable: true, allowGrouping: true, dataType: 'TextBox', isIdentity: false, width: '40', visable : false,
   },
   {
@@ -50,7 +50,7 @@ export const salesOrderBluePrint = [
     isIdentity: false, width: '25'
   },
   {
-    key: 'Status', humanReadable: 'STATUS', primaryKey: false, allowGrouping: true, type: 'string',
+    key: 'Status', humanReadable: 'Status', primaryKey: false, allowGrouping: true, type: 'string',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },

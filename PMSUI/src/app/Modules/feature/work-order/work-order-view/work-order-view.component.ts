@@ -83,7 +83,7 @@ export class WorkOrderViewComponent implements OnInit {
     this.data = this.dataManager;
 
     this.pageSettings = { pageSize: 10 };
-    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: false, allowAdding: false, allowDeleting: true };
+    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: false, allowAdding: true, allowDeleting: true };
     this.toolbar = ['Add', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {

@@ -9,16 +9,18 @@ namespace BionicInventory.Application.SalesOrders.Models {
         } set{
             _customerOrderId = $"CO-{value.ToString()}";
         } }
-        public string CustomerName { get; set; }
-        public string CreatedBy { get; set; }
-        public string Description { get; set; }
+        public string customerName { get; set; }
+        public string createdBy { get; set; }
+        public string description { get; set; }
         public uint totalQuantity { get; set; }
         public uint totalProducts {get; set;}
         public float totalPrice { get; set; }
         public double totalCost { get; set; }
-        public string PaymentMethod { get; set; }
-        public string Status { get; set; }
-        public DateTime DateAdded{ get; set; }
-        public DateTime DateUpdated { get; set; }
+        public string paymentMethod { get; set; }
+        public string status { get; set; }
+
+        public DateTime dueDate {get; set;}
+        public DateTime dateAdded{ get; set; }
+        public DateTime dateUpdated { get; set; }
     }
 }

@@ -27,5 +27,8 @@ namespace BionicInventory.Domain.Customers {
         public ICollection<Address> Address { get; set; }
         public ICollection<PhoneNumber> PhoneNumber { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public string FullName() {
+            return FirstName+' '+LastName;
+        }
     }
 }

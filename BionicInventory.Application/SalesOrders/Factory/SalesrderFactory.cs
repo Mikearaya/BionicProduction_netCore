@@ -41,5 +41,13 @@ namespace BionicInventory.Application.SalesOrders.Factory
         {
             throw new NotImplementedException();
         }
+
+        public uint ExtractId(string id) {
+        string[] words = id.Split('-');
+        bool isNumerical = uint.TryParse(words[1], out uint orderId);
+
+            return (isNumerical) ? orderId : 0;
+
+        }
     }
 }

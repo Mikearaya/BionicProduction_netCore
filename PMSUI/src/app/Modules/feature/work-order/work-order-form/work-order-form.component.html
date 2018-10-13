@@ -68,7 +68,7 @@
                 </td>
                 <td class='options'>
                   <button type="button" ejs-button [disabled]="orders.invalid"
-                    *ngIf="last" (click)="addOrder()" class="e-info e-small">
+                    *ngIf="last" (click)="addOrder()"  cssClass='e-flat' iconCss='e-edit e-icons' >
                   Add</button>
                   <button type="button" ejs-button class="e-danger e-small"  [disabled]="orders.length == 1"
                     *ngIf="orders.length > 1" (click)="orders.removeAt(i)">
