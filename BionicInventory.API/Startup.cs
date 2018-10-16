@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 26, 2018 8:56 PM
+ * @Last Modified Time: Oct 16, 2018 11:55 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -52,6 +52,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using BionicInventory.Application.CompanyProfile.Commands;
+using BionicInventory.Application.CompanyProfile.Iterfaces;
+using BionicInventory.Application.CompanyProfile.Interfaces;
+using BionicInventory.Application.CompanyProfile.Queries;
+using BionicInventory.Application.CompanyProfile.Factories;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -73,7 +78,6 @@ namespace BionicInventory.API {
             services.AddScoped<IEmployeesQuery, EmployeesQuery> ();
             services.AddScoped<IEmployeesCommand, EmployeesCommand> ();
             services.AddScoped<IEmployeesFactory, EmployeesFactory> ();
-            services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
             services.AddScoped<IResponseFormatFactory, ResponseFromatFactory> ();
             services.AddScoped<IWorkOrdersFactory, WorkOrderFactory> ();
             services.AddScoped<IWorkOrdersQuery, WorkOrdersQuery> ();
@@ -84,6 +88,11 @@ namespace BionicInventory.API {
             services.AddScoped<ISalesOrderFactory, SalesOrderFactory> ();
             services.AddScoped<ISalesOrderQuery, SalesOrderQuery> ();
             services.AddScoped<ISalesOrderCommand, SalesOrderCommand> ();
+            services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
+            services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
+            services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
+
+            services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",

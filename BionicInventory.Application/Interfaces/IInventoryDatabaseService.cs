@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 8:39 PM
+ * @Last Modified Time: Oct 16, 2018 11:38 PM
  * @Description: Modify Here, Please 
  */
+using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -29,6 +30,7 @@ namespace Bionic_inventory.Application.Interfaces {
 
         DbSet<Address> Address { get; set; }
         DbSet<Customer> Customer { get; set; }
+        DbSet<Company> Company { get; set; }
         DbSet<Employee> Employee { get; set; }
         DbSet<FinishedProduct> FinishedProduct { get; set; }
         DbSet<Invoice> Invoice { get; set; }
