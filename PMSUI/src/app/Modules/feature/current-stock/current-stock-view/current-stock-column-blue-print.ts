@@ -56,7 +56,7 @@ export const finishedProductsBluePrint = [
     editable: false,
     width: '30',
     isIdentity: false,
-    format: 'C'
+
   },
   {
     key: 'available',
@@ -70,7 +70,7 @@ export const finishedProductsBluePrint = [
     editable: false,
     width: '30',
     isIdentity: false,
-    format: 'C2'
+
   },
   {
     key: 'booked',
@@ -83,8 +83,7 @@ export const finishedProductsBluePrint = [
     allowGrouping: true,
     editable: false,
     width: '30',
-    isIdentity: false,
-    format: 'C2'
+    isIdentity: false
   },
   {
     key: 'totalExpected',
@@ -97,8 +96,7 @@ export const finishedProductsBluePrint = [
     allowGrouping: true,
     editable: false,
     width: '30',
-    isIdentity: false,
-    format: 'C2'
+    isIdentity: false
   },
   {
     key: 'expectedAvailable',
@@ -111,8 +109,7 @@ export const finishedProductsBluePrint = [
     allowGrouping: true,
     editable: false,
     width: '30',
-    isIdentity: false,
-    format: 'C2'
+    isIdentity: false
   },
   {
     key: 'expectedBooked',
@@ -125,8 +122,7 @@ export const finishedProductsBluePrint = [
     allowGrouping: true,
     editable: false,
     width: '30',
-    isIdentity: false,
-    format: 'C2'
+    isIdentity: false
   },
   {
     key: 'averageCost',
@@ -157,4 +153,3 @@ export const finishedProductsBluePrint = [
     format: 'C2'
   }
 ];
-

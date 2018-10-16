@@ -11,6 +11,7 @@ import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
+import { CustomerOrderDetailComponent } from './customer-order-detail/customer-order-detail.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { SharedModule } from '../../shared/shared.module';
     ButtonModule,
     SharedModule
   ],
-  declarations: [SaleOrderFormComponent, SaleOrderViewComponent],
+  declarations: [SaleOrderFormComponent, SaleOrderViewComponent,     CustomerOrderDetailComponent],
   providers: [SaleOrderApiService]
 })
 export class SalesModule { }

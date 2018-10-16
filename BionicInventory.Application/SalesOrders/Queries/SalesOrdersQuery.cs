@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 13, 2018 8:23 PM
+ * @Last Modified Time: Oct 13, 2018 9:29 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -30,17 +30,18 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 
     var salesOrders =   _database.PurchaseOrderDetail
         .Where(customerOrder => customerOrder.PurchaseOrderId == id)
+        .OrderByDescending(req => req.PurchaseOrderId)
                         .GroupBy(customerOrder => customerOrder.PurchaseOrderId)
                         .Select(order => new {
-                            ID = order.Key.ToString(),
+                            ID = order.Key,
                             totalProducts = order.Count(),
                             totalPrice = order.Sum(price => price.PricePerItem * price.Quantity),
                             totalCost = order.Sum(itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
                             totalQuantity = order.Sum(itemQuantity => itemQuantity.Quantity),
 
                             detail = order.Select(CO => new {
-                                customerName = $"{CO.PurchaseOrder.Client.FirstName} {CO.PurchaseOrder.Client.LastName} ",
-                                createdBy = $"{CO.PurchaseOrder.CreatedByNavigation} {CO.PurchaseOrder.CreatedByNavigation.LastName}",
+                                customerName = CO.PurchaseOrder.Client.FullName(),
+                                createdBy = CO.PurchaseOrder.CreatedByNavigation.FullName(),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
                                 description = CO.PurchaseOrder.Description,
@@ -68,7 +69,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                             orderDetail.totalPrice = salesOrders.totalPrice;
                             orderDetail.totalProducts = (uint) salesOrders.totalProducts;
                             orderDetail.totalQuantity = (uint) salesOrders.totalQuantity;
-                            orderDetail.Id = salesOrders.ID;
+                            orderDetail.id = salesOrders.ID;
                             
                             foreach (var orders in salesOrders.detail)
                             {
@@ -86,7 +87,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
                                 orderDetail.paymentMethod = orders.pamentMethod;
                                 orderDetail.orderItems.Add(new CustomerOrderItemsView(){
-                                    id = orders.id.ToString(),
+                                    id = orders.id,
                                     quantity = (int) orders.quantity,
                                     productId = orders.productId,
                                     productName = orders.productName,
@@ -99,7 +100,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                     dateAdded = (DateTime) orders.dateAdded,
                                     dateUpdated = (DateTime) orders.dateUpdated,
                                     dueDate = orders.dueDate,
-                                    manufacturingOrderId = orders.manufactureId.ToString(),
+                                    manufacturingOrderId = orders.manufactureId,
                                     status = status
 
 
@@ -115,7 +116,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         public IEnumerable<CustomerOrdersView> GetAllCustomerOrders () {
                 
             var salesOrders =   _database.PurchaseOrderDetail
-                        .GroupBy(customerOrder => customerOrder.PurchaseOrderId)
+                        .GroupBy(customerOrder => customerOrder.PurchaseOrder.Id)
                         .Select(order => new {
                             ID = order.Key,
                             itemCount = order.Count(),
@@ -133,16 +134,16 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 status =  (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count() : -1,
 
 
-                            }),
+                            })
 
 
-                        });
+                        }) .OrderByDescending(req => req.ID);
             List<CustomerOrdersView> salesView = new List<CustomerOrdersView>();
 
                     foreach (var order in salesOrders)
                     {
                     CustomerOrdersView    salesOrder = new CustomerOrdersView() {
-                        Id = order.ID.ToString(),
+                        id =  order.ID,
                         totalCost = order.totalCost,
                         totalPrice = order.totalPrice,
                         totalQuantity = (uint) order.totalQuantity,
@@ -179,7 +180,9 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         //TODO remove duplicate function
         public PurchaseOrder GetSalesOrderById (uint id) {
-            return _database.PurchaseOrder.Where (order => order.Id == id).Select (sales => new PurchaseOrder () {
+            return _database.PurchaseOrder
+            .Where (order => order.Id == id)
+            .OrderByDescending(req => req.Id).Select (sales => new PurchaseOrder () {
                 Id = sales.Id,
                     ClientId = sales.ClientId,
                     InitialPayment = sales.InitialPayment,
@@ -193,6 +196,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         {
             return _database.PurchaseOrderDetail
                                 .Where(order => order.Id == id)
+                                .OrderByDescending(req => req.PurchaseOrderId)
                                 .Select(orderItem => new PurchaseOrderDetail(){
                                     Id = orderItem.Id,
                                     PricePerItem = orderItem.PricePerItem,

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 13, 2018 7:05 PM
+ * @Last Modified Time: Oct 13, 2018 8:27 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -22,5 +22,7 @@ namespace BionicInventory.Application.Shared {
                 _pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+
+        public string searchQuery {get; set; }
     }
 }

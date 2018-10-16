@@ -12,6 +12,7 @@
       [isIdentity]="col.isIdentity"    [headerText]='col.humanReadable' [format]='col.format' [type]="col.type" [editType]="col.dataType"
       [customAttributes]="customAttributes"
       ></e-column>
+      <e-column [customAttributes]="customAttributes"  width=20 [commands]='commands'></e-column>
 
   </e-columns>
 </ejs-grid>

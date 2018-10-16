@@ -1,9 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Location} from '@angular/common';
 import { WorkOrderAPIService, PendingManufactureOrdersView, WorkOrder, WorkOrderView } from '../work-order-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { GridComponent, RowSelectEventArgs, SaveEventArgs } from '@syncfusion/ej2-ng-grids';
 import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
 
 
@@ -27,6 +27,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
   constructor(
     private workOrderApi: WorkOrderAPIService,
     private activatedRoute: ActivatedRoute,
+    private location: Location,
     private formBuilder: FormBuilder) {
 
     this.createForm();
@@ -36,7 +37,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.salesOrderId = + this.activatedRoute.snapshot.paramMap.get('salesOrderId');
+    this.salesOrderId =  +this.activatedRoute.snapshot.paramMap.get('salesOrderId');
     this.workOrderApi.getWorkOrderRequestById(this.salesOrderId)
       .subscribe(
         (data: PendingManufactureOrdersView[]) => this.addForm(data),
@@ -55,7 +56,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     const workOrder = this.prepareFormData(form);
     this.workOrderApi.addWorkOrder(workOrder).subscribe(
       (success: WorkOrderView) => {
-        console.log(success);
+        this.location.back();
         alert('Manufacture Order Created Successfully');
       },
       (error: HttpErrorResponse) => console.log(error)
@@ -92,7 +93,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
         itemId: [element.productId, Validators.required],
         start: ['', Validators.required],
         end: ['', Validators.required],
-        quantity: [0, [Validators.required, Validators.min(0), Validators.max(maxQuantity)]],
+        quantity: [element.quantity, [Validators.required, Validators.min(0), Validators.max(maxQuantity)]],
         dueDate: [element.dueDate, Validators.required]
       }));
     });

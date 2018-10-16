@@ -91,7 +91,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         public IActionResult GetWorkOrderById (uint id) {
 
             try {
-
+           
                 if (id == 0) {
                     return StatusCode (400);
                 }
@@ -177,6 +177,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                             ModelState.AddModelError("PurchaseOrderId", $"Sale Order With Id : {products.PurchaseOrderItemId} already has a manufacturing Order");
                             return new InvalidInputResponse(ModelState);
                         }
+                        products.Quantity = salesOrder.Quantity;
                     }
                 }
 

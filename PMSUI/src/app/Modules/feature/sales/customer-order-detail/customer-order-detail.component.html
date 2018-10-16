@@ -1,0 +1,94 @@
+<section>
+  <div class="e-card">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-8">
+            <app-form-options></app-form-options>
+        </div>
+        <div class="col-4">
+          <button ejs-button class="e-danger e-small" >Delete</button>
+        </div>
+    </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <ol>
+            <dt>Order #</dt>
+            <dd><input disabled="true" [value]="customerOrder?.id" /> </dd>
+            <dt>Customer</dt>
+            <dd>{{customerOrder?.customerName}}</dd>
+            <dt>Status</dt>
+            <dd>{{customerOrder?.status}}</dd>
+            <dt>Delivery Date</dt>
+            <dd> {{customerOrder?.duedate}}</dd>
+          </ol>
+        </div>
+        <div class="col-6 col-xs-12">
+          <dt>Created By</dt>
+          <dd>{{customerOrder?.createdBy}}</dd>
+          <dt>Created</dt>
+          <dd>{{customerOrder?.dateAdded}}</dd>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+      
+          <ejs-grid [dataSource]="customerOrder?.orderItems"
+            [allowExcelExport]=true>
+            <e-columns>
+              <e-column [customAttributes]="infoGridAttributes" *ngFor="let CO of columnBluePrint; let i=index; let last=last" [field]="CO.key" [headerText]="CO.humanReadable"
+                [format]="CO.format" [visible]="CO.visible">
+
+              </e-column>
+              <e-column [commands]="customerOrderCommands" [customAttributes]="infoGridAttributes"> </e-column>
+            </e-columns>
+          </ejs-grid>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <button ejs-button>Check stock and book items</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6 col-xs-12">
+            
+          <ejs-grid [allowResizing]="true" [allowReordering]="true" [dataSource]="customerOrderInvoices">
+            <e-columns>
+              <e-column [customAttributes]="infoGridAttributes" *ngFor="let invoiceCol of invoiceColumns; let i=index; let last=last;" [field]="invoiceCol.key"
+                [headerText]="invoiceCol.humanReadable" [format]="invoiceCol.format">
+              </e-column>
+              <e-column [customAttributes]="infoGridAttributes" [commands]="invoiceCommands"></e-column>
+            </e-columns>
+          </ejs-grid>
+        </div>
+    
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+
+          <ejs-grid  [dataSource]="customerOrderShipments" [allowResizing]="true" [allowReordering]="true">
+            <e-columns>
+              <e-column [customAttributes]="infoGridAttributes" *ngFor="let shipmentCol of shipmentColumns; let i=index; let last=last; " [field]="shipmentCol.key"
+                [headerText]="shipmentCol.humanReadable"  [format]="shipmentCol.format" >
+              </e-column>
+              <e-column [commands]="shipmentCommands" [customAttributes]="infoGridAttributes"></e-column>
+
+            </e-columns>
+          </ejs-grid>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-8">
+          <app-form-options></app-form-options>
+      </div>
+      <div class="col-4">
+        <button ejs-button class="e-danger e-small" >Delete</button>
+      </div>
+  </div>
+</section>

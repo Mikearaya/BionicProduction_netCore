@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomerOrderDetailView } from './data-model';
 
 @Injectable()
 export class SaleOrderApiService {
@@ -13,8 +14,8 @@ export class SaleOrderApiService {
     return this.httpClient.get<SalesOrderView[]>(`${this.url}`);
   }
 
-  getSalesOrderById(id: number): Observable<SalesOrder> {
-    return this.httpClient.get<SalesOrder>(`${this.url}/${id}`);
+  getSalesOrderById(id: number): Observable<CustomerOrderDetailView> {
+    return this.httpClient.get<CustomerOrderDetailView>(`${this.url}/${id}`);
   }
 
   createSalesOrder(finishedProduct: SalesOrder): Observable<SalesOrder> {
@@ -66,3 +67,4 @@ export class SalesOrderView {
   OrderedOn: string;
   DueDate: string;
 }
+

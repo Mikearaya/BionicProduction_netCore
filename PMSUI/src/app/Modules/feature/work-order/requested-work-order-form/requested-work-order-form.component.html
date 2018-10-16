@@ -34,7 +34,6 @@
                 <th>Start</th>
                 <th>End</th>
                 <th>Due Date</th>
-                <th>Approved</th>
               </tr>
             </thead>
             <tbody formArrayName="items">
@@ -44,7 +43,7 @@
                   {{saleOrder[i]['product']}}
                 </td>
                 <td class='id'>
-                  CO-{{saleOrder[i]['salesOrderItemId']}}
+                  {{saleOrder[i]['salesOrderItemId']}}
                 </td>
 
                 <td class="quantity">
@@ -59,10 +58,6 @@
                 </td>
                 <td class='date-fields'>
                   {{saleOrder[i]['dueDate'] }}
-                </td>
-                <td class='quantity'>
-                  <ejs-numerictextbox name='grantedQuantity' id='grantedQuantity' [min]='0' [max]="saleOrder[i]['quantity']"
-                    formControlName="quantity"></ejs-numerictextbox>
                 </td>
               </tr>
             </tbody>

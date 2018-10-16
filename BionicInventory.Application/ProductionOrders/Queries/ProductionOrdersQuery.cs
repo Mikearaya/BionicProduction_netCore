@@ -26,14 +26,18 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
         public IEnumerable<ActiveOrdersView> GetActiveWorkOrders () {
             return _database.ProductionOrderList.Where (
-                production => production.Quantity > production.FinishedProduct.Where (fin => fin.OrderId == production.Id).Count ()
-            ).Select (orders => new ActiveOrdersView {
+                production => production.Quantity > production.FinishedProduct
+                .Where (fin => fin.OrderId == production.Id).Count ()
+            )
+            .Select (orders => new ActiveOrdersView {
                 id = orders.Id,
                     orderId = orders.ProductionOrderId,
                     dueDate = orders.DueDate,
                     total = orders.Quantity,
                     remaining = (int) orders.Quantity - orders.FinishedProduct.Where (fin => fin.OrderId == orders.Id).Count ()
-            }).ToList ();
+            })
+            .OrderByDescending(req => req.id)
+            .ToList ();
 
         }
         public IEnumerable<WorkOrderView> GetWorkOrdersStatus () {
@@ -56,7 +60,9 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                 $"{pro.PurchaseOrder.PurchaseOrder.Client.FirstName} {pro.PurchaseOrder.PurchaseOrder.Client.LastName}" : "",
                                 type = (pro.PurchaseOrderId == null) ? "Work-to-Stock" : "Work-to-Order"
                         })
-                }).ToList ();
+                })
+                .OrderByDescending(req => req.id)
+                .ToList ();
 
             List<WorkOrderView> view = new List<WorkOrderView> ();
 
@@ -137,6 +143,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         public IEnumerable<WorkOrderView> GetPendingWorkOrders (uint manufactureRequestId = 0) {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
                 .Where (request => request.PurchaseOrder.Id == manufactureRequestId)
+                .OrderByDescending(req => req.PurchaseOrderId)
                 .Select (po => new PendingOrdersView () {
                         salesOrderItemId = po.Id,
                         description = po.PurchaseOrder.Description,
@@ -151,14 +158,17 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         customer = (po.PurchaseOrder != null) ?
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
-                }).ToList ();
+                })
+                .OrderByDescending(req => req.salesOrderId)
+                .ToList ();
 
         }
 
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
             var workRequests = _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
-            .GroupBy(request => request.PurchaseOrderId)
-           .Select(customerOrder => new {
+            .GroupBy(request => request.PurchaseOrder.Id)
+            
+            .Select(customerOrder => new {
                 Id = customerOrder.Key,
                 totalItems = customerOrder.Count(),
                 quantity = customerOrder.Sum(order => order.Quantity),
@@ -171,17 +181,19 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         customer = (po.PurchaseOrder != null) ?
                         $"{po.PurchaseOrder.Client.FirstName} {po.PurchaseOrder.Client.LastName}" : "",
 
-                })
-            }).ToList();
+                }).OrderByDescending(req => req.salesOrderId)
+            });
                 
                 List<PendingOrdersView>  requestedView = new List<PendingOrdersView>();
                 foreach (var item in workRequests)
                 {
+                
                     foreach (var request in item.manufactureRequests)
                     {
                         request.quantity = (int) item.quantity;
                         request.itemCount = item.totalItems;
                         requestedView.Add(request);
+                        break;
                     }
                 }
             return requestedView;                

@@ -5,7 +5,7 @@ using BionicInventory.Domain.PurchaseOrders;
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderCommand {
 
-        IEnumerable<PurchaseOrder> CreateSalesOrder(IEnumerable<PurchaseOrder> orders);
+        PurchaseOrder CreateSalesOrder(PurchaseOrder orders);
 
         bool UpdateSalesOrder(IEnumerable<PurchaseOrder> orders);
 

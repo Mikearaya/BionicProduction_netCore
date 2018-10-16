@@ -18,16 +18,23 @@ export class PmsNavigationComponent {
   public togglebtn: ButtonComponent;
   public hierarchicalData: Object[] = [
     {
-     id: '1', name: 'COMPANY',
+      id: '1', name: 'COMPANY',
       subChild: [
         { id: 'profile', name: 'PROFILE' },
         { id: 'employees', name: 'EMPLOYEES' },
         { id: 'products', name: 'PRODUCTS' }
       ]
     },
-    { id: 'stock', name: 'STOCK' },
     {
-    id: '2',  name: 'PRODUCTION',
+      id: 'stock', name: 'STOCK',
+      subChild: [
+        { id: 'stock', name: 'STOCK' },
+        { id: 'shipments', name: 'SHIPMENTS' },
+        { id: 'critical-on-hand', name: 'CRITICAL-ON-HAND' }
+      ]
+    },
+    {
+      id: '2', name: 'PRODUCTION',
       subChild: [
         { id: 'workorders', name: 'MANUFACTURE ORDERS' },
         { id: 'workorders/pending', name: 'PRODUCTION REQUESTS' },
@@ -35,24 +42,26 @@ export class PmsNavigationComponent {
       ]
     },
     {
-      id: '345',  name: 'SALES',
-        subChild: [
-          { id: 'customers', name: 'CUSTOMERS' },
-          { id: 'sales', name: 'CUSTOMER ORDERS' },
-          { id: 'invoices', name: 'INVOICES' }
-        ]
-      },
+      id: '345', name: 'SALES',
+      subChild: [
+        { id: 'customers', name: 'CUSTOMERS' },
+        { id: 'sales', name: 'CUSTOMER ORDERS' },
+        { id: 'invoices', name: 'INVOICES' }
+      ]
+    },
 
-    { id: 'reports', name: 'REPORT', subChild: [
-      { id: '22', name: 'PRODUCTION REPORTS' },
-      { id: '33', name: 'SALES REPORTS' }
-    ]
-  },
-    { id: 'settings', name: 'SETTING', subChild: [
-      { id: '44', name: 'USER MANAGMENT' },
-      { id: '55', name: 'SYSTEM SETTINGS' }
-    ]
-  }
+    {
+      id: 'reports', name: 'REPORT', subChild: [
+        { id: '22', name: 'PRODUCTION REPORTS' },
+        { id: '33', name: 'SALES REPORTS' }
+      ]
+    },
+    {
+      id: 'settings', name: 'SETTING', subChild: [
+        { id: '44', name: 'USER MANAGMENT' },
+        { id: '55', name: 'SYSTEM SETTINGS' }
+      ]
+    }
 
   ];
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild' };

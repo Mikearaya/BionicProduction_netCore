@@ -5,15 +5,9 @@ namespace BionicInventory.Application.SalesOrders.Models {
 
     public class CustomerOrderItemsView {
 
-        private string _orderItemId = "";
-        private string _manufacturingOrderId = "";
-        public string id {get {
-            return _orderItemId;
-            } set {
-                _orderItemId = $"COI-{value.ToString()}";  
-            }
-            }
-
+        //private string _orderItemId = "";
+        //private string _manufacturingOrderId = "";
+        public uint id { get; set; }
         public int quantity {get; set;}
         public uint productId {get; set;}
 
@@ -31,11 +25,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public DateTime deliveryDate {get; set;}
         public uint totalShipped {get; set;}
 
-        public string manufacturingOrderId {get {
-            return _manufacturingOrderId;
-        } set{
-            _manufacturingOrderId = $"MO-{value.ToString()}";
-        }}
+        public uint manufacturingOrderId { get; set; }
 
         public DateTime dateAdded {get; set;}
         public DateTime dateUpdated {get; set;}

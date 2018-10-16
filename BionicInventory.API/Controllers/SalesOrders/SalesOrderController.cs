@@ -58,13 +58,13 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public IActionResult GetSalesOrderById (string id) {
+        public IActionResult GetSalesOrderById (uint id) {
 
-        var idValid = _factory.ExtractId(id);
-    if(idValid == 0) {
+        
+    if(id == 0) {
         return StatusCode(400, "Invelid Customer Id");
     }
-            var result = _query.GetCustomerOrderDetail (idValid);
+            var result = _query.GetCustomerOrderDetail (id);
             if (result == null) {
                 return StatusCode (404);
             }
@@ -86,7 +86,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             if (!ModelState.IsValid) {
                 return new InvalidInputResponse (ModelState);
             }
-            List<PurchaseOrder> orders = new List<PurchaseOrder> ();
+
             var client = _customerQuery.GetCustomerById (newOrder.ClientId);
 
             if (client == null) {
@@ -109,23 +109,10 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                     return new InvalidInputResponse (ModelState);
                 }
 
-                var salesOrder = _factory.CreateNewSaleOrder (client,
-                    employee,
-                    product,
-                    orderDetail.Quantity,
-                    orderDetail.DueDate,
-                    orderDetail.UnitPrice,
-                    newOrder.InitialPayment,
-                    newOrder.Title,
-                    newOrder.Description,
-                    newOrder.PaymentMethod
-                    );
-
-                orders.Add (salesOrder);
-
             }
+             var salesOrder = _factory.CreateNewSaleOrder (newOrder);
 
-            var result = _command.CreateSalesOrder (orders);
+            var result = _command.CreateSalesOrder (salesOrder);
             if (result == null) {
                 return StatusCode (500);
             }

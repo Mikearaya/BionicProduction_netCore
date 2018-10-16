@@ -3,30 +3,30 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 12, 2018 1:08 AM
+ * @Last Modified Time: Oct 13, 2018 9:32 PM
  * @Description: Modify Here, Please
  */
 
 export const salesOrderBluePrint = [
   {
-    key: 'Id',
+    key: 'id',
     humanReadable: 'ID',
     type: 'number', primaryKey: true,
     allowGrouping: true, editable: false, width: '20', isIdentity: true
   },
   {
-    key: 'CustomerName', humanReadable: 'Customer', type: 'string', primaryKey: false,
+    key: 'customerName', humanReadable: 'Customer', type: 'string', primaryKey: false,
     allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '35'
   },
   {
-    key: 'CreatedBy', humanReadable: 'Ordered By', type: 'string',
+    key: 'createdBy', humanReadable: 'Ordered By', type: 'string',
     primaryKey: false, allowGrouping: true, editable: true, dataType: 'TextBox',
     isIdentity: false, width: '40', visable: false
   },
 
   {
-    key: 'Description', humanReadable: 'Description', primaryKey: false, type: 'string',
+    key: 'description', humanReadable: 'Description', primaryKey: false, type: 'string',
     editable: true, allowGrouping: true, dataType: 'TextBox', isIdentity: false, width: '40', visable : false,
   },
   {
@@ -50,23 +50,23 @@ export const salesOrderBluePrint = [
     isIdentity: false, width: '25'
   },
   {
-    key: 'Status', humanReadable: 'Status', primaryKey: false, allowGrouping: true, type: 'string',
+    key: 'status', humanReadable: 'Status', primaryKey: false, allowGrouping: true, type: 'string',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
 
   {
-    key: 'PaymentMethod', humanReadable: 'Payment Mathod', primaryKey: false, allowGrouping: true, type: 'string',
+    key: 'paymentMethod', humanReadable: 'Payment Mathod', primaryKey: false, allowGrouping: true, type: 'string',
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '38'
   },
   {
-    key: 'DateAdded', humanReadable: 'Created', allowGrouping: true, format: 'yMd',
+    key: 'dateAdded', humanReadable: 'Created', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '30'
   },
   {
-    key: 'DateUpdated', humanReadable: 'Updated', allowGrouping: true,
+    key: 'dateUpdated', humanReadable: 'Updated', allowGrouping: true,
     primaryKey: false, editable: true, type: 'date', dataType: 'datePickeredit',
     isIdentity: false, width: '30', visable: false
   }

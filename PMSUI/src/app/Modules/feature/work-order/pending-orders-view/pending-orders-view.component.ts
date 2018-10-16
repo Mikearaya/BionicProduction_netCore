@@ -101,7 +101,6 @@ export class PendingOrdersViewComponent implements OnInit {
     } else if (args.item.id === 'pendingOrder_print') {
       this.grid.print();
     } else if (args.item.id === 'pendingOrder_delete') {
-      console.log('Delete');
       console.log(args);
     }
   }

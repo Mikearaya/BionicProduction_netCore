@@ -58,8 +58,7 @@ export class ProductsViewComponent implements OnInit {
         updateUrl: 'http://localhost:5000/api/products',
         insertUrl: 'http://localhost:5000/api/products',
         removeUrl: 'http://localhost:5000/api/products',
-        adaptor: new WebApiAdaptor,
-        offline: true
+        adaptor: new WebApiAdaptor
     });
 
 

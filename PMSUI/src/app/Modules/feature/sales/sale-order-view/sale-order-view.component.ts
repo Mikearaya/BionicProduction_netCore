@@ -4,11 +4,12 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel,
-  EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs
+  EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs, IRow, Column
 } from '@syncfusion/ej2-grids';
 import { Router } from '@angular/router';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { salesOrderBluePrint } from './sale-order-view-blue-print';
+import { closest } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-sale-order-view',
@@ -41,9 +42,10 @@ export class SaleOrderViewComponent implements OnInit {
   constructor(
     private salesOrderApi: SaleOrderApiService,
     private route: Router) {
+      this.customAttributes = { class: 'custom-grid-header' };
 
   }
-public customAttributes: Object;
+  public customAttributes: Object;
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
@@ -71,9 +73,35 @@ public customAttributes: Object;
     this.filterSetting = {
       type: 'Menu'
     };
-    this.customAttributes = { class: 'custom-grid-header' };
+
+
+    this.commands = [{
+      buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+        click: this.viewOrder.bind(this)
+      }
+    },
+    {
+      type: 'Delete', buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-delete e-icons',
+        click: this.deleteOrder.bind(this)
+      }
+    }];
   }
 
+  viewOrder(args: Event) {
+
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    console.log(rowObj.data['Id']);
+    this.route.navigate([`sales/${rowObj.data['id']}/detail`]);
+  }
+
+  deleteOrder(args: any) {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.salesOrderApi.deleteSalesOrder(rowObj.data['id']).subscribe(
+      succ => this.grid.refresh(),
+      err => console.log(err));
+  }
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
     // alert(selectedrowindex); // To alert the selected row indexes.

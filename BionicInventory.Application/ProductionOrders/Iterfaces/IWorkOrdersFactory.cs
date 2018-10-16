@@ -22,5 +22,6 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces
         IEnumerable<WorkOrderView> CreateWorkOrderViewList(IEnumerable<ProductionOrder> workOrder);
         IEnumerable<WorkOrderView> CreateWorkOrderView(ProductionOrder workOrder);
         WorkOrderView CreateWorkOrderView(ProductionOrderList workOrder);
+        uint ExtractId(string id);
     }
 }

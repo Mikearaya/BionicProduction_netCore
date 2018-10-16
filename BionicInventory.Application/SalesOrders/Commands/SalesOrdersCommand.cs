@@ -14,10 +14,10 @@ namespace BionicInventory.Application.SalesOrders.Commands {
             _database = database;
             _logger = logger;
         }
-        public IEnumerable<PurchaseOrder> CreateSalesOrder (IEnumerable<PurchaseOrder> orders) {
-            _database.PurchaseOrder.AddRange (orders);
+        public PurchaseOrder CreateSalesOrder (PurchaseOrder order) {
+            _database.PurchaseOrder.Add (order);
             _database.Save ();
-            return orders;
+            return order;
         }
 
         public bool DeleteSalesOrders (PurchaseOrder order) {
