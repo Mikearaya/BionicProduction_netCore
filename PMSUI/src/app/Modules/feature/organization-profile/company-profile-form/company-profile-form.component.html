@@ -1,0 +1,36 @@
+<section class="e-card">
+  <form [formGroup]="profileForm" novalidate name="profileForm" (ngSubmit)="onSubmit()" >
+
+    <div class="container">
+      <app-form-options [submitDisabled]="profileForm.invalid"></app-form-options>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+            <ejs-textbox placeholder="Company Name" formControlName="name" id="name" name="name" floatLabelType="Auto"></ejs-textbox>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6 col-xs-12">
+            <ejs-numerictextbox formControlName="tin" placeholder="Tin No" floatLabelType="Auto" name="tin" ></ejs-numerictextbox>
+          </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+            <ejs-textbox placeholder="Country" formControlName="country"  floatLabelType="Auto" name="country"></ejs-textbox>
+        </div>
+        <div class="col-6 col-xs-12">
+            <ejs-textbox placeholder="City" formControlName="city" name="city"  floatLabelType="Auto"></ejs-textbox>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-6 col-xs-12">
+              <ejs-textbox placeholder="Sub City" formControlName="subCity" name="subCity"  floatLabelType="Auto"></ejs-textbox>
+          </div>
+          <div class="col-6 col-xs-12">
+              <ejs-textbox placeholder="Location" formControlName="location"  name="location" floatLabelType="Auto"></ejs-textbox>
+          </div>
+        </div>
+        <app-form-options  [submitDisabled]="profileForm.invalid"></app-form-options>
+    </div>
+<code>{{profileForm.value | json}}</code>
+  </form>
+</section>

@@ -7,9 +7,10 @@
  * @Description: Modify Here, Please
  */
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment.prod';
+import { CoreApiService, CustomErrorResponse } from '../../core/core-api.service';
+import {catchError} from 'rxjs/operators';
 
 @Injectable()
 export class WorkOrderAPIService {
@@ -18,7 +19,7 @@ export class WorkOrderAPIService {
     private httpBody: URLSearchParams;
 
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private coreApiService: CoreApiService) {
         this.httpBody = new URLSearchParams();
     }
 
@@ -43,9 +44,11 @@ export class WorkOrderAPIService {
         return this.httpClient.get<WorkOrder[]>(`${this.url}`);
     }
 
-    addWorkOrder(newWorkOrder: any ): Observable<WorkOrderView> {
+    addWorkOrder(newWorkOrder: any ): Observable<WorkOrderView| CustomErrorResponse> {
 
-        return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder);
+        return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder).pipe(
+          catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
+        );
     }
     updateWorkOrder(updatedWorkOrder: WorkOrder): Observable<WorkOrder> {
         this.httpBody = this.prepareRequestBody(updatedWorkOrder);

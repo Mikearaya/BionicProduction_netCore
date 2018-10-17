@@ -18,7 +18,7 @@ export class PmsNavigationComponent {
   public togglebtn: ButtonComponent;
   public hierarchicalData: Object[] = [
     {
-      id: '1', name: 'COMPANY',
+      id: 'profile', name: 'COMPANY',
       subChild: [
         { id: 'profile', name: 'PROFILE' },
         { id: 'employees', name: 'EMPLOYEES' },

@@ -1,0 +1,14 @@
+<section class="e-card">
+  <dl>
+    <dt>Name</dt><dd>{{company?.name}}</dd>
+    <dt>Tin</dt><dd>{{company?.tin}}</dd>
+    <dt> Country </dt> <dd>{{company?.country}}</dd>
+    <dt>City</dt> <dd>{{company?.city}}</dd>
+    <dt>Sub-City</dt><dd>{{company?.subCity}}</dd>
+    <dt>Location</dt> <dd>{{company?.location}}</dd>
+    <dt>Created</dt><dd>{{company?.dateAdded}}</dd>
+    <dt>Last Updated</dt><dd>{{company?.dateUpdated}}</dd>
+  </dl>
+  <button ejs-button class="e-primary e-large" (click)="editProfile()" >Edit</button>
+
+</section>

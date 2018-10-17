@@ -7,6 +7,8 @@ import {
   ColumnMenuService, ForeignKeyService, ReorderService,
   RowDDService, EditService, ExcelExportService, ResizeService
 } from '@syncfusion/ej2-ng-grids';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { CoreHttpInterceptor } from './core-http-interceptor';
 
 
 @NgModule({
@@ -31,6 +33,7 @@ import {
     EditService,
     ExcelExportService,
     ResizeService
-  ]
+  ],
+
 })
 export class CoreModule { }
