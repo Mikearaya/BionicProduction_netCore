@@ -23,8 +23,8 @@ export class WorkOrderAPIService {
         this.httpBody = new URLSearchParams();
     }
 
-    getWorkOrderById(id: number): Observable<WorkOrder> {
-        return this.httpClient.get<WorkOrder>(`${this.url}/${id}`);
+    getWorkOrderById(id: number): Observable<OrderModel> {
+        return this.httpClient.get<OrderModel>(`${this.url}/${id}`);
     }
 
     getAllProducts(): Observable<any[]> {
@@ -35,8 +35,8 @@ export class WorkOrderAPIService {
       return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
     }
 
-    getWorkOrderRequestById(id: number): Observable<PendingManufactureOrdersView[]> {
-      return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending&salesOrderId=${id}`);
+    getWorkOrderRequestById(id: number): Observable<OrderModel> {
+      return this.httpClient.get<OrderModel>(`${this.url}?type=pending&salesOrderItemId=${id}`);
     }
 
 
@@ -50,14 +50,14 @@ export class WorkOrderAPIService {
           catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
         );
     }
-    updateWorkOrder(updatedWorkOrder: WorkOrder): Observable<WorkOrder> {
-        this.httpBody = this.prepareRequestBody(updatedWorkOrder);
-        return this.httpClient.put<WorkOrder>(`${this.url}/${updatedWorkOrder.id}`, this.httpBody.toString());
+    updateWorkOrder(id: number, updatedWorkOrder: WorkOrder): Observable<Boolean> {
+        // this.httpBody = this.prepareRequestBody(updatedWorkOrder);
+        return this.httpClient.put<Boolean>(`${this.url}/${id}`, updatedWorkOrder);
     }
 
     deleteWorkOrder(workOrderId: number[]): Observable<Boolean> {
         workOrderId.forEach((id) => this.httpBody.append('id[]', `${id}`));
-        return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString());
+        return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody);
     }
 
     deleteSingleWorkOrder(workOrderId: number): Observable<Boolean> {
@@ -121,4 +121,20 @@ export interface PendingManufactureOrdersView {
   start: Date;
   dueDate: Date;
   orderedBy: string;
+}
+
+export class OrderModel {
+  id?: number;
+  customer: string;
+  description: string;
+  orderedBy: string;
+  orderedById?: number;
+  itemId: number;
+  product: string;
+  productName: string;
+  productId: number;
+  quantity: number;
+  start: Date;
+  dueDate: Date;
+  salesOrderItemId?: number;
 }

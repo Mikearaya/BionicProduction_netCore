@@ -17,16 +17,19 @@
 using System;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
-    public abstract class WorkOrderView {
+    public class WorkOrderView {
     
 
         public uint id { get; set; }
         public string orderedBy { get; set; }
+        public uint orderedById { get; set; }
         public string description { get; set; }
+        public uint? salesOrderItemId { get; set; }
 
         public string product { get; set; }
-        public double cost {get; set;}
+        public double? cost {get; set;}
         public string productName {get; set;}
+        public uint productId {get; set;}
         public DateTime? start { get; set; }
         public DateTime? dueDate { get; set; }
         public DateTime? orderDate { get; set; }

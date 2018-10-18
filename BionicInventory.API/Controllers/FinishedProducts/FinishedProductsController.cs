@@ -118,7 +118,7 @@ namespace BionicInventory.API.Controllers.FinishedProducts {
                         return StatusCode (404, "Employee Not Found");
                     }
 
-                    var order = _productionOrderQuery.GetWorkOrderItemById (item.orderId);
+                    var order = _productionOrderQuery.GetWorkOrderById (item.orderId);
                     if (order == null) {
                         return StatusCode (404, "Order Not Found");
                     }

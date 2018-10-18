@@ -8,15 +8,15 @@
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
       <div class="row">
         <div class="col-6 col-xs-12">
-          <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="itemId"
+          <ejs-dropdownlist [allowFiltering]="true" name="itemId" formControlName="itemId" id="itemId"
             placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
           </ejs-dropdownlist>
         </div>
       </div>
       <div class="row">
         <div class="col-6 col-xs-12">
-          <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
-            name="quantity" placeholder="Quantity" id="quantity"></ejs-numerictextbox>
+          <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity" name="quantity"
+            placeholder="Quantity" id="quantity"></ejs-numerictextbox>
         </div>
       </div>
       <div class="row">
@@ -49,6 +49,5 @@
       </div>
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
     </div>
-
   </form>
 </section>

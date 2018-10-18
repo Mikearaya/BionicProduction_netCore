@@ -130,20 +130,34 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             }
         }
 
-        public ProductionOrderList GetWorkOrderItemById (uint id) {
-            try {
+        public WorkOrderView GetWorkOrderItemById (uint id) {
 
-                return _database.ProductionOrderList.FirstOrDefault (item => item.Id == id);
+                return _database.ProductionOrderList.Where (item => item.Id == id)
+                                                .Select(order => new WorkOrderView() {
+                                                    id = order.Id,
+                                                    orderedBy = order.OrderedByNavigation.FullName(),
+                                                    orderedById =  order.OrderedBy,
+                                                    description = order.Description,
+                                                    cost =  (order.CostPerItem * (int) order.Quantity),
+                                                    productName = order.Item.Name,
+                                                     productId = order.Item.Id,
+                                                    start = order.Start,
+                                                    product = order.Item.Code,
+                                                    dueDate = order.DueDate,
+                                                    orderDate = order.DateAdded,
+                                                    quantity = (int) order.Quantity,
+                                                    customer = (order.PurchaseOrder != null) ?order.PurchaseOrder.PurchaseOrder.Client.FullName() : "",
+                                                    salesOrderItemId = order.PurchaseOrderId
 
-            } catch (Exception) {
-                return null;
-            }
+
+                                                }).FirstOrDefault();
+
         }
 
-        public IEnumerable<WorkOrderView> GetPendingWorkOrders (uint manufactureRequestId = 0) {
+        public WorkOrderView GetPendingWorkOrder (uint manufactureRequestId = 0) {
             return _database.PurchaseOrderDetail.Where (pOrder => pOrder.ProductionOrderList == null)
-                .Where (request => request.PurchaseOrder.Id == manufactureRequestId)
-                .OrderByDescending(req => req.PurchaseOrderId)
+                .Where (request => request.Id == manufactureRequestId)
+                .OrderByDescending(req => req.Id)
                 .Select (po => new PendingOrdersView () {
                         salesOrderItemId = po.Id,
                         description = po.PurchaseOrder.Description,
@@ -160,7 +174,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
                 })
                 .OrderByDescending(req => req.salesOrderId)
-                .ToList ();
+                .FirstOrDefault ();
 
         }
 
@@ -176,6 +190,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         description = po.PurchaseOrder.Description,
                         orderedBy = $"{po.PurchaseOrder.CreatedByNavigation.FirstName} {po.PurchaseOrder.CreatedByNavigation.LastName}",
                         salesOrderId = po.PurchaseOrderId,
+                        salesOrderItemId = po.Id,
                         productName = po.Item.Name,
                         orderDate = po.DateAdded,
                         customer = (po.PurchaseOrder != null) ?

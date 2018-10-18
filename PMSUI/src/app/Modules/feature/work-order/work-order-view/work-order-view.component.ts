@@ -106,11 +106,11 @@ export class WorkOrderViewComponent implements OnInit {
 
   editWorkOrder(args: Event) {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`workorders/${rowObj.data['orderId']}/update`]);
+    this.route.navigate([`workorders/${rowObj.data['id']}/update`]);
   }
   deleteWorkOrder(args: any) {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.workOrderApi.deleteSingleWorkOrder(rowObj.data['orderId']).subscribe(
+    this.workOrderApi.deleteSingleWorkOrder(rowObj.data['id']).subscribe(
       succ => this.grid.refresh(),
       err => console.log(err));
   }

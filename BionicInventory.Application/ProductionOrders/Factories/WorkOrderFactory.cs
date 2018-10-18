@@ -39,7 +39,8 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     CostPerItem = product.UnitCost,
                     Quantity = newOrder.Quantity,
                     DueDate = newOrder.DueDate,
-                    Start = newOrder.Start
+                    Start = newOrder.Start,
+                    PurchaseOrderId = newOrder.PurchaseOrderItemId
 
                 };
 
@@ -62,7 +63,8 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 CostPerItem = product.UnitCost,
                 Quantity = newOrder.Quantity,
                 DueDate = newOrder.DueDate,
-                Start = newOrder.Start
+                Start = newOrder.Start,
+                PurchaseOrderId = newOrder.PurchaseOrderItemId
             };
 
 
@@ -77,12 +79,12 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
                 
                 var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
-                var product = _productsQuery.GetProductById (workOrder.ItemId);
+                var item = _productsQuery.GetProductById (workOrder.ItemId);
                 ManufactureOrderView workorderView = new ManufactureOrderView () {
                     id = workOrder.Id,
                     description = workOrder.Description,
                     orderedBy = employee.FullName(),
-                    product = product.Code,
+                    product = item.Code,
                     start = workOrder.Start,
                     orderDate = workOrder.DateAdded,
                     dueDate = workOrder.DueDate,

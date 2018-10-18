@@ -84,12 +84,8 @@ export class PendingOrdersViewComponent implements OnInit {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
     // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
+    this.route.navigate([`workorders/request/${selectedrecords[0]['salesOrderItemId']}`]);
 
-    console.log('Selected Record');
-    console.log(selectedrecords);
-    this.route.navigate([`workorders/request/${selectedrecords[0]['salesOrderId']}`]);
-    console.log('selected index');
-    console.log(selectedrowindex);
   }
 
 

@@ -1,13 +1,15 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
 import {
   CommandModel
 } from '@syncfusion/ej2-ng-grids';
-import { WorkOrderAPIService, WorkOrder, WorkOrderView } from '../work-order-api.service';
+import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
 import { UrlAdaptor, DataManager, Query, ODataAdaptor, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { CustomErrorResponse } from '../../../core/core-api.service';
 
 
 @Component({
@@ -23,8 +25,12 @@ export class WorkOrderFormComponent implements OnInit {
 
   public employeeData: Object[];
   public idVisable: Boolean = false;
-  private orderData: OrderModel;
+  public orderData: OrderModel;
   public orderForm: FormGroup;
+  public manufactureOrderId: number;
+  public customerOrderId: number;
+  public isUpdate: Boolean = false;
+  public isFromCustomerOrder: Boolean = false;
 
 
 
@@ -43,30 +49,53 @@ export class WorkOrderFormComponent implements OnInit {
 
   constructor(private workOrderApi: WorkOrderAPIService,
     private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     private location: Location) {
 
     this.createForm();
     this.today = new Date();
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
-    this.itemQuery = new Query().select(['code', 'id']);
-    this.itemFields = { text: 'code', value: 'id' };
+    this.itemQuery = new Query().select(['name', 'id']);
+    this.itemFields = { text: 'name', value: 'id' };
 
   }
 
-  createForm(): void {
+  createForm(data: any = ''): void {
     this.workOrderForm = this.formBuilder.group({
-      orderedBy: ['', Validators.required],
-      description: [''],
-        itemId: ['', Validators.required],
-          quantity: ['', [Validators.required, Validators.min(0)]],
-          dueDate: ['', Validators.required],
-          startDate: ['', Validators.required]
+      orderedBy: [data.orderedById, Validators.required],
+      description: [data.description],
+      itemId: [data.productId, Validators.required],
+      quantity: [data.quantity, [Validators.required, Validators.min(0)]],
+      dueDate: [data.dueDate, Validators.required],
+      startDate: [data.start, Validators.required],
+      salesOrderItemId: [data.salesOrderItemId]
     });
   }
 
 
   ngOnInit(): void {
+
+    this.manufactureOrderId = + this.activatedRoute.snapshot.paramMap.get('workOrderId');
+    console.log(this.manufactureOrderId);
+    this.customerOrderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
+
+    if (this.manufactureOrderId) {
+      this.isUpdate = true;
+      this.workOrderApi.getWorkOrderById(this.manufactureOrderId)
+        .subscribe((data: OrderModel) => {
+            this.orderData = data;
+          this.createForm(data);
+        },
+          (error: CustomErrorResponse) => console.log(error)
+        );
+    } else if (this.customerOrderId) {
+      this.isFromCustomerOrder = true;
+      this.workOrderApi.getWorkOrderRequestById(this.customerOrderId)
+        .subscribe((data: OrderModel) => this.orderData = data,
+          (error: CustomErrorResponse) => console.log(error)
+        );
+    }
 
     const dm: DataManager = new DataManager(
       { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
@@ -86,6 +115,18 @@ export class WorkOrderFormComponent implements OnInit {
   onSubmit() {
     const form = this.workOrderForm.value;
     const order = this.prepareFormData(form);
+    if (this.isUpdate) {
+      order.id = this.manufactureOrderId;
+      this.workOrderApi.updateWorkOrder(this.manufactureOrderId, order)
+        .subscribe((success: boolean) => {
+          this.location.back();
+          alert('Work Order Created Successfully');
+
+        },
+          (error: HttpErrorResponse) => console.log(error)
+        );
+    } else {
+
     this.workOrderApi.addWorkOrder(order).subscribe(
       (success: WorkOrderView) => {
         this.location.back();
@@ -95,17 +136,19 @@ export class WorkOrderFormComponent implements OnInit {
       },
       (error: HttpErrorResponse) => console.log(error)
     );
+    }
   }
 
 
   prepareFormData(form: any): WorkOrder {
     const order: WorkOrder = {
-      itemId : form.itemId,
+      itemId: form.itemId,
       quantity: form.quantity,
       dueDate: form.dueDate,
       start: form.startDate,
-      orderedBy : form.orderedBy,
-    description : form.description
+      orderedBy: form.orderedBy,
+      description: form.description,
+      purchaseOrderItemId: (form.salesOrderItemId) ? form.salesOrderItemId : 0,
     };
 
     return order;
@@ -123,16 +166,3 @@ export class WorkOrderFormComponent implements OnInit {
 
 }
 
-export class OrderModel {
-  id?: number;
-  description: string;
-  orderedBy: number = null;
-  workOrderItems: OrderDetail[] = [];
-}
-
-class OrderDetail {
-  orderId?: number;
-  itemId: number;
-  quantity: number;
-  dueDate: string;
-}

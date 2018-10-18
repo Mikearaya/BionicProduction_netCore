@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { WorkOrderAPIService, PendingManufactureOrdersView, WorkOrder, WorkOrderView } from '../work-order-api.service';
+import { WorkOrderAPIService, PendingManufactureOrdersView, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -40,7 +40,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     this.salesOrderId = +this.activatedRoute.snapshot.paramMap.get('salesOrderId');
     this.workOrderApi.getWorkOrderRequestById(this.salesOrderId)
       .subscribe(
-        (data: PendingManufactureOrdersView[]) => this.addForm(data),
+        (data: OrderModel) => this.addForm(data),
         (error: HttpErrorResponse) => console.log(error)
       );
     const dm: DataManager = new DataManager(
@@ -78,7 +78,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
     return this.workRequestForm.get('items') as FormArray;
   }
 
-  addForm(requestedItems: PendingManufactureOrdersView[]) {
+  addForm(requestedItems: OrderModel) {
     this.saleOrder = requestedItems;
     this.workRequestForm = this.formBuilder.group({
       orderedBy: [requestedItems[0].orderedBy, Validators.required],
@@ -86,17 +86,6 @@ export class RequestedWorkOrderFormComponent implements OnInit {
       items: this.formBuilder.array([])
     });
 
-    requestedItems.forEach(element => {
-      const maxQuantity: number = + element.quantity;
-      this.items.push(this.formBuilder.group({
-        customerOrderItemId: [element.salesOrderItemId, Validators.required],
-        itemId: [element.productId, Validators.required],
-        start: ['', Validators.required],
-        end: ['', Validators.required],
-        quantity: [element.quantity, [Validators.required, Validators.min(0), Validators.max(maxQuantity)]],
-        dueDate: [element.dueDate, Validators.required]
-      }));
-    });
   }
 
   prepareFormData(form: any): WorkOrder {

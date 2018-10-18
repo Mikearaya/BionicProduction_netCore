@@ -53,12 +53,12 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllWorkOrders (String type = "ALL", uint salesOrderId = 0) {
+        public IActionResult GetAllWorkOrders (String type = "ALL", uint salesOrderItemId = 0) {
             try {
                 Object orders = null;
                 if (type.ToUpper () == "PENDING") {
-                    if(salesOrderId != 0) {
-                    orders = _query.GetPendingWorkOrders (salesOrderId);
+                    if(salesOrderItemId != 0) {
+                    orders = _query.GetPendingWorkOrder (salesOrderItemId);
                     } else {
                         orders = _query.GetPendingWorkOrders ();
                     }
@@ -90,25 +90,21 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [ProducesResponseType (404)]
         public IActionResult GetWorkOrderById (uint id) {
 
-            try {
-           
+       
+        
                 if (id == 0) {
                     return StatusCode (400);
                 }
 
-                var order = _query.GetWorkOrderById (id);
+                var order = _query.GetWorkOrderItemById (id);
 
                 if (order == null) {
                     return StatusCode (404);
                 }
-                var orderView = _factory.CreateSingleWorkOrderView (order);
 
                 return StatusCode (200, order);
 
-            } catch (Exception e) {
-                _logger.LogError (500, e.Message, e);
-                return StatusCode (500, e.Message);
-            }
+
         }
 
 
@@ -169,13 +165,13 @@ namespace BionicInventory.API.Controllers.WorkOrders {
 
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType (204, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (422)]
         [ProducesResponseType (400)]
         [ProducesResponseType (409)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateWorkWorder ([FromBody] UpdatedWorkOrderDto updated) {
+        public IActionResult UpdateWorkWorder (uint id, [FromBody] UpdatedWorkOrderDto updated) {
 
             try {
 

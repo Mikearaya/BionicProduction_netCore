@@ -16,13 +16,13 @@ namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersQuery {
 
         ProductionOrderList GetWorkOrderById(uint id);
-        ProductionOrderList GetWorkOrderItemById(uint id);
+        WorkOrderView GetWorkOrderItemById(uint id);
         IEnumerable<ActiveOrdersView> GetActiveWorkOrders();
         IEnumerable<WorkOrderView> GetWorkOrdersStatus();
         IEnumerable<ProductionOrderList> GetAllWorkOrders();
         bool saleOrderProductionExits(uint id);
         IEnumerable<ProductionOrderList> GetCompletedWorkOrders();
-        IEnumerable<WorkOrderView> GetPendingWorkOrders(uint manufactureRequestId);
+        WorkOrderView GetPendingWorkOrder(uint manufactureRequestId);
 
         IEnumerable<WorkOrderView> GetPendingWorkOrders();
 
