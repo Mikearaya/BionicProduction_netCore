@@ -22,9 +22,9 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
 
                 builder.HasIndex (e => e.ItemId)
                     .HasName ("fk_IN_ORDER_LIST_item_idx");
-
-                builder.HasIndex (e => e.ProductionOrderId)
-                    .HasName ("fk_IN_ORDER_LIST_id_idx");
+                
+                builder.HasIndex (e => e.OrderedBy)
+                    .HasName ("fk_PRODUCTION_ORDER_ordered_by_idx");
 
                 builder.HasIndex (e => e.PurchaseOrderId)
                     .HasName ("PURCHASE_ORDER_ID_UNIQUE")
@@ -54,10 +54,11 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                 .IsRequired()
                     .HasColumnName ("start")
                     .HasColumnType ("datetime");
+                
+                builder.Property (e => e.OrderedBy).HasColumnName ("ordered_by");
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
-                builder.Property (e => e.ProductionOrderId).HasColumnName ("PRODUCTION_ORDER_ID");
 
                 builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
 
@@ -68,16 +69,22 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasForeignKey (d => d.ItemId)
                     .HasConstraintName ("fk_IN_ORDER_LIST_item");
 
-                builder.HasOne (d => d.ProductionOrder)
-                    .WithMany (p => p.ProductionOrderList)
-                    .HasForeignKey (d => d.ProductionOrderId)
-                    .HasConstraintName ("fk_IN_ORDER_LIST_id");
 
                 builder.HasOne (d => d.PurchaseOrder)
                     .WithOne (p => p.ProductionOrderList)
                     .HasForeignKey<ProductionOrderList> (d => d.PurchaseOrderId)
                     .OnDelete (DeleteBehavior.Cascade)
                     .HasConstraintName ("fk_PRODUCTION_ORDER_LIST_sales_id");
+    
+                builder.Property (e => e.Description)
+                    .IsRequired ()
+                    .HasColumnName ("description")
+                    .HasColumnType ("varchar(255)");
+
+                builder.HasOne (d => d.OrderedByNavigation)
+                    .WithMany (p => p.ProductionOrder)
+                    .HasForeignKey (d => d.OrderedBy)
+                    .HasConstraintName ("fk_PRODUCTION_ORDER_ordered_by");
 
             }
         }

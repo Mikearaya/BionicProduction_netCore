@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
+using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.Sale;
 
@@ -24,7 +25,7 @@ namespace BionicInventory.Domain.Employees
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct>();
             InvoicePaymentsCashier = new HashSet<InvoicePayments>();
             InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments>();
-            ProductionOrder = new HashSet<ProductionOrder>();
+            ProductionOrder = new HashSet<ProductionOrderList>();
             PurchaseOrder = new HashSet<PurchaseOrder>();
             Sales = new HashSet<Sales>();
         }
@@ -39,7 +40,7 @@ namespace BionicInventory.Domain.Employees
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
         public ICollection<InvoicePayments> InvoicePaymentsCashier { get; set; }
         public ICollection<InvoicePayments> InvoicePaymentsPreparedByNavigation { get; set; }
-        public ICollection<ProductionOrder> ProductionOrder { get; set; }
+        public ICollection<ProductionOrderList> ProductionOrder { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<Sales> Sales { get; set; }
 

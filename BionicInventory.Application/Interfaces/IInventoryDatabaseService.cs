@@ -39,7 +39,6 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<Item> Item { get; set; }
         DbSet<ItemPrice> ItemPrice { get; set; }
         DbSet<PhoneNumber> PhoneNumber { get; set; }
-        DbSet<ProductionOrder> ProductionOrder { get; set; }
         DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }

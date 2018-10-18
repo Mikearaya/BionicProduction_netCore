@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
   EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel,
-  TextWrapSettingsModel, QueryCellInfoEventArgs, RowDataBoundEventArgs, Column, IRow
+  TextWrapSettingsModel, QueryCellInfoEventArgs, RowDataBoundEventArgs, Column, IRow, GridModel
 } from '@syncfusion/ej2-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
@@ -69,9 +69,6 @@ export class WorkOrderViewComponent implements OnInit {
   columnBluePrint = workOrderBluePrint;
 
   public dataManager: DataManager = new DataManager({
-
-
-
     url: 'http://localhost:5000/api/workorders',
     adaptor: new WebApiAdaptor,
     offline: true
@@ -81,7 +78,6 @@ export class WorkOrderViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.data = this.dataManager;
-
     this.pageSettings = { pageSize: 10 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: false, allowAdding: true, allowDeleting: true };
     this.toolbar = ['Add', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];

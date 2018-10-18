@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { Location} from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { WorkOrderAPIService, PendingManufactureOrdersView, WorkOrder, WorkOrderView } from '../work-order-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -37,7 +37,7 @@ export class RequestedWorkOrderFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.salesOrderId =  +this.activatedRoute.snapshot.paramMap.get('salesOrderId');
+    this.salesOrderId = +this.activatedRoute.snapshot.paramMap.get('salesOrderId');
     this.workOrderApi.getWorkOrderRequestById(this.salesOrderId)
       .subscribe(
         (data: PendingManufactureOrdersView[]) => this.addForm(data),
@@ -100,18 +100,15 @@ export class RequestedWorkOrderFormComponent implements OnInit {
   }
 
   prepareFormData(form: any): WorkOrder {
-    const order = new WorkOrder();
-    order.orderedBy = form.orderedBy;
-    order.description = form.description;
-    form.items.forEach(element => {
-      order.orderItems.push({
-        itemId: element.itemId,
-        quantity: element.quantity,
-        dueDate: element.dueDate,
-        start: element.startDate,
-        purchaseOrderItemId : element.customerOrderItemId
-      });
-    });
+    const order: WorkOrder = {
+      itemId: form.itemId,
+      quantity: form.quantity,
+      dueDate: form.dueDate,
+      start: form.startDate,
+      purchaseOrderItemId: form.customerOrderItemId,
+      orderedBy: form.orderedBy,
+      description: form.description
+    };
 
     return order;
   }

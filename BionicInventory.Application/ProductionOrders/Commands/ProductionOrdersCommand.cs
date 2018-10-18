@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 11:30 PM
+ * @Last Modified Time: Oct 18, 2018 10:19 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -20,29 +20,16 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
             _database = database;
 
         }
-        public ProductionOrder CreateNewWorkOrder (ProductionOrder newWorkOrder) {
+        public ProductionOrderList CreateNewWorkOrder (ProductionOrderList newWorkOrder) {
 
 
-                _database.ProductionOrder.Add (newWorkOrder);
+                _database.ProductionOrderList.Add (newWorkOrder);
                 _database.Save ();
                 return newWorkOrder;
 
         }
 
-        public bool DeleteWorkOrder (ProductionOrder deletedWorkOrder) {
-            try {
-
-                _database.ProductionOrder.Remove (deletedWorkOrder);
-                _database.Save ();
-
-                return true;
-
-            } catch (Exception) {
-                return false;
-            }
-        }
-        public bool DeleteWorkOrderItem (ProductionOrderList deletedWorkOrder) {
-
+        public bool DeleteWorkOrder (ProductionOrderList deletedWorkOrder) {
             try {
 
                 _database.ProductionOrderList.Remove (deletedWorkOrder);
@@ -55,11 +42,12 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
             }
         }
 
-        public ProductionOrder UpdateWorkOrder (ProductionOrder updatedWorkOrder) {
+
+        public ProductionOrderList UpdateWorkOrder (ProductionOrderList updatedWorkOrder) {
 
             try {
 
-                _database.ProductionOrder.Update (updatedWorkOrder);
+                _database.ProductionOrderList.Update (updatedWorkOrder);
                 _database.Save ();
 
                 return updatedWorkOrder;

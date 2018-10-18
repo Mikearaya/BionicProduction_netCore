@@ -78,29 +78,19 @@ export class WorkOrderAPIService {
 
 export class WorkOrder {
   constructor() {
-    this.orderItems = [];
     this.id = 0;
+  this.purchaseOrderItemId = 0;
   }
   id?: number;
   description: string;
   orderedBy: number;
-  orderItems: WorkOrderItem[] = [];
-}
-
-
-
-export class WorkOrderItem {
-  constructor() {
-    this.purchaseOrderItemId = 0;
-  }
-  id?: number;
   quantity: number;
   dueDate: Date;
   start: Date;
   itemId: number;
   purchaseOrderItemId?: number;
-
 }
+
 
 export class WorkOrderView {
 

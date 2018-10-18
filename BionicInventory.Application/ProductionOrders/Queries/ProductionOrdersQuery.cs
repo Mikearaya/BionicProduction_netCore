@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 9, 2018 11:19 PM
+ * @Last Modified Time: Oct 18, 2018 10:02 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -31,7 +31,6 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
             )
             .Select (orders => new ActiveOrdersView {
                 id = orders.Id,
-                    orderId = orders.ProductionOrderId,
                     dueDate = orders.DueDate,
                     total = orders.Quantity,
                     remaining = (int) orders.Quantity - orders.FinishedProduct.Where (fin => fin.OrderId == orders.Id).Count ()
@@ -48,12 +47,12 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         status = production.Select (pro => new {
                             completed = pro.FinishedProduct.Where (fin => fin.OrderId == production.Key).Count (),
                         totalCost = pro.CostPerItem * pro.Quantity,
-                                Description = pro.ProductionOrder.Description,
-                                orderedBy = $"{pro.ProductionOrder.OrderedByNavigation.FirstName} {pro.ProductionOrder.OrderedByNavigation.LastName}",
-                                orderId = pro.ProductionOrderId,
+                                Description = pro.Description,
+                                orderedBy = $"{pro.OrderedByNavigation.FirstName} {pro.OrderedByNavigation.LastName}",
+                                start = pro.Start,
                                 productName = pro.Item.Name,
                                 product = pro.Item.Code,
-                                orderDate = pro.ProductionOrder.AddedOn,
+                                orderDate = pro.DateAdded,
                                 dueDate = pro.DueDate,
                                 total = pro.Quantity,
                                 customer = (pro.PurchaseOrder != null) ?
@@ -61,6 +60,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                 type = (pro.PurchaseOrderId == null) ? "Work-to-Stock" : "Work-to-Order"
                         })
                 })
+                
                 .OrderByDescending(req => req.id)
                 .ToList ();
 
@@ -87,12 +87,12 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                     v.description = r.Description;
                     v.dueDate = r.dueDate;
                     v.orderDate = r.orderDate;
+                    v.start = r.start;
                     v.product = r.product;
                     v.productName = r.productName;
                     v.quantity = (int) r.total;
                     v.customer = r.customer;
                     v.orderedBy = r.orderedBy;
-                    v.orderId = r.orderId;
                     v.type = r.type;
                 }
 
@@ -104,26 +104,26 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
         }
 
-        public IEnumerable<ProductionOrder> GetAllWorkOrders () {
+        public IEnumerable<ProductionOrderList> GetAllWorkOrders () {
             try {
 
-                return _database.ProductionOrder.Include (p => p.ProductionOrderList).AsNoTracking().ToList ();
+                return _database.ProductionOrderList.AsNoTracking().ToList ();
 
             } catch (Exception) {
                 return null;
             }
         }
 
-        public IEnumerable<ProductionOrder> GetCompletedWorkOrders () {
+        public IEnumerable<ProductionOrderList> GetCompletedWorkOrders () {
             //TODO Implement GetCompleteWorkOrders
             throw new System.NotImplementedException ();
         }
 
-        public ProductionOrder GetWorkOrderById (uint id) {
+        public ProductionOrderList GetWorkOrderById (uint id) {
 
             try {
 
-                return _database.ProductionOrder.Where (order => order.Id == id).Include (order => order.ProductionOrderList).FirstOrDefault ();
+                return _database.ProductionOrderList.FirstOrDefault (order => order.Id == id);
 
             } catch (Exception) {
                 return null;

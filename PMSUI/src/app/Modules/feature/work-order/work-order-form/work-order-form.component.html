@@ -2,12 +2,25 @@
   <div class="text-center">
     <h3 class="text-info">Manufacture Order Form</h3>
   </div>
-  <hr/>
+  <hr />
   <form [formGroup]="workOrderForm" novalidate id="workOrderForm" (ngSubmit)="onSubmit()">
     <div class="container">
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
       <div class="row">
-        <div class="col-sm-6   col-xs-12">
+        <div class="col-6 col-xs-12">
+          <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="itemId"
+            placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
+          </ejs-dropdownlist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
+            name="quantity" placeholder="Quantity" id="quantity"></ejs-numerictextbox>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6   col-xs-12">
           <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
             placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
             [dataSource]="employeesList"> </ejs-dropdownlist>
@@ -15,70 +28,23 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-12 col-xs-12">
-          <div class=" e-success ">
-            <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
-          </div>
+        <div class="col-6 col-xs-12">
+          <ejs-datetimepicker placeholder='Start Date & Time' floatLabelType="Auto" formControlName="startDate" [min]="today"
+            id="startDate" name="dueDate" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
         </div>
       </div>
-      <div class="row order-items-section">
-        <h6 class="text-info text-right">Order Items</h6>
-        <hr/>
-        <div class="col-sm-12 col-xs-12">
-          <table class="order-items-block" class='table table-striped' width='100'>
-            <thead>
-              <tr>
-                  <th class="index">#</th>
-                <th>ID</th>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Start</th>
-                <th>End</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody formArrayName="orders">
-
-              <tr *ngFor="let order of orders.controls; let i=index; let last=last;" [formGroup]="order">
-                <td class="index">
-                  {{i+1}}
-                </td>
-                <td class="id">
-                </td>
-                <td class='product'>
-                  <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="'itemId'+i"
-                    placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields"
-                    [dataSource]="itemsList">
-                  </ejs-dropdownlist>
-                </td>
-                <td class='quantity'>
-
-                    <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity"
-                      [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i"></ejs-numerictextbox>
-
-                </td>
-
-                <td class='date-fields'>
-                  <ejs-datetimepicker placeholder='Start Date & Time' floatLabelType="Auto" formControlName="startDate" [min]="today" [attr.id]="'startDate'+i"
-                    [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
-                </td>
-                <td class='date-fields'>
-                  <ejs-datetimepicker floatLabelType="Auto" placeholder='End Date & Time'  formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
-                    [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
-                </td>
-                <td class='options'>
-                  <button type="button" ejs-button [disabled]="orders.invalid"
-                    *ngIf="last" (click)="addOrder()"  cssClass='e-flat' iconCss='e-edit e-icons' >
-                  Add</button>
-                  <button type="button" ejs-button class="e-danger e-small"  [disabled]="orders.length == 1"
-                    *ngIf="orders.length > 1" (click)="orders.removeAt(i)">
-                 Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-
-          </table>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <ejs-datetimepicker floatLabelType="Auto" placeholder='End Date & Time' formControlName="dueDate" [min]="today"
+            id="dueDate" name="dueDate" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <div class=" e-success ">
+            <ejs-textbox class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description">
+            </ejs-textbox>
+          </div>
         </div>
       </div>
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>

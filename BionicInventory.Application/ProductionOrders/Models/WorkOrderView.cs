@@ -11,7 +11,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 9, 2018 11:13 PM
+ * @Last Modified Time: Oct 18, 2018 9:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -19,6 +19,8 @@ using System;
 namespace BionicInventory.Application.ProductionOrders.Models {
     public abstract class WorkOrderView {
     
+
+        public uint id { get; set; }
         public string orderedBy { get; set; }
         public string description { get; set; }
 

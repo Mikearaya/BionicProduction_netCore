@@ -8,13 +8,9 @@
  */
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using BionicInventory.Application.ProductionOrders.Models.WorkOrdersList;
 
 namespace BionicInventory.Application.ProductionOrders.Models {
     public class NewWorkOrderDto : WorkOrderDto {
-
-        [Required]
-        public IEnumerable<NewWorkOrdersListDto> orderItems { get; set; }
 
     }
 }

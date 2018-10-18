@@ -56,7 +56,6 @@ namespace BionicInventory.DataStore {
         public DbSet<Item> Item { get; set; }
         public DbSet<ItemPrice> ItemPrice { get; set; }
         public DbSet<PhoneNumber> PhoneNumber { get; set; }
-        public DbSet<ProductionOrder> ProductionOrder { get; set; }
         public DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
@@ -74,7 +73,6 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new ItemConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderDetailConfiguration ());
-            modelBuilder.ApplyConfiguration (new ProductionOrderConfiguration ());
             modelBuilder.ApplyConfiguration (new ProductionOrderListConfiguration ());
             modelBuilder.ApplyConfiguration (new AddressConfiguration ());
             modelBuilder.ApplyConfiguration (new SocialMediaConfiguration ());

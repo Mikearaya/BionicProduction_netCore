@@ -57,29 +57,15 @@ export class WorkOrderFormComponent implements OnInit {
   createForm(): void {
     this.workOrderForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
-      description: ['', Validators.required],
-      orders: this.formBuilder.array([
-        this.formBuilder.group({
-          itemId: ['', Validators.required],
+      description: [''],
+        itemId: ['', Validators.required],
           quantity: ['', [Validators.required, Validators.min(0)]],
           dueDate: ['', Validators.required],
           startDate: ['', Validators.required]
-        })
-      ])
     });
   }
-  get orders() {
-    return this.workOrderForm.get('orders') as FormArray;
-  }
 
-  addOrder() {
-    this.orders.push(this.formBuilder.group({
-      itemId: ['', Validators.required],
-      quantity: ['', Validators.required],
-      startDate: [ '', Validators.required],
-      dueDate: ['', Validators.required]
-    }));
-  }
+
   ngOnInit(): void {
 
     const dm: DataManager = new DataManager(
@@ -113,17 +99,14 @@ export class WorkOrderFormComponent implements OnInit {
 
 
   prepareFormData(form: any): WorkOrder {
-    const order = new WorkOrder();
-    order.orderedBy = form.orderedBy;
-    order.description = form.description;
-    form.orders.forEach(element => {
-      order.orderItems.push({
-        itemId: element.itemId,
-        quantity: element.quantity,
-        dueDate: element.dueDate,
-        start: element.startDate
-      });
-    });
+    const order: WorkOrder = {
+      itemId : form.itemId,
+      quantity: form.quantity,
+      dueDate: form.dueDate,
+      start: form.startDate,
+      orderedBy : form.orderedBy,
+    description : form.description
+    };
 
     return order;
   }

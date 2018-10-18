@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Oct 18, 2018 9:58 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Oct 18, 2018 9:58 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 
 namespace BionicInventory.Application.ProductionOrders.Models
@@ -7,7 +15,6 @@ namespace BionicInventory.Application.ProductionOrders.Models
       //  private string _manufacturerderItemId;
         //private string _manufacturerderId;
         public uint id { get; set; }
-        public uint orderId { get; set; }
         public uint total {get; set;}
         public int remaining {get; set;}
         public DateTime dueDate {get; set;}

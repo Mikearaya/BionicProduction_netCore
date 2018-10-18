@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 10, 2018 11:03 PM
+ * @Last Modified Time: Oct 18, 2018 10:02 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -15,13 +15,13 @@ using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersQuery {
 
-        ProductionOrder GetWorkOrderById(uint id);
+        ProductionOrderList GetWorkOrderById(uint id);
         ProductionOrderList GetWorkOrderItemById(uint id);
         IEnumerable<ActiveOrdersView> GetActiveWorkOrders();
         IEnumerable<WorkOrderView> GetWorkOrdersStatus();
-        IEnumerable<ProductionOrder> GetAllWorkOrders();
+        IEnumerable<ProductionOrderList> GetAllWorkOrders();
         bool saleOrderProductionExits(uint id);
-        IEnumerable<ProductionOrder> GetCompletedWorkOrders();
+        IEnumerable<ProductionOrderList> GetCompletedWorkOrders();
         IEnumerable<WorkOrderView> GetPendingWorkOrders(uint manufactureRequestId);
 
         IEnumerable<WorkOrderView> GetPendingWorkOrders();

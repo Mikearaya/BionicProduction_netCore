@@ -9,12 +9,6 @@
 
 export const workOrderBluePrint = [
   {
-    key: 'orderId',
-    humanReadable: 'Order ID',
-    type: 'number', primaryKey: true,
-    allowGrouping: true, editable: false, width: '20', visable: false, isIdentity: true
-  },
-  {
     key: 'id', humanReadable: 'ID', primaryKey: true, type: 'number', editable: false, allowGrouping: false, dataType: 'TextBox',
     validationRule: { required: true }, isIdentity: true, width: '20'
   }  ,
@@ -42,12 +36,12 @@ export const workOrderBluePrint = [
     isIdentity: false, width: '28'
   },
   {
-    key: 'orderDate', humanReadable: 'Start', visable: true, allowGrouping: true,
+    key: 'orderDate', humanReadable: 'Created', visable: false, allowGrouping: true,
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '30'
   },
   {
-    key: 'start', humanReadable: 'Start', visable: false, allowGrouping: true,  format: 'yMd',
+    key: 'start', humanReadable: 'Start',  allowGrouping: true,  format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',
     isIdentity: false, width: '30'
   },
