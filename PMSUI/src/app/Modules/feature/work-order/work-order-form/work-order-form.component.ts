@@ -61,15 +61,15 @@ export class WorkOrderFormComponent implements OnInit {
 
   }
 
-  createForm(data: any = ''): void {
+  createForm(data: OrderModel = null): void {
     this.workOrderForm = this.formBuilder.group({
-      orderedBy: [data.orderedById, Validators.required],
-      description: [data.description],
-      itemId: [data.productId, Validators.required],
-      quantity: [data.quantity, [Validators.required, Validators.min(0)]],
-      dueDate: [data.dueDate, Validators.required],
-      startDate: [data.start, Validators.required],
-      salesOrderItemId: [data.salesOrderItemId]
+      orderedBy: [(data) ? data.orderedById : '', Validators.required],
+      description: [(data) ? data.description : ''],
+      itemId: [(data) ? data.productId : '', Validators.required],
+      quantity: [(data) ? data.quantity : '', [Validators.required, Validators.min(0)]],
+      dueDate: [(data) ? data.dueDate : '' , Validators.required],
+      startDate: [(data) ? data.start : '', Validators.required],
+      salesOrderItemId: [(data) ? data.salesOrderItemId : '']
     });
   }
 
@@ -92,7 +92,9 @@ export class WorkOrderFormComponent implements OnInit {
     } else if (this.customerOrderId) {
       this.isFromCustomerOrder = true;
       this.workOrderApi.getWorkOrderRequestById(this.customerOrderId)
-        .subscribe((data: OrderModel) => this.orderData = data,
+        .subscribe((data: OrderModel) => {this.orderData = data;
+        this.createForm(data);
+      },
           (error: CustomErrorResponse) => console.log(error)
         );
     }

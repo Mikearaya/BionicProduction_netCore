@@ -10,9 +10,9 @@ namespace BionicInventory.Application.Employees.Models
 {
     public class UpdatedEmployeeDto
     {
-        public uint id;
-        public string FirstName;
-        public string LastName;
+        public uint id{set; get;}
+        public string FirstName{set; get;}
+        public string LastName{set; get;}
         
     }
 }

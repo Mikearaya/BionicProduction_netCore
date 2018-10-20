@@ -36,8 +36,27 @@ td.date-fields {
   width: 23%;
 }
 
+label {
+  font-weight: 500;
+  color: rgb(64, 94, 160)
+}
+
+ejs-datetimepicker .e-datetime-wrapper.e-control-wrapper {
+  width: 50% !important;
+}
+
+.col-2 {
+  padding-right: 0;
+  text-align: center;
+}
+.col-6 {
+  padding-left: 0;
+}
 td.product {
   width: 25%;
+}
+.e-control-wrapper.e-numeric {
+  width: 20%;
 }
 
 td.quantity {

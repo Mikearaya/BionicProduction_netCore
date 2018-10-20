@@ -8,8 +8,8 @@
  */
 namespace BionicInventory.Application.Employees.Models {
     public class NewEmployeeDto {
-        public string FirstName;
-        public string LastName;
+        public string FirstName{set; get;}
+        public string LastName{set; get;}
 
     }
 }

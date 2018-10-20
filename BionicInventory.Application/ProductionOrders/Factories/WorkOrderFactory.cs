@@ -64,8 +64,12 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 Quantity = newOrder.Quantity,
                 DueDate = newOrder.DueDate,
                 Start = newOrder.Start,
-                PurchaseOrderId = newOrder.PurchaseOrderItemId
+                
             };
+
+            if(newOrder.PurchaseOrderItemId != 0) {
+                productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
+            }
 
 
             return productionOrder;

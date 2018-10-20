@@ -11,10 +11,18 @@ using System;
 namespace BionicInventory.Application.Employees.Models {
     public class EmployeeViewModel {
 
-        public uint id;
-        public string firstName;
-        public string lastName;
-        public DateTime? dateAdded;
-        public DateTime? dateUpdated;
+        private string _fullName;
+        public uint id {set; get;}
+        public string firstName {set; get;}
+        public string lastName{set; get;}
+
+        public string fullName{set {
+            _fullName = $"{firstName} {lastName}";
+        } get {
+            return _fullName;
+        }
+        }
+        public DateTime? dateAdded{set; get;}
+        public DateTime? dateUpdated{set; get;}
     }
 }

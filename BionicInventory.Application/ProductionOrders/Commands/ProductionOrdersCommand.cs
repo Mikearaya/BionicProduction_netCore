@@ -45,16 +45,11 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
 
         public ProductionOrderList UpdateWorkOrder (ProductionOrderList updatedWorkOrder) {
 
-            try {
 
                 _database.ProductionOrderList.Update (updatedWorkOrder);
                 _database.Save ();
 
                 return updatedWorkOrder;
-
-            } catch (Exception) {
-                return null;
-            }
         }
     }
 }

@@ -173,7 +173,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [ProducesResponseType (500)]
         public IActionResult UpdateWorkWorder (uint id, [FromBody] UpdatedWorkOrderDto updated) {
 
-            try {
+       
 
                 if (updated == null) {
                     return StatusCode (400, ModelState);
@@ -208,10 +208,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (500, "Server error Try Again");
                 }
 
-            } catch (Exception e) {
-                _logger.LogError (500, e.Message, e);
-                return StatusCode (500, e.Message);
-            }
+    
 
         }
 

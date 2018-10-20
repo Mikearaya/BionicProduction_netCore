@@ -7,45 +7,75 @@
     <div class="container">
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
       <div class="row">
+          <div class="col-2 col-xs-12">
+              <label for="itemId">Product</label>
+          </div>
         <div class="col-6 col-xs-12">
-          <ejs-dropdownlist [allowFiltering]="true" name="itemId" formControlName="itemId" id="itemId"
+
+
+        <ejs-dropdownlist [allowFiltering]="true" name="itemId" *ngIf="!isUpdate && !isFromCustomerOrder" formControlName="itemId" id="itemId"
             placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
           </ejs-dropdownlist>
+          <p *ngIf="isUpdate || isFromCustomerOrder">{{orderData?.productName}}-{{orderData?.product}}</p>
         </div>
       </div>
       <div class="row">
+        <div class="col-2 col-xs-12">
+          <label for="quantity">Quantity</label>
+        </div>
         <div class="col-6 col-xs-12">
           <ejs-numerictextbox [attr.class]="'e-input'" min="0" floatLabelType="Auto" formControlName="quantity" name="quantity"
             placeholder="Quantity" id="quantity"></ejs-numerictextbox>
         </div>
       </div>
       <div class="row">
+        <div class="col-2 col-xs-12">
+          <label for="orderedBy">Ordered By</label>
+        </div>
         <div class="col-6   col-xs-12">
-          <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
+          <ejs-dropdownlist [allowFiltering]="true" *ngIf="!isUpdate" name="orderedBy" formControlName="orderedBy" id='orderedBy'
             placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
             [dataSource]="employeesList"> </ejs-dropdownlist>
+            <p *ngIf="isUpdate" >{{orderData?.orderedBy}}</p>
 
         </div>
       </div>
       <div class="row">
+        <div class="col-2 col-xs-12">
+          <label for="startDate">Start Date</label>
+        </div>
         <div class="col-6 col-xs-12">
           <ejs-datetimepicker placeholder='Start Date & Time' floatLabelType="Auto" formControlName="startDate" [min]="today"
             id="startDate" name="dueDate" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
         </div>
       </div>
       <div class="row">
+        <div class="col-2 col-xs-12">
+          <label for="dueDate">End Date</label>
+        </div>
         <div class="col-6 col-xs-12">
           <ejs-datetimepicker floatLabelType="Auto" placeholder='End Date & Time' formControlName="dueDate" [min]="today"
             id="dueDate" name="dueDate" format="yyyy-MM-dd hh:mm"></ejs-datetimepicker>
         </div>
       </div>
       <div class="row">
+        <div class="col-2 col-xs-12">
+          <label for="description">Note</label>
+        </div>
         <div class="col-6 col-xs-12">
           <div class=" e-success ">
-            <ejs-textbox class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description">
+            <ejs-textbox class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Additional Notes">
             </ejs-textbox>
           </div>
         </div>
+      </div>
+      <div class="row" *ngIf="isUpdate || isFromCustomerOrder">
+        <div class="col-2 col-xs-12">
+          <label for="customerOrder">
+            Customer Order
+          </label>
+        </div>
+        <p *ngIf="isUpdate || isFromCustomerOrder">{{orderData?.salesOrderItemId}}</p>
       </div>
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
     </div>

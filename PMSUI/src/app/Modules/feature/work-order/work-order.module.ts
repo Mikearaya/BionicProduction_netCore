@@ -22,13 +22,10 @@ import {
 } from '@syncfusion/ej2-ng-grids';
 import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { HttpClientModule } from '@angular/common/http';
-import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
 import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
-import { RequestedWorkOrderFormComponent } from './requested-work-order-form/requested-work-order-form.component';
-import { NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
 
 
 
@@ -51,7 +48,6 @@ import { NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
   declarations: [
     // application
     WorkOrderFormComponent,
-    RequestedWorkOrderFormComponent,
     FinishedOrderFormComponent,
     WorkOrderViewComponent,
     PendingOrdersViewComponent

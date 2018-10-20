@@ -127,6 +127,8 @@ export class OrderModel {
   id?: number;
   customer: string;
   description: string;
+  salesMan?: string;
+  salesManId?: number;
   orderedBy: string;
   orderedById?: number;
   itemId: number;

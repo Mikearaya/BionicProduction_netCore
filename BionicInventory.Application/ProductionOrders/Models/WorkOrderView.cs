@@ -25,7 +25,6 @@ namespace BionicInventory.Application.ProductionOrders.Models {
         public uint orderedById { get; set; }
         public string description { get; set; }
         public uint? salesOrderItemId { get; set; }
-
         public string product { get; set; }
         public double? cost {get; set;}
         public string productName {get; set;}
