@@ -10,76 +10,76 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CoreApiService, CustomErrorResponse } from '../../core/core-api.service';
-import {catchError} from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class WorkOrderAPIService {
   private url = 'http://localhost:5000/api/workorders';
   private productsIrl = 'http://localhost:5000/api/products';
-    private httpBody: URLSearchParams;
+  private httpBody: URLSearchParams;
 
 
-    constructor(private httpClient: HttpClient, private coreApiService: CoreApiService) {
-        this.httpBody = new URLSearchParams();
-    }
-
-    getWorkOrderById(id: number): Observable<OrderModel> {
-        return this.httpClient.get<OrderModel>(`${this.url}/${id}`);
-    }
-
-    getAllProducts(): Observable<any[]> {
-        return this.httpClient.get<any[]>(`${this.productsIrl}`);
-    }
-
-    getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {
-      return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
-    }
-
-    getWorkOrderRequestById(id: number): Observable<OrderModel> {
-      return this.httpClient.get<OrderModel>(`${this.url}?type=pending&salesOrderItemId=${id}`);
-    }
-
-
-    getAllWorkOrders(): Observable<WorkOrder[]> {
-        return this.httpClient.get<WorkOrder[]>(`${this.url}`);
-    }
-
-    addWorkOrder(newWorkOrder: any ): Observable<WorkOrderView| CustomErrorResponse> {
-
-        return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder).pipe(
-          catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
-        );
-    }
-    updateWorkOrder(id: number, updatedWorkOrder: WorkOrder): Observable<Boolean> {
-        // this.httpBody = this.prepareRequestBody(updatedWorkOrder);
-        return this.httpClient.put<Boolean>(`${this.url}/${id}`, updatedWorkOrder);
-    }
-
-    deleteWorkOrder(workOrderId: number[]): Observable<Boolean> {
-        workOrderId.forEach((id) => this.httpBody.append('id[]', `${id}`));
-        return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody);
-    }
-
-    deleteSingleWorkOrder(workOrderId: number): Observable<Boolean> {
-      return this.httpClient.delete<Boolean>(`${this.url}/${workOrderId}`);
+  constructor(private httpClient: HttpClient, private coreApiService: CoreApiService) {
+    this.httpBody = new URLSearchParams();
   }
 
-    private prepareRequestBody(workOrder: WorkOrder): URLSearchParams {
-        const dataModel = new URLSearchParams();
-        for (const key in workOrder) {
-            if (workOrder.hasOwnProperty(key)) {
-                const value = workOrder[key];
-                dataModel.set(key, value);
-            }
-        }
-        return dataModel;
+  getWorkOrderById(id: number): Observable<OrderModel> {
+    return this.httpClient.get<OrderModel>(`${this.url}/${id}`);
+  }
+
+  getAllProducts(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.productsIrl}`);
+  }
+
+  getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {
+    return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
+  }
+
+  getWorkOrderRequestById(id: number): Observable<OrderModel> {
+    return this.httpClient.get<OrderModel>(`${this.url}?type=pending&salesOrderItemId=${id}`);
+  }
+
+
+  getAllWorkOrders(): Observable<WorkOrder[]> {
+    return this.httpClient.get<WorkOrder[]>(`${this.url}`);
+  }
+
+  addWorkOrder(newWorkOrder: any): Observable<WorkOrderView | CustomErrorResponse> {
+
+    return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder).pipe(
+      catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
+    );
+  }
+  updateWorkOrder(id: number, updatedWorkOrder: WorkOrder): Observable<Boolean> {
+    // this.httpBody = this.prepareRequestBody(updatedWorkOrder);
+    return this.httpClient.put<Boolean>(`${this.url}/${id}`, updatedWorkOrder);
+  }
+
+  deleteWorkOrder(workOrderId: number[]): Observable<Boolean> {
+    workOrderId.forEach((id) => this.httpBody.append('id[]', `${id}`));
+    return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody);
+  }
+
+  deleteSingleWorkOrder(workOrderId: number): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(`${this.url}/${workOrderId}`);
+  }
+
+  private prepareRequestBody(workOrder: WorkOrder): URLSearchParams {
+    const dataModel = new URLSearchParams();
+    for (const key in workOrder) {
+      if (workOrder.hasOwnProperty(key)) {
+        const value = workOrder[key];
+        dataModel.set(key, value);
+      }
     }
+    return dataModel;
+  }
 }
 
 export class WorkOrder {
   constructor() {
     this.id = 0;
-  this.purchaseOrderItemId = 0;
+    this.purchaseOrderItemId = 0;
   }
   id?: number;
   description: string;
@@ -125,15 +125,14 @@ export interface PendingManufactureOrdersView {
 
 export class OrderModel {
   id?: number;
-  customer: string;
-  description: string;
-  salesMan?: string;
+  customer = '';
+  description = '';
+  salesMan = '';
   salesManId?: number;
-  orderedBy: string;
+  orderedBy = '';
   orderedById?: number;
-  itemId: number;
   product: string;
-  productName: string;
+  productName = '';
   productId: number;
   quantity: number;
   start: Date;

@@ -13,10 +13,11 @@
                 [groupSettings]='groupOptions'
                 [allowFiltering]="true"
                 [allowSorting]="allowSorting"
-                [allowPdfExport]="allowPdfExport">
+                [allowPdfExport]="allowPdfExport"
+                [editSettings]="editSettings">
   <e-columns>
     <e-column *ngFor="let col of columnBluePrint"
-               [textAlign]="col.align"
+              [textAlign]="col.align"
               [width]="col.width"
               [allowEditing]="col.editable"
               [field]='col.key'
@@ -30,6 +31,6 @@
               [customAttributes]="customAttributes"
               >
       </e-column>
-
+      <e-column [customAttributes]="customAttributes" textAlign="center"  width="23" [commands]='commands'></e-column>
   </e-columns>
 </ejs-grid>

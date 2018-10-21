@@ -1,19 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class ProductsAPIService {
 
-    private url = 'http://localhost:5000/api/products';
+    private url = 'products';
     private httpBody: URLSearchParams;
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient,
+                @Inject('BASE_URL') private apiUrl: string) {
         this.httpBody = new URLSearchParams();
     }
 
     getProductById(id: number): Observable<Product> {
-        return this.httpClient.get<Product>(`${this.url}/${id}`);
+        return this.httpClient.get<Product>(`${this.apiUrl}/${this.url}/${id}`);
     }
 
     getAllProducts(): Observable<Product[]> {
@@ -22,16 +23,16 @@ export class ProductsAPIService {
 
     addProduct(newProduct: Product): Observable<Product> {
         this.httpBody = this.prepareRequestBody(newProduct);
-        return this.httpClient.post<Product>(`${this.url}/add`, this.httpBody.toString());
+        return this.httpClient.post<Product>(`${this.apiUrl}/${this.url}`, this.httpBody.toString());
     }
     updateProduct(updatedProduct: Product): Observable<Product> {
         this.httpBody = this.prepareRequestBody(updatedProduct);
-        return this.httpClient.post<Product>(`${this.url}/update/${updatedProduct.id}`, this.httpBody.toString());
+        return this.httpClient.put<Product>(`${this.apiUrl}/${this.url}/${updatedProduct.id}`, this.httpBody.toString());
     }
 
     deleteProduct(productId: number[]): Observable<Boolean> {
         productId.forEach((id) => this.httpBody.append('id[]', `${id}`));
-        return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
+        return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${productId}`);
     }
 
     private prepareRequestBody(product: Product): URLSearchParams {

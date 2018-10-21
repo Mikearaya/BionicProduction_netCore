@@ -1,21 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CurrentStockViewComponent } from './current-stock-view.component';
+import { StockViewComponent } from './stock-view.component';
 
 
 
-describe('CurrentStockViewComponent', () => {
-  let component: CurrentStockViewComponent;
-  let fixture: ComponentFixture<CurrentStockViewComponent>;
+
+describe('StockViewComponent', () => {
+  let component: StockViewComponent;
+  let fixture: ComponentFixture<StockViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrentStockViewComponent ]
+      declarations: [ StockViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CurrentStockViewComponent);
+    fixture = TestBed.createComponent(StockViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

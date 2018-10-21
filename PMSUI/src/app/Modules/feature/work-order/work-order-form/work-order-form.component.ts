@@ -6,10 +6,11 @@ import {
 import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';
-import { UrlAdaptor, DataManager, Query, ODataAdaptor, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { UrlAdaptor, DataManager, Query, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CustomErrorResponse } from '../../../core/core-api.service';
+import { ProductGetterService } from '../../../core/services/product-getter.service';
 
 
 @Component({
@@ -31,10 +32,8 @@ export class WorkOrderFormComponent implements OnInit {
   public customerOrderId: number;
   public isUpdate: Boolean = false;
   public isFromCustomerOrder: Boolean = false;
+  public isFromItem: Boolean = false;
 
-
-
-  public itemId: FormControl;
   public workOrderForm: FormGroup;
 
   public employeeQuery: Query;
@@ -46,11 +45,13 @@ export class WorkOrderFormComponent implements OnInit {
   public itemsList: any[];
   public employeesList: any[];
   public today: Date;
+  private itemId: number;
 
   constructor(private workOrderApi: WorkOrderAPIService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private location: Location) {
+    private location: Location,
+    private productApiService: ProductGetterService) {
 
     this.createForm();
     this.today = new Date();
@@ -58,18 +59,33 @@ export class WorkOrderFormComponent implements OnInit {
     this.employeeFields = { text: 'firstName', value: 'id' };
     this.itemQuery = new Query().select(['name', 'id']);
     this.itemFields = { text: 'name', value: 'id' };
+    this.orderData = new OrderModel();
 
   }
 
-  createForm(data: OrderModel = null): void {
+  createForm(data: OrderModel = null ): void {
+    console.log(data);
     this.workOrderForm = this.formBuilder.group({
       orderedBy: [(data) ? data.orderedById : '', Validators.required],
       description: [(data) ? data.description : ''],
       itemId: [(data) ? data.productId : '', Validators.required],
       quantity: [(data) ? data.quantity : '', [Validators.required, Validators.min(0)]],
-      dueDate: [(data) ? data.dueDate : '' , Validators.required],
+      dueDate: [(data) ? data.dueDate : '', Validators.required],
       startDate: [(data) ? data.start : '', Validators.required],
       salesOrderItemId: [(data) ? data.salesOrderItemId : '']
+    });
+  }
+
+  createItemForm(data: number ): void {
+    console.log(data);
+    this.workOrderForm = this.formBuilder.group({
+      orderedBy: ['', Validators.required],
+      description: [''],
+      itemId: [ data, Validators.required],
+      quantity: ['', [Validators.required, Validators.min(0)]],
+      dueDate: [ '', Validators.required],
+      startDate: ['', Validators.required],
+      salesOrderItemId: ['']
     });
   }
 
@@ -77,14 +93,14 @@ export class WorkOrderFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.manufactureOrderId = + this.activatedRoute.snapshot.paramMap.get('workOrderId');
-    console.log(this.manufactureOrderId);
     this.customerOrderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
+    this.itemId = + this.activatedRoute.snapshot.paramMap.get('itemId');
 
     if (this.manufactureOrderId) {
       this.isUpdate = true;
       this.workOrderApi.getWorkOrderById(this.manufactureOrderId)
         .subscribe((data: OrderModel) => {
-            this.orderData = data;
+          this.orderData = data;
           this.createForm(data);
         },
           (error: CustomErrorResponse) => console.log(error)
@@ -92,11 +108,24 @@ export class WorkOrderFormComponent implements OnInit {
     } else if (this.customerOrderId) {
       this.isFromCustomerOrder = true;
       this.workOrderApi.getWorkOrderRequestById(this.customerOrderId)
-        .subscribe((data: OrderModel) => {this.orderData = data;
-        this.createForm(data);
-      },
+        .subscribe((data: OrderModel) => {
+        this.orderData = data;
+          this.createForm(data);
+        },
           (error: CustomErrorResponse) => console.log(error)
         );
+    } else if (this.itemId) {
+      this.isFromItem = true;
+      this.productApiService.getCriticalProductById(this.itemId)
+          .subscribe((data: any) => {
+            this.orderData.productId = data.id;
+            this.orderData.product = data.product;
+            this.orderData.productName = data.productName;
+            this.orderData.quantity = data.required;
+              this.createForm(this.orderData);
+            },
+            (error: CustomErrorResponse) => console.log(error)
+          );
     }
 
     const dm: DataManager = new DataManager(
@@ -129,15 +158,15 @@ export class WorkOrderFormComponent implements OnInit {
         );
     } else {
 
-    this.workOrderApi.addWorkOrder(order).subscribe(
-      (success: WorkOrderView) => {
-        this.location.back();
-        alert('Work Order Created Successfully');
+      this.workOrderApi.addWorkOrder(order).subscribe(
+        (success: WorkOrderView) => {
+          this.location.back();
+          alert('Work Order Created Successfully');
 
 
-      },
-      (error: HttpErrorResponse) => console.log(error)
-    );
+        },
+        (error: HttpErrorResponse) => console.log(error)
+      );
     }
   }
 

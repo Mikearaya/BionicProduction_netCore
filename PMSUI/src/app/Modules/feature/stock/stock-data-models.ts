@@ -5,6 +5,7 @@ export class LowStockItemsView {
   productCode: string;
   availableQuantity: number;
   expectedAvailableQuantity: number;
+  required: number;
   inStock: number;
   minimumQuantity: number;
 }

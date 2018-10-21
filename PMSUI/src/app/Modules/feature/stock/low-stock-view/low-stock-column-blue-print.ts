@@ -26,13 +26,13 @@ export const lowStockViewBluePrint = [
     allowGrouping: false,
     allowFiltering: true,
     editable: false,
-    width: '30px',
+    width: '30',
     isIdentity: false,
     format: ''
   },
   {
     key: 'productName',
-    humanReadable: 'Description',
+    humanReadable: 'Product',
     align: 'left',
     visable: true,
     type: 'string',
@@ -40,7 +40,7 @@ export const lowStockViewBluePrint = [
     primaryKey: false,
     allowGrouping: false,
     editable: false,
-    width: '40',
+    width: '50',
     isIdentity: false,
     format: ''
   },
@@ -54,7 +54,7 @@ export const lowStockViewBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '20',
     isIdentity: false,
 
   },
@@ -68,7 +68,7 @@ export const lowStockViewBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '20',
     isIdentity: false,
 
   },
@@ -82,7 +82,7 @@ export const lowStockViewBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '28',
     isIdentity: false
   },
   {
@@ -95,7 +95,20 @@ export const lowStockViewBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '25',
+    isIdentity: false
+  },
+  {
+    key: 'required',
+    humanReadable: 'Required',
+    align: 'left',
+    visable: true,
+    type: 'number',
+    allowFiltering: true,
+    primaryKey: false,
+    allowGrouping: true,
+    editable: false,
+    width: '20',
     isIdentity: false
   }
 ];

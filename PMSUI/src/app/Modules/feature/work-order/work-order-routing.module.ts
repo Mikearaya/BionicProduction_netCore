@@ -19,9 +19,8 @@ const routes: Routes = [
   { path: 'pending', component: PendingOrdersViewComponent },
   { path: 'completed', component: FinishedOrderFormComponent },
   {path: 'request/:customerOrderId', component: WorkOrderFormComponent},
+  { path: 'item/:itemId', component: WorkOrderFormComponent },
   { path: ':workOrderId/update', component: WorkOrderFormComponent }
-
-
 ];
 
 @NgModule({

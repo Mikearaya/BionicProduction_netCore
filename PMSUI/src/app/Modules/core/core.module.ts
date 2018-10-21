@@ -9,6 +9,8 @@ import {
 } from '@syncfusion/ej2-ng-grids';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreHttpInterceptor } from './core-http-interceptor';
+import { CoreApiService } from './core-api.service';
+import { ProductGetterService } from './services/product-getter.service';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { CoreHttpInterceptor } from './core-http-interceptor';
     EditService,
     ExcelExportService,
     ResizeService,
-    DetailRowService
+    DetailRowService,
+    ProductGetterService
   ],
 
 })

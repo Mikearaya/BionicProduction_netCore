@@ -18,10 +18,10 @@ import {
 import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
 import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
 import { SharedModule } from '../../shared/shared.module';
-import { CurrentStockViewComponent } from './current-stock-view/current-stock-view.component';
-import { StockRoutingModule } from './current-stock-routing.module';
+import { StockRoutingModule } from './stock-routing.module';
 import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
 import { StockApiService } from './stock-api.service';
+import { StockViewComponent } from './stock-view/stock-view.component';
 
 @NgModule({
   imports: [
@@ -39,7 +39,7 @@ import { StockApiService } from './stock-api.service';
   ],
   declarations: [
     // application
-    CurrentStockViewComponent,
+    StockViewComponent,
     LowStockViewComponent
   ],
   providers: [StockApiService]

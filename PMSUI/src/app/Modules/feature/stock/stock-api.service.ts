@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView } from './data-models';
+import { LowStockItemsView } from './stock-data-models';
 import { Observable } from 'rxjs';
 
 @Injectable()

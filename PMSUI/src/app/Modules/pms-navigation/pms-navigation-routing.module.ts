@@ -10,7 +10,7 @@ const routes: Routes = [{
     { path: 'workorders', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'products', loadChildren: '../feature/products/products.module#ProductsModule' },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
-    { path: 'stock', loadChildren: '../feature/current-stock/current-stock.module#StockModule' },
+    { path: 'stock', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' }
 

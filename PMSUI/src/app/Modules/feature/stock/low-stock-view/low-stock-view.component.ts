@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StockApiService } from '../stock-api.service';
-import { LowStockItemsView } from '../data-models';
+import { LowStockItemsView } from '../stock-data-models';
 import {
   GroupSettingsModel, FilterSettingsModel, ToolbarItems,
-  SortSettingsModel, PageSettingsModel, CommandModel
+  SortSettingsModel, PageSettingsModel, CommandModel, IRow, Column, EditSettingsModel
 } from '@syncfusion/ej2-grids';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
+import { closest } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-low-stock-view',
@@ -36,6 +37,10 @@ export class LowStockViewComponent implements OnInit {
   public allowExcelExport = true;
   public allowFiltering = true;
   public allowSorting = true;
+  public commands: CommandModel[];
+  public printMode: 'CurrentPage';
+  columnBluePrint = lowStockViewBluePrint;
+  public editSettings: EditSettingsModel;
 
   constructor(
     private route: Router,
@@ -43,10 +48,6 @@ export class LowStockViewComponent implements OnInit {
 
   }
 
-  public commands: CommandModel[];
-  public printMode: 'CurrentPage';
-
-  columnBluePrint = lowStockViewBluePrint;
 
   ngOnInit(): void {
 
@@ -62,12 +63,27 @@ export class LowStockViewComponent implements OnInit {
       showDropArea: false,
       disablePageWiseAggregates: true
     };
+    this.editSettings = { allowEditing: true, allowDeleting: true };
 
     this.filterSetting = {
       type: 'Menu'
     };
+
+    this.commands = [
+      {
+        buttonOption: { content: 'Create',
+          cssClass: 'e-success e-small',
+          click: this.createManufactureOrder.bind(this)
+        }
+      }
+    ];
   }
 
+
+  createManufactureOrder(args: Event) {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.route.navigate([`workorders/item/${rowObj.data['id']}`]);
+  }
 
   toolbarClick(args: ClickEventArgs): void {
     if (args.item.id === 'lowStock_excelexport') {
@@ -77,8 +93,7 @@ export class LowStockViewComponent implements OnInit {
     } else if (args.item.id === 'lowStock_print') {
       this.grid.print();
     } else if (args.item.id === 'lowStock_add') {
-      console.log('in');
-      this.route.navigate(['lowStock/new']);
+      this.route.navigate(['workorders/create/']);
     }
   }
 

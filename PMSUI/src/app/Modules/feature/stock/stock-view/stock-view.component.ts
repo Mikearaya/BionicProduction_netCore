@@ -17,17 +17,16 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { GridComponent } from '@syncfusion/ej2-ng-grids';
-
-import { finishedProductsBluePrint } from './current-stock-column-blue-print';
+import { stockViewColumnBluePrint } from './stock-column-blue-print';
 
 
 @Component({
-  selector: 'app-current-stock-view',
-  templateUrl: './current-stock-view.component.html',
-  styleUrls: ['./current-stock-view.component.css']
+  selector: 'app-stock-view',
+  templateUrl: './stock-view.component.html',
+  styleUrls: ['./stock-view.component.css']
 })
 
-export class CurrentStockViewComponent implements OnInit {
+export class StockViewComponent implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
   public customAttributes: Object;
@@ -56,7 +55,7 @@ export class CurrentStockViewComponent implements OnInit {
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  columnBluePrint = finishedProductsBluePrint;
+  columnBluePrint = stockViewColumnBluePrint;
 
   public dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/api/finished_products',

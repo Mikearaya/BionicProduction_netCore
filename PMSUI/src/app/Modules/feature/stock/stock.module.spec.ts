@@ -1,4 +1,4 @@
-import { StockModule } from './current-stock.module';
+import { StockModule } from './stock.module';
 
 
 describe('StockModule', () => {

@@ -1,6 +1,6 @@
 
 
-export const finishedProductsBluePrint = [
+export const stockViewColumnBluePrint = [
 
   {
     key: 'itemId',

@@ -120,10 +120,10 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                             .Where (fin => fin.Order.PurchaseOrder == null && fin.Sales == null && fin.OrderId == MO.Id).Count ()),
 
                         expectedAvailable = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
-                            MO.FinishedProduct.Count (fin => fin.Sales == null || fin.Order.Id == MO.Id)),
+                            MO.FinishedProduct.Count (fin => fin.Sales == null)),
 
                         expectedBooked = (int) manufactureOrder.Where (MO => MO.PurchaseOrder != null).Sum (MO => MO.Quantity - MO.FinishedProduct
-                            .Count (fin => fin.Sales == null || fin.Order.Id == MO.Id)),
+                            .Count (fin => fin.Sales == null)),
 
                         totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => fin.Sales == null || fin.Order != null))
                 }).GroupBy (manuf => manuf.itemId).ToList ();

@@ -63,9 +63,8 @@ namespace BionicInventory.Application.Products.Queries {
             }
         }
 
-        public IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems()
-        {
-            var stock = _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
+        private IQueryable<CriticalStockItemsView> CriticalStockItemsGroup() {
+            return _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
                 manufOrder => manufOrder.ItemId,
                 (product, manufactureOrder) => new CriticalStockItemsView () {
 
@@ -83,15 +82,44 @@ namespace BionicInventory.Application.Products.Queries {
                         expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
                             MO.FinishedProduct.Count (fin => fin.Sales == null || fin.Order.Id == MO.Id)),
 
-                }).Where(item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required)).GroupBy (manuf => manuf.id);
+                }).Where(item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required));
+        }
+        public IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems()
+        {
+            var criticalItems = CriticalStockItemsGroup().GroupBy( item => item.id);
+            
 
             List<CriticalStockItemsView> stockStatus = new List<CriticalStockItemsView> ();
-            foreach (var item in stock) {
+            foreach (var item in criticalItems) {
                 foreach (var status in item) {
-                    status.availableQuantity = (status.availableQuantity + status.expectedAvailableQuantity) - status.required;
+                    if(status.required < status.minimumQuantity) {
+                        status.required = status.minimumQuantity - (status.availableQuantity + status.expectedAvailableQuantity);
+                    } else {
+                        status.required = status.required - (status.availableQuantity + status.expectedAvailableQuantity);
+                    }
+
                     stockStatus.Add (status);
 
                 }
+            }
+            return stockStatus;
+        }
+
+        public CriticalStockItemsView GetCriticalBelowStockItem(uint id)
+        {
+            var criticalItems = CriticalStockItemsGroup()
+                                            .Where(item => item.id == id).GroupBy( item => item.id).FirstOrDefault();
+            
+
+            CriticalStockItemsView stockStatus = new CriticalStockItemsView();
+            foreach (var item in criticalItems) {
+                    if(item.required < item.minimumQuantity) {
+                        item.required = item.minimumQuantity - (item.availableQuantity + item.expectedAvailableQuantity);
+                    } else {
+                        item.required = item.required - (item.availableQuantity + item.expectedAvailableQuantity);
+                    }
+
+                stockStatus = item;
             }
             return stockStatus;
         }

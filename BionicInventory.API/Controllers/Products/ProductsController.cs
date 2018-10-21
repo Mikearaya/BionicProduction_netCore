@@ -13,6 +13,7 @@ using BionicInventory.Application.Products.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
+using BionicInventory.Domain.Items;
 
 namespace BionicInventory.API.Controllers.Products {
     [InventoryAPI ("Products")]
@@ -37,24 +38,32 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult GetProductById (uint id) {
+        public IActionResult GetProductById (uint id,string type = "") {
 
             try {
 
                 if (ModelState.IsValid && id != 0) {
 
-                    try {
-                        var product = _query.GetProductById (id);
+                
+        
+                        Object productView = null;
+                        if(type.ToUpper() == "LOW" ) {
+                        productView = _query.GetCriticalBelowStockItem (id);    
+                        } else {
 
+                        var product = _query.GetProductById (id);
+                        
                         if (product != null) {
-                            var productView = _factory.CreateProductView (product);
+                        productView = _factory.CreateProductView ((Item)product);    
+                        }
+                    }
+
+                        if (productView != null) {
                             return StatusCode (200, productView);
                         } else {
                             return StatusCode (404);
                         }
-                    } catch (Exception) {
-                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
-                    }
+                    
 
                 } else {
                     return StatusCode (422, "Invalid Parameter For Product Id");
@@ -73,16 +82,17 @@ namespace BionicInventory.API.Controllers.Products {
 
             try {
 
+                    IEnumerable<Object> products = null;
 
                     if(type.Trim().ToUpper() == "ALL") {
 
-                var products = _query.GetAllProduct ();
+                products = _query.GetAllProduct ();
                 ResponseDataFormat response = new ResponseDataFormat ();
 
                 List<ProductView> productsList = new List<ProductView> ();
 
                 foreach (var product in products) {
-                    productsList.Add (_factory.CreateProductView (product));
+                    productsList.Add (_factory.CreateProductView ((Item) product));
                 }
                 response.Items = productsList;
                 response.Count = productsList.Count;
@@ -90,9 +100,9 @@ namespace BionicInventory.API.Controllers.Products {
                 } 
 
 
-             if(type.Trim().ToUpper() == "LOW") {
+            if(type.Trim().ToUpper() == "LOW") {
 
-                var products = _query.GetCriticalBelowStockItems();
+                products = _query.GetCriticalBelowStockItems();
                 return StatusCode (200, products);
                 } 
 
