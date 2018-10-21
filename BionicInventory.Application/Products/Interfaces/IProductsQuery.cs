@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:33 PM
+ * @Last Modified Time: Oct 21, 2018 1:01 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace BionicInventory.Application.Products.Interfaces {
         Item GetProductById (uint id);
         bool IsProductCodeUnique(string code);
         IEnumerable<Item> GetAllProduct ();
+        IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems();
 
     }
 }

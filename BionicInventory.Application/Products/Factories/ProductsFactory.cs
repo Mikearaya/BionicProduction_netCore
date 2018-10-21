@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 11:56 PM
+ * @Last Modified Time: Oct 21, 2018 2:22 AM
  * @Description: Product Factory Class
  */
 using System;
@@ -32,7 +32,7 @@ namespace BionicInventory.Application.Products.Factories {
                 product.UnitCost = newProduct.unitCost;
                 product.Photo = newProduct.photo;
                 product.Unit = newProduct.unit;
-
+                product.MinimumQuantity = newProduct.MinimumQuantity;
                 return product;
 
             } catch (Exception e) {
@@ -54,6 +54,7 @@ namespace BionicInventory.Application.Products.Factories {
                 productView.code = product.Code;
                 productView.unit = product.Unit;
                 productView.description = product.Description;
+                productView.minimumQuantity = product.MinimumQuantity;
 
                 return productView;
 
@@ -73,6 +74,7 @@ namespace BionicInventory.Application.Products.Factories {
             product.Unit = updatedProduct.unit;
             product.Photo = updatedProduct.photo;
             product.Weight = updatedProduct.weight;
+                product.MinimumQuantity = updatedProduct.MinimumQuantity;
 
             return product;
 

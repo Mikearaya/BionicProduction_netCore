@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 18, 2018 10:27 PM
+ * @Last Modified Time: Oct 21, 2018 2:30 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -39,10 +39,13 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     CostPerItem = product.UnitCost,
                     Quantity = newOrder.Quantity,
                     DueDate = newOrder.DueDate,
-                    Start = newOrder.Start,
-                    PurchaseOrderId = newOrder.PurchaseOrderItemId
+                    Start = newOrder.Start
 
                 };
+            
+            if(newOrder.PurchaseOrderItemId != 0) {
+                productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
+            }
 
                 return productionOrder;
 

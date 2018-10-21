@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 11:52 PM
+ * @Last Modified Time: Oct 21, 2018 3:03 AM
  * @Description: Products Query Class
  */
 using System;
@@ -63,5 +63,37 @@ namespace BionicInventory.Application.Products.Queries {
             }
         }
 
+        public IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems()
+        {
+            var stock = _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
+                manufOrder => manufOrder.ItemId,
+                (product, manufactureOrder) => new CriticalStockItemsView () {
+
+                        id = product.Id,
+
+                        productCode = product.Code,
+
+                        productName = product.Name,
+                        minimumQuantity = product.MinimumQuantity,
+                        inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.Sales == null).Count ()),
+
+                        availableQuantity = manufactureOrder.Sum (MO => MO.FinishedProduct
+                            .Where (fin => fin.Order.PurchaseOrder == null && fin.Sales == null && fin.OrderId == MO.Id).Count ()),
+                        required = product.PurchaseOrderDetail.Where(CO => CO.ProductionOrderList == null).Sum(C => C.Quantity),
+                        expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
+                            MO.FinishedProduct.Count (fin => fin.Sales == null || fin.Order.Id == MO.Id)),
+
+                }).Where(item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required)).GroupBy (manuf => manuf.id);
+
+            List<CriticalStockItemsView> stockStatus = new List<CriticalStockItemsView> ();
+            foreach (var item in stock) {
+                foreach (var status in item) {
+                    status.availableQuantity = (status.availableQuantity + status.expectedAvailableQuantity) - status.required;
+                    stockStatus.Add (status);
+
+                }
+            }
+            return stockStatus;
+        }
     }
 }

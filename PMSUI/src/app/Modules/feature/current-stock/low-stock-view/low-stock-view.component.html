@@ -1,0 +1,35 @@
+<ejs-grid #grid id="lowStock"
+                [dataSource]='data'
+                [allowGrouping]="allowGrouping"
+                [allowResizing]="allowResizing"
+                [allowReordering]="allowReordering"
+                [allowPaging]="pageSettings"
+                [allowExcelExport]="allowExcelExport"
+                [toolbar]='toolbar'
+                (toolbarClick)='toolbarClick($event)'
+                [showColumnChooser]="showColumnChooser"
+                [showColumnMenu]="showColumnMenu"
+                [filterSettings]='filterSetting'
+                [groupSettings]='groupOptions'
+                [allowFiltering]="true"
+                [allowSorting]="allowSorting"
+                [allowPdfExport]="allowPdfExport">
+  <e-columns>
+    <e-column *ngFor="let col of columnBluePrint"
+               [textAlign]="col.align"
+              [width]="col.width"
+              [allowEditing]="col.editable"
+              [field]='col.key'
+              [allowFiltering]="col.allowFiltering"
+              [allowGrouping]="col.allowGrouping"
+              [isIdentity]="col.isIdentity"
+              [headerText]='col.humanReadable'
+              [type]="col.type"
+              [format]="col.format"
+              [visible]="col.visable"
+              [customAttributes]="customAttributes"
+              >
+      </e-column>
+
+  </e-columns>
+</ejs-grid>

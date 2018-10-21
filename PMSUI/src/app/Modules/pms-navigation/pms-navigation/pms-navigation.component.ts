@@ -30,7 +30,7 @@ export class PmsNavigationComponent {
       subChild: [
         { id: 'stock', name: 'STOCK' },
         { id: 'shipments', name: 'SHIPMENTS' },
-        { id: 'critical-on-hand', name: 'CRITICAL-ON-HAND' }
+        { id: 'stock/low-stock', name: 'CRITICAL-ON-HAND' }
       ]
     },
     {

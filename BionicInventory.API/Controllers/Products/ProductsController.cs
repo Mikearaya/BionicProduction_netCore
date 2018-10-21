@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 9, 2018 6:52 PM
+ * @Last Modified Time: Oct 21, 2018 2:06 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -69,9 +69,12 @@ namespace BionicInventory.API.Controllers.Products {
         [HttpGet]
         [ProducesResponseType (200, Type = typeof (ProductView))]
         [ProducesResponseType (500)]
-        public IActionResult GetAllProducts () {
+        public IActionResult GetAllProducts (string type = "ALL") {
 
             try {
+
+
+                    if(type.Trim().ToUpper() == "ALL") {
 
                 var products = _query.GetAllProduct ();
                 ResponseDataFormat response = new ResponseDataFormat ();
@@ -83,8 +86,18 @@ namespace BionicInventory.API.Controllers.Products {
                 }
                 response.Items = productsList;
                 response.Count = productsList.Count;
-
                 return StatusCode (200, response);
+                } 
+
+
+             if(type.Trim().ToUpper() == "LOW") {
+
+                var products = _query.GetCriticalBelowStockItems();
+                return StatusCode (200, products);
+                } 
+
+                return StatusCode(500, "Not geting found");
+                
 
             } catch (System.Exception) {
 
@@ -135,8 +148,14 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult UpdateProductRecord (uint id, [FromBody] UpdatedProductDto updatedData) {
 
             try {
-
-                if (ModelState.IsValid && updatedData != null) {
+                
+                if(updatedData != null){
+                    return StatusCode(400);
+                }
+                
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse(ModelState);
+                }
 
                     var product = _query.GetProductById (id);
                     if (product != null) {
@@ -152,10 +171,6 @@ namespace BionicInventory.API.Controllers.Products {
                     } else {
                         return StatusCode (404);
                     }
-
-                } else {
-                    return StatusCode (422, "One or more required fields missing for employee");
-                }
 
             } catch (Exception) {
                 return StatusCode (500, "Server Error, Try Again Later");

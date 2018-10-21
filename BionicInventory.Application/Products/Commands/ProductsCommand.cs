@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 16, 2018 12:00 AM
+ * @Last Modified Time: Oct 21, 2018 2:12 AM
  * @Description: Products Command Class
  */
 using System;
@@ -66,7 +66,7 @@ namespace BionicInventory.Application.Products.Commands {
         public bool UpdateProduct (Item product) {
             try {
 
-                _database.Item.Add (product).State = EntityState.Modified;
+                _database.Item.Update (product);
                 _database.Save ();
 
                 return true;
