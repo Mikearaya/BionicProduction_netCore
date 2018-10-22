@@ -3,11 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:34 PM
+ * @Last Modified Time: Oct 22, 2018 11:05 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
@@ -28,5 +29,7 @@ namespace BionicInventory.Domain.FinishedProducts {
         public Employee RecievedByNavigation { get; set; }
         public Employee SubmittedByNavigation { get; set; }
         public Sales Sales { get; set; }
+        public BookedStockItems BookedStockItems { get; set; }
+        
     }
 }

@@ -7,8 +7,6 @@ import {
   ColumnMenuService, ForeignKeyService, ReorderService,
   RowDDService, EditService, ExcelExportService, ResizeService, DetailRowService
 } from '@syncfusion/ej2-ng-grids';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CoreHttpInterceptor } from './core-http-interceptor';
 import { CoreApiService } from './core-api.service';
 import { ProductGetterService } from './services/product-getter.service';
 
@@ -36,7 +34,8 @@ import { ProductGetterService } from './services/product-getter.service';
     ExcelExportService,
     ResizeService,
     DetailRowService,
-    ProductGetterService
+    ProductGetterService,
+    CoreApiService
   ],
 
 })

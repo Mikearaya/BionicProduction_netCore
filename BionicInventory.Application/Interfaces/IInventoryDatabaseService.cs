@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 16, 2018 11:38 PM
+ * @Last Modified Time: Oct 22, 2018 10:56 PM
  * @Description: Modify Here, Please 
  */
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
@@ -43,6 +44,7 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         DbSet<SocialMedia> SocialMedia { get; set; }
+        DbSet<BookedStockItems> BookedStockItems { get; set; }
 
         void Save ();
 

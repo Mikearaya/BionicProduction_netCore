@@ -3,11 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:31 PM
+ * @Last Modified Time: Oct 22, 2018 10:53 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
@@ -17,6 +18,7 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
         public PurchaseOrderDetail()
         {
             InvoiceDetail = new HashSet<InvoiceDetail>();
+            BookedStockItems = new HashSet<BookedStockItems>();
         }
 
         public uint Id { get; set; }
@@ -32,5 +34,7 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
         public PurchaseOrder PurchaseOrder { get; set; }
         public ProductionOrderList ProductionOrderList { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
+
+        public ICollection<BookedStockItems> BookedStockItems { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Bionic_inventory.Application.Interfaces;
+using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
 using BionicInventory.DataStore.Customers;
 using BionicInventory.DataStore.Customers.Addresses;
@@ -15,6 +16,7 @@ using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
 using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Sale;
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
@@ -62,6 +64,7 @@ namespace BionicInventory.DataStore {
         public DbSet<SocialMedia> SocialMedia { get; set; }
         public DbSet<FinishedProduct> FinishedProduct { get; set; }
         public DbSet<Sales> Sale { get; set; }
+        public DbSet<BookedStockItems> BookedStockItems { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -81,6 +84,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new InvoiceDetailConfiguration ());
             modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
             modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
+            modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
             
 
         }

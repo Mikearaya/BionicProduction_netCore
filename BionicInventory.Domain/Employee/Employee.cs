@@ -3,11 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:33 PM
+ * @Last Modified Time: Oct 22, 2018 10:54 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
@@ -21,6 +22,7 @@ namespace BionicInventory.Domain.Employees
     {
          public Employee()
         {
+            BookedStockItems = new HashSet<BookedStockItems>();
             FinishedProductRecievedByNavigation = new HashSet<FinishedProduct>();
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct>();
             InvoicePaymentsCashier = new HashSet<InvoicePayments>();
@@ -36,6 +38,7 @@ namespace BionicInventory.Domain.Employees
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
+        public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
         public ICollection<InvoicePayments> InvoicePaymentsCashier { get; set; }

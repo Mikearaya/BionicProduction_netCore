@@ -11,7 +11,6 @@ namespace BionicProduction.Migration.Database
         }
 
         public uint Id { get; set; }
-        public uint ProductionOrderId { get; set; }
         public uint ItemId { get; set; }
         public uint Quantity { get; set; }
         public float CostPerItem { get; set; }
@@ -19,9 +18,12 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public DateTime DueDate { get; set; }
         public uint? PurchaseOrderId { get; set; }
+        public DateTime Start { get; set; }
+        public uint OrderedBy { get; set; }
+        public string Description { get; set; }
 
         public Item Item { get; set; }
-        public ProductionOrder ProductionOrder { get; set; }
+        public Employee OrderedByNavigation { get; set; }
         public PurchaseOrderDetail PurchaseOrder { get; set; }
         public ICollection<FinishedProduct> FinishedProduct { get; set; }
     }

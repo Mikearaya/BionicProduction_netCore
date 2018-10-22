@@ -16,6 +16,7 @@ namespace BionicProduction.Migration.Database
         }
 
         public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<BookedStockItems> BookedStockItems { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<EfmigrationsHistory> EfmigrationsHistory { get; set; }
@@ -27,7 +28,6 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<Item> Item { get; set; }
         public virtual DbSet<ItemPrice> ItemPrice { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumber { get; set; }
-        public virtual DbSet<ProductionOrder> ProductionOrder { get; set; }
         public virtual DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
@@ -39,7 +39,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=mikael;port=3306;database=bionic_inventory;");
+                optionsBuilder.UseMySql("server=localhost;user=mikael;database=bionic_inventory;port=3306;");
             }
         }
 
@@ -79,6 +79,64 @@ namespace BionicProduction.Migration.Database
                     .WithMany(p => p.Address)
                     .HasForeignKey(d => d.ClientId)
                     .HasConstraintName("fk_ADDRESS_client");
+            });
+
+            modelBuilder.Entity<BookedStockItems>(entity =>
+            {
+                entity.ToTable("BOOKED_STOCK_ITEMS");
+
+                entity.HasIndex(e => e.BookedBy)
+                    .HasName("fk_BOOKED_STOCK_BOOKED_BY_idx");
+
+                entity.HasIndex(e => e.BookedFor)
+                    .HasName("fk_BOOKED_STOCK_ITEM_FOR_idx");
+
+                entity.HasIndex(e => e.StockId)
+                    .HasName("STOCK_ID_UNIQUE")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BookedBy).HasColumnName("BOOKED_BY");
+
+                entity.Property(e => e.BookedFor).HasColumnName("BOOKED_FOR");
+
+                entity.Property(e => e.Canceled)
+                    .HasColumnName("canceled")
+                    .HasColumnType("tinyint(1)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("text");
+
+                entity.Property(e => e.StockId).HasColumnName("STOCK_ID");
+
+                entity.HasOne(d => d.BookedByNavigation)
+                    .WithMany(p => p.BookedStockItems)
+                    .HasForeignKey(d => d.BookedBy)
+                    .HasConstraintName("fk_BOOKED_STOCK_BOOKED_BY");
+
+                entity.HasOne(d => d.BookedForNavigation)
+                    .WithMany(p => p.BookedStockItems)
+                    .HasForeignKey(d => d.BookedFor)
+                    .HasConstraintName("fk_BOOKED_STOCK_ITEM_FOR");
+
+                entity.HasOne(d => d.Stock)
+                    .WithOne(p => p.BookedStockItems)
+                    .HasForeignKey<BookedStockItems>(d => d.StockId)
+                    .HasConstraintName("fk_BOOKED_STOCK_ITEM_ID");
             });
 
             modelBuilder.Entity<Company>(entity =>
@@ -532,39 +590,6 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_PHONE_NUMBER_client");
             });
 
-            modelBuilder.Entity<ProductionOrder>(entity =>
-            {
-                entity.ToTable("PRODUCTION_ORDER");
-
-                entity.HasIndex(e => e.OrderedBy)
-                    .HasName("fk_PRODUCTION_ORDERED_BY_idx");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.AddedOn)
-                    .HasColumnName("added_on")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
-
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasColumnName("description")
-                    .HasColumnType("varchar(50)");
-
-                entity.Property(e => e.OrderedBy).HasColumnName("ordered_by");
-
-                entity.Property(e => e.UpdatedOn)
-                    .HasColumnName("updated_on")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
-                    .ValueGeneratedOnAddOrUpdate();
-
-                entity.HasOne(d => d.OrderedByNavigation)
-                    .WithMany(p => p.ProductionOrder)
-                    .HasForeignKey(d => d.OrderedBy)
-                    .HasConstraintName("fk_PRODUCTION_ORDERED_BY");
-            });
-
             modelBuilder.Entity<ProductionOrderList>(entity =>
             {
                 entity.ToTable("PRODUCTION_ORDER_LIST");
@@ -572,12 +597,11 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.ItemId)
                     .HasName("fk_IN_ORDER_LIST_item_idx");
 
-                entity.HasIndex(e => e.ProductionOrderId)
-                    .HasName("fk_IN_ORDER_LIST_id_idx");
+                entity.HasIndex(e => e.OrderedBy)
+                    .HasName("fk_PRODUCTION_ORDER_ordered_by_idx");
 
                 entity.HasIndex(e => e.PurchaseOrderId)
-                    .HasName("PURCHASE_ORDER_ID_UNIQUE")
-                    .IsUnique();
+                    .HasName("fk_PRODUCTION_ORDER_LIST_sales_id_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -594,32 +618,41 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(255)");
+
                 entity.Property(e => e.DueDate)
                     .HasColumnName("due_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
 
-                entity.Property(e => e.ProductionOrderId).HasColumnName("PRODUCTION_ORDER_ID");
+                entity.Property(e => e.OrderedBy).HasColumnName("ordered_by");
 
                 entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Start)
+                    .HasColumnName("start")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.HasOne(d => d.Item)
                     .WithMany(p => p.ProductionOrderList)
                     .HasForeignKey(d => d.ItemId)
                     .HasConstraintName("fk_IN_ORDER_LIST_item");
 
-                entity.HasOne(d => d.ProductionOrder)
+                entity.HasOne(d => d.OrderedByNavigation)
                     .WithMany(p => p.ProductionOrderList)
-                    .HasForeignKey(d => d.ProductionOrderId)
-                    .HasConstraintName("fk_IN_ORDER_LIST_id");
+                    .HasForeignKey(d => d.OrderedBy)
+                    .HasConstraintName("fk_PRODUCTION_ORDER_ordered_by");
 
                 entity.HasOne(d => d.PurchaseOrder)
-                    .WithOne(p => p.ProductionOrderList)
-                    .HasForeignKey<ProductionOrderList>(d => d.PurchaseOrderId)
-                    .OnDelete(DeleteBehavior.Cascade)
+                    .WithMany(p => p.ProductionOrderList)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("fk_PRODUCTION_ORDER_LIST_sales_id");
             });
 

@@ -30,7 +30,7 @@ export const customerOrderDetailBluePrint = [
     format: 'C2'
     },
     {key: 'profit',
-    humanReadable: 'ID',
+    humanReadable: 'Profit',
     format: 'C2',
     },
     {key: 'status',
