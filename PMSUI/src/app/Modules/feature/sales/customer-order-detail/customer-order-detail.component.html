@@ -31,7 +31,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-      
+
           <ejs-grid [dataSource]="customerOrder?.orderItems"
             [allowExcelExport]=true>
             <e-columns>
@@ -47,13 +47,13 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <button ejs-button>Check stock and book items</button>
+          <button (click)="viewCustomerOrder($event)"  ejs-button>Check stock and book items</button>
         </div>
       </div>
 
       <div class="row">
         <div class="col-6 col-xs-12">
-            
+
           <ejs-grid [allowResizing]="true" [allowReordering]="true" [dataSource]="customerOrderInvoices">
             <e-columns>
               <e-column [customAttributes]="infoGridAttributes" *ngFor="let invoiceCol of invoiceColumns; let i=index; let last=last;" [field]="invoiceCol.key"
@@ -63,7 +63,7 @@
             </e-columns>
           </ejs-grid>
         </div>
-    
+
       </div>
       <div class="row">
         <div class="col-6 col-xs-12">

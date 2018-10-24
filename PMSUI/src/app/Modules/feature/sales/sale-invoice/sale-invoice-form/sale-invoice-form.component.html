@@ -1,0 +1,174 @@
+<section class="e-card">
+  <form [formGroup]="saleInvoiceForm">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <button type="button" ejs-button class="e-danger">Back</button>
+          <button type="submit" ejs-button class="e-success">Save</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <div class="row">
+            <div class="col-2 label-area">
+              Customer Order
+            </div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="customerOrderId"></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">
+              Customer
+            </div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="customerId"></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">Type</div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="invoiceType"></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              Status
+            </div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="status">
+
+              </ejs-dropdownlist>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-xs-12">
+          <div class="row">
+            <div class="col-2 label-area">Created</div>
+            <div class="col-10">
+              <ejs-datetimepicker formControlName="dateAdded"></ejs-datetimepicker>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">Due Date</div>
+            <div class="col-10">
+              <ejs-datetimepicker formControlName="dueDate"></ejs-datetimepicker>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">Currency</div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="currencyId"></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">Note</div>
+            <div class="col-10">
+              <input type="number" formControlName="note" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <table class="tablle table-striped" width=100%>
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Discount</th>
+                <th>Subtotal</th>
+                <th>&nbsp; Action</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="items">
+              <tr *ngFor="let ite of items.controls; let i=index; let last=last;" [formGroup]="ite">
+                <td>
+                  <ejs-dropdownlist formControlName="itemId" [attr.id]="'productId'+i" [attr.name]="'productId'+i"
+                    [allowFiltering]="true" filterBarPlaceholder="Serarch Product">
+                  </ejs-dropdownlist>
+                </td>
+                <td>
+                  <ejs-numerictextbox formControlName="quantity" [attr.id]="'quantity'+i" [attr.name]="'quantity'+i"
+                    placeholder="Quantity" floatLable="Auto" placeholder="Quantity" [min]="0">
+                  </ejs-numerictextbox>
+                </td>
+                <td>
+                  <ejs-numerictextbox formControlName="unitPrice" [attr.id]="'unitPrice'+i" [attr.name]="'unitPrice'+i"
+                    placeholder="Unit Price" floatLable="Auto" [min]="0">
+                  </ejs-numerictextbox>
+                </td>
+                <td>
+                  <ejs-numerictextbox formControlName="discount" [attr.id]="'discount'+i" [attr.name]="'discount'+i"
+                    placeholder="Discount" floatLable="Auto" [min]="0">
+
+                  </ejs-numerictextbox>
+                </td>
+                <td>
+                  <ejs-numerictextbox formControlName="subTotal" [attr.id]="'subTotal'+i" [attr.name]="'subTotal'+i"
+                    placeholder="Sub Total" floatLable="Auto" [min]="0">
+
+                  </ejs-numerictextbox>
+                </td>
+                <td>
+                  <button type="button" ejs-button class="e-round e-info e-small " (click)="addItem()" iconCss="e-icons e-plus-icon">Add</button>
+                  &nbsp;
+                  <button type="button" (click)="removeItem(i)" ejs-button class="e-round e-danger e-small e-icons e-times-icon">Del</button>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <th colspan="2">Discount</th>
+                <td></td>
+                <td>
+                  <ejs-numerictextbox formControlName="totalDiscount" name="totalDiscount" id="totalDiscount"
+                    placeholder="Discount">
+                  </ejs-numerictextbox>
+                </td>
+                <td class="text-center">
+                  {{discount}}
+                </td>
+              </tr>
+              <tr>
+                <th>Total</th>
+                <td></td>
+                <td class="text-center">{{totalQuantity}}</td>
+                <td></td>
+                <td class="text-center">{{totalBeforeTax}}</td>
+                <td></td>
+              </tr>
+              <tr>
+                <th colspan="2">Tax</th>
+                <td></td>
+                <td>
+                  <ejs-numerictextbox formControlName="tax" id="tax" name="tax" placeholder="Tax" [min]="0"></ejs-numerictextbox>
+                </td>
+                <td class="text-center">
+                  {{taxAmount}}
+                </td>
+                <td></td>
+              </tr>
+              <tr>
+                <th colspan="2">Total including Tax</th>
+                <td></td>
+                <td></td>
+                <td class="text-center">{{totalAfterTax}}</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button type="button" ejs-button class="e-danger">Back</button>
+          <button type="submit" ejs-button class="e-success">Save</button>
+        </div>
+      </div>
+    </div>
+    Form: {{saleInvoiceForm.value | json}}
+  </form>
+
+</section>

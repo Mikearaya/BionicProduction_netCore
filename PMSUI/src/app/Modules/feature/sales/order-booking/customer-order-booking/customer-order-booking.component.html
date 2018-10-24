@@ -1,0 +1,48 @@
+<section class="e-card">
+  <form [formGroup]="orderBookingForm"  (ngSubmit)="onSubmit()" >
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-6 col-xs-12">
+        <dl>
+          <dt>Customer</dt>
+          <dd>{{data?.customer}}</dd>
+          <dt>Order</dt>
+          <dd>CO-{{data?.id}}</dd>
+        </dl>
+      </div>
+      <div class="col-6 col-xs-12"></div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+         <ejs-grid [dataSource]='data?.orderItems' #grid id='customerOrder' [rowHeight]='30' width=100% [enableHover]="false"
+          [editSettings]='editSettings' (toolbarClick)='toolbarClick($event)' [allowExcelExport]='true'
+          [allowPdfExport]='true' [editSettings]='editSettings' allowTextWrap='true' [textWrapSettings]='wrapSettings'>
+          <e-columns>
+            <e-column *ngFor="let col of columnBluePrint; let i=index; let last=last;" [field]="col.key" [headerText]="col.humanReadable"
+              [visible]="col.visable" textAlign=center>
+            </e-column>
+            <e-column [commands]="commands"></e-column>
+          </e-columns>
+
+        </ejs-grid>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-left">
+        <div class="e-float-text">
+          <ejs-switch formControlName="createManufactureOrder" name="status"></ejs-switch> Create Manufacture Order Form Missing Products
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col submit-button-group">
+        <button type="button" class="e-danger"  (click)="back()" ejs-button>Back</button>
+        <button type="submit" class="e-success" ejs-button>Book All Items </button>
+      </div>
+    </div>
+  </div>
+  <code>
+    form: {{orderBookingForm.value | json}}
+  </code>
+</form>
+</section>

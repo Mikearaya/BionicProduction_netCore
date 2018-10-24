@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 16, 2018 11:55 PM
+ * @Last Modified Time: Oct 24, 2018 11:11 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -57,6 +57,10 @@ using BionicInventory.Application.CompanyProfile.Iterfaces;
 using BionicInventory.Application.CompanyProfile.Interfaces;
 using BionicInventory.Application.CompanyProfile.Queries;
 using BionicInventory.Application.CompanyProfile.Factories;
+using BionicInventory.API.Controllers.WorkOrders;
+using BionicInventory.API.Controllers.WorkOrders.Interface;
+using BionicInventory.Application.Products.Interfaces.Booking;
+using BionicInventory.Application.Products.Queries.booking;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -93,6 +97,8 @@ namespace BionicInventory.API {
             services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
+            services.AddTransient <IWorkOrder, WorkOrdersController>();
+            services.AddScoped <IStockBookingQuery, StockBookingQuery>();
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",

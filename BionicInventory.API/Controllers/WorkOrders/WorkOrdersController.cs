@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 18, 2018 10:29 PM
+ * @Last Modified Time: Oct 23, 2018 12:41 AM
  * @Description: WorkOrder API Controller Class
  */
 using System;
@@ -17,10 +17,11 @@ using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using BionicInventory.Application.SalesOrders.Interfaces;
+using BionicInventory.API.Controllers.WorkOrders.Interface;
 
 namespace BionicInventory.API.Controllers.WorkOrders {
     [InventoryAPI ("workorders")]
-    public class WorkOrdersController : Controller {
+    public class WorkOrdersController : Controller, IWorkOrder {
         private readonly IWorkOrdersCommand _command;
         private readonly IWorkOrdersQuery _query;
         private readonly IWorkOrdersFactory _factory;

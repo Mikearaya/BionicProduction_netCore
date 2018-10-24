@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 21, 2018 2:06 AM
+ * @Last Modified Time: Oct 24, 2018 11:05 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -81,7 +81,6 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult GetAllProducts (string type = "ALL") {
 
             try {
-
                     IEnumerable<Object> products = null;
 
                     if(type.Trim().ToUpper() == "ALL") {
@@ -96,6 +95,7 @@ namespace BionicInventory.API.Controllers.Products {
                 }
                 response.Items = productsList;
                 response.Count = productsList.Count;
+            
                 return StatusCode (200, response);
                 } 
 
@@ -109,9 +109,9 @@ namespace BionicInventory.API.Controllers.Products {
                 return StatusCode(500, "Not geting found");
                 
 
-            } catch (System.Exception) {
+            } catch (Exception e) {
 
-                return StatusCode (500, "Server Error, Try Again Later");
+                return StatusCode (500, e.Message);
             }
         }
 

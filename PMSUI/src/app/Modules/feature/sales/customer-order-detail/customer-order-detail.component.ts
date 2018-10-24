@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerOrderDetailView } from '../data-model';
 import { SaleOrderApiService } from '../sale-order-api.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './customer-order-detail-blue-print';
 import { CommandModel } from '@syncfusion/ej2-grids';
@@ -25,7 +25,8 @@ export class CustomerOrderDetailComponent implements OnInit {
   public infoGridAttributes: Object;
 
   constructor(private salesOrderApi: SaleOrderApiService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private route: Router) {
     this.invoiceColumns = invoiceColumnBluePrint;
     this.infoGridAttributes = {class : 'info-grid-header'};  }
 
@@ -69,6 +70,7 @@ export class CustomerOrderDetailComponent implements OnInit {
 
 
   viewCustomerOrder(data) {
+    this.route.navigate([`sales/${this.customerOrderId}/booking`]);
 
   }
 
