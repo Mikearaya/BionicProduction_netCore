@@ -58,8 +58,7 @@ export class CustomerOrderDetailComponent implements OnInit {
 
     this.customerOrderCommands = [{
       buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
-        click: this.viewCustomerOrder.bind(this)
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons'
       }
     }
     ];

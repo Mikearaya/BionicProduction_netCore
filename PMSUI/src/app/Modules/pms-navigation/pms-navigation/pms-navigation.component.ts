@@ -18,12 +18,7 @@ export class PmsNavigationComponent {
   public togglebtn: ButtonComponent;
   public hierarchicalData: Object[] = [
     {
-      id: 'profile', name: 'COMPANY',
-      subChild: [
-        { id: 'profile', name: 'PROFILE' },
-        { id: 'employees', name: 'EMPLOYEES' },
-        { id: 'products', name: 'PRODUCTS' }
-      ]
+      id: 'dashboard', name: 'DASHBOARD'
     },
     {
       id: 'stock', name: 'STOCK',
@@ -61,7 +56,16 @@ export class PmsNavigationComponent {
         { id: '44', name: 'USER MANAGMENT' },
         { id: '55', name: 'SYSTEM SETTINGS' }
       ]
+    },
+    {
+      id: 'profile', name: 'SETTINGS',
+      subChild: [
+        { id: 'profile', name: 'PROFILE' },
+        { id: 'employees', name: 'EMPLOYEES' },
+        { id: 'products', name: 'PRODUCTS' }
+      ]
     }
+
 
   ];
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild' };

@@ -9,7 +9,6 @@ const routes: Routes = [
   {path: 'new', component: SaleOrderFormComponent },
   {path: ':customerOrderId/detail', component: CustomerOrderDetailComponent },
   {path: ':customerOrderId/booking', loadChildren: './order-booking/order-booking.module#OrderBookingModule' },
-  { path: 'invoices', loadChildren: './sale-invoice/sale-invoice.module#SaleInvoiceModule' },
 ];
 
 @NgModule({

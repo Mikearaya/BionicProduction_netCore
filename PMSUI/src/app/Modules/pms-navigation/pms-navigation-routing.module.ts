@@ -12,7 +12,7 @@ const routes: Routes = [{
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
     { path: 'stock', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
-    { path: 'sales', loadChildren: '../feature/sales/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
+    { path: 'invoices', loadChildren: '../feature/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' }
 
   ]
