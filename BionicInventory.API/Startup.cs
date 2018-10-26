@@ -95,10 +95,11 @@ namespace BionicInventory.API {
             services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
             services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
             services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
+               services.AddScoped<IStockBookingQuey, StockBookingQuery> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
-            services.AddTransient <IWorkOrder, WorkOrdersController>();
-            services.AddScoped <IStockBookingQuery, StockBookingQuery>();
+
+
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",

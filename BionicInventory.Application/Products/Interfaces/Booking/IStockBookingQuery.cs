@@ -7,11 +7,14 @@
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Collections.Generic;
 using BionicInventory.Application.Products.Models.BookingModel;
+using BionicInventory.Domain.FinishedProducts;
 
 namespace BionicInventory.Application.Products.Interfaces.Booking {
-    public interface IStockBookingQuery {
+    public interface IStockBookingQuey {
         CustomerOrderBookings GetCustomerOrderBookings(uint id);
+        IEnumerable<FinishedProduct> getAvailableFinishedProduct();
         
     }
 

@@ -8,13 +8,13 @@ using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Models.BookingModel;
-
+using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Products.Queries.booking {
-    public class StockBookingQuery : IStockBookingQuery
+    public class StockBookingQuery : IStockBookingQuey
     {
         private readonly ILogger<StockBookingQuery> _logger;
         private readonly IInventoryDatabaseService _database;
@@ -34,11 +34,13 @@ namespace BionicInventory.Application.Products.Queries.booking {
                     customerOrderItemId = co.Id,
                     customerOrderId = co.PurchaseOrderId,
                     needed = co.Quantity,
-                    available = pro.ProductionOrderList.Where(mo => mo.PurchaseOrderId == null).Sum(mo => mo.FinishedProduct.Count(f => f.BookedStockItems == null && f.Sales == null)),
+                    available = pro.ProductionOrderList.Where(mo => mo.PurchaseOrderId == null)
+                                                        .Sum(mo => mo.FinishedProduct.Count(f => f.BookedStockItems == null && f.Sales == null)),
                     booked  = pro.ProductionOrderList.Where(mo => mo.PurchaseOrderId == co.Id)
                     .Sum(mo => mo.Quantity + mo.FinishedProduct
-                    .Count(f => f.Sales == null && f.OrderId == mo.Id)),
+                    .Count(f => f.Sales == null && (f.OrderId == mo.Id || f.BookedStockItems.BookedFor == co.Id))),
                     productName = $"{pro.Name} ({pro.Code})",
+                    productId = pro.Id,
                     customerName = co.PurchaseOrder.Client.FullName(),
                 }).GroupBy(g => g.customerOrderItemId).Select(booking => new {
                     statistics = booking.Select(f => new {
@@ -48,6 +50,7 @@ namespace BionicInventory.Application.Products.Queries.booking {
                         customerOrderItemId = f.customerOrderItemId,
                         customerOrderId = f.customerOrderId,
                         item = f.productName,
+                        productId = f.productId,
                         customerName = f.customerName,
 
                     })
@@ -78,6 +81,30 @@ namespace BionicInventory.Application.Products.Queries.booking {
                     }
             return orderBookingStat;
         }
+
+
+        public IEnumerable<FinishedProduct> getAvailableFinishedProduct() {
+            return (from pro in _database.FinishedProduct
+                    join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id
+                   join co in _database.PurchaseOrderDetail on mo.ItemId equals co.ItemId
+                   where co.Id == 61 && 
+                        pro.BookedStockItems == null &&
+                        pro.Sales == null &&
+                        (pro.Order.PurchaseOrder == null )
+
+                    select new FinishedProduct() {
+                       Id =  pro.Id,
+                       OrderId = pro.OrderId,
+                       DateAdded = pro.DateAdded,
+                       DateUpdated = pro.DateUpdated,
+                       SubmittedBy = pro.SubmittedBy,
+                       Quantity = pro.Quantity
+                    })
+            .OrderByDescending(d => d.DateAdded).Take(100).ToList();
+            
+        }
+
+        
     }
 
 }

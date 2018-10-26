@@ -8,8 +8,10 @@
  */
 
 
+using System;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.Application.Products.Interfaces;
+using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
@@ -17,20 +19,18 @@ using Microsoft.AspNetCore.Mvc;
 namespace BionicInventory.API.Controllers.Products {
     [InventoryAPI ("Products")]
     public class StockBookingController : Controller {
-        private readonly IStockBookingCommand _bookingCommand;
-        private readonly IStockBookingFactory _bookingFactory;
-        private readonly IWorkOrder _manufactureOrder;
+        private readonly IStockBookingQuey _bookingQuery;
 
-        public StockBookingController(IStockBookingCommand bookingCommand,
-                                    IStockBookingFactory bookingFactory,
-                                    IWorkOrder workOrderController) {
-                _bookingCommand = bookingCommand;
-                _bookingFactory = bookingFactory;
-                _manufactureOrder = workOrderController;
+        public StockBookingController(IStockBookingQuey bookingQuery) {
+        
+                _bookingQuery = bookingQuery;
         }
 
-        IActionResult GetStocksBookingAvailablity(uint id) {
-            return StatusCode(200);
+        [HttpGet("bookings/available")]
+       public IActionResult GetStocksBookingAvailablity() {
+            
+            var x = _bookingQuery.getAvailableFinishedProduct();
+            return StatusCode(200, x);
         }
     
     }

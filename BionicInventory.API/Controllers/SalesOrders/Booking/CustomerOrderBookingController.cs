@@ -22,9 +22,9 @@ namespace BionicInventory.API.Controllers.SalesOrders.Booking {
 [InventoryAPI ("salesorders")]
 public class CustomerOrderBookingController: Controller {
         private readonly ILogger<CustomerOrderBookingController> _logger;
-        private readonly IStockBookingQuery _bookingQuery;
+        private readonly IStockBookingQuey _bookingQuery;
 
-        public CustomerOrderBookingController(IStockBookingQuery bookingQuery,
+        public CustomerOrderBookingController(IStockBookingQuey bookingQuery,
                                                     ILogger<CustomerOrderBookingController> logger) {
                         _logger = logger;
                         _bookingQuery = bookingQuery;
