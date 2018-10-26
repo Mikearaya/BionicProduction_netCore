@@ -16,6 +16,8 @@ export class SaleInvoiceFormComponent implements OnInit {
   public totalAfterTax: number;
   public totalQuantity: number;
   public taxAmount: number;
+  public invoiceTypes = ['Quotation', 'Pro-forma invoice', 'Invoice', 'Credit-invoice', 'Order confirmation'];
+  public invoiceStatus = ['Paid', 'Not Paid'];
 
   constructor(private formBuilder: FormBuilder,
     private saleInvoiceApi: SaleInvoiceApiService) {

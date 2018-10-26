@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 24, 2018 11:11 PM
+ * @Last Modified Time: Oct 26, 2018 11:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -61,6 +61,10 @@ using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Queries.booking;
+using BionicInventory.Application.Invoices.Queries;
+using BionicInventory.Application.Invoices.Interfaces;
+using BionicInventory.Application.Invoices.Commands;
+using BionicInventory.Application.Invoices.Factories;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -95,7 +99,11 @@ namespace BionicInventory.API {
             services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
             services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
             services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
-               services.AddScoped<IStockBookingQuey, StockBookingQuery> ();
+            services.AddScoped<IStockBookingQuey, StockBookingQuery> ();
+            services.AddScoped<IInvoicesQuery, InvoicesQuery> ();
+            services.AddScoped<IInvoicesCommand, InvoicesCommand> ();
+            services.AddScoped<IInvoiceFactory, InvoiceFactory> ();
+
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 

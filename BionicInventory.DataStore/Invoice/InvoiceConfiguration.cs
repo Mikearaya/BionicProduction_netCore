@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 9:04 PM
+ * @Last Modified Time: Oct 26, 2018 10:08 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -31,9 +31,25 @@ namespace BionicInventory.DataStore.Invoices {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
                 
-                builder.Property (e => e.Type)
+                builder.Property (e => e.InvoiceType)
                     .IsRequired ()
-                    .HasColumnName ("type");
+                    .HasColumnName ("invoice_type");
+
+                builder.Property (e => e.Tax)
+                    .HasColumnType("float")
+                    .HasColumnName ("tax");
+                builder.Property (e => e.Discount)
+                    .HasColumnType("float")
+                    .HasColumnName ("discount");
+                
+
+                builder.Property (e => e.Note)
+                    .HasColumnType("varchar(255)")
+                    .HasColumnName ("note");
+
+                builder.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime");
 
                 builder.Property (e => e.DateUpdated)
                     .HasColumnName ("date_updated")

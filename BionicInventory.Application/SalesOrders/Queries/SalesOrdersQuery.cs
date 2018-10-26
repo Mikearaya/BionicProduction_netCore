@@ -182,13 +182,17 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         public PurchaseOrder GetSalesOrderById (uint id) {
             return _database.PurchaseOrder
             .Where (order => order.Id == id)
-            .OrderByDescending(req => req.Id).Select (sales => new PurchaseOrder () {
-                Id = sales.Id,
-                    ClientId = sales.ClientId,
-                    InitialPayment = sales.InitialPayment,
-                    CreatedBy = sales.CreatedBy,
-                    PaymentMethod = sales.PaymentMethod,
-                    PurchaseOrderDetail = sales.PurchaseOrderDetail.Where (detail => detail.PurchaseOrderId == id).ToList ()
+            .Select (co => new PurchaseOrder () {
+                    Id = co.Id,
+                    ClientId = co.ClientId,
+                    InitialPayment = co.InitialPayment,
+                    CreatedBy = co.CreatedBy,
+                    PaymentMethod = co.PaymentMethod,
+                    Description = co.Description,
+                    Title = co.Title,
+                    DateAdded = co.DateAdded,
+                    DateUpdated = co.DateAdded, 
+                    PurchaseOrderDetail = co.PurchaseOrderDetail
             }).FirstOrDefault ();
         }
 
@@ -196,7 +200,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         {
             return _database.PurchaseOrderDetail
                                 .Where(order => order.Id == id)
-                                .OrderByDescending(req => req.PurchaseOrderId)
                                 .Select(orderItem => new PurchaseOrderDetail(){
                                     Id = orderItem.Id,
                                     PricePerItem = orderItem.PricePerItem,

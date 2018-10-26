@@ -28,7 +28,7 @@
           <div class="row">
             <div class="col-2 label-area">Type</div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="invoiceType"></ejs-dropdownlist>
+              <ejs-dropdownlist [dataSource]="invoiceTypes" formControlName="invoiceType"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -36,7 +36,7 @@
               Status
             </div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="status">
+              <ejs-dropdownlist [dataSource]="invoiceStatus" formControlName="status">
 
               </ejs-dropdownlist>
             </div>
