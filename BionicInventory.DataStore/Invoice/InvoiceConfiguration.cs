@@ -24,6 +24,10 @@ namespace BionicInventory.DataStore.Invoices {
                     .HasName ("PURCHASE_ORDER_ID_UNIQUE")
                     .IsUnique ();
 
+                builder.HasIndex(e => e.CreatedBy)
+                    .HasName("fk_INVOICE_created_by_idx");
+
+
                 builder.Property (e => e.Id).HasColumnName ("ID");
 
                 builder.Property (e => e.DateAdded)
@@ -35,6 +39,13 @@ namespace BionicInventory.DataStore.Invoices {
                     .IsRequired ()
                     .HasColumnName ("invoice_type");
 
+                builder.Property(e => e.CreatedOn)
+                    .HasColumnName("created_on")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                builder.Property(e => e.CreatedBy).HasColumnName("created_by");
+
                 builder.Property (e => e.Tax)
                     .HasColumnType("float")
                     .HasColumnName ("tax");
@@ -44,12 +55,17 @@ namespace BionicInventory.DataStore.Invoices {
                 
 
                 builder.Property (e => e.Note)
-                    .HasColumnType("varchar(255)")
+                    .HasColumnType("text")
                     .HasColumnName ("note");
 
                 builder.Property(e => e.DueDate)
                     .HasColumnName("due_date")
                     .HasColumnType("datetime");
+                
+                builder.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.Invoice)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("fk_INVOICE_created_by");
 
                 builder.Property (e => e.DateUpdated)
                     .HasColumnName ("date_updated")

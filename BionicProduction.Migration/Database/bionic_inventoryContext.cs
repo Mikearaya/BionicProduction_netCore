@@ -39,7 +39,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=mikael;database=bionic_inventory;port=3306;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=mikael");
             }
         }
 
@@ -306,11 +306,6 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.OrderId).HasColumnName("ORDER_ID");
 
-                entity.Property(e => e.Quantity)
-                    .HasColumnName("quantity")
-                    .HasColumnType("int(11)")
-                    .HasDefaultValueSql("'0'");
-
                 entity.Property(e => e.RecievedBy).HasColumnName("recieved_by");
 
                 entity.Property(e => e.SubmittedBy).HasColumnName("submitted_by");
@@ -337,11 +332,21 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("INVOICE");
 
+                entity.HasIndex(e => e.CreatedBy)
+                    .HasName("fk_INVOICE_created_by_idx");
+
                 entity.HasIndex(e => e.PurchaseOrderId)
                     .HasName("PURCHASE_ORDER_ID_UNIQUE")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CreateOn)
+                    .HasColumnName("create_on")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("created_by");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -354,11 +359,32 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.Discount)
+                    .HasColumnName("discount")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("text");
+
                 entity.Property(e => e.PrintCount)
                     .HasColumnName("print_count")
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
+
+                entity.Property(e => e.Tax)
+                    .HasColumnName("tax")
+                    .HasDefaultValueSql("'0'");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.Invoice)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("fk_INVOICE_created_by");
 
                 entity.HasOne(d => d.PurchaseOrder)
                     .WithOne(p => p.Invoice)
@@ -371,6 +397,9 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("INVOICE_DETAIL");
 
+                entity.HasIndex(e => e.AddedBy)
+                    .HasName("fk_INVOICE_DETAIL_added_by_idx");
+
                 entity.HasIndex(e => e.InvoiceNo)
                     .HasName("fk_INVOICE_ID_idx");
 
@@ -378,6 +407,10 @@ namespace BionicProduction.Migration.Database
                     .HasName("fk_SALE_DETAIL_INVENTORY_ID_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.AddedBy)
+                    .HasColumnName("added_by")
+                    .HasDefaultValueSql("'11'");
 
                 entity.Property(e => e.DateAddded)
                     .HasColumnName("date_addded")
@@ -390,13 +423,31 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.Discount)
+                    .HasColumnName("discount")
+                    .HasDefaultValueSql("'0'");
+
                 entity.Property(e => e.InvoiceNo).HasColumnName("INVOICE_NO");
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("varchar(255)");
 
                 entity.Property(e => e.Quantity)
                     .HasColumnName("quantity")
                     .HasColumnType("int(11)");
 
                 entity.Property(e => e.SalesOrderId).HasColumnName("SALES_ORDER_ID");
+
+                entity.Property(e => e.Tax).HasColumnName("tax");
+
+                entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
+
+                entity.HasOne(d => d.AddedByNavigation)
+                    .WithMany(p => p.InvoiceDetail)
+                    .HasForeignKey(d => d.AddedBy)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_INVOICE_DETAIL_added_by");
 
                 entity.HasOne(d => d.InvoiceNoNavigation)
                     .WithMany(p => p.InvoiceDetail)
@@ -686,6 +737,10 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Description)
                     .HasColumnName("description")
                     .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime");
 
                 entity.Property(e => e.InitialPayment).HasColumnName("initial_payment");
 

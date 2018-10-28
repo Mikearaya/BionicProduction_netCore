@@ -8,6 +8,7 @@
  */
 
 
+using System;
 using System.Collections.Generic;
 using BionicInventory.API.Commons;
 using BionicInventory.Application.Invoices.Interfaces;
@@ -45,13 +46,41 @@ namespace BionicInventory.API.Controllers.Invoices {
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public  IActionResult GetInvoiceById(uint id) {
+        public  IActionResult GetInvoiceById(uint id, string type = "VIEW") {
 
                 if(id == 0) {
                     return StatusCode(400);
                 }
+                Object invoice;
+                if(type.ToUpper() == "SUMMARY") {
+                    invoice = _query.GetCustomerOrderInvoiceStatus(id);
+                } else {
+                invoice = _query.GetInvoiceById(id);
+                }
 
-                var invoice = _query.GetInvoiceById(id);
+                if(invoice == null) {
+                    return StatusCode(404);
+                }
+
+                return StatusCode(200, invoice);
+        }
+
+        [HttpGet("{customerOrderId}/invoices")]
+        [ProducesResponseType(200, Type = typeof(Invoice))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public  IActionResult GetCustomerOrderInvoiceById(uint customerOrderId, string type = "VIEW") {
+
+                if(customerOrderId == 0) {
+                    return StatusCode(400);
+                }
+                Object invoice;
+                if(type.ToUpper() == "SUMMARY") {
+                    invoice = _query.GetCustomerOrderInvoiceStatus(customerOrderId);
+                } else {
+                invoice = _query.GetCustomerOrderInvoice(customerOrderId);
+                }
 
                 if(invoice == null) {
                     return StatusCode(404);
@@ -63,9 +92,15 @@ namespace BionicInventory.API.Controllers.Invoices {
         [HttpGet("invoices")]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Invoice>))]
         [ProducesResponseType(500)]
-        public  IActionResult GetInvoices() {
+        public  IActionResult GetInvoices(string type = "VIEW") {
 
-            var invoices = _query.GetAllInvoices();
+            Object invoices;
+
+            if(type.ToUpper() == "SUMMARY") {
+                invoices = _query.GetCustomerOrderInvoiceStatus();
+            } else {
+                invoices = _query.GetAllInvoices();
+            }
             return StatusCode(200, invoices);
         }
 

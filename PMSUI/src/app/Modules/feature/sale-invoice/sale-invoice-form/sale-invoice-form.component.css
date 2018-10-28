@@ -8,3 +8,8 @@ div.label-area  {
 thead tr {
   text-align: center;
 }
+
+
+tfoot{
+background: grey;
+}

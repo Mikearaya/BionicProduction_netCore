@@ -35,7 +35,6 @@ namespace BionicInventory.Application.FinishedProducts.Commands {
                 List<FinishedProduct> newItemsList = new List<FinishedProduct> ();
                 foreach (var item in finishedProducts) {
                     for (var i = 0; i < (int) item.Quantity; i++) {
-                        _logger.LogError (null, i);
                         FinishedProduct newItem = new FinishedProduct ();
 
                         newItem.Id = item.Id;

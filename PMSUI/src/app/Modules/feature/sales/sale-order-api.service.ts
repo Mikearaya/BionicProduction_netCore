@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomerOrderDetailView } from './data-model';
+import { InvoiceSummary } from '../../core/DataModels/invoice-data-model';
 
 @Injectable()
 export class SaleOrderApiService {
@@ -16,6 +17,10 @@ export class SaleOrderApiService {
 
   getSalesOrderById(id: number): Observable<CustomerOrderDetailView> {
     return this.httpClient.get<CustomerOrderDetailView>(`${this.url}/${id}`);
+  }
+
+  getSalesOrderInvoices(id: number): Observable<InvoiceSummary[]> {
+    return this.httpClient.get<InvoiceSummary[]>(`${this.url}/${id}/invoices?type=summary`);
   }
 
   createSalesOrder(finishedProduct: SalesOrder): Observable<SalesOrder> {
@@ -39,7 +44,7 @@ description: string;
 title: string;
 initialPayment: number;
 paymentMethod: number;
-orderDetail: SalesOrderDetail[] = [];
+PurchaseOrderDetail: SalesOrderDetail[] = [];
 
 
 }

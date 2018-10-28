@@ -92,7 +92,7 @@ export class SaleOrderViewComponent implements OnInit {
   viewOrder(args: Event) {
 
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`sales/${rowObj.data['id']}/detail`]);
+    this.route.navigate([`sales/${rowObj.data['id']}`]);
   }
 
   deleteOrder(args: any) {

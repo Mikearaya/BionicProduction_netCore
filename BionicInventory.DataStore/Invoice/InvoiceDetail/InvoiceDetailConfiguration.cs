@@ -19,15 +19,21 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
 
             public void Configure (EntityTypeBuilder<InvoiceDetail> builder) {
 
-               builder.ToTable("INVOICE_DETAIL");
+                builder.ToTable("INVOICE_DETAIL");
 
                 builder.HasIndex(e => e.InvoiceNo)
                     .HasName("fk_INVOICE_ID_idx");
+                builder.HasIndex(e => e.AddedBy)
+                    .HasName("fk_INVOICE_DETAIL_added_by_idx");
 
                 builder.HasIndex(e => e.SalesOrderId)
                     .HasName("fk_SALE_DETAIL_INVENTORY_ID_idx");
 
                 builder.Property(e => e.Id).HasColumnName("ID");
+
+                builder.Property(e => e.AddedBy)
+                    .HasColumnName("added_by")
+                    .HasDefaultValueSql("'11'");
 
                 builder.Property(e => e.DateAddded)
                     .HasColumnName("date_addded")
@@ -50,6 +56,10 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
                     .HasColumnName("quantity")
                     .HasColumnType("int(11)");
 
+                builder.Property(e => e.Tax)
+                        .HasColumnName("tax")
+                        .HasColumnType("float");
+
                 builder.Property (e => e.Discount)
                     .HasColumnType("float")
                     .HasColumnName ("discount");
@@ -63,6 +73,12 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
                     .WithMany(p => p.InvoiceDetail)
                     .HasForeignKey(d => d.InvoiceNo)
                     .HasConstraintName("fk_INVOICE_ID");
+
+                builder.HasOne(d => d.AddedByNavigation)
+                    .WithMany(p => p.InvoiceDetail)
+                    .HasForeignKey(d => d.AddedBy)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_INVOICE_DETAIL_added_by");
 
                 builder.HasOne(d => d.SalesOrder)
                     .WithMany(p => p.InvoiceDetail)

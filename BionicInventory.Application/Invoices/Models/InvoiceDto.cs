@@ -18,6 +18,7 @@ namespace BionicInventory.Application.Invoices.Models {
     public abstract class InvoiceDto {
         [Required]
         public uint CustomerOrderId {get; set;}
+        public uint CreatedBy {get; set;}
         public string Status {get; set;}
         
         [Required]

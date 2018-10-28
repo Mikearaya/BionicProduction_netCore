@@ -23,6 +23,7 @@ namespace BionicInventory.Application.Invoices.Factories {
             Invoice invoice =  new Invoice() {
                     PurchaseOrderId = newInvoice.CustomerOrderId,
                     InvoiceType = newInvoice.InvoiceType,
+                    CreatedBy = newInvoice.CreatedBy,
                     DueDate = newInvoice.DueDate,
                     Discount = newInvoice.Discount,
                     Tax = newInvoice.Tax

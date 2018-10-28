@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.PurchaseOrders;
@@ -21,15 +22,19 @@ namespace BionicInventory.Domain.Invoices {
 
         public uint Id { get; set; }
         public uint PurchaseOrderId { get; set; }
+
+        public uint CreatedBy { get; set; }
         public byte? PrintCount { get; set; } = 0;
         public string InvoiceType { get; set; }
         public float Tax {get; set;}
         public string Note {get; set;}
         public float Discount {get; set;}
+        public DateTime? CreatedOn { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? DueDate { get; set; }
 
+        public Employee CreatedByNavigation { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ICollection<InvoicePayments> InvoicePayments { get; set; }

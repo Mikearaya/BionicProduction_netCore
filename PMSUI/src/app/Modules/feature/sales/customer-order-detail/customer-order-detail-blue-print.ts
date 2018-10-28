@@ -48,33 +48,46 @@ export const customerOrderDetailBluePrint = [
 
 
 export const invoiceColumnBluePrint =  [
-  {key: 'id',
+  {key: 'Id',
   humanReadable: 'Number',
   isIdentity: true,
-  isPrimaryKey: true
+  isPrimaryKey: true,
+  width: 20
   },
   {
-    key: 'type',
-    humanReadable: 'Type'
+    key: 'InvoiceType',
+    humanReadable: 'Type',
+    width: 25
   },
   {
-    key: 'dateCreated',
+    key: 'CreatedOn',
     humanReadable: 'Created',
-    format: 'yMd'
+    format: 'yMd',
+    width: 30
   },
-  {key: 'status',
-    humanReadable: 'Status'
+  {key: 'Status',
+    humanReadable: 'Status',
+    width: 20
   },
   {
-    key: 'totalAmount',
+    key: 'TotalAmount',
     humanReadable: 'Total',
-    format: 'C2'
+    format: 'C2',
+    width: 20
   },
   {
-    key: 'paidAmount',
+    key: 'PaidAmount',
     humanReadable: 'Paid',
-    format: 'C2'
+    format: 'C2',
+    width: 20
+  },
+  {
+    key: 'DueDate',
+    humanReadable: 'Due Date',
+    format: 'yMd',
+    width: 30
   }
+
 ];
 
 export const shipmentColumnBluePrint = [

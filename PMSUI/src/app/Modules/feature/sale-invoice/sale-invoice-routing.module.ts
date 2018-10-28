@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', component: SalesInvoiceViewComponent},
   {path: 'customerorder/:customerOrderId', component: SaleInvoiceFormComponent},
   {path: 'update/:invoiceId', component: SaleInvoiceFormComponent},
-  {path: 'new', component: SaleInvoiceFormComponent}
+  {path: 'create', component: SaleInvoiceFormComponent}
 ];
 
 @NgModule({

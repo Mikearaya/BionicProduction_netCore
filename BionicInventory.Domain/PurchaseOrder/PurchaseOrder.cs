@@ -29,7 +29,7 @@ namespace BionicInventory.Domain.PurchaseOrders {
         public string Description { get; set; }
 
         public string PaymentMethod { get; set; }
-
+        public DateTime? DueDate { get; set; }
         public Customer Client { get; set; }
         public Employee CreatedByNavigation { get; set; }
         public Invoice Invoice { get; set; }

@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.FinishedProducts;
+using BionicInventory.Domain.Invoices;
+using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
@@ -30,6 +32,8 @@ namespace BionicInventory.Domain.Employees
             ProductionOrder = new HashSet<ProductionOrderList>();
             PurchaseOrder = new HashSet<PurchaseOrder>();
             Sales = new HashSet<Sales>();
+            Invoice = new HashSet<Invoice>();
+            InvoiceDetail = new HashSet<InvoiceDetail>();
         }
 
         public uint Id { get; set; }
@@ -38,6 +42,8 @@ namespace BionicInventory.Domain.Employees
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
+        public ICollection<Invoice> Invoice { get; set; }
+        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }

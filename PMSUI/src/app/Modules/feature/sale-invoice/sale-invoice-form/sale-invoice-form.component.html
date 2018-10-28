@@ -1,5 +1,5 @@
 <section class="e-card">
-  <form [formGroup]="saleInvoiceForm">
+  <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()" >
     <div class="container-fluid">
       <div class="row">
         <div class="col">
@@ -14,7 +14,9 @@
               Customer Order
             </div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="customerOrderId"></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="customerOrderId" [query]="customerOrderQuery"
+              [fields]="customerOrderFields" filterBarPlaceholder="Search By Customer Order Id" [allowFiltering]="true"
+              [dataSource]="customerOrdersList"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -22,13 +24,16 @@
               Customer
             </div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="customerId"></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="customerId" [dataSource]="customersList" [query]="customersQuery"
+              filterBarPlaceholder="Search By Customer Name" [allowFiltering]="true"
+                [fields]="customerFields"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
             <div class="col-2 label-area">Type</div>
             <div class="col-10">
-              <ejs-dropdownlist [dataSource]="invoiceTypes" formControlName="invoiceType"></ejs-dropdownlist>
+              <ejs-dropdownlist [dataSource]="invoiceTypes" filterBarPlaceholder="Search Invoice Type" [allowFiltering]="true"
+              formControlName="invoiceType"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -58,7 +63,18 @@
           <div class="row">
             <div class="col-2 label-area">Currency</div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="currencyId"></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="currencyId" ></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 label-area">
+              Created By (current user)
+            </div>
+            <div class="col-10">
+              <ejs-dropdownlist formControlName="createdBy" [dataSource]="employeesList" [query]="employeeQuery"
+                [fields]="employeeFields"
+                filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true"
+                ></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -82,11 +98,11 @@
                 <th>&nbsp; Action</th>
               </tr>
             </thead>
-            <tbody formArrayName="items">
+            <tbody formArrayName="InvoiceItems">
               <tr *ngFor="let ite of items.controls; let i=index; let last=last;" [formGroup]="ite">
                 <td>
-                  <ejs-dropdownlist formControlName="itemId" [attr.id]="'productId'+i" [attr.name]="'productId'+i"
-                    [allowFiltering]="true" filterBarPlaceholder="Serarch Product">
+                  <ejs-dropdownlist [dataSource]="itemsList" [query]="itemQuery" [fields]="itemFields" formControlName="itemId"
+                    [attr.id]="'productId'+i" [attr.name]="'productId'+i" [allowFiltering]="true" filterBarPlaceholder="Serarch Product">
                   </ejs-dropdownlist>
                 </td>
                 <td>
@@ -101,7 +117,7 @@
                 </td>
                 <td>
                   <ejs-numerictextbox formControlName="discount" [attr.id]="'discount'+i" [attr.name]="'discount'+i"
-                    placeholder="Discount" floatLable="Auto" [min]="0">
+                    placeholder="Discount" floatLable="Auto" [min]="0" >
 
                   </ejs-numerictextbox>
                 </td>
@@ -120,7 +136,7 @@
             </tbody>
             <tfoot>
               <tr>
-                <th colspan="2">Discount</th>
+                <th colspan="3">Discount</th>
                 <td></td>
                 <td>
                   <ejs-numerictextbox formControlName="totalDiscount" name="totalDiscount" id="totalDiscount"
@@ -168,7 +184,6 @@
         </div>
       </div>
     </div>
-    Form: {{saleInvoiceForm.value | json}}
   </form>
 
 </section>

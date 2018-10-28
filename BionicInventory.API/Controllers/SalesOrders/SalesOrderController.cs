@@ -17,6 +17,7 @@ using BionicInventory.Commons;
 using BionicInventory.Domain.PurchaseOrders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 
 namespace BionicInventory.API.Controllers.SalesOrders {
 
@@ -58,13 +59,19 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public IActionResult GetSalesOrderById (uint id) {
+        public IActionResult GetSalesOrderById (uint id, string type = "VIEW") {
 
         
     if(id == 0) {
         return StatusCode(400, "Invelid Customer Id");
     }
-            var result = _query.GetCustomerOrderDetail (id);
+        Object result;
+        if(type.ToUpper() == "RAW") {
+            result = _query.GetSalesOrderById(id);
+        } else {
+            result = _query.GetCustomerOrderDetail (id);
+        }
+
             if (result == null) {
                 return StatusCode (404);
             }

@@ -52,12 +52,6 @@ export class PmsNavigationComponent {
       ]
     },
     {
-      id: 'settings', name: 'SETTING', subChild: [
-        { id: '44', name: 'USER MANAGMENT' },
-        { id: '55', name: 'SYSTEM SETTINGS' }
-      ]
-    },
-    {
       id: 'profile', name: 'SETTINGS',
       subChild: [
         { id: 'profile', name: 'PROFILE' },

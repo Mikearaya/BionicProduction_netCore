@@ -18,6 +18,7 @@ namespace BionicProduction.Migration.Database
         public uint CreatedBy { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public DateTime? DueDate { get; set; }
 
         public Customer Client { get; set; }
         public Employee CreatedByNavigation { get; set; }

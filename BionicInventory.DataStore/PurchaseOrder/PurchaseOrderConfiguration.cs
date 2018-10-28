@@ -46,6 +46,10 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                 builder.Property (e => e.Description)
                     .HasColumnName ("description")
                     .HasColumnType ("varchar(255)");
+                
+                builder.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime");
 
                 builder.Property (e => e.PaymentMethod)
                     .IsRequired ()

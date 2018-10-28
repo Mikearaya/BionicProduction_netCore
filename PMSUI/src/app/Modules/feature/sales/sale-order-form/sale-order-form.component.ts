@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { SaleOrderApiService, SalesOrder } from '../sale-order-api.service';
@@ -38,7 +38,8 @@ export class SaleOrderFormComponent implements OnInit {
 
   constructor(private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
-    private location: Location) {
+    private location: Location,
+    @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string) {
 
     this.createForm();
     this.today = new Date();
@@ -84,7 +85,7 @@ export class SaleOrderFormComponent implements OnInit {
   ngOnInit(): void {
 
     const dm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
+      { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
@@ -130,7 +131,7 @@ export class SaleOrderFormComponent implements OnInit {
     order.title = form.title;
     order.description = form.description;
     form.orders.forEach(element => {
-      order.orderDetail.push({
+      order.PurchaseOrderDetail.push({
         itemId: element.itemId,
         quantity: element.quantity,
         dueDate: element.dueDate,

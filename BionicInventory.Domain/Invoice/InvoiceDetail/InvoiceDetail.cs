@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Sale;
 
@@ -20,6 +21,10 @@ namespace BionicInventory.Domain.Invoices.InvoiceDetails {
 
         public string Note {get; set;}
         public float Discount {get; set;}
+        public uint? AddedBy { get; set; }
+        public float? Tax { get; set; }
+
+        public Employee AddedByNavigation { get; set; }
 
         public Invoice InvoiceNoNavigation { get; set; }
         public PurchaseOrderDetail SalesOrder { get; set; }

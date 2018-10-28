@@ -35,7 +35,8 @@ import { ProductGetterService } from './services/product-getter.service';
     ResizeService,
     DetailRowService,
     ProductGetterService,
-    CoreApiService
+    CoreApiService,
+    {provide: 'EMPLOYEE_API_URL', useValue: 'http://localhost:5000/api/employees'}
   ],
 
 })
