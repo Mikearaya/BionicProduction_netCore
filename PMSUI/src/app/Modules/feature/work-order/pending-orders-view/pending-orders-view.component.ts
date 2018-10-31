@@ -9,7 +9,7 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-pending-orders-view',

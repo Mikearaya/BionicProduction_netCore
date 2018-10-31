@@ -2,8 +2,8 @@
  * @CreateTime: Sep 26, 2018 8:55 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 13, 2018 9:29 PM
+ * @Last Modified By: undefined
+ * @Last Modified Time: Nov 1, 2018 12:28 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,6 +12,7 @@ using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
+using BionicInventory.Application.SalesOrders.Models.Booking;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using Microsoft.Extensions.Logging;
@@ -27,21 +28,21 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             _logger = logger;
         }
         public CustomerOrderDetailView GetCustomerOrderDetail (uint id) {
-                
-    var salesOrders =   _database.PurchaseOrderDetail
-        .Where(customerOrder => customerOrder.PurchaseOrderId == id)
-        .OrderByDescending(req => req.PurchaseOrderId)
-                        .GroupBy(customerOrder => customerOrder.PurchaseOrderId)
-                        .Select(order => new {
-                            ID = order.Key,
-                            totalProducts = order.Count(),
-                            totalPrice = order.Sum(price => price.PricePerItem * price.Quantity),
-                            totalCost = order.Sum(itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
-                            totalQuantity = order.Sum(itemQuantity => itemQuantity.Quantity),
 
-                            detail = order.Select(CO => new {
-                                customerName = CO.PurchaseOrder.Client.FullName(),
-                                createdBy = CO.PurchaseOrder.CreatedByNavigation.FullName(),
+            var salesOrders = _database.PurchaseOrderDetail
+                .Where (customerOrder => customerOrder.PurchaseOrderId == id)
+                .OrderByDescending (req => req.PurchaseOrderId)
+                .GroupBy (customerOrder => customerOrder.PurchaseOrderId)
+                .Select (order => new {
+                    ID = order.Key,
+                        totalProducts = order.Count (),
+                        totalPrice = order.Sum (price => price.PricePerItem * price.Quantity),
+                        totalCost = order.Sum (itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
+                        totalQuantity = order.Sum (itemQuantity => itemQuantity.Quantity),
+
+                        detail = order.Select (CO => new {
+                            customerName = CO.PurchaseOrder.Client.FullName (),
+                                createdBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
                                 description = CO.PurchaseOrder.Description,
@@ -53,126 +54,116 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 quantity = CO.Quantity,
                                 productName = CO.Item.Name,
                                 dueDate = CO.DueDate,
-                                manufactureId = (CO.ProductionOrderList != null ) ? CO.ProductionOrderList.Id : 0,
+                                manufactureId = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.Id : 0,
                                 productCode = CO.Item.Code,
-                                status =  (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count() : -1,
+                                status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
 
+                        }),
 
-                            }),
+                }).FirstOrDefault ();
 
+            CustomerOrderDetailView orderDetail = new CustomerOrderDetailView ();
 
-                        }).FirstOrDefault();  
+            orderDetail.totalCost = salesOrders.totalCost;
+            orderDetail.totalPrice = salesOrders.totalPrice;
+            orderDetail.totalProducts = (uint) salesOrders.totalProducts;
+            orderDetail.totalQuantity = (uint) salesOrders.totalQuantity;
+            orderDetail.id = salesOrders.ID;
 
-                            CustomerOrderDetailView orderDetail = new CustomerOrderDetailView();
+            foreach (var orders in salesOrders.detail) {
+                var status = " ";
+                if (orders.status < 0) {
+                    status = "Pending";
+                } else if (orders.status == orders.quantity) {
+                    status = "Ready";
+                } else {
+                    status = "In production";
+                }
+                orderDetail.customerName = orders.customerName;
+                orderDetail.createdBy = orders.createdBy;
+                orderDetail.description = orders.description;
 
-                            orderDetail.totalCost = salesOrders.totalCost;
-                            orderDetail.totalPrice = salesOrders.totalPrice;
-                            orderDetail.totalProducts = (uint) salesOrders.totalProducts;
-                            orderDetail.totalQuantity = (uint) salesOrders.totalQuantity;
-                            orderDetail.id = salesOrders.ID;
-                            
-                            foreach (var orders in salesOrders.detail)
-                            {
-                                var status = " ";
-                            if(orders.status < 0) {
-                                status = "Pending";
-                            } else if(orders.status == orders.quantity) {
-                                    status = "Ready";
-                            } else {
-                                status = "In production";
-                            }
-                                orderDetail.customerName = orders.customerName;
-                                orderDetail.createdBy = orders.createdBy;
-                                orderDetail.description = orders.description;
+                orderDetail.paymentMethod = orders.pamentMethod;
+                orderDetail.orderItems.Add (new CustomerOrderItemsView () {
+                    id = orders.id,
+                        quantity = (int) orders.quantity,
+                        productId = orders.productId,
+                        productName = orders.productName,
+                        productCode = orders.productCode,
+                        totalCost = orders.uintCost * orders.quantity,
+                        totalPrice = orders.unitPrice * orders.quantity,
+                        unitCost = orders.uintCost,
+                        unitPrice = orders.unitPrice,
+                        profit = (orders.unitPrice * orders.quantity) - (orders.uintCost * orders.quantity),
+                        dateAdded = (DateTime) orders.dateAdded,
+                        dateUpdated = (DateTime) orders.dateUpdated,
+                        dueDate = orders.dueDate,
+                        manufacturingOrderId = orders.manufactureId,
+                        status = status
 
-                                orderDetail.paymentMethod = orders.pamentMethod;
-                                orderDetail.orderItems.Add(new CustomerOrderItemsView(){
-                                    id = orders.id,
-                                    quantity = (int) orders.quantity,
-                                    productId = orders.productId,
-                                    productName = orders.productName,
-                                    productCode = orders.productCode,
-                                    totalCost = orders.uintCost * orders.quantity,
-                                    totalPrice = orders.unitPrice * orders.quantity,
-                                    unitCost = orders.uintCost,
-                                    unitPrice = orders.unitPrice,
-                                    profit = (orders.unitPrice * orders.quantity) - (orders.uintCost * orders.quantity),
-                                    dateAdded = (DateTime) orders.dateAdded,
-                                    dateUpdated = (DateTime) orders.dateUpdated,
-                                    dueDate = orders.dueDate,
-                                    manufacturingOrderId = orders.manufactureId,
-                                    status = status
+                });
 
+            }
 
-                                });                        
-                            
-                        }          
-
-                return orderDetail;                            
-                
+            return orderDetail;
 
         }
 
         public IEnumerable<CustomerOrdersView> GetAllCustomerOrders () {
-                
-            var salesOrders =   _database.PurchaseOrderDetail
-                        .GroupBy(customerOrder => customerOrder.PurchaseOrder.Id)
-                        .Select(order => new {
-                            ID = order.Key,
-                            itemCount = order.Count(),
-                            totalPrice = order.Sum(price => price.PricePerItem * price.Quantity),
-                            totalCost = order.Sum(itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
-                            totalQuantity = order.Sum(itemQuantity => itemQuantity.Quantity),
-                    
-                            detail = order.Select(CO => new {
-                                customerName = CO.PurchaseOrder.Client.FullName(),
-                                addedBy = CO.PurchaseOrder.CreatedByNavigation.FullName(),
+
+            var salesOrders = _database.PurchaseOrderDetail
+                .GroupBy (customerOrder => customerOrder.PurchaseOrder.Id)
+                .Select (order => new {
+                    ID = order.Key,
+                        itemCount = order.Count (),
+                        totalPrice = order.Sum (price => price.PricePerItem * price.Quantity),
+                        totalCost = order.Sum (itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
+                        totalQuantity = order.Sum (itemQuantity => itemQuantity.Quantity),
+
+                        detail = order.Select (CO => new {
+                            customerName = CO.PurchaseOrder.Client.FullName (),
+                                addedBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
                                 description = CO.PurchaseOrder.Description,
                                 pamentMethod = CO.PurchaseOrder.PaymentMethod,
-                                status =  (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count() : -1,
+                                status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
 
+                        })
 
-                            })
+                }).OrderByDescending (req => req.ID);
+            List<CustomerOrdersView> salesView = new List<CustomerOrdersView> ();
 
+            foreach (var order in salesOrders) {
+                CustomerOrdersView salesOrder = new CustomerOrdersView () {
+                    id = order.ID,
+                    totalCost = order.totalCost,
+                    totalPrice = order.totalPrice,
+                    totalQuantity = (uint) order.totalQuantity,
+                    totalProducts = (uint) order.itemCount
+                };
+                var sum = 0;
+                foreach (var item in order.detail) {
+                    salesOrder.description = item.description;
+                    salesOrder.createdBy = item.addedBy;
+                    salesOrder.customerName = item.customerName;
+                    salesOrder.dateAdded = (DateTime) item.dateAdded;
+                    salesOrder.dateUpdated = (DateTime) item.dateUpdated;
+                    salesOrder.paymentMethod = item.pamentMethod;
+                    sum += item.status;
 
-                        }) .OrderByDescending(req => req.ID);
-            List<CustomerOrdersView> salesView = new List<CustomerOrdersView>();
+                }
 
-                    foreach (var order in salesOrders)
-                    {
-                    CustomerOrdersView    salesOrder = new CustomerOrdersView() {
-                        id =  order.ID,
-                        totalCost = order.totalCost,
-                        totalPrice = order.totalPrice,
-                        totalQuantity = (uint) order.totalQuantity,
-                        totalProducts = (uint) order.itemCount
-                    };
-                            var sum = 0;
-                            foreach (var item in order.detail) 
-                            {
-                                salesOrder.description = item.description;
-                                salesOrder.createdBy = item.addedBy;
-                                salesOrder.customerName = item.customerName;
-                                salesOrder.dateAdded = (DateTime) item.dateAdded;
-                                salesOrder.dateUpdated = (DateTime) item.dateUpdated;
-                                salesOrder.paymentMethod = item.pamentMethod;
-                                sum += item.status;
+                if (sum < 0) {
+                    salesOrder.status = "Pending";
+                } else if (sum == order.totalQuantity) {
+                    salesOrder.status = "Ready";
+                } else {
+                    salesOrder.status = "In production";
+                }
 
-                                
-                            }
-
-                            if(sum < 0) {
-                                    salesOrder.status = "Pending";
-                            } else if(sum == order.totalQuantity) {
-                                    salesOrder.status = "Ready";
-                            } else {
-                                salesOrder.status = "In production";
-                            }
-
-                        salesView.Add(salesOrder);
-                    }
+                salesView.Add (salesOrder);
+            }
 
             return salesView;
 
@@ -181,37 +172,50 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         //TODO remove duplicate function
         public PurchaseOrder GetSalesOrderById (uint id) {
             return _database.PurchaseOrder
-            .Where (order => order.Id == id)
-            .Select (co => new PurchaseOrder () {
+                .Where (order => order.Id == id)
+                .Select (co => new PurchaseOrder () {
                     Id = co.Id,
-                    ClientId = co.ClientId,
-                    InitialPayment = co.InitialPayment,
-                    CreatedBy = co.CreatedBy,
-                    PaymentMethod = co.PaymentMethod,
-                    Description = co.Description,
-                    Title = co.Title,
-                    DateAdded = co.DateAdded,
-                    DateUpdated = co.DateAdded, 
-                    PurchaseOrderDetail = co.PurchaseOrderDetail
-            }).FirstOrDefault ();
+                        ClientId = co.ClientId,
+                        InitialPayment = co.InitialPayment,
+                        CreatedBy = co.CreatedBy,
+                        PaymentMethod = co.PaymentMethod,
+                        Description = co.Description,
+                        Title = co.Title,
+                        DateAdded = co.DateAdded,
+                        DateUpdated = co.DateAdded,
+                        PurchaseOrderDetail = co.PurchaseOrderDetail
+                }).FirstOrDefault ();
         }
 
-        public PurchaseOrderDetail GetSalesOrderItemById(uint id)
-        {
+        public PurchaseOrderDetail GetSalesOrderItemById (uint id) {
             return _database.PurchaseOrderDetail
-                                .Where(order => order.Id == id)
-                                .Select(orderItem => new PurchaseOrderDetail(){
-                                    Id = orderItem.Id,
-                                    PricePerItem = orderItem.PricePerItem,
-                                    PurchaseOrderId = orderItem.PurchaseOrderId,
-                                    ItemId = orderItem.ItemId,
-                                    Quantity = orderItem.Quantity,
-                                    DateAdded = orderItem.DateAdded,
-                                    DateUpdated = orderItem.DateUpdated,
-                                    DueDate = orderItem.DueDate
-                                }).FirstOrDefault();
+                .Where (order => order.Id == id)
+                .Select (orderItem => new PurchaseOrderDetail () {
+                    Id = orderItem.Id,
+                        PricePerItem = orderItem.PricePerItem,
+                        PurchaseOrderId = orderItem.PurchaseOrderId,
+                        ItemId = orderItem.ItemId,
+                        Quantity = orderItem.Quantity,
+                        DateAdded = orderItem.DateAdded,
+                        DateUpdated = orderItem.DateUpdated,
+                        DueDate = orderItem.DueDate
+                }).FirstOrDefault ();
         }
 
+        public uint GetTotalBookedOrder (uint customerOrderItemId) {
+            var book = _database.PurchaseOrderDetail
+                .Where (co => co.Id == customerOrderItemId)
+                .Select (co => new {
+                    Id = co.Id,
+                        Required = co.Quantity,
+                        Booked = co.BookedStockItems.Count ()
+
+                }).FirstOrDefault ();
+
+            return  book.Booked;
+
+        }
 
     }
+
 }

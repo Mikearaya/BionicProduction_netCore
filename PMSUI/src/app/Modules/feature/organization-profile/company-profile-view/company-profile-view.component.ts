@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyProfileService } from '../company-profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Location} from '@angular/common';
 import { CustomErrorResponse } from '../../../core/core-api.service';
 
 @Component({

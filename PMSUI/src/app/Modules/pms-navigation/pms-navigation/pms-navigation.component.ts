@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ButtonComponent } from '@syncfusion/ej2-ng-buttons';
+import { ButtonComponent } from '@syncfusion/ej2-angular-buttons';
 import { SidebarComponent, NodeSelectEventArgs } from '@syncfusion/ej2-angular-navigations';
 import { Router } from '@angular/router';
 

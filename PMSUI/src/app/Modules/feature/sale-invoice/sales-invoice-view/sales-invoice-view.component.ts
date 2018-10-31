@@ -3,7 +3,7 @@ import {
   GridComponent, GroupSettingsModel, FilterSettingsModel,
   ToolbarItems, TextWrapSettingsModel, EditSettingsModel, SelectionSettingsModel,
   PageSettingsModel, CommandModel
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { Router } from '@angular/router';
 import { saleInvoiceColumnBluePrint } from './sales-invoice-view-blue-print';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';

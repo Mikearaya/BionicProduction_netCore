@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 12, 2018 12:48 AM
+ * @Last Modified Time: Nov 1, 2018 1:41 AM
  * @Description: Modify Here, Please
  */
 
@@ -19,7 +19,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { Tooltip } from '@syncfusion/ej2-popups';
 import { closest } from '@syncfusion/ej2-base';
 

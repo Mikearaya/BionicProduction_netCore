@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 21, 2018 1:47 AM
+ * @Last Modified Time: Nov 1, 2018 1:40 AM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -14,9 +14,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   GridModule
-} from '@syncfusion/ej2-ng-grids';
-import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
-import { ButtonModule } from '@syncfusion/ej2-ng-buttons';
+} from '@syncfusion/ej2-angular-grids';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { StockRoutingModule } from './stock-routing.module';
 import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';

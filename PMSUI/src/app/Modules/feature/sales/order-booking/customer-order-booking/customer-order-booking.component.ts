@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GridComponent, CommandModel, TextWrapSettingsModel, EditSettingsModel, ToolbarItems } from '@syncfusion/ej2-ng-grids';
+import { GridComponent, CommandModel, TextWrapSettingsModel, EditSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
 import { bookingDetailColumnBluePrint } from './customer-order-booking-detail-blue-print';
 import { ClickEventArgs } from '@syncfusion/ej2-splitbuttons';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';

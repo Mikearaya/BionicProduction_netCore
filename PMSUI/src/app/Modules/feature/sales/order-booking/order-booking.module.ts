@@ -7,11 +7,11 @@ import {
   SortService, FilterService, GroupService, EditService, ExcelExportService,
   ColumnChooserService, ColumnMenuService, DetailRowService, SearchService, PdfExportService,
   ReorderService, CommandColumnService, ToolbarService, ResizeService, GridModule
-} from '@syncfusion/ej2-ng-grids';
-import { SwitchModule, ButtonModule } from '@syncfusion/ej2-ng-buttons';
+} from '@syncfusion/ej2-angular-grids';
+import { SwitchModule, ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DropDownListModule } from '@syncfusion/ej2-ng-dropdowns';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { BookingApiService } from './booking-api.service';
 
 @NgModule({

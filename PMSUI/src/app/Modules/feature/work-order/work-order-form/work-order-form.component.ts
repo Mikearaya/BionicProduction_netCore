@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   CommandModel
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
 import { Browser } from '@syncfusion/ej2-base';

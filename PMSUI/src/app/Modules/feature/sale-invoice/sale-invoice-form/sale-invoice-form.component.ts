@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { DataManager, WebApiAdaptor, Query, ReturnOption } from '@syncfusion/ej2-data';
 import { ActivatedRoute } from '@angular/router';
-import { SalesOrder } from '../../sales/sale-order-api.service';
 import { CustomErrorResponse } from '../../../core/core-api.service';
 import { CustomerOrder } from '../../../core/DataModels/customer-order-data-models';
 import { Invoice } from '../sales-invoice-data-model';

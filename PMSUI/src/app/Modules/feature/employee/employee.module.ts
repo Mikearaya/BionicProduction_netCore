@@ -7,7 +7,7 @@ import { EmployeeApiService } from './employee-api.service';
 import { CommonModule } from '@angular/common';
 import {
   GridModule
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 
 

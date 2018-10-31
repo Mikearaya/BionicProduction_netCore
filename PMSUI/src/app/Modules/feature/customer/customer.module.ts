@@ -7,7 +7,7 @@ import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 import {
     GridModule
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -16,7 +16,6 @@ import { CommonModule } from '@angular/common';
         // application
         CustomerRoutingModule,
         // angular
-        ReactiveFormsModule,
         CommonModule,
         // syncfusion
         GridModule,

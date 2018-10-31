@@ -37,3 +37,41 @@ export class CustomerOrderItemsView {
   dueDate: Date;
 
 }
+
+export class SalesOrder {
+  id?: number;
+  clientId: number;
+  createdBy: number;
+  description: string;
+  title: string;
+  initialPayment: number;
+  paymentMethod: number;
+  PurchaseOrderDetail: SalesOrderDetail[] = [];
+
+
+  }
+
+  class SalesOrderDetail {
+    itemId: number;
+    unitPrice: number;
+    quantity: number;
+    dueDate: number;
+  }
+
+
+  export class SalesOrderView {
+    Id: number;
+    CustomerName: string;
+    OrderCode: string;
+    CreatedBy: string;
+    ItemCode: string;
+    Quantity: number;
+    UnitPrice: number;
+
+    remainingPayment: number;
+    paidAmount: number;
+    totalAmount: number;
+    OrderedOn: string;
+    DueDate: string;
+  }
+

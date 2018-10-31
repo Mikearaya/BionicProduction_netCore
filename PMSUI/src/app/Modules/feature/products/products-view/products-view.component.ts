@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 10:57 PM
+ * @Last Modified Time: Nov 1, 2018 1:43 AM
  * @Description: Products View Component Class
  */
 
@@ -16,7 +16,7 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { ProductsAPIService } from '../products-api.service';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { productsViewBluePrint } from './products-view-blue-print';
 
 

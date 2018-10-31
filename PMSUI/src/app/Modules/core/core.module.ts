@@ -6,7 +6,7 @@ import {
   SearchService, GroupService, ColumnChooserService,
   ColumnMenuService, ForeignKeyService, ReorderService,
   RowDDService, EditService, ExcelExportService, ResizeService, DetailRowService
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { CoreApiService } from './core-api.service';
 import { ProductGetterService } from './services/product-getter.service';
 

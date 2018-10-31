@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 8, 2018 11:14 PM
+ * @Last Modified Time: Nov 1, 2018 1:37 AM
  * @Description: Products Module Class
  */
 import { NgModule } from '@angular/core';
@@ -16,7 +16,7 @@ import { ProductsViewComponent } from './products-view/products-view.component';
 import {
   GridModule
 
-} from '@syncfusion/ej2-ng-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({

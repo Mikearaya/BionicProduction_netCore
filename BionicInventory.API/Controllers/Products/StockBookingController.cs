@@ -2,17 +2,17 @@
  * @CreateTime: Oct 23, 2018 12:08 AM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 24, 2018 11:05 PM
+ * @Last Modified By: undefined
+ * @Last Modified Time: Oct 31, 2018 10:59 PM
  * @Description: Modify Here, Please 
  */
 
-
 using System;
-using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Interfaces.Booking;
+using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,19 +20,26 @@ namespace BionicInventory.API.Controllers.Products {
     [InventoryAPI ("Products")]
     public class StockBookingController : Controller {
         private readonly IStockBookingQuey _bookingQuery;
+        private readonly ISalesOrderQuery _customerOrderQuery;
 
-        public StockBookingController(IStockBookingQuey bookingQuery) {
-        
-                _bookingQuery = bookingQuery;
+        public StockBookingController (IStockBookingQuey bookingQuery,
+            ISalesOrderQuery customerOrderQuery) {
+
+            _bookingQuery = bookingQuery;
+            _customerOrderQuery = customerOrderQuery;
         }
 
-        [HttpGet("bookings/available")]
-       public IActionResult GetStocksBookingAvailablity() {
-            
-            var x = _bookingQuery.getAvailableFinishedProduct();
-            return StatusCode(200, x);
+        [HttpGet ("bookings/{id}")]
+        public IActionResult GetStocksBookingAvailablity (uint id, string type = "BOOKED") {
+            Object bookings;
+            if (type.ToUpper () == "AVAILABLE") {
+                bookings = _bookingQuery.getAvailableFinishedProduct ();
+            } else {
+                bookings = _customerOrderQuery.GetTotalBookedOrder (id);
+            }
+            return StatusCode (200, bookings);
         }
-    
+
     }
 
 }

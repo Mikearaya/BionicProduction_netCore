@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { SaleOrderApiService, SalesOrder } from '../sale-order-api.service';
+import { SaleOrderApiService } from '../sale-order-api.service';
 import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SalesOrder } from '../sales-data-model';
 
 @Component({
   selector: 'app-sale-order-form',

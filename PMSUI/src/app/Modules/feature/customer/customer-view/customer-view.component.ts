@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 5, 2018 8:51 PM
+ * @Last Modified Time: Nov 1, 2018 1:43 AM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -15,7 +15,7 @@ import { CustomerService, Customer } from '../../customer/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Route, Router } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({

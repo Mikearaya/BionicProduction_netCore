@@ -9,12 +9,13 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Application.Products.Models.BookingModel;
+using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.FinishedProducts;
 
 namespace BionicInventory.Application.Products.Interfaces.Booking {
 
     public interface IStockBookingCommand {
-        IEnumerable<BookedStockItem> BookAvailableStockItems (IEnumerable<BookedStockItem> bookedItems);
+        IEnumerable<BookedStockItems> BookAvailableStockItems (IEnumerable<BookedStockItems> bookedItems);
 
     }
 

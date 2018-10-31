@@ -6,7 +6,7 @@ import {
   GroupSettingsModel, FilterSettingsModel, ToolbarItems,
   SortSettingsModel, PageSettingsModel, CommandModel, IRow, Column, EditSettingsModel
 } from '@syncfusion/ej2-grids';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
 import { closest } from '@syncfusion/ej2-base';

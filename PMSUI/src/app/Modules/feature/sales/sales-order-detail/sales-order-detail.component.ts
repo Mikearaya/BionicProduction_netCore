@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { CustomerOrderDetailView } from '../data-model';
+import { CustomerOrderDetailView } from '../sales-data-model';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './customer-order-detail-blue-print';
+import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
 import { CommandModel, Grid } from '@syncfusion/ej2-grids';
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CustomErrorResponse } from '../../../core/core-api.service';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-customer-order-detail',
-  templateUrl: './customer-order-detail.component.html',
-  styleUrls: ['./customer-order-detail.component.css'],
+  templateUrl: './sales-order-detail.component.html',
+  styleUrls: ['./sales-order-detail.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class CustomerOrderDetailComponent implements OnInit {
+export class SalesOrderDetailComponent implements OnInit {
   @ViewChild('invoiceGrid')
   public invoiceGrid: GridComponent;
   public columnBluePrint = customerOrderDetailBluePrint;

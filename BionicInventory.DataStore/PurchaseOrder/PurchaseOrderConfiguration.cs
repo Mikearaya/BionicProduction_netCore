@@ -31,6 +31,10 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                 builder.Property (e => e.ClientId).HasColumnName ("CLIENT_ID");
 
                 builder.Property (e => e.CreatedBy).HasColumnName ("CREATED_BY");
+            
+                builder.Property (e => e.OrderStatus)
+                    .HasColumnName ("order_status")
+                    .HasColumnType ("varchar(20)");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")

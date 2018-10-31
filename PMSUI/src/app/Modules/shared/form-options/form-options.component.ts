@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 10, 2018 12:25 AM
+ * @Last Modified Time: Nov 1, 2018 1:34 AM
  * @Description: Modify Here, Please
  */
 import { Location } from '@angular/common';
@@ -18,15 +18,17 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FormOptionsComponent implements OnInit {
 
-@Input('isSelfContained') isSelfContained: Boolean;
-@Input('submitDisabled') submitDisabled: Boolean;
-@Input('cancelDisabled') cancelDisabled: Boolean;
+  @Input('isSelfContained') isSelfContained: Boolean;
+  @Input('submitDisabled') submitDisabled: Boolean;
+  @Input('cancelDisabled') cancelDisabled: Boolean;
+  @Input('submitButtonText') submitButtonText: String = 'Submit';
+  @Input('cancelButtonText') cancelButtonText: String = 'Cancel';
 
   constructor(private location: Location) {
     this.cancelDisabled = false;
     this.submitDisabled = false;
     this.isSelfContained = true;
-}
+  }
 
   ngOnInit() {
   }

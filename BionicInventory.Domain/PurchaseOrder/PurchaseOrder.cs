@@ -27,6 +27,7 @@ namespace BionicInventory.Domain.PurchaseOrders {
         public uint CreatedBy { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
+        public string OrderStatus { get; set; }
 
         public string PaymentMethod { get; set; }
         public DateTime? DueDate { get; set; }

@@ -2,7 +2,6 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Invoice } from './sales-invoice-data-model';
 import { Observable } from 'rxjs';
-import { SalesOrder } from '../sales/sale-order-api.service';
 import { CustomerOrder } from '../../core/DataModels/customer-order-data-models';
 import { InvoiceDetail } from '../../core/DataModels/invoice-data-model';
 

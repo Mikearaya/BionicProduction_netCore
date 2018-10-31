@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 8, 2018 8:41 PM
+ * @Last Modified Time: Nov 1, 2018 1:43 AM
  * @Description: Employee View Component class
  */
 
@@ -17,7 +17,7 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import {  Router } from '@angular/router';
 import { EmployeeApiService } from '../employee-api.service';
-import { GridComponent } from '@syncfusion/ej2-ng-grids';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 
 
 @Component({
