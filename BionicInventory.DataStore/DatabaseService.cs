@@ -44,7 +44,7 @@ namespace BionicInventory.DataStore {
 
         protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
-                optionsBuilder.UseMySql ("server=localhost;database=bionic_inventory;user=mikael;port=3306;",
+                optionsBuilder.UseMySql ("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;",
                     x => x.MigrationsAssembly ("DataStore.Migrations"));
             }
         }

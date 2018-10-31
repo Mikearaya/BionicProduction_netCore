@@ -18,7 +18,7 @@ namespace BionicInventory.Application.SalesOrders.Interfaces {
         CustomerOrderDetailView GetCustomerOrderDetail(uint id);
         IEnumerable<CustomerOrdersView> GetAllCustomerOrders();
         PurchaseOrder GetSalesOrderById(uint id);
-
         PurchaseOrderDetail GetSalesOrderItemById(uint id);
+        unit GetTotalBookedOrder(uint customerOrderItemId);
     }
 }

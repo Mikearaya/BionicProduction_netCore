@@ -62,7 +62,7 @@ export class PmsNavigationComponent {
 
 
   ];
-  public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild' };
+  public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild', routerLink: 'route' };
   btnClick() {
     if (this.togglebtn.element.classList.contains('e-active')) {
       this.togglebtn.content = 'Open';
