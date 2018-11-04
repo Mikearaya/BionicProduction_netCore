@@ -2,8 +2,8 @@
  * @CreateTime: Oct 31, 2018 9:26 PM
  * @Author: undefined
  * @Contact: undefined
- * @Last Modified By: undefined
- * @Last Modified Time: Oct 31, 2018 9:26 PM
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 2, 2018 10:11 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -15,8 +15,8 @@ using BionicInventory.Domain.FinishedProducts;
 namespace BionicInventory.Application.Products.Interfaces.Booking {
 
     public interface IStockBookingCommand {
-        IEnumerable<BookedStockItems> BookAvailableStockItems (IEnumerable<BookedStockItems> bookedItems);
-
+        IList<BookedStockItems> BookAvailableStockItems (IList<BookedStockItems> bookedItems);
+        
     }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -24,8 +24,8 @@ export class FinishedOrderFormComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
         private finishedProductsApi: FinishedOrderApiService,
-        private activatedRoute: ActivatedRoute,
-        private location: Location) {
+        private location: Location,
+        @Inject('BASE_URL') private apiUrl: string) {
 
         this.employeeQuery = new Query().select(['firstName', 'id']);
         this.employeeFields = { text: 'firstName', value: 'id' };
@@ -36,13 +36,13 @@ export class FinishedOrderFormComponent implements OnInit {
 
     ngOnInit() {
         const employee: DataManager = new DataManager(
-            { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
+            { url: `${this.apiUrl}/employees`, adaptor: new WebApiAdaptor, offline: true },
             new Query().take(8)
         );
         employee.ready.then((e: ReturnOption) => this.employeeList = <Object[]>e.result).catch((e) => true);
 
         const order: DataManager = new DataManager(
-            { url: 'http://localhost:5000/api/workorders?status=active', adaptor: new WebApiAdaptor, offline: true },
+            { url: `${this.apiUrl}/workorders?status=active`, adaptor: new WebApiAdaptor, offline: true },
             new Query().take(8)
         );
 

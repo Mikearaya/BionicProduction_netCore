@@ -10,8 +10,8 @@
 using System;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Interfaces.Booking;
-using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
@@ -19,10 +19,10 @@ using Microsoft.AspNetCore.Mvc;
 namespace BionicInventory.API.Controllers.Products {
     [InventoryAPI ("Products")]
     public class StockBookingController : Controller {
-        private readonly IStockBookingQuey _bookingQuery;
+        private readonly IStockBookingQuery _bookingQuery;
         private readonly ISalesOrderQuery _customerOrderQuery;
 
-        public StockBookingController (IStockBookingQuey bookingQuery,
+        public StockBookingController (IStockBookingQuery bookingQuery,
             ISalesOrderQuery customerOrderQuery) {
 
             _bookingQuery = bookingQuery;
@@ -32,11 +32,9 @@ namespace BionicInventory.API.Controllers.Products {
         [HttpGet ("bookings/{id}")]
         public IActionResult GetStocksBookingAvailablity (uint id, string type = "BOOKED") {
             Object bookings;
-            if (type.ToUpper () == "AVAILABLE") {
-                bookings = _bookingQuery.getAvailableFinishedProduct ();
-            } else {
-                bookings = _customerOrderQuery.GetTotalBookedOrder (id);
-            }
+
+            bookings = _bookingQuery.GetAvailableCustomerOrderItem (id);
+
             return StatusCode (200, bookings);
         }
 

@@ -17,7 +17,7 @@ export class BookingApiService {
     return this.httpClient.post<OrderBookingView>(`${this.apiUrl}/salesorders/${orders.customerOrderId}/${this.url}`, orders);
   }
 
-  bookSink(order: BookingModel): Observable<BookingModel> {
-    return this.httpClient.post<BookingModel>(`${this.apiUrl}/salesorders/${order.OrderItemId}/${this.url}`, order);
+  bookSingle(orderId: number, order: BookingModel): Observable<BookingModel> {
+    return this.httpClient.post<BookingModel>(`${this.apiUrl}/salesorders/${orderId}/${this.url}`, order);
   }
 }

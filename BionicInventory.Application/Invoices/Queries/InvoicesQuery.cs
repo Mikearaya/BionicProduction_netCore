@@ -60,8 +60,7 @@ namespace BionicInventory.Application.Invoices.Queries {
 
         public IEnumerable<InvoiceStatusView> GetCustomerOrderInvoiceStatus(uint customerOrderId = 0) {
                 var customerInvoice = _database.Invoice
-                                    
-                                    .GroupBy(dd => dd.Id).Select(sd => new {
+                                    .GroupBy(dd => dd.PurchaseOrderId).Select(sd => new {
                     id = sd.Key,
                     TotalAmount = sd.Sum(s => s.InvoiceDetail.Sum(paidAmount => (double)  (paidAmount.Quantity *  paidAmount.UnitPrice))),
                     PaidAmount = sd.Sum(s => s.InvoicePayments.Sum(totalPayment => totalPayment.Amount)),
@@ -70,7 +69,7 @@ namespace BionicInventory.Application.Invoices.Queries {
                 });
 
                 if(customerOrderId != 0) {
-                    customerInvoice.Where(i => i.id == customerOrderId);
+                customerInvoice =    customerInvoice.Where(i => i.id == customerOrderId);
                 }
 
                     List<InvoiceStatusView> invoiceSummary = new List<InvoiceStatusView>();

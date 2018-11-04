@@ -8,6 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace BionicInventory.API.Controllers.WorkOrders.Interface {
 
     public interface IWorkOrder {
-        IActionResult CreateNewWorkWorder ([FromBody] NewWorkOrderDto newWork);
+        IActionResult CreateNewWorkWorder (NewWorkOrderDto newWork);
     }
 }

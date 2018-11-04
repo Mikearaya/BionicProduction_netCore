@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
   EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel
@@ -42,6 +42,7 @@ export class PendingOrdersViewComponent implements OnInit {
 
   constructor(
     private workOrderApi: WorkOrderAPIService,
+    @Inject('BASE_URL') private apiUrl: string,
     private route: Router) {
 
   }
@@ -51,7 +52,7 @@ export class PendingOrdersViewComponent implements OnInit {
   public printMode: 'CurrentPage';
 
   public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/workorders?type=pending',
+    url: `${this.apiUrl}/workorders?type=pending`,
     adaptor: new WebApiAdaptor,
     offline: true
   });

@@ -21,10 +21,14 @@ afterBooking: number;
 export class BulckBookingModel {
   createManufactureOrder: boolean;
   customerOrderId: number;
-  bookings: BookingModel[];
+  Items: BookingModel[];
+  workStartDate: Date;
+  workEndDate: Date;
 }
 
 export class BookingModel {
-  createManufactureOrder: boolean;
-  OrderItemId: number;
+  CreateManufactureOrder: boolean;
+  CustomerOrderItemId: number;
+  Quantity: number;
+  BookedBy: number;
 }

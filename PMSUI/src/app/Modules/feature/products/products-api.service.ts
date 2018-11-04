@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 3, 2018 8:27 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 3, 2018 8:27 PM
+ * @Description: Modify Here, Please
+ */
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +26,7 @@ export class ProductsAPIService {
     }
 
     getAllProducts(): Observable<Product[]> {
-        return this.httpClient.get<Product[]>(`${this.url}`);
+        return this.httpClient.get<Product[]>(`${this.apiUrl}/${this.url}`);
     }
 
     addProduct(newProduct: Product): Observable<Product> {

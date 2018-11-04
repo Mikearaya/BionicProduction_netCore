@@ -1,10 +1,8 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.API", "BionicInventory.API\BionicInventory.API.csproj", "{010A492B-9164-446B-B7CB-AADBA34D76AD}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.Application", "BionicInventory.Application\BionicInventory.Application.csproj", "{E2EB3123-12C7-4C0B-A92D-11B141295F31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.Infrastructure", "BionicInventory.Infrastructure\BionicInventory.Infrastructure.csproj", "{08DE82EF-C38E-4FB7-8DF0-9EF5FE14B78B}"
@@ -14,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.Domain", "BionicInventory.Domain\BionicInventory.Domain.csproj", "{DA0149BC-BB52-49DE-94B2-9ADE0E8A621C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.Shared", "BionicInventory.Shared\BionicInventory.Shared.csproj", "{50C90F5F-E07E-4EAA-8D0C-4FA1C1757E34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BionicInventory.API", "BionicInventory.API\BionicInventory.API.csproj", "{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,18 +28,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|x64.ActiveCfg = Debug|x64
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|x64.Build.0 = Debug|x64
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|x86.ActiveCfg = Debug|x86
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Debug|x86.Build.0 = Debug|x86
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|x64.ActiveCfg = Release|x64
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|x64.Build.0 = Release|x64
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|x86.ActiveCfg = Release|x86
-		{010A492B-9164-446B-B7CB-AADBA34D76AD}.Release|x86.Build.0 = Release|x86
 		{E2EB3123-12C7-4C0B-A92D-11B141295F31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E2EB3123-12C7-4C0B-A92D-11B141295F31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2EB3123-12C7-4C0B-A92D-11B141295F31}.Debug|x64.ActiveCfg = Debug|x64
@@ -124,5 +112,17 @@ Global
 		{DF65C08D-AC36-4AF2-83B0-D83736C59ADE}.Release|x64.Build.0 = Release|x64
 		{DF65C08D-AC36-4AF2-83B0-D83736C59ADE}.Release|x86.ActiveCfg = Release|x86
 		{DF65C08D-AC36-4AF2-83B0-D83736C59ADE}.Release|x86.Build.0 = Release|x86
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|x64.Build.0 = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Debug|x86.Build.0 = Debug|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|x64.ActiveCfg = Release|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|x64.Build.0 = Release|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|x86.ActiveCfg = Release|Any CPU
+		{559DE2DB-2943-4BC7-87BE-A4D8197CCEE3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

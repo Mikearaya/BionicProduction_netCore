@@ -85,6 +85,7 @@ namespace BionicInventory.API.Controllers.Customers {
 
         }
 
+
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (CustomerViewModel))]
         [ProducesResponseType (400)]

@@ -7,7 +7,7 @@
  * @Description: Modify Here, Please
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
   EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel,
@@ -57,6 +57,7 @@ export class WorkOrderViewComponent implements OnInit {
 
   constructor(
     private workOrderApi: WorkOrderAPIService,
+    @Inject('BASE_URL') private apiUrl: string,
     private route: Router) {
    this.textWrapSettings = { wrapMode: 'Header' };
 
@@ -69,7 +70,7 @@ export class WorkOrderViewComponent implements OnInit {
   columnBluePrint = workOrderBluePrint;
 
   public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/workorders',
+    url: `${this.apiUrl}/workorders`,
     adaptor: new WebApiAdaptor,
     offline: true
   });

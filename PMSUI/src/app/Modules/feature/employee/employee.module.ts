@@ -9,17 +9,16 @@ import {
   GridModule
 } from '@syncfusion/ej2-angular-grids';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
 
 
 @NgModule({
   imports: [
     // application
     EmployeeRoutingModule,
+    SharedModule,
     // angular
-    CommonModule,
-    ReactiveFormsModule,
-    // syncfusion
-    GridModule
+    CommonModule
   ],
   declarations: [
     // application

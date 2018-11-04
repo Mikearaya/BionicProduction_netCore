@@ -6,7 +6,7 @@
  * @Last Modified Time: Oct 9, 2018 11:44 PM
  * @Description: Modify Here, Please
  */
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CoreApiService, CustomErrorResponse } from '../../core/core-api.service';
@@ -14,17 +14,19 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class WorkOrderAPIService {
-  private url = 'http://localhost:5000/api/workorders';
-  private productsIrl = 'http://localhost:5000/api/products';
+  private url = 'workorders';
+  private productsIrl = 'products';
   private httpBody: URLSearchParams;
 
 
-  constructor(private httpClient: HttpClient, private coreApiService: CoreApiService) {
+  constructor(private httpClient: HttpClient,
+    private coreApiService: CoreApiService,
+    @Inject('BASE_URL') private apiUrl: string) {
     this.httpBody = new URLSearchParams();
   }
 
   getWorkOrderById(id: number): Observable<OrderModel> {
-    return this.httpClient.get<OrderModel>(`${this.url}/${id}`);
+    return this.httpClient.get<OrderModel>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
   getAllProducts(): Observable<any[]> {
@@ -32,36 +34,36 @@ export class WorkOrderAPIService {
   }
 
   getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {
-    return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.url}?type=pending`);
+    return this.httpClient.get<PendingManufactureOrdersView[]>(`${this.apiUrl}/${this.url}?type=pending`);
   }
 
   getWorkOrderRequestById(id: number): Observable<OrderModel> {
-    return this.httpClient.get<OrderModel>(`${this.url}?type=pending&salesOrderItemId=${id}`);
+    return this.httpClient.get<OrderModel>(`${this.apiUrl}/${this.url}?type=pending&salesOrderItemId=${id}`);
   }
 
 
   getAllWorkOrders(): Observable<WorkOrder[]> {
-    return this.httpClient.get<WorkOrder[]>(`${this.url}`);
+    return this.httpClient.get<WorkOrder[]>(`${this.apiUrl}/${this.url}`);
   }
 
   addWorkOrder(newWorkOrder: any): Observable<WorkOrderView | CustomErrorResponse> {
 
-    return this.httpClient.post<WorkOrderView>(`${this.url}`, newWorkOrder).pipe(
+    return this.httpClient.post<WorkOrderView>(`${this.apiUrl}/${this.url}`, newWorkOrder).pipe(
       catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
     );
   }
   updateWorkOrder(id: number, updatedWorkOrder: WorkOrder): Observable<Boolean> {
     // this.httpBody = this.prepareRequestBody(updatedWorkOrder);
-    return this.httpClient.put<Boolean>(`${this.url}/${id}`, updatedWorkOrder);
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.url}/${id}`, updatedWorkOrder);
   }
 
   deleteWorkOrder(workOrderId: number[]): Observable<Boolean> {
     workOrderId.forEach((id) => this.httpBody.append('id[]', `${id}`));
-    return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody);
+    return this.httpClient.post<Boolean>(`${this.apiUrl}/${this.url}`, this.httpBody);
   }
 
   deleteSingleWorkOrder(workOrderId: number): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(`${this.url}/${workOrderId}`);
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${workOrderId}`);
   }
 
   private prepareRequestBody(workOrder: WorkOrder): URLSearchParams {

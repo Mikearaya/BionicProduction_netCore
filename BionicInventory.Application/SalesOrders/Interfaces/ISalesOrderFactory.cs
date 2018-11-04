@@ -11,6 +11,8 @@ namespace BionicInventory.Application.SalesOrders.Interfaces {
         PurchaseOrder CreateNewSaleOrder (NewSalesOrderDto customerOrder);
         IEnumerable<PurchaseOrder> CreateUpdatesSaleOrder (IEnumerable<UpdatedSalesOrderDto> newOrder);
         SalesOrderView CreateSaleOrderView (PurchaseOrder newOrder);
+      
+
         uint ExtractId(string id);
     }
 }

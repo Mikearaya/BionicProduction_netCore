@@ -1,0 +1,6 @@
+
+{
+    "MsBuild": {
+        "MSBuildSdksPath": "/usr/share/dotnet/sdk"
+    }
+}

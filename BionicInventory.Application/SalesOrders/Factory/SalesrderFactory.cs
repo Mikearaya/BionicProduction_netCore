@@ -22,7 +22,7 @@ namespace BionicInventory.Application.SalesOrders.Factory
                 Description = customerOrder.Description,
                 Title = customerOrder.Title
             };
-            foreach (var item in customerOrder.orderDetail)
+            foreach (var item in customerOrder.purchaseOrderDetail)
             {
             newOrder.PurchaseOrderDetail.Add(new PurchaseOrderDetail(){
                 ItemId = item.ItemId,

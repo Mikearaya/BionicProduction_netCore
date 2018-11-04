@@ -22,20 +22,32 @@
               <e-column *ngFor="let col of columnBluePrint; let i=index; let last=last;" [field]="col.key" [headerText]="col.humanReadable"
                 [visible]="col.visable" textAlign=center>
               </e-column>
-              <e-column [commands]="commands" >
-
-              </e-column>
             </e-columns>
 
           </ejs-grid>
         </div>
     </div>
+
     <div class="row">
       <div class="col-12 text-left">
         <div class="e-float-text">
-          <ejs-switch formControlName="createManufactureOrder" name="status"></ejs-switch> Create Manufacture Order
+          <ejs-switch formControlName="createManufactureOrder" #createMO name="status"></ejs-switch> Create Manufacture Order
           Form Missing Products
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <ejs-dropdownlist [dataSource]="employeesList" formControlName="BookedBy"  [query]="employeeQuery" [fields]="employeeFields"
+        filterBarPlaceholder="Serch By Employee Name" placeholder="Ordered By" ></ejs-dropdownlist>
+      </div>
+    </div>
+    <div class="row" *ngIf="createMO.checked">
+      <div class="col-6 col-xs-12">
+<ejs-datetimepicker placeholder="Work Start Date" formControlName="workStartDate"></ejs-datetimepicker>
+      </div>
+      <div class="col-6 col-xs-12">
+        <ejs-datetimepicker placeholder="Work End Date" formControlName="workEndDate"></ejs-datetimepicker>
       </div>
     </div>
     <div class="row">

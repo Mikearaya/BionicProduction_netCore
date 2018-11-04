@@ -212,7 +212,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
                 }).FirstOrDefault ();
 
-            return  book.Booked;
+            return (uint) book.Booked;
 
         }
 

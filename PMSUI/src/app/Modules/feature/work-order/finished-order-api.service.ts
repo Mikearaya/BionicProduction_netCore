@@ -6,34 +6,35 @@
  * @Last Modified Time: Sep 20, 2018 12:58 AM
  * @Description: Modify Here, Please
  */
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class FinishedOrderApiService {
-  private url = 'http://localhost:5000/api/finished_products';
+  private url = `finished_products`;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    @Inject('BASE_URL')private apiUrl: string) { }
 
   getAllFinishedProducts(): Observable<FinishedProductsView[]> {
-    return this.httpClient.get<FinishedProductsView[]>(`${this.url}`);
+    return this.httpClient.get<FinishedProductsView[]>(`${this.apiUrl}/${this.url}`);
   }
 
   getFinishedProductById(id: number): Observable<FinishedProducts> {
-    return this.httpClient.get<FinishedProducts>(`${this.url}/${id}`);
+    return this.httpClient.get<FinishedProducts>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
   addFinishedProduct(finishedProduct: FinishedProducts[]): Observable<FinishedProductsView[]> {
-    return this.httpClient.post<FinishedProductsView[]>(`${this.url}`, finishedProduct);
+    return this.httpClient.post<FinishedProductsView[]>(`${this.apiUrl}/${this.url}`, finishedProduct);
   }
 
   updateFinishedProducts(id: number, finishedProduct: FinishedProducts): Observable<Boolean> {
-    return this.httpClient.put<Boolean>(`${this.url}/${id}`, finishedProduct);
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.url}/${id}`, finishedProduct);
   }
 
   deleteFinishedProduct(id: number): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(`${this.url}/${id}`);
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
 }

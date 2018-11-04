@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 26, 2018 11:59 PM
+ * @Last Modified Time: Nov 2, 2018 10:16 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,6 +12,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.CompanyProfile.Commands;
+using BionicInventory.Application.CompanyProfile.Factories;
+using BionicInventory.Application.CompanyProfile.Interfaces;
+using BionicInventory.Application.CompanyProfile.Iterfaces;
+using BionicInventory.Application.CompanyProfile.Queries;
 using BionicInventory.Application.Customers.Commands;
 using BionicInventory.Application.Customers.Factories;
 using BionicInventory.Application.Customers.Interfaces;
@@ -25,20 +30,30 @@ using BionicInventory.Application.FinishedProducts.Commands;
 using BionicInventory.Application.FinishedProducts.Factories;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Queries;
+using BionicInventory.Application.Invoices.Commands;
+using BionicInventory.Application.Invoices.Factories;
+using BionicInventory.Application.Invoices.Interfaces;
+using BionicInventory.Application.Invoices.Queries;
 using BionicInventory.Application.ProductionOrders.Commands;
 using BionicInventory.Application.ProductionOrders.Factories;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Application.ProductionOrders.Queries;
 using BionicInventory.Application.Products.Commands;
+using BionicInventory.Application.Products.Commands.Booking;
 using BionicInventory.Application.Products.Factories;
+using BionicInventory.Application.Products.Factories.Booking;
 using BionicInventory.Application.Products.Interfaces;
+using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Application.Products.Queries;
+using BionicInventory.Application.Products.Queries.booking;
 using BionicInventory.Application.SalesOrders.Commands;
 using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Queries;
 using BionicInventory.API.Commons;
+using BionicInventory.API.Controllers.WorkOrders;
+using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.ItemPrices;
@@ -52,19 +67,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using BionicInventory.Application.CompanyProfile.Commands;
-using BionicInventory.Application.CompanyProfile.Iterfaces;
-using BionicInventory.Application.CompanyProfile.Interfaces;
-using BionicInventory.Application.CompanyProfile.Queries;
-using BionicInventory.Application.CompanyProfile.Factories;
-using BionicInventory.API.Controllers.WorkOrders;
-using BionicInventory.API.Controllers.WorkOrders.Interface;
-using BionicInventory.Application.Products.Interfaces.Booking;
-using BionicInventory.Application.Products.Queries.booking;
-using BionicInventory.Application.Invoices.Queries;
-using BionicInventory.Application.Invoices.Interfaces;
-using BionicInventory.Application.Invoices.Commands;
-using BionicInventory.Application.Invoices.Factories;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -99,15 +101,15 @@ namespace BionicInventory.API {
             services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
             services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
             services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
-            services.AddScoped<IStockBookingQuey, StockBookingQuery> ();
+            services.AddScoped<IStockBookingQuery, StockBookingQuery> ();
+            services.AddScoped<IStockBookingCommand, StockBookingCommand> ();
+            services.AddScoped<IStockBookingFactory, StockBookingFactory> ();
             services.AddScoped<IInvoicesQuery, InvoicesQuery> ();
             services.AddScoped<IInvoicesCommand, InvoicesCommand> ();
             services.AddScoped<IInvoiceFactory, InvoiceFactory> ();
-
+            services.AddScoped<IWorkOrder, WorkOrdersController>();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
-
-
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",

@@ -29,9 +29,9 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
         public ProductionOrderList CreateNewWorkOrder (NewWorkOrderDto newOrder) {
 
             try {
-                
+
                 var product = _productsQuery.GetProductById (newOrder.ItemId);
-                
+
                 ProductionOrderList productionOrder = new ProductionOrderList () {
                     Description = newOrder.Description,
                     OrderedBy = newOrder.OrderedBy,
@@ -42,10 +42,10 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     Start = newOrder.Start
 
                 };
-            
-            if(newOrder.PurchaseOrderItemId != 0) {
-                productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
-            }
+
+                if (newOrder.PurchaseOrderItemId != 0) {
+                    productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
+                }
 
                 return productionOrder;
 
@@ -55,7 +55,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
         }
 
         public ProductionOrderList CreateUpdatedWorkOrder (UpdatedWorkOrderDto newOrder) {
-            
+
             var product = _productsQuery.GetProductById (newOrder.ItemId);
 
             ProductionOrderList productionOrder = new ProductionOrderList () {
@@ -67,13 +67,12 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 Quantity = newOrder.Quantity,
                 DueDate = newOrder.DueDate,
                 Start = newOrder.Start,
-                
+
             };
 
-            if(newOrder.PurchaseOrderItemId != 0) {
+            if (newOrder.PurchaseOrderItemId != 0) {
                 productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
             }
-
 
             return productionOrder;
 
@@ -81,24 +80,18 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
         public WorkOrderView CreateWorkOrderView (ProductionOrderList workOrder) {
 
-
-
-
-                
-                var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
-                var item = _productsQuery.GetProductById (workOrder.ItemId);
-                ManufactureOrderView workorderView = new ManufactureOrderView () {
-                    id = workOrder.Id,
-                    description = workOrder.Description,
-                    orderedBy = employee.FullName(),
-                    product = item.Code,
-                    start = workOrder.Start,
-                    orderDate = workOrder.DateAdded,
-                    dueDate = workOrder.DueDate,
-                    quantity = (int) workOrder.Quantity
-                };
-
-
+            var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
+            var item = _productsQuery.GetProductById (workOrder.ItemId);
+            ManufactureOrderView workorderView = new ManufactureOrderView () {
+                id = workOrder.Id,
+                description = workOrder.Description,
+                orderedBy = employee.FullName (),
+                product = item.Code,
+                start = workOrder.Start,
+                orderDate = workOrder.DateAdded,
+                dueDate = workOrder.DueDate,
+                quantity = (int) workOrder.Quantity
+            };
 
             return workorderView;
 
@@ -110,34 +103,48 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
             foreach (var order in workOrder) {
                 var employee = _employeeQuery.GetEmployeeById (order.OrderedBy);
                 var product = _productsQuery.GetProductById (order.ItemId);
-    
-                    ManufactureOrderView view = new ManufactureOrderView ();
-                    view.id = order.Id;
-                    view.description = order.Description;
-                    view.orderedBy = employee.FirstName + ' ' + employee.LastName;
-                    view.orderDate = order.DateAdded;
-                    view.quantity = (int) order.Quantity;
-                    view.start = order.Start;
-                    view.dueDate = order.DueDate;
-                    view.product = product.Code;
-                    workorderView.Add (view);
+
+                ManufactureOrderView view = new ManufactureOrderView ();
+                view.id = order.Id;
+                view.description = order.Description;
+                view.orderedBy = employee.FirstName + ' ' + employee.LastName;
+                view.orderDate = order.DateAdded;
+                view.quantity = (int) order.Quantity;
+                view.start = order.Start;
+                view.dueDate = order.DueDate;
+                view.product = product.Code;
+                workorderView.Add (view);
 
             }
             return workorderView;
 
         }
 
-        public uint ExtractId(string id)
-        {
-            string[] words = id.Split('-');
-        bool isNumerical = uint.TryParse(words[1], out uint orderId);
+        public uint ExtractId (string id) {
+            string[] words = id.Split ('-');
+            bool isNumerical = uint.TryParse (words[1], out uint orderId);
 
             return (isNumerical) ? orderId : 0;
         }
 
-        public WorkOrderView CreateSingleWorkOrderView(ProductionOrderList workOrder)
-        {
-            throw new NotImplementedException();
+        public WorkOrderView CreateSingleWorkOrderView (ProductionOrderList workOrder) {
+            throw new NotImplementedException ();
+        }
+
+        public NewWorkOrderDto CreateCustomerOrderDto (uint customerOrderId, uint itemId, uint quantity, DateTime startDate, DateTime endDate, uint bookedBy, string description = "") {
+            NewWorkOrderDto work = new NewWorkOrderDto () {
+            PurchaseOrderItemId = customerOrderId,
+            OrderedBy = bookedBy,
+            ItemId = itemId,
+            Quantity = quantity,
+            DueDate = endDate,
+            Start = startDate
+            };
+
+            if (description.Trim () != "") {
+                work.Description = description.Trim ();
+            }
+            return work;
         }
     }
 }

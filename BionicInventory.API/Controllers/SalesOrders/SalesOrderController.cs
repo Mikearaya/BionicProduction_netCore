@@ -106,7 +106,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                 ModelState.AddModelError ("CreatedBy", $"Employee with id: {newOrder.CreatedBy} Not Found");
             }
 
-            foreach (var orderDetail in newOrder.orderDetail) {
+            foreach (var orderDetail in newOrder.purchaseOrderDetail) {
                 var product = _itemQuery.GetProductById (orderDetail.ItemId);
                 if (product == null) {
                     ModelState.AddModelError ("ItemId", $"Product With id: {orderDetail.ItemId} Not Found");

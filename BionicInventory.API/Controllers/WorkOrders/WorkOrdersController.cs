@@ -145,7 +145,8 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                             ModelState.AddModelError("PurchaseOrderId", $"Sale Order With Id : {newWork.PurchaseOrderItemId} already has a manufacturing Order");
                             return new InvalidInputResponse(ModelState);
                         }
-                        newWork.Quantity = salesOrder.Quantity;
+
+                        newWork.Quantity  = (newWork.Quantity  > salesOrder.Quantity) ? salesOrder.Quantity : newWork.Quantity;
                     }
                 
 

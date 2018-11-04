@@ -1,12 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   CommandModel
 } from '@syncfusion/ej2-angular-grids';
 import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, AbstractControl, FormBuilder, FormArray } from '@angular/forms';
-import { Browser } from '@syncfusion/ej2-base';
-import { UrlAdaptor, DataManager, Query, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { DataManager, Query, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CustomErrorResponse } from '../../../core/core-api.service';
@@ -48,6 +47,7 @@ export class WorkOrderFormComponent implements OnInit {
   private itemId: number;
 
   constructor(private workOrderApi: WorkOrderAPIService,
+    @Inject('BASE_URL') private apiUrl: string,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private location: Location,
@@ -63,27 +63,25 @@ export class WorkOrderFormComponent implements OnInit {
 
   }
 
-  createForm(data: OrderModel = null ): void {
-    console.log(data);
+  createForm(data: OrderModel = null): void {
     this.workOrderForm = this.formBuilder.group({
       orderedBy: [(data) ? data.orderedById : '', Validators.required],
       description: [(data) ? data.description : ''],
       itemId: [(data) ? data.productId : '', Validators.required],
-      quantity: [(data) ? data.quantity : '', [Validators.required, Validators.min(0)]],
+      quantity: [(data) ? data.quantity : '', [Validators.required]],
       dueDate: [(data) ? data.dueDate : '', Validators.required],
       startDate: [(data) ? data.start : '', Validators.required],
       salesOrderItemId: [(data) ? data.salesOrderItemId : '']
     });
   }
 
-  createItemForm(data: number ): void {
-    console.log(data);
+  createItemForm(data: number): void {
     this.workOrderForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
       description: [''],
-      itemId: [ data, Validators.required],
-      quantity: ['', [Validators.required, Validators.min(0)]],
-      dueDate: [ '', Validators.required],
+      itemId: [data, Validators.required],
+      quantity: ['', [Validators.required]],
+      dueDate: ['', Validators.required],
       startDate: ['', Validators.required],
       salesOrderItemId: ['']
     });
@@ -109,7 +107,7 @@ export class WorkOrderFormComponent implements OnInit {
       this.isFromCustomerOrder = true;
       this.workOrderApi.getWorkOrderRequestById(this.customerOrderId)
         .subscribe((data: OrderModel) => {
-        this.orderData = data;
+          this.orderData = data;
           this.createForm(data);
         },
           (error: CustomErrorResponse) => console.log(error)
@@ -117,23 +115,24 @@ export class WorkOrderFormComponent implements OnInit {
     } else if (this.itemId) {
       this.isFromItem = true;
       this.productApiService.getCriticalProductById(this.itemId)
-          .subscribe((data: any) => {
-            this.orderData.productId = data.id;
-            this.orderData.product = data.product;
-            this.orderData.productName = data.productName;
-            this.orderData.quantity = data.required;
-              this.createForm(this.orderData);
-            },
-            (error: CustomErrorResponse) => console.log(error)
-          );
+        .subscribe((data: any) => {
+          this.orderData.productId = data.id;
+          this.orderData.product = data.product;
+          this.orderData.productName = data.productName;
+          this.orderData.quantity = data.required;
+          this.createForm(this.orderData);
+        },
+          (error: CustomErrorResponse) => console.log(error)
+        );
     }
 
     const dm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/employees', adaptor: new WebApiAdaptor, offline: true },
+      { url: `${this.apiUrl}/employees`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
     dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
+
     this.workOrderApi.getAllProducts().subscribe(
       result => this.itemsList = result['Items']
     );

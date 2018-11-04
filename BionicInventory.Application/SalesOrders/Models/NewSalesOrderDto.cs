@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BionicInventory.Application.SalesOrders.Models {
     public class NewSalesOrderDto : SalesOrderDto {
         [Required]
-        public IEnumerable<NewSalesOrderDetailDto> orderDetail { get; set; }
+        public IEnumerable<NewSalesOrderDetailDto> purchaseOrderDetail { get; set; }
 
     }
 }

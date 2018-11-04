@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 22, 2018 10:55 PM
+ * @Last Modified Time: Nov 2, 2018 9:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,7 +18,7 @@ namespace BionicInventory.Domain.BookedStockItem {
     {
         public uint Id { get; set; }
         public uint StockId { get; set; }
-        public sbyte? Canceled { get; set; }
+        public sbyte? Canceled { get; set; } = 0;
         public uint BookedBy { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
