@@ -6,6 +6,8 @@ export class Invoice {
   discount: number;
   note: string;
   dueDate: Date;
+  paymentMethod: string;
+  createdOn: Date;
   invoiceItems: InvoiceItems[] = [];
 
 }

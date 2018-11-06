@@ -83,6 +83,13 @@
               <input type="number" formControlName="note" />
             </div>
           </div>
+          <div class="row">
+          <div class="col-sm-12 col-xs-12 text-center">
+            <p><strong>Payment Method </strong> </p>
+            <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
+            <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
+          </div>
+          </div>
         </div>
       </div>
       <div class="row">

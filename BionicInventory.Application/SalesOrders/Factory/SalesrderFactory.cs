@@ -12,15 +12,16 @@ namespace BionicInventory.Application.SalesOrders.Factory
 {
     public class SalesOrderFactory : ISalesOrderFactory
     {
+
+
         public PurchaseOrder CreateNewSaleOrder(NewSalesOrderDto customerOrder )
         {
             PurchaseOrder newOrder = new PurchaseOrder() {
                 ClientId = customerOrder.ClientId,
                 CreatedBy = customerOrder.CreatedBy,
-                InitialPayment = customerOrder.InitialPayment,
-                PaymentMethod = customerOrder.PaymentMethod,
-                Description = customerOrder.Description,
-                Title = customerOrder.Title
+                OrderStatus = customerOrder.Status,
+                CreatedOn = customerOrder.CreatedOn,
+                Description = customerOrder.Description
             };
             foreach (var item in customerOrder.purchaseOrderDetail)
             {

@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 4, 2018 9:02 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 4, 2018 9:02 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 
 namespace BionicInventory.Application.SalesOrders.Models {
@@ -12,7 +20,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public uint totalProducts {get; set;}
         public float totalPrice { get; set; }
         public double totalCost { get; set; }
-        public string paymentMethod { get; set; }
+        public DateTime? createdOn { get; set; }
         public string status { get; set; }
         public DateTime dueDate {get; set;}
         public DateTime dateAdded{ get; set; }

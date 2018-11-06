@@ -12,35 +12,30 @@
               </ejs-dropdownlist>
             </div>
             <div class="col-sm-12 col-xs-12">
+              <ejs-dropdownlist [allowFiltering]="true" name="status" formControlName="status" id='status' placeholder="Status"
+                floatLabelType="Auto" [dataSource]="orderStatus"> </ejs-dropdownlist>
+            </div>
+            <div class="col-12">
+                <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
+                  id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss"></ejs-datepicker>
+              </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xs-12">
+          <div class="row">
+            <div class="col-12">
               <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
                 placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
                 [dataSource]="employeesList"> </ejs-dropdownlist>
             </div>
-            <div class="col-sm-12 col-xs-12">
-              <div class=" e-success">
-                <ejs-numerictextbox class="e-input" min="0" floatLabelType="Auto" formControlName="initialPayment" name="initialPayment"
-                  placeholder="Initial Payment" id="initialPayment"> </ejs-numerictextbox>
-              </div>
-            </div>
-            <div class="col-sm-12 col-xs-12 text-center">
-              <p><strong>Payment Method </strong> </p>
-              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
-              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
-            </div>
-            <div class="col-sm-12 col-xs-12">
-              <div class=" e-success ">
-                <input class="e-input" type="text" floatLabelType="Auto" formControlName="title" placeholder="Title" />
-              </div>
-            </div>
-            <div class="col-sm-12 col-xs-12">
-              <div class=" e-success ">
-                <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-xs-12">
 
+                <div class="col-sm-12 col-xs-12">
+                    <div class=" e-success ">
+                      <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
+                    </div>
+                  </div>
+
+          </div>
         </div>
       </div>
       <h5 class="text-info">Items</h5>
@@ -66,8 +61,8 @@
               [attr.name]="'price'+i" placeholder="Unit Price" [attr.id]="'Price'+i"> </ejs-numerictextbox>
           </div>
           <div class="col-sm-3 col-xs-12">
-            <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="dueDate" [min]="today" [attr.id]="'dueDate'+i"
-              [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:ss"></ejs-datepicker>
+            <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="dueDate" [min]="today"
+              [attr.id]="'dueDate'+i" [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:ss"></ejs-datepicker>
 
           </div>
           <div class="col-sm-2 col-xs-12">

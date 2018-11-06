@@ -2,8 +2,8 @@
  * @CreateTime: Sep 26, 2018 8:55 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By: undefined
- * @Last Modified Time: Nov 1, 2018 12:28 AM
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 4, 2018 9:05 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -46,7 +46,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
                                 description = CO.PurchaseOrder.Description,
-                                pamentMethod = CO.PurchaseOrder.PaymentMethod,
+                                status = CO.PurchaseOrder.OrderStatus,
+                                createdOn = CO.PurchaseOrder.CreatedOn,
                                 uintCost = CO.Item.UnitCost,
                                 id = CO.Id,
                                 unitPrice = CO.PricePerItem,
@@ -55,8 +56,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 productName = CO.Item.Name,
                                 dueDate = CO.DueDate,
                                 manufactureId = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.Id : 0,
-                                productCode = CO.Item.Code,
-                                status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
+                                productCode = CO.Item.Code
 
                         }),
 
@@ -71,19 +71,13 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             orderDetail.id = salesOrders.ID;
 
             foreach (var orders in salesOrders.detail) {
-                var status = " ";
-                if (orders.status < 0) {
-                    status = "Pending";
-                } else if (orders.status == orders.quantity) {
-                    status = "Ready";
-                } else {
-                    status = "In production";
-                }
+                var status = orders.status;
+                
                 orderDetail.customerName = orders.customerName;
                 orderDetail.createdBy = orders.createdBy;
                 orderDetail.description = orders.description;
 
-                orderDetail.paymentMethod = orders.pamentMethod;
+                orderDetail.createdOn = orders.createdOn;
                 orderDetail.orderItems.Add (new CustomerOrderItemsView () {
                     id = orders.id,
                         quantity = (int) orders.quantity,
@@ -125,8 +119,9 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 addedBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
+                                createOn = CO.PurchaseOrder.CreatedOn,
                                 description = CO.PurchaseOrder.Description,
-                                pamentMethod = CO.PurchaseOrder.PaymentMethod,
+                                orderStatus = CO.PurchaseOrder.OrderStatus,
                                 status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
 
                         })
@@ -149,7 +144,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     salesOrder.customerName = item.customerName;
                     salesOrder.dateAdded = (DateTime) item.dateAdded;
                     salesOrder.dateUpdated = (DateTime) item.dateUpdated;
-                    salesOrder.paymentMethod = item.pamentMethod;
+                    salesOrder.status = item.orderStatus;
+                    salesOrder.createdOn = item.createOn;
                     sum += item.status;
 
                 }
@@ -176,11 +172,10 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 .Select (co => new PurchaseOrder () {
                     Id = co.Id,
                         ClientId = co.ClientId,
-                        InitialPayment = co.InitialPayment,
                         CreatedBy = co.CreatedBy,
-                        PaymentMethod = co.PaymentMethod,
+                        OrderStatus = co.OrderStatus,
                         Description = co.Description,
-                        Title = co.Title,
+                        CreatedOn = co.CreatedOn,
                         DateAdded = co.DateAdded,
                         DateUpdated = co.DateAdded,
                         PurchaseOrderDetail = co.PurchaseOrderDetail

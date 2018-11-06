@@ -31,10 +31,10 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                 builder.Property (e => e.ClientId).HasColumnName ("CLIENT_ID");
 
                 builder.Property (e => e.CreatedBy).HasColumnName ("CREATED_BY");
-            
+
                 builder.Property (e => e.OrderStatus)
                     .HasColumnName ("order_status")
-                    .HasColumnType ("varchar(20)");
+                    .HasColumnType ("varchar(30)");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")
@@ -50,21 +50,15 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                 builder.Property (e => e.Description)
                     .HasColumnName ("description")
                     .HasColumnType ("varchar(255)");
-                
-                builder.Property(e => e.DueDate)
-                    .HasColumnName("due_date")
-                    .HasColumnType("datetime");
 
-                builder.Property (e => e.PaymentMethod)
-                    .IsRequired ()
-                    .HasColumnName ("payment_method");
+                builder.Property (e => e.DueDate)
+                    .HasColumnName ("due_date")
+                    .HasColumnType ("datetime");
 
-                builder.Property (e => e.InitialPayment).HasColumnName ("initial_payment");
-
-                builder.Property (e => e.Title)
-                    .IsRequired ()
-                    .HasColumnName ("title")
-                    .HasColumnType ("varchar(45)");
+                builder.Property (e => e.CreatedOn)
+                    .HasColumnName ("created_on")
+                    .HasColumnType ("datetime")
+                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.PurchaseOrder)

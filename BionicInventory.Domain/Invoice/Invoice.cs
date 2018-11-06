@@ -26,9 +26,10 @@ namespace BionicInventory.Domain.Invoices {
         public uint CreatedBy { get; set; }
         public byte? PrintCount { get; set; } = 0;
         public string InvoiceType { get; set; }
-        public float Tax {get; set;}
-        public string Note {get; set;}
-        public float Discount {get; set;}
+        public string PaymentMethod { get; set; }
+        public float Tax { get; set; }
+        public string Note { get; set; }
+        public float Discount { get; set; }
         public DateTime? CreatedOn { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }

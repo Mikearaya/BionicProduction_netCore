@@ -16,7 +16,7 @@
     >
   </e-column>
     <e-column [commands]="commands" [customAttributes]="customAttributes" [width]=25 textAlign="Center"  >
-        <ng-template #headerTemplate >
+        <ng-template #headerTemplate let-data >
             <button ejs-button  (click)="addInvoice()" iconCss="e-icons e-add "  title="Create New Invoice"    class="e-large e-flat"  ></button>
           </ng-template>
     </e-column>

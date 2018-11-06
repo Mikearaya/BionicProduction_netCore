@@ -23,6 +23,8 @@ namespace BionicInventory.Application.Invoices.Models {
         
         [Required]
         public  string InvoiceType {get; set;}
+        [Required]
+        public string PaymentMethod {get; set;}
         public DateTime DueDate {get; set;}
         public string Note {get; set;}
 

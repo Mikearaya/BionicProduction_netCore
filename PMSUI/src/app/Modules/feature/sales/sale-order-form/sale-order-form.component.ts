@@ -36,6 +36,7 @@ export class SaleOrderFormComponent implements OnInit {
   public employeesList: any[];
   public customersList: any[];
   public today: Date;
+  public orderStatus = ['Quotation', 'Waiting for Confirmation', 'Confirmed', 'Canceled', 'Delivered'];
 
   constructor(private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
@@ -57,9 +58,10 @@ export class SaleOrderFormComponent implements OnInit {
     this.salesOrderForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
       client: ['', Validators.required],
-      paymentMethod: ['Check', Validators.required],
       initialPayment: [0],
-      title: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+      createdOn: ['', Validators.required],
+      status: ['Quotation', Validators.required],
       description: ['', Validators.required],
       orders: this.formBuilder.array([
         this.formBuilder.group({
@@ -78,9 +80,9 @@ export class SaleOrderFormComponent implements OnInit {
   addOrder() {
     this.orders.push(this.formBuilder.group({
       itemId: ['', Validators.required],
-      unitPrice: [0, [Validators.required, Validators.min(0)]],
-      quantity: [1, [Validators.required, Validators.min(1)]],
-      dueDate: ['', Validators.required]
+      unitPrice: [0, [Validators.required]],
+      quantity: [1, [Validators.required, Validators.min(0)]],
+      dueDate: ['', Validators.required, Validators.min(1)]
     }));
   }
   ngOnInit(): void {
@@ -129,8 +131,9 @@ export class SaleOrderFormComponent implements OnInit {
     const order = new SalesOrder();
     order.createdBy = form.orderedBy;
     order.clientId = form.client;
-    order.title = form.title;
     order.description = form.description;
+    order.status = form.status;
+    order.createdOn = form.createdOn;
     form.orders.forEach(element => {
       order.PurchaseOrderDetail.push({
         itemId: element.itemId,

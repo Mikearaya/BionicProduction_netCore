@@ -16,6 +16,8 @@ namespace BionicInventory.Application.Invoices.Models.ViewModel {
         private string _invoiceType =  "";
 
         public uint Id {get; set;}
+
+        public string PaymentMethod {get; set;}
         public uint CustomerId {get; set;}
         public string InvoiceType {get {
             return _invoiceType;

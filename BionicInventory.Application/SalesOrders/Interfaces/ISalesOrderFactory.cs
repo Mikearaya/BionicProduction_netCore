@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 4, 2018 9:16 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 4, 2018 9:16 PM
+ * @Description: Modify Here, Please 
+ */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Application.SalesOrders.Models;

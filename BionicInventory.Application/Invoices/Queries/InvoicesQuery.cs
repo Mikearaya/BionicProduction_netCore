@@ -84,6 +84,7 @@ namespace BionicInventory.Application.Invoices.Queries {
                                     DateAdded = detail.DateAdded,
                                     DueDate = detail.DueDate,
                                     TotalAmount = item.TotalAmount,
+                                    PaymentMethod = detail.PaymentMethod,
                                     PaidAmount = item.PaidAmount,
                                     InvoiceType = detail.InvoiceType,
                                     CustomerId = item.Customer.Id,
