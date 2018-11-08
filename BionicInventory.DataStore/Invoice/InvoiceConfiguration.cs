@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 26, 2018 10:08 PM
+ * @Last Modified Time: Nov 9, 2018 12:08 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -21,8 +21,7 @@ namespace BionicInventory.DataStore.Invoices {
                 builder.ToTable ("INVOICE");
 
                 builder.HasIndex (e => e.PurchaseOrderId)
-                    .HasName ("PURCHASE_ORDER_ID_UNIQUE")
-                    .IsUnique ();
+                    .HasName ("PURCHASE_ORDER_ID_UNIQUE");
 
                 builder.HasIndex (e => e.PreparedBy)
                     .HasName ("fk_INVOICE_prepared_by_idx");

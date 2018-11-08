@@ -1,5 +1,5 @@
 <section class="e-card">
-  <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()">
     <div class="container-fluid">
       <div class="row">
         <div class="col">
@@ -14,9 +14,8 @@
               Customer Order
             </div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="customerOrderId" [query]="customerOrderQuery"
-              [fields]="customerOrderFields" filterBarPlaceholder="Search By Customer Order Id" [allowFiltering]="true"
-              [dataSource]="customerOrdersList"></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="customerOrderId" [query]="customerOrderQuery" [fields]="customerOrderFields"
+                filterBarPlaceholder="Search By Customer Order Id" [allowFiltering]="true" [dataSource]="customerOrdersList"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -25,25 +24,21 @@
             </div>
             <div class="col-10">
               <ejs-dropdownlist formControlName="customerId" [dataSource]="customersList" [query]="customersQuery"
-              filterBarPlaceholder="Search By Customer Name" [allowFiltering]="true"
-                [fields]="customerFields"></ejs-dropdownlist>
+                filterBarPlaceholder="Search By Customer Name" [allowFiltering]="true" [fields]="customerFields"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
             <div class="col-2 label-area">Type</div>
             <div class="col-10">
               <ejs-dropdownlist [dataSource]="invoiceTypes" filterBarPlaceholder="Search Invoice Type" [allowFiltering]="true"
-              formControlName="invoiceType"></ejs-dropdownlist>
+                formControlName="invoiceType"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
-            <div class="col-2">
-              Status
-            </div>
-            <div class="col-10">
-              <ejs-dropdownlist [dataSource]="invoiceStatus" formControlName="status">
-
-              </ejs-dropdownlist>
+            <div class="col-sm-12 col-xs-12 text-center">
+              <p><strong>Payment Method </strong> </p>
+              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
+              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
             </div>
           </div>
         </div>
@@ -63,7 +58,7 @@
           <div class="row">
             <div class="col-2 label-area">Currency</div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="currencyId" ></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="currencyId"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
@@ -72,24 +67,16 @@
             </div>
             <div class="col-10">
               <ejs-dropdownlist formControlName="createdBy" [dataSource]="employeesList" [query]="employeeQuery"
-                [fields]="employeeFields"
-                filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true"
-                ></ejs-dropdownlist>
+                [fields]="employeeFields" filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true"></ejs-dropdownlist>
             </div>
           </div>
           <div class="row">
             <div class="col-2 label-area">Note</div>
             <div class="col-10">
-              <input type="number" formControlName="note" />
+              <input type="text" class="e-input" formControlName="note" placeholder="Extra Notes?" />
             </div>
           </div>
-          <div class="row">
-          <div class="col-sm-12 col-xs-12 text-center">
-            <p><strong>Payment Method </strong> </p>
-            <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
-            <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
-          </div>
-          </div>
+
         </div>
       </div>
       <div class="row">
@@ -124,7 +111,7 @@
                 </td>
                 <td>
                   <ejs-numerictextbox formControlName="discount" [attr.id]="'discount'+i" [attr.name]="'discount'+i"
-                    placeholder="Discount" floatLable="Auto" [min]="0" >
+                    placeholder="Discount" floatLable="Auto" [min]="0">
 
                   </ejs-numerictextbox>
                 </td>

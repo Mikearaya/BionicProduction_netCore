@@ -41,7 +41,7 @@
               </e-column>
               <e-column [commands]="customerOrderCommands" [customAttributes]="infoGridAttributes">
                   <ng-template #headerTemplate >
-                      <button ejs-button  (click)="addInvoice()" iconCss="e-icons e-add "     class="e-link e-large"  ></button>
+                      <button ejs-button  (click)="addNewOrderItem()" iconCss="e-icons e-add "     class="e-link e-large"  ></button>
                     </ng-template>
               </e-column>
             </e-columns>
@@ -51,7 +51,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <button (click)="viewCustomerOrder($event)" class="e-warning"  ejs-button i18n >Check stock and book items</button>
+          <button (click)="bookOrderItems()" class="e-warning"  ejs-button i18n >Check stock and book items</button>
         </div>
       </div>
 

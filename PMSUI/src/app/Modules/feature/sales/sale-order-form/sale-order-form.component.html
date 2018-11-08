@@ -1,30 +1,37 @@
 <section class="e-card">
-  <h3 class="text-info text-center">Customer Order Form</h3>
+  <h3 class="text-info text-center" i18n="Form Header">Customer Order Form</h3>
   <form [formGroup]="salesOrderForm" novalidate id="salesOrderForm" (ngSubmit)="onSubmit()">
     <div class="container">
-      <app-form-options [submitDisabled]='salesOrderForm.invalid'></app-form-options>
+      <app-form-options [submitDisabled]='salesOrderForm.invalid' submitButtonText="Save"></app-form-options>
       <div class="row">
         <div class="col-sm-6 col-xs-12">
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="client"  formControlName="client" id='client' placeholder="Client"
-                floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList" i18n-placeholder="Customer Name@@customerName">
+              <ejs-dropdownlist [allowFiltering]="true" name="client" formControlName="client" id='client' placeholder="Client"
+                floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList"
+                i18n-placeholder="Customer Name@@customerName">
               </ejs-dropdownlist>
-
-              <div class="e-error" *ngIf="client.errors && client.touched">
-                <div class="div" *ngIf="client.errors['required']" i18n="@@customerRequired" >You Must Select Customer</div>
+              <div class="e-error" *ngIf="client.errors">
+                <div class="div" *ngIf="client.errors['required']" i18n="@@customerRequired">You Must Select Customer</div>
               </div>
             </div>
             <div class="col-sm-12 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="status"  formControlName="status" id='status' placeholder="Status"
-                floatLabelType="Auto" [dataSource]="orderStatus"
-                i18n-placeholder="customer order status"> </ejs-dropdownlist>
+              <ejs-dropdownlist [allowFiltering]="true" name="status" formControlName="status" id='status' placeholder="Status"
+                floatLabelType="Auto" [dataSource]="orderStatus" i18n-placeholder="customer order status input">
+              </ejs-dropdownlist>
+              <div class="e-error" *ngIf="status.errors">
+                <div class="div" *ngIf="status.errors['required']" i18n="@@orderStatusRequired">Order Status is
+                  Required</div>
+              </div>
             </div>
             <div class="col-12">
-                <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
-                  id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss"
-                  i18n-placeholder="Final order delivery date @@orderDeliveryDate"></ejs-datepicker>
+              <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
+                id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss" i18n-placeholder="Final order delivery date input @@orderDeliveryDate"></ejs-datepicker>
+              <div class="e-error" *ngIf="deliveryDate.errors">
+                <div class="div" *ngIf="deliveryDate.errors['required']" i18n="@@orderDeliveryDateRequired">Delivery
+                  Date is Required</div>
               </div>
+            </div>
           </div>
         </div>
         <div class="col-sm-6 col-xs-12">
@@ -32,21 +39,25 @@
             <div class="col-12">
               <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
                 placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
-                [dataSource]="employeesList"
-
-                i18n-placeholder="order giving employee name @@ordererGivenBy"> </ejs-dropdownlist>
+                [dataSource]="employeesList" i18n-placeholder="order giving employee name @@ordererGivenBy">
+              </ejs-dropdownlist>
+              <div class="e-error" *ngIf="orderedBy.errors">
+                <div class="div" *ngIf="orderedBy.errors['required']" i18n="@@orderedByRequired">Ordered By is required
+                  is Required</div>
+              </div>
             </div>
 
-                <div class="col-sm-12 col-xs-12">
-                    <div class=" e-success ">
-                      <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description" />
-                    </div>
-                  </div>
+            <div class="col-sm-12 col-xs-12">
+              <div class=" e-success ">
+                <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description"
+                  i18n-placeholder="order description input @@orderDescriptionInput" />
+              </div>
+            </div>
 
           </div>
         </div>
       </div>
-      <h5 class="text-info">Items</h5>
+      <h5 class="text-info" i18n="Section Header">Items</h5>
 
       <div formArrayName="orders">
         <div class="row" *ngFor="let order of orders.controls; let i=index; let last=last;" [formGroup]="order">
@@ -54,36 +65,44 @@
 
 
             <ejs-dropdownlist [allowFiltering]="true" [attr.name]="itemId" formControlName="itemId" [attr.id]="'itemId'+i"
-              placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
+              placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList"
+              i18n-placeholder="Item">
             </ejs-dropdownlist>
 
           </div>
           <div class="col-sm-2 col-xs-12">
 
             <ejs-numerictextbox [attr.class]="'e-input'" min="1" floatLabelType="Auto" formControlName="quantity"
-              [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i"> </ejs-numerictextbox>
+              [attr.name]="'quantity'+i" placeholder="Quantity" [attr.id]="'quantity'+i" i18n-placeholder="Item Quantity @@itemQuantity">
+            </ejs-numerictextbox>
           </div>
           <div class="col-sm-2 col-xs-12">
 
             <ejs-numerictextbox [attr.class]="'e-input'" min="1" floatLabelType="Auto" formControlName="unitPrice"
-              [attr.name]="'price'+i" placeholder="Unit Price" [attr.id]="'Price'+i"> </ejs-numerictextbox>
+              [attr.name]="'price'+i" placeholder="Unit Price" [attr.id]="'Price'+i" i18n-placeholder="item unit price input @@itemUnitPriceInput">
+            </ejs-numerictextbox>
           </div>
           <div class="col-sm-3 col-xs-12">
-            <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="dueDate" [min]="today"
-              [attr.id]="'dueDate'+i" [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:ss"></ejs-datepicker>
+            <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="dueDate" [attr.id]="'dueDate'+i"
+              [attr.name]="'dueDate'+i" format="yyyy-MM-dd hh:ss" i18n-placeholder="order due date select @@orderDueDateSelect"></ejs-datepicker>
 
           </div>
           <div class="col-sm-2 col-xs-12">
-
-            <button type="button" ejs-button class="e-success e-outline e-small e-round" [disabled]="orders.invalid || !last"
-              (click)="addOrder()">add</button>
             <button type="button" ejs-button class="e-warning e-outline e-small" [disabled]="orders.length == 1"
-              (click)="orders.removeAt(i)">remove</button>
+              (click)="orders.removeAt(i)" i18n="delete @@deleteOption">remove</button>
 
           </div>
         </div>
+        <div class="row">
+          <div class="col-10 col-xs-12"></div>
+          <div class="col-2 col-xs-12">
+
+            <button type="button" ejs-button class="e-info " [disabled]="orders.invalid"
+              (click)="addOrder()" i18n="add new option @@addOption">add</button>
+          </div>
+        </div>
       </div>
-      <app-form-options [submitDisabled]='salesOrderForm.invalid'></app-form-options>
+      <app-form-options [submitDisabled]='salesOrderForm.invalid' submitButtonText="Save"></app-form-options>
     </div>
   </form>
 </section>

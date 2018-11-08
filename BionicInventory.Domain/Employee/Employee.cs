@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 22, 2018 10:54 PM
+ * @Last Modified Time: Nov 8, 2018 11:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,22 +18,18 @@ using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.Sale;
 
-namespace BionicInventory.Domain.Employees
-{
-    public class Employee
-    {
-         public Employee()
-        {
-            BookedStockItems = new HashSet<BookedStockItems>();
-            FinishedProductRecievedByNavigation = new HashSet<FinishedProduct>();
-            FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct>();
-            InvoicePaymentsCashier = new HashSet<InvoicePayments>();
-            InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments>();
-            ProductionOrder = new HashSet<ProductionOrderList>();
-            PurchaseOrder = new HashSet<PurchaseOrder>();
-            Sales = new HashSet<Sales>();
-            Invoice = new HashSet<Invoice>();
-            InvoiceDetail = new HashSet<InvoiceDetail>();
+namespace BionicInventory.Domain.Employees {
+    public class Employee {
+        public Employee () {
+            BookedStockItems = new HashSet<BookedStockItems> ();
+            FinishedProductRecievedByNavigation = new HashSet<FinishedProduct> ();
+            FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct> ();
+            InvoicePaymentsCashier = new HashSet<InvoicePayments> ();
+            InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments> ();
+            ProductionOrder = new HashSet<ProductionOrderList> ();
+            PurchaseOrder = new HashSet<PurchaseOrder> ();
+            Sales = new HashSet<Sales> ();
+            Invoice = new HashSet<Invoice> ();
         }
 
         public uint Id { get; set; }
@@ -43,7 +39,6 @@ namespace BionicInventory.Domain.Employees
         public DateTime? DateUpdated { get; set; }
 
         public ICollection<Invoice> Invoice { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
@@ -53,8 +48,8 @@ namespace BionicInventory.Domain.Employees
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<Sales> Sales { get; set; }
 
-        public string FullName() {
-            return FirstName+' '+LastName;
+        public string FullName () {
+            return FirstName + ' ' + LastName;
         }
     }
 }

@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 9, 2018 1:35 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 9, 2018 1:51 AM
+ * @Description: Modify Here, Please
+ */
 import { Component, OnInit, Inject } from '@angular/core';
 import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
@@ -49,8 +57,8 @@ export class SaleOrderFormComponent implements OnInit {
     this.customerFields = { text: 'firstName', value: 'id' };
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
-    this.itemQuery = new Query().select(['code', 'id']);
-    this.itemFields = { text: 'code', value: 'id' };
+    this.itemQuery = new Query().select(['name', 'id']);
+    this.itemFields = { text: 'name', value: 'id' };
 
   }
 
@@ -61,7 +69,7 @@ export class SaleOrderFormComponent implements OnInit {
       deliveryDate: ['', Validators.required],
       createdOn: [''],
       status: ['Quotation', Validators.required],
-      description: ['', Validators.required],
+      description: [''],
       orders: this.formBuilder.array([
         this.formBuilder.group({
           itemId: ['', Validators.required],
@@ -97,7 +105,7 @@ export class SaleOrderFormComponent implements OnInit {
       itemId: ['', Validators.required],
       unitPrice: [0, [Validators.required]],
       quantity: [1, [Validators.required, Validators.min(0)]],
-      dueDate: ['', Validators.required, Validators.min(1)]
+      dueDate: [null, Validators.required]
     }));
   }
   ngOnInit(): void {
@@ -161,13 +169,6 @@ export class SaleOrderFormComponent implements OnInit {
     return order;
   }
 
-  dateValidator() {
-    return (control: FormControl): null | Object => {
-      return control.value !== null && (1900 <= control.value.getFullYear() &&
-        control.value.getFullYear() <= 2099)
-        ? null : { OrderDate: { value: control.value } };
-    };
-  }
 
 
 }

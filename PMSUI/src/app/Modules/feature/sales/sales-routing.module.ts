@@ -7,6 +7,7 @@ import { SalesOrderDetailComponent } from './sales-order-detail/sales-order-deta
 const routes: Routes = [
   {path: '', component: SaleOrderViewComponent },
   {path: 'new', component: SaleOrderFormComponent },
+  {path: ':customerOrderId/update', component: SaleOrderFormComponent },
   {path: ':customerOrderId', component: SalesOrderDetailComponent },
   {path: ':customerOrderId/booking', loadChildren: '../order-booking/order-booking.module#OrderBookingModule' },
 ];

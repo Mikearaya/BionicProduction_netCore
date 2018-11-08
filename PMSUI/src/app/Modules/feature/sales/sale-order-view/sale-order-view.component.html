@@ -5,7 +5,7 @@
   (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser"
   [showColumnMenu]="showColumnMenu"  [filterSettings]="filterSetting"  [groupSettings]='groupOptions' [allowFiltering]="allowFiltering"
   [allowSorting]="allowSorting"
-  [allowPdfExport]="allowPdfExport">
+  [allowPdfExport]="allowPdfExport" >
   <e-columns>
     <e-column [isPrimaryKey]="col.primaryKey" textAlign="center"  [width]="col.width" *ngFor="let col of columnBluePrint"
   [allowEditing]="col.editable" [field]='col.key' [allowGrouping]="col.allowGrouping" [visible]='col.visable'

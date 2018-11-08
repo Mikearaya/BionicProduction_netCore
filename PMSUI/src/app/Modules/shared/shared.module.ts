@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule, DatePickerModule, DatePickerAllModule } from '@syncfusion/ej2-angular-calendars';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { DocumentEditorAllModule } from '@syncfusion/ej2-angular-documenteditor';
 
 @NgModule({
   imports: [
@@ -24,7 +25,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
     DropDownListModule,
     SwitchModule,
     DatePickerModule,
-    CommonModule
+    DocumentEditorAllModule
   ],
   declarations: [FormOptionsComponent],
   exports: [

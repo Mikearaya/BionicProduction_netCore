@@ -83,9 +83,13 @@ export class SalesOrderDetailComponent implements OnInit {
   }
 
 
-  viewCustomerOrder(data) {
-    this.route.navigate([`sales/${this.customerOrderId}/booking`]);
+  addNewOrderItem() {
+    this.route.navigate([`sales/${this.customerOrderId}/update`]);
 
+  }
+
+  bookOrderItems() {
+    this.route.navigate([`sales/${this.customerOrderId}/booking`]);
   }
 
   viewShipment(data) {
@@ -93,7 +97,6 @@ console.log(data);
   }
 
     addInvoice(): void {
-      console.log('in addInvoice');
       this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
     }
   viewInvoice(data) {
