@@ -13,7 +13,7 @@
         <div class="col-6 col-xs-12">
           <ol>
             <dt>Order #</dt>
-            <dd><input disabled="true" [value]="customerOrder?.id" /> </dd>
+            <dd> {{customerOrder?.id}} </dd>
             <dt>Customer</dt>
             <dd>{{customerOrder?.customerName}}</dd>
             <dt>Status</dt>
@@ -51,7 +51,7 @@
       </div>
       <div class="row">
         <div class="col-12">
-          <button (click)="viewCustomerOrder($event)"  ejs-button>Check stock and book items</button>
+          <button (click)="viewCustomerOrder($event)" class="e-warning"  ejs-button i18n >Check stock and book items</button>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
       </div>
        <div class="row">
         <div class="col-12">
-          <button (click)="viewInvoice($event)"  ejs-button>Create Invoice</button>
+          <button (click)="viewInvoice($event)" class="e-warning"  ejs-button i18n >Create Invoice</button>
         </div>
       </div>
     </div>

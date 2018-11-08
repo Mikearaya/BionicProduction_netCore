@@ -73,15 +73,15 @@ export class SaleOrderFormComponent implements OnInit {
     });
   }
 
-  get orderedBy() : FormControl {
+  get orderedBy(): FormControl {
     return this.salesOrderForm.get('orderedBy') as FormControl;
   }
 
-  get deliveryDate() : FormControl {
+  get deliveryDate(): FormControl {
     return this.salesOrderForm.get('deliveryDate') as FormControl;
   }
 
-  get status() : FormControl {
+  get status(): FormControl {
     return this.salesOrderForm.get('status') as FormControl;
   }
 

@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/css/amharic_typer.css",
               "./node_modules/@syncfusion/ej2-base/styles/material.css",
               "./node_modules/@syncfusion/ej2-angular-navigations/styles/material.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -37,9 +36,7 @@
               "./node_modules/@syncfusion/ej2-layouts/styles/material.css",
               "./node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css"
             ],
-            "scripts": [
-              "src/assets/js/amharic_typer.js"
-            ]
+            "scripts": [  ]
           },
           "configurations": {
             "production": {

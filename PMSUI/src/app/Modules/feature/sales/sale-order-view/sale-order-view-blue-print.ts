@@ -54,12 +54,6 @@ export const salesOrderBluePrint = [
     editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
-
-  {
-    key: 'paymentMethod', humanReadable: 'Payment Mathod', primaryKey: false, allowGrouping: true, type: 'string',
-    editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '38'
-  },
   {
     key: 'dateAdded', humanReadable: 'Created', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',

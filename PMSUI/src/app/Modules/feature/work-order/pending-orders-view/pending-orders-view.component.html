@@ -5,33 +5,29 @@
   [filterSettings]="filterSetting" [groupSettings]='groupOptions' [allowFiltering]="allowFiltering" [allowSorting]="allowSorting"
   [allowPdfExport]="allowPdfExport"  >
   <e-columns>
-    <e-column isPrimaryKey="true" [customAttributes]="customAttributes" textAlign="left" width="30" field='salesOrderId' isIdentity="true"
-      headerText='ID' type="number">
+    <e-column isPrimaryKey="true" [customAttributes]="customAttributes" textAlign="center" width="15" field='salesOrderId' isIdentity="true"
+      headerText='Id' type="number">
     </e-column>
-    <e-column textAlign="left" field='customer' [customAttributes]="customAttributes"  headerText='CUSTOMER' type="string" allowGrouping="true"
-      width="30px">
+    <e-column textAlign="center" field='customer' [customAttributes]="customAttributes"  headerText='Ccustomer Name' type="string" allowGrouping="true"
+      width="40">
     </e-column>
-    <e-column textAlign="left" field="description" [customAttributes]="customAttributes"  headerText="DESCRIPTION" type="string"
-      allowGrouping="true" width="40px">
-    </e-column>
-    <e-column textAlign="left" width="20px" field='itemCount'  [customAttributes]="customAttributes" headerText='ITEMS' type="numeric"
-      allowGrouping="true" width="25px">
-    </e-column>
-    <e-column textAlign="left" width="20px" field='quantity' [customAttributes]="customAttributes"  headerText='QUANTITY' type="numeric"
-      allowGrouping="true" width="20px">
+    <e-column textAlign="center" width="20" field='quantity' [customAttributes]="customAttributes"  headerText='Quantity' type="numeric"
+      allowGrouping="true" >
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='orderDate' [customAttributes]="customAttributes"  headerText='ORDERED' type="date" format="yMd"
-      allowGrouping="true" width="25px">
+    <e-column textAlign="center" width="20" field='orderDate' [customAttributes]="customAttributes"  headerText='Ordered' type="date" format="yMd"
+      allowGrouping="true" >
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='dueDate'  [customAttributes]="customAttributes" headerText='Due.' type="date" format="yMd"
-      allowGrouping="true" width="25px">
+    <e-column textAlign="center" width="20px" field='dueDate'  [customAttributes]="customAttributes" headerText='Due.' type="date" format="yMd"
+      allowGrouping="true" >
 
     </e-column>
-    <e-column textAlign="left" width="20px" field='orderedBy' [customAttributes]="customAttributes"  headerText='ORDERED BY' type="string"
-      allowGrouping="true" width="30px">
-
+    <e-column textAlign="center" width="20px" field='orderedBy' [customAttributes]="customAttributes"  headerText='Requested By' type="string"
+      allowGrouping="true" >
     </e-column>
+    <e-column textAlign="center" field="description" [customAttributes]="customAttributes"  headerText="Note" type="string"
+    allowGrouping="true" width="30">
+  </e-column>
   </e-columns>
 </ejs-grid>

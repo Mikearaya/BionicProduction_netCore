@@ -7,18 +7,23 @@
         <div class="col-sm-6 col-xs-12">
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="client" i18n-placeholder="Customer Name" formControlName="client" id='client' placeholder="Client"
-                floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList">
+              <ejs-dropdownlist [allowFiltering]="true" name="client"  formControlName="client" id='client' placeholder="Client"
+                floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList" i18n-placeholder="Customer Name@@customerName">
               </ejs-dropdownlist>
-              <div class="e-error"></div>
+
+              <div class="e-error" *ngIf="client.errors && client.touched">
+                <div class="div" *ngIf="client.errors['required']" i18n="@@customerRequired" >You Must Select Customer</div>
+              </div>
             </div>
             <div class="col-sm-12 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="status" formControlName="status" id='status' placeholder="Status"
-                floatLabelType="Auto" [dataSource]="orderStatus"> </ejs-dropdownlist>
+              <ejs-dropdownlist [allowFiltering]="true" name="status"  formControlName="status" id='status' placeholder="Status"
+                floatLabelType="Auto" [dataSource]="orderStatus"
+                i18n-placeholder="customer order status"> </ejs-dropdownlist>
             </div>
             <div class="col-12">
                 <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
-                  id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss"></ejs-datepicker>
+                  id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss"
+                  i18n-placeholder="Final order delivery date @@orderDeliveryDate"></ejs-datepicker>
               </div>
           </div>
         </div>
@@ -27,7 +32,9 @@
             <div class="col-12">
               <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
                 placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
-                [dataSource]="employeesList"> </ejs-dropdownlist>
+                [dataSource]="employeesList"
+
+                i18n-placeholder="order giving employee name @@ordererGivenBy"> </ejs-dropdownlist>
             </div>
 
                 <div class="col-sm-12 col-xs-12">

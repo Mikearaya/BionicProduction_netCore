@@ -69,10 +69,11 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             orderDetail.totalProducts = (uint) salesOrders.totalProducts;
             orderDetail.totalQuantity = (uint) salesOrders.totalQuantity;
             orderDetail.id = salesOrders.ID;
+            
 
             foreach (var orders in salesOrders.detail) {
                 var status = orders.status;
-                
+                orderDetail.status = orders.status;
                 orderDetail.customerName = orders.customerName;
                 orderDetail.createdBy = orders.createdBy;
                 orderDetail.description = orders.description;

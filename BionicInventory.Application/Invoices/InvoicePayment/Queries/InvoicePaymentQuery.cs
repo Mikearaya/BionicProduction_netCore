@@ -45,7 +45,7 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
                             InvoiceNo = sum.Id,
                                 TotalAmount = sum.InvoiceDetail.Sum (i => i.Quantity * i.UnitPrice),
                                 PaidAmount = sum.InvoicePayments.Sum (p => p.Amount),
-                            PreparedBy = sum.CreatedByNavigation.FullName ()
+                            PreparedBy = sum.PreparedByNavigation.FullName ()
                         })
                 });
             List<InvoicePaymentSummaryView> summaryView = new List<InvoicePaymentSummaryView> ();
@@ -86,7 +86,7 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
 
                             TotalAmount = sum.InvoiceDetail.Sum (i => i.Quantity * i.UnitPrice),
                                 PaidAmount = sum.InvoicePayments.Sum (p => p.Amount),
-                                PreparedBy = sum.CreatedByNavigation.FullName ()
+                                PreparedBy = sum.PreparedByNavigation.FullName ()
                         })
                 });
             List<InvoicePaymentSummaryView> summaryView = new List<InvoicePaymentSummaryView> ();
@@ -118,7 +118,7 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
                         DateAdded = p.DateAdded,
                         DateUpdated = p.DateUpdated,
                         CasherName = p.Cashier.FullName (),
-                        PreparedBy = p.InvoiceNoNavigation.CreatedByNavigation.FullName ()
+                        PreparedBy = p.InvoiceNoNavigation.PreparedByNavigation.FullName ()
                 })
                 .OrderByDescending (o => o.DateAdded)
                 .ToList ();
