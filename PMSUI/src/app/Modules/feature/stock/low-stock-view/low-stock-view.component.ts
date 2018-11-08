@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StockApiService } from '../stock-api.service';
 import { LowStockItemsView } from '../stock-data-models';
+
 import {
-  GroupSettingsModel, FilterSettingsModel, ToolbarItems,
-  SortSettingsModel, PageSettingsModel, CommandModel, IRow, Column, EditSettingsModel
-} from '@syncfusion/ej2-grids';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+  GridComponent, PageSettingsModel, SortSettingsModel,
+  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel,
+  EditSettingsModel, IRow, Column
+} from '@syncfusion/ej2-angular-grids';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
 import { closest } from '@syncfusion/ej2-base';
@@ -71,7 +72,8 @@ export class LowStockViewComponent implements OnInit {
 
     this.commands = [
       {
-        buttonOption: { content: 'Create',
+        buttonOption: {
+          content: 'Create',
           cssClass: 'e-success e-small',
           click: this.createManufactureOrder.bind(this)
         }

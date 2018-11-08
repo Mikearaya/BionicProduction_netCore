@@ -8,18 +8,18 @@
  */
 
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import {
-  PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel,
-  TextWrapSettingsModel, QueryCellInfoEventArgs, RowDataBoundEventArgs, Column, IRow, GridModel
-} from '@syncfusion/ej2-grids';
+
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import {
+  GridComponent, TextWrapSettingsModel, PageSettingsModel, SortSettingsModel,
+  FilterSettingsModel, EditSettingsModel, ToolbarItems, GroupSettingsModel,
+  CommandModel, IRow, Column, QueryCellInfoEventArgs, RowSelectEventArgs, RowDataBoundEventArgs
+} from '@syncfusion/ej2-angular-grids';
 import { Tooltip } from '@syncfusion/ej2-popups';
 import { closest } from '@syncfusion/ej2-base';
 
@@ -59,7 +59,7 @@ export class WorkOrderViewComponent implements OnInit {
     private workOrderApi: WorkOrderAPIService,
     @Inject('BASE_URL') private apiUrl: string,
     private route: Router) {
-   this.textWrapSettings = { wrapMode: 'Header' };
+    this.textWrapSettings = { wrapMode: 'Header' };
 
   }
 

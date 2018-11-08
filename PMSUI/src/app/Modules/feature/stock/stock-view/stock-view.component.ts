@@ -8,15 +8,15 @@
  */
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  CommandModel, GroupSettingsModel
-} from '@syncfusion/ej2-grids';
+
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import {
+  GridComponent, PageSettingsModel, SortSettingsModel,
+  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel
+} from '@syncfusion/ej2-angular-grids';
 import { stockViewColumnBluePrint } from './stock-column-blue-print';
 
 
@@ -67,7 +67,7 @@ export class StockViewComponent implements OnInit {
   ngOnInit(): void {
 
     this.data = this.dataManager;
-    this.customAttributes = {class: 'custom-grid-header'};
+    this.customAttributes = { class: 'custom-grid-header' };
 
     this.pageSettings = { pageSize: 6 };
     this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];

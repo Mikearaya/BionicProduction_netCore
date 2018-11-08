@@ -11,7 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
     PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
     EditSettingsModel, CommandModel, RowSelectEventArgs
-} from '@syncfusion/ej2-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';

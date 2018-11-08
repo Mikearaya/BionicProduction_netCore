@@ -5,7 +5,7 @@ import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel,
   EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs, IRow, Column
-} from '@syncfusion/ej2-grids';
+} from '@syncfusion/ej2-angular-grids';
 import { Router } from '@angular/router';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { salesOrderBluePrint } from './sale-order-view-blue-print';

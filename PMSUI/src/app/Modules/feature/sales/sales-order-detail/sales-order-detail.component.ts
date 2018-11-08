@@ -4,7 +4,7 @@ import { SaleOrderApiService } from '../sale-order-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
-import { CommandModel, Grid } from '@syncfusion/ej2-grids';
+import { CommandModel, Grid } from '@syncfusion/ej2-angular-grids';
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CustomErrorResponse } from '../../../core/core-api.service';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';

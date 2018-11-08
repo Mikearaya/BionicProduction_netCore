@@ -7,19 +7,19 @@
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs
-} from '@syncfusion/ej2-grids';
+
 import { CustomerService, Customer } from '../../customer/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Route, Router } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import {
+  GridComponent, PageSettingsModel, SortSettingsModel, FilterSettingsModel
+  , EditSettingsModel, ToolbarItems, CommandModel, RowSelectEventArgs
+} from '@syncfusion/ej2-angular-grids';
 
 
 @Component({
-  selector: 'app-data-grid',
+  selector: 'app-customer-view',
   templateUrl: './customer-view.component.html'
 })
 export class CustomerViewComponent implements OnInit {
@@ -33,38 +33,38 @@ export class CustomerViewComponent implements OnInit {
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
 
-      constructor(
-                  private customerService: CustomerService,
-                  private route: Router ) {
+  constructor(
+    private customerService: CustomerService,
+    private route: Router) {
 
-      }
+  }
 
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
   customerViewColumns = [
-    { key: 'id', humanReadable: 'ID', primaryKey: true, editable: false, isIdentity : true },
+    { key: 'id', humanReadable: 'ID', primaryKey: true, editable: false, isIdentity: true },
     {
       key: 'firstName', humanReadable: 'First Name', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity : false
+      validationRule: { required: true }, isIdentity: false
     },
     {
       key: 'lastName', humanReadable: 'Last Name', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity : false
+      validationRule: { required: true }, isIdentity: false
     },
     {
       key: 'mainPhone', humanReadable: 'Telephone', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity : false
+      validationRule: { required: true }, isIdentity: false
     },
     {
       key: 'type', humanReadable: 'Type', primaryKey: false, editable: true, dataType: 'dropdownedit',
-      validationRule: { required: true }, isIdentity : false
+      validationRule: { required: true }, isIdentity: false
     },
     {
       key: 'tin', humanReadable: 'TIN No.', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true, minLength: 10, maxLength: 10 }, isIdentity : false
+      validationRule: { required: true, minLength: 10, maxLength: 10 }, isIdentity: false
     },
-    { key: 'email', humanReadable: 'E-Mail', primaryKey: false, editable: true, dataType: 'TextBox', isIdentity : false }
+    { key: 'email', humanReadable: 'E-Mail', primaryKey: false, editable: true, dataType: 'TextBox', isIdentity: false }
   ];
   public dataManager: DataManager = new DataManager({
     url: 'http://localhost:5000/api/customers',
@@ -80,16 +80,16 @@ export class CustomerViewComponent implements OnInit {
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'ColumnChooser'];
     this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-        { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
+    { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
 
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
   }
 
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-   // alert(selectedrowindex); // To alert the selected row indexes.
+    // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
-}
+  }
 
   clickHandler(args: ClickEventArgs): void {
 

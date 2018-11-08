@@ -1,15 +1,15 @@
 
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import {
-  PageSettingsModel, SortSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, CommandModel, RowSelectEventArgs, GroupSettingsModel
-} from '@syncfusion/ej2-grids';
+
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import {
+  GridComponent, PageSettingsModel, SortSettingsModel,
+  FilterSettingsModel, EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs
+} from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-pending-orders-view',
@@ -59,7 +59,7 @@ export class PendingOrdersViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.customAttributes = {class: 'custom-grid-header'};
+    this.customAttributes = { class: 'custom-grid-header' };
 
     this.data = this.dataManager;
 
@@ -68,7 +68,7 @@ export class PendingOrdersViewComponent implements OnInit {
     this.toolbar = ['Delete', 'ColumnChooser', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'purchaseOrderItemId' }] };
     this.commands = [
-      { type: 'Edit', buttonOption: {  content: 'CREATE ORDERED', cssClass:  'e-flat e-success', iconCss: 'e-check e-icons' } },
+      { type: 'Edit', buttonOption: { content: 'CREATE ORDERED', cssClass: 'e-flat e-success', iconCss: 'e-check e-icons' } },
       { type: 'Delete', buttonOption: { content: 'REJECT', cssClass: 'e-flat e-delete e-danger', iconCss: 'e-delete e-icons' } }
     ];
 
