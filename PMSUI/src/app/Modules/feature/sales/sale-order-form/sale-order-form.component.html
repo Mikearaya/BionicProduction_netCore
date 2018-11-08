@@ -7,9 +7,10 @@
         <div class="col-sm-6 col-xs-12">
           <div class="row">
             <div class="col-sm-12 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="client" formControlName="client" id='client' placeholder="Client"
+              <ejs-dropdownlist [allowFiltering]="true" name="client" i18n-placeholder="Customer Name" formControlName="client" id='client' placeholder="Client"
                 floatLabelType="Auto" [query]="customersQuery" [fields]="customerFields" [dataSource]="customersList">
               </ejs-dropdownlist>
+              <div class="e-error"></div>
             </div>
             <div class="col-sm-12 col-xs-12">
               <ejs-dropdownlist [allowFiltering]="true" name="status" formControlName="status" id='status' placeholder="Status"

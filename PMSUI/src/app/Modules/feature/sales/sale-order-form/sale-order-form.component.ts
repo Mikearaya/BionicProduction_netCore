@@ -58,9 +58,8 @@ export class SaleOrderFormComponent implements OnInit {
     this.salesOrderForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
       client: ['', Validators.required],
-      initialPayment: [0],
       deliveryDate: ['', Validators.required],
-      createdOn: ['', Validators.required],
+      createdOn: [''],
       status: ['Quotation', Validators.required],
       description: ['', Validators.required],
       orders: this.formBuilder.array([
@@ -73,7 +72,23 @@ export class SaleOrderFormComponent implements OnInit {
       ])
     });
   }
-  get orders() {
+
+  get orderedBy() : FormControl {
+    return this.salesOrderForm.get('orderedBy') as FormControl;
+  }
+
+  get deliveryDate() : FormControl {
+    return this.salesOrderForm.get('deliveryDate') as FormControl;
+  }
+
+  get status() : FormControl {
+    return this.salesOrderForm.get('status') as FormControl;
+  }
+
+  get client(): FormControl {
+    return this.salesOrderForm.get('orderedBy') as FormControl;
+  }
+  get orders(): FormArray {
     return this.salesOrderForm.get('orders') as FormArray;
   }
 
