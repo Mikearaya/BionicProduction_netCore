@@ -15,6 +15,7 @@ namespace BionicInventory.Application.SalesOrders.Commands {
             _logger = logger;
         }
         public PurchaseOrder CreateSalesOrder (PurchaseOrder order) {
+
             _database.PurchaseOrder.Add (order);
             _database.Save ();
             return order;

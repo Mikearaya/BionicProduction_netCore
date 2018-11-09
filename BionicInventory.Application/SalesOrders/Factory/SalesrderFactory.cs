@@ -20,8 +20,8 @@ namespace BionicInventory.Application.SalesOrders.Factory
                 ClientId = customerOrder.ClientId,
                 CreatedBy = customerOrder.CreatedBy,
                 OrderStatus = customerOrder.Status,
-                CreatedOn = customerOrder.CreatedOn,
-                Description = customerOrder.Description
+                Description = customerOrder.Description,
+                DueDate = customerOrder.DeliveryDate,
             };
             foreach (var item in customerOrder.purchaseOrderDetail)
             {

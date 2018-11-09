@@ -25,11 +25,9 @@
               </div>
             </div>
             <div class="col-12">
-              <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
-                id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss" i18n-placeholder="Final order delivery date input @@orderDeliveryDate"></ejs-datepicker>
-              <div class="e-error" *ngIf="deliveryDate.errors">
-                <div class="div" *ngIf="deliveryDate.errors['required']" i18n="@@orderDeliveryDateRequired">Delivery
-                  Date is Required</div>
+              <div class=" e-success ">
+                <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description"
+                  i18n-placeholder="order description input @@orderDescriptionInput" />
               </div>
             </div>
           </div>
@@ -46,13 +44,16 @@
                   is Required</div>
               </div>
             </div>
-
-            <div class="col-sm-12 col-xs-12">
-              <div class=" e-success ">
-                <input class="e-input" type="text" floatLabelType="Auto" formControlName="description" placeholder="Enter Description"
-                  i18n-placeholder="order description input @@orderDescriptionInput" />
+            <div class="col-12">
+              <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
+                id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss" i18n-placeholder="Final order delivery date input @@orderDeliveryDate"></ejs-datepicker>
+              <div class="e-error" *ngIf="deliveryDate.errors">
+                <div class="div" *ngIf="deliveryDate.errors['required']" i18n="@@orderDeliveryDateRequired">Delivery
+                  Date is Required</div>
               </div>
             </div>
+
+
 
           </div>
         </div>
@@ -102,7 +103,7 @@
           </div>
         </div>
       </div>
-      <app-form-options [submitDisabled]='salesOrderForm.invalid' submitButtonText="Save"></app-form-options>
+      <app-form-options  submitButtonText="Save"></app-form-options>
     </div>
   </form>
 </section>

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 9, 2018 1:51 AM
+ * @Last Modified Time: Nov 9, 2018 2:19 AM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, Inject } from '@angular/core';
@@ -13,6 +13,7 @@ import { SaleOrderApiService } from '../sale-order-api.service';
 import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SalesOrder } from '../sales-data-model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -28,7 +29,7 @@ export class SaleOrderFormComponent implements OnInit {
 
 
   public itemId: FormControl;
-
+  public errors: Object[] = [];
 
   public employeeQuery: Query;
   public employeeFields: Object;
@@ -49,6 +50,7 @@ export class SaleOrderFormComponent implements OnInit {
   constructor(private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
     private location: Location,
+    private route: Router,
     @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string) {
 
     this.createForm();
@@ -62,12 +64,36 @@ export class SaleOrderFormComponent implements OnInit {
 
   }
 
+  ngOnInit(): void {
+
+    const dm: DataManager = new DataManager(
+      { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+
+    const itemDm: DataManager = new DataManager(
+      { url: 'http://localhost:5000/api/products', adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+
+    const customerDm: DataManager = new DataManager(
+      { url: 'http://localhost:5000/api/customers', adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+
+    customerDm.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
+    itemDm.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
+    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
+
+
+
+  }
+
   createForm(): void {
     this.salesOrderForm = this.formBuilder.group({
       orderedBy: ['', Validators.required],
       client: ['', Validators.required],
       deliveryDate: ['', Validators.required],
-      createdOn: [''],
       status: ['Quotation', Validators.required],
       description: [''],
       orders: this.formBuilder.array([
@@ -105,33 +131,10 @@ export class SaleOrderFormComponent implements OnInit {
       itemId: ['', Validators.required],
       unitPrice: [0, [Validators.required]],
       quantity: [1, [Validators.required, Validators.min(0)]],
-      dueDate: [null, Validators.required]
+      dueDate: ['', Validators.required]
     }));
   }
-  ngOnInit(): void {
 
-    const dm: DataManager = new DataManager(
-      { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
-    );
-
-    const itemDm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/products', adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
-    );
-
-    const customerDm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/customers', adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
-    );
-
-    customerDm.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
-    itemDm.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
-    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
-
-
-
-  }
 
 
 
@@ -141,22 +144,23 @@ export class SaleOrderFormComponent implements OnInit {
 
 
     this.salesOrderApi.createSalesOrder(order).subscribe(
-      (success: SalesOrder) => {
-        this.location.back();
+      (co: SalesOrder) => {
         alert('Customer order added Successfuly');
+        this.route.navigate([`sales/${co.Id}/booking`]);
+
       },
-      (error: HttpErrorResponse) => console.log(error)
+      error => console.error(error)
     );
   }
 
 
   prepareFormData(form: any): SalesOrder {
     const order = new SalesOrder();
-    order.createdBy = form.orderedBy;
-    order.clientId = form.client;
+    order.createdBy = (form.orderedBy) ? form.orderedBy : null;
+    order.clientId = (form.client) ? form.client : null;
     order.description = form.description;
     order.status = form.status;
-    order.createdOn = form.createdOn;
+    order.deliveryDate = form.deliveryDate;
     form.orders.forEach(element => {
       order.PurchaseOrderDetail.push({
         itemId: element.itemId,

@@ -47,7 +47,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
                                 description = CO.PurchaseOrder.Description,
                                 status = CO.PurchaseOrder.OrderStatus,
-                                createdOn = CO.PurchaseOrder.CreatedOn,
+                                createdOn = CO.PurchaseOrder.DateAdded,
+                                deliveryDaye = CO.PurchaseOrder.DueDate,
                                 uintCost = CO.Item.UnitCost,
                                 id = CO.Id,
                                 unitPrice = CO.PricePerItem,
@@ -79,6 +80,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 orderDetail.description = orders.description;
 
                 orderDetail.createdOn = orders.createdOn;
+                orderDetail.deliveryDate =(DateTime) orders.deliveryDaye;
                 orderDetail.orderItems.Add (new CustomerOrderItemsView () {
                     id = orders.id,
                         quantity = (int) orders.quantity,
@@ -120,7 +122,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 addedBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
-                                createOn = CO.PurchaseOrder.CreatedOn,
                                 description = CO.PurchaseOrder.Description,
                                 orderStatus = CO.PurchaseOrder.OrderStatus,
                                 status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
@@ -146,7 +147,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     salesOrder.dateAdded = (DateTime) item.dateAdded;
                     salesOrder.dateUpdated = (DateTime) item.dateUpdated;
                     salesOrder.status = item.orderStatus;
-                    salesOrder.createdOn = item.createOn;
                     sum += item.status;
 
                 }
@@ -176,7 +176,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         CreatedBy = co.CreatedBy,
                         OrderStatus = co.OrderStatus,
                         Description = co.Description,
-                        CreatedOn = co.CreatedOn,
                         DateAdded = co.DateAdded,
                         DateUpdated = co.DateAdded,
                         PurchaseOrderDetail = co.PurchaseOrderDetail

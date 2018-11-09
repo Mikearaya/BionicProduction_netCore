@@ -8,18 +8,19 @@ import {
   HttpEventType,
 } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { tap, catchError, retry } from 'rxjs/operators';
 import { CustomErrorResponse } from './core-api.service';
 
 @Injectable()
 export class CoreHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('handeld in interceptor');
+
     return next.handle(req).pipe(
+      retry(3),
       tap(event => {
         if (event.type === HttpEventType.Response) {
-          catchError((error: HttpErrorResponse) => Observable.throw(new CustomErrorResponse()));
+          catchError(this.handleError);
 
         }
 
@@ -27,6 +28,15 @@ export class CoreHttpInterceptor implements HttpInterceptor {
     );
   }
 
-
+  private handleError(errorResponse: HttpErrorResponse) {
+    if (errorResponse.error instanceof ErrorEvent ) {
+      console.error('Client Side Error: ', errorResponse.error.message);
+    }
+    const customerErrorResponse = new CustomErrorResponse();
+    customerErrorResponse.errorNumber = errorResponse.status;
+    customerErrorResponse.message = errorResponse.error;
+    customerErrorResponse.friendlyMessage = errorResponse.statusText;
+    return throwError(customerErrorResponse);
+  }
 
 }

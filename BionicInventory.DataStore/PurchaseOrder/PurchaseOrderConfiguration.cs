@@ -55,11 +55,6 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .HasColumnName ("due_date")
                     .HasColumnType ("datetime");
 
-                builder.Property (e => e.CreatedOn)
-                    .HasColumnName ("created_on")
-                    .HasColumnType ("datetime")
-                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
-
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.PurchaseOrder)
                     .HasForeignKey (d => d.ClientId)

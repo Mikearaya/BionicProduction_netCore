@@ -22,8 +22,7 @@ namespace BionicInventory.Application.SalesOrders.Models {
 
         [MaxLength (255)]
         public string Description { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
+        public DateTime? DeliveryDate { get; set; }
 
     }
 }

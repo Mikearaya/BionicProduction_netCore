@@ -4,13 +4,15 @@ export class CustomerOrderDetailView {
   customerName: string;
   createdBy: string;
   description: string;
+  createdOn: Date;
   totalQuantity: number;
   totalPrice: number;
   totalCost: number;
   totalProducts: number;
   paymentMethod: string;
+  deliveryDate: Date;
   status: string;
-  duedate: Date;
+  dueDate: Date;
   dateAdded: Date;
   dateUpdated: Date;
   orderItems: CustomerOrderItemsView[] = [];
@@ -39,10 +41,11 @@ export class CustomerOrderItemsView {
 }
 
 export class SalesOrder {
-  id?: number;
+  Id?: number;
   clientId: number;
   createdBy: number;
   description: string;
+  deliveryDate?: Date;
   createdOn?: Date;
   status: string;
   PurchaseOrderDetail: SalesOrderDetail[] = [];

@@ -8,11 +8,8 @@ export const customerOrderDetailBluePrint = [
     {key: 'quantity',
     humanReadable: 'Quantity'
     },
-    {key: 'productCode',
-    humanReadable: 'SKU'
-    },
     {key: 'productName',
-    humanReadable: 'productName',
+    humanReadable: 'Product',
     },
     {key: 'unitPrice',
     humanReadable: 'Unit Price',
