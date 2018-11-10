@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CustomErrorResponse } from './DataModels/system-data-models';
 
 @Injectable()
 export class CoreApiService {
@@ -13,9 +14,4 @@ export class CoreApiService {
 
 }
 
-export class CustomErrorResponse {
-  errorNumber: number;
-  message: string;
-  friendlyMessage: string;
-}
 

@@ -10,7 +10,7 @@ import {
 
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError, retry } from 'rxjs/operators';
-import { CustomErrorResponse } from './core-api.service';
+import { CustomErrorResponse } from './DataModels/system-data-models';
 
 @Injectable()
 export class CoreHttpInterceptor implements HttpInterceptor {
@@ -34,8 +34,9 @@ export class CoreHttpInterceptor implements HttpInterceptor {
     }
     const customerErrorResponse = new CustomErrorResponse();
     customerErrorResponse.errorNumber = errorResponse.status;
-    customerErrorResponse.message = errorResponse.error;
-    customerErrorResponse.friendlyMessage = errorResponse.statusText;
+    customerErrorResponse.errorDetail = errorResponse.error;
+    customerErrorResponse.message = errorResponse.statusText;
+
     return throwError(customerErrorResponse);
   }
 

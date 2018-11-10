@@ -9,7 +9,8 @@ import { saleInvoiceColumnBluePrint } from './sales-invoice-view-blue-print';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { InvoiceDetail } from '../../../core/DataModels/invoice-data-model';
-import { CustomErrorResponse } from '../../../core/core-api.service';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+
 
 @Component({
   selector: 'app-sales-invoice-view',

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyProfileService } from '../company-profile.service';
-import { CustomErrorResponse } from '../../../core/core-api.service';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 
 @Component({
   selector: 'app-company-profile-form',

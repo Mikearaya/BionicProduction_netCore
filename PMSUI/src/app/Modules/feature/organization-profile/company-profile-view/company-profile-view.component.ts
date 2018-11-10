@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyProfileService } from '../company-profile.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CustomErrorResponse } from '../../../core/core-api.service';
+import { Router } from '@angular/router';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+
 
 @Component({
   selector: 'app-company-profile-view',

@@ -1,106 +1,98 @@
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
-import { CustomerOrderDetailView } from '../sales-data-model';
-import { SaleOrderApiService } from '../sale-order-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+
+import { GridComponent, CommandModel } from '@syncfusion/ej2-angular-grids';
+
+import { CustomerOrderDetailView } from '../sales-data-model';
+import { SaleOrderApiService } from '../sale-order-api.service';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
-import { CommandModel, Grid } from '@syncfusion/ej2-angular-grids';
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
-import { CustomErrorResponse } from '../../../core/core-api.service';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
-  selector: 'app-customer-order-detail',
-  templateUrl: './sales-order-detail.component.html',
-  styleUrls: ['./sales-order-detail.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-customer-order-detail',
+    templateUrl: './sales-order-detail.component.html',
+    styleUrls: ['./sales-order-detail.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
-export class SalesOrderDetailComponent implements OnInit {
-  @ViewChild('invoiceGrid')
-  public invoiceGrid: GridComponent;
-  public columnBluePrint = customerOrderDetailBluePrint;
-  public customerOrder: CustomerOrderDetailView;
-  public customerOrderInvoices: InvoiceSummary[];
-  public customerOrderShipments;
-  private customerOrderId: number;
-  public invoiceColumns = invoiceColumnBluePrint;
-  public shipmentColumns = shipmentColumnBluePrint;
-  public shipmentCommands: CommandModel[];
-  public customerOrderCommands: CommandModel[];
-  public invoiceCommands: CommandModel[];
-  public infoGridAttributes: Object;
 
-  constructor(private salesOrderApi: SaleOrderApiService,
-    private activatedRoute: ActivatedRoute,
-    private route: Router) {
-    this.invoiceColumns = invoiceColumnBluePrint;
-    this.infoGridAttributes = {class : 'info-grid-header'};  }
+export class SalesOrderDetailComponent extends CommonProperties implements OnInit {
+    @ViewChild('invoiceGrid')
+    public invoiceGrid: GridComponent;
+    public columnBluePrint = customerOrderDetailBluePrint;
+    public customerOrder: CustomerOrderDetailView;
+    public customerOrderInvoices: InvoiceSummary[];
+    public customerOrderShipments;
+    public invoiceColumns = invoiceColumnBluePrint;
+    public shipmentColumns = shipmentColumnBluePrint;
+    public shipmentCommands: CommandModel[];
+    public customerOrderCommands: CommandModel[];
+    public invoiceCommands: CommandModel[];
+    public infoGridAttributes: Object;
+    public errorDescription: any;
+    public errorMessage: string;
 
-  ngOnInit() {
-    this.customerOrderId = +this.activatedRoute.snapshot.paramMap.get('customerOrderId');
-    if (this.customerOrderId) {
-      this.salesOrderApi.getSalesOrderById(this.customerOrderId).subscribe(
-        (data: CustomerOrderDetailView) => this.customerOrder = data,
-        (error: HttpErrorResponse) => console.log(error)
-      );
+    private customerOrderId: number;
 
-      this.salesOrderApi.getSalesOrderInvoices(this.customerOrderId).subscribe(
-        (data: InvoiceSummary[]) => this.customerOrderInvoices = data,
-        (error: CustomErrorResponse) => console.log(error)
-      );
+    constructor(private salesOrderApi: SaleOrderApiService,
+        private activatedRoute: ActivatedRoute,
+        private route: Router
+    ) {
+      super();
+        this.invoiceColumns = invoiceColumnBluePrint;
+        this.infoGridAttributes = { class: 'info-grid-header' };
+
+        this.invoiceCommands = [{
+            buttonOption: {
+                cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+                click: this.viewInvoice.bind(this)
+            }
+        }
+        ];
+
+        this.customerOrderCommands = [{
+            buttonOption: {
+                cssClass: 'e-flat',
+                iconCss: 'e-edit e-icons'
+            }
+        }];
+
+
     }
 
-    this.invoiceCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
-        click: this.viewInvoice.bind(this)
-      }
+    ngOnInit(): void {
+        this.customerOrderId = +this.activatedRoute.snapshot.paramMap.get('customerOrderId');
+
+        if (this.customerOrderId) {
+            this.salesOrderApi.getSalesOrderById(this.customerOrderId).subscribe(
+                (data: CustomerOrderDetailView) => this.customerOrder = data,
+                this.handleError
+            );
+
+            this.salesOrderApi.getSalesOrderInvoices(this.customerOrderId).subscribe(
+                (data: InvoiceSummary[]) => this.customerOrderInvoices = data,
+                this.handleError
+            );
+        }
+
+
     }
-    ];
 
-    this.shipmentCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
-        click: this.viewShipment.bind(this)
-      }
-    },
-    {
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-recurrence-01 e-icons'
-      }}
 
-    ];
-
-    this.customerOrderCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons'
-      }
+    addNewOrderItem(): void {
+        this.route.navigate([`sales/${this.customerOrderId}/update`]);
     }
-    ];
 
-
-
-  }
-
-
-  addNewOrderItem() {
-    this.route.navigate([`sales/${this.customerOrderId}/update`]);
-
-  }
-
-  bookOrderItems() {
-    this.route.navigate([`sales/${this.customerOrderId}/booking`]);
-  }
-
-  viewShipment(data) {
-console.log(data);
-  }
+    bookOrderItems(): void {
+        this.route.navigate([`sales/${this.customerOrderId}/booking`]);
+    }
 
     addInvoice(): void {
-      this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
+        this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
     }
-  viewInvoice(data) {
-    this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
-  }
+    viewInvoice(data): void {
+        this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
+    }
 
 }

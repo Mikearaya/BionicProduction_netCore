@@ -12,7 +12,7 @@ import { Observable, throwError } from 'rxjs';
 import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from './sales-data-model';
 import { InvoiceSummary } from '../../core/DataModels/invoice-data-model';
 import { catchError } from 'rxjs/operators';
-import { CustomErrorResponse } from '../../core/core-api.service';
+import { CustomErrorResponse } from '../../core/DataModels/system-data-models';
 
 @Injectable()
 export class SaleOrderApiService {
@@ -34,10 +34,7 @@ export class SaleOrderApiService {
   }
 
   createSalesOrder(finishedProduct: SalesOrder): Observable<SalesOrder> {
-    return this.httpClient.post<SalesOrder>(`${this.apiUrl}/${this.url}`, finishedProduct)
-    .pipe(
-      catchError(this.handleError)
-    );
+    return this.httpClient.post<SalesOrder>(`${this.apiUrl}/${this.url}`, finishedProduct);
   }
 
   updateSalesOrder(id: number, finishedProduct: SalesOrder): Observable<Boolean> {
@@ -48,15 +45,6 @@ export class SaleOrderApiService {
     return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
-  private handleError(errorResponse: HttpErrorResponse) {
-    if (errorResponse.error instanceof ErrorEvent ) {
-      console.error('Client Side Error: ', errorResponse.error.message);
-    }
-    const customerErrorResponse = new CustomErrorResponse();
-    customerErrorResponse.errorNumber = errorResponse.status;
-    customerErrorResponse.message = errorResponse.error;
-    customerErrorResponse.friendlyMessage = errorResponse.statusText;
-    return throwError(customerErrorResponse);
-  }
+
 }
 

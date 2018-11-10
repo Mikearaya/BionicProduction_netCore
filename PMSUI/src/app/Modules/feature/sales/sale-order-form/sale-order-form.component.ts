@@ -14,45 +14,42 @@ import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2
 import { HttpErrorResponse } from '@angular/common/http';
 import { SalesOrder } from '../sales-data-model';
 import { Router } from '@angular/router';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-sale-order-form',
   templateUrl: './sale-order-form.component.html',
   styleUrls: ['./sale-order-form.component.css']
 })
-export class SaleOrderFormComponent implements OnInit {
+export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
   public idVisable: Boolean = false;
   private orderData: SalesOrder;
   public salesOrderForm: FormGroup;
-
-
-
   public itemId: FormControl;
   public errors: Object[] = [];
-
   public employeeQuery: Query;
   public employeeFields: Object;
-
-
   public customersQuery: Query;
   public customerFields: Object;
-
   public itemQuery: Query;
   public itemFields: Object;
-
   public itemsList: any[];
   public employeesList: any[];
   public customersList: any[];
   public today: Date;
   public orderStatus = ['Quotation', 'Waiting for Confirmation', 'Confirmed', 'Canceled', 'Delivered'];
+  public errorDescription: any;
 
   constructor(private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
     private location: Location,
     private route: Router,
-    @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string) {
+    @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string
+  ) {
 
+    super();
     this.createForm();
     this.today = new Date();
     this.customersQuery = new Query().select(['firstName', 'id']);
@@ -149,7 +146,7 @@ export class SaleOrderFormComponent implements OnInit {
         this.route.navigate([`sales/${co.Id}/booking`]);
 
       },
-      error => console.error(error)
+      this.handleError
     );
   }
 
@@ -172,7 +169,6 @@ export class SaleOrderFormComponent implements OnInit {
 
     return order;
   }
-
 
 
 }

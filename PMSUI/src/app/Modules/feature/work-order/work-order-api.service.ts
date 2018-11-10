@@ -9,8 +9,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CoreApiService, CustomErrorResponse } from '../../core/core-api.service';
+import { CoreApiService } from '../../core/core-api.service';
 import { catchError } from 'rxjs/operators';
+import { CustomErrorResponse } from '../../core/DataModels/system-data-models';
 
 @Injectable()
 export class WorkOrderAPIService {
