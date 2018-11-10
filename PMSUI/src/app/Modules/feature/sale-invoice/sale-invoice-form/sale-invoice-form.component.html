@@ -1,182 +1,214 @@
 <section class="e-card">
   <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col">
-          <button type="button" ejs-button class="e-danger">Back</button>
-          <button type="submit" ejs-button class="e-success">Save</button>
-        </div>
-      </div>
+    <div class="container">
+<h3 class="text-center text-info">Invoice</h3>
+      <app-form-options [submitDisabled]="saleInvoiceForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
       <div class="row">
         <div class="col-6 col-xs-12">
           <div class="row">
-            <div class="col-2 label-area">
+            <div class="col-2 label-area" i18n>
               Customer Order
             </div>
             <div class="col-10">
-              <ejs-dropdownlist formControlName="customerOrderId" [query]="customerOrderQuery" [fields]="customerOrderFields"
-                filterBarPlaceholder="Search By Customer Order Id" [allowFiltering]="true" [dataSource]="customerOrdersList"></ejs-dropdownlist>
+              <ejs-dropdownlist formControlName="customerOrderId" placeholde="Select Customer Order" [query]="customerOrderQuery"
+                [fields]="customerOrderFields" filterBarPlaceholder="Search By Customer Order Id" [allowFiltering]="true"
+                [dataSource]="customerOrdersList" i18n-placeholder="@@customerOrderPlaceholder"
+                i18-filterBarPlaceHolder></ejs-dropdownlist>
+              <div class="e-error" *ngIf="customerOrderId.errors">
+                <div *ngIf="customerOrderId.errors['required']" i18n="@@customerOrderRequired"> Customer Order is
+                  required </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-2 label-area">
+            <div class="col-2 label-area" i18n="@@customer">
               Customer
             </div>
             <div class="col-10">
               <ejs-dropdownlist formControlName="customerId" [dataSource]="customersList" [query]="customersQuery"
-                filterBarPlaceholder="Search By Customer Name" [allowFiltering]="true" [fields]="customerFields"></ejs-dropdownlist>
+                filterBarPlaceholder="Search By Customer Name" placeholder="Select Customer" [allowFiltering]="true"
+                [fields]="customerFields" placeholder="Select Customer" i18n-placeholder="@@customerPlaceholder"
+                i18n-filterbarPlaceholder>
+              </ejs-dropdownlist>
+              <div class="e-error" *ngIf="customerId.errors">
+                <div *ngIf="customerId.errors['required']" i18n="@@customerRequired"> Customer is required </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-2 label-area">Type</div>
+            <div class="col-2 label-area" i18n="@@invoiceType">Invoice Type</div>
             <div class="col-10">
               <ejs-dropdownlist [dataSource]="invoiceTypes" filterBarPlaceholder="Search Invoice Type" [allowFiltering]="true"
-                formControlName="invoiceType"></ejs-dropdownlist>
+                formControlName="invoiceType" placeholder="Select Invoice Type" i18n-placeholder="@@invoiceTypePlaceholder"
+                i18n-filterbarPlaceholder></ejs-dropdownlist>
+              <div class="e-error" *ngIf="invoiceType.errors">
+                <div *ngIf="invoiceType.errors['required']" i18n="@@invoiceTypeRequired"> Invoice type is required
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-sm-12 col-xs-12 text-center">
-              <p><strong>Payment Method </strong> </p>
-              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Check" label="Check"></ejs-radiobutton>
-              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" value="Cash" label="Cash" [checked]="true"></ejs-radiobutton>
+            <div class="col-4 col-xs-12 ">
+              <p><strong i18n>Payment  Method </strong> </p>
+            </div>
+            <div class="col-8 col-xs-12 ">
+              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" i18n-label="bank check @@bankCheck"
+                value="Check" label="Check"></ejs-radiobutton>
+                <br>
+              <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" i18n-label="money @@bankCash" value="Cash"
+                label="Cash" [checked]="true"></ejs-radiobutton>
+              <div class="e-error" *ngIf="paymentMethod.errors">
+                <div *ngIf="paymentMethod.errors['required']" i18n="@@paymentMethodRequired"> Payment Method is
+                  required </div>
+              </div>
             </div>
           </div>
         </div>
         <div class="col-6 col-xs-12">
           <div class="row">
-            <div class="col-2 label-area">Created</div>
+            <div class="col-2 label-area" i18n="@@dueDate">Due Date</div>
             <div class="col-10">
-              <ejs-datetimepicker formControlName="dateAdded"></ejs-datetimepicker>
+              <ejs-datetimepicker formControlName="dueDate" id="dueDate" placeholder="Select Order Due Date"
+                i18n-placeholder="@@dueDatePlaceholder"></ejs-datetimepicker>
+              <div class="e-error" *ngIf="dueDate.errors">
+                <div *ngIf="dueDate.errors['required']" i18n="@@dueDateRequired"> Invoice Due Date is required </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-2 label-area">Due Date</div>
-            <div class="col-10">
-              <ejs-datetimepicker formControlName="dueDate"></ejs-datetimepicker>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2 label-area">Currency</div>
-            <div class="col-10">
-              <ejs-dropdownlist formControlName="currencyId"></ejs-dropdownlist>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-2 label-area">
+            <div class="col-2 label-area" i18n>
               Created By (current user)
             </div>
             <div class="col-10">
               <ejs-dropdownlist formControlName="createdBy" [dataSource]="employeesList" [query]="employeeQuery"
-                [fields]="employeeFields" filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true"></ejs-dropdownlist>
+                [fields]="employeeFields" filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true"
+                placeholder="Select Your Name" i18n-placeholder="@@createdByPlaceholder" i18n-filterBarPlaceholder>
+              </ejs-dropdownlist>
+              <div class="e-error" *ngIf="createdBy.errors">
+                <div *ngIf="createdBy.errors['required']" i18n="@@createdByRequired"> You must select your name </div>
+              </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-2 label-area">Note</div>
+            <div class="col-2 label-area" i18n="@@note">Note</div>
             <div class="col-10">
-              <input type="text" class="e-input" formControlName="note" placeholder="Extra Notes?" />
+              <input type="text" class="e-input" formControlName="note" id="note" name="note" placeholder="Extra Notes?"
+                i18n-placeholder="@@notePlaceholder" />
             </div>
           </div>
 
         </div>
       </div>
-      <div class="row">
+      <div class="row text-center">
         <div class="col-12">
           <table class="tablle table-striped" width=100%>
             <thead>
               <tr>
-                <th>Product</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Discount</th>
-                <th>Subtotal</th>
-                <th>&nbsp; Action</th>
+                <th class="item-column" i18n="item @@item">Item</th>
+                <th class="price-column" i18n="@@quantity">Quantity</th>
+                <th class="price-column" i18n="@@unitPrice">Unit Price</th>
+                <th class="price-column" i18n="@@discount">Discount %</th>
+                <th class="price-column" i18n="@@subTotal">Sub-total</th>
+                <th class="action-column">&nbsp;</th>
               </tr>
             </thead>
             <tbody formArrayName="InvoiceItems">
               <tr *ngFor="let ite of items.controls; let i=index; let last=last;" [formGroup]="ite">
                 <td>
+                    <div class="e-error" *ngIf="itemId(i).errors">
+                        <div *ngIf="itemId(i).errors['required']" i18n="product must be selected @@itemRequired">Item is
+                          required</div>
+                      </div>
                   <ejs-dropdownlist [dataSource]="itemsList" [query]="itemQuery" [fields]="itemFields" formControlName="itemId"
-                    [attr.id]="'productId'+i" [attr.name]="'productId'+i" [allowFiltering]="true" filterBarPlaceholder="Serarch Product">
+                    [attr.id]="'productId'+i" [attr.name]="'productId'+i" [allowFiltering]="true" filterBarPlaceholder="Serarch Product"
+                    placeholder="Select Item" i18n-filterBarPlaceholder i18n-placeholder="@@itemPlaceholder">
                   </ejs-dropdownlist>
+
                 </td>
                 <td>
                   <ejs-numerictextbox formControlName="quantity" [attr.id]="'quantity'+i" [attr.name]="'quantity'+i"
-                    placeholder="Quantity" floatLable="Auto" placeholder="Quantity" [min]="0">
+                    placeholder="Quantity" floatLable="Auto" i18n-placeholder="Quantity @@quantityPlaceholder" [min]="0">
                   </ejs-numerictextbox>
+                  <div class="e-error" *ngIf="quantity(i).errors">
+                    <div *ngIf="quantity(i).errors['required']" i18n="product quantity must be selected @@quantityRequired">Quantity
+                      is
+                      required</div>
+                    <div *ngIf="quantity(i).errors['min']" i18n="product quantity can not be less than 1  @@quantityMin">Quantity
+                      can't be less than one
+                    </div>
+                  </div>
                 </td>
                 <td>
                   <ejs-numerictextbox formControlName="unitPrice" [attr.id]="'unitPrice'+i" [attr.name]="'unitPrice'+i"
-                    placeholder="Unit Price" floatLable="Auto" [min]="0">
+                    placeholder="Unit Price" floatLable="Auto" i18n-placeholder="@@unitPricePlaceholder">
                   </ejs-numerictextbox>
+                  <div class="e-error" *ngIf="unitPrice(i).errors">
+                    <div *ngIf="unitPrice(i).errors['required']" i18n="item Unit Price must be selected @@unitPriceRequired">Item
+                      Unit Price
+                      is
+                      required</div>
+                  </div>
                 </td>
                 <td>
                   <ejs-numerictextbox formControlName="discount" [attr.id]="'discount'+i" [attr.name]="'discount'+i"
-                    placeholder="Discount" floatLable="Auto" [min]="0">
+                    placeholder="Discount" floatLable="Auto" [min]="0" i18n-placeholder="@@discount">
 
                   </ejs-numerictextbox>
                 </td>
-                <td>
-                  <ejs-numerictextbox formControlName="subTotal" [attr.id]="'subTotal'+i" [attr.name]="'subTotal'+i"
-                    placeholder="Sub Total" floatLable="Auto" [min]="0">
-
-                  </ejs-numerictextbox>
+                <td class="white-background">
+                  {{totalAfterTax}}
                 </td>
                 <td>
-                  <button type="button" ejs-button class="e-round e-info e-small " (click)="addItem()" iconCss="e-icons e-plus-icon">Add</button>
-                  &nbsp;
-                  <button type="button" (click)="removeItem(i)" ejs-button class="e-round e-danger e-small e-icons e-times-icon">Del</button>
+                  <button type="button" (click)="removeItem(i)" [disabled]="items.length < 2"
+                  ejs-button class="e-danger e-icons e-times-icon" i18n="delete @@removeButton">Remove</button>
                 </td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <th colspan="3">Discount</th>
-                <td></td>
-                <td>
+                <th colspan="3" i18n="@@discount">Discount</th>
+                <td>&nbsp;</td>
+                <td class="white-background">
                   <ejs-numerictextbox formControlName="totalDiscount" name="totalDiscount" id="totalDiscount"
-                    placeholder="Discount">
+                    placeholder="Total Discount" i18n-placeholder="@@totalDiscount">
                   </ejs-numerictextbox>
                 </td>
                 <td class="text-center">
-                  {{discount}}
+                  <button type="button" ejs-button class="e-primary" (click)="addItem()" [disabled]="items.invalid"
+                    iconCss="e-icons e-plus" i18n="add button @addButton">Add</button>
                 </td>
               </tr>
               <tr>
-                <th>Total</th>
-                <td></td>
-                <td class="text-center">{{totalQuantity}}</td>
-                <td></td>
-                <td class="text-center">{{totalBeforeTax}}</td>
-                <td></td>
+                <th i18n="@@total">Total</th>
+                <td>&nbsp;</td>
+                <td class="text-center white-background">{{totalQuantity}}</td>
+                <td>&nbsp;</td>
+                <td class="text-center white-background">{{totalBeforeTax}}</td>
+                <td>&nbsp; </td>
               </tr>
               <tr>
-                <th colspan="2">Tax</th>
-                <td></td>
-                <td>
+                <th colspan="2" i18n="@@tax">Tax</th>
+                <td>&nbsp;</td>
+                <td class="white-background">
                   <ejs-numerictextbox formControlName="tax" id="tax" name="tax" placeholder="Tax" [min]="0"></ejs-numerictextbox>
                 </td>
-                <td class="text-center">
+                <td class="text-center white-background">
                   {{taxAmount}}
                 </td>
-                <td></td>
+                <td>&nbsp;</td>
               </tr>
               <tr>
-                <th colspan="2">Total including Tax</th>
-                <td></td>
-                <td></td>
-                <td class="text-center">{{totalAfterTax}}</td>
-                <td></td>
+                <th colspan="2" i18n>Total including Tax</th>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="text-center white-background">{{totalAfterTax}}</td>
+                <td>&nbsp;</td>
               </tr>
             </tfoot>
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          <button type="button" ejs-button class="e-danger">Back</button>
-          <button type="submit" ejs-button class="e-success">Save</button>
-        </div>
-      </div>
+      <app-form-options [submitDisabled]="saleInvoiceForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
     </div>
   </form>
 

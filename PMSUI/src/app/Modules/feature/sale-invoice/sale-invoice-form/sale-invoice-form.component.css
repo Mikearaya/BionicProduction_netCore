@@ -7,9 +7,35 @@ div.label-area  {
 
 thead tr {
   text-align: center;
+  background: rgb(31, 130, 211)
 }
 
 
-tfoot{
-background: grey;
+
+
+
+.item-column {
+  width: 35%;
+}
+.price-column {
+  width: 15%;
+}
+table {
+  display: inline-block;
+
+}
+
+tfoot tr th {
+  text-align: left
+}
+
+tfoot tr:nth-of-type(odd)  {
+  background: rgb(204, 196, 196)!important;
+}
+
+table  span.e-input-group-icon {
+  display: none !important;
+}
+span.e-datetime-wrapper {
+  width: 50% !important;
 }

@@ -7,7 +7,7 @@ export class Invoice {
   note: string;
   dueDate: Date;
   paymentMethod: string;
-  createdOn: Date;
+  createdOn?: Date;
   invoiceItems: InvoiceItems[] = [];
 
 }

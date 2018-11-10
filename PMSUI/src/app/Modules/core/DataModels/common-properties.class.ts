@@ -1,8 +1,8 @@
 import { CustomErrorResponse } from './system-data-models';
 
 export abstract class CommonProperties {
-  errorMessage: string;
-  errorDescription: any;
+  protected errorMessage: string;
+  protected errorDescription: any;
 
   protected handleError(errorResponse: CustomErrorResponse): void {
 

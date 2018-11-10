@@ -20,6 +20,7 @@ export class CustomerOrderBookingComponent implements OnInit {
   public grid: GridComponent;
   public orderBookingForm: FormGroup;
   public data: OrderBookingView;
+  public errors: Object[] = [];
 
   private customerOrderId: number;
   public initialPage: Object;
@@ -116,7 +117,11 @@ export class CustomerOrderBookingComponent implements OnInit {
     const arr = this.orderBookingForm.value;
     console.log(arr);
     arr.customerOrderId = this.customerOrderId;
-    this.bookingService.bookInBulck(arr).subscribe();
+    this.bookingService.bookInBulck(arr)
+                              .subscribe(
+                                (result: OrderBookingView) => alert('Order Items Booked Successfuly'),
+                                error => console.error(error)
+                              );
   }
 
 

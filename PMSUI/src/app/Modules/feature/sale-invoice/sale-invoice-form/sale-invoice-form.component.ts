@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { DataManager, WebApiAdaptor, Query, ReturnOption } from '@syncfusion/ej2-data';
 import { ActivatedRoute } from '@angular/router';
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CustomerOrder } from '../../../core/DataModels/customer-order-data-models';
 import { Invoice } from '../sales-invoice-data-model';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-sale-invoice-form',
@@ -14,7 +16,7 @@ import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data
   styleUrls: ['./sale-invoice-form.component.css']
 })
 
-export class SaleInvoiceFormComponent implements OnInit {
+export class SaleInvoiceFormComponent extends CommonProperties implements OnInit {
   public saleInvoiceForm: FormGroup;
   public discount: number;
   public totalTax: number;
@@ -36,16 +38,21 @@ export class SaleInvoiceFormComponent implements OnInit {
   public customerOrderFields: { text: string; value: string; };
   public customerOrderQuery: Query;
   public customerOrdersList: Object[];
+  public submitButtonText = 'Save';
 
-  private customerOrderId: number;
+
+  private orderId: number;
   private invoiceId: number;
 
 
   constructor(private formBuilder: FormBuilder,
     private saleInvoiceApi: SaleInvoiceApiService,
     private activatedRoute: ActivatedRoute,
+    private location: Location,
     @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string,
     @Inject('BASE_URL') private apiUrl: string) {
+
+    super();
 
     this.createForm();
     this.customersQuery = new Query().select(['firstName', 'id']);
@@ -59,14 +66,14 @@ export class SaleInvoiceFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.customerOrderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
-
-    // TODO: Define invoice update functionality
+    this.orderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
     this.invoiceId = + this.activatedRoute.snapshot.paramMap.get('invoiceId');
 
     if (this.customerOrderId) {
-      this.saleInvoiceApi.getCustomerOrder(this.customerOrderId).subscribe((data: CustomerOrder) => this.initializeForm(data),
-        (error: CustomErrorResponse) => console.log(error));
+      this.saleInvoiceApi.getCustomerOrder(this.orderId).subscribe(
+        (data: CustomerOrder) => this.initializeForm(data),
+        this.handleError
+      );
     }
 
     this.items.valueChanges
@@ -84,30 +91,34 @@ export class SaleInvoiceFormComponent implements OnInit {
 
 
       });
-    const dm: DataManager = new DataManager(
+
+    const employeeDataManaget: DataManager = new DataManager(
       { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
+    employeeDataManaget.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
 
-    const itemDm: DataManager = new DataManager(
+    const itemDataManager: DataManager = new DataManager(
       { url: `${this.apiUrl}/products`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
-    const customerDm: DataManager = new DataManager(
+    itemDataManager.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
+
+    const customerDataManager: DataManager = new DataManager(
       { url: `${this.apiUrl}/customers`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
-    const customerOrderDm: DataManager = new DataManager(
+
+    customerDataManager.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
+
+    const customerOrderDataManager: DataManager = new DataManager(
       { url: `${this.apiUrl}/salesorders`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
-    customerOrderDm.ready.then((e: ReturnOption) => this.customerOrdersList = <Object[]>e.result).catch((e) => true);
+    customerOrderDataManager.ready.then((e: ReturnOption) => this.customerOrdersList = <Object[]>e.result).catch((e) => true);
 
-    customerDm.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
-    itemDm.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
-    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
 
   }
 
@@ -120,21 +131,18 @@ export class SaleInvoiceFormComponent implements OnInit {
       quantity: [0, Validators.required],
       unitPrice: [0, Validators.required],
       discount: [0],
-      subTotal: [0],
       note: ['']
     });
   }
 
   createForm() {
     this.saleInvoiceForm = this.formBuilder.group({
-      customerOrderId: [''],
+      customerOrderId: ['', Validators.required],
       customerId: ['', Validators.required],
       invoiceType: ['', Validators.required],
       createdBy: ['', Validators.required],
       status: ['', Validators.required],
-      dateAdded: ['', Validators.required],
       dueDate: ['', Validators.required],
-      currencyId: [{ value : '', disabled: true}],
       paymentMethod: ['CASH', Validators.required],
       note: [''],
       totalDiscount: [0],
@@ -144,22 +152,57 @@ export class SaleInvoiceFormComponent implements OnInit {
       ])
     });
   }
+  itemId(i: number): FormControl {
+    return this.items.at(i).get('itemId') as FormControl;
+  }
+  quantity(i: number): FormControl {
+    return this.items.at(i).get('quantity') as FormControl;
+  }
+
+  unitPrice(i: number): FormControl {
+    return this.items.at(i).get('unitPrice') as FormControl;
+  }
+
+  get customerOrderId(): FormControl {
+    return this.saleInvoiceForm.get('customerOrderId') as FormControl;
+  }
+  get customerId(): FormControl {
+    return this.saleInvoiceForm.get('customerId') as FormControl;
+  }
+
+  get invoiceType(): FormControl {
+    return this.saleInvoiceForm.get('invoiceType') as FormControl;
+  }
+
+  get createdBy(): FormControl {
+    return this.saleInvoiceForm.get('createdBy') as FormControl;
+  }
+
+  get status(): FormControl {
+    return this.saleInvoiceForm.get('status') as FormControl;
+  }
+
+  get dueDate(): FormControl {
+    return this.saleInvoiceForm.get('dueDate') as FormControl;
+  }
+
+  get paymentMethod(): FormControl {
+    return this.saleInvoiceForm.get('paymentMethod') as FormControl;
+  }
+
 
   initializeForm(data: CustomerOrder) {
     this.saleInvoiceForm = this.formBuilder.group({
-      customerOrderId: data.Id,
+      customerOrderId: [(data.Id) ? data.Id : '', Validators.required],
       customerId: [data.ClientId, Validators.required],
       invoiceType: ['', Validators.required],
       createdBy: ['', Validators.required],
-      status: ['', Validators.required],
-      dateAdded: ['', Validators.required],
       dueDate: ['', Validators.required],
-      currencyId: [{ value : '', disabled: true}],
       paymentMethod: ['Check', Validators.required],
       note: [''],
       totalDiscount: [0],
       tax: [0],
-      InvoiceItems: this.formBuilder.array([ ])
+      InvoiceItems: this.formBuilder.array([])
     });
     this.items.valueChanges
       .subscribe((value: any[]) => {
@@ -184,7 +227,6 @@ export class SaleInvoiceFormComponent implements OnInit {
         quantity: [element.Quantity, [Validators.required, Validators.min(element.Quantity)]],
         unitPrice: [element.PricePerItem, Validators.required],
         discount: [0],
-        subTotal: [0],
         note: ['']
       }));
     });
@@ -194,10 +236,13 @@ export class SaleInvoiceFormComponent implements OnInit {
 
   onSubmit() {
     const data = this.saleInvoiceForm.value as Invoice;
-    this.saleInvoiceApi.createCustomerOrderInvoice(this.customerOrderId, data)
-                                                    .subscribe(
-                                                    (result: Invoice) => alert('Invoice Created Successfuly'),
-                                                    (error: CustomErrorResponse) => console.log(error));
+    this.saleInvoiceApi.createCustomerOrderInvoice(this.orderId, data)
+      .subscribe(
+        (result: Invoice) => {
+          alert('Invoice Created Successfuly');
+          this.location.back();
+        },
+        this.handleError);
   }
 
   addItem() {
