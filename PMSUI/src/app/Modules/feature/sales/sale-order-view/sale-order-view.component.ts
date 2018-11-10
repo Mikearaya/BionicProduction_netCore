@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+/*
+ * @CreateTime: Nov 11, 2018 12:09 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 12:09 AM
+ * @Description: Modify Here, Please
+ */
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
@@ -39,28 +47,19 @@ export class SaleOrderViewComponent implements OnInit {
   public allowPdfExport = true;
   public allowPaging = true;
 
-  constructor(
-    private salesOrderApi: SaleOrderApiService,
-    private route: Router) {
-      this.customAttributes = { class: 'custom-grid-header' };
-
-  }
   public customAttributes: Object;
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
   columnBluePrint = salesOrderBluePrint;
 
-  public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/salesorders',
-    adaptor: new WebApiAdaptor,
-    offline: true
-  });
 
 
-  ngOnInit(): void {
+  constructor(
+    @Inject('BASE_URL') private apiUrl: string,
+    private salesOrderApi: SaleOrderApiService,
+    private route: Router) {
 
-    this.data = this.dataManager;
 
     this.pageSettings = { pageSize: 10 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
@@ -87,6 +86,23 @@ export class SaleOrderViewComponent implements OnInit {
         click: this.deleteOrder.bind(this)
       }
     }];
+
+    this.customAttributes = { class: 'custom-grid-header' };
+
+  }
+
+
+  public dataManager: DataManager = new DataManager({
+    url: `${this.apiUrl}/salesorders`,
+    adaptor: new WebApiAdaptor,
+    offline: true
+  });
+
+
+  ngOnInit(): void {
+
+    this.data = this.dataManager;
+
   }
 
   viewOrder(args: Event) {

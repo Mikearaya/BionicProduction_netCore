@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 11, 2018 12:14 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 12:14 AM
+ * @Description: Modify Here, Please
+ */
 
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 

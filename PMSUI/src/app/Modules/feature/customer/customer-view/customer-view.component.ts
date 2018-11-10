@@ -3,10 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:43 AM
+ * @Last Modified Time: Nov 10, 2018 11:52 PM
  * @Description: Modify Here, Please
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
 import { CustomerService, Customer } from '../../customer/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
@@ -32,17 +32,10 @@ export class CustomerViewComponent implements OnInit {
   public filterSetting: FilterSettingsModel;
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
-
-  constructor(
-    private customerService: CustomerService,
-    private route: Router) {
-
-  }
-
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  customerViewColumns = [
+  public customerViewColumns = [
     { key: 'id', humanReadable: 'ID', primaryKey: true, editable: false, isIdentity: true },
     {
       key: 'firstName', humanReadable: 'First Name', primaryKey: false, editable: true, dataType: 'TextBox',
@@ -66,15 +59,13 @@ export class CustomerViewComponent implements OnInit {
     },
     { key: 'email', humanReadable: 'E-Mail', primaryKey: false, editable: true, dataType: 'TextBox', isIdentity: false }
   ];
-  public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/customers',
-    updateUrl: 'http://localhost:5000/api/customers',
-    insertUrl: 'http://localhost:5000/api/customers',
-    removeUrl: 'http://localhost:5000/api/customers',
-    adaptor: new WebApiAdaptor
-  });
-  ngOnInit(): void {
-    this.data = this.dataManager;
+
+
+  constructor(
+    @Inject('BASE_URL') private apiUrl: string,
+    private customerService: CustomerService,
+    private route: Router) {
+
 
     this.pageSettings = { pageSize: 6 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
@@ -83,11 +74,23 @@ export class CustomerViewComponent implements OnInit {
     { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
 
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
+
+  }
+
+  public dataManager: DataManager = new DataManager({
+    url: `${this.apiUrl}/customers`,
+    updateUrl: `${this.apiUrl}/customers`,
+    insertUrl: `${this.apiUrl}/customers`,
+    removeUrl: `${this.apiUrl}/customers`,
+    adaptor: new WebApiAdaptor
+  });
+
+  ngOnInit(): void {
+    this.data = this.dataManager;
   }
 
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-    // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
@@ -96,7 +99,7 @@ export class CustomerViewComponent implements OnInit {
     if (args.item.id === 'customer_add') {
 
     } else if (args.item.id === 'customer_update') {
-      // console.log(args);
+
     } else if (args.item.id === 'customer_delete') {
 
     }
@@ -111,7 +114,7 @@ export class CustomerViewComponent implements OnInit {
 
 
   toolbarClick(args: ClickEventArgs): void {
-    if (args.item.id === 'customer_excelexport') { // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+    if (args.item.id === 'customer_excelexport') {
       this.grid.excelExport();
     }
   }

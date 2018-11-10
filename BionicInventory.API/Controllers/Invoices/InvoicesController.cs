@@ -48,14 +48,16 @@ namespace BionicInventory.API.Controllers.Invoices {
         [ProducesResponseType(500)]
         public  IActionResult GetInvoiceById(uint id, string type = "VIEW") {
 
+            Object invoice;
+
                 if(id == 0) {
                     return StatusCode(400);
                 }
-                Object invoice;
+                
                 if(type.ToUpper() == "SUMMARY") {
                     invoice = _query.GetCustomerOrderInvoiceStatus(id);
                 } else {
-                invoice = _query.GetInvoiceById(id);
+                    invoice = _query.GetInvoiceById(id);
                 }
 
                 if(invoice == null) {
@@ -72,10 +74,11 @@ namespace BionicInventory.API.Controllers.Invoices {
         [ProducesResponseType(500)]
         public  IActionResult GetCustomerOrderInvoiceById(uint customerOrderId, string type = "VIEW") {
 
+                Object invoice;
+                
                 if(customerOrderId == 0) {
                     return StatusCode(400);
                 }
-                Object invoice;
                 if(type.ToUpper() == "SUMMARY") {
                     invoice = _query.GetCustomerOrderInvoiceStatus(customerOrderId);
                 } else {

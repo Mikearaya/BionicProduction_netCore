@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 9, 2018 12:08 AM
+ * @Last Modified Time: Nov 10, 2018 11:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -36,15 +36,10 @@ namespace BionicInventory.DataStore.Invoices {
                 builder.Property (e => e.PaymentMethod)
                     .IsRequired ()
                     .HasColumnName ("payment_method");
-                    
+
                 builder.Property (e => e.InvoiceType)
                     .IsRequired ()
                     .HasColumnName ("invoice_type");
-
-                builder.Property (e => e.CreatedOn)
-                    .HasColumnName ("created_on")
-                    .HasColumnType ("datetime")
-                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
                 builder.Property (e => e.PreparedBy).HasColumnName ("prepared_by");
 

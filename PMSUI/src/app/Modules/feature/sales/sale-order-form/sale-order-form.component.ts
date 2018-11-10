@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 9, 2018 2:19 AM
+ * @Last Modified Time: Nov 11, 2018 12:11 AM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, Inject } from '@angular/core';
@@ -42,7 +42,9 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
   public orderStatus = ['Quotation', 'Waiting for Confirmation', 'Confirmed', 'Canceled', 'Delivered'];
   public errorDescription: any;
 
-  constructor(private salesOrderApi: SaleOrderApiService,
+  constructor(
+    @Inject('BASE_URL') private apiUrl: string,
+    private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
     private location: Location,
     private route: Router,
@@ -69,12 +71,12 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     );
 
     const itemDm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/products', adaptor: new WebApiAdaptor, offline: true },
+      { url: `${this.apiUrl}/products`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
     const customerDm: DataManager = new DataManager(
-      { url: 'http://localhost:5000/api/customers', adaptor: new WebApiAdaptor, offline: true },
+      { url: `${this.apiUrl}/customers`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 

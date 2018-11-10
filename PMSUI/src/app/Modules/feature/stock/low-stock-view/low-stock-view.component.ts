@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 11, 2018 12:13 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 12:13 AM
+ * @Description: Modify Here, Please
+ */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StockApiService } from '../stock-api.service';

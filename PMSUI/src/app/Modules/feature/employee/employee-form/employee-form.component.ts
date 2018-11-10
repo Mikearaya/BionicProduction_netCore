@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 10, 2018 11:58 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 10, 2018 11:58 PM
+ * @Description: Modify Here, Please
+ */
 
 
 import { Component, OnInit, Input } from '@angular/core';

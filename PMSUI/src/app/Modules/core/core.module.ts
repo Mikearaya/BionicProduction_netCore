@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 10, 2018 11:44 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 10, 2018 11:44 PM
+ * @Description: Modify Here, Please
+ */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
@@ -36,7 +44,7 @@ import { ProductGetterService } from './services/product-getter.service';
     DetailRowService,
     ProductGetterService,
     CoreApiService,
-    {provide: 'EMPLOYEE_API_URL', useValue: 'http://localhost:5000/api/employees'}
+    { provide: 'EMPLOYEE_API_URL', useValue: 'http://localhost:5000/api/employees' }
   ],
 
 })

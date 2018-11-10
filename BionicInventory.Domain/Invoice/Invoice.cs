@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 27, 2018 12:17 AM
+ * @Last Modified Time: Nov 10, 2018 11:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -30,7 +30,6 @@ namespace BionicInventory.Domain.Invoices {
         public float Tax { get; set; }
         public string Note { get; set; }
         public float Discount { get; set; }
-        public DateTime? CreatedOn { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? DueDate { get; set; }

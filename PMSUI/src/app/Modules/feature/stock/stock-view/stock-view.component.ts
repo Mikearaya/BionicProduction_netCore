@@ -3,11 +3,11 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:41 AM
+ * @Last Modified Time: Nov 11, 2018 12:12 AM
  * @Description: Modify Here, Please
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
@@ -48,6 +48,7 @@ export class StockViewComponent implements OnInit {
   public allowSorting = true;
 
   constructor(
+    @Inject('BASE_URL') private apiUrl: string,
     private route: Router) {
 
   }
@@ -58,7 +59,7 @@ export class StockViewComponent implements OnInit {
   columnBluePrint = stockViewColumnBluePrint;
 
   public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/finished_products',
+    url: `${this.apiUrl}/finished_products`,
     adaptor: new WebApiAdaptor,
     offline: true
   });

@@ -4,13 +4,14 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyProfileService } from '../company-profile.service';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-company-profile-form',
   templateUrl: './company-profile-form.component.html',
   styleUrls: ['./company-profile-form.component.css']
 })
-export class CompanyProfileFormComponent implements OnInit {
+export class CompanyProfileFormComponent extends CommonProperties implements OnInit {
 
   public profileForm: FormGroup;
   private profileId: number;
@@ -19,6 +20,8 @@ export class CompanyProfileFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private location: Location) {
+
+    super();
     this.initializeForm();
   }
 
@@ -28,7 +31,7 @@ export class CompanyProfileFormComponent implements OnInit {
     this.companyProfileService.getCompanyProfile()
       .subscribe(
         (data: any) => this.initializeForm(data),
-        (error: CustomErrorResponse) => console.log(error)
+        this.handleError
       );
 
   }
@@ -67,7 +70,7 @@ export class CompanyProfileFormComponent implements OnInit {
           this.location.back();
           alert('Company Profile Updated Successfully');
         },
-        (error: CustomErrorResponse) => console.log(error)
+        this.handleError
       );
   }
 }

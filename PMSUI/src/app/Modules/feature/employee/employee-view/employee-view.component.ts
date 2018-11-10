@@ -3,11 +3,11 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:43 AM
+ * @Last Modified Time: Nov 11, 2018 12:23 AM
  * @Description: Employee View Component class
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
@@ -37,13 +37,10 @@ export class EmployeeViewComponent implements OnInit {
   public filterSetting: FilterSettingsModel;
   public editSettings: EditSettingsModel;
   public toolbar: ToolbarItems[];
-
-  constructor(private customerService: EmployeeApiService, private route: Router) { }
-
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  customerViewColumns = [
+  public customerViewColumns = [
     { key: 'id', humanReadable: 'ID', primaryKey: true, editable: false, isIdentity: true },
     {
       key: 'firstName', humanReadable: 'First Name', primaryKey: false, editable: true, dataType: 'TextBox',
@@ -55,11 +52,18 @@ export class EmployeeViewComponent implements OnInit {
     }
   ];
 
+
+  constructor(
+    @Inject('BASE_URL') private apiUrl: string,
+    private customerService: EmployeeApiService,
+    private route: Router) { }
+
+
   public dataManager: DataManager = new DataManager({
-    url: 'http://localhost:5000/api/employees',
-    updateUrl: 'http://localhost:5000/api/employees',
-    insertUrl: 'http://localhost:5000/api/employees',
-    removeUrl: 'http://localhost:5000/api/employees',
+    url: `${this.apiUrl}/employees`,
+    updateUrl: `${this.apiUrl}/employees`,
+    insertUrl: `${this.apiUrl}/employees`,
+    removeUrl: `${this.apiUrl}/employees`,
     adaptor: new WebApiAdaptor
   });
 

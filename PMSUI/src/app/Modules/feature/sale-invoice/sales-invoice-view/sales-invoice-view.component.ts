@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 11, 2018 12:05 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 12:05 AM
+ * @Description: Modify Here, Please
+ */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   GridComponent, GroupSettingsModel, FilterSettingsModel,
@@ -36,15 +44,17 @@ export class SalesInvoiceViewComponent implements OnInit {
   public columnBluePrint = saleInvoiceColumnBluePrint;
   public customAttributes: { class: string; };
 
-  constructor(private router: Router,
-              private invoiceApi: SaleInvoiceApiService) {
+  constructor(
+    private router: Router,
+    private invoiceApi: SaleInvoiceApiService) {
+
     this.commands = [
       { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
       { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } }];
-      this.customAttributes = { class: 'custom-grid-header' };
-      this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
-      this.groupOptions = { showGroupedColumn: true }; // make columns used for grouping visable
-      this.toolbarOptions = [
+    this.customAttributes = { class: 'custom-grid-header' };
+    this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
+    this.groupOptions = { showGroupedColumn: true }; // make columns used for grouping visable
+    this.toolbarOptions = [
       'Print',
       'PdfExport',
       'ExcelExport',
@@ -71,10 +81,10 @@ export class SalesInvoiceViewComponent implements OnInit {
 
   toolbarClick(args: ClickEventArgs): void {
     if (args.item.id === 'invoice_edit') { // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
-        console.log(args);
+      console.log(args);
     } else if (args.item.id === 'invoice_delete') { // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
 
     }
-}
+  }
 
 }

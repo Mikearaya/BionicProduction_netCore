@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 4, 2018 9:57 PM
+ * @Last Modified Time: Nov 11, 2018 12:06 AM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./invoice-payment.component.css']
 })
 export class InvoicePaymentComponent implements OnInit {
+
   public invoice: { paidAmount: number; remainingAmount: number; totalAmount: number; id: any; dueDate: Date; };
 
   constructor() {

@@ -63,6 +63,10 @@ export class PmsNavigationComponent {
 
   ];
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild', routerLink: 'route' };
+
+  constructor(private router: Router) { }
+
+
   btnClick() {
     if (this.togglebtn.element.classList.contains('e-active')) {
       this.togglebtn.content = 'Open';
@@ -74,14 +78,10 @@ export class PmsNavigationComponent {
   }
 
   clickedNode(event: NodeSelectEventArgs) {
-    console.log(event);
     const node = event.nodeData;
     if (!node.parentId) {
       this.router.navigate([`${node.id}`]);
     }
-  }
-  constructor(private router: Router) {
-
   }
 
 }

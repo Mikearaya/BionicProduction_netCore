@@ -3,16 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:31 AM
+ * @Last Modified Time: Nov 11, 2018 12:07 AM
  * @Description: Modify Here, Please
  */
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from './sales-data-model';
 import { InvoiceSummary } from '../../core/DataModels/invoice-data-model';
-import { catchError } from 'rxjs/operators';
-import { CustomErrorResponse } from '../../core/DataModels/system-data-models';
 
 @Injectable()
 export class SaleOrderApiService {

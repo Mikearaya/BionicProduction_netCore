@@ -1,7 +1,15 @@
+/*
+ * @CreateTime: Nov 10, 2018 11:53 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 10, 2018 11:53 PM
+ * @Description: Modify Here, Please
+ */
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, Inject } from '@angular/core';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+
 
 @Injectable()
 export class CustomerService {

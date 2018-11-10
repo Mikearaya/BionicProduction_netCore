@@ -33,10 +33,13 @@ export class CustomerOrderBookingComponent implements OnInit {
   public employeeQuery: Query;
   public employeeFields: { text: string; value: string; };
 
-  constructor(private bookingService: BookingApiService, private formBuilder: FormBuilder,
+  constructor(
+    private bookingService: BookingApiService,
+    private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     @Inject('BASE_URL') private apiUrl: string) {
+
     this.createForm();
 
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true };
@@ -118,10 +121,10 @@ export class CustomerOrderBookingComponent implements OnInit {
     console.log(arr);
     arr.customerOrderId = this.customerOrderId;
     this.bookingService.bookInBulck(arr)
-                              .subscribe(
-                                (result: OrderBookingView) => alert('Order Items Booked Successfuly'),
-                                error => console.error(error)
-                              );
+      .subscribe(
+        (result: OrderBookingView) => alert('Order Items Booked Successfuly'),
+        error => console.error(error)
+      );
   }
 
 

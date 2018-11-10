@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 11, 2018 12:12 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 12:12 AM
+ * @Description: Modify Here, Please
+ */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LowStockItemsView } from './stock-data-models';
