@@ -1,7 +1,7 @@
 <section class="e-card">
   <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()">
     <div class="container">
-<h3 class="text-center text-info">Invoice</h3>
+      <h3 class="text-center text-info">Invoice</h3>
       <app-form-options [submitDisabled]="saleInvoiceForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
       <div class="row">
         <div class="col-6 col-xs-12">
@@ -49,12 +49,12 @@
           </div>
           <div class="row">
             <div class="col-4 col-xs-12 ">
-              <p><strong i18n>Payment  Method </strong> </p>
+              <p><strong i18n>Payment Method </strong> </p>
             </div>
             <div class="col-8 col-xs-12 ">
               <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" i18n-label="bank check @@bankCheck"
                 value="Check" label="Check"></ejs-radiobutton>
-                <br>
+              <br>
               <ejs-radiobutton name="paymentMethod" formControlName="paymentMethod" i18n-label="money @@bankCash" value="Cash"
                 label="Cash" [checked]="true"></ejs-radiobutton>
               <div class="e-error" *ngIf="paymentMethod.errors">
@@ -115,10 +115,10 @@
             <tbody formArrayName="InvoiceItems">
               <tr *ngFor="let ite of items.controls; let i=index; let last=last;" [formGroup]="ite">
                 <td>
-                    <div class="e-error" *ngIf="itemId(i).errors">
-                        <div *ngIf="itemId(i).errors['required']" i18n="product must be selected @@itemRequired">Item is
-                          required</div>
-                      </div>
+                  <div class="e-error" *ngIf="itemId(i).errors">
+                    <div *ngIf="itemId(i).errors['required']" i18n="product must be selected @@itemRequired">Item is
+                      required</div>
+                  </div>
                   <ejs-dropdownlist [dataSource]="itemsList" [query]="itemQuery" [fields]="itemFields" formControlName="itemId"
                     [attr.id]="'productId'+i" [attr.name]="'productId'+i" [allowFiltering]="true" filterBarPlaceholder="Serarch Product"
                     placeholder="Select Item" i18n-filterBarPlaceholder i18n-placeholder="@@itemPlaceholder">
@@ -133,9 +133,6 @@
                     <div *ngIf="quantity(i).errors['required']" i18n="product quantity must be selected @@quantityRequired">Quantity
                       is
                       required</div>
-                    <div *ngIf="quantity(i).errors['min']" i18n="product quantity can not be less than 1  @@quantityMin">Quantity
-                      can't be less than one
-                    </div>
                   </div>
                 </td>
                 <td>
@@ -156,11 +153,12 @@
                   </ejs-numerictextbox>
                 </td>
                 <td class="white-background">
-                  {{totalAfterTax}}
+                  {{unitPrice(i).value * quantity(i).value - (unitPrice(i).value * quantity(i).value) *
+                  (discounts(i).value /100)}}
                 </td>
                 <td>
-                  <button type="button" (click)="removeItem(i)" [disabled]="items.length < 2"
-                  ejs-button class="e-danger e-icons e-times-icon" i18n="delete @@removeButton">Remove</button>
+                  <button type="button" (click)="removeItem(i)" [disabled]="items.length < 2" ejs-button class="e-danger e-icons e-times-icon"
+                    i18n="delete @@removeButton">Remove</button>
                 </td>
               </tr>
             </tbody>
@@ -173,6 +171,8 @@
                     placeholder="Total Discount" i18n-placeholder="@@totalDiscount">
                   </ejs-numerictextbox>
                 </td>
+
+
                 <td class="text-center">
                   <button type="button" ejs-button class="e-primary" (click)="addItem()" [disabled]="items.invalid"
                     iconCss="e-icons e-plus" i18n="add button @addButton">Add</button>
@@ -180,8 +180,8 @@
               </tr>
               <tr>
                 <th i18n="@@total">Total</th>
-                <td>&nbsp;</td>
                 <td class="text-center white-background">{{totalQuantity}}</td>
+                <td>&nbsp;</td>
                 <td>&nbsp;</td>
                 <td class="text-center white-background">{{totalBeforeTax}}</td>
                 <td>&nbsp; </td>
@@ -189,11 +189,12 @@
               <tr>
                 <th colspan="2" i18n="@@tax">Tax</th>
                 <td>&nbsp;</td>
+
+                <td class="text-center white-background">
+
+                </td>
                 <td class="white-background">
                   <ejs-numerictextbox formControlName="tax" id="tax" name="tax" placeholder="Tax" [min]="0"></ejs-numerictextbox>
-                </td>
-                <td class="text-center white-background">
-                  {{taxAmount}}
                 </td>
                 <td>&nbsp;</td>
               </tr>

@@ -77,20 +77,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     }
 
     this.items.valueChanges
-      .subscribe((data: any[]) => {
-        this.discount = 0;
-        this.totalQuantity = 0;
-        this.totalBeforeTax = 0;
-        this.totalAfterTax = 0;
-        this.taxAmount = 0;
-        data.forEach(element => {
-          this.discount += element.discount;
-          this.totalQuantity += element.quantity;
-          this.totalBeforeTax += element.quantity * element.unitPrice;
-        });
-
-
-      });
+      .subscribe((data: any[]) => { this.calculatePrice(data); });
 
     const employeeDataManaget: DataManager = new DataManager(
       { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
@@ -151,6 +138,8 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
         this.invoiceItems()
       ])
     });
+    this.tax.valueChanges.subscribe(_ => this.calculatePrice([]));
+    this.totaldiscount.valueChanges.subscribe(_ => this.calculatePrice([]));
   }
   itemId(i: number): FormControl {
     return this.items.at(i).get('itemId') as FormControl;
@@ -163,6 +152,14 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     return this.items.at(i).get('unitPrice') as FormControl;
   }
 
+  discounts(i: number): FormControl {
+    return this.items.at(i).get('discount') as FormControl;
+  }
+
+  get totaldiscount(): FormControl {
+    return this.saleInvoiceForm.get('totalDiscount') as FormControl;
+  }
+
   get customerOrderId(): FormControl {
     return this.saleInvoiceForm.get('customerOrderId') as FormControl;
   }
@@ -173,6 +170,11 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
   get invoiceType(): FormControl {
     return this.saleInvoiceForm.get('invoiceType') as FormControl;
   }
+
+  get tax(): FormControl {
+    return this.saleInvoiceForm.get('tax') as FormControl;
+  }
+
 
   get createdBy(): FormControl {
     return this.saleInvoiceForm.get('createdBy') as FormControl;
@@ -206,30 +208,22 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     });
     this.items.valueChanges
       .subscribe((value: any[]) => {
-        this.discount = 0;
-        this.totalQuantity = 0;
-        this.totalBeforeTax = 0;
-        this.totalAfterTax = 0;
-        this.taxAmount = 0;
-        value.forEach(element => {
-          this.discount += element.discount;
-          this.totalQuantity += element.quantity;
-          this.totalBeforeTax += element.quantity * element.unitPrice;
-        });
-
-
+        this.calculatePrice(value);
       });
 
     data.PurchaseOrderDetail.forEach(element => {
       this.items.push(this.formBuilder.group({
         customerOrderItemId: [element.Id, Validators.required],
         itemId: [element.ItemId, Validators.required],
-        quantity: [element.Quantity, [Validators.required, Validators.min(element.Quantity)]],
+        quantity: [element.Quantity, [Validators.required]],
         unitPrice: [element.PricePerItem, Validators.required],
         discount: [0],
         note: ['']
       }));
     });
+
+    this.tax.valueChanges.subscribe(_ => this.calculatePrice([]));
+    this.totaldiscount.valueChanges.subscribe(_ => this.calculatePrice([]));
 
 
   }
@@ -253,5 +247,21 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.items.removeAt(index);
   }
 
+  private calculatePrice(value: any[] = []): void {
 
+    this.discount = 0;
+    this.totalQuantity = 0;
+    this.totalBeforeTax = 0;
+    this.totalAfterTax = 0;
+    this.taxAmount = 0;
+   this.items.controls.forEach(element => {
+      this.discount += element.value.discount;
+      this.totalQuantity += element.value.quantity;
+      this.totalBeforeTax += ((element.value.quantity * element.value.unitPrice) -
+        (element.value.quantity * element.value.unitPrice) * (element.value.discount / 100));
+    });
+
+    this.totalBeforeTax = this.totalBeforeTax - this.totalBeforeTax * (this.totaldiscount.value as number / 100);
+    this.totalAfterTax = this.totalBeforeTax - (this.totalBeforeTax * (this.tax.value / 100));
+  }
 }
