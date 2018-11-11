@@ -1,27 +1,37 @@
 <section class="e-card">
-<div class="text-info text-center">
-New Payment Entry
-</div>
-
-<div class="container">
-  <div class="row">
-    <div class="col-6 col-xs-12">
-      <div class="col-12">
-      <ol>
-        <dt>
-          Invoice
-        </dt><dd>{{invoice.id}}</dd>
-        <dt>Due Date</dt><dd>{{invoice.dueDate}}</dd>
-        <dt>Total Amount</dt><dd>{{invoice.totalAmount}}</dd>
-        <dt>Paid Amount</dt> <dd>{{invoice.paidAmount}}</dd>
-        <dt>Remaining Amount</dt> {{invoice.remainingAmount}}
-      </ol>
-    </div>
-    <div class="col-12">
-      <app-form-options cancelButtonText='Back' submitButtonText="Save" ></app-form-options>
-    </div>
-    </div>
-    <div class="col-6 col-xs-12"></div>
+  <div class="text-info text-center">
+    New Payment Entry
   </div>
-</div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-6 col-xs-12">
+        <div class="col-12">
+          <ol>
+            <dt>
+              Invoice
+            </dt>
+            <dd> {{invoice?.InvoiceNo}}</dd>
+            <dt>Total Amount</dt>
+            <dd>{{invoice?.TotalAmount}}</dd>
+            <dt>Paid Amount</dt>
+            <dd>{{invoice?.PaidAmount}}</dd>
+            <dt>Remaining Amount</dt> {{invoice?.TotalAmount - invoice?.PaidAmount}}
+          </ol>
+        </div>
+        <div class="col-12">
+          <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+
+            <ejs-numerictextbox formControlName="paidAmount" id="paidAmount" name="paidAmount" placeholder="Paid Amount"
+              i18n-placeholder>
+
+            </ejs-numerictextbox>
+            <app-form-options cancelButtonText='Back' [submitDisabled]="paymentForm.invalid" submitButtonText="Save"></app-form-options>
+          </form>
+        </div>
+
+      </div>
+      <div class="col-6 col-xs-12"></div>
+    </div>
+  </div>
 </section>

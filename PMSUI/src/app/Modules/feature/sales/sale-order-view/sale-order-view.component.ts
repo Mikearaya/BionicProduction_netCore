@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:09 AM
+ * @Last Modified Time: Nov 11, 2018 10:07 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
@@ -108,6 +108,7 @@ export class SaleOrderViewComponent implements OnInit {
   viewOrder(args: Event) {
 
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    console.log(rowObj.data);
     this.route.navigate([`sales/${rowObj.data['id']}`]);
   }
 

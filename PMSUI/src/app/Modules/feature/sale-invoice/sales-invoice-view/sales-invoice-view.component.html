@@ -1,9 +1,10 @@
 <section class="e-card">
- <ejs-grid [dataSource]='data' #grid  [allowExcelExport]="true" id='invoice' (toolbarClick)="toolbarClick($event)" [toolbar]='toolbarOptions'
-  [allowPaging]="true" [pageSettings]='pageSettings' [allowFiltering]="true" [allowSorting]="true" [allowGrouping]="true"
-  [allowResizing]='true'[groupSettings]='groupOptions' allowFiltering='true'
-  allowTextWrap='true' [textWrapSettings]='wrapSettings' gridLines='Both' [editSettings]='editSettings'
- [allowPdfExport]='true'  [filterSettings]="filterOptions" [rowHeight]="25">
+ <ejs-grid [dataSource]='data' #grid  id='invoice' (toolbarClick)="toolbarClick($event)" [toolbar]='toolbarOptions'
+  [allowPaging]="true" [pageSettings]='pageSettings' [allowSorting]="allowSorting" [allowGrouping]="allowGrouping"
+  [allowResizing]='true'[groupSettings]='groupOptions' allowFiltering='allowFiltering' [height]=300  [showColumnChooser]="showColumnChooser"
+ [editSettings]='editSettings' [allowExcelExport]="allowExcelExport"
+
+ [allowPdfExport]='allowPdfExport'   [filterSettings]="filterOptions" [rowHeight]="20">
   <e-columns>
 
     <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint; let i=index; let last=last;"

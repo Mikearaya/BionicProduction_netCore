@@ -11,6 +11,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public uint SubmittedBy { get; set; }
         public uint RecievedBy { get; set; }
+        public int? Quantity { get; set; }
 
         public ProductionOrderList Order { get; set; }
         public Employee RecievedByNavigation { get; set; }

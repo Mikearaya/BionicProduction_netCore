@@ -3,14 +3,13 @@ using System.Collections.Generic;
 
 namespace BionicProduction.Migration.Database
 {
-    public partial class PhoneNumber
+    public partial class Tax
     {
         public uint Id { get; set; }
-        public uint ClientId { get; set; }
-        public string Number { get; set; }
+        public string Name { get; set; }
+        public string Abrevation { get; set; }
+        public float Percentage { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
-
-        public Customer Client { get; set; }
     }
 }

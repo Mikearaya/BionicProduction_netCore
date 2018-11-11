@@ -6,9 +6,9 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CustomerOrder } from '../../../core/DataModels/customer-order-data-models';
 import { Invoice } from '../sales-invoice-data-model';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Location } from '@angular/common';
+import { CustomerOrderGetterApiService } from 'src/app/Modules/core/services/customer-order/customer-order-getter-api.service';
 
 @Component({
   selector: 'app-sale-invoice-form',
@@ -43,16 +43,21 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
 
   private orderId: number;
   private invoiceId: number;
+  public invoice: Invoice;
+  public isUpdate: Boolean;
 
 
   constructor(private formBuilder: FormBuilder,
     private saleInvoiceApi: SaleInvoiceApiService,
+    private customerOrderGetter: CustomerOrderGetterApiService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string,
     @Inject('BASE_URL') private apiUrl: string) {
 
     super();
+
+    this.isUpdate = false;
 
     this.createForm();
     this.customersQuery = new Query().select(['firstName', 'id']);
@@ -69,13 +74,20 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.orderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
     this.invoiceId = + this.activatedRoute.snapshot.paramMap.get('invoiceId');
 
-    if (this.customerOrderId) {
-      this.saleInvoiceApi.getCustomerOrder(this.orderId).subscribe(
+    if (this.orderId) {
+      this.customerOrderGetter.getCustomerOrder(this.orderId).subscribe(
         (data: CustomerOrder) => this.initializeForm(data),
         this.handleError
       );
     }
 
+    if (this.invoiceId) {
+      this.isUpdate = true;
+      this.saleInvoiceApi.getInvoiceById(this.invoiceId).subscribe(
+        (data) => this.invoice = data,
+        this.handleError
+      );
+    }
     this.items.valueChanges
       .subscribe((data: any[]) => { this.calculatePrice(data); });
 
@@ -195,7 +207,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
 
   initializeForm(data: CustomerOrder) {
     this.saleInvoiceForm = this.formBuilder.group({
-      customerOrderId: [(data.Id) ? data.Id : '', Validators.required],
+      customerOrderId: [data.Id ? data.Id : '', Validators.required],
       customerId: [data.ClientId, Validators.required],
       invoiceType: ['', Validators.required],
       createdBy: ['', Validators.required],
@@ -254,7 +266,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.totalBeforeTax = 0;
     this.totalAfterTax = 0;
     this.taxAmount = 0;
-   this.items.controls.forEach(element => {
+    this.items.controls.forEach(element => {
       this.discount += element.value.discount;
       this.totalQuantity += element.value.quantity;
       this.totalBeforeTax += ((element.value.quantity * element.value.unitPrice) -

@@ -17,6 +17,7 @@ import {
 } from '@syncfusion/ej2-angular-grids';
 import { CoreApiService } from './core-api.service';
 import { ProductGetterService } from './services/product-getter.service';
+import { CustomerOrderGetterApiService } from './services/customer-order/customer-order-getter-api.service';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { ProductGetterService } from './services/product-getter.service';
     ResizeService,
     DetailRowService,
     ProductGetterService,
+    CustomerOrderGetterApiService,
     CoreApiService,
     { provide: 'EMPLOYEE_API_URL', useValue: 'http://localhost:5000/api/employees' }
   ],

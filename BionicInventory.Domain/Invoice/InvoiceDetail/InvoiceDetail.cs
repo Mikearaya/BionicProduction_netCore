@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 8, 2018 11:57 PM
+ * @Last Modified Time: Nov 11, 2018 10:49 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -25,7 +25,6 @@ namespace BionicInventory.Domain.Invoices.InvoiceDetails {
         public uint InvoiceNo { get; set; }
         public int Quantity { get; set; }
         public float UnitPrice { get; set; }
-
         public string Note { get; set; }
         public float Discount { get; set; }
         public float? Tax { get; set; }

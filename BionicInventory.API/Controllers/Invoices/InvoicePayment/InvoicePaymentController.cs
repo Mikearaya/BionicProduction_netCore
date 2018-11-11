@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 7, 2018 12:06 AM
+ * @Last Modified Time: Nov 12, 2018 1:24 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Application.Invoices.Interfaces;
@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.Invoices.InvoicePayment {
-    [InventoryAPI ("salesorders")]
+    [InventoryAPI ("invoices")]
     public class InvoicePaymentController : Controller {
         private readonly IInvoicePaymentFactory _factory;
         private readonly ILogger<InvoicePaymentController> _logger;
@@ -42,26 +42,9 @@ namespace BionicInventory.API.Controllers.Invoices.InvoicePayment {
 
         }
 
-        [HttpGet ("{id}/invoices/payments")]
-        [ProducesResponseType (200, Type = typeof (InvoicePaymentSummaryView))]
-        [ProducesResponseType (500)]
-        public IActionResult GetAllCustomerOrderInvoicePayments (uint customerOrderId) {
 
-            var customerOrder = _customerOrderQuery.GetSalesOrderById (customerOrderId);
-
-            if (customerOrder == null) {
-                return StatusCode (404, $"Customer Order with id: {customerOrderId} Not Found");
-            }
-
-            var paymentSummary = _query.GetCustomerOrderIvoiceSummary (customerOrderId);
-            return StatusCode (200, paymentSummary);
-
-        }
-
-        [HttpGet ("invoices/{id}/payments")]
-        [ProducesResponseType (200, Type = typeof (PaymentView))]
-        [ProducesResponseType (500)]
-        public IActionResult GetAllInvoicePayments (uint invoiceId) {
+        [HttpGet ("{invoiceId}/payments")]
+        public ActionResult<PaymentView> GetAllInvoicePayments (uint invoiceId) {
 
             var invoice = _invoiceQuery.GetInvoiceById (invoiceId);
 
@@ -69,19 +52,13 @@ namespace BionicInventory.API.Controllers.Invoices.InvoicePayment {
                 return StatusCode (404, $"Invoice with id: {invoiceId} Not Found");
             }
 
-            var paymentSummary = _query.GetInvoicePaymentsView (invoiceId);
+            var paymentSummary = _query.GetInvoicePaymentSummary (invoiceId);
             return StatusCode (200, paymentSummary);
 
         }
 
-        [HttpPost ("invoices/{id}/payments")]
-        [ProducesResponseType (201, Type = typeof (PaymentView))]
-        [ProducesResponseType (500)]
-        public IActionResult AddInvoicePayment (uint invoiceId, [FromBody] NewInvoicePaymentDto payment) {
-
-            if (payment == null) {
-                return StatusCode (400);
-            }
+        [HttpPost ("{invoiceId}/payments")]
+        public ActionResult<PaymentView> AddInvoicePayment (uint invoiceId, [FromBody] NewInvoicePaymentDto payment) {
 
             if (!ModelState.IsValid) {
                 return new InvalidInputResponse (ModelState);

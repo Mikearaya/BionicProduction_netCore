@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 6, 2018 8:57 PM
+ * @Last Modified Time: Nov 12, 2018 1:11 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -43,9 +43,9 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
                     id = payment.Key,
                         summary = payment.Select (sum => new InvoicePaymentSummaryView () {
                             InvoiceNo = sum.Id,
-                                TotalAmount = sum.InvoiceDetail.Sum (i => i.Quantity * i.UnitPrice),
-                                PaidAmount = sum.InvoicePayments.Sum (p => p.Amount),
-                            PreparedBy = sum.PreparedByNavigation.FullName ()
+                                TotalAmount = (float) sum.InvoiceDetail.Sum (i => (float) i.Quantity * (float) i.UnitPrice),
+                                PaidAmount = (float) sum.InvoicePayments.Sum (p => p.Amount),
+                                PreparedBy = sum.PreparedByNavigation.FullName ()
                         })
                 });
             List<InvoicePaymentSummaryView> summaryView = new List<InvoicePaymentSummaryView> ();
@@ -76,36 +76,16 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
             }
         }
 
-        public IEnumerable<InvoicePaymentSummaryView> GetInvoicePaymentSummary (uint invoiceId) {
-            var x = _database.Invoice
+        public InvoicePaymentSummaryView GetInvoicePaymentSummary (uint invoiceId) {
+            return _database.Invoice
                 .Where (p => p.Id == invoiceId)
-                .GroupBy (p => p.Id)
-                .Select (payment => new {
-                    id = payment.Key,
-                        summary = payment.Select (sum => new InvoicePaymentSummaryView () {
+                .Select (payment => new InvoicePaymentSummaryView {
+                    InvoiceNo = payment.Id,
+                        TotalAmount = payment.InvoiceDetail.Sum (i => ((double) i.Quantity) * i.UnitPrice),
+                        PaidAmount = payment.InvoicePayments.Sum (p => (double) p.Amount),
+                        PreparedBy = payment.PreparedByNavigation.FullName ()
 
-                            TotalAmount = sum.InvoiceDetail.Sum (i => i.Quantity * i.UnitPrice),
-                                PaidAmount = sum.InvoicePayments.Sum (p => p.Amount),
-                                PreparedBy = sum.PreparedByNavigation.FullName ()
-                        })
-                });
-            List<InvoicePaymentSummaryView> summaryView = new List<InvoicePaymentSummaryView> ();
-            foreach (var item in x) {
-                foreach (var summary in item.summary) {
-                    summary.InvoiceNo = item.id;
-                    summary.RemainingAmount = summary.TotalAmount - summary.PaidAmount;
-
-                    if (summary.TotalAmount == summary.PaidAmount) {
-                        summary.Status = "Paid";
-                    } else if (summary.TotalAmount > summary.PaidAmount && summary.PaidAmount == 0) {
-                        summary.Status = "Partially Paid";
-                    } else {
-                        summary.Status = "UnPaid";
-                    }
-                }
-
-            }
-            return summaryView;
+                }).FirstOrDefault ();
         }
 
         public IEnumerable<PaymentView> GetInvoicePaymentsView (uint invoiceId) {
@@ -114,7 +94,7 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Queries {
                 .Select (p => new PaymentView () {
                     Id = p.Id,
                         InvoiceNo = p.InvoiceNo,
-                        Amount = p.Amount,
+                        Amount = (float) p.Amount,
                         DateAdded = p.DateAdded,
                         DateUpdated = p.DateUpdated,
                         CasherName = p.Cashier.FullName (),

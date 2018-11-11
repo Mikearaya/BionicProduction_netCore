@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 2, 2018 10:16 PM
+ * @Last Modified Time: Nov 12, 2018 12:47 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -67,6 +67,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using BionicInventory.Application.Invoices.InvoicePayment.Commands;
+using BionicInventory.Application.Invoices.InvoicePayment.Interfaces;
+using BionicInventory.Application.Invoices.InvoicePayment.Factories;
+using BionicInventory.Application.Invoices.InvoicePayment.Queries;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -107,6 +111,9 @@ namespace BionicInventory.API {
             services.AddScoped<IInvoicesQuery, InvoicesQuery> ();
             services.AddScoped<IInvoicesCommand, InvoicesCommand> ();
             services.AddScoped<IInvoiceFactory, InvoiceFactory> ();
+            services.AddScoped<IInvoicePaymentCommand, InvoicePaymentCommand> ();
+            services.AddScoped<IInvoicePaymentFactory, InvoicePaymentFactory> ();
+            services.AddScoped<IInvoicePaymentQuery, InvoicePaymentQuery> ();
             services.AddScoped<IWorkOrder, WorkOrdersController>();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();

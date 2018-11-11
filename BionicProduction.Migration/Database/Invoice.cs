@@ -20,10 +20,10 @@ namespace BionicProduction.Migration.Database
         public float? Discount { get; set; }
         public string Note { get; set; }
         public DateTime? DueDate { get; set; }
-        public uint CreatedBy { get; set; }
-        public DateTime? CreateOn { get; set; }
+        public uint PreparedBy { get; set; }
+        public DateTime? CreatedOn { get; set; }
 
-        public Employee CreatedByNavigation { get; set; }
+        public Employee PreparedByNavigation { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ICollection<InvoicePayments> InvoicePayments { get; set; }

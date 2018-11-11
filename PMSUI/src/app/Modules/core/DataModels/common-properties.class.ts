@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 11, 2018 7:15 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 11, 2018 7:15 PM
+ * @Description: Modify Here, Please
+ */
 import { CustomErrorResponse } from './system-data-models';
 
 export abstract class CommonProperties {

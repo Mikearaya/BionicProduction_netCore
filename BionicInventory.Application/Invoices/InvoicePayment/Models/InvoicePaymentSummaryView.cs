@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 6, 2018 8:40 PM
+ * @Last Modified Time: Nov 12, 2018 12:51 AM
  * @Description: Modify Here, Please 
  */
 namespace BionicInventory.Application.Invoices.InvoicePayment.Models {

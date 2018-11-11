@@ -213,4 +213,11 @@
     </div>
   </form>
 
+  <div class="container" *ngIf="isUpdate">
+    <div class="col-6 col-xs-12">
+
+      <app-invoice-payments-view [payments]="invoice?.InvoicePayments"></app-invoice-payments-view>
+    </div>
+    <div class="col-6 col-xs-12"></div>
+  </div>
 </section>

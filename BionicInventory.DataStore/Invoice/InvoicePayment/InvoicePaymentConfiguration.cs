@@ -14,7 +14,7 @@ namespace BionicInventory.DataStore.Invoices.InvoicePayment {
 
                 builder.HasIndex (e => e.CashierId)
                     .HasName ("fk_INVOICE_PAYMENTS_cashier_idx");
- 
+
                 builder.HasIndex (e => e.InvoiceNo)
                     .HasName ("fk_INVOICE_PAYMENTS_INVOICE_idx");
 
@@ -37,14 +37,13 @@ namespace BionicInventory.DataStore.Invoices.InvoicePayment {
 
                 builder.Property (e => e.InvoiceNo).HasColumnName ("INVOICE_NO");
 
-
                 builder.Property (e => e.PrintCount)
                     .HasColumnName ("print_count")
                     .HasColumnType ("int(11)")
                     .HasDefaultValueSql ("'0'");
 
                 builder.HasOne (d => d.Cashier)
-                    .WithMany (p => p.InvoicePaymentsCashier)
+                    .WithMany (p => p.InvoicePayments)
                     .HasForeignKey (d => d.CashierId)
                     .HasConstraintName ("fk_INVOICE_PAYMENTS_cashier");
 

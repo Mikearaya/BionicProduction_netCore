@@ -3,19 +3,20 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:11 AM
+ * @Last Modified Time: Nov 11, 2018 10:18 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { GridComponent, CommandModel } from '@syncfusion/ej2-angular-grids';
+import { GridComponent, CommandModel, Column, IRow } from '@syncfusion/ej2-angular-grids';
 
 import { CustomerOrderDetailView } from '../sales-data-model';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { closest } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -51,20 +52,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
     this.invoiceColumns = invoiceColumnBluePrint;
     this.infoGridAttributes = { class: 'info-grid-header' };
 
-    this.invoiceCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
-        click: this.viewInvoice.bind(this)
-      }
-    }
-    ];
 
-    this.customerOrderCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat',
-        iconCss: 'e-edit e-icons'
-      }
-    }];
 
 
   }
@@ -83,6 +71,20 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
         this.handleError
       );
     }
+    this.invoiceCommands = [{
+      buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+        click: this.viewInvoice.bind(this)
+      }
+    }
+    ];
+
+    this.customerOrderCommands = [{
+      buttonOption: {
+        cssClass: 'e-flat',
+        iconCss: 'e-edit e-icons'
+      }
+    }];
 
 
   }
@@ -99,8 +101,10 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   addInvoice(): void {
     this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
   }
-  viewInvoice(data): void {
-    this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
+  viewInvoice(args: Event): void {
+    const rowObj: IRow<Column> = this.invoiceGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    console.log(rowObj);
+    this.route.navigate([`invoices/${rowObj.data['Id']}`]);
   }
 
 }

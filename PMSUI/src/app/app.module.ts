@@ -15,9 +15,9 @@ import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
   ],
   imports: [
     BrowserModule,
+    CoreModule,
     HttpClientModule,
     ReactiveFormsModule,
-    CoreModule,
     AppRoutingModule
 
   ],

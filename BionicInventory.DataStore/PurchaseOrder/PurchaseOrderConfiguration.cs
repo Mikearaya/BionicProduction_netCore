@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 9:02 PM
+ * @Last Modified Time: Nov 11, 2018 10:48 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -34,7 +34,7 @@ namespace BionicInventory.DataStore.PurchaseOrders {
 
                 builder.Property (e => e.OrderStatus)
                     .HasColumnName ("order_status")
-                    .HasColumnType ("varchar(30)");
+                    .HasColumnType ("varchar(20)");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")
@@ -53,7 +53,8 @@ namespace BionicInventory.DataStore.PurchaseOrders {
 
                 builder.Property (e => e.DueDate)
                     .HasColumnName ("due_date")
-                    .HasColumnType ("datetime");
+                    .HasColumnType ("datetime")
+                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.PurchaseOrder)

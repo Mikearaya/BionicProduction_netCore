@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:43 PM
+ * @Last Modified Time: Nov 11, 2018 7:58 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -65,10 +65,19 @@ namespace BionicInventory.Application.Invoices.Queries {
             var customerInvoice = _database.Invoice
                 .GroupBy (dd => dd.PurchaseOrderId).Select (sd => new {
                     id = sd.Key,
-                        TotalAmount = sd.Sum (s => s.InvoiceDetail.Sum (paidAmount => (double) (paidAmount.Quantity * paidAmount.UnitPrice))),
-                        PaidAmount = sd.Sum (s => s.InvoicePayments.Sum (totalPayment => totalPayment.Amount)),
-                        Invoice = sd,
-                        Customer = sd.Select (p => p.PurchaseOrder.Client).FirstOrDefault ()
+                        Detail = sd.Select (detail => new {
+                            Id = detail.Id,
+                                customerOrderId = detail.PurchaseOrderId,
+                                DateAdded = detail.DateAdded,
+                                DueDate = detail.DueDate,
+                                PaymentMethod = detail.PaymentMethod,
+                                customer = detail.PurchaseOrder.Client.FullName (),
+                                customerId = detail.PurchaseOrder.ClientId,
+                                InvoiceType = detail.InvoiceType,
+                                Tax = detail.Tax,
+                                PaidAmount = detail.InvoicePayments.Sum (totalPayment => totalPayment.Amount),
+                                TotalAmount = detail.InvoiceDetail.Sum (paidAmount => (double) (paidAmount.Quantity * paidAmount.UnitPrice))
+                        }),
                 });
 
             if (customerOrderId != 0) {
@@ -78,26 +87,28 @@ namespace BionicInventory.Application.Invoices.Queries {
             List<InvoiceStatusView> invoiceSummary = new List<InvoiceStatusView> ();
             foreach (var item in customerInvoice) {
 
-                foreach (var detail in item.Invoice) {
+                foreach (var detail in item.Detail) {
                     InvoiceStatusView invoiceStatus = new InvoiceStatusView () {
                         Id = detail.Id,
                         DateAdded = detail.DateAdded,
                         DueDate = detail.DueDate,
-                        TotalAmount = item.TotalAmount,
+                        TotalAmount = detail.TotalAmount,
                         PaymentMethod = detail.PaymentMethod,
-                        PaidAmount = item.PaidAmount,
+                        PaidAmount = detail.PaidAmount,
                         InvoiceType = detail.InvoiceType,
-                        CustomerId = item.Customer.Id,
-                        CustomerName = item.Customer.FullName (),
-
-                        TotalAfterTax = (detail.Tax != 0 ? item.TotalAmount + (item.TotalAmount * detail.Tax / 100) : item.TotalAmount)
+                        CustomerId = detail.customerId,
+                        CustomerName = detail.customer,
+                        CustomerOrderId = detail.customerOrderId,
+                        CreatedOn = detail.DateAdded,
+                        TotalAfterTax = (detail.Tax != 0 ? detail.TotalAmount + (detail.TotalAmount * detail.Tax / 100) : detail.TotalAmount)
                     };
 
-                    if (item.TotalAmount - item.PaidAmount == 0) {
+                    if (detail.TotalAmount - detail.PaidAmount == 0) {
                         invoiceStatus.Status = "Paid";
-                    } else if (item.TotalAmount - item.PaidAmount > 0 && item.PaidAmount > 0) {
-                        invoiceStatus.Status = "Partialy Paid";
-                    } else if (item.TotalAmount - item.PaidAmount > 0) {
+                    } else if (detail.TotalAmount - detail.PaidAmount > 0 && detail.PaidAmount > 0) {
+                        var paidPercent = (detail.PaidAmount / detail.TotalAmount) * 100;
+                        invoiceStatus.Status = $"Partialy Paid\n {paidPercent}%";
+                    } else if (detail.TotalAmount - detail.PaidAmount > 0) {
                         invoiceStatus.Status = "UnPaid";
                     }
                     invoiceSummary.Add (invoiceStatus);

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:42 PM
+ * @Last Modified Time: Nov 11, 2018 10:48 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -26,6 +26,7 @@ namespace BionicInventory.Domain.Invoices {
         public uint PreparedBy { get; set; }
         public byte? PrintCount { get; set; } = 0;
         public string InvoiceType { get; set; }
+
         public string PaymentMethod { get; set; }
         public float Tax { get; set; }
         public string Note { get; set; }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 6, 2018 8:57 PM
+ * @Last Modified Time: Nov 12, 2018 1:12 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Interfaces {
 
         IEnumerable<InvoicePaymentSummaryView> GetCustomerOrderIvoiceSummary(uint customerOrderId);
 
-        IEnumerable<InvoicePaymentSummaryView> GetInvoicePaymentSummary (uint invoiceId);
+        InvoicePaymentSummaryView GetInvoicePaymentSummary (uint invoiceId);
 
     }
 }

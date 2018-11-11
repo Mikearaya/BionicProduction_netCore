@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 6, 2018 8:56 PM
+ * @Last Modified Time: Nov 12, 2018 1:27 AM
  * @Description: Modify Here, Please 
  * 
  */
@@ -26,11 +26,13 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Commands {
 
         public InvoicePayments AddPayment (InvoicePayments payment) {
             _database.InvoicePayments.Add (payment);
+            _database.Save();
             return payment;
         }
 
         public bool DeletePayment (InvoicePayments deletedPayment) {
             var result = _database.InvoicePayments.Remove (deletedPayment);
+            _database.Save();
             return (result != null) ? true : false;
         }
 

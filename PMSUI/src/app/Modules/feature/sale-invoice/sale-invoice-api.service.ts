@@ -1,9 +1,16 @@
+/*
+ * @CreateTime: Nov 11, 2018 7:17 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 12, 2018 12:29 AM
+ * @Description: Modify Here, Please
+ */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Invoice } from './sales-invoice-data-model';
-import { CustomerOrder } from '../../core/DataModels/customer-order-data-models';
+import { Invoice, InvoicePaymentSummary, InvoicePayments } from './sales-invoice-data-model';
 import { InvoiceDetail } from '../../core/DataModels/invoice-data-model';
 
 @Injectable()
@@ -20,22 +27,24 @@ export class SaleInvoiceApiService {
   }
 
   getInvoiceById(id: number): Observable<Invoice> {
-    return this.httpClient.get<Invoice>(`${this.apiUrl}/${this.url}/${id}`);
+    return this.httpClient.get<Invoice>(`${this.apiUrl}/salesorders/${this.url}/${id}`);
   }
 
   getCustomerOrderInvoice(customerOrderId: number): Observable<Invoice> {
     return this.httpClient.get<Invoice>(`${this.apiUrl}${customerOrderId}/${this.url}`);
   }
 
-  // TODO: Move method to a single accessable location
-  getCustomerOrder(customerOrderId: number): Observable<CustomerOrder> {
-    return this.httpClient.get<CustomerOrder>(`${this.apiUrl}/salesorders/${customerOrderId}?type=raw`);
-  }
-
   getCustomerInvoices(customerId: number): Observable<Invoice[]> {
     return this.httpClient.get<Invoice[]>(`${this.apiUrl}/customer/${this.url}`);
   }
 
+  getInvoiceSummary(invoiceId: number): Observable<InvoicePaymentSummary> {
+    return this.httpClient.get<InvoicePaymentSummary>(`${this.apiUrl}/invoices/${invoiceId}/payments`);
+  }
+
+  addInvoicePayment(payment: InvoicePayments): Observable<InvoicePayments> {
+    return this.httpClient.post<InvoicePayments>(`${this.apiUrl}/invoices/${payment.id}/payments`, payment);
+  }
   createCustomerOrderInvoice(customerOrderId: number, invoice: Invoice): Observable<Invoice> {
     return this.httpClient.post<Invoice>(`${this.apiUrl}/salesorders/${customerOrderId}/${this.url}`, invoice);
   }

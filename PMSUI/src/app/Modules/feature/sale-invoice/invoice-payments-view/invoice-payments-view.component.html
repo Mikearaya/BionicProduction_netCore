@@ -1,0 +1,16 @@
+<section class="e-card">
+  <ejs-grid  [dataSource]='payments' #grid id='invoice'  [allowResizing]='true'
+    [editSettings]='editSettings' [rowHeight]=" 20">
+    <e-columns>
+      <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint; let i=index; let last=last;"
+        [field]="col.key" [headerText]="col.humanReadable" [visible]="col.visable" [type]="col.type" [width]="col.width"
+        [format]="col.format">
+      </e-column>
+      <e-column [commands]="commands" [customAttributes]="customAttributes" [width]=10 textAlign="Center">
+        <ng-template #headerTemplate let-data>
+          <button ejs-button (click)="addPayment()" iconCss="e-icons e-add " title="Create New Invoice" class="e-large e-flat"></button>
+        </ng-template>
+      </e-column>
+    </e-columns>
+  </ejs-grid>
+</section>

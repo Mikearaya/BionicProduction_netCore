@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:41 PM
+ * @Last Modified Time: Nov 11, 2018 7:24 PM
  * @Description: Modify Here, Please 
  */
 
@@ -31,6 +31,8 @@ namespace BionicInventory.Application.Invoices.Models.ViewModel {
         public DateTime? CreatedOn { get; set; }
         public DateTime? DateAdded { get; set; }
         public string CustomerName { get; set; }
+
+        public uint CustomerOrderId {get; set;}
 
         public string Status { get; set; }
         public double? TotalAfterTax { get; set; }

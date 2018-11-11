@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:35 PM
+ * @Last Modified Time: Nov 11, 2018 10:46 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -16,6 +16,7 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 namespace BionicInventory.Domain.PurchaseOrders {
     public class PurchaseOrder {
         public PurchaseOrder () {
+            Invoice = new HashSet<Invoice> ();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
         }
 
@@ -23,13 +24,15 @@ namespace BionicInventory.Domain.PurchaseOrders {
         public uint ClientId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+
+        public string OrderStatus { get; set; }
         public uint CreatedBy { get; set; }
         public string Description { get; set; }
-        public string OrderStatus { get; set; }
         public DateTime? DueDate { get; set; }
+
         public Customer Client { get; set; }
         public Employee CreatedByNavigation { get; set; }
-        public Invoice Invoice { get; set; }
+        public ICollection<Invoice> Invoice { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
     }
 }

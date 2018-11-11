@@ -9,6 +9,7 @@ export class Invoice {
   paymentMethod: string;
   createdOn?: Date;
   invoiceItems: InvoiceItems[] = [];
+  InvoicePayments: InvoicePayments[] = [];
 
 }
 
@@ -21,4 +22,18 @@ export class InvoiceItems {
   discount: number;
   note: string;
 
+}
+
+export class InvoicePayments {
+  id: number;
+  amount: number;
+  dateAdded?: Date;
+  note?: string;
+}
+
+export class InvoicePaymentSummary {
+  PaidAmount: number;
+  TotalAmount: number;
+  InvoiceNo: number;
+  PreparedBy: string;
 }

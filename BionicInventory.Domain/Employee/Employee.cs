@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 8, 2018 11:59 PM
+ * @Last Modified Time: Nov 11, 2018 11:04 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -24,8 +24,7 @@ namespace BionicInventory.Domain.Employees {
             BookedStockItems = new HashSet<BookedStockItems> ();
             FinishedProductRecievedByNavigation = new HashSet<FinishedProduct> ();
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct> ();
-            InvoicePaymentsCashier = new HashSet<InvoicePayments> ();
-            InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments> ();
+            InvoicePayments = new HashSet<InvoicePayments> ();
             ProductionOrder = new HashSet<ProductionOrderList> ();
             PurchaseOrder = new HashSet<PurchaseOrder> ();
             Sales = new HashSet<Sales> ();
@@ -42,8 +41,7 @@ namespace BionicInventory.Domain.Employees {
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
-        public ICollection<InvoicePayments> InvoicePaymentsCashier { get; set; }
-        public ICollection<InvoicePayments> InvoicePaymentsPreparedByNavigation { get; set; }
+        public ICollection<InvoicePayments> InvoicePayments { get; set; }
         public ICollection<ProductionOrderList> ProductionOrder { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<Sales> Sales { get; set; }

@@ -11,9 +11,7 @@ namespace BionicProduction.Migration.Database
             FinishedProductRecievedByNavigation = new HashSet<FinishedProduct>();
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct>();
             Invoice = new HashSet<Invoice>();
-            InvoiceDetail = new HashSet<InvoiceDetail>();
-            InvoicePaymentsCashier = new HashSet<InvoicePayments>();
-            InvoicePaymentsPreparedByNavigation = new HashSet<InvoicePayments>();
+            InvoicePayments = new HashSet<InvoicePayments>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
             PurchaseOrder = new HashSet<PurchaseOrder>();
             Sales = new HashSet<Sales>();
@@ -29,9 +27,7 @@ namespace BionicProduction.Migration.Database
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
         public ICollection<Invoice> Invoice { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-        public ICollection<InvoicePayments> InvoicePaymentsCashier { get; set; }
-        public ICollection<InvoicePayments> InvoicePaymentsPreparedByNavigation { get; set; }
+        public ICollection<InvoicePayments> InvoicePayments { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<Sales> Sales { get; set; }

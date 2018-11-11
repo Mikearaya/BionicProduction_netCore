@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SalesInvoiceViewComponent } from './sales-invoice-view/sales-invoice-view.component';
 import { SharedModule } from '../../shared/shared.module';
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
+import { InvoicePaymentsViewComponent } from './invoice-payments-view/invoice-payments-view.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,10 @@ import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.compo
     SaleInvoiceRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [SaleInvoiceFormComponent, SalesInvoiceViewComponent, InvoicePaymentComponent],
+  declarations: [SaleInvoiceFormComponent,
+    SalesInvoiceViewComponent,
+    InvoicePaymentsViewComponent,
+    InvoicePaymentComponent],
   providers: [SaleInvoiceApiService]
 })
 export class SaleInvoiceModule { }

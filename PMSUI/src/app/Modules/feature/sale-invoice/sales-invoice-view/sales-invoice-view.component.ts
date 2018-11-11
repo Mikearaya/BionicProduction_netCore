@@ -3,21 +3,21 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:05 AM
+ * @Last Modified Time: Nov 11, 2018 8:43 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   GridComponent, GroupSettingsModel, FilterSettingsModel,
   ToolbarItems, TextWrapSettingsModel, EditSettingsModel, SelectionSettingsModel,
-  PageSettingsModel, CommandModel
+  PageSettingsModel, CommandModel, PdfExportProperties
 } from '@syncfusion/ej2-angular-grids';
 import { Router } from '@angular/router';
 import { saleInvoiceColumnBluePrint } from './sales-invoice-view-blue-print';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { InvoiceDetail } from '../../../core/DataModels/invoice-data-model';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 
 @Component({
@@ -25,16 +25,25 @@ import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data
   templateUrl: './sales-invoice-view.component.html',
   styleUrls: ['./sales-invoice-view.component.css']
 })
-export class SalesInvoiceViewComponent implements OnInit {
-
-  title = 'Invoice';
-
+export class SalesInvoiceViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
-  public data: InvoiceDetail[];
+  public data: any[];
   public groupOptions: GroupSettingsModel;
   public filterSettings: FilterSettingsModel;
   public toolbarOptions: ToolbarItems[];
+  public allowResizing = true;
+  public showColumnChooser = true;
+  public allowReordering = true;
+
+  public showColumnMenu = false;
+  public allowFiltering = true;
+  public allowSorting = true;
+  public allowGrouping = true;
+  public allowExcelExport = true;
+  public allowPdfExport = true;
+  public allowPaging = true;
+
   public wrapSettings: TextWrapSettingsModel;
   public toolbar: ToolbarItems[];
   public editSettings: EditSettingsModel;
@@ -47,7 +56,7 @@ export class SalesInvoiceViewComponent implements OnInit {
   constructor(
     private router: Router,
     private invoiceApi: SaleInvoiceApiService) {
-
+    super();
     this.commands = [
       { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
       { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } }];
@@ -58,7 +67,10 @@ export class SalesInvoiceViewComponent implements OnInit {
       'Print',
       'PdfExport',
       'ExcelExport',
+      'ColumnChooser',
       'Search'
+
+
     ];
     this.data = [];
     this.pageSettings = { pageSize: 5 };  // initial page row size for the grid
@@ -69,20 +81,34 @@ export class SalesInvoiceViewComponent implements OnInit {
 
     this.invoiceApi.getAllInvoicesSummary().subscribe(
       (data: InvoiceDetail[]) => this.data = data,
-      (error: CustomErrorResponse) => console.log(error)
+      this.handleError
     );
 
 
   }
 
   addInvoice() {
-    this.router.navigate([`invoices/create`]);
+    this.router.navigate(['invoices/create']);
   }
 
   toolbarClick(args: ClickEventArgs): void {
-    if (args.item.id === 'invoice_edit') { // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
-      console.log(args);
-    } else if (args.item.id === 'invoice_delete') { // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+    switch (args.item.id) {
+      case 'invoice_pdfexport':
+      const exportProperties: PdfExportProperties = {
+        pageSize: 'A4'
+    };
+        this.grid.pdfExport(exportProperties);
+        break;
+      case 'invoice_excelexport':
+        this.grid.excelExport();
+        break;
+      case 'invoice_print':
+      this.grid.print();
+        break;
+      case 'invoice_edit':
+        break;
+      case 'invoice_delete':
+        break;
 
     }
   }
