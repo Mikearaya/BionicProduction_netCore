@@ -16,8 +16,8 @@ using BionicInventory.Domain.PurchaseOrders;
 namespace BionicInventory.Domain.Invoices {
     public class Invoice {
         public Invoice () {
-            InvoiceDetail = new HashSet<InvoiceDetail> ();
-            InvoicePayments = new HashSet<InvoicePayments> ();
+            InvoiceDetail = new List<InvoiceDetail> ();
+            InvoicePayments = new List<InvoicePayments> ();
         }
 
         public uint Id { get; set; }
@@ -37,7 +37,7 @@ namespace BionicInventory.Domain.Invoices {
 
         public Employee PreparedByNavigation { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-        public ICollection<InvoicePayments> InvoicePayments { get; set; }
+        public List<InvoiceDetail> InvoiceDetail { get; set; }
+        public List<InvoicePayments> InvoicePayments { get; set; }
     }
 }

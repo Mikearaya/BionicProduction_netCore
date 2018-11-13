@@ -17,7 +17,7 @@ export class CoreHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(
-      debounceTime(500),
+      debounceTime(500) ,
       retry(3),
       tap(event => {
         if (event.type === HttpEventType.Response) {

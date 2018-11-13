@@ -13,7 +13,7 @@ import {
   CommandColumnService, SortService, FilterService,
   SearchService, GroupService, ColumnChooserService,
   ColumnMenuService, ForeignKeyService, ReorderService,
-  RowDDService, EditService, ExcelExportService, ResizeService, DetailRowService
+  RowDDService, EditService, ExcelExportService, ResizeService, DetailRowService, AggregateService
 } from '@syncfusion/ej2-angular-grids';
 import { CoreApiService } from './core-api.service';
 import { ProductGetterService } from './services/product-getter.service';
@@ -30,6 +30,7 @@ import { CustomerOrderGetterApiService } from './services/customer-order/custome
     PdfExportService,
     PageService,
     CommandColumnService,
+    AggregateService,
     SortService,
     FilterService,
     SearchService,

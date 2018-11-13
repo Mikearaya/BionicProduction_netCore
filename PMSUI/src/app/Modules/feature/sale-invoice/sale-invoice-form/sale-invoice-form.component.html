@@ -213,7 +213,8 @@
     </div>
   </form>
 
-  <div class="container" *ngIf="isUpdate">
+  <div class="container invoice-payment-block" *ngIf="isUpdate">
+    <h5 class="text-left text-info">Payments</h5>
     <div class="col-6 col-xs-12">
 
       <app-invoice-payments-view [payments]="invoice?.InvoicePayments"></app-invoice-payments-view>

@@ -29,6 +29,10 @@ namespace BionicInventory.DataStore.Invoices.InvoicePayment {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
+                    builder.Property (e => e.Note)
+                    .HasColumnName ("note")
+                    .HasColumnType ("varchar(50)");
+
                 builder.Property (e => e.DateUpdated)
                     .HasColumnName ("date_updated")
                     .HasColumnType ("datetime")

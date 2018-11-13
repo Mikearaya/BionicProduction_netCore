@@ -22,13 +22,13 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public double profit {get; set;}
         public string status {get; set;}
 
-        public DateTime deliveryDate {get; set;}
+        public DateTime? deliveryDate {get; set;}
         public uint totalShipped {get; set;}
 
         public uint manufacturingOrderId { get; set; }
 
-        public DateTime dateAdded {get; set;}
-        public DateTime dateUpdated {get; set;}
+        public DateTime? dateAdded {get; set;}
+        public DateTime? dateUpdated {get; set;}
 
         public DateTime dueDate {get; set;}
 

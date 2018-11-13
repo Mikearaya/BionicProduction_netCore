@@ -1,16 +1,26 @@
 <section class="e-card">
-  <ejs-grid  [dataSource]='payments' #grid id='invoice'  [allowResizing]='true'
+  <ejs-grid [dataSource]='payments' #grid id='invoice' (queryCellInfo)=" queryCellInfoEvent($event)" [allowResizing]='true'
     [editSettings]='editSettings' [rowHeight]=" 20">
     <e-columns>
       <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint; let i=index; let last=last;"
         [field]="col.key" [headerText]="col.humanReadable" [visible]="col.visable" [type]="col.type" [width]="col.width"
         [format]="col.format">
       </e-column>
-      <e-column [commands]="commands" [customAttributes]="customAttributes" [width]=10 textAlign="Center">
+      <e-column [customAttributes]="customAttributes" [width]=10 textAlign="Center">
         <ng-template #headerTemplate let-data>
-          <button ejs-button (click)="addPayment()" iconCss="e-icons e-add " title="Create New Invoice" class="e-large e-flat"></button>
+          <button ejs-button (click)="addPayment()" iconCss="e-icons e-add " i18n-title title="Create New Invoice"
+            class="e-large e-flat"></button>
         </ng-template>
       </e-column>
     </e-columns>
+    <e-aggregates>
+      <e-aggregate>
+        <e-columns>
+          <e-column field="Amount" type="sum" format="C2">
+            <ng-template #footerTemplate let-data>Total: {{data.sum}} <br></ng-template>
+          </e-column>
+        </e-columns>
+      </e-aggregate>
+    </e-aggregates>
   </ejs-grid>
 </section>

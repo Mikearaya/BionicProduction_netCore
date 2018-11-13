@@ -22,8 +22,8 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public double totalCost { get; set; }
         public DateTime? createdOn { get; set; }
         public string status { get; set; }
-        public DateTime deliveryDate {get; set;}
-        public DateTime dateAdded{ get; set; }
-        public DateTime dateUpdated { get; set; }
+        public DateTime? deliveryDate {get; set;}
+        public DateTime? dateAdded{ get; set; }
+        public DateTime? dateUpdated { get; set; }
     }
 }

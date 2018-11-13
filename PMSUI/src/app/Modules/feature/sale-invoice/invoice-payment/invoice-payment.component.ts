@@ -1,3 +1,20 @@
+import { ActivatedRoute } from '@angular/router';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { Component, Inject, OnInit } from '@angular/core';
+import {
+  DataManager,
+  Query,
+  ReturnOption,
+  WebApiAdaptor
+  } from '@syncfusion/ej2-data';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+  } from '@angular/forms';
+import { InvoicePayments, InvoicePaymentSummary } from '../sales-invoice-data-model';
+import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 /*
  * @CreateTime: Nov 4, 2018 9:57 PM
  * @Author:  Mikael Araya
@@ -6,12 +23,7 @@
  * @Last Modified Time: Nov 12, 2018 1:17 AM
  * @Description: Modify Here, Please
  */
-import { Component, OnInit } from '@angular/core';
-import { SaleInvoiceApiService } from '../sale-invoice-api.service';
-import { ActivatedRoute } from '@angular/router';
-import { InvoicePaymentSummary, InvoicePayments } from '../sales-invoice-data-model';
-import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
 
 @Component({
   selector: 'app-invoice-payment',
@@ -23,17 +35,23 @@ export class InvoicePaymentComponent extends CommonProperties implements OnInit 
   public paymentForm: FormGroup;
   public invoice: InvoicePaymentSummary;
   private invoiceId: number;
+  cashierList: Object[];
+  cashierQuery: Query;
+  cashierFields: { text: string; value: string; };
 
 
   constructor(private saleInvoiceApi: SaleInvoiceApiService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string) {
     super();
     this.createForm();
+    this.cashierQuery = new Query().select(['firstName', 'id']);
+    this.cashierFields = { text: 'firstName', value: 'id' };
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.invoiceId = + this.activatedRoute.snapshot.paramMap.get('invoiceId');
 
     if (this.invoiceId) {
@@ -43,18 +61,30 @@ export class InvoicePaymentComponent extends CommonProperties implements OnInit 
       );
     }
 
+    const dm: DataManager = new DataManager(
+      { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+
+    dm.ready.then((e: ReturnOption) => this.cashierList = <Object[]>e.result).catch((e) => true);
   }
 
 
 
   createForm(): void {
     this.paymentForm = this.formBuilder.group({
-      paidAmount: ['', Validators.required]
+      paidAmount: ['', Validators.required],
+      cashier: ['', Validators.required],
+      note: ['']
     });
   }
 
   get paidAmount(): FormControl {
     return this.paymentForm.get('paidAmount') as FormControl;
+  }
+
+  get cashier(): FormControl {
+    return this.paymentForm.get('cashier') as FormControl;
   }
 
 
@@ -69,7 +99,9 @@ export class InvoicePaymentComponent extends CommonProperties implements OnInit 
   prepareForm(data: any): InvoicePayments {
     return {
       id: this.invoiceId,
-      amount: data.paidAmount
+      amount: data.paidAmount,
+      cashierId: data.cashier,
+      note: data.note
     };
   }
 

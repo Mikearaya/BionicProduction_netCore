@@ -10,7 +10,9 @@ thead tr {
   background: rgb(31, 130, 211)
 }
 
-
+.invoice-payment-block {
+  margin-top: 2em;
+}
 
 
 

@@ -1,13 +1,24 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
-import {
-  GroupSettingsModel, FilterSettingsModel, ToolbarItems,
-  EditSettingsModel, PageSettingsModel, CommandModel
-} from '@syncfusion/ej2-grids';
-import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  CommandModel,
+  EditSettingsModel,
+  FilterSettingsModel,
+  GroupSettingsModel,
+  PageSettingsModel,
+  QueryCellInfoEventArgs,
+  ToolbarItems
+} from '@syncfusion/ej2-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { EmitType } from '@syncfusion/ej2-base';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { invoicePaymentColumnBluePrint } from './invoice-payment-view-blue-print';
+import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 
 @Component({
   selector: 'app-invoice-payments-view',
@@ -47,7 +58,7 @@ export class InvoicePaymentsViewComponent extends CommonProperties implements On
     this.customAttributes = { class: 'custom-grid-header' };
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.invoiceId = + this.activatedRoute.snapshot.paramMap.get('invoiceId');
 
@@ -58,7 +69,15 @@ export class InvoicePaymentsViewComponent extends CommonProperties implements On
     }
   }
 
-  addPayment() {
+  public queryCellInfoEvent: EmitType<QueryCellInfoEventArgs> = (args: QueryCellInfoEventArgs) => {
+
+    if (args.column.field === 'Note') {
+      args.colSpan = 2;
+    }
+
+  }
+
+  addPayment(): void {
     this.router.navigate([`invoices/${this.invoiceId}/payments`]);
   }
 

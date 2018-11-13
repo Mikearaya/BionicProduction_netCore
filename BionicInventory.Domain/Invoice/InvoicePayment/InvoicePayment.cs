@@ -15,6 +15,7 @@ namespace BionicInventory.Domain.Invoices.InvoicePayment {
         public uint Id { get; set; }
         public uint InvoiceNo { get; set; }
         public double Amount { get; set; }
+        public string Note { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public uint CashierId { get; set; }

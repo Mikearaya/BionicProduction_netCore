@@ -14,3 +14,11 @@ h1 {
 .main-content {
   margin: 1em;
 }
+
+div.wrapper {
+  background: honeydew;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+

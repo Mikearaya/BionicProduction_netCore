@@ -1,37 +1,50 @@
 <section class="e-card">
-  <div class="text-info text-center">
-    New Payment Entry
+  <div class="text-info text-center" i18n="invoice payment entry header">
+    Invoice Payment Entry
   </div>
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <div class="col-12">
+            <ol>
+              <dt i18n="@@invoice">
+                Invoice
+              </dt>
+              <dd> {{invoice?.InvoiceNo}}</dd>
+              <dt i18n="@@totalAmount">Total Amount</dt>
+              <dd>{{invoice?.TotalAmount}}</dd>
+              <dt i18n="@@paidAmount">Paid Amount</dt>
+              <dd>{{invoice?.PaidAmount}}</dd>
+              <dt i18n="@@remainingAmount">Remaining Amount</dt> {{invoice?.TotalAmount - invoice?.PaidAmount}}
+            </ol>
+          </div>
+          <div class="col-12">
+            <div class="col-12">
 
-  <div class="container">
-    <div class="row">
-      <div class="col-6 col-xs-12">
-        <div class="col-12">
-          <ol>
-            <dt>
-              Invoice
-            </dt>
-            <dd> {{invoice?.InvoiceNo}}</dd>
-            <dt>Total Amount</dt>
-            <dd>{{invoice?.TotalAmount}}</dd>
-            <dt>Paid Amount</dt>
-            <dd>{{invoice?.PaidAmount}}</dd>
-            <dt>Remaining Amount</dt> {{invoice?.TotalAmount - invoice?.PaidAmount}}
-          </ol>
+              <ejs-numerictextbox formControlName="paidAmount" id="paidAmount" name="paidAmount" placeholder="Paid Amount"
+                i18n-placeholder></ejs-numerictextbox>
+            </div>
+            <div class="col-12">
+                <ejs-dropdownlist [allowFiltering]="true" name="cashier" formControlName="cashier" id='cashier'
+                  placeholder="Cashier Name" floatLabelType="Auto" [query]="cashierQuery" [fields]="cashierFields"
+                    [dataSource]="cashierList" i18n-placeholder="payment accepted by @@cashierName">
+                </ejs-dropdownlist>
+                 <div class="e-error" *ngIf="cashier.errors">
+                  <div class="div" *ngIf="cashier.errors['required']" i18n="@@cashierRequired">cashier is required
+                    is Required</div>
+                </div>
+              </div>
+
+            <div class="row">
+              <app-form-options cancelButtonText='Back' [submitDisabled]="paymentForm.invalid" i18n-submitButtonText i18n-cancelButtonText submitButtonText="Save"></app-form-options>
+            </div>
+          </div>
+
         </div>
-        <div class="col-12">
-          <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
-
-            <ejs-numerictextbox formControlName="paidAmount" id="paidAmount" name="paidAmount" placeholder="Paid Amount"
-              i18n-placeholder>
-
-            </ejs-numerictextbox>
-            <app-form-options cancelButtonText='Back' [submitDisabled]="paymentForm.invalid" submitButtonText="Save"></app-form-options>
-          </form>
-        </div>
-
+        <div class="col-6 col-xs-12"></div>
       </div>
-      <div class="col-6 col-xs-12"></div>
+
     </div>
-  </div>
+  </form>
 </section>

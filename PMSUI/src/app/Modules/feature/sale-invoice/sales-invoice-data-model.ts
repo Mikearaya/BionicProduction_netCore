@@ -26,6 +26,7 @@ export class InvoiceItems {
 
 export class InvoicePayments {
   id: number;
+  cashierId: number;
   amount: number;
   dateAdded?: Date;
   note?: string;

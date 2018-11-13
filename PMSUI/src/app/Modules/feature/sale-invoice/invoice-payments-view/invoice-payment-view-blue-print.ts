@@ -8,7 +8,7 @@
  */
 
 export const invoicePaymentColumnBluePrint = [
-  { key: 'Amount', humanReadable: 'Amount', type: 'number', format: 'C2', visable: true, width: 20 },
-  { key: 'DateAdded', humanReadable: 'Date', type: 'date', format: 'yMd', visable: true, width: 25 },
+  { key: 'Amount', humanReadable: 'Amount', type: 'number', format: 'C2', visable: true, width: 15 },
+  { key: 'DateAdded', humanReadable: 'Date', type: 'date', format: 'yMd', visable: true, width: 15 },
   { key: 'Note', humanReadable: 'Note', type: 'string', format: '', visable: true, width: 20 }
 ];

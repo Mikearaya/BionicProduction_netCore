@@ -17,7 +17,8 @@ namespace BionicInventory.Application.Invoices.InvoicePayment.Models {
         public float Amount { get; set; }
 
         [Required]
-        public uint CashierId { get; set; } = 11;
+        public uint CashierId { get; set; }
+        public string Note { get; set; }
 
     }
 }

@@ -79,8 +79,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 orderDetail.createdBy = orders.createdBy;
                 orderDetail.description = orders.description;
 
-                orderDetail.createdOn = orders.createdOn;
-                orderDetail.deliveryDate =(DateTime) orders.deliveryDaye;
+                orderDetail.createdOn =  orders.createdOn;
+                orderDetail.deliveryDate = orders.deliveryDaye;
                 orderDetail.orderItems.Add (new CustomerOrderItemsView () {
                     id = orders.id,
                         quantity = (int) orders.quantity,
@@ -92,8 +92,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         unitCost = orders.uintCost,
                         unitPrice = orders.unitPrice,
                         profit = (orders.unitPrice * orders.quantity) - (orders.uintCost * orders.quantity),
-                        dateAdded = (DateTime) orders.dateAdded,
-                        dateUpdated = (DateTime) orders.dateUpdated,
+                        dateAdded =  orders.dateAdded,
+                        dateUpdated =  orders.dateUpdated,
                         dueDate = orders.dueDate,
                         manufacturingOrderId = orders.manufactureId,
                         status = status
