@@ -64,8 +64,8 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.customerFields = { text: 'firstName', value: 'id' };
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
-    this.itemQuery = new Query().select(['code', 'id']);
-    this.itemFields = { text: 'code', value: 'id' };
+    this.itemQuery = new Query().select(['name', 'id']);
+    this.itemFields = { text: 'name', value: 'id' };
     this.customerOrderQuery = new Query().select(['customerName', 'id']);
     this.customerOrderFields = { text: 'id', value: 'id' };
   }

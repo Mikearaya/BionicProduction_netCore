@@ -1,7 +1,8 @@
+<h3 class="text-left " i18n="invoice section header">Invoice</h3>
 <section class="e-card">
   <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()">
     <div class="container">
-      <h3 class="text-center text-info">Invoice</h3>
+
       <app-form-options [submitDisabled]="saleInvoiceForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
       <div class="row">
         <div class="col-6 col-xs-12">
@@ -77,7 +78,7 @@
           </div>
           <div class="row">
             <div class="col-2 label-area" i18n>
-              Created By (current user)
+              Created By
             </div>
             <div class="col-10">
               <ejs-dropdownlist formControlName="createdBy" [dataSource]="employeesList" [query]="employeeQuery"
@@ -214,7 +215,7 @@
   </form>
 
   <div class="container invoice-payment-block" *ngIf="isUpdate">
-    <h5 class="text-left text-info">Payments</h5>
+    <h5 class="text-left text-info" i18n="invoice payment area title">Payments</h5>
     <div class="col-6 col-xs-12">
 
       <app-invoice-payments-view [payments]="invoice?.InvoicePayments"></app-invoice-payments-view>

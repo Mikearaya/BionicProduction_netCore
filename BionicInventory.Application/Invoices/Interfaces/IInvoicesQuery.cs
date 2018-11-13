@@ -9,6 +9,7 @@
 using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
 using BionicInventory.Application.Invoices.Models.ViewModel;
+using BionicInventory.Application.Invoices.Models.ViewModels;
 using BionicInventory.Domain.Invoices;
 
 namespace BionicInventory.Application.Invoices.Interfaces {
@@ -19,6 +20,8 @@ namespace BionicInventory.Application.Invoices.Interfaces {
         IEnumerable<InvoiceStatusView> GetCustomerOrderInvoiceStatus (uint customerOrderId = 0);
         IEnumerable<Invoice> GetCustomerOrderInvoice (uint id);
         IEnumerable<Invoice> GetCustomerOrderQuoation (uint id);
+
+        InvoiceDetailView GetInvoiceDetailView (uint id);
 
     }
 }

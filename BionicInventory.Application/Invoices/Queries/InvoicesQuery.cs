@@ -12,6 +12,8 @@ using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Invoices.Interfaces;
 using BionicInventory.Application.Invoices.Models.ViewModel;
+using BionicInventory.Application.Invoices.Models.ViewModels;
+using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Invoices;
 using Microsoft.Extensions.Logging;
 
@@ -117,6 +119,34 @@ namespace BionicInventory.Application.Invoices.Queries {
             }
 
             return invoiceSummary;
+        }
+
+        public InvoiceDetailView GetInvoiceDetailView (uint id) {
+            return _database.Invoice
+                .Where (i => i.Id == id).Select (i => new InvoiceDetailView () {
+                    Id = i.Id,
+                        invoiceType = i.InvoiceType,
+                        CreatedOn = i.DateAdded,
+                        DeliveryDate = i.DueDate,
+                        preparedBy = i.PreparedByNavigation.FullName (),
+                        preparedById = i.PreparedBy,
+                        tax = i.Tax,
+                        note = i.Note,
+                        discount = i.Discount,
+                        customer = i.InvoiceDetail.Select (d => new { info = d.SalesOrder.PurchaseOrder.Client }),
+                        invoiceItems = i.InvoiceDetail.Select (d => new InvoiceItems () {
+                            ItemName = d.SalesOrder.Item.Name,
+                                itemId = d.SalesOrder.ItemId,
+                                unitPrice = d.UnitPrice,
+                                quantity = d.Quantity,
+                                discount = d.Discount,
+                                customerOrderItemId = d.SalesOrderId,
+                                id = d.Id
+
+                        })
+
+                }).FirstOrDefault ();
+
         }
     }
 }

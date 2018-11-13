@@ -57,7 +57,7 @@ namespace BionicInventory.API.Controllers.Invoices {
                 if(type.ToUpper() == "SUMMARY") {
                     invoice = _query.GetCustomerOrderInvoiceStatus(id);
                 } else {
-                    invoice = _query.GetInvoiceById(id);
+                    invoice = _query.GetInvoiceDetailView (id);
                 }
 
                 if(invoice == null) {

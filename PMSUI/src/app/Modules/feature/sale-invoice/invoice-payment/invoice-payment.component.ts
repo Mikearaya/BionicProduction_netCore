@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 4, 2018 9:57 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 12, 2018 1:17 AM
+ * @Description: Modify Here, Please
+ */
 import { ActivatedRoute } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -15,14 +23,7 @@ import {
   } from '@angular/forms';
 import { InvoicePayments, InvoicePaymentSummary } from '../sales-invoice-data-model';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
-/*
- * @CreateTime: Nov 4, 2018 9:57 PM
- * @Author:  Mikael Araya
- * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 12, 2018 1:17 AM
- * @Description: Modify Here, Please
- */
+
 
 
 @Component({

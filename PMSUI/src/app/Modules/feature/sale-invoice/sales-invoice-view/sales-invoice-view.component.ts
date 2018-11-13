@@ -10,7 +10,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   GridComponent, GroupSettingsModel, FilterSettingsModel,
   ToolbarItems, TextWrapSettingsModel, EditSettingsModel, SelectionSettingsModel,
-  PageSettingsModel, CommandModel, PdfExportProperties
+  PageSettingsModel, CommandModel, PdfExportProperties, Column, IRow
 } from '@syncfusion/ej2-angular-grids';
 import { Router } from '@angular/router';
 import { saleInvoiceColumnBluePrint } from './sales-invoice-view-blue-print';
@@ -18,6 +18,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { InvoiceDetail } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { closest } from '@syncfusion/ej2-base';
 
 
 @Component({
@@ -58,8 +59,7 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
     private invoiceApi: SaleInvoiceApiService) {
     super();
     this.commands = [
-      { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } },
-      { type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } }];
+      {buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.viewInvoice.bind(this)} }];
     this.customAttributes = { class: 'custom-grid-header' };
     this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
     this.groupOptions = { showGroupedColumn: true }; // make columns used for grouping visable
@@ -75,6 +75,13 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
     this.data = [];
     this.pageSettings = { pageSize: 5 };  // initial page row size for the grid
     this.editSettings = { allowEditing: true, allowDeleting: true };
+  }
+
+  viewInvoice(args: Event): void {
+    console.log(args);
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.router.navigate([`invoices/${rowObj.data['Id']}`]);
+
   }
 
   ngOnInit() {
@@ -104,10 +111,6 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
         break;
       case 'invoice_print':
       this.grid.print();
-        break;
-      case 'invoice_edit':
-        break;
-      case 'invoice_delete':
         break;
 
     }

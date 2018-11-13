@@ -3,10 +3,8 @@ import {
   CommandModel,
   EditSettingsModel,
   FilterSettingsModel,
-  GroupSettingsModel,
   PageSettingsModel,
   QueryCellInfoEventArgs,
-  ToolbarItems
 } from '@syncfusion/ej2-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import {

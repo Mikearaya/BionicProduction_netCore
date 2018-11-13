@@ -8,7 +8,7 @@ export class Invoice {
   dueDate: Date;
   paymentMethod: string;
   createdOn?: Date;
-  invoiceItems: InvoiceItems[] = [];
+  InvoiceDetail: InvoiceItems[] = [];
   InvoicePayments: InvoicePayments[] = [];
 
 }
