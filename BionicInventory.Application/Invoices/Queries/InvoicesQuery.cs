@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 7:58 PM
+ * @Last Modified Time: Nov 14, 2018 11:35 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -148,5 +148,6 @@ namespace BionicInventory.Application.Invoices.Queries {
                 }).FirstOrDefault ();
 
         }
+
     }
 }

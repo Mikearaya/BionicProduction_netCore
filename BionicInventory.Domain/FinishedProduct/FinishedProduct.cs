@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 22, 2018 11:05 PM
+ * @Last Modified Time: Nov 14, 2018 11:09 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,7 +13,8 @@ using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.Sale;
+using BionicInventory.Domain.Shipments;
+using BionicInventory.Domain.Shipments.ShipmentDetails;
 
 namespace BionicInventory.Domain.FinishedProducts {
     public class FinishedProduct {
@@ -28,8 +29,8 @@ namespace BionicInventory.Domain.FinishedProducts {
         public ProductionOrderList Order { get; set; }
         public Employee RecievedByNavigation { get; set; }
         public Employee SubmittedByNavigation { get; set; }
-        public Sales Sales { get; set; }
         public BookedStockItems BookedStockItems { get; set; }
-        
+        public ShipmentDetail ShipmentDetail { get; set; }
+
     }
 }

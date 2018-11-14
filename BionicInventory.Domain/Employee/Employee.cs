@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 11:04 PM
+ * @Last Modified Time: Nov 14, 2018 11:09 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -16,7 +16,7 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.Sale;
+using BionicInventory.Domain.Shipments;
 
 namespace BionicInventory.Domain.Employees {
     public class Employee {
@@ -24,11 +24,11 @@ namespace BionicInventory.Domain.Employees {
             BookedStockItems = new HashSet<BookedStockItems> ();
             FinishedProductRecievedByNavigation = new HashSet<FinishedProduct> ();
             FinishedProductSubmittedByNavigation = new HashSet<FinishedProduct> ();
-            InvoicePayments = new HashSet<InvoicePayments> ();
-            ProductionOrder = new HashSet<ProductionOrderList> ();
-            PurchaseOrder = new HashSet<PurchaseOrder> ();
-            Sales = new HashSet<Sales> ();
             Invoice = new HashSet<Invoice> ();
+            InvoicePayments = new HashSet<InvoicePayments> ();
+            ProductionOrderList = new HashSet<ProductionOrderList> ();
+            PurchaseOrder = new HashSet<PurchaseOrder> ();
+            Shipment = new HashSet<Shipment> ();
         }
 
         public uint Id { get; set; }
@@ -37,14 +37,14 @@ namespace BionicInventory.Domain.Employees {
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public ICollection<Invoice> Invoice { get; set; }
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
         public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
+        public ICollection<Invoice> Invoice { get; set; }
         public ICollection<InvoicePayments> InvoicePayments { get; set; }
-        public ICollection<ProductionOrderList> ProductionOrder { get; set; }
+        public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
-        public ICollection<Sales> Sales { get; set; }
+        public ICollection<Shipment> Shipment { get; set; }
 
         public string FullName () {
             return FirstName + ' ' + LastName;

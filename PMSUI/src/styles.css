@@ -28,7 +28,7 @@
 }
 .e-headercelldiv {
   text-align: left;
-  padding: 0 !important;
+  padding: 0;
 }
 
 .ng-invalid.ng-touched.e-success, .ng-invalid.ng-touched > span.e-control-wrapper {

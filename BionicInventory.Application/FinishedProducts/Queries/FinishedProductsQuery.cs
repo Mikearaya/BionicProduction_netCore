@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:37 PM
+ * @Last Modified Time: Nov 14, 2018 11:32 PM
  * @Description: FinishedProducts database Query Class
  */
 using System;
@@ -101,7 +101,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                 manufOrder => manufOrder.ItemId,
                 (product, manufactureOrder) => new StockStatusView () {
 
-                        itemId = product.Id,
+                    itemId = product.Id,
 
                         itemCode = product.Code,
 
@@ -109,23 +109,23 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
                         averageCost = manufactureOrder.Sum (item => item.CostPerItem) / manufactureOrder.Count (),
 
-                        inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.Sales == null).Count ()),
+                        inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.ShipmentDetail == null).Count ()),
 
-                        totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.Sales != null)))),
+                        totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.ShipmentDetail != null)))),
 
                         booked = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => fin.Order.PurchaseOrder != null && fin.Sales == null && fin.OrderId == MO.Id).Count ()),
+                            .Where (fin => fin.Order.PurchaseOrder != null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
 
                         available = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => fin.Order.PurchaseOrder == null && fin.Sales == null && fin.OrderId == MO.Id).Count ()),
+                            .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
 
                         expectedAvailable = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
-                            MO.FinishedProduct.Count (fin => fin.Sales == null)),
+                            MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null)),
 
                         expectedBooked = (int) manufactureOrder.Where (MO => MO.PurchaseOrder != null).Sum (MO => MO.Quantity - MO.FinishedProduct
-                            .Count (fin => fin.Sales == null)),
+                            .Count (fin => fin.ShipmentDetail == null)),
 
-                        totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => fin.Sales == null || fin.Order != null))
+                        totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null || fin.Order != null))
                 }).GroupBy (manuf => manuf.itemId).ToList ();
 
             List<StockStatusView> stockStatus = new List<StockStatusView> ();

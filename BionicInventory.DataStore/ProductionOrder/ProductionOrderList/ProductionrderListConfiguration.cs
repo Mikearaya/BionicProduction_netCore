@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 9, 2018 11:04 PM
+ * @Last Modified Time: Nov 14, 2018 11:25 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -82,7 +82,7 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasColumnType ("varchar(255)");
 
                 builder.HasOne (d => d.OrderedByNavigation)
-                    .WithMany (p => p.ProductionOrder)
+                    .WithMany (p => p.ProductionOrderList)
                     .HasForeignKey (d => d.OrderedBy)
                     .HasConstraintName ("fk_PRODUCTION_ORDER_ordered_by");
 

@@ -9,6 +9,7 @@ namespace BionicProduction.Migration.Database
         {
             Invoice = new HashSet<Invoice>();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
+            Shipment = new HashSet<Shipment>();
         }
 
         public uint Id { get; set; }
@@ -23,5 +24,6 @@ namespace BionicProduction.Migration.Database
         public Employee CreatedByNavigation { get; set; }
         public ICollection<Invoice> Invoice { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<Shipment> Shipment { get; set; }
     }
 }

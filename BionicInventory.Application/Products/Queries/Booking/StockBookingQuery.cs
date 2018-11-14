@@ -27,17 +27,17 @@ namespace BionicInventory.Application.Products.Queries.booking {
                     customerOrderId = co.PurchaseOrderId,
                     needed = co.Quantity,
                     available = pro.ProductionOrderList.Where (mo => mo.PurchaseOrder == null)
-                    .Sum (mo => mo.FinishedProduct.Count (f => f.BookedStockItems == null && f.Sales == null)),
-                    bookedM = pro.ProductionOrderList.Where (mo => mo.PurchaseOrderId == co.Id).Sum(d => d.Quantity),
+                    .Sum (mo => mo.FinishedProduct.Count (f => f.BookedStockItems == null && f.ShipmentDetail == null)),
+                    bookedM = pro.ProductionOrderList.Where (mo => mo.PurchaseOrderId == co.Id).Sum (d => d.Quantity),
                     bookedF = pro.ProductionOrderList.Sum (mo => mo.FinishedProduct
-                        .Count (f => f.Sales == null && (mo.PurchaseOrderId == co.Id || f.BookedStockItems.BookedFor == co.Id))),
+                        .Count (f => f.ShipmentDetail == null && (mo.PurchaseOrderId == co.Id || f.BookedStockItems.BookedFor == co.Id))),
                     productName = $"{pro.Name} ({pro.Code})",
                     productId = pro.Id,
                     customerName = co.PurchaseOrder.Client.FullName (),
             }).GroupBy (g => g.customerOrderItemId).Select (booking => new {
                 statistics = booking.Select (f => new {
                     available = f.available,
-                        booked =  f.bookedM + f.bookedF ,
+                        booked = f.bookedM + f.bookedF,
                         needed = f.needed,
                         customerOrderItemId = f.customerOrderItemId,
                         customerOrderId = f.customerOrderId,
@@ -76,7 +76,7 @@ namespace BionicInventory.Application.Products.Queries.booking {
         private IQueryable<FinishedProduct> availableStockItemFormCustomerOrder (uint customerOrderId) {
             return (from pro in _database.FinishedProduct join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id join co in _database.PurchaseOrderDetail on mo.ItemId equals co.ItemId where co.Id == customerOrderId &&
                     pro.BookedStockItems == null &&
-                    pro.Sales == null &&
+                    pro.ShipmentDetail == null &&
                     (pro.Order.PurchaseOrder == null)
 
                     select new FinishedProduct () {
@@ -115,8 +115,8 @@ public class bookingStatistics {
     public float remaining { get; set; }
 
     public bookingStatistics Accumilate (Item item) {
-        inStock = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.Sales == null).Count ());
-        bookedAmount = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.Sales == null && (m.PurchaseOrder != null || f.BookedStockItems != null)).Count ());
+        inStock = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.ShipmentDetail == null).Count ());
+        bookedAmount = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.ShipmentDetail == null && (m.PurchaseOrder != null || f.BookedStockItems != null)).Count ());
         return this;
     }
 

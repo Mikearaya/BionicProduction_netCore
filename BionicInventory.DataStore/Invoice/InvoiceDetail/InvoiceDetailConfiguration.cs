@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:41 PM
+ * @Last Modified Time: Nov 14, 2018 11:33 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -42,26 +42,21 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
 
                 builder.Property (e => e.InvoiceNo).HasColumnName ("INVOICE_NO");
 
-                builder.Property (e => e.UnitPrice)
-                    .IsRequired ()
-                    .HasColumnType ("float")
-                    .HasColumnName ("unit_price");
+                builder.Property (e => e.Note)
+                    .HasColumnName ("note")
+                    .HasColumnType ("varchar(255)");
+
                 builder.Property (e => e.Quantity)
                     .HasColumnName ("quantity")
                     .HasColumnType ("int(11)");
 
+                builder.Property (e => e.SalesOrderId).HasColumnName ("SALES_ORDER_ID");
+
                 builder.Property (e => e.Tax)
                     .HasColumnName ("tax")
-                    .HasColumnType ("float");
+                    .HasDefaultValueSql ("'0'");
 
-                builder.Property (e => e.Discount)
-                    .HasColumnType ("float")
-                    .HasColumnName ("discount");
-
-                builder.Property (e => e.Note)
-                    .HasColumnType ("varchar(255)")
-                    .HasColumnName ("note");
-                builder.Property (e => e.SalesOrderId).HasColumnName ("SALES_ORDER_ID");
+                builder.Property (e => e.UnitPrice).HasColumnName ("unit_price");
 
                 builder.HasOne (d => d.InvoiceNoNavigation)
                     .WithMany (p => p.InvoiceDetail)
@@ -71,7 +66,8 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
                 builder.HasOne (d => d.SalesOrder)
                     .WithMany (p => p.InvoiceDetail)
                     .HasForeignKey (d => d.SalesOrderId)
-                    .HasConstraintName ("fk_SALE_DETAIL_INVENTORY_ID");
+                    .OnDelete (DeleteBehavior.ClientSetNull)
+                    .HasConstraintName ("fk_INVOICE_DETAIL_order_item");
             }
         }
 }

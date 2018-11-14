@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 22, 2018 10:53 PM
+ * @Last Modified Time: Nov 14, 2018 11:34 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,13 +12,14 @@ using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.Shipments.ShipmentDetails;
 
 namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
     public class PurchaseOrderDetail {
-        public PurchaseOrderDetail()
-        {
-            InvoiceDetail = new HashSet<InvoiceDetail>();
-            BookedStockItems = new HashSet<BookedStockItems>();
+        public PurchaseOrderDetail () {
+            BookedStockItems = new HashSet<BookedStockItems> ();
+            ShipmentDetail = new HashSet<ShipmentDetail> ();
+            InvoiceDetail = new HashSet<InvoiceDetail> ();
         }
 
         public uint Id { get; set; }
@@ -32,9 +33,9 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
 
         public Item Item { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
-        public ProductionOrderList ProductionOrderList { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
+        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
+        public ProductionOrderList ProductionOrderList { get; set; }
+        public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
     }
 }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 22, 2018 10:56 PM
+ * @Last Modified Time: Nov 14, 2018 11:42 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.BookedStockItem;
@@ -23,6 +23,7 @@ using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.Shipments.ShipmentDetails;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bionic_inventory.Application.Interfaces {
@@ -37,6 +38,7 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<Invoice> Invoice { get; set; }
         DbSet<InvoiceDetail> InvoiceDetail { get; set; }
         DbSet<InvoicePayments> InvoicePayments { get; set; }
+        DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         DbSet<Item> Item { get; set; }
         DbSet<ItemPrice> ItemPrice { get; set; }
         DbSet<PhoneNumber> PhoneNumber { get; set; }

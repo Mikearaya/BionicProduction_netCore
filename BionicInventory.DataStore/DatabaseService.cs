@@ -1,4 +1,12 @@
-﻿using Bionic_inventory.Application.Interfaces;
+﻿/*
+ * @CreateTime: Nov 14, 2018 10:57 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 14, 2018 11:41 PM
+ * @Description: Modify Here, Please 
+ */
+using Bionic_inventory.Application.Interfaces;
 using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
 using BionicInventory.DataStore.Customers;
@@ -15,7 +23,8 @@ using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
 using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
-using BionicInventory.DataStore.Sale;
+using BionicInventory.DataStore.Shipments;
+using BionicInventory.DataStore.Shipments.ShipmentDetails;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
@@ -33,7 +42,8 @@ using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
-using BionicInventory.Domain.Sale;
+using BionicInventory.Domain.Shipments;
+using BionicInventory.Domain.Shipments.ShipmentDetails;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
@@ -63,14 +73,17 @@ namespace BionicInventory.DataStore {
         public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public DbSet<SocialMedia> SocialMedia { get; set; }
         public DbSet<FinishedProduct> FinishedProduct { get; set; }
-        public DbSet<Sales> Sale { get; set; }
+
+        public DbSet<ShipmentDetail> ShipmentDetail { get; set; }
+        public DbSet<Shipment> Shipment { get; set; }
         public DbSet<BookedStockItems> BookedStockItems { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
-            
-            modelBuilder.ApplyConfiguration(new SalesConfiguration());
-            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+
+            modelBuilder.ApplyConfiguration (new ShipmentsConfiguration ());
+            modelBuilder.ApplyConfiguration (new ShipmentDetailsConfiguration ());
+            modelBuilder.ApplyConfiguration (new CompanyConfiguration ());
             modelBuilder.ApplyConfiguration (new CustomerConfiguration ());
             modelBuilder.ApplyConfiguration (new EmployeeConfiguration ());
             modelBuilder.ApplyConfiguration (new ItemConfiguration ());
@@ -85,7 +98,6 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
             modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
             modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
-            
 
         }
 

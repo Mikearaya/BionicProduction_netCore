@@ -17,6 +17,6 @@ namespace BionicProduction.Migration.Database
         public Employee RecievedByNavigation { get; set; }
         public Employee SubmittedByNavigation { get; set; }
         public BookedStockItems BookedStockItems { get; set; }
-        public Sales Sales { get; set; }
+        public ShipmentDetail ShipmentDetail { get; set; }
     }
 }
