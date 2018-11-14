@@ -13,7 +13,9 @@ const routes: Routes = [{
     { path: 'stock', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'invoices', loadChildren: '../feature/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
-    { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' }
+    { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
+    { path: 'shipments', loadChildren: '../feature/shipment/shipment.module#ShipmentModule' }
+
 
   ]
 }];

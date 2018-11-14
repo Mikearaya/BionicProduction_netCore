@@ -103,7 +103,6 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   }
   viewInvoice(args: Event): void {
     const rowObj: IRow<Column> = this.invoiceGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    console.log(rowObj);
     this.route.navigate([`invoices/${rowObj.data['Id']}`]);
   }
 
