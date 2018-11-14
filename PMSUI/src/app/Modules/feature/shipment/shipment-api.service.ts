@@ -1,9 +1,16 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ShipmentSummaryView } from '../../core/DataModels/shipment-data.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class ShipmentApiService {
+    private url = 'shipments';
+  constructor(private httpClient: HttpClient,
+    @Inject('BASE_URL') private apiUrl: string) { }
 
-  constructor() { }
+    getAllShipmentSummary(): Observable<ShipmentSummaryView[]> {
+      return this.httpClient.get<ShipmentSummaryView[]>(`${this.apiUrl}/${this.url}`);
+    }
+
 }

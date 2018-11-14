@@ -1,3 +1,31 @@
-<p>
-  shipment-form works!
-</p>
+<h4 class="text-left" i18n="Shipment form header"> Create new Shipment</h4>
+<section class="e-card">
+  <div class="container">
+
+
+  <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()" >
+      <div class="row">
+        <div class="col-3 col-xs-12" i18n="Shipment Delivery date @@shipmentDeliveryDate">
+          Delivery Date
+        </div>
+        <div class="col-6 col-xs-12">
+          <ejs-datepicker formControlName="deliveryDate" placeholder="Delivery Date" i18n-placeholder="@@shipmentDeliveryDate"></ejs-datepicker>
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-3 col-xs-12 label-area" i18n="@@customerOrder">
+            Customer Order
+          </div>
+          <div class="col-6 col-xs-12">
+              <ejs-dropdownlist [allowFiltering]="true" name="orderId" formControlName="orderId" id='orderId' placeholder="Select Customer Order"
+              floatLabelType="Auto" [query]="orderQuery" [fields]="orderFields" [dataSource]="orderList"
+              filterBarPlaceholder="Search by Order Id" i18n-filterbarplaceholder="@@customerOrderSelectPlaceholder"
+              i18n-placeholder="@@customerOrderPlaceholder">
+            </ejs-dropdownlist>
+          </div>
+        </div>
+  </form>
+
+</div>
+
+</section>

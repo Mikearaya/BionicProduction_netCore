@@ -10,7 +10,6 @@ export class Shipment {
 }
 
 export class ShipmentItems {
-  id: number;
   orderItemId: number;
   quantity: number;
 }

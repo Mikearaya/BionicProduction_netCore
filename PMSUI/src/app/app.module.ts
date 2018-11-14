@@ -7,6 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
+import { GridModule, PdfExportService } from '@syncfusion/ej2-angular-grids';
 
 
 @NgModule({
@@ -18,10 +19,12 @@ import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
     CoreModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GridModule
 
   ],
   providers: [
+    PdfExportService,
     { provide: 'BASE_URL', useValue: 'http://localhost:5000/api' },
       {provide: HTTP_INTERCEPTORS, useClass: CoreHttpInterceptor, multi: true}],
   bootstrap: [AppComponent]
