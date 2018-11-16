@@ -29,7 +29,6 @@ namespace BionicInventory.Domain.Shipments {
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateAdded { get; set; }
         public uint CustomerOrderId { get; set; }
-        public string Status { get; set; }
 
         public Employee BookedByNavigation { get; set; }
         public PurchaseOrder CustomerOrder { get; set; }

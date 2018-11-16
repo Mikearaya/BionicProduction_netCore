@@ -23,7 +23,7 @@ namespace BionicInventory.Application.Shipments.Interfaces {
 
         IEnumerable<CustomerOrderShipmentDetail> GetCustomerOrderShipmentStatus (uint customerOrderId);
 
-        IEnumerable<FinishedProduct> GetUnshipedCustomerOrderItems (uint orderItemId);
+        IEnumerable<FinishedProduct> GetUnshipedCustomerOrderItems (uint orderItemId, int quantity);
 
     }
 }

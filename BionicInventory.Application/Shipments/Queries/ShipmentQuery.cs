@@ -35,7 +35,7 @@ namespace BionicInventory.Application.Shipments.Queries {
                     deliveryDate = s.DeliveryDate,
                     dateAdded = s.DateAdded,
                     dateUpdated = s.DateUpdated,
-                    status = s.Status
+            
 
             }).ToList ();
 
@@ -58,7 +58,7 @@ namespace BionicInventory.Application.Shipments.Queries {
                         itemId = d.ItemId,
                         totalBooked = (int?) d.BookedStockItems.Count () + (int?) d.ProductionOrderList.Quantity,
                         itemName = d.Item.Name,
-                        totalShiped = (int?) d.PurchaseOrder.Shipment.Sum (s => s.ShipmentDetail.Count ()),
+                        totalShiped = (int?) d.ShipmentDetail.Count(),
                         orderQuantity = (int?) d.Quantity,
                         customerOrderId = d.PurchaseOrderId,
                         customerOrderItemId = d.Id,
@@ -74,10 +74,11 @@ namespace BionicInventory.Application.Shipments.Queries {
                 .FirstOrDefault ();
         }
 
-        public IEnumerable<FinishedProduct> GetUnshipedCustomerOrderItems (uint orderItemId) {
+        public IEnumerable<FinishedProduct> GetUnshipedCustomerOrderItems (uint orderItemId, int quantity) {
             return _database.FinishedProduct
-                .Where (f => f.ShipmentDetail.OrderItem == null &&
-                    f.BookedStockItems.BookedFor == orderItemId || f.Order.PurchaseOrderId == orderItemId);
+                .Where (f => f.ShipmentDetail == null &&
+                    f.BookedStockItems.BookedFor == orderItemId || f.Order.PurchaseOrderId == orderItemId)
+                    .Take(quantity);
         }
     }
 }

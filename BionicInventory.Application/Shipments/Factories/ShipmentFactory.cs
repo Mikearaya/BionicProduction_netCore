@@ -13,6 +13,11 @@ using BionicInventory.Domain.Shipments.ShipmentDetails;
 
 namespace BionicInventory.Application.Shipments.Factories {
     public class ShipmentFactory : IShipmentFactory {
+        private readonly IShipmentQuery _query;
+
+        public ShipmentFactory (IShipmentQuery query) {
+            _query = query;
+        }
 
         public Shipment CreateNewShipment (NewShipmentDto newShipment) {
             Shipment shipmentModel = new Shipment () {
@@ -21,7 +26,17 @@ namespace BionicInventory.Application.Shipments.Factories {
                 ShipmentNote = newShipment.shipmentNote,
                 DeliveryDate = newShipment.deliveryDate,
             };
+            foreach (var item in newShipment.ShipmentItems) {
+                var stockItems = _query.GetUnshipedCustomerOrderItems (item.CustomerOrderItemId, item.Quantity);
 
+                foreach (var stock in stockItems) {
+
+                    shipmentModel.ShipmentDetail.Add (new ShipmentDetail () {
+                        OrderItemId = item.CustomerOrderItemId,
+                            Stock = stock,
+                    });
+                }
+            }
             return shipmentModel;
 
         }

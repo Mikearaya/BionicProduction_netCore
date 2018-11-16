@@ -42,7 +42,7 @@ namespace BionicInventory.DataStore.Shipments.ShipmentDetails {
 
             builder.Property (e => e.Picked)
                 .HasColumnName ("picked")
-                .HasColumnType ("tinyint(1)")
+                .HasColumnType ("tinyint(4)")
                 .HasDefaultValueSql ("'0'");
 
             builder.Property (e => e.ShipmentId).HasColumnName ("SHIPMENT_ID");

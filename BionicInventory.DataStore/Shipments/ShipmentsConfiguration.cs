@@ -48,11 +48,6 @@ namespace BionicInventory.DataStore.Shipments {
                 .HasColumnName ("shipment_note")
                 .HasColumnType ("varchar(255)");
 
-            builder.Property (e => e.Status)
-                .IsRequired ()
-                .HasColumnName ("status")
-                .HasColumnType ("varchar(45)");
-
             builder.HasOne (d => d.BookedByNavigation)
                 .WithMany (p => p.Shipment)
                 .HasForeignKey (d => d.BookedBy)

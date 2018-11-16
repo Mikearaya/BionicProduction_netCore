@@ -12,7 +12,7 @@ using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Domain.Shipments.ShipmentDetails {
-    public partial class ShipmentDetail {
+    public  class ShipmentDetail {
         public uint Id { get; set; }
         public uint ShipmentId { get; set; }
         public uint StockId { get; set; }
