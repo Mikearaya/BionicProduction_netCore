@@ -70,7 +70,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             orderDetail.totalProducts = (uint) salesOrders.totalProducts;
             orderDetail.totalQuantity = (uint) salesOrders.totalQuantity;
             orderDetail.id = salesOrders.ID;
-            
 
             foreach (var orders in salesOrders.detail) {
                 var status = orders.status;
@@ -79,7 +78,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 orderDetail.createdBy = orders.createdBy;
                 orderDetail.description = orders.description;
 
-                orderDetail.createdOn =  orders.createdOn;
+                orderDetail.createdOn = orders.createdOn;
                 orderDetail.deliveryDate = orders.deliveryDaye;
                 orderDetail.orderItems.Add (new CustomerOrderItemsView () {
                     id = orders.id,
@@ -92,8 +91,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         unitCost = orders.uintCost,
                         unitPrice = orders.unitPrice,
                         profit = (orders.unitPrice * orders.quantity) - (orders.uintCost * orders.quantity),
-                        dateAdded =  orders.dateAdded,
-                        dateUpdated =  orders.dateUpdated,
+                        dateAdded = orders.dateAdded,
+                        dateUpdated = orders.dateUpdated,
                         dueDate = orders.dueDate,
                         manufacturingOrderId = orders.manufactureId,
                         status = status
@@ -178,7 +177,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         Description = co.Description,
                         DateAdded = co.DateAdded,
                         DateUpdated = co.DateAdded,
-                        PurchaseOrderDetail = co.PurchaseOrderDetail
+                        PurchaseOrderDetail = co.PurchaseOrderDetail,
+                        Shipment = co.Shipment
                 }).FirstOrDefault ();
         }
 

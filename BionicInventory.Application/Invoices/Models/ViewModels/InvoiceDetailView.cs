@@ -23,6 +23,7 @@ namespace BionicInventory.Application.Invoices.Models.ViewModels {
 
         public uint preparedById { get; set; }
         public string preparedBy { get; set; }
+        public string paymentMethod {get; set;}
         public double? total { get; set; }
         public float? tax { get; set; }
         public double? taxedTotal { get; set; }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 12, 2018 12:47 AM
+ * @Last Modified Time: Nov 15, 2018 8:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -33,6 +33,10 @@ using BionicInventory.Application.FinishedProducts.Queries;
 using BionicInventory.Application.Invoices.Commands;
 using BionicInventory.Application.Invoices.Factories;
 using BionicInventory.Application.Invoices.Interfaces;
+using BionicInventory.Application.Invoices.InvoicePayment.Commands;
+using BionicInventory.Application.Invoices.InvoicePayment.Factories;
+using BionicInventory.Application.Invoices.InvoicePayment.Interfaces;
+using BionicInventory.Application.Invoices.InvoicePayment.Queries;
 using BionicInventory.Application.Invoices.Queries;
 using BionicInventory.Application.ProductionOrders.Commands;
 using BionicInventory.Application.ProductionOrders.Factories;
@@ -51,6 +55,10 @@ using BionicInventory.Application.SalesOrders.Commands;
 using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Queries;
+using BionicInventory.Application.Shipments.Commands;
+using BionicInventory.Application.Shipments.Factories;
+using BionicInventory.Application.Shipments.Interfaces;
+using BionicInventory.Application.Shipments.Queries;
 using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
@@ -67,10 +75,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using BionicInventory.Application.Invoices.InvoicePayment.Commands;
-using BionicInventory.Application.Invoices.InvoicePayment.Interfaces;
-using BionicInventory.Application.Invoices.InvoicePayment.Factories;
-using BionicInventory.Application.Invoices.InvoicePayment.Queries;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -114,7 +118,10 @@ namespace BionicInventory.API {
             services.AddScoped<IInvoicePaymentCommand, InvoicePaymentCommand> ();
             services.AddScoped<IInvoicePaymentFactory, InvoicePaymentFactory> ();
             services.AddScoped<IInvoicePaymentQuery, InvoicePaymentQuery> ();
-            services.AddScoped<IWorkOrder, WorkOrdersController>();
+            services.AddScoped<IWorkOrder, WorkOrdersController> ();
+            services.AddScoped<IShipmentQuery, ShipmentQuery> ();
+            services.AddScoped<IShipmentCommand, ShipmentCommand> ();
+            services.AddScoped<IShipmentFactory, ShipmentFactory> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 

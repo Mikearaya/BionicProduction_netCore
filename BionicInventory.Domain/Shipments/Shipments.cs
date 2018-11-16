@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:06 PM
+ * @Last Modified Time: Nov 15, 2018 7:36 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -24,6 +24,8 @@ namespace BionicInventory.Domain.Shipments {
         public uint Id { get; set; }
         public uint BookedBy { get; set; }
         public string ShipmentNote { get; set; }
+
+        public DateTime DeliveryDate { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateAdded { get; set; }
         public uint CustomerOrderId { get; set; }

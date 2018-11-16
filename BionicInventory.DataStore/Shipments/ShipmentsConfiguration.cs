@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:10 PM
+ * @Last Modified Time: Nov 15, 2018 7:37 PM
  * @Description: Modify Here, Please 
  */
 
@@ -32,6 +32,11 @@ namespace BionicInventory.DataStore.Shipments {
                 .HasColumnName ("date_added")
                 .HasColumnType ("datetime")
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
+
+            builder.Property (e => e.DeliveryDate)
+                .HasColumnName ("delivery_date")
+                .HasColumnType ("datetime")
+                .IsRequired();
 
             builder.Property (e => e.DateUpdated)
                 .HasColumnName ("date_updated")

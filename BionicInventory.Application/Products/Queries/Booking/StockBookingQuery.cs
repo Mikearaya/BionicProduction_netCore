@@ -22,7 +22,9 @@ namespace BionicInventory.Application.Products.Queries.booking {
         }
         public CustomerOrderBookings GetCustomerOrderBookings (uint id) {
 
-            var bookingDetail = (from pro in _database.Item join co in _database.PurchaseOrderDetail on pro.Id equals co.ItemId where co.PurchaseOrderId == id select new {
+            var bookingDetail = (from pro in _database.Item 
+            join co in _database.PurchaseOrderDetail on pro.Id equals co.ItemId 
+            where co.PurchaseOrderId == id select new {
                 customerOrderItemId = co.Id,
                     customerOrderId = co.PurchaseOrderId,
                     needed = co.Quantity,
@@ -74,7 +76,10 @@ namespace BionicInventory.Application.Products.Queries.booking {
         }
 
         private IQueryable<FinishedProduct> availableStockItemFormCustomerOrder (uint customerOrderId) {
-            return (from pro in _database.FinishedProduct join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id join co in _database.PurchaseOrderDetail on mo.ItemId equals co.ItemId where co.Id == customerOrderId &&
+            return (from pro in _database.FinishedProduct 
+            join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id
+            join co in _database.PurchaseOrderDetail on mo.ItemId equals co.ItemId 
+            where co.Id == customerOrderId &&
                     pro.BookedStockItems == null &&
                     pro.ShipmentDetail == null &&
                     (pro.Order.PurchaseOrder == null)
