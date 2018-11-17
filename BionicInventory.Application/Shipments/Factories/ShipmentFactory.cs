@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 15, 2018 7:53 PM
+ * @Last Modified Time: Nov 18, 2018 12:57 AM
  * @Description: Modify Here, Please 
  */
+using System;
 using BionicInventory.Application.Shipments.Interfaces;
 using BionicInventory.Application.Shipments.Models;
 using BionicInventory.Domain.Shipments;
@@ -28,7 +29,7 @@ namespace BionicInventory.Application.Shipments.Factories {
             };
             foreach (var item in newShipment.ShipmentItems) {
                 var stockItems = _query.GetUnshipedCustomerOrderItems (item.CustomerOrderItemId, item.Quantity);
-
+                Console.Write("in");
                 foreach (var stock in stockItems) {
 
                     shipmentModel.ShipmentDetail.Add (new ShipmentDetail () {

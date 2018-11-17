@@ -1,33 +1,58 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ShipmentApiService } from '../shipment-api.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { ShipmentItems } from 'src/app/Modules/core/DataModels/shipment-data.model';
+import { ShipmentItems, ShipmentViewDetail, Shipment } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
+import { ActivatedRoute } from '@angular/router';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-shipment-form',
   templateUrl: './shipment-form.component.html',
   styleUrls: ['./shipment-form.component.css']
 })
-export class ShipmentFormComponent implements OnInit {
+export class ShipmentFormComponent extends CommonProperties implements OnInit {
   public shipmentForm: FormGroup;
   public orderList: Object[];
   public orderQuery: Query;
   public orderFields: { text: string; value: string; };
+  public customerOrder: number;
+  public orderItems: ShipmentViewDetail[];
+  employeeQuery: Query;
+  employeeFields: { text: string; value: string; };
+  employeesList: Object[];
 
   constructor(private shipmentApi: ShipmentApiService,
     private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
     @Inject('BASE_URL') private apiUrl: string) {
-
+    super();
     this.orderQuery = new Query().select(['id']);
     this.orderFields = { text: 'id', value: 'id' };
-
+    this.employeeQuery = new Query().select(['firstName', 'id']);
+    this.employeeFields = { text: 'firstName', value: 'id' };
     this.createForm();
   }
 
   ngOnInit() {
+    this.customerOrder = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
+    if (this.customerOrder) {
+      this.createForm();
+      this.shipmentApi.getCustomerOrderShipments(this.customerOrder).subscribe(
+        (data: ShipmentViewDetail[]) => this.initializeForm(data),
+        this.handleError
+      );
+    }
+
+
+    const employeeDataManaget: DataManager = new DataManager(
+      { url: `${this.apiUrl}/employees`, adaptor: new WebApiAdaptor, offline: true },
+      new Query().take(8)
+    );
+    employeeDataManaget.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
+
     const order: DataManager = new DataManager(
-      { url: `${this.apiUrl}/workorders?status=active`, adaptor: new WebApiAdaptor, offline: true },
+      { url: `${this.apiUrl}/salesorders?status=active`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
     );
 
@@ -44,10 +69,25 @@ export class ShipmentFormComponent implements OnInit {
     });
   }
 
-  initializeShipmentItems(data: ShipmentItems): FormGroup {
+  initializeShipmentItems(data: ShipmentViewDetail): FormGroup {
     return this.formBuilder.group({
-      orderItemId: [data.orderItemId],
-      quantity: [data.quantity, Validators.min(0)]
+      orderItemId: [data.customerOrderItemId],
+      quantity: [data.avalableForShipment, [Validators.min(0), Validators.max(data.avalableForShipment)]]
+    });
+  }
+
+  initializeForm(data: ShipmentViewDetail[]) {
+    this.orderItems = data;
+    this.shipmentForm = this.formBuilder.group({
+      customerOrderId: [80, Validators.required],
+      bookedBy: ['', Validators.required],
+      deliveryDate: ['', Validators.required],
+      shipmentNote: '',
+      shipmentItems: this.formBuilder.array([])
+    });
+
+    data.forEach(element => {
+      this.shipmentItems.push(this.initializeShipmentItems(element));
     });
   }
 
@@ -71,6 +111,33 @@ export class ShipmentFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    alert('Submitted');
+    const shipment: Shipment = this.prepateData();
+    this.shipmentApi.createNewShipment(shipment).subscribe(
+      (data) => alert('Shipment Created Successfuly'),
+      this.handleError
+    );
 
+  }
+
+  prepateData(): Shipment {
+    const formData = this.shipmentForm.value;
+    const shipmentData: Shipment = {
+      customerOrderId: formData.customerOrderId,
+      deliveryDate: formData.deliveryDate,
+      shipmentNote: formData.shipmentNote,
+      bookedBy: formData.bookedBy,
+      status: 'new',
+      shipmentItems: []
+    };
+const c = this.shipmentItems.value;
+    c.forEach(element => {
+      shipmentData.shipmentItems.push({
+        customerOrderItemId: element.orderItemId,
+        quantity: element.quantity
+      });
+    });
+
+    return shipmentData;
   }
 }

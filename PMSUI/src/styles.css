@@ -26,20 +26,17 @@
   font-size: 13px;
 
 }
-.e-headercelldiv {
-  text-align: left;
-  padding: 0;
-}
 
-.ng-invalid.ng-touched.e-success, .ng-invalid.ng-touched > span.e-control-wrapper {
+
+.ng-invalid.e-success, .ng-invalid > span.e-control-wrapper {
   border-color: rgb(194, 59, 59) !important;
   border-bottom-width: unset !important;
 }
 
-.ng-valid.ng-touched,
-.ng-valid.ng-touched.e-input-focuse,
-.ng-valid.ng-touched > span.e-control-wrapper,
-.ng-valid.ng-touched > span.e-control-wrapper.e-input-focus {
+.ng-valid,
+.ng-valid.e-input-focuse,
+.ng-valid > span.e-control-wrapper,
+.ng-valid > span.e-control-wrapper.e-input-focus {
   border-color:rgb(31, 255, 31) !important;
   border-bottom-width: unset !important;
 }

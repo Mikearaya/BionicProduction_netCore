@@ -3,29 +3,85 @@
   <div class="container">
 
 
-  <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()" >
+    <form [formGroup]="shipmentForm" (ngSubmit)="onSubmit()" novalidate>
+        <app-form-options [submitDisabled]="shipmentForm.invalid"></app-form-options>
       <div class="row">
-        <div class="col-3 col-xs-12" i18n="Shipment Delivery date @@shipmentDeliveryDate">
-          Delivery Date
-        </div>
+
         <div class="col-6 col-xs-12">
-          <ejs-datepicker formControlName="deliveryDate" placeholder="Delivery Date" i18n-placeholder="@@shipmentDeliveryDate"></ejs-datepicker>
+          <div i18n="Shipment Delivery date @@shipmentDeliveryDate">
+            Delivery Date
+          </div>
+          <ejs-datepicker formControlName="deliveryDate" placeholder="Delivery Date" i18n-placeholder="@@shipmentDeliveryDate">
+          </ejs-datepicker>
         </div>
       </div>
       <div class="row">
-          <div class="col-3 col-xs-12 label-area" i18n="@@customerOrder">
+
+        <div class="col-6 col-xs-12">
+          <div i18n="@@customerOrder">
             Customer Order
           </div>
-          <div class="col-6 col-xs-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="orderId" formControlName="orderId" id='orderId' placeholder="Select Customer Order"
-              floatLabelType="Auto" [query]="orderQuery" [fields]="orderFields" [dataSource]="orderList"
-              filterBarPlaceholder="Search by Order Id" i18n-filterbarplaceholder="@@customerOrderSelectPlaceholder"
-              i18n-placeholder="@@customerOrderPlaceholder">
-            </ejs-dropdownlist>
+          <ejs-dropdownlist [allowFiltering]="true" name="orderId"  formControlName="customerOrderId"
+            id='orderId' placeholder="Select Customer Order" floatLabelType="Auto" [query]="orderQuery" [fields]="orderFields"
+            [dataSource]="orderList" filterBarPlaceholder="Search by Order Id" i18n-filterbarplaceholder="@@customerOrderSelectPlaceholder"
+            i18n-placeholder="@@customerOrderPlaceholder">
+          </ejs-dropdownlist>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6 col-xs-12">
+          <div i18n="@@shipmentNote extra information about shipment">
+            Shipment Note
+          </div>
+          <textarea name="shipmentNote" id="shipmentNote"  class="e-input" formControlName="shipmentNote"></textarea>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+            <div i18n="order created by @@createdBy">
+                Created By
+              </div>
+          <ejs-dropdownlist formControlName="bookedBy" [dataSource]="employeesList" [query]="employeeQuery" [fields]="employeeFields"
+            filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true" placeholder="Select Your Name"
+            i18n-placeholder="@@createdByPlaceholder" i18n-filterBarPlaceholder>
+          </ejs-dropdownlist>
+          <div class="e-error" *ngIf="bookedBy.errors">
+            <div *ngIf="bookedBy.errors['required']" i18n="@@createdByRequired"> You must select your name </div>
           </div>
         </div>
-  </form>
+      </div>
+      <h5 class=" bg-secondary ">Order Items</h5>
+      <div class="row e-card">
+        <div class="col-12 col-xs-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th class="item-name">Stock Item</th>
+                <th>Order Quantity</th>
+                <th>Available for Shipment</th>
+                <th>Shipped Items</th>
+                <th>Quantity to Ship</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="shipmentItems">
+              <tr *ngFor="let item of shipmentItems.controls; let i=index; let last=last;" [formGroup]="item">
+                <td class="item-name">{{orderItems[i].itemName}}</td>
+                <td>{{orderItems[i].orderQuantity}}</td>
+                <td>{{orderItems[i].avalableForShipment}}</td>
+                <td>{{orderItems[i].totalShiped}}</td>
+                <td><input class="e-input" formControlName="quantity"></td>
 
-</div>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <app-form-options [submitDisabled]="shipmentForm.invalid"></app-form-options>
+    </form>
+
+    {{shipmentForm.value | json}}
+
+  </div>
 
 </section>

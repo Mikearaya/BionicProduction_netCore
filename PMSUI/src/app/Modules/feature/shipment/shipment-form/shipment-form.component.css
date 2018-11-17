@@ -1,0 +1,45 @@
+input.e-input {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  width: 7em;
+}
+
+th.item-name {
+  width: 50%;
+}
+
+tr td:last-child {
+  background: white;
+  border-radius: 1px solid black
+}
+
+td.item-name {
+  text-align: left;
+}
+
+thead {
+  background: rgb(162, 223, 243);
+}
+
+
+/* General */
+
+td, th {
+  padding: 0px !important;
+  vertical-align: middle;
+
+
+
+}
+
+tr {
+  border: 0px !important;
+
+}
+
+table {
+  width: 100%;
+  font-size: 12px;
+  text-align: center;
+}

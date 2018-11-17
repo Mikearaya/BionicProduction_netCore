@@ -1,16 +1,16 @@
 export class Shipment {
-  id: number;
+  id?: number;
   customerOrderId: number;
   bookedBy: number;
   deliveryDate: Date;
   shipmentNote: string;
   status: string;
-  shimentItems: ShipmentItems[] = [];
+  shipmentItems: ShipmentItems[] = [];
 
 }
 
 export class ShipmentItems {
-  orderItemId: number;
+  customerOrderItemId: number;
   quantity: number;
 }
 
@@ -26,14 +26,16 @@ export class ShipmentView {
 
 export class ShipmentViewDetail {
   id?: number;
-  orderItemId: number;
+  bookedById: number;
+  bookingUser: string;
+  customerOrderItemId: number;
   itemId: number;
   itemName: string;
   status?: string;
-  pickedQuantity?: number;
-  bookedQuantity: number;
+  totalShiped?: number;
+  avalableForShipment: number;
   remainingShipment: number;
-  orderedQuantity: number;
+  orderQuantity: number;
 
 }
 
