@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 10:18 PM
+ * @Last Modified Time: Nov 17, 2018 9:51 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
@@ -17,6 +17,7 @@ import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBlu
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { closest } from '@syncfusion/ej2-base';
+import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.model';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -31,7 +32,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   public columnBluePrint = customerOrderDetailBluePrint;
   public customerOrder: CustomerOrderDetailView;
   public customerOrderInvoices: InvoiceSummary[];
-  public customerOrderShipments;
+  public customerOrderShipments: ShipmentSummary[];
   public invoiceColumns = invoiceColumnBluePrint;
   public shipmentColumns = shipmentColumnBluePrint;
   public shipmentCommands: CommandModel[];
@@ -51,7 +52,27 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
     super();
     this.invoiceColumns = invoiceColumnBluePrint;
     this.infoGridAttributes = { class: 'info-grid-header' };
+    this.invoiceCommands = [{
+      buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+        click: this.viewInvoice.bind(this)
+      }
+    }
+    ];
+    this.shipmentCommands = [{
+      buttonOption: {
+        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
+        click: this.viewShipment.bind(this)
+      }
+    }
+    ];
 
+    this.customerOrderCommands = [{
+      buttonOption: {
+        cssClass: 'e-flat',
+        iconCss: 'e-edit e-icons'
+      }
+    }];
 
 
 
@@ -70,21 +91,12 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
         (data: InvoiceSummary[]) => this.customerOrderInvoices = data,
         this.handleError
       );
-    }
-    this.invoiceCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat', iconCss: 'e-edit e-icons',
-        click: this.viewInvoice.bind(this)
-      }
-    }
-    ];
 
-    this.customerOrderCommands = [{
-      buttonOption: {
-        cssClass: 'e-flat',
-        iconCss: 'e-edit e-icons'
-      }
-    }];
+      this.salesOrderApi.getCustomerOrderShipmentsSummary(this.customerOrderId).subscribe(
+        (data: ShipmentSummary[]) => this.customerOrderShipments = data,
+        this.handleError
+      );
+    }
 
 
   }
@@ -101,9 +113,17 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   addInvoice(): void {
     this.route.navigate([`invoices/customerorder/${this.customerOrderId}`]);
   }
+
+  addShipment(): void {
+    this.route.navigate([`shipments/customerorder/${this.customerOrderId}`]);
+  }
   viewInvoice(args: Event): void {
     const rowObj: IRow<Column> = this.invoiceGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.route.navigate([`invoices/${rowObj.data['Id']}`]);
   }
 
+  viewShipment(args: Event): void {
+    const rowObj: IRow<Column> = this.invoiceGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.route.navigate([`shipments/${rowObj.data['id']}`]);
+  }
 }

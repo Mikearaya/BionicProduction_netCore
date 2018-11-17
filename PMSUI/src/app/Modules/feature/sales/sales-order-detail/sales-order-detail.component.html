@@ -78,6 +78,24 @@
           <button (click)="viewInvoice($event)" class="e-warning"  ejs-button i18n >Create Invoice</button>
         </div>
       </div>
+      <div class="row">
+        <div class="col-8 col-xs-12">
+
+          <ejs-grid [allowResizing]="true" #shipmentsGrid [allowReordering]="true" [rowHeight]="20"  [dataSource]="customerOrderShipments">
+            <e-columns>
+              <e-column [customAttributes]="infoGridAttributes"   *ngFor="let shipentCol of shipmentColumns; let i=index; let last=last;" [field]="shipentCol.key"
+                [headerText]="shipentCol.humanReadable" [type]="shipentCol.type" [format]="shipentCol.format" [width]="shipentCol.width">
+              </e-column>
+              <e-column [commands]="shipmentCommands" [customAttributes]="infoGridAttributes" [width]="10" >
+                  <ng-template #headerTemplate >
+                      <button ejs-button  (click)="addShipment()" iconCss="e-icons e-add "  textAlign="Right"   class="e-large e-flat"  ></button>
+                    </ng-template>
+              </e-column>
+            </e-columns>
+          </ejs-grid>
+        </div>
+
+      </div>
     </div>
   </div>
   <div class="row">

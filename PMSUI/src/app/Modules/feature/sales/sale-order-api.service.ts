@@ -3,14 +3,15 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:07 AM
+ * @Last Modified Time: Nov 17, 2018 9:43 PM
  * @Description: Modify Here, Please
  */
 import { Injectable, Inject } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from './sales-data-model';
 import { InvoiceSummary } from '../../core/DataModels/invoice-data-model';
+import { ShipmentSummary } from '../../core/DataModels/shipment-data.model';
 
 @Injectable()
 export class SaleOrderApiService {
@@ -25,6 +26,10 @@ export class SaleOrderApiService {
 
   getSalesOrderById(id: number): Observable<CustomerOrderDetailView> {
     return this.httpClient.get<CustomerOrderDetailView>(`${this.apiUrl}/${this.url}/${id}`);
+  }
+
+  getCustomerOrderShipmentsSummary(customerOrderId: number): Observable<ShipmentSummary[]> {
+    return this.httpClient.get<ShipmentSummary[]>(`${this.apiUrl}/products/shipments/${this.url}/${customerOrderId}?type=summary`);
   }
 
   getSalesOrderInvoices(id: number): Observable<InvoiceSummary[]> {

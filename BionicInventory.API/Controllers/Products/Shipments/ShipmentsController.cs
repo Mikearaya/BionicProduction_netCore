@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 16, 2018 8:37 PM
+ * @Last Modified Time: Nov 17, 2018 9:38 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -50,16 +50,25 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
         }
 
         [HttpGet ("shipments/salesorders/{customerOrderId}")]
-        public ActionResult GetCustomerOrderShipmentSummary (uint customerOrderId) {
+        public ActionResult GetCustomerOrderShipmentSummary (uint customerOrderId, string type = "DETAIL") {
             Object shipments;
+
             var customerOrder = _customerOrderQuery.GetSalesOrderById (customerOrderId);
 
             if (customerOrder == null) {
                 return StatusCode (404, $"Customer Order with id {customerOrderId} Not Found!!!");
             }
-            shipments = _query.GetCustomerOrderShipmentStatus (customerOrderId);
 
-            return StatusCode (200, shipments);
+            switch (type.ToUpper ()) {
+                case "DETAIL":
+                    shipments = _query.GetCustomerOrderShipmentStatus (customerOrderId);
+                    return StatusCode (200, shipments);
+                case "SUMMARY":
+                    shipments = _query.GetCustomerOrderShipmentsSummary (customerOrderId);
+                    return StatusCode (200, shipments);
+            }
+
+            return StatusCode (500, "Request Not Identified");
 
         }
 

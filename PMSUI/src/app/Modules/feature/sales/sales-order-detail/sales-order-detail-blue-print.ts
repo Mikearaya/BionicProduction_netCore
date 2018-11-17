@@ -1,52 +1,63 @@
 
 
 export const customerOrderDetailBluePrint = [
-    {key: 'id',
+  {
+    key: 'id',
     humanReadable: 'ID',
     visible: false
-    },
-    {key: 'quantity',
+  },
+  {
+    key: 'quantity',
     humanReadable: 'Quantity'
-    },
-    {key: 'productName',
+  },
+  {
+    key: 'productName',
     humanReadable: 'Product',
-    },
-    {key: 'unitPrice',
+  },
+  {
+    key: 'unitPrice',
     humanReadable: 'Unit Price',
     format: 'C2'
-    },
-    {key: 'totalPrice',
+  },
+  {
+    key: 'totalPrice',
     humanReadable: 'Sub Total',
     format: 'C2'
-    },
-    {key: 'dueDate',
+  },
+  {
+    key: 'dueDate',
     humanReadable: 'Delivery Date',
-    },
-    {key: 'totalCost',
+  },
+  {
+    key: 'totalCost',
     humanReadable: 'Cost',
     format: 'C2'
-    },
-    {key: 'profit',
+  },
+  {
+    key: 'profit',
     humanReadable: 'Profit',
     format: 'C2',
-    },
-    {key: 'manufacturingOrderId',
+  },
+  {
+    key: 'manufacturingOrderId',
     humanReadable: 'Manufacturing Order',
-    },
-    {key: 'shipped',
-    humanReadable: 'shipped', visible : false
-    }
+  },
+  {
+    key: 'shipped',
+    humanReadable: 'shipped', visible: false
+  }
 
 
 ];
 
 
-export const invoiceColumnBluePrint =  [
-  {key: 'Id',
-  humanReadable: 'Number',
-  isIdentity: true,
-  isPrimaryKey: true,
-  width: 20
+export const invoiceColumnBluePrint = [
+  {
+    key: 'Id',
+    humanReadable: 'Number',
+    isIdentity: true,
+    isPrimaryKey: true,
+    width: 20
   },
   {
     key: 'InvoiceType',
@@ -59,7 +70,8 @@ export const invoiceColumnBluePrint =  [
     format: 'yMd',
     width: 30
   },
-  {key: 'Status',
+  {
+    key: 'Status',
     humanReadable: 'Status',
     width: 20
   },
@@ -85,12 +97,25 @@ export const invoiceColumnBluePrint =  [
 ];
 
 export const shipmentColumnBluePrint = [
-  {key: 'id',
-humanReadable: 'Number'},
-{key: 'dateCreated',
-humanReadable: 'Created',
-format: 'yMd'},
-{key: 'status',
-humanReadable: 'Status'}
+  {
+    key: 'id',
+    humanReadable: 'Number',
+    type: 'number',
+    width: '10'
+  },
+  {
+    key: 'dateAdded',
+    humanReadable: 'Created',
+    format: 'yMd',
+    type: 'date',
+    width: '20'
+  },
+  {
+    key: 'deliveryDate',
+    humanReadable: 'Delivery Date',
+    format: 'yMd',
+    type: 'date',
+    width: '20'
+  }
 ];
 

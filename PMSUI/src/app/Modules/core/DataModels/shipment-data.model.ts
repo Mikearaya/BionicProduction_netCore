@@ -33,8 +33,10 @@ export class ShipmentViewDetail {
   pickedQuantity?: number;
   bookedQuantity: number;
   remainingShipment: number;
+  orderedQuantity: number;
 
 }
+
 
 export class ShipmentSummaryView {
   id: number;
@@ -49,4 +51,10 @@ export class ShipmentSummaryView {
   dateupdated: Date;
   bookedById: number;
   bookerName: string;
+}
+
+export class ShipmentSummary {
+  id: number;
+  dateAdded: number;
+  deliveryDate: number;
 }

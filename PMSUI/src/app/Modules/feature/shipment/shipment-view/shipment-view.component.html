@@ -1,3 +1,15 @@
-<p>
-  shipment-view works!
-</p>
+<ejs-grid #grid [dataSource]='shipmentData' [editSettings]='editSettings' [allowGrouping]="allowGrouping"
+  [allowResizing]="allowResizing" [allowReordering]="allowReordering" [allowPaging]="allowPaging" [allowTextWrap]="allowTextWrap"
+  [pageSettings]="pageSettings" [allowExcelExport]="allowExcelExport" [toolbar]='toolbar' id="workorder" (toolbarClick)='toolbarClick($event)'
+  (rowSelected)="rowSelected($event)" [showColumnChooser]="showColumnChooser" [showColumnMenu]="showColumnMenu"
+  [filterSettings]="filterSetting" [groupSettings]='groupOptions' [allowFiltering]="allowFiltering" [allowSorting]="allowSorting"
+  [allowPdfExport]="allowPdfExport" id="shipments" [rowHeight]="25">
+  <e-columns>
+    <e-column [customAttributes]="customAttributes" [isPrimaryKey]="col.primaryKey" textAlign="center" [field]="col.key" [width]="col.width"
+      *ngFor="let col of columnBluePrint" [allowGrouping]="col.allowGrouping" [visible]="col.visable" [headerText]='col.humanReadable'
+      [format]='col.format' [type]="col.type" [editType]="col.dataType"></e-column>
+
+    <e-column [customAttributes]="customAttributes" width="15" [commands]='commands'></e-column>
+
+  </e-columns>
+</ejs-grid>

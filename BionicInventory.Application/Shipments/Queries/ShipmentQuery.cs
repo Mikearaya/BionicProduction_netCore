@@ -35,7 +35,6 @@ namespace BionicInventory.Application.Shipments.Queries {
                     deliveryDate = s.DeliveryDate,
                     dateAdded = s.DateAdded,
                     dateUpdated = s.DateUpdated,
-            
 
             }).ToList ();
 
@@ -58,7 +57,7 @@ namespace BionicInventory.Application.Shipments.Queries {
                         itemId = d.ItemId,
                         totalBooked = (int?) d.BookedStockItems.Count () + (int?) d.ProductionOrderList.Quantity,
                         itemName = d.Item.Name,
-                        totalShiped = (int?) d.ShipmentDetail.Count(),
+                        totalShiped = (int?) d.ShipmentDetail.Count (),
                         orderQuantity = (int?) d.Quantity,
                         customerOrderId = d.PurchaseOrderId,
                         customerOrderItemId = d.Id,
@@ -78,7 +77,17 @@ namespace BionicInventory.Application.Shipments.Queries {
             return _database.FinishedProduct
                 .Where (f => f.ShipmentDetail == null &&
                     f.BookedStockItems.BookedFor == orderItemId || f.Order.PurchaseOrderId == orderItemId)
-                    .Take(quantity);
+                .Take (quantity);
+        }
+
+        public IEnumerable<ShipmentsSummaryView> GetCustomerOrderShipmentsSummary (uint customerOrderId) {
+            return _database.Shipment
+                .Where (s => s.CustomerOrderId == customerOrderId)
+                .Select (s => new ShipmentsSummaryView () {
+                    dateAdded = s.DateAdded,
+                        deliveryDate = s.DeliveryDate,
+                        id = s.Id
+                }).ToList ();
         }
     }
 }

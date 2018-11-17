@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 16, 2018 8:25 PM
+ * @Last Modified Time: Nov 17, 2018 9:27 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -16,6 +16,8 @@ namespace BionicInventory.Application.Shipments.Interfaces {
 
         IEnumerable<Shipment> GetAllShipments ();
         Shipment GetShipmentById (uint id);
+
+        IEnumerable<ShipmentsSummaryView> GetCustomerOrderShipmentsSummary (uint customerOrderId);
 
         IEnumerable<Shipment> GetCustomerOrderShipments (uint customerOrderId);
 
