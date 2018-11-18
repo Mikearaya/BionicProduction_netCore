@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 17, 2018 9:38 PM
+ * @Last Modified Time: Nov 18, 2018 8:28 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.Products.Shipments {
-    [InventoryAPI ("products")]
+    [InventoryAPI ("shipments")]
     public class ShipmentsController : Controller {
         private readonly IShipmentQuery _query;
         private readonly IShipmentCommand _command;
@@ -42,14 +42,25 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
             _employeeQuery = employeeQuery;
         }
 
-        [HttpGet ("shipments")]
-        public ActionResult GetAllCustomerOrderShipments () {
+        [HttpGet]
+        public ActionResult GetAllShipments () {
             Object shipments = _query.GetAllShipmentStatus ();
 
             return StatusCode (200, shipments);
         }
 
-        [HttpGet ("shipments/salesorders/{customerOrderId}")]
+        [HttpGet ("{id}")]
+        public ActionResult GetShipmentById (uint id) {
+
+            Object shipments = _query.GetShipmentById (id);
+            if (shipments == null) {
+                return StatusCode (404);
+            }
+
+            return StatusCode (200, shipments);
+        }
+
+        [HttpGet ("salesorders/{customerOrderId}")]
         public ActionResult GetCustomerOrderShipmentSummary (uint customerOrderId, string type = "DETAIL") {
             Object shipments;
 
@@ -72,7 +83,7 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
 
         }
 
-        [HttpPost ("salesorders/{customerOrderId}/shipments")]
+        [HttpPost ("salesorders/{customerOrderId}")]
         public ActionResult CreateNewCustomerOrderShipment (uint customerOrderId, [FromBody] NewShipmentDto newShipment) {
             var customerOrder = _customerOrderQuery.GetSalesOrderById (customerOrderId);
 
@@ -88,13 +99,18 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
                 return new InvalidInputResponse (ModelState);
             }
             var shipment = _factory.CreateNewShipment (newShipment);
-
+            if (shipment == null) {
+                ModelState.AddModelError ("Quantity", "Unable to Complete Shipment that exceed  the  available stock item Quantity");
+                return new InvalidInputResponse (ModelState);
+            }
             var shipmentResult = _command.CreateShipment (shipment);
             if (shipmentResult == null) {
                 return StatusCode (500);
             }
 
-            return StatusCode (201, shipment);
+            var shipmentView = _query.GetShipmentDetails (shipmentResult.Id);
+
+            return StatusCode (201, shipmentView);
 
         }
 

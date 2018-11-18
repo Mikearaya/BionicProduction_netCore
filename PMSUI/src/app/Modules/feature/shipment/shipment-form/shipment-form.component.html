@@ -22,7 +22,7 @@
             Customer Order
           </div>
           <ejs-dropdownlist [allowFiltering]="true" name="orderId"  formControlName="customerOrderId"
-            id='orderId' placeholder="Select Customer Order" floatLabelType="Auto" [query]="orderQuery" [fields]="orderFields"
+            id='orderId' placeholder="Select Customer Order"  [query]="orderQuery" [fields]="orderFields"
             [dataSource]="orderList" filterBarPlaceholder="Search by Order Id" i18n-filterbarplaceholder="@@customerOrderSelectPlaceholder"
             i18n-placeholder="@@customerOrderPlaceholder">
           </ejs-dropdownlist>
@@ -43,7 +43,7 @@
                 Created By
               </div>
           <ejs-dropdownlist formControlName="bookedBy" [dataSource]="employeesList" [query]="employeeQuery" [fields]="employeeFields"
-            filterBarPlaceholder="Search Employee By Name" [allowFiltering]="true" placeholder="Select Your Name"
+            filterBarPlaceholder="Search Employee By Name"  [allowFiltering]="true" placeholder="Select Your Name"
             i18n-placeholder="@@createdByPlaceholder" i18n-filterBarPlaceholder>
           </ejs-dropdownlist>
           <div class="e-error" *ngIf="bookedBy.errors">
@@ -51,7 +51,7 @@
           </div>
         </div>
       </div>
-      <h5 class=" bg-secondary ">Order Items</h5>
+      <h5 class=" text-left">Order Items</h5>
       <div class="row e-card">
         <div class="col-12 col-xs-12">
           <table class="table table-striped">
