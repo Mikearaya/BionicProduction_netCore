@@ -11,6 +11,8 @@ using BionicInventory.Domain.Shipments;
 namespace BionicInventory.Application.Shipments.Interfaces {
     public interface IShipmentCommand {
         Shipment CreateShipment (Shipment newShipment);
+
+        Shipment PickShipment(Shipment shipment);
         bool UpdateShipment (Shipment updatedShipment);
         bool DeleteShipment (Shipment deletedShipment);
     }

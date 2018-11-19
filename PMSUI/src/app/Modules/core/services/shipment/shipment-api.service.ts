@@ -30,4 +30,8 @@ export class ShipmentApiService {
     return this.httpClient.get<ShipmentViewDetail[]>(`${this.apiUrl}/${this.url}/salesorders/${customerOrderId}`);
   }
 
+  pickAllShipmentItems(shipmentId: number): Observable<Shipment> {
+    return this.httpClient.put<Shipment>(`${this.apiUrl}/${this.url}/pickings/${shipmentId}`, {});
+  }
+
 }

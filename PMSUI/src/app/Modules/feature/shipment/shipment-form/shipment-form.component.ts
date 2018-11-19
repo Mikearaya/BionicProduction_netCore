@@ -3,7 +3,7 @@ import { ShipmentApiService } from '../../../core/services/shipment/shipment-api
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ShipmentItems, ShipmentViewDetail, Shipment } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
@@ -25,6 +25,7 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
   constructor(private shipmentApi: ShipmentApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    public router: Router,
     @Inject('BASE_URL') private apiUrl: string) {
     super();
     this.createForm();
@@ -113,7 +114,10 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
     alert('Submitted');
     const shipment: Shipment = this.prepateData();
     this.shipmentApi.createNewShipment(shipment).subscribe(
-      (data) => alert('Shipment Created Successfuly'),
+      (data: Shipment) => {
+        alert('Shipment Created Successfuly');
+        this.router.navigate([`shipments/${data.id}`]);
+      },
       this.handleError
     );
 

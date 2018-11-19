@@ -35,4 +35,11 @@ export class ShipmentDetailViewComponent extends CommonProperties implements OnI
     }
   }
 
+  pickShipment() {
+    this.shipmentApi.pickAllShipmentItems(this.shipmentId).subscribe(
+      (data) => alert('Shipment Items picked successfuly'),
+      this.handleError
+    );
+
+  }
 }

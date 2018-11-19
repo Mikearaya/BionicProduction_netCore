@@ -34,6 +34,18 @@ namespace BionicInventory.Application.Shipments.Commands {
             return true;
         }
 
+        public Shipment PickShipment(Shipment shipment)
+        {
+            foreach (var item in shipment.ShipmentDetail)
+            {
+                item.Picked = 1;
+            }
+
+            _database.Shipment.Update(shipment);
+            _database.Save();
+            return shipment;
+        }
+
         public bool UpdateShipment (Shipment updatedShipment) {
             _database.Shipment.Update (updatedShipment);
             _database.Save ();

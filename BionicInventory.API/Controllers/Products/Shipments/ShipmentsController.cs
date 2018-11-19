@@ -4,7 +4,7 @@
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
  * @Last Modified Time: Nov 18, 2018 8:28 PM
- * @Description: Modify Here, Please 
+ * @Description: Modify Here, Please
  */
 using System;
 using BionicInventory.Application.Employees.Interfaces;
@@ -15,6 +15,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BionicInventory.Application.Shipments.Models.ViewModels;
 
 namespace BionicInventory.API.Controllers.Products.Shipments {
     [InventoryAPI ("shipments")]
@@ -52,7 +53,7 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
         [HttpGet ("{id}")]
         public ActionResult GetShipmentById (uint id) {
 
-            Object shipment = _query.GetShipmentById (id);
+            Object shipment = _query.GetShipmentDetails (id);
             if (shipment == null) {
                 return StatusCode (404);
             }
@@ -112,6 +113,23 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
 
             return StatusCode (201, shipmentView);
 
+        }
+
+        [HttpPut("pickings/{shipmentId}")]
+        public ActionResult PickShipmentItems(uint shipmentId) {
+            var shipment = _query.GetShipmentById(shipmentId);
+
+            if(shipment == null) {
+                return StatusCode(404, $"Shipment with id: {shipmentId} not found");
+            }
+
+            var pickingResult = _command.PickShipment(shipment);
+
+            if(pickingResult == null) {
+                return StatusCode(500, "Unknown error occured please try again later");
+            }
+
+            return StatusCode(201, shipment);
         }
 
     }
