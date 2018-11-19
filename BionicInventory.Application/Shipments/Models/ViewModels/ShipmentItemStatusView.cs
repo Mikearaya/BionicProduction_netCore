@@ -12,7 +12,6 @@ namespace BionicInventory.Application.Shipments.Models.ViewModels {
         public string itemName { get; set; }
         public int shippedQuantity { get; set; }
         public int bookedQuantity { get; set; }
-        public int? Quantity { get; set; }
         public int? pickedQuantity { get; set; }
         public int remainingShipments { get; set; }
         public int availableItems { get; set; }

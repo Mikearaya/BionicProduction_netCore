@@ -29,7 +29,7 @@ export class SaleOrderApiService {
   }
 
   getCustomerOrderShipmentsSummary(customerOrderId: number): Observable<ShipmentSummary[]> {
-    return this.httpClient.get<ShipmentSummary[]>(`${this.apiUrl}/products/shipments/${this.url}/${customerOrderId}?type=summary`);
+    return this.httpClient.get<ShipmentSummary[]>(`${this.apiUrl}/shipments/${this.url}/${customerOrderId}?type=summary`);
   }
 
   getSalesOrderInvoices(id: number): Observable<InvoiceSummary[]> {

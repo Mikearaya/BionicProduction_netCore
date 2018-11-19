@@ -31,7 +31,7 @@ export class WorkOrderAPIService {
   }
 
   getAllProducts(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.productsIrl}`);
+    return this.httpClient.get<any[]>(`${this.apiUrl}/${this.productsIrl}`);
   }
 
   getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {

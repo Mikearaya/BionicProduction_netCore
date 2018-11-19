@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CustomerService } from './../customer.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Customer } from '../customer.service';
+import { CustomerService, Customer } from 'src/app/Modules/core/services/customers/customer.service';
+
 
 @Component({
   selector: 'app-customer-form',

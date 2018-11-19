@@ -4,15 +4,16 @@ import { CommonModule } from '@angular/common';
 import { ShipmentRoutingModule } from './shipment-routing.module';
 import { ShipmentFormComponent } from './shipment-form/shipment-form.component';
 
-import { ShipmentApiService } from './shipment-api.service';
+import { ShipmentApiService } from '../../core/services/shipment/shipment-api.service';
 import { SharedModule } from '../../shared/shared.module';
 import { ShipmentViewComponent } from './shipment-view/shipment-view.component';
-import { ShipmentSummaryViewComponent } from './shipment-summary-view/shipment-summary-view.component';
+import { ShipmentDetailViewComponent } from './shipment-detail-view/shipment-detail-view.component';
+
 
 @NgModule({
   declarations: [
     ShipmentFormComponent,
-    ShipmentSummaryViewComponent,
+    ShipmentDetailViewComponent,
     ShipmentViewComponent
   ],
   imports: [
@@ -20,6 +21,6 @@ import { ShipmentSummaryViewComponent } from './shipment-summary-view/shipment-s
     ShipmentRoutingModule,
     SharedModule
   ],
-  providers: [ShipmentApiService]
+  providers: []
 })
 export class ShipmentModule { }

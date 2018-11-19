@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { ShipmentApiService } from '../shipment-api.service';
+import { ShipmentApiService } from '../../../core/services/shipment/shipment-api.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ShipmentItems, ShipmentViewDetail, Shipment } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
@@ -27,11 +27,12 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
     private activatedRoute: ActivatedRoute,
     @Inject('BASE_URL') private apiUrl: string) {
     super();
+    this.createForm();
     this.orderQuery = new Query().select(['id']);
     this.orderFields = { text: 'id', value: 'id' };
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
-    this.createForm();
+
   }
 
   ngOnInit() {
@@ -78,17 +79,15 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
 
   initializeForm(data: ShipmentViewDetail[]) {
     this.orderItems = data;
-    this.shipmentForm = this.formBuilder.group({
-      customerOrderId: [80, Validators.required],
-      bookedBy: ['', Validators.required],
-      deliveryDate: ['', Validators.required],
-      shipmentNote: '',
-      shipmentItems: this.formBuilder.array([])
-    });
+
+    const orderId = data[0].customerOrderId;
+
 
     data.forEach(element => {
       this.shipmentItems.push(this.initializeShipmentItems(element));
+      this.customerOrderId.setValue(orderId);
     });
+
   }
 
   get shipmentItems(): FormArray {
@@ -130,7 +129,7 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
       status: 'new',
       shipmentItems: []
     };
-const c = this.shipmentItems.value;
+    const c = this.shipmentItems.value;
     c.forEach(element => {
       shipmentData.shipmentItems.push({
         customerOrderItemId: element.orderItemId,

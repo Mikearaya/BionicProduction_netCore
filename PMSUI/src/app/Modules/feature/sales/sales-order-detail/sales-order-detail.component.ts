@@ -29,6 +29,9 @@ import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.m
 export class SalesOrderDetailComponent extends CommonProperties implements OnInit {
   @ViewChild('invoiceGrid')
   public invoiceGrid: GridComponent;
+  @ViewChild('shipmentGrid')
+  public shipmentGrid: GridComponent;
+
   public columnBluePrint = customerOrderDetailBluePrint;
   public customerOrder: CustomerOrderDetailView;
   public customerOrderInvoices: InvoiceSummary[];
@@ -123,7 +126,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   }
 
   viewShipment(args: Event): void {
-    const rowObj: IRow<Column> = this.invoiceGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    const rowObj: IRow<Column> = this.shipmentGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.route.navigate([`shipments/${rowObj.data['id']}`]);
   }
 }

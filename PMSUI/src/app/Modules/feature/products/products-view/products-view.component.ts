@@ -15,7 +15,7 @@ import {
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
-import { ProductsAPIService } from '../products-api.service';
+import { ProductsAPIService } from '../../../core/services/items/products-api.service';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { productsViewBluePrint } from './products-view-blue-print';
 

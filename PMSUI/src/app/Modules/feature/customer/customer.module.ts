@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerRoutingModule } from './customer-routing.module';
-import { CustomerService } from './customer.service';
+
 import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 import {
@@ -26,7 +26,6 @@ import { CommonModule } from '@angular/common';
         CustomerViewComponent],
     providers: [
         // application
-        CustomerService,
         // syncfusion
     ],
     exports: []

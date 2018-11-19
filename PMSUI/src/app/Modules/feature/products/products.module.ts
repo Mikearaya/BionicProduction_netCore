@@ -10,7 +10,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
-import { ProductsAPIService } from './products-api.service';
 
 import { ProductsViewComponent } from './products-view/products-view.component';
 import {
@@ -32,7 +31,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [ProductsViewComponent],
   providers: [
     // application
-    ProductsAPIService,
+
     // syncfusion
   ]
 })

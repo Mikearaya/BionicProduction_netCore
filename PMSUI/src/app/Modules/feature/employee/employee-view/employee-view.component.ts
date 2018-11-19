@@ -13,7 +13,7 @@ import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
-import { EmployeeApiService } from '../employee-api.service';
+import { EmployeeApiService } from '../../../core/services/employees/employee-api.service';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
   FilterSettingsModel, EditSettingsModel, ToolbarItems, CommandModel,

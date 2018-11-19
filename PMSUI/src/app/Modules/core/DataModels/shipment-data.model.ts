@@ -20,14 +20,17 @@ export class ShipmentView {
   deliveryDate: Date;
   createdOn: Date;
   bookedBy: number;
+  bookingUser: string;
+  dateAdded: Date;
   status: string;
-  shipmentDetail: ShipmentViewDetail[] = [];
+  shipmentItem: ShipmentViewDetail[] = [];
 }
 
 export class ShipmentViewDetail {
   id?: number;
   bookedById: number;
   bookingUser: string;
+  customerOrderId: number;
   customerOrderItemId: number;
   itemId: number;
   itemName: string;

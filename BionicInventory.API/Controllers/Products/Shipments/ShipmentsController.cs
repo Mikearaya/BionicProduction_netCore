@@ -52,12 +52,12 @@ namespace BionicInventory.API.Controllers.Products.Shipments {
         [HttpGet ("{id}")]
         public ActionResult GetShipmentById (uint id) {
 
-            Object shipments = _query.GetShipmentById (id);
-            if (shipments == null) {
+            Object shipment = _query.GetShipmentById (id);
+            if (shipment == null) {
                 return StatusCode (404);
             }
 
-            return StatusCode (200, shipments);
+            return StatusCode (200, shipment);
         }
 
         [HttpGet ("salesorders/{customerOrderId}")]

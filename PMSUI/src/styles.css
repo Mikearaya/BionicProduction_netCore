@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
 
-.e-grid .e-rowcell.custom-grid-header{
+.e-grid .e-rowcell.custom-grid-header {
   font-family: 'Bell MT';
   font-size: 11px;
 }
 
-.e-grid .e-headercell.info-grid-header{
+.e-grid .e-headercell.info-grid-header {
   background-color: #2382c3;
   color: white;
   font-family: 'Bell MT';
@@ -14,12 +14,12 @@
   word-wrap: break-word;
 }
 
-.e-grid .e-rowcell.info-grid-header{
+.e-grid .e-rowcell.info-grid-header {
   font-family: 'Bell MT';
   font-size: 12px;
 }
 
-.e-grid .e-headercell.custom-grid-header{
+.e-grid .e-headercell.custom-grid-header {
   background-color: #2382c3;
   color: white;
   font-family: 'Bell MT';
@@ -28,16 +28,22 @@
 }
 
 
-.ng-invalid.e-success, .ng-invalid > span.e-control-wrapper {
+.ng-invalid.e-success,
+.ng-invalid>span.e-control-wrapper {
   border-color: rgb(194, 59, 59) !important;
   border-bottom-width: unset !important;
 }
 
 .ng-valid,
 .ng-valid.e-input-focuse,
-.ng-valid > span.e-control-wrapper,
-.ng-valid > span.e-control-wrapper.e-input-focus {
-  border-color:rgb(31, 255, 31) !important;
+.ng-valid>span.e-control-wrapper,
+.ng-valid>span.e-control-wrapper.e-input-focus {
+  border-color: rgb(31, 255, 31) !important;
   border-bottom-width: unset !important;
 }
 
+
+dt {
+  float: left;
+  margin-right: 1em;
+}

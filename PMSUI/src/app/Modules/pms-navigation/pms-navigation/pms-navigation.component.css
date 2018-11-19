@@ -16,8 +16,9 @@ h1 {
 
 div.wrapper {
   background: honeydew;
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
+
 }
 

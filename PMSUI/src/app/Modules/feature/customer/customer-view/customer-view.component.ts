@@ -8,7 +8,7 @@
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
-import { CustomerService, Customer } from '../../customer/customer.service';
+import { CustomerService, Customer } from '../../../core/services/customers/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Route, Router } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';

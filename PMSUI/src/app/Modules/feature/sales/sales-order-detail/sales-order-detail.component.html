@@ -81,7 +81,7 @@
       <div class="row">
         <div class="col-8 col-xs-12">
 
-          <ejs-grid [allowResizing]="true" #shipmentsGrid [allowReordering]="true" [rowHeight]="20"  [dataSource]="customerOrderShipments">
+          <ejs-grid [allowResizing]="true" #shipmentGrid [allowReordering]="true" [rowHeight]="20"  [dataSource]="customerOrderShipments">
             <e-columns>
               <e-column [customAttributes]="infoGridAttributes"   *ngFor="let shipentCol of shipmentColumns; let i=index; let last=last;" [field]="shipentCol.key"
                 [headerText]="shipentCol.humanReadable" [type]="shipentCol.type" [format]="shipentCol.format" [width]="shipentCol.width">

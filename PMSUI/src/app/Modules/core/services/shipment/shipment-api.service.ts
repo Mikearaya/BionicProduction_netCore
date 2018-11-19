@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Shipment, ShipmentSummaryView, ShipmentViewDetail } from '../../core/DataModels/shipment-data.model';
+import { ShipmentSummaryView, Shipment, ShipmentViewDetail, ShipmentView } from '../../DataModels/shipment-data.model';
+
 
 @Injectable()
 export class ShipmentApiService {
@@ -13,6 +14,9 @@ export class ShipmentApiService {
     return this.httpClient.get<ShipmentSummaryView[]>(`${this.apiUrl}/${this.url}`);
   }
 
+  getShipmentById(shipmentId: number): Observable<ShipmentView> {
+    return this.httpClient.get<ShipmentView>(`${this.apiUrl}/${this.url}/${shipmentId}`);
+  }
 
   createNewShipment(newShipment: Shipment): Observable<Shipment> {
     return this.httpClient.post<Shipment>(`${this.apiUrl}/${this.url}/salesorders/${newShipment.customerOrderId}`, newShipment);

@@ -18,6 +18,10 @@ import {
 import { CoreApiService } from './core-api.service';
 import { ProductGetterService } from './services/product-getter.service';
 import { CustomerOrderGetterApiService } from './services/customer-order/customer-order-getter-api.service';
+import { ShipmentApiService } from './services/shipment/shipment-api.service';
+import { ProductsAPIService } from './services/items/products-api.service';
+import { EmployeeApiService } from './services/employees/employee-api.service';
+import { CustomerService } from './services/customers/customer.service';
 
 
 @NgModule({
@@ -26,6 +30,10 @@ import { CustomerOrderGetterApiService } from './services/customer-order/custome
   ],
   declarations: [],
   providers: [
+    ShipmentApiService,
+    EmployeeApiService,
+    ProductsAPIService,
+    CustomerService,
     ToolbarService,
     PdfExportService,
     PageService,

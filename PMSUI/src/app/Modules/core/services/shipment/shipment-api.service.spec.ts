@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ShipmentApiService } from './shipment-api.service';
+import { ShipmentApiService } from '../../core/services/shipment/shipment-api.service';
 
 describe('ShipmentApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

@@ -11,7 +11,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee, EmployeeApiService } from '../employee-api.service';
+import { Employee, EmployeeApiService } from '../../../core/services/employees/employee-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
