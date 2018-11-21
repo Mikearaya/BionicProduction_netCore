@@ -2,8 +2,8 @@
  * @CreateTime: Sep 26, 2018 8:50 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By: undefined
- * @Last Modified Time: Nov 1, 2018 12:08 AM
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 21, 2018 9:18 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -21,5 +21,6 @@ namespace BionicInventory.Application.SalesOrders.Interfaces {
         PurchaseOrder GetSalesOrderById(uint id);
         PurchaseOrderDetail GetSalesOrderItemById(uint id);
         uint GetTotalBookedOrder(uint customerOrderItemId);
+
     }
 }

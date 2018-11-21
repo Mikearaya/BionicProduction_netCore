@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 21, 2018 11:15 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 21, 2018 11:15 PM
+ * @Description: Modify Here, Please 
+ */
 using BionicInventory.Application.Analisis.Interfaces;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +25,8 @@ namespace BionicInventory.API.Controllers.Analisis {
 
         [HttpGet]
         public ActionResult GetBasicSystemStatstics () {
-            _query.GetCurrentActivityStats ();
-            return StatusCode (200);
+            var status = _query.GetCurrentActivityStats ();
+            return StatusCode (200, status);
         }
 
     }

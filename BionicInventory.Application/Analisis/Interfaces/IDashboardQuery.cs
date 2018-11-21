@@ -3,6 +3,6 @@ using BionicInventory.Application.Analisis.Models;
 
 namespace BionicInventory.Application.Analisis.Interfaces {
     public interface IDashboardQuery {
-        void GetCurrentActivityStats ();
+        SummaryDataModel GetCurrentActivityStats ();
     }
 }

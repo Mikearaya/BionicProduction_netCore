@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 21, 2018 10:48 AM
+ * @Last Modified Time: Nov 21, 2018 9:36 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Analisis.Interfaces;
+using BionicInventory.Application.Analisis.Queries;
 using BionicInventory.Application.CompanyProfile.Commands;
 using BionicInventory.Application.CompanyProfile.Factories;
 using BionicInventory.Application.CompanyProfile.Interfaces;
@@ -55,6 +57,7 @@ using BionicInventory.Application.SalesOrders.Commands;
 using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Queries;
+using BionicInventory.Application.SalesOrders.Queries.Report;
 using BionicInventory.Application.Shipments.Commands;
 using BionicInventory.Application.Shipments.Factories;
 using BionicInventory.Application.Shipments.Interfaces;
@@ -75,8 +78,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using BionicInventory.Application.Analisis.Interfaces;
-using BionicInventory.Application.Analisis.Queries;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -107,6 +108,7 @@ namespace BionicInventory.API {
             services.AddScoped<IFinishedProductsCommand, FinishedProductsCommand> ();
             services.AddScoped<ISalesOrderFactory, SalesOrderFactory> ();
             services.AddScoped<ISalesOrderQuery, SalesOrderQuery> ();
+            services.AddScoped<ISalesOrderReportQuery, SalesOrderReportQuery> ();
             services.AddScoped<ISalesOrderCommand, SalesOrderCommand> ();
             services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
             services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
@@ -124,7 +126,7 @@ namespace BionicInventory.API {
             services.AddScoped<IShipmentQuery, ShipmentQuery> ();
             services.AddScoped<IShipmentCommand, ShipmentCommand> ();
             services.AddScoped<IShipmentFactory, ShipmentFactory> ();
-            services.AddScoped<IDashboardQuery, DashboardQuery>();
+            services.AddScoped<IDashboardQuery, DashboardQuery> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 

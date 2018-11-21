@@ -9,11 +9,13 @@ import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
 import { GridModule, PdfExportService } from '@syncfusion/ej2-angular-grids';
 import { StatCardComponent } from './Modules/feature/dashboard/stat-card/stat-card.component';
+import { ProductionStatusChartComponent } from './Modules/feature/bionic-charts/production-status-chart/production-status-chart.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProductionStatusChartComponent
   ],
   imports: [
     BrowserModule,

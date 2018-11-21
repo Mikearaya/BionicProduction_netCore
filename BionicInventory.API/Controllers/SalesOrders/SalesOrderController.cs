@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 13, 2018 8:10 PM
+ * @Last Modified Time: Nov 21, 2018 9:43 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -29,6 +29,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         private readonly ICustomersQuery _customerQuery;
         private readonly IProductsQuery _itemQuery;
         private readonly IEmployeesQuery _employeeQuery;
+        private readonly ISalesOrderReportQuery _salesReportQuery;
 
         public SalesOrderController (ISalesOrderFactory factory,
             ISalesOrderQuery query,
@@ -36,7 +37,8 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             ILogger<SalesOrderController> logger,
             ICustomersQuery customerQuery,
             IEmployeesQuery employeeQuery,
-            IProductsQuery productQuery) {
+            IProductsQuery productQuery,
+            ISalesOrderReportQuery salesReportQuery) {
 
             _factory = factory;
             _command = command;
@@ -44,6 +46,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             _customerQuery = customerQuery;
             _itemQuery = productQuery;
             _employeeQuery = employeeQuery;
+            _salesReportQuery = salesReportQuery;
         }
 
         [HttpGet]
@@ -124,6 +127,24 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             }
 
             return StatusCode (201, result);
+
+        }
+
+        [HttpGet ("reports")]
+        public ActionResult GetSalesReport (string type = "YEARLY") {
+            object reportObj = null;
+            switch (type.ToUpper ()) {
+                case "YEARLY":
+                    reportObj = _salesReportQuery.GetYearlySalesReport ();
+                    break;
+
+            }
+
+            if (reportObj == null) {
+                return StatusCode (500, "Unknown Error Occured");
+            }
+
+            return StatusCode (200, reportObj);
 
         }
 

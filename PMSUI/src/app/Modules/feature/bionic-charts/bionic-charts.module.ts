@@ -7,28 +7,33 @@ import {
   LegendService,
   LineSeriesService,
   TooltipService,
-  AreaSeriesService
+  AreaSeriesService,
+  AccumulationChartModule
 } from '@syncfusion/ej2-angular-charts';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ProductionStatusChartComponent } from './production-status-chart/production-status-chart.component';
 
 
 @NgModule({
   declarations: [AnualSaleChartComponent],
-  imports: [
-    CommonModule,
-    ChartModule,
-    BionicChartsRoutingModule
-  ],
-  exports: [AnualSaleChartComponent],
-  providers: [CategoryService,
-    LegendService,
-    TooltipService,
-    DataLabelService,
-    LineSeriesService,
-    DataLabelService,
-    LegendService,
-    AreaSeriesService
+
+    imports: [
+      CommonModule,
+      ChartModule,
+
+      BionicChartsRoutingModule
+    ],
+    exports: [AnualSaleChartComponent,
+    ],
+    providers: [CategoryService,
+      LegendService,
+      TooltipService,
+      DataLabelService,
+      LineSeriesService,
+      DataLabelService,
+      LegendService,
+      AreaSeriesService
     ]
 })
 export class BionicChartsModule { }
