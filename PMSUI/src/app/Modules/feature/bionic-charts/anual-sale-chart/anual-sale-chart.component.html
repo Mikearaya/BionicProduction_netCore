@@ -1,5 +1,6 @@
-<ejs-chart id="chart-container" [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]="primaryYAxis"  [legendSettings]='legendSettings' title="2018 Anual Sale">
+<ejs-chart id="chart-container" [tooltip]="tooltip" [primaryXAxis]='primaryXAxis' [primaryYAxis]="primaryYAxis"  [legendSettings]='legendSettings'
+i18n-title title="2018 Anual Sales">
   <e-series-collection>
-        <e-series [dataSource]='chartData' type='Area' xName='month' yName='sales' [marker]="marker" name='Sales'></e-series>
+        <e-series [dataSource]='chartData' type='Area' xName='month' yName='amount' [marker]="marker" name='Sales'></e-series>
   </e-series-collection>
 </ejs-chart>

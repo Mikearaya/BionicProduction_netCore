@@ -1,0 +1,43 @@
+<section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title title='Sales' [data]='statsticData?.totalMonthlySale' ></app-stat-card>
+        </div>
+
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title title='Stock' prefix='ETB ' [data]='statsticData?.totalInventoryCost' ></app-stat-card>
+      </div>
+      <div class="col-sm-3 col-xs-12">
+
+        <app-stat-card i18n-title="Active Manufacture orders (abrevation)" title='Active MO' [data]='statsticData?.activeManufactureOrders' ></app-stat-card>
+      </div>
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title="items below the specified minimum inventory count"  title='Below Min Stock' [data]='statsticData?.totalMinStock' ></app-stat-card>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title title='Customers' [data]='statsticData?.totalCustomers' ></app-stat-card>
+        </div>
+
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title  title='Products' [data]='statsticData?.totalProducts' ></app-stat-card>
+      </div>
+      <div class="col-sm-3 col-xs-12">
+
+        <app-stat-card i18n-title="overdue manufacture orders" title='Late MO' [data]='statsticData.overDueMO' ></app-stat-card>
+      </div>
+      <div class="col-sm-3 col-xs-12">
+        <app-stat-card i18n-title  title='7 Days Late Invoices' [data]='statsticData.overDuePayments' ></app-stat-card>
+
+      </div>
+    </div>
+    <div class="row anual-sale ">
+      <div class="col-12 e-card">
+        <app-anual-sale-chart></app-anual-sale-chart>
+      </div>
+    </div>
+  </div>
+</section>

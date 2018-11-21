@@ -1,29 +1,39 @@
+/*
+ * @CreateTime: Nov 21, 2018 11:32 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 21, 2018 11:51 PM
+ * @Description: Modify Here, Please
+ */
 import { Component, OnInit } from '@angular/core';
+import { BionicChartService } from '../bionic-chart.service';
+import { MonthlySalesReport } from '../Models/sales-order-report.model';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-anual-sale-chart',
   templateUrl: './anual-sale-chart.component.html',
   styleUrls: ['./anual-sale-chart.component.css']
 })
-export class AnualSaleChartComponent implements OnInit {
-  chartData: { month: string; sales: number; }[];
+export class AnualSaleChartComponent extends CommonProperties implements OnInit {
+  chartData: { month: string; amount: number; }[];
   primaryXAxis: { valueType: string; };
   primaryYAxis: { labelFormat: string; };
   legendSettings: { visible: boolean; };
   marker: { dataLabel: { visible: boolean; }; };
   tooltip: { enable: boolean; };
 
-  constructor() { }
+  constructor(private chartDataService: BionicChartService) {
+    super();
+  }
 
   ngOnInit() {
-    this.chartData = [
-      { month: 'Jan', sales: 35 }, { month: 'Feb', sales: 28 },
-      { month: 'Mar', sales: 34 }, { month: 'Apr', sales: 32 },
-      { month: 'May', sales: 40 }, { month: 'Jun', sales: 32 },
-      { month: 'Jul', sales: 35 }, { month: 'Aug', sales: 55 },
-      { month: 'Sep', sales: 38 }, { month: 'Oct', sales: 30 },
-      { month: 'Nov', sales: 25 }, { month: 'Dec', sales: 32 }
-    ];
+   this.chartDataService.getYearlySalesReport().subscribe(
+      (data: MonthlySalesReport[]) => this.chartData = data,
+      this.handleError
+    );
+
     this.primaryXAxis = {
       valueType: 'Category'
     };

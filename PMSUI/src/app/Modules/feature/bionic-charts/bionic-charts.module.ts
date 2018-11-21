@@ -13,6 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ProductionStatusChartComponent } from './production-status-chart/production-status-chart.component';
+import { BionicChartService } from './bionic-chart.service';
 
 
 @NgModule({
@@ -33,7 +34,9 @@ import { ProductionStatusChartComponent } from './production-status-chart/produc
       LineSeriesService,
       DataLabelService,
       LegendService,
-      AreaSeriesService
+      AreaSeriesService,
+
+      BionicChartService
     ]
 })
 export class BionicChartsModule { }
