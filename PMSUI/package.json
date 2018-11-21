@@ -23,6 +23,7 @@
     "@syncfusion/ej2-angular-base": "^16.3.30",
     "@syncfusion/ej2-angular-buttons": "^16.3.30",
     "@syncfusion/ej2-angular-calendars": "^16.3.18",
+    "@syncfusion/ej2-angular-charts": "^16.3.33",
     "@syncfusion/ej2-angular-documenteditor": "^16.3.30",
     "@syncfusion/ej2-angular-dropdowns": "^16.3.30",
     "@syncfusion/ej2-angular-grids": "^16.3.31",

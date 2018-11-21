@@ -10,6 +10,11 @@ h1 {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#sidebar {
+  top:auto;
+  width: 250px!important;
+}
+
 .main-content {
   margin: 1em;
 }

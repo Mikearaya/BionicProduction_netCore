@@ -91,6 +91,7 @@ namespace BionicInventory.API.Controllers.SalesOrders.Booking {
                     var booked = _bookingCommand.BookAvailableStockItems (bookedItems);
 
                 }
+                //TODO : replace calling workorder controller directly
 
                 if (availableStock.Count < item.Quantity && orderItem.CreateManufactureOrder == 1) {
 

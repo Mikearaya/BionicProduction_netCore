@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pms-dashboard.component.css']
 })
 export class PmsDashboardComponent implements OnInit {
+  chartData: { month: string; sales: number; }[];
+  primaryXAxis: { valueType: string; };
+  primaryYAxis: { labelFormat: string; };
 
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

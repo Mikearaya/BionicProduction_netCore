@@ -1,18 +1,19 @@
 <div class="wrapper">
-  <ejs-sidebar  id="sidebar" #sidebar  [type]="type" >
 
-      <div id='treeparent'>
-        <ejs-treeview (nodeSelected)="clickedNode($event)"  id='treeelement' [fields]='field'></ejs-treeview>
-      </div>
+  <ejs-sidebar id="sidebar" #sidebar [type]="type">
+
+    <div id='treeparent'>
+      <ejs-treeview (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
+    </div>
   </ejs-sidebar>
   <div id="head">
-    <button ejs-button id="toggle" #togglebtn cssClass="e-flat e-active" iconCss="e-icons burg-icon" isToggle="true" (click)="btnClick()"
-      content="Close">
-
-    </button>
+      <ejs-toolbar>
+          <e-items>
+            <e-item  #togglebtn  prefixIcon = 'fa-xs fa-car' (click)="btnClick()" ></e-item>
+          </e-items>
+        </ejs-toolbar>
     <div class="main-content">
-    <router-outlet ></router-outlet>
-  </div>
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
-

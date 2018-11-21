@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 15, 2018 8:59 PM
+ * @Last Modified Time: Nov 21, 2018 10:48 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -75,6 +75,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using BionicInventory.Application.Analisis.Interfaces;
+using BionicInventory.Application.Analisis.Queries;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -122,6 +124,7 @@ namespace BionicInventory.API {
             services.AddScoped<IShipmentQuery, ShipmentQuery> ();
             services.AddScoped<IShipmentCommand, ShipmentCommand> ();
             services.AddScoped<IShipmentFactory, ShipmentFactory> ();
+            services.AddScoped<IDashboardQuery, DashboardQuery>();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 

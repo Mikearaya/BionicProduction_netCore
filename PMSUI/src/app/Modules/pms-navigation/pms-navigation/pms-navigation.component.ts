@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ButtonComponent } from '@syncfusion/ej2-angular-buttons';
-import { SidebarComponent, NodeSelectEventArgs } from '@syncfusion/ej2-angular-navigations';
+import { SidebarComponent, NodeSelectEventArgs, ItemDirective } from '@syncfusion/ej2-angular-navigations';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,9 +13,10 @@ export class PmsNavigationComponent {
   @ViewChild('sidebar')
   public sidebar: SidebarComponent;
   public type: 'Push';
+  public open = 'Close';
   public target: 'content';
   @ViewChild('togglebtn')
-  public togglebtn: ButtonComponent;
+  public togglebtn: ItemDirective;
   public hierarchicalData: Object[] = [
     {
       id: 'dashboard', name: 'DASHBOARD'
@@ -68,12 +69,15 @@ export class PmsNavigationComponent {
 
 
   btnClick() {
-    if (this.togglebtn.element.classList.contains('e-active')) {
-      this.togglebtn.content = 'Open';
+
+    if (this.sidebar.isOpen) {
+      this.open = 'Open';
+
       this.sidebar.hide();
     } else {
-      this.togglebtn.content = 'Close';
-      this.sidebar.show();
+      this.togglebtn.text = 'Open';
+      this.open = 'Close';
+this.sidebar.show();
     }
   }
 

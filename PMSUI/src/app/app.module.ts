@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
 import { GridModule, PdfExportService } from '@syncfusion/ej2-angular-grids';
+import { StatCardComponent } from './Modules/feature/dashboard/stat-card/stat-card.component';
 
 
 @NgModule({
