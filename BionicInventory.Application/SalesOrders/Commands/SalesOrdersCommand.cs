@@ -26,8 +26,8 @@ namespace BionicInventory.Application.SalesOrders.Commands {
             return true;
         }
 
-        public bool UpdateSalesOrder (IEnumerable<PurchaseOrder> orders) {
-            _database.PurchaseOrder.UpdateRange (orders);
+        public bool UpdateSalesOrder (PurchaseOrder orders) {
+            _database.PurchaseOrder.Update (orders);
             _database.Save ();
             return true;
         }

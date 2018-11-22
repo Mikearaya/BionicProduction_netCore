@@ -13,11 +13,11 @@ using BionicInventory.Domain.PurchaseOrders;
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderCommand {
 
-        PurchaseOrder CreateSalesOrder(PurchaseOrder orders);
+        PurchaseOrder CreateSalesOrder (PurchaseOrder orders);
 
-        bool UpdateSalesOrder(IEnumerable<PurchaseOrder> orders);
+        bool UpdateSalesOrder (PurchaseOrder orders);
 
-        bool DeleteSalesOrders(PurchaseOrder order);
+        bool DeleteSalesOrders (PurchaseOrder order);
 
     }
 }

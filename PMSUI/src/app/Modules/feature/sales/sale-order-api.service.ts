@@ -48,6 +48,10 @@ export class SaleOrderApiService {
     return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
+  updateCustomerOrderStatus(customerOrderId: number, newStatus: string): Observable<boolean> {
+    return this.httpClient.put<boolean>(`${this.apiUrl}/${this.url}/${customerOrderId}`, { status: newStatus });
+  }
+
 
 }
 

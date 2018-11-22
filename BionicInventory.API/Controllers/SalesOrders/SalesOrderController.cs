@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 21, 2018 9:43 PM
+ * @Last Modified Time: Nov 22, 2018 3:10 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -128,6 +128,22 @@ namespace BionicInventory.API.Controllers.SalesOrders {
 
             return StatusCode (201, result);
 
+        }
+
+        [HttpPut ("{id}")]
+        public ActionResult UpdateCustomerOrderStatus (uint id, [FromBody] StatusUpdateDto newStatus) {
+            var customerOrder = _query.GetSalesOrderById (id);
+            if (customerOrder == null) {
+                return StatusCode (404, $"Customer Order With id: {id} Not Found");
+            }
+
+            customerOrder.OrderStatus = newStatus.Status;
+            var updateResult = _command.UpdateSalesOrder (customerOrder);
+
+            if (updateResult == false) {
+                return StatusCode (500, "Unknown error Occured please try again later");
+            }
+            return StatusCode (204, true);
         }
 
         [HttpGet ("reports")]

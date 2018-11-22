@@ -11,7 +11,7 @@ export class CustomerOrderDetailView {
   totalProducts: number;
   paymentMethod: string;
   deliveryDate: Date;
-  status: string;
+  status: String = '';
   dueDate: Date;
   dateAdded: Date;
   dateUpdated: Date;

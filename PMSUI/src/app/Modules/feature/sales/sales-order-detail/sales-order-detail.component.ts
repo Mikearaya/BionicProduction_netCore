@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 17, 2018 9:51 PM
+ * @Last Modified Time: Nov 22, 2018 3:15 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
@@ -18,6 +18,7 @@ import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { closest } from '@syncfusion/ej2-base';
 import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.model';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -27,6 +28,7 @@ import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.m
 })
 
 export class SalesOrderDetailComponent extends CommonProperties implements OnInit {
+  public orderStatus = ['Quotation', 'Waiting for Confirmation', 'Confirmed', 'Canceled', 'Delivered'];
   @ViewChild('invoiceGrid')
   public invoiceGrid: GridComponent;
   @ViewChild('shipmentGrid')
@@ -44,15 +46,20 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   public infoGridAttributes: Object;
   public errorDescription: any;
   public errorMessage: string;
+  public orderStatusForm: FormGroup;
 
   private customerOrderId: number;
 
   constructor(
     private salesOrderApi: SaleOrderApiService,
     private activatedRoute: ActivatedRoute,
-    private route: Router
+    private route: Router,
+    private formBuilder: FormBuilder
   ) {
     super();
+this.customerOrder = new CustomerOrderDetailView();
+    this.initializeOrderStatus();
+
     this.invoiceColumns = invoiceColumnBluePrint;
     this.infoGridAttributes = { class: 'info-grid-header' };
     this.invoiceCommands = [{
@@ -81,12 +88,39 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
 
   }
 
+  showDrobbox() {
+
+    switch (this.customerOrder.status.toUpperCase()) {
+      case 'CONFIRMED':
+        return false;
+      case 'QUOTATION':
+        return true;
+      default:
+        return false;
+    }
+
+  }
+
+
+  get statusInput(): FormControl {
+    return this.orderStatusForm.get('statusInput') as FormControl;
+  }
+
+  initializeOrderStatus(status: String = ''): void {
+    this.orderStatusForm = this.formBuilder.group({
+      statusInput: [status, Validators.required]
+    });
+  }
+
   ngOnInit(): void {
     this.customerOrderId = +this.activatedRoute.snapshot.paramMap.get('customerOrderId');
 
     if (this.customerOrderId) {
       this.salesOrderApi.getSalesOrderById(this.customerOrderId).subscribe(
-        (data: CustomerOrderDetailView) => this.customerOrder = data,
+        (data: CustomerOrderDetailView) => {
+          this.customerOrder = data;
+          this.initializeOrderStatus(data.status);
+        },
         this.handleError
       );
 
@@ -100,7 +134,6 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
         this.handleError
       );
     }
-
 
   }
 
@@ -128,5 +161,14 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   viewShipment(args: Event): void {
     const rowObj: IRow<Column> = this.shipmentGrid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.route.navigate([`shipments/${rowObj.data['id']}`]);
+  }
+
+
+  updateOrderStatus() {
+    this.salesOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
+      (result: boolean) => alert('Customer order Status updated Successfuly'),
+      this.handleError
+    );
+
   }
 }
