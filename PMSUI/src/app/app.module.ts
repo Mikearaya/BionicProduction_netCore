@@ -7,13 +7,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
-import { ProductionStatusChartComponent } from './Modules/feature/bionic-charts/production-status-chart/production-status-chart.component';
+
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ProductionStatusChartComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,

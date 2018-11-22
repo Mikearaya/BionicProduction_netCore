@@ -11,10 +11,13 @@ h1 {
 }
 
 #sidebar {
-  top:auto;
-  width: 250px!important;
+  top: auto;
+  width: 250px !important;
 }
 
+.e-menu-icon::before{
+  content:'\e941';
+}
 .main-content {
   margin: 1em;
 }
@@ -25,7 +28,6 @@ div.wrapper {
   width: 100%;
   height: 100%;
   display: inline-block
-
 }
 
 

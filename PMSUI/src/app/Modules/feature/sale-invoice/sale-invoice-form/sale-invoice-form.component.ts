@@ -9,6 +9,7 @@ import { Invoice } from '../sales-invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Location } from '@angular/common';
 import { CustomerOrderGetterApiService } from 'src/app/Modules/core/services/customer-order/customer-order-getter-api.service';
+import { FormValidators } from '@syncfusion/ej2-angular-inputs';
 
 @Component({
   selector: 'app-sale-invoice-form',
@@ -126,9 +127,9 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
   }
   invoiceItems(): FormGroup {
     return this.formBuilder.group({
-      itemId: ['', Validators.required],
-      quantity: [0, Validators.required],
-      unitPrice: [0, Validators.required],
+      itemId: ['', FormValidators.required],
+      quantity: [0, FormValidators.required],
+      unitPrice: [0, FormValidators.required],
       discount: [0],
       note: ['']
     });
@@ -136,13 +137,13 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
 
   createForm() {
     this.saleInvoiceForm = this.formBuilder.group({
-      customerOrderId: ['', Validators.required],
-      customerId: ['', Validators.required],
-      invoiceType: ['', Validators.required],
-      createdBy: ['', Validators.required],
-      status: ['', Validators.required],
-      dueDate: ['', Validators.required],
-      paymentMethod: ['CASH', Validators.required],
+      customerOrderId: ['', FormValidators.required],
+      customerId: ['', FormValidators.required],
+      invoiceType: ['', FormValidators.required],
+      createdBy: ['', FormValidators.required],
+      status: ['', FormValidators.required],
+      dueDate: ['', FormValidators.required],
+      paymentMethod: ['CASH', FormValidators.required],
       note: [''],
       totalDiscount: [0],
       tax: [0],

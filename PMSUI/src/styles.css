@@ -28,19 +28,6 @@
 }
 
 
-.ng-invalid.e-success,
-.ng-invalid>span.e-control-wrapper {
-  border-color: rgb(194, 59, 59) !important;
-  border-bottom-width: unset !important;
-}
-
-.ng-valid,
-.ng-valid.e-input-focuse,
-.ng-valid>span.e-control-wrapper,
-.ng-valid>span.e-control-wrapper.e-input-focus {
-  border-color: rgb(31, 255, 31) !important;
-  border-bottom-width: unset !important;
-}
 
 
 dt {

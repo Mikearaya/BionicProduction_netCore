@@ -27,11 +27,19 @@
       </div>
       <div class="col-sm-3 col-xs-12">
 
-        <app-stat-card i18n-title="overdue manufacture orders" title='Late MO' [data]='statsticData.overDueMO' ></app-stat-card>
+        <app-stat-card i18n-title="overdue manufacture orders" title='Late MO' [data]='statsticData?.overDueMO' ></app-stat-card>
       </div>
       <div class="col-sm-3 col-xs-12">
-        <app-stat-card i18n-title  title='7 Days Late Invoices' [data]='statsticData.overDuePayments' ></app-stat-card>
+        <app-stat-card i18n-title  title='7 Days Late Invoices' [data]='statsticData?.overDuePayments' ></app-stat-card>
 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-5 col-xs-12 e-card accumulators-container">
+        <app-pie-chart pieId="pie1"></app-pie-chart>
+      </div>
+      <div class="col-5 col-xs-12 e-card accumulators-container">
+        <app-donut-chart chartId="donut1" ></app-donut-chart>
       </div>
     </div>
     <div class="row anual-sale ">

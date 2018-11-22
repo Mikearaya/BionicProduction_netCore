@@ -1,6 +1,6 @@
 <h3 class="text-left " i18n="invoice section header">Invoice</h3>
 <section class="e-card">
-  <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="saleInvoiceForm" (ngSubmit)="onSubmit()" novalidate="">
     <div class="container">
 
       <app-form-options [submitDisabled]="saleInvoiceForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>

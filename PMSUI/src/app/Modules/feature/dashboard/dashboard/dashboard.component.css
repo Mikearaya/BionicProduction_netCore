@@ -1,3 +1,9 @@
-.row{
+.row {
   margin-top: 2em;
+}
+
+
+.accumulators-container {
+  display: grid;
+  margin-left: 2em;
 }
