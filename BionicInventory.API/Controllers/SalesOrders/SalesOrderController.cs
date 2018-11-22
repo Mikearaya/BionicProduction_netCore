@@ -143,7 +143,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             if (updateResult == false) {
                 return StatusCode (500, "Unknown error Occured please try again later");
             }
-            return StatusCode (204, true);
+            return StatusCode (204);
         }
 
         [HttpGet ("reports")]

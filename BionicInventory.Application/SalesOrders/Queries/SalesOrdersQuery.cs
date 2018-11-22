@@ -56,7 +56,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 quantity = CO.Quantity,
                                 productName = CO.Item.Name,
                                 dueDate = CO.DueDate,
-                                manufactureId = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.Id : 0,
+                                manufactureId = (uint?) CO.ProductionOrderList.Id,
                                 productCode = CO.Item.Code
 
                         }),
@@ -107,23 +107,25 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         public IEnumerable<CustomerOrdersView> GetAllCustomerOrders () {
 
-            var salesOrders = _database.PurchaseOrderDetail
-                .GroupBy (customerOrder => customerOrder.PurchaseOrder.Id)
+            var salesOrders = _database.PurchaseOrder
+                .GroupBy (customerOrder => customerOrder.Id)
                 .Select (order => new {
                     ID = order.Key,
                         itemCount = order.Count (),
-                        totalPrice = order.Sum (price => price.PricePerItem * price.Quantity),
-                        totalCost = order.Sum (itemCost => itemCost.Item.UnitCost * itemCost.Quantity),
-                        totalQuantity = order.Sum (itemQuantity => itemQuantity.Quantity),
-
+                        totalPrice = order.Sum (price => price.PurchaseOrderDetail.Sum (d => d.PricePerItem * (double?) d.Quantity)),
+                        totalCost = order.Sum (itemCost => itemCost.PurchaseOrderDetail.Sum (c => c.ProductionOrderList.CostPerItem * (double?) c.Quantity)),
+                        totalQuantity = order.Sum (q => q.PurchaseOrderDetail.Sum (itemQuantity => itemQuantity.Quantity)),
+                        invoicedAmount = order.Sum (i => i.Invoice.Sum (o => o.InvoiceDetail.Sum (id => (double?) id.Quantity * id.UnitPrice))),
+                        invoicePaid = order.Sum (i => i.Invoice.Sum (o => o.InvoicePayments.Sum (id => id.Amount))),
+                        totalShipment = order.Sum (p => p.Shipment.Sum (s => s.ShipmentDetail.Count ())),
                         detail = order.Select (CO => new {
-                            customerName = CO.PurchaseOrder.Client.FullName (),
-                                addedBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
-                                dateAdded = CO.PurchaseOrder.DateAdded,
-                                dateUpdated = CO.PurchaseOrder.DateUpdated,
-                                description = CO.PurchaseOrder.Description,
-                                orderStatus = CO.PurchaseOrder.OrderStatus,
-                                status = (CO.ProductionOrderList != null) ? CO.ProductionOrderList.FinishedProduct.Count () : -1,
+                            customerName = CO.Client.FullName (),
+                                addedBy = CO.CreatedByNavigation.FullName (),
+                                dateAdded = CO.DateAdded,
+                                dateUpdated = CO.DateUpdated,
+                                description = CO.Description,
+                                orderStatus = CO.OrderStatus,
+                                status = CO.PurchaseOrderDetail.Sum (d => d.ProductionOrderList.FinishedProduct.Count () + d.BookedStockItems.Count ()),
 
                         })
 
@@ -139,6 +141,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     totalProducts = (uint) order.itemCount
                 };
                 var sum = 0;
+                var orderStatus = "";
+                Console.WriteLine ($"Invoiced Amount {order.invoicedAmount} - paid amount {order.invoicePaid} -- shipment count {order.totalShipment}");
                 foreach (var item in order.detail) {
                     salesOrder.description = item.description;
                     salesOrder.createdBy = item.addedBy;
@@ -147,13 +151,16 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     salesOrder.dateUpdated = (DateTime) item.dateUpdated;
                     salesOrder.status = item.orderStatus;
                     sum += item.status;
+                    orderStatus = item.orderStatus;
 
                 }
-
-                if (sum < 0) {
+                orderStatus = (orderStatus == null) ? "Confirmed" : orderStatus;
+                if (sum == 0 && orderStatus.ToUpper () == "CONFIRMED") {
                     salesOrder.status = "Pending";
                 } else if (sum == order.totalQuantity) {
-                    salesOrder.status = "Ready";
+                    salesOrder.status = "Ready for Shipment";
+                } else if(orderStatus.ToUpper () != "CONFIRMED" ) {
+                    salesOrder.status = orderStatus;
                 } else {
                     salesOrder.status = "In production";
                 }

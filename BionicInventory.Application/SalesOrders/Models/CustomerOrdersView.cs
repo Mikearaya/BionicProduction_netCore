@@ -16,10 +16,10 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public string customerName { get; set; }
         public string createdBy { get; set; }
         public string description { get; set; }
-        public uint totalQuantity { get; set; }
-        public uint totalProducts {get; set;}
-        public float totalPrice { get; set; }
-        public double totalCost { get; set; }
+        public uint? totalQuantity { get; set; }
+        public uint? totalProducts {get; set;}
+        public double? totalPrice { get; set; }
+        public double? totalCost { get; set; }
         public DateTime? createdOn { get; set; }
         public string status { get; set; }
         public DateTime? deliveryDate {get; set;}
