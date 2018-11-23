@@ -142,7 +142,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                 };
                 var sum = 0;
                 var orderStatus = "";
-                Console.WriteLine ($"Invoiced Amount {order.invoicedAmount} - paid amount {order.invoicePaid} -- shipment count {order.totalShipment}");
+            
                 foreach (var item in order.detail) {
                     salesOrder.description = item.description;
                     salesOrder.createdBy = item.addedBy;

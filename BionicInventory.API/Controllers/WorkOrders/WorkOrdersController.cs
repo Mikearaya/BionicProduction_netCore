@@ -55,7 +55,7 @@ namespace BionicInventory.API.Controllers.WorkOrders {
         [ProducesResponseType (200, Type = typeof (IEnumerable<WorkOrderView>))]
         [ProducesResponseType (500)]
         public IActionResult GetAllWorkOrders (String type = "ALL", uint salesOrderItemId = 0) {
-            try {
+         
                 Object orders = null;
                 if (type.ToUpper () == "PENDING") {
                     if(salesOrderItemId != 0) {
@@ -75,13 +75,9 @@ namespace BionicInventory.API.Controllers.WorkOrders {
                     return StatusCode (200, orders);
 
                 } else {
-                    return StatusCode (500);
+                    return StatusCode (500, orders);
                 }
 
-            } catch (Exception e) {
-                _logger.LogError (500, e.Message, e);
-                return StatusCode (500, e.Message);
-            }
         }
 
         [HttpGet ("{id}")]
