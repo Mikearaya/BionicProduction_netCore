@@ -78,6 +78,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using NSwag.AspNetCore;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -130,6 +131,8 @@ namespace BionicInventory.API {
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 
+            services.AddSwaggerDocument ();
+
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
                     builder => builder.WithOrigins ("http://localhost:4200").AllowAnyMethod ().AllowAnyHeader ());
@@ -158,6 +161,10 @@ namespace BionicInventory.API {
             app.UseCors ("AllowAllOrigins");
 
             app.UseMvc ();
+            app.UseSwagger ();
+            app.UseSwaggerUi3 (settings => {
+                settings.ServerUrl = "/swagger/v1/swagger.json";
+            });
 
         }
     }
