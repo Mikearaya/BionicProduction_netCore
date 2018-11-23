@@ -30,13 +30,18 @@ export const salesOrderBluePrint = [
     editable: true, allowGrouping: true, dataType: 'TextBox', isIdentity: false, width: '40', visable : false,
   },
   {
-    key: 'totalQuantity', humanReadable: 'Quantity', primaryKey: false, type: 'number',
-    allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'status', humanReadable: 'Status', primaryKey: false, allowGrouping: true, type: 'string',
+    editable: true, dataType: 'TextBox',
     isIdentity: false, width: '30'
   },
   {
-    key: 'totalProducts', humanReadable: '# Items', primaryKey: false, type: 'number',
-    allowGrouping: true, editable: true, dataType: 'TextBox',
+    key: 'invoiceStatus', humanReadable: 'Invoice Status', primaryKey: false, type: 'string',
+    allowGrouping: true, editable: true, dataType: 'textboxedit',
+    isIdentity: false, width: '28'
+  },
+  {
+    key: 'paymentStatus', humanReadable: 'Payment Status', primaryKey: false, type: 'string',
+    allowGrouping: true, editable: true, dataType: 'textboxedit',
     isIdentity: false, width: '28'
   },
   {
@@ -50,10 +55,11 @@ export const salesOrderBluePrint = [
     isIdentity: false, width: '25'
   },
   {
-    key: 'status', humanReadable: 'Status', primaryKey: false, allowGrouping: true, type: 'string',
-    editable: true, dataType: 'TextBox',
-    isIdentity: false, width: '30'
+    key: 'profit', humanReadable: 'Profit', primaryKey: false, type: 'number',
+    allowGrouping: true, editable: true, dataType: 'TextBox',
+    isIdentity: false, width: '30', visable: true
   },
+
   {
     key: 'dateAdded', humanReadable: 'Created', allowGrouping: true, format: 'yMd',
     primaryKey: false, editable: true, type: 'date', dataType: 'datetime',

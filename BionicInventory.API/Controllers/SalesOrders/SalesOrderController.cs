@@ -18,6 +18,7 @@ using BionicInventory.Commons;
 using BionicInventory.Domain.PurchaseOrders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using BionicInventory.Application.SalesOrders.Models.ReportModels;
 
 namespace BionicInventory.API.Controllers.SalesOrders {
 
@@ -131,7 +132,20 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpPut ("{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(422)]
+        [ProducesResponseType(500)]
         public ActionResult UpdateCustomerOrderStatus (uint id, [FromBody] StatusUpdateDto newStatus) {
+            if(newStatus == null) {
+                return StatusCode(400);
+            }
+
+            if(!ModelState.IsValid) {
+                return new InvalidInputResponse(ModelState);
+            }
+
             var customerOrder = _query.GetSalesOrderById (id);
             if (customerOrder == null) {
                 return StatusCode (404, $"Customer Order With id: {id} Not Found");
@@ -147,7 +161,10 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpGet ("reports")]
-        public ActionResult GetSalesReport (string type = "YEARLY") {
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public ActionResult<MonthlySalesReportModel> GetSalesReport (string type = "YEARLY") {
             object reportObj = null;
             switch (type.ToUpper ()) {
                 case "YEARLY":

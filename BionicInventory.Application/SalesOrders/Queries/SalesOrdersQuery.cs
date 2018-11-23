@@ -118,6 +118,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         invoicedAmount = order.Sum (i => i.Invoice.Sum (o => o.InvoiceDetail.Sum (id => (double?) id.Quantity * id.UnitPrice))),
                         invoicePaid = order.Sum (i => i.Invoice.Sum (o => o.InvoicePayments.Sum (id => id.Amount))),
                         totalShipment = order.Sum (p => p.Shipment.Sum (s => s.ShipmentDetail.Count ())),
+                        inProductionAmount = order.Sum (o => o.PurchaseOrderDetail.Sum (d => d.ProductionOrderList.Quantity)),
+                        bookedQuantity = order.Sum (o => o.PurchaseOrderDetail.Sum (b => b.BookedStockItems.Count ())),
                         detail = order.Select (CO => new {
                             customerName = CO.Client.FullName (),
                                 addedBy = CO.CreatedByNavigation.FullName (),
@@ -125,7 +127,6 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 dateUpdated = CO.DateUpdated,
                                 description = CO.Description,
                                 orderStatus = CO.OrderStatus,
-                                status = CO.PurchaseOrderDetail.Sum (d => d.ProductionOrderList.FinishedProduct.Count () + d.BookedStockItems.Count ()),
 
                         })
 
@@ -138,11 +139,14 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     totalCost = order.totalCost,
                     totalPrice = order.totalPrice,
                     totalQuantity = (uint) order.totalQuantity,
-                    totalProducts = (uint) order.itemCount
+                    totalProducts = (uint) order.itemCount,
+                    profit = order.totalPrice - order.totalCost,
+                    invoiceStatus = IdentifyInvoiceStatus(order.totalQuantity, order.invoicedAmount),
+                    paymentStatus = IdentityPaymentStatus(order.totalPrice, order.invoicePaid)
                 };
-                var sum = 0;
+                var sum = order.bookedQuantity + order.inProductionAmount;
                 var orderStatus = "";
-            
+
                 foreach (var item in order.detail) {
                     salesOrder.description = item.description;
                     salesOrder.createdBy = item.addedBy;
@@ -150,26 +154,55 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     salesOrder.dateAdded = (DateTime) item.dateAdded;
                     salesOrder.dateUpdated = (DateTime) item.dateUpdated;
                     salesOrder.status = item.orderStatus;
-                    sum += item.status;
                     orderStatus = item.orderStatus;
 
                 }
-                orderStatus = (orderStatus == null) ? "Confirmed" : orderStatus;
-                if (sum == 0 && orderStatus.ToUpper () == "CONFIRMED") {
-                    salesOrder.status = "Pending";
-                } else if (sum == order.totalQuantity) {
-                    salesOrder.status = "Ready for Shipment";
-                } else if(orderStatus.ToUpper () != "CONFIRMED" ) {
-                    salesOrder.status = orderStatus;
-                } else {
-                    salesOrder.status = "In production";
-                }
+
+                salesOrder.status = IdentifyOrderStatus (orderStatus, sum, order.totalQuantity);
 
                 salesView.Add (salesOrder);
             }
 
             return salesView;
 
+        }
+
+        private string IdentifyOrderStatus (string status, double? totalBookedItems, double? orderQuantity) {
+            if (totalBookedItems == 0 && status.ToUpper () == "CONFIRMED") {
+                return "Pending";
+            } else if (totalBookedItems == orderQuantity) {
+                return "Ready for Shipment";
+            } else if (status.ToUpper () != "CONFIRMED") {
+                return "Confirmed";
+            } else {
+                return "In production";
+            }
+
+        }
+
+        private string IdentityPaymentStatus(double? totalPrice, double? paidAmount) {
+            double? paidPercent = (paidAmount/totalPrice) * 100;
+
+            if(paidPercent == 100) {
+                return "Paid";
+            } else if (paidAmount > 0) {
+                return $"Partially Paid {paidPercent} %";
+            } else {
+                return "Not Paid";
+            }
+        }
+
+        private string IdentifyInvoiceStatus (double? orderQuantity, double? invoicedQuantity) {
+
+            double? invoicedPercent = (invoicedQuantity / orderQuantity) * 100;
+    
+                if(invoicedPercent == 100) {
+                    return "Invoiced";
+                } else if (invoicedPercent > 0) {
+                    return $"Partially Invoiced {invoicedPercent} %";
+                } else {
+                    return "Not Invoiced";
+                }
         }
 
         //TODO remove duplicate function
