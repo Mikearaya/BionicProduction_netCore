@@ -88,6 +88,7 @@ this.customerOrder = new CustomerOrderDetailView();
 
   }
 
+  // used to show order status dropdown based on the status of customer order
   showDrobbox() {
 
     switch (this.customerOrder.status.toUpperCase()) {
@@ -163,7 +164,13 @@ this.customerOrder = new CustomerOrderDetailView();
     this.route.navigate([`shipments/${rowObj.data['id']}`]);
   }
 
+  deleteOrder(id: number): void {
 
+    this.salesOrderApi.deleteSalesOrder(id).subscribe(
+      (result) => alert('Customer Order Deleted Successfuly'),
+      this.handleError
+    );
+  }
   updateOrderStatus() {
     this.salesOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
       (result: boolean) => alert('Customer order Status updated Successfuly'),

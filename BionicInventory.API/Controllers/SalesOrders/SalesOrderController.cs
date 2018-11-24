@@ -13,12 +13,12 @@ using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
+using BionicInventory.Application.SalesOrders.Models.ReportModels;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.PurchaseOrders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BionicInventory.Application.SalesOrders.Models.ReportModels;
 
 namespace BionicInventory.API.Controllers.SalesOrders {
 
@@ -50,7 +50,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             _salesReportQuery = salesReportQuery;
         }
 
-        [HttpGet]
+        [HttpGet ()]
         [ProducesResponseType (200, Type = typeof (IEnumerable<CustomerOrdersView>))]
         [ProducesResponseType (500)]
         public IActionResult GetAllSalesOrders (int pageNumber = 1, int pageSize = 10) {
@@ -132,18 +132,18 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpPut ("{id}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(422)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
         public ActionResult UpdateCustomerOrderStatus (uint id, [FromBody] StatusUpdateDto newStatus) {
-            if(newStatus == null) {
-                return StatusCode(400);
+            if (newStatus == null) {
+                return StatusCode (400);
             }
 
-            if(!ModelState.IsValid) {
-                return new InvalidInputResponse(ModelState);
+            if (!ModelState.IsValid) {
+                return new InvalidInputResponse (ModelState);
             }
 
             var customerOrder = _query.GetSalesOrderById (id);
@@ -161,9 +161,9 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpGet ("reports")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(500)]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (500)]
         public ActionResult<MonthlySalesReportModel> GetSalesReport (string type = "YEARLY") {
             object reportObj = null;
             switch (type.ToUpper ()) {
@@ -179,6 +179,27 @@ namespace BionicInventory.API.Controllers.SalesOrders {
 
             return StatusCode (200, reportObj);
 
+        }
+
+        [HttpDelete ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public ActionResult DeleteCustomerOrder (uint id) {
+
+            var customerOrder = _query.GetSalesOrderById (id);
+
+            if (customerOrder == null) {
+                return StatusCode (404);
+            }
+
+            var result = _command.DeleteSalesOrders (customerOrder);
+
+            if (result == false) {
+                return StatusCode (500, "Unknown Error occured while deleting customer order");
+            }
+
+            return StatusCode (204);
         }
 
     }

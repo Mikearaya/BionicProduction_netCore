@@ -4,8 +4,8 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-4">
-            <button ejs-button class="e-danger e-small" (click)="updateOrderStatus()">Save Change</button>
-            <button ejs-button class="e-danger e-small" disabled="true">Delete</button>
+            <button ejs-button class="e-success e-small" (click)="updateOrderStatus()">Save Change</button>
+            <button ejs-button class="e-danger e-small" (click)="deleteOrder(customerOrder?.id)">Delete</button>
           </div>
         </div>
         <div class="row">
@@ -19,8 +19,7 @@
               <dd *ngIf="!showDrobbox()">{{customerOrder?.status}}</dd>
               <dd *ngIf="showDrobbox()">
 
-                <ejs-dropdownlist id='ddlelement' formControlName="statusInput"
-                  [dataSource]='orderStatus' placeholder='Select a game'></ejs-dropdownlist>
+                <ejs-dropdownlist id='ddlelement' formControlName="statusInput" [dataSource]='orderStatus' placeholder='Select a game'></ejs-dropdownlist>
               </dd>
               <dt>Delivery Date</dt>
               <dd> {{customerOrder?.deliveryDate}}</dd>
@@ -44,7 +43,7 @@
                 </e-column>
                 <e-column [commands]="customerOrderCommands" [customAttributes]="infoGridAttributes">
                   <ng-template #headerTemplate>
-                    <button ejs-button (click)="addNewOrderItem()"  iconCss="e-icons e-add " class="e-link e-large"></button>
+                    <button ejs-button (click)="addNewOrderItem()" iconCss="e-icons e-add " class="e-link e-large"></button>
                   </ng-template>
                 </e-column>
               </e-columns>
