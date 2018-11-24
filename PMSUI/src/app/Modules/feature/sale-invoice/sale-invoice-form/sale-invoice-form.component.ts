@@ -208,7 +208,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
 
   initializeForm(data: CustomerOrder) {
     this.saleInvoiceForm = this.formBuilder.group({
-      customerOrderId: [data.Id ? data.Id : '', Validators.required],
+      customerOrderId: [data.Id, Validators.required],
       customerId: [data.ClientId, Validators.required],
       invoiceType: ['', Validators.required],
       createdBy: ['', Validators.required],

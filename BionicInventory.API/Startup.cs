@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 21, 2018 9:36 PM
+ * @Last Modified Time: Nov 24, 2018 10:21 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -135,7 +135,7 @@ namespace BionicInventory.API {
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
-                    builder => builder.WithOrigins ("http://localhost:4200").AllowAnyMethod ().AllowAnyHeader ());
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod ().AllowAnyHeader ());
             });
             services.AddMvc (
                 options => {

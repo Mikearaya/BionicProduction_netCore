@@ -18,13 +18,14 @@ import { Router } from '@angular/router';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { salesOrderBluePrint } from './sale-order-view-blue-print';
 import { closest } from '@syncfusion/ej2-base';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-sale-order-view',
   templateUrl: './sale-order-view.component.html',
   styleUrls: ['./sale-order-view.component.css']
 })
-export class SaleOrderViewComponent implements OnInit {
+export class SaleOrderViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
 
@@ -59,6 +60,7 @@ export class SaleOrderViewComponent implements OnInit {
     @Inject('BASE_URL') private apiUrl: string,
     private salesOrderApi: SaleOrderApiService,
     private route: Router) {
+      super();
 
 
     this.pageSettings = { pageSize: 10 };
@@ -116,7 +118,8 @@ export class SaleOrderViewComponent implements OnInit {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.salesOrderApi.deleteSalesOrder(rowObj.data['id']).subscribe(
       succ => this.grid.refresh(),
-      err => console.log(err));
+      err => this.handleError
+    );
   }
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.

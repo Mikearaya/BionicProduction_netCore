@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 24, 2018 9:23 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 24, 2018 9:23 AM
+ * @Description: Modify Here, Please 
+ */
 using System.Collections.Generic;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
@@ -23,6 +31,7 @@ namespace BionicInventory.Application.SalesOrders.Commands {
 
         public bool DeleteSalesOrders (PurchaseOrder order) {
             _database.PurchaseOrder.Remove (order);
+            _database.Save();
             return true;
         }
 

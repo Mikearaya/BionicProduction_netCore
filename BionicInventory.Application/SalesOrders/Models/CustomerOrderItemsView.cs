@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 23, 2018 10:12 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 24, 2018 9:58 PM
+ * @Description: Modify Here, Please 
+ */
 
 using System;
 
@@ -10,6 +18,9 @@ namespace BionicInventory.Application.SalesOrders.Models {
         public uint id { get; set; }
         public int quantity {get; set;}
         public uint productId {get; set;}
+        public string CustomerName {get; set;}
+
+        
 
         public string productCode {get; set;}
         public string productName {get; set;}

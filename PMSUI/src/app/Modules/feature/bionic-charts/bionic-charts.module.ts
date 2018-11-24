@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 24, 2018 10:02 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 24, 2018 10:02 PM
+ * @Description: Modify Here, Please
+ */
 import { AnualSaleChartComponent } from './anual-sale-chart/anual-sale-chart.component';
 import { BionicChartsRoutingModule } from './bionic-charts-routing.module';
 import {
@@ -18,7 +26,6 @@ import {
 } from '@syncfusion/ej2-angular-charts';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ProductionStatusChartComponent } from './production-status-chart/production-status-chart.component';
 import { BionicChartService } from './bionic-chart.service';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
 import { SharedModule } from '../../shared/shared.module';
