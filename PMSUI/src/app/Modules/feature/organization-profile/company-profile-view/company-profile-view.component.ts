@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyProfileService } from '../company-profile.service';
 import { Router } from '@angular/router';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 
 @Component({
@@ -12,6 +13,8 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 })
 export class CompanyProfileViewComponent extends CommonProperties implements OnInit {
   public company: any;
+  @ViewChild('notification') notitfication: NotificationComponent;
+
   constructor(private companyProfileService: CompanyProfileService,
     private router: Router) {
     super();

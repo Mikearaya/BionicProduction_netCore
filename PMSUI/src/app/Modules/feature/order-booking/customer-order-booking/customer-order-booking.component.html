@@ -1,3 +1,4 @@
+<app-notification #notification></app-notification>
 <section class="e-card">
   <form [formGroup]="orderBookingForm" (ngSubmit)="onSubmit()">
     <div class="container-fluid">
@@ -13,7 +14,7 @@
         <div class="col-6 col-xs-12"></div>
       </div>
 
-        <div class="row">
+      <div class="row">
         <div class="col-12">
           <ejs-grid [dataSource]='data?.orderItems' #grid id='customerOrder' [rowHeight]='30' width=100% [enableHover]="false"
             [editSettings]='editSettings' (toolbarClick)='toolbarClick($event)' [allowExcelExport]='true'
@@ -26,36 +27,37 @@
 
           </ejs-grid>
         </div>
-    </div>
+      </div>
 
-    <div class="row">
-      <div class="col-12 text-left">
-        <div class="e-float-text">
-          <ejs-switch formControlName="createManufactureOrder" #createMO name="status"></ejs-switch> Create Manufacture Order
-          Form Missing Products
+      <div class="row">
+        <div class="col-12 text-left">
+          <div class="e-float-text">
+            <ejs-switch formControlName="createManufactureOrder" #createMO name="status"></ejs-switch> Create
+            Manufacture Order
+            Form Missing Products
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <ejs-dropdownlist [dataSource]="employeesList" formControlName="BookedBy"  [query]="employeeQuery" [fields]="employeeFields"
-        filterBarPlaceholder="Serch By Employee Name" placeholder="Ordered By" ></ejs-dropdownlist>
+      <div class="row">
+        <div class="col-12">
+          <ejs-dropdownlist [dataSource]="employeesList" formControlName="BookedBy" [query]="employeeQuery" [fields]="employeeFields"
+            filterBarPlaceholder="Serch By Employee Name" placeholder="Ordered By"></ejs-dropdownlist>
+        </div>
       </div>
-    </div>
-    <div class="row" *ngIf="createMO.checked">
-      <div class="col-6 col-xs-12">
-<ejs-datetimepicker placeholder="Work Start Date" formControlName="workStartDate"></ejs-datetimepicker>
+      <div class="row" *ngIf="createMO.checked">
+        <div class="col-6 col-xs-12">
+          <ejs-datetimepicker placeholder="Work Start Date" formControlName="workStartDate"></ejs-datetimepicker>
+        </div>
+        <div class="col-6 col-xs-12">
+          <ejs-datetimepicker placeholder="Work End Date" formControlName="workEndDate"></ejs-datetimepicker>
+        </div>
       </div>
-      <div class="col-6 col-xs-12">
-        <ejs-datetimepicker placeholder="Work End Date" formControlName="workEndDate"></ejs-datetimepicker>
+      <div class="row">
+        <div class="col submit-button-group">
+          <button type="button" class="e-danger" (click)="back()" ejs-button>Back</button>
+          <button type="submit" class="e-success" ejs-button>Book All Items </button>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col submit-button-group">
-        <button type="button" class="e-danger" (click)="back()" ejs-button>Back</button>
-        <button type="submit" class="e-success" ejs-button>Book All Items </button>
-      </div>
-    </div>
     </div>
     <code>
       form: {{orderBookingForm.value | json}}

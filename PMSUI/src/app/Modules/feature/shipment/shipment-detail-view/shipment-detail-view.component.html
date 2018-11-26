@@ -1,6 +1,6 @@
+<app-notification #notification></app-notification>
 <h5 class="text-left text-primary">Shipmet</h5>
 <section class="e-card">
-
   <div class="container">
     <div class="row ">
       <div class="col-8 col-xs-12">
@@ -19,7 +19,7 @@
           <dd>{{shipment?.status}}</dd>
         </ol>
         <button type="button" (click)="pickShipment()" id="pick-all-btn" class="e-primary" ejs-button [disabled]="shipment?.status == 'Picked'"
-        i18n="pick all items from inventory for shipment">
+          i18n="pick all items from inventory for shipment">
           Pick All Items </button>
       </div>
       <div class="col-4 col-xs-12">
@@ -40,6 +40,4 @@
       </div>
     </div>
   </div>
-
-
 </section>

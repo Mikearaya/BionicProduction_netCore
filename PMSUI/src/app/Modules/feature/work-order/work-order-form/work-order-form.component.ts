@@ -1,4 +1,12 @@
-import { Component, OnInit, ViewEncapsulation, Inject } from '@angular/core';
+/*
+ * @CreateTime: Nov 26, 2018 4:34 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 26, 2018 4:35 PM
+ * @Description: Modify Here, Please
+ */
+import { Component, OnInit, ViewEncapsulation, Inject, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import {
   CommandModel
@@ -6,10 +14,11 @@ import {
 import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../work-order-api.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { DataManager, Query, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
-import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ProductGetterService } from '../../../core/services/product-getter.service';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 
 @Component({
@@ -19,10 +28,12 @@ import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data
   encapsulation: ViewEncapsulation.None
 })
 
-export class WorkOrderFormComponent implements OnInit {
+export class WorkOrderFormComponent extends CommonProperties implements OnInit {
+
+  @ViewChild('notification')
+  private notification: NotificationComponent;
 
   public commands: CommandModel[];
-
   public employeeData: Object[];
   public idVisable: Boolean = false;
   public orderData: OrderModel;
@@ -32,15 +43,11 @@ export class WorkOrderFormComponent implements OnInit {
   public isUpdate: Boolean = false;
   public isFromCustomerOrder: Boolean = false;
   public isFromItem: Boolean = false;
-
   public workOrderForm: FormGroup;
-
   public employeeQuery: Query;
   public employeeFields: Object;
-
   public itemQuery: Query;
   public itemFields: Object;
-
   public itemsList: any[];
   public employeesList: any[];
   public today: Date;
@@ -52,6 +59,7 @@ export class WorkOrderFormComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private productApiService: ProductGetterService) {
+    super();
 
     this.createForm();
     this.today = new Date();
@@ -149,22 +157,19 @@ export class WorkOrderFormComponent implements OnInit {
       order.id = this.manufactureOrderId;
       this.workOrderApi.updateWorkOrder(this.manufactureOrderId, order)
         .subscribe((success: boolean) => {
+          this.notification.showMessage('Success!!!', 'Manufacture order updated Successfuly', 'Success');
           this.location.back();
-          alert('Work Order Created Successfully');
-
         },
-          (error: HttpErrorResponse) => console.log(error)
+          this.handleError
         );
     } else {
 
       this.workOrderApi.addWorkOrder(order).subscribe(
         (success: WorkOrderView) => {
+          this.notification.showMessage('Success', 'Manufacture order created Successfuly', 'success');
           this.location.back();
-          alert('Work Order Created Successfully');
-
-
         },
-        (error: HttpErrorResponse) => console.log(error)
+        this.handleError
       );
     }
   }

@@ -19,6 +19,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { closest } from '@syncfusion/ej2-base';
 import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -33,6 +34,8 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   public invoiceGrid: GridComponent;
   @ViewChild('shipmentGrid')
   public shipmentGrid: GridComponent;
+  @ViewChild('notification')
+  private notification: NotificationComponent;
 
   public columnBluePrint = customerOrderDetailBluePrint;
   public customerOrder: CustomerOrderDetailView;
@@ -57,7 +60,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
     private formBuilder: FormBuilder
   ) {
     super();
-this.customerOrder = new CustomerOrderDetailView();
+    this.customerOrder = new CustomerOrderDetailView();
     this.initializeOrderStatus();
 
     this.invoiceColumns = invoiceColumnBluePrint;
@@ -167,13 +170,13 @@ this.customerOrder = new CustomerOrderDetailView();
   deleteOrder(id: number): void {
 
     this.salesOrderApi.deleteSalesOrder(id).subscribe(
-      (result) => alert('Customer Order Deleted Successfuly'),
+      (_) => this.notification.showMessage('Completed Successfuly', 'Customer order Deleted Successfuly', 'success'),
       this.handleError
     );
   }
   updateOrderStatus() {
     this.salesOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
-      (result: boolean) => alert('Customer order Status updated Successfuly'),
+      (_) => this.notification.showMessage('Completed Successfuly', 'Customer order Updated Successfuly', 'success'),
       this.handleError
     );
 

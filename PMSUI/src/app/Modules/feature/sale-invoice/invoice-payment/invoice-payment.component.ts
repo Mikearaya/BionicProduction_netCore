@@ -3,12 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 12, 2018 1:17 AM
+ * @Last Modified Time: Nov 26, 2018 4:41 PM
  * @Description: Modify Here, Please
  */
 import { ActivatedRoute } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {
   DataManager,
   Query,
@@ -23,6 +23,7 @@ import {
   } from '@angular/forms';
 import { InvoicePayments, InvoicePaymentSummary } from '../sales-invoice-data-model';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 
 
@@ -32,7 +33,7 @@ import { SaleInvoiceApiService } from '../sale-invoice-api.service';
   styleUrls: ['./invoice-payment.component.css']
 })
 export class InvoicePaymentComponent extends CommonProperties implements OnInit {
-
+  @ViewChild('notification') notification: NotificationComponent;
   public paymentForm: FormGroup;
   public invoice: InvoicePaymentSummary;
   private invoiceId: number;
@@ -92,7 +93,7 @@ export class InvoicePaymentComponent extends CommonProperties implements OnInit 
   onSubmit(): void {
     const payment = this.prepareForm(this.paymentForm.value);
     this.saleInvoiceApi.addInvoicePayment(payment).subscribe(
-      (data: InvoicePayments) => alert('payment Added Successfuly'),
+      (data: InvoicePayments) => this.notification.showMessage('Success', 'Payment Saved Successfuly', 'success'),
       this.handleError
     );
   }

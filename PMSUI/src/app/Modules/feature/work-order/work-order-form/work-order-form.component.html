@@ -1,4 +1,6 @@
+<app-notification #notification></app-notification>
 <section class="e-card">
+
   <div class="text-center">
     <h3 class="text-info">Manufacture Order Form</h3>
   </div>
@@ -7,14 +9,15 @@
     <div class="container">
       <app-form-options [submitDisabled]="workOrderForm.invalid "></app-form-options>
       <div class="row">
-          <div class="col-2 col-xs-12">
-              <label for="itemId">Product</label>
-          </div>
+        <div class="col-2 col-xs-12">
+          <label for="itemId">Product</label>
+        </div>
         <div class="col-6 col-xs-12">
 
 
-        <ejs-dropdownlist [allowFiltering]="true" name="itemId" *ngIf="!isUpdate && !isFromCustomerOrder" formControlName="itemId" id="itemId"
-            placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery" [fields]="itemFields" [dataSource]="itemsList">
+          <ejs-dropdownlist [allowFiltering]="true" name="itemId" *ngIf="!isUpdate && !isFromCustomerOrder"
+            formControlName="itemId" id="itemId" placeholder="Select Item" floatLabelType="Auto" [query]="itemQuery"
+            [fields]="itemFields" [dataSource]="itemsList">
           </ejs-dropdownlist>
           <p *ngIf="isUpdate || isFromCustomerOrder">{{orderData?.productName}}-{{orderData?.product}}</p>
         </div>
@@ -36,7 +39,7 @@
           <ejs-dropdownlist [allowFiltering]="true" *ngIf="!isUpdate" name="orderedBy" formControlName="orderedBy" id='orderedBy'
             placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
             [dataSource]="employeesList"> </ejs-dropdownlist>
-            <p *ngIf="isUpdate" >{{orderData?.orderedBy}}</p>
+          <p *ngIf="isUpdate">{{orderData?.orderedBy}}</p>
 
         </div>
       </div>

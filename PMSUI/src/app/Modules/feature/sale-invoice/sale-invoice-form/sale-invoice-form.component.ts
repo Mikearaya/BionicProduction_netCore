@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { DataManager, WebApiAdaptor, Query, ReturnOption } from '@syncfusion/ej2-data';
@@ -10,6 +10,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { Location } from '@angular/common';
 import { CustomerOrderGetterApiService } from 'src/app/Modules/core/services/customer-order/customer-order-getter-api.service';
 import { FormValidators } from '@syncfusion/ej2-angular-inputs';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-sale-invoice-form',
@@ -18,6 +19,7 @@ import { FormValidators } from '@syncfusion/ej2-angular-inputs';
 })
 
 export class SaleInvoiceFormComponent extends CommonProperties implements OnInit {
+  @ViewChild('notification') notification: NotificationComponent;
   public saleInvoiceForm: FormGroup;
   public discount: number;
   public totalTax: number;
@@ -246,7 +248,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.saleInvoiceApi.createCustomerOrderInvoice(this.orderId, data)
       .subscribe(
         (result: Invoice) => {
-          alert('Invoice Created Successfuly');
+         this.notification.showMessage('Success', 'Invoice Created', 'Success');
           this.location.back();
         },
         this.handleError);

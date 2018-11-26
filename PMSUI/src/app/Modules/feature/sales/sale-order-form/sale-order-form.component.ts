@@ -6,7 +6,7 @@
  * @Last Modified Time: Nov 11, 2018 12:11 AM
  * @Description: Modify Here, Please
  */
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { SaleOrderApiService } from '../sale-order-api.service';
@@ -16,6 +16,7 @@ import { SalesOrder } from '../sales-data-model';
 import { Router } from '@angular/router';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -23,7 +24,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
   styleUrls: ['./sale-order-form.component.css']
 })
 export class SaleOrderFormComponent extends CommonProperties implements OnInit {
-
+  @ViewChild('notification') notification: NotificationComponent;
   public idVisable: Boolean = false;
   private orderData: SalesOrder;
   public salesOrderForm: FormGroup;
@@ -144,14 +145,13 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
     this.salesOrderApi.createSalesOrder(order).subscribe(
       (co: SalesOrder) => {
-        alert('Customer order added Successfuly');
+        this.notification.showMessage('Success', 'Customer order Created Successfuly', 'success');
         this.route.navigate([`sales/${co.Id}/booking`]);
 
       },
       this.handleError
     );
   }
-
 
   prepareFormData(form: any): SalesOrder {
     const order = new SalesOrder();

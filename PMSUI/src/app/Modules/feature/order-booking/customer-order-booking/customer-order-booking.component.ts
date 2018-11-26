@@ -9,15 +9,19 @@ import { BookingApiService } from '../booking-api.service';
 import { OrderBookingView, BookingModel } from '../order-booking-data';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataManager, WebApiAdaptor, Query, ReturnOption } from '@syncfusion/ej2-data';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-customer-order-booking',
   templateUrl: './customer-order-booking.component.html',
   styleUrls: ['./customer-order-booking.component.css']
 })
-export class CustomerOrderBookingComponent implements OnInit {
+export class CustomerOrderBookingComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
+  @ViewChild('notification')
+  private notification: NotificationComponent;
   public orderBookingForm: FormGroup;
   public data: OrderBookingView;
   public errors: Object[] = [];
@@ -39,6 +43,7 @@ export class CustomerOrderBookingComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private location: Location,
     @Inject('BASE_URL') private apiUrl: string) {
+    super();
 
     this.createForm();
 
@@ -104,7 +109,10 @@ export class CustomerOrderBookingComponent implements OnInit {
     console.log(args);
     const arr = this.products.controls[args].value;
 
-    this.bookingService.bookSingle(this.customerOrderId, arr as BookingModel).subscribe();
+    this.bookingService.bookSingle(this.customerOrderId, arr as BookingModel).subscribe(
+      (_) => this.notification.showMessage('Successfuly', 'Available Inventory Items booked successfuly !!!', 'success'),
+      this.handleError
+    );
   }
 
   toolbarClick(args: ClickEventArgs): void {
@@ -122,8 +130,8 @@ export class CustomerOrderBookingComponent implements OnInit {
     arr.customerOrderId = this.customerOrderId;
     this.bookingService.bookInBulck(arr)
       .subscribe(
-        (result: OrderBookingView) => alert('Order Items Booked Successfuly'),
-        error => console.error(error)
+        (_) => this.notification.showMessage('Completed Successfuly', 'Available Inventory items booked successfuly', 'success'),
+        this.handleError
       );
   }
 

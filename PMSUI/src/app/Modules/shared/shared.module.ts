@@ -10,6 +10,8 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DateTimePickerModule, DatePickerModule, DatePickerAllModule } from '@syncfusion/ej2-angular-calendars';
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DocumentEditorAllModule } from '@syncfusion/ej2-angular-documenteditor';
+import { NotificationComponent } from './notification/notification.component';
+import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 
 
 @NgModule({
@@ -28,11 +30,12 @@ import { DocumentEditorAllModule } from '@syncfusion/ej2-angular-documenteditor'
     DatePickerModule,
     DocumentEditorAllModule
   ],
-  declarations: [FormOptionsComponent],
+  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent],
   exports: [
     // angular
     ReactiveFormsModule,
     GridModule,
+    NotificationComponent,
     // syncfusion
     RadioButtonModule,
     FormOptionsComponent,

@@ -8,11 +8,13 @@
  */
 
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Employee, EmployeeApiService } from '../../../core/services/employees/employee-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 
 @Component({
@@ -20,8 +22,9 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './employee-form.component.html',
   styleUrls: ['./employee-form.component.css']
 })
-export class EmployeeFormComponent implements OnInit {
+export class EmployeeFormComponent extends CommonProperties implements OnInit {
   @Input('employee') employee: Employee;
+  @ViewChild('notification') notification: NotificationComponent;
   form: FormGroup;
   isUpdate: Boolean = false;
   employeeId: number;
@@ -31,12 +34,13 @@ export class EmployeeFormComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,
-              private activatedRoute: ActivatedRoute,
-              private employeeApiService: EmployeeApiService,
-              private router: Router) {
-              this.generateForm();
+    private activatedRoute: ActivatedRoute,
+    private employeeApiService: EmployeeApiService,
+    private router: Router) {
+    super();
+    this.generateForm();
 
-            }
+  }
 
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
@@ -46,7 +50,7 @@ export class EmployeeFormComponent implements OnInit {
       this.isUpdate = true;
       this.employeeApiService.getEmployeeById(this.employeeId).subscribe((employee: Employee) => this.generateForm(employee));
     }
-   }
+  }
 
   get employeeForm() { return this.form; }
 
@@ -65,49 +69,49 @@ export class EmployeeFormComponent implements OnInit {
       houseNumber: this.buildControl(currentEmployee.house_number, true),
       phoneNumber: this.buildControl(currentEmployee.phone_number, true)
     });
-}
+  }
 
-prepareDataModel(form: FormGroup): Employee {
-  const formModel = form.value;
-  const  dataModel: Employee =  {
-        EMPLOYEE_ID: (this.employeeId) ? this.employeeId : 0 ,
-        first_name: formModel.firstName,
-        last_name: formModel.lastName,
-        house_number: formModel.houseNumber,
-        sub_city: formModel.subCity,
-        country: formModel.country,
-        city: formModel.city,
-        phone_number: formModel.phoneNumber,
-        wereda: formModel.wereda
+  prepareDataModel(form: FormGroup): Employee {
+    const formModel = form.value;
+    const dataModel: Employee = {
+      EMPLOYEE_ID: (this.employeeId) ? this.employeeId : 0,
+      first_name: formModel.firstName,
+      last_name: formModel.lastName,
+      house_number: formModel.houseNumber,
+      sub_city: formModel.subCity,
+      country: formModel.country,
+      city: formModel.city,
+      phone_number: formModel.phoneNumber,
+      wereda: formModel.wereda
     };
-  return dataModel;
-}
+    return dataModel;
+  }
 
   private buildControl(value = '', required = false) {
-    return (required) ? [value , Validators.required] : value;
+    return (required) ? [value, Validators.required] : value;
   }
 
-onSubmit() {
-  this.employee = this.prepareDataModel(this.form);
-  if (this.isUpdate) {
-    this.employeeApiService.updateEmployee(this.employee)
-                                            .subscribe((success: Employee) => this.handelSuccess(success),
-                                                        (error: HttpErrorResponse) => this.handelError(error));
-  } else {
-    this.employeeApiService.addEmployee(this.employee)
-                                          .subscribe((success: Employee) => this.handelSuccess(success),
-                                                      (error: HttpErrorResponse) => this.handelError(error));
-  }
+  onSubmit() {
+    this.employee = this.prepareDataModel(this.form);
+    if (this.isUpdate) {
+      this.employeeApiService.updateEmployee(this.employee)
+        .subscribe((success: Employee) => this.notification.showMessage('Success !!!', 'Customer Information Updated', 'success'),
+          (error: HttpErrorResponse) => this.handelError);
+    } else {
+      this.employeeApiService.addEmployee(this.employee)
+        .subscribe((success: Employee) => this.notification.showMessage('Success !!!', 'Customer Information Updated', 'success'),
+          (error: HttpErrorResponse) => this.handelError);
+    }
   }
 
 
   handelSuccess(result: Employee) {
     this.errorMessages = [];
-}
+  }
 
 
-handelError(error: HttpErrorResponse) {
-  this.errorMessages = error.error;
-}
+  handelError(error: HttpErrorResponse) {
+    this.errorMessages = error.error;
+  }
 
 }

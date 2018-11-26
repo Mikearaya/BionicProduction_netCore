@@ -1,10 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { ShipmentApiService } from '../../../core/services/shipment/shipment-api.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { ShipmentItems, ShipmentViewDetail, Shipment } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { Query, DataManager, WebApiAdaptor, ReturnOption } from '@syncfusion/ej2-data';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-shipment-form',
@@ -12,6 +13,8 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
   styleUrls: ['./shipment-form.component.css']
 })
 export class ShipmentFormComponent extends CommonProperties implements OnInit {
+  @ViewChild('notification')
+  private notification: NotificationComponent;
   public shipmentForm: FormGroup;
   public orderList: Object[];
   public orderQuery: Query;
@@ -115,8 +118,8 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
     const shipment: Shipment = this.prepateData();
     this.shipmentApi.createNewShipment(shipment).subscribe(
       (data: Shipment) => {
-        alert('Shipment Created Successfuly');
-        this.router.navigate([`shipments/${data.id}`]);
+        this.notification.showMessage('Completed Successfuly', 'Shipment Created  Successfuly', 'success'),
+          this.router.navigate([`shipments/${data.id}`]);
       },
       this.handleError
     );

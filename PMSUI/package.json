@@ -1,5 +1,5 @@
 {
-  "name": "pmsui",
+  "name": "bionic_mrp",
   "version": "0.1.0",
   "scripts": {
     "ng": "ng",
@@ -30,6 +30,7 @@
     "@syncfusion/ej2-angular-inputs": "^16.3.18",
     "@syncfusion/ej2-angular-lists": "^16.3.30",
     "@syncfusion/ej2-angular-navigations": "^16.3.30",
+    "@syncfusion/ej2-angular-notifications": "^16.3.34",
     "@syncfusion/ej2-angular-popups": "^16.3.30",
     "@syncfusion/ej2-layouts": "^16.3.30",
     "@syncfusion/ej2-notifications": "^16.3.31",

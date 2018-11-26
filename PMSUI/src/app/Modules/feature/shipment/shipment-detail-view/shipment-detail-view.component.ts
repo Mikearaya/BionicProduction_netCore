@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ShipmentApiService } from 'src/app/Modules/core/services/shipment/shipment-api.service';
 import { ShipmentView } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { shipmentDetailBluePrint } from '../shipment-view/shipment-view-blue-print';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-shipment-detail-view',
@@ -12,6 +13,8 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 })
 
 export class ShipmentDetailViewComponent extends CommonProperties implements OnInit {
+  @ViewChild('notitfication')
+  private notification: NotificationComponent;
   private shipmentId: number;
   public shipment: ShipmentView;
   public columnBluePrint = shipmentDetailBluePrint;
@@ -37,7 +40,7 @@ export class ShipmentDetailViewComponent extends CommonProperties implements OnI
 
   pickShipment() {
     this.shipmentApi.pickAllShipmentItems(this.shipmentId).subscribe(
-      (data) => alert('Shipment Items picked successfuly'),
+      (_) => this.notification.showMessage('Picked Successfuly', 'Items picked from inventory successfuly', 'success'),
       this.handleError
     );
 
