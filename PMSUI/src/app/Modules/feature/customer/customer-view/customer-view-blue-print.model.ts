@@ -1,5 +1,5 @@
 export const customerViewColumnsBluePrint = [
-  { key: 'id', humanReadable: 'ID', primaryKey: true, isIdentity: true, width: '20' },
+  { key: 'id', humanReadable: 'ID', primaryKey: true, isIdentity: true, width: '30' },
   {
     key: 'fullName', humanReadable: 'Name', dataType: 'TextBox',
     isIdentity: false, visable: true

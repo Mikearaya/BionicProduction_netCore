@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace BionicInventory.Application.Customers.Models.Addresses {
     public class CustomerAddressDto {
 
-        public uint? Id { get; set; }
+        public uint? Id { get; set; } = 0;
 
         [Required]
         public string Location { get; set; }

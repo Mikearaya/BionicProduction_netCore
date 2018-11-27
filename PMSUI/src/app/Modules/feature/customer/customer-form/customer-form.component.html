@@ -1,17 +1,18 @@
 <app-notification #notification></app-notification>
 <section>
-  <h4 class="form-title">Create New Customer</h4>
+  <h4 class="form-title" i18n="customer creation form header">Create New Customer</h4>
 
   <form id="customerForm" [formGroup]="customerForm" (ngSubmit)="onSubmit()">
-    <app-form-options [submitDisabled]="customerForm.invalid"></app-form-options>
+    <app-form-options [submitButtonText]="isUpdate ? 'Update' : 'Save'" [submitDisabled]="customerForm.invalid"></app-form-options>
     <div class="container e-card">
       <div class="row">
         <div class="col-6 col-xs-12">
           <div class="row">
-            <div class="col-3 col-xs-12 label-area" i18n="@@clientName">Client Name</div>
+            <div class="col-3 col-xs-12 label-area" i18n="@@customerName">Client Name</div>
             <div class="col-xs-12 col-9">
 
-              <input type="text" class="e-input" id="fullName" name="fullName" formControlName="fullName" required>
+              <input type="text" class="e-input" id="fullName" name="fullName" placeholder="Client Name"
+                i18n-placeholder="@@customerName" floatLabelType='Auto' formControlName="fullName" required>
               <div class="e-error" *ngIf="fullName.errors && fullName.touched" i18n>
                 Client Name is Required!
               </div>
@@ -21,8 +22,8 @@
             <div class="col-3 col-xs-12 label-area" i18n="@@customerType"> Client Type</div>
             <div class="col-xs-12 col-9">
               <div class="form-group template">
-                <ejs-dropdownlist [dataSource]="customerTypes" formControlName="type" id="customerType" placeholder="Client Type"
-                  i18n-placeholder="@@customerType">
+                <ejs-dropdownlist [dataSource]="customerTypes" formControlName="type" floatLabelType='Auto' id="customerType"
+                  placeholder="Client Type" i18n-placeholder="@@customerType">
                 </ejs-dropdownlist>
                 <div class="e-error" *ngIf="type.errors && type.touched" i18n>
                   Client Type is Required
@@ -35,8 +36,8 @@
 
             <div class="col-xs-12 col-9">
               <div class="form-group template">
-                <ejs-numerictextbox name="tinNo" class="e-input" id="tinNo" placeholder="TIN Number" i18n-placeholder="@@tinNo"
-                  formControlName="tinNo"> </ejs-numerictextbox>
+                <ejs-numerictextbox name="tinNo" format='#' class="e-input" id="tinNo" floatLabelType='Auto'
+                  placeholder="TIN Number" i18n-placeholder="@@tinNo" formControlName="tinNo"> </ejs-numerictextbox>
                 <div class="e-error" *ngIf="tinNo.errors">
                   <div *ngIf="tinNo.errors['min']" i18n="@@tinNoLength">Tin Number should consist 10 Characters</div>
                   <div *ngIf="tinNo.errors['max']" i18n="@@tinNoLength">Tin Number should consist 10 Characters</div>
@@ -47,15 +48,16 @@
           <div class="row">
             <div class="col-3 col-xs-12 label-area " i18n="@@creditLimit"> Credit Limit</div>
             <div class="col-xs-12 col-9">
-              <ejs-numerictextbox class="e-input" id="creditLimit" name="creditLimit" placeholder="Credit Limit"
-                i18n-placeholder="@@creditLimit" formControlName="creditLimit"> </ejs-numerictextbox>
+              <ejs-numerictextbox format='#.##' class="e-input" id="creditLimit" floatLabelType='Auto' name="creditLimit"
+                placeholder="Credit Limit" i18n-placeholder="@@creditLimit" formControlName="creditLimit">
+              </ejs-numerictextbox>
             </div>
           </div>
           <div class="row">
-            <div class="col-3 col-xs-12 label-area " i18n="@@creditLimit"> E-Mail</div>
+            <div class="col-3 col-xs-12 label-area " i18n="@@email"> E-Mail Address</div>
             <div class="col-xs-12 col-9">
-              <input class="e-input" type="email" id="email" name="email" placeholder="E-Mail Address" i18n-placeholder="@@email"
-                formControlName="email">
+              <input class="e-input" type="email" id="email" name="email" floatLabelType='Auto' placeholder="E-Mail Address"
+                floatLabelType='Auto' i18n-placeholder="@@email" formControlName="email">
               <div class="e-error" *ngIf="email.errors && email.touched">
                 <div *ngIf="email.errors['email']" i18n>Please Provide an valid email address</div>
               </div>
@@ -65,103 +67,20 @@
           <div class="row">
             <div class="col-3 col-xs-12 label-area" i18n="@@paymentPeriod">Payment Period in Days</div>
             <div class="col-xs-12 col-9">
-              <ejs-numerictextbox class="e-input" id="paymentPeriod" name="paymentPeriod" placeholder="Payment Period in Days"
-                i18n-placeholder="@@paymentPeriod" formControlName="paymentPeriod"> </ejs-numerictextbox>
+              <ejs-numerictextbox class="e-input" format="# Days" id="paymentPeriod" floatLabelType='Auto' name="paymentPeriod"
+                placeholder="Payment Period in Days" i18n-placeholder="@@paymentPeriod" formControlName="paymentPeriod">
+              </ejs-numerictextbox>
             </div>
           </div>
-          <h6 i18n class="e-header header">Telephone Addresses</h6>
 
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th i18n>
-                      Type
-                    </th>
-                    <th i18n>
-                      Number
-                    </th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="telephones">
-                  <tr *ngFor="let telephone of telephones.controls; let i=index; let last=last" [formGroup]="telephone">
-                    <td>
-                      <ejs-dropdownlist [dataSource]="phoneTypes" placeholder="Select Type" i18n-placeholder="phone number type (office/mobile)"
-                        formControlName="type" [attr.id]="'phone'+i" [attr.name]="'phone'+i">
-                      </ejs-dropdownlist>
-                    </td>
-                    <td>
-                      <ejs-numerictextbox formControlName="number" placeholder="Number" i18n-placeholder="phone number"
-                        [attr.id]="'phonenumber'+i" [attr.name]="'phonenumber'+i">
-                      </ejs-numerictextbox>
-                    </td>
-                    <td>
-                      <button ejs-button type="button" class="e-delete-icon e-icons e-round e-warning e-small" (click)="deletePhone(i)"></button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="2">&nbsp;</td>
-                    <td><button ejs-button type="button" (click)="addPhone()" i18n class="e-add-icon e-icons e-small e-primary"
-                        [disabled]="telephones.invalid">Add</button></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
-          <div class="row">
-            <h6 class="header e-header" i18n="social media form section header">Social Media Addresses</h6>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-striped">
-                <thead>
-                  <tr>
-                    <th i18n="social media site name">
-                      Site
-                    </th>
-                    <th i18n="social medeia address">
-                      Address
-                    </th>
-                    <th>&nbsp;</th>
-                  </tr>
-                </thead>
-                <tbody formArrayName="socialMedias">
-                  <tr *ngFor="let social of socialMedias.controls; let i=index; let last=last" [formGroup]="social">
-                    <td>
-                      <ejs-dropdownlist [dataSource]="socialMediaList" placeholder="Select Site" i18n-placeholder="social media side selection options"
-                        formControlName="site" [attr.id]="'site'+i" [attr.name]="'site'+i"></ejs-dropdownlist>
-                    </td>
-                    <td>
-                      <input type="text" class="e-input" placeholder="Address" i18n-placeholder="social media address"
-                        formControlName="address" [attr.id]="'address'+i" [attr.name]="'address'+i">
-
-                    </td>
-                    <td>
-                      <button ejs-button type="button" class="e-delete-icon e-round e-warning e-small" (click)="deleteSocialAddress(i)"></button>
-                    </td>
-                  </tr>
-                </tbody>
-                <tfoot>
-                  <tr>
-                    <td colspan="2">&nbsp;</td>
-                    <td><button ejs-button type="button" i18n (click)="addSocialAddress()" class="e-add-icon e-icons e-small e-primary"
-                        [disabled]="socialMedias.invalid" i18n="@@add">Add</button></td>
-                  </tr>
-                </tfoot>
-              </table>
-            </div>
-          </div>
 
         </div>
-        <div class="col-6 col-xs-12"></div>
+
       </div>
-      <h6 class="header e-header ">Addesses</h6>
-      <div class="row" formArrayName="addresses">
-        <div class="col-12">
+
+      <div class="row e-card" formArrayName="addresses">
+        <h6 class="header e-header " i18n=" Client Addesses">Addesses</h6>
+        <div class="col-12 ">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -169,7 +88,8 @@
                 <th i18n="@@city"> City</th>
                 <th i18n="@@subCity">Sub-City</th>
                 <th i18n="@@location">Location</th>
-                <th>&nbsp;</th>
+                <th> <button type="button" ejs-button class="e-small e-primary" iconCss="e-icons e-add-icon" (click)="addAddress()"
+                    [disabled]="addresses.invalid" i18n="@@add">Add</button></th>
               </tr>
             </thead>
             <tbody>
@@ -192,25 +112,94 @@
                     placeholder="Enter Location">
                 </td>
                 <td>
-                  <button ejs-button type="button" (click)="removeAddress(i)" class="e-small e-round e-danger e-delete-icon e-icon"></button>
+                  <button ejs-button type="button" (click)="removeAddress(i)" iconCss="e-icons e-delete-icon" class="e-small e-round e-warning"></button>
                 </td>
               </tr>
             </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="4">
-                  &nbsp;
-                </td>
-                <td>
-                  <button type="button" ejs-button class="e-small e-primary" (click)="addAddress()" [disabled]="addresses.invalid"
-                    i18n="@@add">Add</button>
-                </td>
-              </tr>
-            </tfoot>
+
           </table>
         </div>
       </div>
+      <div class="row ">
+        <div class="col-6 col-xs-12 e-card">
+          <div class="row">
+            <h6 class="header e-header" i18n="social media form section header">Social Media Addresses</h6>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th i18n="social media site name">
+                  Site
+                </th>
+                <th i18n="social medeia address">
+                  Address
+                </th>
+                <th><button ejs-button type="button" i18n (click)="addSocialAddress()" iconCss="e-icons e-add-icon"
+                    class="e-small e-primary" [disabled]="socialMedias.invalid" i18n="@@add">Add</button></th>
+              </tr>
+            </thead>
+            <tbody formArrayName="socialMedias">
+              <tr *ngFor="let social of socialMedias.controls; let i=index; let last=last" [formGroup]="social">
+                <td>
+                  <ejs-dropdownlist [dataSource]="socialMediaList" placeholder="Select Site" i18n-placeholder="social media side selection options"
+                    formControlName="site" [attr.id]="'site'+i" [attr.name]="'site'+i"></ejs-dropdownlist>
+                </td>
+                <td>
+                  <input type="text" class="e-input" placeholder="Address" i18n-placeholder="social media address"
+                    formControlName="address" [attr.id]="'address'+i" [attr.name]="'address'+i">
+
+                </td>
+                <td>
+                  <button ejs-button type="button" iconCss="e-icons e-delete-icon" class="e-round e-warning e-small"
+                    (click)="deleteSocialAddress(i)"></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="col-6 col-xs-12 e-card">
+          <div class="row">
+            <h6 i18n class="e-header header">Telephone Addresses</h6>
+          </div>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th i18n>
+                  Type
+                </th>
+                <th i18n>
+                  Number
+                </th>
+                <th><button ejs-button type="button" (click)="addPhone()" iconCss="e-icons e-add-icon" i18n class="e-small e-primary"
+                    [disabled]="telephones.invalid">Add</button></th>
+              </tr>
+            </thead>
+            <tbody formArrayName="telephones">
+              <tr *ngFor="let telephone of telephones.controls; let i=index; let last=last" [formGroup]="telephone">
+                <td>
+                  <ejs-dropdownlist [dataSource]="phoneTypes" i18n-placeholder="phone number type (office/mobile)"
+                    formControlName="type" [attr.id]="'phone'+i" [attr.name]="'phone'+i">
+                  </ejs-dropdownlist>
+                </td>
+                <td>
+                  <ejs-numerictextbox format='#' formControlName="number" placeholder="Number" i18n-placeholder="phone number"
+                    [attr.id]="'phonenumber'+i" [attr.name]="'phonenumber'+i">
+                  </ejs-numerictextbox>
+                </td>
+                <td>
+                  <button ejs-button type="button" iconCss="e-icons e-delete-icon" class=" e-round e-warning e-small"
+                    (click)="deletePhone(i)"></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
     </div>
-    <app-form-options [submitDisabled]="customerForm.invalid"></app-form-options>
+    <app-form-options [submitButtonText]="isUpdate ? 'Update' : 'Save'" [submitDisabled]="customerForm.invalid"></app-form-options>
   </form>
 </section>

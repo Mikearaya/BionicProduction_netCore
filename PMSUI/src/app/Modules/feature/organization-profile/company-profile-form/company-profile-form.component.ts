@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CompanyProfileService } from '../company-profile.service';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 @Component({
   selector: 'app-company-profile-form',
@@ -12,7 +13,8 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
   styleUrls: ['./company-profile-form.component.css']
 })
 export class CompanyProfileFormComponent extends CommonProperties implements OnInit {
-
+  @ViewChild('notification')
+  private notification: NotificationComponent;
   public profileForm: FormGroup;
   private profileId: number;
 
@@ -67,8 +69,9 @@ export class CompanyProfileFormComponent extends CommonProperties implements OnI
     this.companyProfileService.updateCompanyProfile(this.profileId, form)
       .subscribe(
         (data: boolean) => {
+          this.notification.showMessage('Profile Updated', 'success');
           this.location.back();
-          alert('Company Profile Updated Successfully');
+
         },
         this.handleError
       );

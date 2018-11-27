@@ -31,16 +31,17 @@
   content: '\e993';
 }
 
-.e-delete-icon:before {
-content: '\e84e';
-}
 
 .e-plus-icon:before {
   content: '\e7f9';
 }
 
 .e-add-icon:before {
-  content: '\e7d5';
+  content: '\e823';
+}
+
+.e-delete-icon:before {
+  content: '\e825';
 }
 
 
@@ -48,4 +49,13 @@ content: '\e84e';
 dt {
   float: left;
   margin-right: 1em;
+}
+
+
+.e-save-icon::before {
+content: '\e98e';
+}
+
+.e-close-icon::before {
+  content: '\e208';
 }

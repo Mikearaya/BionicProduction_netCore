@@ -18,6 +18,10 @@ namespace BionicInventory.Application.Customers.Models {
         public string tin { set; get; }
         public string email { set; get; }
 
+        public int? paymentPeriod {get; set;}
+        public double? creditLimit {get; set;}
+        public string poBox {get; set;}
+        public double? taxAmount {get; set;}
         [Required]
         public string type { set; get; }
     }

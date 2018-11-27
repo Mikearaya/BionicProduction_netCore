@@ -3,14 +3,15 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 9:01 PM
+ * @Last Modified Time: Nov 27, 2018 8:39 PM
  * @Description: Modify Here, Please
  */
 export class Customer {
-  CUSTOMER_ID?: number;
+  id?: number;
   fullName: string;
   creditLimit?: number;
   paymentPeriod?: number;
+  tin?: string;
   type: string;
   fax?: string;
   poBox?: string;
@@ -21,6 +22,7 @@ export class Customer {
 }
 
 export class Address {
+  id?: number;
   location: string;
   subCity: string;
   city: string;
@@ -29,11 +31,13 @@ export class Address {
 }
 
 export class TelephoneAddress {
+  id?: number;
   type: string;
   number: string;
 }
 
 export class SocialMediaAddress {
+  id: number;
   site: string;
   address: string;
 }

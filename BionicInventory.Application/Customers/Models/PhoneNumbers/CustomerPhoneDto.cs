@@ -18,7 +18,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BionicInventory.Application.Customers.Models.PhoneNumbers {
     public class CustomerPhoneDto {
-        public uint? id { get; set; }
+        public uint? id { get; set; } = 0;
 
         [Required]
         public string type { get; set; }

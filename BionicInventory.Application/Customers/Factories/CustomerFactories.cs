@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 4:31 PM
+ * @Last Modified Time: Nov 27, 2018 9:09 PM
  * @Description: Customer Factory Class 
  */
 using System;
@@ -23,7 +23,7 @@ namespace BionicInventory.Application.Customers.Factories {
         public CustomerFactories (ILogger<CustomerFactories> logger) {
             _logger = logger;
         }
-        public Customer CustomerForCreation (NewCustomerModel customer) {
+        public Customer CustomerForCreation (NewCustomerDto customer) {
 
             try {
 
@@ -32,6 +32,8 @@ namespace BionicInventory.Application.Customers.Factories {
                     Tin = customer.tin,
                     Email = customer.email,
                     Type = customer.type,
+                    CreditLimit = customer.creditLimit,
+                    PaymentPeriod = customer.paymentPeriod
                 };
 
                 foreach (var item in customer.addresses) {
@@ -67,18 +69,51 @@ namespace BionicInventory.Application.Customers.Factories {
             }
         }
 
-        public Customer CustomerForUpdate (Customer old, UpdatedCustomerModel customer) {
-
+        public Customer CustomerForUpdate (Customer olds, UpdatedCustomerDto customer) {
             try {
+                Customer old = new Customer () {
+                    Id = customer.id,
+                    FullName = customer.FullName,
+                    Tin = customer.tin,
+                    Email = customer.email,
+                    Type = customer.type,
+                    CreditLimit = customer.creditLimit,
+                    PaymentPeriod = customer.paymentPeriod
+                };
 
-                old.FullName = customer.FullName;
+                foreach (var item in customer.telephones) {
+                    PhoneNumber phone = new PhoneNumber () {
+                        Id = (uint) item.id,
+                        Number = item.number,
+                        Type = item.type
+                    };
 
-                old.Tin = customer.tin;
-                old.Email = customer.email;
-                old.Type = customer.type;
+                    old.PhoneNumber.Add (phone);
+                }
+
+                foreach (var item in customer.socialMedias) {
+                    SocialMedia social = new SocialMedia () {
+                        Id = (uint) item.Id,
+                        Site = item.site,
+                        Address = item.address
+                    };
+
+                    old.SocialMedia.Add (social);
+                }
+
+                foreach (var item in customer.addresses) {
+                    Address address = new Address () {
+                        Id = (uint) item.Id,
+                        Country = item.Country,
+                        City = item.City,
+                        SubCity = item.SubCity,
+                        Location = item.Location
+                    };
+
+                    old.Address.Add (address);
+                }
 
                 return old;
-
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
 

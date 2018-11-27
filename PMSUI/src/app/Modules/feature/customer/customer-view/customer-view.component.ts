@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 11:02 PM
+ * @Last Modified Time: Nov 27, 2018 4:55 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
@@ -14,18 +14,24 @@ import { Router } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel, FilterSettingsModel
-  , EditSettingsModel, ToolbarItems, CommandModel, RowSelectEventArgs
+  , EditSettingsModel, ToolbarItems, CommandModel, RowSelectEventArgs, Column, IRow
 } from '@syncfusion/ej2-angular-grids';
 import { customerViewColumnsBluePrint } from './customer-view-blue-print.model';
+import { closest } from '@syncfusion/ej2-base';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 
 @Component({
   selector: 'app-customer-view',
   templateUrl: './customer-view.component.html'
 })
-export class CustomerViewComponent implements OnInit {
+export class CustomerViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
+
+  @ViewChild('notification')
+  private notification: NotificationComponent;
 
   public data: DataManager;
   public pageSettings: PageSettingsModel;
@@ -45,10 +51,11 @@ export class CustomerViewComponent implements OnInit {
     @Inject('BASE_URL') private apiUrl: string,
     private customerService: CustomerService,
     private route: Router) {
+    super();
     this.commands = [
       {
         buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editCustomer.bind(this) }
+          {  cssClass: 'e-flat', iconCss: 'e-edit e-icons',   click: this.editCustomer.bind(this) }
       }, {
         buttonOption:
           { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteCustomer.bind(this) }
@@ -82,12 +89,18 @@ export class CustomerViewComponent implements OnInit {
     this.data = this.dataManager;
   }
 
-  editCustomer(arg: Event): void {
+  editCustomer(args: Event): void {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.route.navigate([`customers/${rowObj.data['id']}/update`]);
 
   }
 
-  deleteCustomer(arg: Event): void {
-
+  deleteCustomer(args: Event): void {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.customerService.deleteCustomer(rowObj.data['id']).subscribe(
+      () => this.notification.showMessage('Client Deleted'),
+      this.handleError
+    );
   }
 
   rowSelected(args: RowSelectEventArgs) {

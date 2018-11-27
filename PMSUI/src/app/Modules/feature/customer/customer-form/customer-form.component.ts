@@ -5,9 +5,10 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';
-import { Customer } from 'src/app/Modules/core/DataModels/customer-data.model';
+import { Customer, TelephoneAddress, Address, SocialMediaAddress } from 'src/app/Modules/core/DataModels/customer-data.model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 
 
 @Component({
@@ -28,9 +29,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   isUpdate: Boolean = false;
   customerId: number;
   private customer: Customer;
-  private title: String = '';
-  private customerSelfContained: Boolean = false;
-  private redirected: String = 'false';
+
   errorMessages: any;
   constructor(private formBuilder: FormBuilder,
     private customerService: CustomerService,
@@ -45,19 +44,17 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
   ngOnInit() {
     this.customerId = + this.activatedRoute.snapshot.paramMap.get('customerId');
-    this.customerSelfContained = this.activatedRoute.snapshot.data['customerSelfContained'];
-    this.title = this.activatedRoute.snapshot.data['title'];
     if (this.customerId) {
       this.isUpdate = true;
-      this.customerService.getCustomerById(this.customerId).subscribe((customer: Customer) =>
-        this.generateForm(customer),
+      this.customerService.getCustomerById(this.customerId).subscribe(
+        (customer: Customer) => this.initializeForm(customer),
         this.handleError
       );
     }
   }
 
-  private generateForm(currentCustomer: any | Customer = '') {
-    this.customer = (currentCustomer) ? (<Customer>currentCustomer) : null;
+  private generateForm() {
+
     this.customerForm = this.formBuilder.group({
       fullName: ['', Validators.required],
       type: ['', Validators.required],
@@ -124,6 +121,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
   private createTelephoneRecord(): FormGroup {
     return this.formBuilder.group({
+      id: [0],
       type: ['', Validators.required],
       number: ['', [Validators.min(10)]], // TODO: create pattern for telephone
     });
@@ -131,6 +129,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
   private createSocialMedia(): FormGroup {
     return this.formBuilder.group({
+      id: [0],
       address: ['', Validators.required],
       site: ['', Validators.required],
     });
@@ -138,6 +137,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
   private createAddress(): FormGroup {
     return this.formBuilder.group({
+      id: [0],
       location: ['', Validators.required],
       city: ['', Validators.required],
       subCity: ['', Validators.required],
@@ -146,12 +146,76 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
     });
   }
 
+  private initializeForm(customer: Customer): void {
+
+    this.customerForm = this.formBuilder.group({
+      id: [customer.id, Validators.required],
+      fullName: [customer.fullName, Validators.required],
+      type: [customer.type, Validators.required],
+      tinNo: [customer.tin],
+      email: [customer.email, [Validators.email]],
+      paymentPeriod: [customer.paymentPeriod],
+      creditLimit: [customer.creditLimit],
+      fax: [customer.fax],
+      poBox: [customer.poBox],
+      telephones: this.formBuilder.array([]),
+      socialMedias: this.formBuilder.array([]),
+      addresses: this.formBuilder.array([])
+
+    });
+
+    customer.telephones.forEach(element => {
+      this.telephones.push(this.initializeTelephone(element));
+    });
+    customer.addresses.forEach(element => {
+      this.addresses.push(this.InitializeAddress(element));
+    });
+    customer.socialMedias.forEach(element => {
+      this.socialMedias.push(this.initializeSocialMedia(element));
+    });
+
+  }
+
+  private initializeTelephone(telNo: TelephoneAddress): FormGroup {
+    return this.formBuilder.group({
+      id: [telNo.id, Validators.required],
+      type: [telNo.type, Validators.required],
+      number: [telNo.number, Validators.required]
+    });
+  }
+
+  private InitializeAddress(address: Address): FormGroup {
+    return this.formBuilder.group({
+      id: [address.id, Validators.required],
+      location: [address.location, Validators.required],
+      city: [address.city, Validators.required],
+      subCity: [address.subCity, Validators.required],
+      country: [address.country, Validators.required],
+    });
+  }
+
+  private initializeSocialMedia(media: SocialMediaAddress): FormGroup {
+    return this.formBuilder.group({
+      id: [media.id, Validators.required],
+      address: [media.address, Validators.required],
+      site: [media.site, Validators.required],
+    });
+  }
+
   addPhone(): void {
     this.telephones.push(this.createTelephoneRecord());
   }
 
   deletePhone(index: number): void {
-    this.telephones.removeAt(index);
+    this.customerService.deleteCustomerPhone(this.customerId, (this.telephones.controls[index].value).id).subscribe(
+      () => this.notification.showMessage('Phone Number Deleted'),
+      (error: CustomErrorResponse) => {
+        this.notification.showMessage('Failed deleting Phone Number', 'error');
+        this.handleError(error);
+      },
+      () => this.telephones.removeAt(index)
+    );
+
   }
 
   addSocialAddress(): void {
@@ -159,16 +223,24 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   }
 
   deleteSocialAddress(index: number): void {
-    this.socialMedias.removeAt(index);
+    this.customerService.deleteCustomerSocialMediaAddress(this.customerId, (this.socialMedias.controls[index].value).id).subscribe(
+      () => this.notification.showMessage('Social Media Account Deleted'),
+      (error: CustomErrorResponse) => {
+        this.notification.showMessage('Failed deleting Social Media Account', 'error');
+        this.handleError(error);
+      },
+      () => this.socialMedias.removeAt(index)
+    );
   }
 
   prepareDataModel(): Customer {
     const formModel = this.customerForm.value;
     const dataModel: Customer = {
-      CUSTOMER_ID: this.customerId,
+      id: this.customerId,
       fullName: formModel.fullName,
       type: formModel.type,
       fax: formModel.fax,
+      tin: formModel.tinNo,
       poBox: formModel.poBox,
       creditLimit: formModel.creditLimit,
       paymentPeriod: formModel.paymentPeriod,
@@ -180,6 +252,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
     this.addresses.controls.forEach(element => {
       dataModel.addresses.push({
+        id: element.value.id,
         city: element.value.city,
         country: element.value.country,
         subCity: element.value.subCity,
@@ -189,6 +262,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
     this.socialMedias.controls.forEach(element => {
       dataModel.socialMedias.push({
+        id: element.value.id,
         site: element.value.site,
         address: element.value.address
       });
@@ -196,11 +270,12 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
 
     this.telephones.controls.forEach(element => {
       dataModel.telephones.push({
+        id: element.value.id,
         type: element.value.type,
         number: element.value.number
       });
     });
-    console.log(dataModel);
+
     return dataModel;
   }
 
@@ -232,7 +307,15 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   }
 
   removeAddress(index: number): void {
-    this.addresses.removeAt(index);
+
+    this.customerService.deleteCustomerAddress(this.customerId, (this.addresses.controls[index].value).id).subscribe(
+      () => this.notification.showMessage('Address Deleted'),
+      (error: CustomErrorResponse) => {
+        this.notification.showMessage('Failed deleting Address', 'error');
+        this.handleError(error);
+      },
+      () => this.addresses.removeAt(index)
+    );
   }
 
 

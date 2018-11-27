@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 8:54 PM
+ * @Last Modified Time: Nov 27, 2018 8:29 PM
  * @Description: Modify Here, Please
  */
 import { Observable } from 'rxjs';
@@ -33,11 +33,23 @@ export class CustomerService {
     return this.httpClient.post<Customer>(`${this.apiUrl}/${this.url}`, newCustomer);
   }
   updateCustomer(updatedCustomer: Customer): Observable<Boolean> {
-    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.url}/${updatedCustomer.CUSTOMER_ID}`, updatedCustomer);
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.url}/${updatedCustomer.id}`, updatedCustomer);
   }
 
   deleteCustomer(customerId: number): Observable<Boolean> {
     return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${customerId}`);
+  }
+
+  deleteCustomerAddress(customerId: number, addressId: number): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${customerId}/address/${addressId}`);
+  }
+
+  deleteCustomerPhone(customerId: number, phoneId: number): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${customerId}/phonenumber/${phoneId}`);
+  }
+
+  deleteCustomerSocialMediaAddress(customerId: number, socialId: number): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.url}/${customerId}/socialmedia/${socialId}`);
   }
 
 

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 3:21 PM
+ * @Last Modified Time: Nov 27, 2018 8:52 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ using BionicInventory.Application.Customers.Models.PhoneNumbers;
 using BionicInventory.Application.Customers.Models.SocialMedias;
 
 namespace BionicInventory.Application.Customers.Models {
-    public class NewCustomerModel : CustomerDto {
+    public class NewCustomerDto : CustomerDto {
 
-        public NewCustomerModel () {
+        public NewCustomerDto () {
             telephones = new List<CustomerPhoneDto> ();
             addresses = new List<CustomerAddressDto> ();
             socialMedias = new List<CustomerSocialMediaDto> ();

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 4:02 PM
+ * @Last Modified Time: Nov 27, 2018 8:53 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -46,49 +46,41 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpGet]
-        [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
-        public IActionResult GetAllCustomers () {
+        [ProducesResponseType (200)]
+        [ProducesResponseType (500)]
+        public ActionResult<IEnumerable<CustomerViewModel>> GetAllCustomers () {
 
             var data = _query.GetCustomerView ();
 
             return StatusCode (200, data);
         }
 
-        [HttpOptions]
-        [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
-        public IActionResult GetAll () {
-
-            var data = _query.GetAllCustomers ();
-
-            return StatusCode (200, data);
-        }
-
         [HttpGet ("{id}")]
-        [ProducesResponseType (200, Type = typeof (CustomerViewModel))]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
         [ProducesResponseType (404)]
-        public IActionResult GetCustomer (uint id) {
-            if (ModelState.IsValid) {
-
-                var customer = _query.GetCustomerById (id);
-
-                if (customer != null) {
-                    return Ok (customer);
-                } else {
-                    return NotFound ();
-                }
-
-            } else {
-                return StatusCode (422);
+        [ProducesResponseType (500)]
+        public ActionResult<CustomerViewModel> GetCustomer (uint id) {
+            if (id == 0) {
+                return StatusCode (400);
             }
+
+            var customer = _query.GetCustomerViewById (id);
+
+            if (customer != null) {
+                return StatusCode (200, customer);
+            }
+
+            return NotFound ();
 
         }
 
         [HttpPost]
-        [ProducesResponseType (201, Type = typeof (CustomerViewModel))]
+        [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult AddNewCustomer ([FromBody] NewCustomerModel data) {
+        public ActionResult<CustomerViewModel> AddNewCustomer ([FromBody] NewCustomerDto data) {
             try {
                 if (data == null) {
                     return StatusCode (400);
@@ -119,7 +111,7 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult UpdateEmployeeRecord (uint? id, [FromBody] UpdatedCustomerModel updatedData) {
+        public ActionResult UpdateEmployeeRecord (uint id, [FromBody] UpdatedCustomerDto updatedData) {
 
             try {
                 if (updatedData == null) {
@@ -130,10 +122,10 @@ namespace BionicInventory.API.Controllers.Customers {
                     return new InvalidInputResponse (ModelState);
                 }
 
-                var customer = _query.GetCustomerById (updatedData.id);
+                var customer = _query.GetCustomerById (id);
 
                 if (customer == null) {
-                    return StatusCode (404);
+                    return StatusCode (404, $"Customer with id: {id} Not Found ");
                 }
 
                 if (_command.Update (customer, updatedData)) {
@@ -153,7 +145,7 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public IActionResult DeleteSingleCustomer (uint id) {
+        public ActionResult DeleteSingleCustomer (uint id) {
 
             try {
 
@@ -163,20 +155,99 @@ namespace BionicInventory.API.Controllers.Customers {
                 var customer = _query.GetCustomerById (id);
 
                 if (customer == null) {
-                    return StatusCode (404);
+                    return StatusCode (404, $"Customer with id: {id} Not Found !!!");
                 }
 
                 if (_command.Delete (customer)) {
                     return StatusCode (204);
-                } else {
-                    return StatusCode (500, "Something Wrong Happened Try Again");
                 }
+
+                return StatusCode (500, "Something Wrong Happened Try Again");
 
             } catch (Exception e) {
                 _logger.LogError (500, e.StackTrace, e.Message);
                 return StatusCode (500, e.Message);
             }
 
+        }
+
+        
+        [HttpDelete ("{customerId}/address/{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public ActionResult DeleteCustomerAddress(uint customerId, uint id) {
+
+                if(customerId == 0 || id == 0) {
+                    return StatusCode(400);
+                }
+
+                var address = _query.GetCustomerAddress(customerId, id);
+
+                if(address == null) {
+                    return StatusCode(404, $"Customer address with id: {id} Not Found!!!");
+                }
+
+                var result = _command.DeleteCustomerAddress(address);
+
+                if(result == false) {
+                    return StatusCode(500);
+                }
+
+                return StatusCode(204);
+        }
+
+        [HttpDelete ("{customerId}/socialMedia/{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public ActionResult DeleteCustomerSocialMediaAddress(uint customerId, uint id) {
+
+                if(customerId == 0 || id == 0) {
+                    return StatusCode(400);
+                }
+
+                var socialAddress = _query.GetCustomerSocialAddress(customerId, id);
+
+                if(socialAddress == null) {
+                    return StatusCode(404, $"Customer social media address with id: {id} Not Found!!!");
+                }
+
+                var result = _command.DeleteCustomerSocialAddress(socialAddress);
+
+                if(result == false) {
+                    return StatusCode(500);
+                }
+
+                return StatusCode(204);
+        }
+
+        [HttpDelete ("{customerId}/phonenumber/{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public ActionResult DeleteCustomerPhoneNumber(uint customerId, uint id) {
+
+                if(customerId == 0 || id == 0) {
+                    return StatusCode(400);
+                }
+
+                var phoneNumber = _query.GetCustomerPhone(customerId, id);
+
+                if(phoneNumber == null) {
+                    return StatusCode(404, $"Customer Phone Number with id: {id} Not Found!!!");
+                }
+
+                var result = _command.DeleteCustomerPhone(phoneNumber);
+
+                if(result == false) {
+                    return StatusCode(500);
+                }
+
+                return StatusCode(204);
         }
 
     }
