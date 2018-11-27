@@ -41,7 +41,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         totalQuantity = order.Sum (itemQuantity => itemQuantity.Quantity),
 
                         detail = order.Select (CO => new {
-                            customerName = CO.PurchaseOrder.Client.FullName (),
+                            customerName = CO.PurchaseOrder.Client.FullName,
                                 createdBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
                                 dateAdded = CO.PurchaseOrder.DateAdded,
                                 dateUpdated = CO.PurchaseOrder.DateUpdated,
@@ -121,7 +121,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         inProductionAmount = order.Sum (o => o.PurchaseOrderDetail.Sum (d => d.ProductionOrderList.Quantity)),
                         bookedQuantity = order.Sum (o => o.PurchaseOrderDetail.Sum (b => b.BookedStockItems.Count ())),
                         detail = order.Select (CO => new {
-                            customerName = CO.Client.FullName (),
+                            customerName = CO.Client.FullName,
                                 addedBy = CO.CreatedByNavigation.FullName (),
                                 dateAdded = CO.DateAdded,
                                 dateUpdated = CO.DateUpdated,

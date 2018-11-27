@@ -42,7 +42,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;port=3306;password=admin;");
             }
         }
 
@@ -68,6 +68,10 @@ namespace BionicProduction.Migration.Database
                     .HasColumnName("country")
                     .HasColumnType("varchar(45)")
                     .HasDefaultValueSql("'Ethiopia'");
+
+                entity.Property(e => e.Location)
+                    .HasColumnName("location")
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.PhoneNumber)
                     .HasColumnName("phone_number")
@@ -200,6 +204,10 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.CreditLimit)
+                    .HasColumnName("credit_limit")
+                    .HasDefaultValueSql("'0'");
+
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
                     .HasColumnType("datetime")
@@ -215,20 +223,23 @@ namespace BionicProduction.Migration.Database
                     .HasColumnName("email")
                     .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasColumnName("first_name")
-                    .HasColumnType("varchar(20)");
+                entity.Property(e => e.Fax)
+                    .HasColumnName("fax")
+                    .HasColumnType("varchar(45)");
 
-                entity.Property(e => e.LastName)
+                entity.Property(e => e.FullName)
                     .IsRequired()
-                    .HasColumnName("last_name")
-                    .HasColumnType("varchar(20)");
+                    .HasColumnName("full_name")
+                    .HasColumnType("varchar(50)");
 
-                entity.Property(e => e.MainPhone)
-                    .IsRequired()
-                    .HasColumnName("main_phone")
-                    .HasColumnType("varchar(13)");
+                entity.Property(e => e.PaymentPeriod)
+                    .HasColumnName("payment_period")
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.PoBox)
+                    .HasColumnName("po_box")
+                    .HasColumnType("varchar(20)");
 
                 entity.Property(e => e.Tin)
                     .HasColumnName("TIN")
@@ -818,14 +829,13 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.DeliveryDate)
+                    .HasColumnName("delivery_date")
+                    .HasColumnType("datetime");
+
                 entity.Property(e => e.ShipmentNote)
                     .HasColumnName("shipment_note")
                     .HasColumnType("varchar(255)");
-
-                entity.Property(e => e.Status)
-                    .IsRequired()
-                    .HasColumnName("status")
-                    .HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.BookedByNavigation)
                     .WithMany(p => p.Shipment)
@@ -871,7 +881,7 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Picked)
                     .HasColumnName("picked")
-                    .HasColumnType("tinyint(1)")
+                    .HasColumnType("tinyint(4)")
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.ShipmentId).HasColumnName("SHIPMENT_ID");
@@ -901,8 +911,7 @@ namespace BionicProduction.Migration.Database
                 entity.ToTable("SOCIAL_MEDIA");
 
                 entity.HasIndex(e => e.ClientId)
-                    .HasName("CLIENT_ID_UNIQUE")
-                    .IsUnique();
+                    .HasName("fk_SOCIAL_MEDIA_customer_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -930,9 +939,10 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.Client)
-                    .WithOne(p => p.SocialMedia)
-                    .HasForeignKey<SocialMedia>(d => d.ClientId)
-                    .HasConstraintName("fk_SOCIAL_MEDIA_client");
+                    .WithMany(p => p.SocialMedia)
+                    .HasForeignKey(d => d.ClientId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_SOCIAL_MEDIA_customer");
             });
 
             modelBuilder.Entity<Tax>(entity =>

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 8, 2018 2:38 AM
+ * @Last Modified Time: Nov 27, 2018 4:02 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -49,10 +49,9 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (200, Type = typeof (ResponseDataFormat))]
         public IActionResult GetAllCustomers () {
 
-            var data = _query.GetAllCustomers ();
+            var data = _query.GetCustomerView ();
 
-            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>) _factory.CustomerForView (data));
-            return StatusCode (200, response);
+            return StatusCode (200, data);
         }
 
         [HttpOptions]
@@ -61,8 +60,7 @@ namespace BionicInventory.API.Controllers.Customers {
 
             var data = _query.GetAllCustomers ();
 
-            var response = _responseFactory.DataForPresentation ((List<CustomerViewModel>) _factory.CustomerForView (data));
-            return StatusCode (200, response);
+            return StatusCode (200, data);
         }
 
         [HttpGet ("{id}")]
@@ -84,7 +82,6 @@ namespace BionicInventory.API.Controllers.Customers {
             }
 
         }
-
 
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (CustomerViewModel))]

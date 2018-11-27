@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * @CreateTime: Nov 27, 2018 3:54 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 27, 2018 4:26 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -11,24 +19,25 @@ namespace BionicInventory.Domain.Customers {
             Address = new HashSet<Address> ();
             PhoneNumber = new HashSet<PhoneNumber> ();
             PurchaseOrder = new HashSet<PurchaseOrder> ();
+            SocialMedia = new HashSet<SocialMedia> ();
         }
 
         public uint Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string Tin { get; set; }
         public string Email { get; set; }
         public string Type { get; set; }
-        public string MainPhone { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public double? CreditLimit { get; set; }
 
-        public SocialMedia SocialMedia { get; set; }
+        public int? PaymentPeriod { get; set; }
+        public string Fax { get; set; }
+        public string PoBox { get; set; }
+
+        public ICollection<SocialMedia> SocialMedia { get; set; }
         public ICollection<Address> Address { get; set; }
         public ICollection<PhoneNumber> PhoneNumber { get; set; }
         public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
-        public string FullName() {
-            return FirstName+' '+LastName;
-        }
     }
 }

@@ -55,7 +55,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                     orderDate = pro.DateAdded,
                                     dueDate = pro.DueDate,
                                     total = pro.Quantity,
-                                    customer = (pro.PurchaseOrder != null) ? pro.PurchaseOrder.PurchaseOrder.Client.FullName () : "",
+                                    customer = (pro.PurchaseOrder != null) ? pro.PurchaseOrder.PurchaseOrder.Client.FullName : "",
                                     type = (pro.PurchaseOrderId == null) ? "Work-to-Stock" : "Work-to-Order"
                             })
                     })
@@ -145,7 +145,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                             dueDate = order.DueDate,
                             orderDate = order.DateAdded,
                             quantity = (int) order.Quantity,
-                            customer = (order.PurchaseOrder != null) ? order.PurchaseOrder.PurchaseOrder.Client.FullName () : "",
+                            customer = (order.PurchaseOrder != null) ? order.PurchaseOrder.PurchaseOrder.Client.FullName : "",
                             salesOrderItemId = order.PurchaseOrderId
 
                     }).FirstOrDefault ();
@@ -169,7 +169,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                             orderDate = po.DateAdded,
                             dueDate = po.DueDate,
                             quantity = (int) po.Quantity,
-                            customer = (po.PurchaseOrder != null) ? po.PurchaseOrder.Client.FullName () : "",
+                            customer = (po.PurchaseOrder != null) ? po.PurchaseOrder.Client.FullName : "",
 
                     })
                     .OrderByDescending (req => req.salesOrderId)
@@ -195,7 +195,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                     salesOrderItemId = po.Id,
                                     productName = po.Item.Name,
                                     orderDate = po.DateAdded,
-                                    customer = (po.PurchaseOrder != null) ? po.PurchaseOrder.Client.FullName () : "",
+                                    customer = (po.PurchaseOrder != null) ? po.PurchaseOrder.Client.FullName : "",
 
                             }).OrderByDescending (req => req.salesOrderId)
                     });

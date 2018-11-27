@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 11:38 PM
+ * @Last Modified Time: Nov 27, 2018 4:20 PM
  * @Description: Customer Command Class
  */
 
@@ -63,7 +63,7 @@ namespace BionicInventory.Application.Customers.Commands {
             try {
 
                 var customer = _factory.CustomerForUpdate (oldCustomer, updatedCustomer);
-                _database.Customer.Add (customer).State = EntityState.Modified;
+                _database.Customer.Update (customer).State = EntityState.Modified;
                 _database.Save ();
                 return true;
 

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Sep 15, 2018 11:30 PM
+ * @Last Modified Time: Nov 27, 2018 4:10 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
+using BionicInventory.Application.Customers.Models;
 using BionicInventory.Domain.Customers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -26,10 +27,10 @@ namespace BionicInventory.Application.Customers.Queries {
             _logger = logger;
         }
         public IList<Customer> GetAllCustomers () {
-            
+
             try {
 
-                return _database.Customer.AsNoTracking ().ToList ();
+                return _database.Customer.ToList ();
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
@@ -48,5 +49,20 @@ namespace BionicInventory.Application.Customers.Queries {
                 return null;
             }
         }
+
+        List<CustomerViewModel> ICustomersQuery.GetCustomerView () {
+
+            return _database.Customer.Select (cus => new CustomerViewModel () {
+                id = cus.Id,
+                    fullName = cus.FullName,
+                    email = cus.Email,
+                    type = cus.Type,
+                    tin = cus.Tin,
+                    DateAdded = cus.DateAdded,
+                    DateUpdated = cus.DateUpdated
+
+            }).ToList ();
+        }
+
     }
 }
