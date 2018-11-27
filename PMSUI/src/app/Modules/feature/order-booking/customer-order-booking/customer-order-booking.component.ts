@@ -110,7 +110,7 @@ export class CustomerOrderBookingComponent extends CommonProperties implements O
     const arr = this.products.controls[args].value;
 
     this.bookingService.bookSingle(this.customerOrderId, arr as BookingModel).subscribe(
-      (_) => this.notification.showMessage('Successfuly', 'Available Inventory Items booked successfuly !!!', 'success'),
+      (_) => this.notification.showMessage('Available Inventory Items booked successfuly !!!', 'success'),
       this.handleError
     );
   }
@@ -124,13 +124,11 @@ export class CustomerOrderBookingComponent extends CommonProperties implements O
   }
 
   onSubmit(): void {
-
     const arr = this.orderBookingForm.value;
-    console.log(arr);
     arr.customerOrderId = this.customerOrderId;
     this.bookingService.bookInBulck(arr)
       .subscribe(
-        (_) => this.notification.showMessage('Completed Successfuly', 'Available Inventory items booked successfuly', 'success'),
+        (_) => this.notification.showMessage( 'Available Inventory items booked successfuly', 'success'),
         this.handleError
       );
   }

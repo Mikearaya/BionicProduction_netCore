@@ -3,19 +3,20 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:52 PM
+ * @Last Modified Time: Nov 26, 2018 11:02 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 
-import { CustomerService, Customer } from '../../../core/services/customers/customer.service';
+import { CustomerService } from '../../../core/services/customers/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel, FilterSettingsModel
   , EditSettingsModel, ToolbarItems, CommandModel, RowSelectEventArgs
 } from '@syncfusion/ej2-angular-grids';
+import { customerViewColumnsBluePrint } from './customer-view-blue-print.model';
 
 
 @Component({
@@ -35,43 +36,37 @@ export class CustomerViewComponent implements OnInit {
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  public customerViewColumns = [
-    { key: 'id', humanReadable: 'ID', primaryKey: true, editable: false, isIdentity: true },
-    {
-      key: 'firstName', humanReadable: 'First Name', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity: false
-    },
-    {
-      key: 'lastName', humanReadable: 'Last Name', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity: false
-    },
-    {
-      key: 'mainPhone', humanReadable: 'Telephone', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true }, isIdentity: false
-    },
-    {
-      key: 'type', humanReadable: 'Type', primaryKey: false, editable: true, dataType: 'dropdownedit',
-      validationRule: { required: true }, isIdentity: false
-    },
-    {
-      key: 'tin', humanReadable: 'TIN No.', primaryKey: false, editable: true, dataType: 'TextBox',
-      validationRule: { required: true, minLength: 10, maxLength: 10 }, isIdentity: false
-    },
-    { key: 'email', humanReadable: 'E-Mail', primaryKey: false, editable: true, dataType: 'TextBox', isIdentity: false }
-  ];
+  public customerViewColumns = customerViewColumnsBluePrint;
+  customAttributes: { class: string; };
+  filterOptions: { type: string; };
 
 
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
     private customerService: CustomerService,
     private route: Router) {
+    this.commands = [
+      {
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editCustomer.bind(this) }
+      }, {
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteCustomer.bind(this) }
+      }];
 
+    this.customAttributes = { class: 'custom-grid-header' };
+    this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
 
     this.pageSettings = { pageSize: 6 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
-    this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'ColumnChooser'];
-    this.commands = [{ type: 'Edit', buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons' } },
-    { type: 'Delete', buttonOption: { cssClass: 'e-flat', iconCss: 'e-delete e-icons' } }];
+    this.toolbar = [
+      'Add',
+      'Print',
+      'ExcelExport',
+      'PdfExport',
+      'Search',
+      'ColumnChooser'
+    ];
 
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
 
@@ -79,14 +74,20 @@ export class CustomerViewComponent implements OnInit {
 
   public dataManager: DataManager = new DataManager({
     url: `${this.apiUrl}/customers`,
-    updateUrl: `${this.apiUrl}/customers`,
-    insertUrl: `${this.apiUrl}/customers`,
-    removeUrl: `${this.apiUrl}/customers`,
-    adaptor: new WebApiAdaptor
+    adaptor: new WebApiAdaptor,
+    offline: true
   });
 
   ngOnInit(): void {
     this.data = this.dataManager;
+  }
+
+  editCustomer(arg: Event): void {
+
+  }
+
+  deleteCustomer(arg: Event): void {
+
   }
 
   rowSelected(args: RowSelectEventArgs) {
@@ -94,30 +95,26 @@ export class CustomerViewComponent implements OnInit {
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
-  clickHandler(args: ClickEventArgs): void {
-
-    if (args.item.id === 'customer_add') {
-
-    } else if (args.item.id === 'customer_update') {
-
-    } else if (args.item.id === 'customer_delete') {
-
-    }
-    if (args.item.id === 'expandall') {
-      this.grid.groupModule.expandAll();
-    }
-
-    if (args.item.id === 'collapseall') {
-      this.grid.groupModule.collapseAll();
-    }
-  }
-
-
   toolbarClick(args: ClickEventArgs): void {
-    if (args.item.id === 'customer_excelexport') {
-      this.grid.excelExport();
+
+    switch (args.item.id) {
+      case 'customer_add':
+        this.route.navigate([`customers/new`]);
+        break;
+      case 'customer_pdfexport':
+        this.grid.pdfExport();
+        break;
+      case 'customer_excelexport':
+        this.grid.excelExport();
+        break;
+      case 'customer_print':
+        this.grid.print();
+        break;
     }
+
   }
+
+
 
 }
 

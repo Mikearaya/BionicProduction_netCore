@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 4:35 PM
+ * @Last Modified Time: Nov 26, 2018 10:23 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewEncapsulation, Inject, ViewChild } from '@angular/core';
@@ -157,7 +157,7 @@ export class WorkOrderFormComponent extends CommonProperties implements OnInit {
       order.id = this.manufactureOrderId;
       this.workOrderApi.updateWorkOrder(this.manufactureOrderId, order)
         .subscribe((success: boolean) => {
-          this.notification.showMessage('Success!!!', 'Manufacture order updated Successfuly', 'Success');
+          this.notification.showMessage('Manufacture order updated Successfuly');
           this.location.back();
         },
           this.handleError
@@ -166,7 +166,7 @@ export class WorkOrderFormComponent extends CommonProperties implements OnInit {
 
       this.workOrderApi.addWorkOrder(order).subscribe(
         (success: WorkOrderView) => {
-          this.notification.showMessage('Success', 'Manufacture order created Successfuly', 'success');
+          this.notification.showMessage('Manufacture order created Successfuly');
           this.location.back();
         },
         this.handleError

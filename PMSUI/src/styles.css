@@ -27,6 +27,21 @@
 
 }
 
+.e-search:before {
+  content: '\e993';
+}
+
+.e-delete-icon:before {
+content: '\e84e';
+}
+
+.e-plus-icon:before {
+  content: '\e7f9';
+}
+
+.e-add-icon:before {
+  content: '\e7d5';
+}
 
 
 

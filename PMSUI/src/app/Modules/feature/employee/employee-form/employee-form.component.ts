@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 10, 2018 11:58 PM
+ * @Last Modified Time: Nov 26, 2018 10:21 PM
  * @Description: Modify Here, Please
  */
 
@@ -95,11 +95,11 @@ export class EmployeeFormComponent extends CommonProperties implements OnInit {
     this.employee = this.prepareDataModel(this.form);
     if (this.isUpdate) {
       this.employeeApiService.updateEmployee(this.employee)
-        .subscribe((success: Employee) => this.notification.showMessage('Success !!!', 'Customer Information Updated', 'success'),
+        .subscribe((success: Employee) => this.notification.showMessage('Customer Information Updated'),
           (error: HttpErrorResponse) => this.handelError);
     } else {
       this.employeeApiService.addEmployee(this.employee)
-        .subscribe((success: Employee) => this.notification.showMessage('Success !!!', 'Customer Information Updated', 'success'),
+        .subscribe((success: Employee) => this.notification.showMessage( 'Customer Information Updated'),
           (error: HttpErrorResponse) => this.handelError);
     }
   }

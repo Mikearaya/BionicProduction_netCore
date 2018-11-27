@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 22, 2018 3:15 PM
+ * @Last Modified Time: Nov 26, 2018 10:22 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
@@ -170,13 +170,13 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   deleteOrder(id: number): void {
 
     this.salesOrderApi.deleteSalesOrder(id).subscribe(
-      (_) => this.notification.showMessage('Completed Successfuly', 'Customer order Deleted Successfuly', 'success'),
+      (_) => this.notification.showMessage('Customer order Deleted Successfuly'),
       this.handleError
     );
   }
   updateOrderStatus() {
     this.salesOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
-      (_) => this.notification.showMessage('Completed Successfuly', 'Customer order Updated Successfuly', 'success'),
+      (_) => this.notification.showMessage('Customer order Updated Successfuly'),
       this.handleError
     );
 

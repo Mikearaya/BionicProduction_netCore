@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 4:41 PM
+ * @Last Modified Time: Nov 26, 2018 10:20 PM
  * @Description: Modify Here, Please
  */
 import { ActivatedRoute } from '@angular/router';
@@ -93,7 +93,7 @@ export class InvoicePaymentComponent extends CommonProperties implements OnInit 
   onSubmit(): void {
     const payment = this.prepareForm(this.paymentForm.value);
     this.saleInvoiceApi.addInvoicePayment(payment).subscribe(
-      (data: InvoicePayments) => this.notification.showMessage('Success', 'Payment Saved Successfuly', 'success'),
+      (data: InvoicePayments) => this.notification.showMessage( 'Payment Saved Successfuly'),
       this.handleError
     );
   }

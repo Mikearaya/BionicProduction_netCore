@@ -22,9 +22,9 @@ export class NotificationComponent implements OnInit {
     this.element.showCloseButton = true;
   }
 
-  showMessage(title: string, message: string, type: string): void {
+  showMessage(message: string, type: string = 'success'): void {
     let toastIndex = 0;
-    this.element.title = title;
+
     this.element.content = message;
     switch (type.toUpperCase()) {
       case 'SUCCESS':

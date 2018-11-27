@@ -40,7 +40,7 @@ export class ShipmentDetailViewComponent extends CommonProperties implements OnI
 
   pickShipment() {
     this.shipmentApi.pickAllShipmentItems(this.shipmentId).subscribe(
-      (_) => this.notification.showMessage('Picked Successfuly', 'Items picked from inventory successfuly', 'success'),
+      (_) => this.notification.showMessage('Items picked from inventory successfuly'),
       this.handleError
     );
 

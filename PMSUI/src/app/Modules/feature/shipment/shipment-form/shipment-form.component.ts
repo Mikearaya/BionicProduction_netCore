@@ -118,7 +118,7 @@ export class ShipmentFormComponent extends CommonProperties implements OnInit {
     const shipment: Shipment = this.prepateData();
     this.shipmentApi.createNewShipment(shipment).subscribe(
       (data: Shipment) => {
-        this.notification.showMessage('Completed Successfuly', 'Shipment Created  Successfuly', 'success'),
+        this.notification.showMessage('Shipment Created  Successfuly'),
           this.router.navigate([`shipments/${data.id}`]);
       },
       this.handleError

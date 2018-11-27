@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 15, 2018 2:34 AM
+ * @Last Modified Time: Nov 26, 2018 10:22 PM
  * @Description: Modify Here, Please
  */
 
@@ -20,7 +20,6 @@ import {
   FilterSettingsModel, EditSettingsModel, ToolbarItems, GroupSettingsModel,
   CommandModel, IRow, Column, QueryCellInfoEventArgs, RowSelectEventArgs, RowDataBoundEventArgs
 } from '@syncfusion/ej2-angular-grids';
-import { Tooltip } from '@syncfusion/ej2-popups';
 import { closest } from '@syncfusion/ej2-base';
 
 
@@ -117,18 +116,14 @@ export class WorkOrderViewComponent implements OnInit {
   }
   tooltip(args: QueryCellInfoEventArgs) {
     const cell = args.cell;
-    // const tooltip: Tooltip = new Tooltip({
-    // content: args.data[args.column.field].toString();
-    // }, cell)
   }
 
   dataBound() {
 
   }
+
   rowSelected(args: RowSelectEventArgs) {
     const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-
-    // alert(selectedrowindex); // To alert the selected row indexes.
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
@@ -154,7 +149,6 @@ export class WorkOrderViewComponent implements OnInit {
 
       this.route.navigate(['workorders/new']);
     } else if (args.item.id === 'workorder_edit') {
-      // console.log(args);
     } else if (args.item.id === 'workorder_delete') {
 
     }

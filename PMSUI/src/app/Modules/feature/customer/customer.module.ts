@@ -5,30 +5,27 @@ import { CustomerRoutingModule } from './customer-routing.module';
 
 import { CustomerViewComponent } from './customer-view/customer-view.component';
 
-import {
-    GridModule
-} from '@syncfusion/ej2-angular-grids';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-    imports: [
-        // application
-        CustomerRoutingModule,
-        // angular
-        CommonModule,
-        // syncfusion
-        GridModule,
-    ],
-    declarations: [
-        // application
-        CustomerFormComponent,
-        CustomerViewComponent],
-    providers: [
-        // application
-        // syncfusion
-    ],
-    exports: []
+  imports: [
+    // application
+    CustomerRoutingModule,
+    // angular
+    CommonModule,
+    SharedModule
+
+  ],
+  declarations: [
+    // application
+    CustomerFormComponent,
+    CustomerViewComponent],
+  providers: [
+    // application
+    // syncfusion
+  ],
+  exports: []
 
 })
 export class CustomerModule { }

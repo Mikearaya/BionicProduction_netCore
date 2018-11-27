@@ -1,9 +1,13 @@
-<ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowExcelExport]="true"
-  [toolbar]='toolbar' height='273px' id="customer" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)">
+<section class="e-card">
+<ejs-grid  #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowExcelExport]="true"
+  [toolbar]='toolbar'  [allowPdfExport]="true"
+  [allowReordering]="true" [allowResizing]="true" rowHeight="25" id="customer" (toolbarClick)='toolbarClick($event)' (rowSelected)="rowSelected($event)">
   <e-columns>
-    <e-column [isPrimaryKey]="col.primaryKey" *ngFor="let col of customerViewColumns" [validationRules]="col.validationRule"
-      [allowEditing]="col.editable" [field]='col.key' [isIdentity]="col.isIdentity" [headerText]='col.humanReadable'
+    <e-column [isPrimaryKey]="col.primaryKey" [customAttributes]="customAttributes" *ngFor="let col of customerViewColumns" [validationRules]="col.validationRule"
+      [allowEditing]="col.editable" [field]='col.key' [isIdentity]="col.isIdentity" [width]="col.width"
+      [visible]="col.visable" [headerText]='col.humanReadable'
       [editType]="col.dataType"></e-column>
-
+      <e-column [commands]="commands" [customAttributes]="customAttributes" width="40" > </e-column>
   </e-columns>
 </ejs-grid>
+</section>

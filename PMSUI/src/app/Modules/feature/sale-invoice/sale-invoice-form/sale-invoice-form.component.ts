@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Nov 26, 2018 10:20 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Nov 26, 2018 10:20 PM
+ * @Description: Modify Here, Please
+ */
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
@@ -248,7 +256,7 @@ export class SaleInvoiceFormComponent extends CommonProperties implements OnInit
     this.saleInvoiceApi.createCustomerOrderInvoice(this.orderId, data)
       .subscribe(
         (result: Invoice) => {
-         this.notification.showMessage('Success', 'Invoice Created', 'Success');
+          this.notification.showMessage('Invoice Created');
           this.location.back();
         },
         this.handleError);

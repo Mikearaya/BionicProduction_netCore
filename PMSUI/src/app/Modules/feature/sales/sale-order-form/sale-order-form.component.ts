@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:11 AM
+ * @Last Modified Time: Nov 26, 2018 10:22 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
@@ -145,7 +145,7 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
     this.salesOrderApi.createSalesOrder(order).subscribe(
       (co: SalesOrder) => {
-        this.notification.showMessage('Success', 'Customer order Created Successfuly', 'success');
+        this.notification.showMessage('Customer order Created Successfuly');
         this.route.navigate([`sales/${co.Id}/booking`]);
 
       },

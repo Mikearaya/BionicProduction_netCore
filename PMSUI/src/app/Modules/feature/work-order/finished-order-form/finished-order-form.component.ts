@@ -87,7 +87,7 @@ export class FinishedOrderFormComponent extends CommonProperties implements OnIn
 
     this.finishedProductsApi.addFinishedProduct(form).subscribe(
       (success) => {
-        this.notification.showMessage('Completed Successfuly', 'Products added to inventory Successfuly', 'success'),
+        this.notification.showMessage( 'Products added to inventory Successfuly'),
           this.location.back();
       },
       this.handleError
