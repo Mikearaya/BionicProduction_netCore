@@ -5,35 +5,30 @@ export const stockViewColumnBluePrint = [
   {
     key: 'itemId',
     humanReadable: 'ID',
-    align: 'left',
     visable: false,
     type: 'number',
     primaryKey: true,
     allowGrouping: true,
     editable: false,
     allowFiltering: false,
-    width: '20px',
+    width: '20',
     isIdentity: true,
-    format: ''
   },
   {
     key: 'itemCode',
     humanReadable: 'Code',
-    align: 'left',
     visable: true,
     type: 'string',
     primaryKey: false,
     allowGrouping: false,
     allowFiltering: true,
     editable: false,
-    width: '30px',
+    width: '30',
     isIdentity: false,
-    format: ''
   },
   {
     key: 'itemName',
     humanReadable: 'Description',
-    align: 'left',
     visable: true,
     type: 'string',
     allowFiltering: true,
@@ -42,12 +37,10 @@ export const stockViewColumnBluePrint = [
     editable: false,
     width: '40',
     isIdentity: false,
-    format: ''
   },
   {
     key: 'inStock',
     humanReadable: 'In Stock',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -61,7 +54,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'available',
     humanReadable: 'Available',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -75,7 +67,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'booked',
     humanReadable: 'Booked',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -88,7 +79,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'totalExpected',
     humanReadable: 'Total Expected',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -101,7 +91,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'expectedAvailable',
     humanReadable: 'Expected Available',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -114,7 +103,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'expectedBooked',
     humanReadable: 'Expected Booked',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -127,7 +115,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'averageCost',
     humanReadable: 'Avg. Cost',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,
@@ -141,7 +128,6 @@ export const stockViewColumnBluePrint = [
   {
     key: 'totalCost',
     humanReadable: 'Total Cost',
-    align: 'left',
     visable: true,
     type: 'number',
     allowFiltering: true,

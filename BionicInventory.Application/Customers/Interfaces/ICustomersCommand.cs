@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 8:46 PM
+ * @Last Modified Time: Nov 28, 2018 10:31 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Application.Customers.Models;
@@ -16,12 +16,12 @@ using BionicInventory.Domain.Customers.SocialMedias;
 namespace BionicInventory.Application.Customers.Interfaces {
     public interface ICustomersCommand {
         CustomerViewModel Create (NewCustomerDto customer);
-        bool Update (Customer oldCustomer,UpdatedCustomerDto customer);
+        bool UpdateCustomerData (Customer customer);
         bool Delete (Customer customer);
 
-        bool DeleteCustomerAddress(Address deletedAddress);
-        bool DeleteCustomerPhone(PhoneNumber deletedAddress);
+        bool DeleteCustomerAddress (Address deletedAddress);
+        bool DeleteCustomerPhone (PhoneNumber deletedAddress);
 
-        bool DeleteCustomerSocialAddress(SocialMedia deleteSocialAddress);
+        bool DeleteCustomerSocialAddress (SocialMedia deleteSocialAddress);
     }
 }

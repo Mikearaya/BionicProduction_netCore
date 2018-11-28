@@ -1,6 +1,7 @@
-<section class="e-card">
+<section >
+  <h6 class="header e-header">Completed Products</h6>
   <app-notification #notification></app-notification>
-  <form [formGroup]="finishedProductsForm" name="finishedProducts" novalidate (ngSubmit)="onSubmit()">
+  <form [formGroup]="finishedProductsForm" name="finishedProducts" novalidate (ngSubmit)="onSubmit()" class="e-card">
     <div class="container" formArrayName="submitionForm">
       <div class="row" *ngFor="let product of submitionForm.controls; let index=index; let last=last;" [formGroup]="product">
         <div class="col-2 col-xs-12">
@@ -32,12 +33,7 @@
         </div>
 
       </div>
-      <div class="row">
-        <div class="col-12 form-buttons">
-          <button ejs-button type="submit" [disabled]="finishedProductsForm.invalid"> Submit</button>
-          <button ejs-button type="button"> Cancel</button>
-        </div>
-      </div>
+      <app-form-options [submitDisabled]="finishedProductsForm.invalid"></app-form-options>
     </div>
   </form>
 

@@ -111,6 +111,22 @@ namespace BionicInventory.Application.Customers.Queries {
             }).FirstOrDefault (c => c.id == id);
         }
 
+        public bool IsPhoneUnique (string phoneNumber) {
+            var phone = _database.PhoneNumber
+                .Where (p => p.Number == phoneNumber)
+                .FirstOrDefault ();
+
+            return (phone == null) ? true : false;
+        }
+
+        public bool IsTinUnique (string tinNo) {
+            var tin = _database.Customer
+                .Where (c => c.Tin == tinNo)
+                .FirstOrDefault ();
+
+            return (tin == null) ? true : false;
+        }
+
         List<CustomerViewModel> ICustomersQuery.GetCustomerView () {
 
             return _database.Customer.Select (cus => new CustomerViewModel () {

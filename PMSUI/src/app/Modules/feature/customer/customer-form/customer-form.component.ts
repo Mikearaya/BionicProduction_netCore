@@ -31,6 +31,7 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   private customer: Customer;
 
   errorMessages: any;
+  errors: any;
   constructor(private formBuilder: FormBuilder,
     private customerService: CustomerService,
     private activatedRoute: ActivatedRoute,
@@ -207,14 +208,18 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   }
 
   deletePhone(index: number): void {
-    this.customerService.deleteCustomerPhone(this.customerId, (this.telephones.controls[index].value).id).subscribe(
-      () => this.notification.showMessage('Phone Number Deleted'),
-      (error: CustomErrorResponse) => {
-        this.notification.showMessage('Failed deleting Phone Number', 'error');
-        this.handleError(error);
-      },
-      () => this.telephones.removeAt(index)
-    );
+    if ((this.telephones.controls[index].value).id !== 0) {
+      this.customerService.deleteCustomerPhone(this.customerId, (this.telephones.controls[index].value).id).subscribe(
+        () => this.notification.showMessage('Phone Number Deleted'),
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed deleting Phone Number', 'error');
+          this.handleError(error);
+        },
+        () => this.telephones.removeAt(index)
+      );
+    } else {
+      this.telephones.removeAt(index);
+    }
 
   }
 
@@ -223,14 +228,18 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   }
 
   deleteSocialAddress(index: number): void {
-    this.customerService.deleteCustomerSocialMediaAddress(this.customerId, (this.socialMedias.controls[index].value).id).subscribe(
-      () => this.notification.showMessage('Social Media Account Deleted'),
-      (error: CustomErrorResponse) => {
-        this.notification.showMessage('Failed deleting Social Media Account', 'error');
-        this.handleError(error);
-      },
-      () => this.socialMedias.removeAt(index)
-    );
+    if ((this.socialMedias.controls[index].value).id !== 0) {
+      this.customerService.deleteCustomerSocialMediaAddress(this.customerId, (this.socialMedias.controls[index].value).id).subscribe(
+        () => this.notification.showMessage('Social Media Account Deleted'),
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed deleting Social Media Account', 'error');
+          this.handleError(error);
+        },
+        () => this.socialMedias.removeAt(index)
+      );
+    } else {
+      this.socialMedias.removeAt(index);
+    }
   }
 
   prepareDataModel(): Customer {
@@ -288,7 +297,11 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
           this.notification.showMessage('Customer Record Updated Successfuly', 'success');
           this.location.back();
         },
-        this.handleError
+        (error: CustomErrorResponse) => {
+          this.errors = (error.errorNumber === 422) ?
+            this.notification.showMessage('Failed updating customer duplicate data exists', 'error') : [];
+          this.handleError(error);
+        }
       );
     } else {
       this.customerService.addCustomer(this.customer).subscribe(
@@ -296,7 +309,11 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
           this.notification.showMessage('Customer Created Successfuly', 'success');
           this.location.back();
         },
-        this.handleError
+        (error: CustomErrorResponse) => {
+          this.errors = (error.errorNumber === 422) ? error.errorDetail : [];
+          this.notification.showMessage('Failed to Create Customer', 'error');
+          this.handleError(error);
+        }
       );
     }
   }
@@ -307,15 +324,20 @@ export class CustomerFormComponent extends CommonProperties implements OnInit {
   }
 
   removeAddress(index: number): void {
+    if ((this.addresses.controls[index].value).id !== 0) {
+      this.customerService.deleteCustomerAddress(this.customerId, (this.addresses.controls[index].value).id).subscribe(
+        () => this.notification.showMessage('Address Deleted'),
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed deleting Address', 'error');
+          this.handleError(error);
+        },
+        () => this.addresses.removeAt(index)
+      );
 
-    this.customerService.deleteCustomerAddress(this.customerId, (this.addresses.controls[index].value).id).subscribe(
-      () => this.notification.showMessage('Address Deleted'),
-      (error: CustomErrorResponse) => {
-        this.notification.showMessage('Failed deleting Address', 'error');
-        this.handleError(error);
-      },
-      () => this.addresses.removeAt(index)
-    );
+    } else {
+      this.addresses.removeAt(index);
+    }
+
   }
 
 

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 8:53 PM
+ * @Last Modified Time: Nov 28, 2018 10:50 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,12 +12,14 @@ using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
+using BionicInventory.Application.Shared;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Customers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.Customers {
@@ -97,7 +99,15 @@ namespace BionicInventory.API.Controllers.Customers {
                     return StatusCode (500, "Something Went Wrong please try again later");
                 }
 
-            } catch (Exception e) {
+            } catch (DuplicateTinException tinDuplicate) {
+                ModelState.AddModelError ("TIN No", tinDuplicate.Message);
+                return new InvalidInputResponse (ModelState);
+
+            } catch (DuplicatePhonenumberException phoneDuplicate) {
+                ModelState.AddModelError ("Telephone", phoneDuplicate.Message);
+                return new InvalidInputResponse (ModelState);
+
+                } catch (Exception e) {
                 _logger.LogError (500, e.StackTrace, e.Message);
                 return StatusCode (500, e.Message);
             }
@@ -111,7 +121,7 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public ActionResult UpdateEmployeeRecord (uint id, [FromBody] UpdatedCustomerDto updatedData) {
+        public ActionResult UpdateCustomerRecord (uint id, [FromBody] UpdatedCustomerDto updatedData) {
 
             try {
                 if (updatedData == null) {
@@ -128,14 +138,21 @@ namespace BionicInventory.API.Controllers.Customers {
                     return StatusCode (404, $"Customer with id: {id} Not Found ");
                 }
 
-                if (_command.Update (customer, updatedData)) {
+                var customerFactory = _factory.CustomerForUpdate (updatedData);
+                var result = _command.UpdateCustomerData (customerFactory);
+                if (result == true) {
                     return StatusCode (204);
                 } else {
                     return StatusCode (500, "Something Wrong Happened Try Again");
                 }
-            } catch (Exception e) {
+
+            } catch (DuplicatePhonenumberException e) {
+                ModelState.AddModelError ("Duplicate Phone", e.Message);
+                return new InvalidInputResponse (ModelState);
+
+                } catch (Exception e) {
                 _logger.LogError (500, e.StackTrace, e.Message);
-                return StatusCode (500, e.Message);
+                return StatusCode (500, "Unknown error occured");
             }
 
         }
@@ -171,31 +188,30 @@ namespace BionicInventory.API.Controllers.Customers {
 
         }
 
-        
         [HttpDelete ("{customerId}/address/{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public ActionResult DeleteCustomerAddress(uint customerId, uint id) {
+        public ActionResult DeleteCustomerAddress (uint customerId, uint id) {
 
-                if(customerId == 0 || id == 0) {
-                    return StatusCode(400);
-                }
+            if (customerId == 0 || id == 0) {
+                return StatusCode (400);
+            }
 
-                var address = _query.GetCustomerAddress(customerId, id);
+            var address = _query.GetCustomerAddress (customerId, id);
 
-                if(address == null) {
-                    return StatusCode(404, $"Customer address with id: {id} Not Found!!!");
-                }
+            if (address == null) {
+                return StatusCode (404, $"Customer address with id: {id} Not Found!!!");
+            }
 
-                var result = _command.DeleteCustomerAddress(address);
+            var result = _command.DeleteCustomerAddress (address);
 
-                if(result == false) {
-                    return StatusCode(500);
-                }
+            if (result == false) {
+                return StatusCode (500);
+            }
 
-                return StatusCode(204);
+            return StatusCode (204);
         }
 
         [HttpDelete ("{customerId}/socialMedia/{id}")]
@@ -203,25 +219,25 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public ActionResult DeleteCustomerSocialMediaAddress(uint customerId, uint id) {
+        public ActionResult DeleteCustomerSocialMediaAddress (uint customerId, uint id) {
 
-                if(customerId == 0 || id == 0) {
-                    return StatusCode(400);
-                }
+            if (customerId == 0 || id == 0) {
+                return StatusCode (400);
+            }
 
-                var socialAddress = _query.GetCustomerSocialAddress(customerId, id);
+            var socialAddress = _query.GetCustomerSocialAddress (customerId, id);
 
-                if(socialAddress == null) {
-                    return StatusCode(404, $"Customer social media address with id: {id} Not Found!!!");
-                }
+            if (socialAddress == null) {
+                return StatusCode (404, $"Customer social media address with id: {id} Not Found!!!");
+            }
 
-                var result = _command.DeleteCustomerSocialAddress(socialAddress);
+            var result = _command.DeleteCustomerSocialAddress (socialAddress);
 
-                if(result == false) {
-                    return StatusCode(500);
-                }
+            if (result == false) {
+                return StatusCode (500);
+            }
 
-                return StatusCode(204);
+            return StatusCode (204);
         }
 
         [HttpDelete ("{customerId}/phonenumber/{id}")]
@@ -229,25 +245,25 @@ namespace BionicInventory.API.Controllers.Customers {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public ActionResult DeleteCustomerPhoneNumber(uint customerId, uint id) {
+        public ActionResult DeleteCustomerPhoneNumber (uint customerId, uint id) {
 
-                if(customerId == 0 || id == 0) {
-                    return StatusCode(400);
-                }
+            if (customerId == 0 || id == 0) {
+                return StatusCode (400);
+            }
 
-                var phoneNumber = _query.GetCustomerPhone(customerId, id);
+            var phoneNumber = _query.GetCustomerPhone (customerId, id);
 
-                if(phoneNumber == null) {
-                    return StatusCode(404, $"Customer Phone Number with id: {id} Not Found!!!");
-                }
+            if (phoneNumber == null) {
+                return StatusCode (404, $"Customer Phone Number with id: {id} Not Found!!!");
+            }
 
-                var result = _command.DeleteCustomerPhone(phoneNumber);
+            var result = _command.DeleteCustomerPhone (phoneNumber);
 
-                if(result == false) {
-                    return StatusCode(500);
-                }
+            if (result == false) {
+                return StatusCode (500);
+            }
 
-                return StatusCode(204);
+            return StatusCode (204);
         }
 
     }

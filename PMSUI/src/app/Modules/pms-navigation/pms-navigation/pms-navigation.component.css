@@ -1,9 +1,3 @@
-#sidebar {
-  min-width: 200px;
-  max-width: 250px;
-  margin-right: 20px;
-  /* top layer */
-}
 
 h1 {
   color: #369;
@@ -20,17 +14,4 @@ h1 {
 }
 .main-content {
   margin: 1em;
-}
-
-div.wrapper {
-  background: honeydew;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: inline-block
-}
-
-
-div#head {
-  margin-left: 243.5px;
 }

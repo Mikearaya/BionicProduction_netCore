@@ -13,22 +13,24 @@ using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
 using BionicInventory.Domain.Customers.SocialMedias;
 
-namespace BionicInventory.Application.Customers.Interfaces.Query
-{
-    public interface ICustomersQuery
-    {
-        Customer GetCustomerById(uint customerId);
-        IList<Customer> GetAllCustomers();
+namespace BionicInventory.Application.Customers.Interfaces.Query {
+    public interface ICustomersQuery {
+        Customer GetCustomerById (uint customerId);
+        IList<Customer> GetAllCustomers ();
 
-        List<CustomerViewModel> GetCustomerView();
+        List<CustomerViewModel> GetCustomerView ();
 
-        CustomerViewModel GetCustomerViewById(uint id);
+        CustomerViewModel GetCustomerViewById (uint id);
 
-        Address GetCustomerAddress(uint customerId, uint id);
+        Address GetCustomerAddress (uint customerId, uint id);
 
-        PhoneNumber GetCustomerPhone(uint customerId, uint id);
+        PhoneNumber GetCustomerPhone (uint customerId, uint id);
 
-        SocialMedia GetCustomerSocialAddress(uint customerId, uint id);
+        SocialMedia GetCustomerSocialAddress (uint customerId, uint id);
+
+        bool IsPhoneUnique (string phoneNumber);
+
+        bool IsTinUnique (string tinNo);
     }
-    
+
 }

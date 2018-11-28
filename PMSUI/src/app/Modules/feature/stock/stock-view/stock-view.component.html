@@ -1,3 +1,4 @@
+<section class="e-card">
 <ejs-grid #grid id="finishedProducts"
                 [dataSource]='dataManager'
                 [allowGrouping]="allowGrouping"
@@ -16,7 +17,7 @@
                 [allowPdfExport]="allowPdfExport">
   <e-columns>
     <e-column *ngFor="let col of columnBluePrint"
-               [textAlign]="col.align"
+
               [width]="col.width"
               [allowEditing]="col.editable"
               [field]='col.key'
@@ -33,3 +34,4 @@
 
   </e-columns>
 </ejs-grid>
+</section>

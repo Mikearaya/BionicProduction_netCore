@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 27, 2018 9:07 PM
+ * @Last Modified Time: Nov 28, 2018 10:32 AM
  * @Description: Customer Command Class
  */
 
@@ -95,10 +95,8 @@ namespace BionicInventory.Application.Customers.Commands {
             }
         }
 
-        public bool Update (Customer oldCustomer, UpdatedCustomerDto updatedCustomer) {
-
-            var customer = _factory.CustomerForUpdate (oldCustomer, updatedCustomer);
-            _database.Customer.Update (customer);
+        public bool UpdateCustomerData (Customer updatedCustomer) {
+            _database.Customer.Update (updatedCustomer);
             _database.Save ();
             return true;
 

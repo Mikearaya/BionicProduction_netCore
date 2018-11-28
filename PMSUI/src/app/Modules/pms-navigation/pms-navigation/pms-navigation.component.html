@@ -1,9 +1,9 @@
 <div class="wrapper">
 
-  <ejs-sidebar id="sidebar" #sidebar [type]="type">
+  <ejs-sidebar id="sidebar" #sidebar [type]="type" class="e-accent">
 
-    <div id='treeparent'>
-      <ejs-treeview (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
+    <div id='treeparent' class="e-accent">
+      <ejs-treeview  class="e-accent" (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
     </div>
   </ejs-sidebar>
   <div id="head">
