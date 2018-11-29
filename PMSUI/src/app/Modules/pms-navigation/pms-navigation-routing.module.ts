@@ -11,7 +11,7 @@ const routes: Routes = [{
     { path: 'workorders', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'products', loadChildren: '../feature/products/products.module#ProductsModule' },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
-    { path: 'stock', loadChildren: '../feature/stock/stock.module#StockModule' },
+    { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'invoices', loadChildren: '../feature/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },

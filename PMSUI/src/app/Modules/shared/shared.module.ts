@@ -12,6 +12,8 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DocumentEditorAllModule } from '@syncfusion/ej2-angular-documenteditor';
 import { NotificationComponent } from './notification/notification.component';
 import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
+import { BionicDialogComponent } from './bionic-dialog/bionic-dialog.component';
+import { DialogModule } from '@syncfusion/ej2-angular-popups';
 
 
 @NgModule({
@@ -28,15 +30,17 @@ import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
     DropDownListModule,
     SwitchModule,
     DatePickerModule,
-    DocumentEditorAllModule
+    DocumentEditorAllModule,
+    DialogModule
   ],
-  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent],
+  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent,  BionicDialogComponent],
   exports: [
     // angular
     ReactiveFormsModule,
     GridModule,
     NotificationComponent,
     // syncfusion
+    BionicDialogComponent,
     RadioButtonModule,
     FormOptionsComponent,
     ButtonModule,
@@ -46,7 +50,8 @@ import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
     DropDownListModule,
     DateTimePickerModule,
     SwitchModule,
-    DatePickerModule
+    DatePickerModule,
+    DialogModule
 
   ],
   providers: []

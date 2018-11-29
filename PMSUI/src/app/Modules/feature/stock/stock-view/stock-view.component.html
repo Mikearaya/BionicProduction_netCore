@@ -1,5 +1,5 @@
 <section class="e-card">
-<ejs-grid #grid id="finishedProducts"
+<ejs-grid #grid id="stock"
                 [dataSource]='dataManager'
                 [allowGrouping]="allowGrouping"
                 [allowResizing]="allowResizing"
@@ -14,7 +14,8 @@
                 [groupSettings]='groupOptions'
                 [allowFiltering]="true"
                 [allowSorting]="allowSorting"
-                [allowPdfExport]="allowPdfExport">
+                [allowPdfExport]="allowPdfExport"
+                [editSettings]="editSettings">
   <e-columns>
     <e-column *ngFor="let col of columnBluePrint"
 

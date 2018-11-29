@@ -22,6 +22,7 @@ import { StockRoutingModule } from './stock-routing.module';
 import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
 import { StockApiService } from './stock-api.service';
 import { StockViewComponent } from './stock-view/stock-view.component';
+import { StockFormComponent } from './stock-form/stock-form.component';
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import { StockViewComponent } from './stock-view/stock-view.component';
   ],
   declarations: [
     // application
+    StockFormComponent,
     StockViewComponent,
     LowStockViewComponent
   ],

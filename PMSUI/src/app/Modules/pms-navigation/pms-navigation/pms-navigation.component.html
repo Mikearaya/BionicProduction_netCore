@@ -3,15 +3,15 @@
   <ejs-sidebar id="sidebar" #sidebar [type]="type" class="e-accent">
 
     <div id='treeparent' class="e-accent">
-      <ejs-treeview  class="e-accent" (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
+      <ejs-treeview class="e-accent" (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
     </div>
   </ejs-sidebar>
   <div id="head">
-      <ejs-toolbar>
-          <e-items>
-            <e-item   #togglebtn  prefixIcon='e-icons e-menu-icon' (click)="btnClick()" ></e-item>
-          </e-items>
-        </ejs-toolbar>
+    <ejs-toolbar>
+      <e-items>
+        <e-item #togglebtn prefixIcon='e-icons e-menu-icon' (click)="btnClick()"></e-item>
+      </e-items>
+    </ejs-toolbar>
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>

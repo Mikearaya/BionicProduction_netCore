@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 26, 2018 10:22 PM
+ * @Last Modified Time: Nov 29, 2018 12:26 AM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
@@ -55,8 +55,8 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     super();
     this.createForm();
     this.today = new Date();
-    this.customersQuery = new Query().select(['firstName', 'id']);
-    this.customerFields = { text: 'firstName', value: 'id' };
+    this.customersQuery = new Query().select(['fullName', 'id']);
+    this.customerFields = { text: 'fullName', value: 'id' };
     this.employeeQuery = new Query().select(['firstName', 'id']);
     this.employeeFields = { text: 'firstName', value: 'id' };
     this.itemQuery = new Query().select(['name', 'id']);

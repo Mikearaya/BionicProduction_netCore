@@ -1,7 +1,10 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ButtonComponent } from '@syncfusion/ej2-angular-buttons';
 import { SidebarComponent, NodeSelectEventArgs, ItemDirective } from '@syncfusion/ej2-angular-navigations';
 import { Router } from '@angular/router';
+import { EmitType } from '@syncfusion/ej2-base';
+import { DialogComponent } from '@syncfusion/ej2-angular-popups';
+import { BionicDialogComponent } from '../../shared/bionic-dialog/bionic-dialog.component';
 
 @Component({
   selector: 'app-pms-navigation',
@@ -9,6 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./pms-navigation.component.css']
 })
 export class PmsNavigationComponent {
+
+  @ViewChild('dialog')
+  public dialog: BionicDialogComponent;
   title = 'sidebar';
   @ViewChild('sidebar')
   public sidebar: SidebarComponent;
@@ -17,16 +23,23 @@ export class PmsNavigationComponent {
   public target: 'content';
   @ViewChild('togglebtn')
   public togglebtn: ItemDirective;
+
   public hierarchicalData: Object[] = [
     {
       id: 'dashboard', name: 'DASHBOARD'
     },
     {
-      id: 'stock', name: 'STOCK',
+      id: 'stocks', name: 'STOCK',
       subChild: [
-        { id: 'stock', name: 'STOCK' },
-        { id: 'shipments', name: 'SHIPMENTS' },
-        { id: 'stock/low-stock', name: 'CRITICAL-ON-HAND' }
+        { id: 'stocks', name: 'Stock' },
+        { id: 'products', name: 'Products' },
+        { id: 'shipments', name: 'Shipments' },
+        { id: 'stock/low-stock', name: 'Critical-On-Hand' },
+        { id: 'stock/settings', name: 'Stock Settings ',
+      subChild: [
+        { id: 'stock/product-groups', name: 'Product Groups' },
+        { id: 'stock/unit-of-measures', name: 'Unit of Measurements' },
+      ] },
       ]
     },
     {
@@ -56,13 +69,14 @@ export class PmsNavigationComponent {
       id: 'profile', name: 'SETTINGS',
       subChild: [
         { id: 'profile', name: 'PROFILE' },
-        { id: 'employees', name: 'EMPLOYEES' },
-        { id: 'products', name: 'PRODUCTS' }
+        { id: 'employees', name: 'EMPLOYEES' }
+
       ]
     }
 
 
   ];
+
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild', routerLink: 'route' };
 
   constructor(private router: Router) { }
@@ -77,7 +91,7 @@ export class PmsNavigationComponent {
     } else {
       this.togglebtn.text = 'Open';
       this.open = 'Close';
-this.sidebar.show();
+      this.sidebar.show();
     }
   }
 

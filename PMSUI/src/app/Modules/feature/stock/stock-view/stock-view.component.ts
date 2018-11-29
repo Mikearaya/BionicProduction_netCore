@@ -15,7 +15,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
-  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel
+  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel
 } from '@syncfusion/ej2-angular-grids';
 import { stockViewColumnBluePrint } from './stock-column-blue-print';
 
@@ -46,6 +46,7 @@ export class StockViewComponent implements OnInit {
   public allowExcelExport = true;
   public allowFiltering = true;
   public allowSorting = true;
+  public editSettings: EditSettingsModel;
 
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
@@ -70,8 +71,10 @@ export class StockViewComponent implements OnInit {
     this.data = this.dataManager;
     this.customAttributes = { class: 'custom-grid-header' };
 
+    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
+
     this.pageSettings = { pageSize: 6 };
-    this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];
+    this.toolbar = ['Add', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: false,
@@ -85,15 +88,14 @@ export class StockViewComponent implements OnInit {
 
 
   toolbarClick(args: ClickEventArgs): void {
-    if (args.item.id === 'finishedProducts_excelexport') {
+    if (args.item.id === 'stock_excelexport') {
       this.grid.excelExport();
-    } else if (args.item.id === 'finishedProducts_pdfexport') {
+    } else if (args.item.id === 'stock_pdfexport') {
       this.grid.pdfExport();
-    } else if (args.item.id === 'finishedProducts_print') {
+    } else if (args.item.id === 'stock_print') {
       this.grid.print();
-    } else if (args.item.id === 'finishedProducts_add') {
-      console.log('in');
-      this.route.navigate(['finishedProducts/new']);
+    } else if (args.item.id === 'stock_add') {
+      this.route.navigate(['stocks/item']);
     }
   }
 

@@ -17,7 +17,8 @@ import { DashboardModule } from '../feature/dashboard/dashboard.module';
     TreeViewModule,
     ButtonModule,
     SidebarModule,
-    DashboardModule
+    DashboardModule,
+    SharedModule
   ],
   declarations: [PmsNavigationComponent]
 })
