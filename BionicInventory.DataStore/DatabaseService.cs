@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:41 PM
+ * @Last Modified Time: Nov 29, 2018 2:47 PM
  * @Description: Modify Here, Please 
  */
 using Bionic_inventory.Application.Interfaces;
@@ -37,7 +37,9 @@ using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
+using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.ItemPrices;
+using BionicInventory.Domain.Items.UOMs;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
@@ -73,10 +75,13 @@ namespace BionicInventory.DataStore {
         public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public DbSet<SocialMedia> SocialMedia { get; set; }
         public DbSet<FinishedProduct> FinishedProduct { get; set; }
-
         public DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public DbSet<Shipment> Shipment { get; set; }
         public DbSet<BookedStockItems> BookedStockItems { get; set; }
+        public DbSet<Bom> Bom { get; set; }
+        public DbSet<BomItems> BomItems { get; set; }
+        public DbSet<ProductGroup> ProductGroup { get; set; }
+        public DbSet<UnitOfMeasurments> UnitsOfMeasurment { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);

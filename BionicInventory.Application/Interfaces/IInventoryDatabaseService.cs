@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 15, 2018 8:13 PM
+ * @Last Modified Time: Nov 29, 2018 2:48 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.BookedStockItem;
@@ -18,7 +18,9 @@ using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
+using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.ItemPrices;
+using BionicInventory.Domain.Items.UOMs;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
@@ -49,7 +51,10 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         DbSet<SocialMedia> SocialMedia { get; set; }
         DbSet<BookedStockItems> BookedStockItems { get; set; }
-
+        DbSet<Bom> Bom { get; set; }
+        DbSet<BomItems> BomItems { get; set; }
+        DbSet<ProductGroup> ProductGroup { get; set; }
+        DbSet<UnitOfMeasurments> UnitsOfMeasurment { get; set; }
         void Save ();
 
     }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 21, 2018 2:22 AM
+ * @Last Modified Time: Nov 29, 2018 3:03 PM
  * @Description: Product Factory Class
  */
 using System;
@@ -25,15 +25,21 @@ namespace BionicInventory.Application.Products.Factories {
 
             try {
 
-                var product = new Item ();
-                product.Name = newProduct.name;
-                product.Code = newProduct.code;
-                product.Weight = newProduct.weight;
-                product.UnitCost = newProduct.unitCost;
-                product.Photo = newProduct.photo;
-                product.Unit = newProduct.unit;
-                product.MinimumQuantity = newProduct.MinimumQuantity;
-                return product;
+                return new Item () {
+                    Name = newProduct.name,
+                        Code = newProduct.code,
+                        Weight = newProduct.weight,
+                        UnitCost = newProduct.unitCost,
+                        Photo = newProduct.photo,
+                        MinimumQuantity = newProduct.MinimumQuantity,
+                        GroupId = newProduct.groupId,
+                        ShelfLife = newProduct.shelfLife,
+                        IsInventory = newProduct.isInventoryItem,
+                        IsProcured = newProduct.isProcured,
+                        ManufacturingUomId = newProduct.manufacturingUomId,
+                        StoringUomId = newProduct.stockUomId,
+                        Price = newProduct.price
+                };
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
@@ -52,7 +58,6 @@ namespace BionicInventory.Application.Products.Factories {
                 productView.unitCost = product.UnitCost;
                 productView.photo = product.Photo;
                 productView.code = product.Code;
-                productView.unit = product.Unit;
                 productView.description = product.Description;
                 productView.minimumQuantity = product.MinimumQuantity;
 
@@ -68,15 +73,14 @@ namespace BionicInventory.Application.Products.Factories {
 
             try {
 
-            product.Description = updatedProduct.description;
-            product.Name = updatedProduct.name;
-            product.UnitCost = updatedProduct.unitCost;
-            product.Unit = updatedProduct.unit;
-            product.Photo = updatedProduct.photo;
-            product.Weight = updatedProduct.weight;
+                product.Description = updatedProduct.description;
+                product.Name = updatedProduct.name;
+                product.UnitCost = updatedProduct.unitCost;
+                product.Photo = updatedProduct.photo;
+                product.Weight = updatedProduct.weight;
                 product.MinimumQuantity = updatedProduct.MinimumQuantity;
 
-            return product;
+                return product;
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);

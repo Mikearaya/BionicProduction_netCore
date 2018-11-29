@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:26 PM
+ * @Last Modified Time: Nov 29, 2018 2:42 PM
  * @Description: Products Query Class
  */
 using System;
@@ -63,12 +63,12 @@ namespace BionicInventory.Application.Products.Queries {
             }
         }
 
-        private IQueryable<CriticalStockItemsView> CriticalStockItemsGroup() {
+        private IQueryable<CriticalStockItemsView> CriticalStockItemsGroup () {
             return _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
                 manufOrder => manufOrder.ItemId,
                 (product, manufactureOrder) => new CriticalStockItemsView () {
 
-                        id = product.Id,
+                    id = product.Id,
 
                         productCode = product.Code,
 
@@ -78,22 +78,20 @@ namespace BionicInventory.Application.Products.Queries {
 
                         availableQuantity = manufactureOrder.Sum (MO => MO.FinishedProduct
                             .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
-                        required = product.PurchaseOrderDetail.Where(CO => CO.ProductionOrderList == null).Sum(C => C.Quantity),
+                        required = product.PurchaseOrderDetail.Where (CO => CO.ProductionOrderList == null).Sum (C => C.Quantity),
                         expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
                             MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null || fin.Order.Id == MO.Id)),
 
-                }).Where(item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required));
+                }).Where (item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required));
         }
-        public IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems()
-        {
-            var criticalItems = CriticalStockItemsGroup().GroupBy( item => item.id);
-            
+        public IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems () {
+            var criticalItems = CriticalStockItemsGroup ().GroupBy (item => item.id);
 
             List<CriticalStockItemsView> stockStatus = new List<CriticalStockItemsView> ();
             foreach (var item in criticalItems) {
                 foreach (var status in item) {
-                    if(status.required < status.minimumQuantity) {
-                        status.required = status.minimumQuantity - (status.availableQuantity + status.expectedAvailableQuantity);
+                    if (status.required < status.minimumQuantity) {
+                        status.required = (float) status.minimumQuantity - (status.availableQuantity + status.expectedAvailableQuantity);
                     } else {
                         status.required = status.required - (status.availableQuantity + status.expectedAvailableQuantity);
                     }
@@ -105,19 +103,17 @@ namespace BionicInventory.Application.Products.Queries {
             return stockStatus;
         }
 
-        public CriticalStockItemsView GetCriticalBelowStockItem(uint id)
-        {
-            var criticalItems = CriticalStockItemsGroup()
-                                            .Where(item => item.id == id).GroupBy( item => item.id).FirstOrDefault();
-            
+        public CriticalStockItemsView GetCriticalBelowStockItem (uint id) {
+            var criticalItems = CriticalStockItemsGroup ()
+                .Where (item => item.id == id).GroupBy (item => item.id).FirstOrDefault ();
 
-            CriticalStockItemsView stockStatus = new CriticalStockItemsView();
+            CriticalStockItemsView stockStatus = new CriticalStockItemsView ();
             foreach (var item in criticalItems) {
-                    if(item.required < item.minimumQuantity) {
-                        item.required = item.minimumQuantity - (item.availableQuantity + item.expectedAvailableQuantity);
-                    } else {
-                        item.required = item.required - (item.availableQuantity + item.expectedAvailableQuantity);
-                    }
+                if (item.required < item.minimumQuantity) {
+                    item.required = (float) item.minimumQuantity - (item.availableQuantity + item.expectedAvailableQuantity);
+                } else {
+                    item.required = item.required - (item.availableQuantity + item.expectedAvailableQuantity);
+                }
 
                 stockStatus = item;
             }

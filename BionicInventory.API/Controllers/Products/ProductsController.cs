@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 24, 2018 11:05 PM
+ * @Last Modified Time: Nov 29, 2018 3:23 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -137,12 +137,12 @@ namespace BionicInventory.API.Controllers.Products {
                             ProductView productView = _factory.CreateProductView (result);
                             return StatusCode (201, productView);
                         } else {
-                            return StatusCode (422, "One or more required fields missing for Product");
+                            return StatusCode (500, "One or more required fields missing for Product");
                         }
                     }
 
                 } else {
-                    return StatusCode (422, "One or more required fields missing for Product");
+                    return new InvalidInputResponse(ModelState);
                 }
 
             } catch (Exception) {
