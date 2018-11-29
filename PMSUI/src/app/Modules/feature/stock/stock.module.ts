@@ -20,9 +20,10 @@ import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { StockRoutingModule } from './stock-routing.module';
 import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
-import { StockApiService } from './stock-api.service';
+
 import { StockViewComponent } from './stock-view/stock-view.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
+import { ItemApiService } from './stock-api.service';
 
 @NgModule({
   imports: [
@@ -44,6 +45,6 @@ import { StockFormComponent } from './stock-form/stock-form.component';
     StockViewComponent,
     LowStockViewComponent
   ],
-  providers: [StockApiService]
+  providers: [ItemApiService]
 })
 export class StockModule { }

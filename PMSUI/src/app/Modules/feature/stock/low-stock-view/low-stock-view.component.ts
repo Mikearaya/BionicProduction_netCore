@@ -8,8 +8,8 @@
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { StockApiService } from '../stock-api.service';
-import { LowStockItemsView } from '../stock-data-models';
+
+import { LowStockItemsView } from '../../../core/DataModels/item-data-models';
 
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
@@ -19,6 +19,7 @@ import {
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
 import { closest } from '@syncfusion/ej2-base';
+import { ItemApiService } from '../stock-api.service';
 
 @Component({
   selector: 'app-low-stock-view',
@@ -53,14 +54,14 @@ export class LowStockViewComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private stockApiService: StockApiService) {
+    private itemApiService: ItemApiService) {
 
   }
 
 
   ngOnInit(): void {
 
-    this.data = this.stockApiService.getLowInventoryItems()
+    this.data = this.itemApiService.getLowInventoryItems()
       .subscribe((data: LowStockItemsView[]) => this.data = data);
 
     this.customAttributes = { class: 'custom-grid-header' };

@@ -35,7 +35,7 @@ namespace BionicInventory.Domain.Items {
         public sbyte? IsInventory { get; set; }
         public float? Price { get; set; }
         public uint? ShelfLife { get; set; }
-        public uint ManufacturingUomId { get; set; }
+        public uint? ManufacturingUomId { get; set; }
         public float? MinimumQuantity { get; set; }
         public uint StoringUomId { get; set; }
         public DateTime? DateAdded { get; set; }

@@ -1,3 +1,155 @@
-<p>
-  products-form works!
-</p>
+<section>
+  <h6 class="header">{{title}}</h6>
+  <app-notification #notification></app-notification>
+
+  <form [formGroup]="productForm" name="productForm" (ngSubmit)="onSubmit()">
+      <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
+      <div class="container e-card">
+        <div class="row">
+
+          <div class="col-8 col-xs-12">
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Code (SKU)
+              </div>
+              <div class="col-8 col-xs-12">
+                <input type="text" class="e-input" floatLabelType="Auto" placeholder="SKU Code" formControlName="code"
+                  name="code">
+                  <div class="e-error" *ngIf="code.errors && code.touched">
+                    <div *ngIf="code.errors['required']">Product Code is Required</div>
+                  </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Part Description
+              </div>
+              <div class="col-8 col-xs-12">
+                <input type="text" class="e-input" placeholder="Part Description" formControlName="name" floatLabelType="Auto"
+                  name="name" id="name">
+                  <div class="e-error" *ngIf="name.errors && name.touched">
+                      <div *ngIf="name.errors['required']">Product description is Required</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Product Group
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-dropdownlist [dataSource]="itemGroups" [width]=300 placeholder="Select Item Group" floatLabelType="Auto"
+                  formControlName="groupId" name="groupId" id="groupId"></ejs-dropdownlist>
+                  <div class="e-error" *ngIf="groupId.errors && groupId.touched">
+                      <div *ngIf="groupId.errors['required']">Product Group is Required</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Storing Unit of Measurment
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [width]=200 floatLabelType="Auto" placeholder="Select Storing UoM"
+                  formControlName="storingUomId" name="storingUomId" id="storingUomId"></ejs-dropdownlist>
+                  <div class="e-error" *ngIf="storingUomId.errors && storingUomId.touched">
+                      <div *ngIf="storingUomId.errors['required']">Storing UoM is Required</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Manufacturing Unit of Measurment
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [width]=200 floatLabelType="Auto" placeholder="Select Manufacturing U0M"
+                  formControlName="manufacturingUomId" name="manufacturingUomId" id="manufacturingUomId"></ejs-dropdownlist>
+                  <div class="e-error" *ngIf="manufacturingUomId.errors && manufacturingUomId.touched">
+                      <div *ngIf="manufacturingUomId.errors['required']">Manufacturing UoM is Required</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Minimum Stock
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-numerictextbox formControlName="minimumQuantity" [width]=200 name="minimumQuantity" id="minimumQuantity"
+                  floatLabeType="Auto" placeholder="Minimum Quantity" format="##"></ejs-numerictextbox>
+                  <div class="e-error" *ngIf="minimumQuantity.errors && minimumQuantity.touched">
+                      <div *ngIf="minimumQuantity.errors['min']">Minimum Quantity Can't Be less than 0</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+                <div class="col-3 col-xs-12 label-area">
+                  Weight in Kg
+                </div>
+                <div class="col-8 col-xs-12">
+                  <ejs-numerictextbox formControlName="weight" [width]=200 name="weight" id="weight"
+                    floatLabeType="Auto" placeholder="Weight in Kg" format="N"></ejs-numerictextbox>
+                    <div class="e-error" *ngIf="weight.errors && weight.touched">
+                        <div *ngIf="weight.errors['min']">Weight Can't Be less than 0</div>
+                      </div>
+                </div>
+              </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                This is Procured Item
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-switch formControlName="isProcured" id="isProcured" name="isProcured"></ejs-switch>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                This is Inventory Item
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-switch formControlName="isInventoryItem" id="isInventoryItem" name="isInventoryItem"></ejs-switch>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Shelf Life in Days
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-numerictextbox floatLabelType="Auto" placeholder="Shelf Life in Days" [width]=200 format="##" formControlName="shelfLife"
+                  id="shelfLife" name="shelfLife"></ejs-numerictextbox>
+                  <div class="e-error" *ngIf="shelfLife.errors && shelfLife.touched">
+                      <div *ngIf="shelfLife.errors['min']">Shelf Life Can't Be less than 0</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Unit Cost
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-numerictextbox floatLabelType="Auto" placeholder="Unit Cost" [width]=200 format="ETB 0.00" formControlName="unitCost"
+                  id="unitCost" name="unitCost"></ejs-numerictextbox>
+                  <div class="e-error" *ngIf="unitCost.errors && unitCost.touched">
+                      <div *ngIf="unitCost.errors['min']">Cost Can't Be less than 0</div>
+                    </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-3 col-xs-12 label-area">
+                Selling Price
+              </div>
+              <div class="col-8 col-xs-12">
+                <ejs-numerictextbox floatLabelType="Auto" [width]=200 placeholder="Selling Price" format="ETB 0.00" formControlName="price"
+                  id="price" name="price"></ejs-numerictextbox>
+                  <div class="e-error" *ngIf="price.errors && price.touched">
+                      <div *ngIf="price.errors['min']">Price Can't Be less than 0</div>
+                    </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
+
+  </form>
+
+</section>

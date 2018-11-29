@@ -39,9 +39,3 @@ span.e-input-group-icon.e-spin-down,
 span.e-input-group-icon.e-spin-up {
   display: none;
 }
-
-
-app-form-options {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-}

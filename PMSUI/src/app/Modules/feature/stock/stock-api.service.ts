@@ -8,18 +8,40 @@
  */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView } from './stock-data-models';
+import { LowStockItemsView, ItemModel, ItemViewModel } from '../../core/DataModels/item-data-models';
 import { Observable } from 'rxjs';
 
 @Injectable()
-export class StockApiService {
-private url = 'products';
+export class ItemApiService {
+  private controller = 'products';
 
   constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private apiUrl: string) {
-    }
+  }
 
-    getLowInventoryItems(): Observable<LowStockItemsView[]> {
-      return this.httpClient.get<LowStockItemsView[]>(`${this.apiUrl}/${this.url}?type=low`);
-    }
+  getLowInventoryItems(): Observable<LowStockItemsView[]> {
+    return this.httpClient.get<LowStockItemsView[]>(`${this.apiUrl}/${this.controller}?type=low`);
+  }
+
+  getItemById(itemId: number): Observable<ItemModel> {
+    return this.httpClient.get<ItemModel>(`${this.apiUrl}/${this.controller}/${itemId}`);
+  }
+
+  getAllItems(): Observable<ItemViewModel[]> {
+    return this.httpClient.get<ItemViewModel[]>(`${this.apiUrl}/${this.controller}`);
+  }
+
+  saveItem(item: ItemModel): Observable<ItemModel> {
+    return this.httpClient.post<ItemModel>(`${this.apiUrl}/${this.controller}`, item);
+  }
+
+  updateItem(updatedItem: ItemModel): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${updatedItem.id}`, updatedItem);
+  }
+
+  deleteItemById(itemId: number): Observable<Boolean> {
+    return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.controller}/${itemId}`);
+  }
+
+
 }

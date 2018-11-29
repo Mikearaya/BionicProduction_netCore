@@ -17,7 +17,7 @@ namespace BionicInventory.Application.Products.Models {
 
         [Required]
         public string name { get; set; }
-
+        [Required]
         public float MinimumQuantity {
             get { return _minimumQuantity; }
             set { _minimumQuantity = (value >= 0) ? value : 0; }
@@ -32,7 +32,6 @@ namespace BionicInventory.Application.Products.Models {
 
         [FileExtensions]
         public string photo { get; set; }
-
         public sbyte isInventoryItem { get; set; }
         public sbyte isProcured { get; set; }
         public uint manufacturingUomId { get; set; }

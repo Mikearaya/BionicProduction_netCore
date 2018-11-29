@@ -15,3 +15,20 @@ h1 {
 .main-content {
   margin: 1em;
 }
+
+
+ejs-toolbar, .e-toolbar-item.e-tbtn-align {
+  background: #bfbfbf;
+}
+
+.e-toolbar-item.e-tbtn-align {
+  margin:0!important;
+}
+
+ejs-sidebar {
+  background: #555555;
+}
+
+.e-list-text, .e-icons.e-icon-expandable {
+  color: white!important;
+}

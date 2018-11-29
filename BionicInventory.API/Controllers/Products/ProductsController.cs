@@ -12,8 +12,8 @@ using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
-using Microsoft.AspNetCore.Mvc;
 using BionicInventory.Domain.Items;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Products {
     [InventoryAPI ("Products")]
@@ -38,32 +38,29 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult GetProductById (uint id,string type = "") {
+        public IActionResult GetProductById (uint id, string type = "") {
 
             try {
 
                 if (ModelState.IsValid && id != 0) {
 
-                
-        
-                        Object productView = null;
-                        if(type.ToUpper() == "LOW" ) {
-                        productView = _query.GetCriticalBelowStockItem (id);    
-                        } else {
+                    Object productView = null;
+                    if (type.ToUpper () == "LOW") {
+                        productView = _query.GetCriticalBelowStockItem (id);
+                    } else {
 
                         var product = _query.GetProductById (id);
-                        
+
                         if (product != null) {
-                        productView = _factory.CreateProductView ((Item)product);    
+                            productView = _factory.CreateProductView ((Item) product);
                         }
                     }
 
-                        if (productView != null) {
-                            return StatusCode (200, productView);
-                        } else {
-                            return StatusCode (404);
-                        }
-                    
+                    if (productView != null) {
+                        return StatusCode (200, productView);
+                    } else {
+                        return StatusCode (404);
+                    }
 
                 } else {
                     return StatusCode (422, "Invalid Parameter For Product Id");
@@ -81,33 +78,31 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult GetAllProducts (string type = "ALL") {
 
             try {
-                    IEnumerable<Object> products = null;
+                IEnumerable<Object> products = null;
 
-                    if(type.Trim().ToUpper() == "ALL") {
+                if (type.Trim ().ToUpper () == "ALL") {
 
-                products = _query.GetAllProduct ();
-                ResponseDataFormat response = new ResponseDataFormat ();
+                    products = _query.GetAllProduct ();
+                    ResponseDataFormat response = new ResponseDataFormat ();
 
-                List<ProductView> productsList = new List<ProductView> ();
+                    List<ProductView> productsList = new List<ProductView> ();
 
-                foreach (var product in products) {
-                    productsList.Add (_factory.CreateProductView ((Item) product));
+                    foreach (var product in products) {
+                        productsList.Add (_factory.CreateProductView ((Item) product));
+                    }
+                    response.Items = productsList;
+                    response.Count = productsList.Count;
+
+                    return StatusCode (200, response);
                 }
-                response.Items = productsList;
-                response.Count = productsList.Count;
-            
-                return StatusCode (200, response);
-                } 
 
+                if (type.Trim ().ToUpper () == "LOW") {
 
-            if(type.Trim().ToUpper() == "LOW") {
+                    products = _query.GetCriticalBelowStockItems ();
+                    return StatusCode (200, products);
+                }
 
-                products = _query.GetCriticalBelowStockItems();
-                return StatusCode (200, products);
-                } 
-
-                return StatusCode(500, "Not geting found");
-                
+                return StatusCode (500, "Not geting found");
 
             } catch (Exception e) {
 
@@ -115,6 +110,11 @@ namespace BionicInventory.API.Controllers.Products {
             }
         }
 
+        /// <summary>
+        /// Creates New Item
+        /// </summary>
+        /// <param name="newProduct"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (ProductView))]
         [ProducesResponseType (422)]
@@ -142,14 +142,13 @@ namespace BionicInventory.API.Controllers.Products {
                     }
 
                 } else {
-                    return new InvalidInputResponse(ModelState);
+                    return new InvalidInputResponse (ModelState);
                 }
 
             } catch (Exception) {
                 return StatusCode (500, "Server Error, Try Again Later");
             }
         }
-
 
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
@@ -158,69 +157,33 @@ namespace BionicInventory.API.Controllers.Products {
         public IActionResult UpdateProductRecord (uint id, [FromBody] UpdatedProductDto updatedData) {
 
             try {
-                
-                if(updatedData != null){
-                    return StatusCode(400);
+
+                if (updatedData != null) {
+                    return StatusCode (400);
                 }
-                
+
                 if (!ModelState.IsValid) {
-                    return new InvalidInputResponse(ModelState);
+                    return new InvalidInputResponse (ModelState);
                 }
 
-                    var product = _query.GetProductById (id);
-                    if (product != null) {
+                var product = _query.GetProductById (id);
+                if (product != null) {
 
-                        var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
+                    var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
 
-                        if (_command.UpdateProduct (updatedProduct)) {
-                            return StatusCode (204);
-                        } else {
-                            return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
-                        }
-
+                    if (_command.UpdateProduct (updatedProduct)) {
+                        return StatusCode (204);
                     } else {
-                        return StatusCode (404);
-                    }
-
-            } catch (Exception) {
-                return StatusCode (500, "Server Error, Try Again Later");
-            }
-        }
-
-        [HttpPut]
-        [ProducesResponseType (204)]
-        [ProducesResponseType (422)]
-        [ProducesResponseType (500)]
-        public IActionResult UpdateProductRecord ([FromBody] UpdatedProductDto updatedData) {
-
-            try {
-
-                if (ModelState.IsValid && updatedData != null) {
-
-                    var product = _query.GetProductById (updatedData.id);
-                    if (product != null) {
-
-                        var updatedProduct = _factory.ProductUpdateModel (product, updatedData);
-
-                        if (_command.UpdateProduct (updatedProduct)) {
-                            return StatusCode (204);
-                        } else {
-                            return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
-                        }
-
-                    } else {
-                        return StatusCode (404);
+                        return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
                     }
 
                 } else {
-                    return StatusCode (422, "One or more required fields missing for employee");
+                    return StatusCode (404);
                 }
 
             } catch (Exception) {
-
                 return StatusCode (500, "Server Error, Try Again Later");
             }
-
         }
 
         [HttpDelete ("{id}")]
