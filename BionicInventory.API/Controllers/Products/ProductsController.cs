@@ -34,41 +34,32 @@ namespace BionicInventory.API.Controllers.Products {
         }
 
         [HttpGet ("{id}")]
-        [ProducesResponseType (200, Type = typeof (ProductView))]
+        [ProducesResponseType (200)]
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public IActionResult GetProductById (uint id, string type = "") {
+        public ActionResult<ProductView> GetProductById (uint id, string type = "VIEW") {
 
-            try {
-
-                if (ModelState.IsValid && id != 0) {
-
-                    Object productView = null;
-                    if (type.ToUpper () == "LOW") {
-                        productView = _query.GetCriticalBelowStockItem (id);
-                    } else {
-
-                        var product = _query.GetProductById (id);
-
-                        if (product != null) {
-                            productView = _factory.CreateProductView ((Item) product);
-                        }
-                    }
-
-                    if (productView != null) {
-                        return StatusCode (200, productView);
-                    } else {
-                        return StatusCode (404);
-                    }
-
-                } else {
-                    return StatusCode (422, "Invalid Parameter For Product Id");
-                }
-
-            } catch (Exception) {
-                return StatusCode (500, "Server Error, Try Again Later");
+            Object productView = null;
+            if (id == 0) {
+                return StatusCode (400);
             }
+
+            if (!ModelState.IsValid) {
+                return StatusCode (422, ModelState);
+            }
+
+            if (type.ToUpper () == "LOW") {
+                productView = _query.GetCriticalBelowStockItem (id);
+            } else {
+                productView = _query.GetProductViewById (id);
+            }
+
+            if (productView == null) {
+                return StatusCode (404);
+            }
+
+            return StatusCode (200, productView);
 
         }
 

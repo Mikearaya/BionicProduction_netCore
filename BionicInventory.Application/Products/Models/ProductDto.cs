@@ -22,7 +22,6 @@ namespace BionicInventory.Application.Products.Models {
             get { return _minimumQuantity; }
             set { _minimumQuantity = (value >= 0) ? value : 0; }
         }
-        public string description { get; set; }
 
         [Required]
         public float weight { get; set; }

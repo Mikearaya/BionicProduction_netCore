@@ -58,7 +58,7 @@ namespace BionicInventory.Application.Products.Factories {
                 productView.unitCost = product.UnitCost;
                 productView.photo = product.Photo;
                 productView.code = product.Code;
-                productView.description = product.Description;
+    
                 productView.minimumQuantity = product.MinimumQuantity;
 
                 return productView;
@@ -73,7 +73,7 @@ namespace BionicInventory.Application.Products.Factories {
 
             try {
 
-                product.Description = updatedProduct.description;
+        
                 product.Name = updatedProduct.name;
                 product.UnitCost = updatedProduct.unitCost;
                 product.Photo = updatedProduct.photo;

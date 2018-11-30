@@ -19,6 +19,8 @@ using BionicInventory.DataStore.Invoices;
 using BionicInventory.DataStore.Invoices.InvoiceDetails;
 using BionicInventory.DataStore.Invoices.InvoicePayment;
 using BionicInventory.DataStore.Items;
+using BionicInventory.DataStore.Items.BOM;
+using BionicInventory.DataStore.Items.UOMs;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
@@ -103,6 +105,11 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
             modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
             modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
+            modelBuilder.ApplyConfiguration(new BillOfMaterialsConfigurations());
+            modelBuilder.ApplyConfiguration(new ProductGroupsConfigurations());
+            modelBuilder.ApplyConfiguration(new UnitsOfMeasurmentConfigurations());
+            modelBuilder.ApplyConfiguration(new BillOfMaterialItemsConfigurations());
+
 
         }
 

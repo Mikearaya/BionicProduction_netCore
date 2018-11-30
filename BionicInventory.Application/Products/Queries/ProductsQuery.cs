@@ -54,13 +54,37 @@ namespace BionicInventory.Application.Products.Queries {
         public Item GetProductById (uint id) {
 
             try {
-
                 return _database.Item.Find (id);
-
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
                 return null;
             }
+        }
+
+        public ProductView GetProductViewById (uint id) {
+
+            return _database.Item
+            .Where(i => i.Id == id).Select (i => new ProductView () {
+                id = i.Id,
+                    code = i.Code,
+                    name = i.Name,
+                    weight = i.Weight,
+                    price = i.Price,
+                    unitCost = i.UnitCost,
+                    shelfLife = i.ShelfLife,
+                    manufacturingUom = i.ManufacturingUom.Abrivation,
+                    manufacturingUomId = i.ManufacturingUomId,
+                    storingUom = i.StoringUom.Abrivation,
+                    storingUomId = i.StoringUomId,
+                    dateAdded = i.DateAdded,
+                    dateUpdated = i.DateUpdate,
+                    isProcured = i.IsProcured,
+                    isInventoryItem = i.IsInventory,
+                    photo = i.Photo,
+                    minimumQuantity = i.MinimumQuantity,
+                    group = i.Group.GroupName,
+                    groupId = i.GroupId
+            }).FirstOrDefault ();
         }
 
         private IQueryable<CriticalStockItemsView> CriticalStockItemsGroup () {

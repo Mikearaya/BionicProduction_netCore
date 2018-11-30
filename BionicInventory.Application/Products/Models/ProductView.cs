@@ -6,6 +6,7 @@
  * @Last Modified Time: Nov 29, 2018 2:42 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items.ItemPrices;
 
@@ -16,11 +17,21 @@ namespace BionicInventory.Application.Products.Models {
         public string name;
         public float? minimumQuantity;
         public string description;
-        public float weight;
+        public float? weight;
         public float unitCost;
-        public double price;
+        public float? price;
         public string storingUoM;
         public string photo;
-
+        public sbyte? isInventoryItem { get; set; }
+        public sbyte? isProcured { get; set; }
+        public uint? manufacturingUomId { get; set; }
+        public string manufacturingUom { get; set; }
+        public uint storingUomId { get; set; }
+        public string storingUom { get; set; }
+        public uint? shelfLife { get; set; }
+        public uint groupId { get; set; }
+        public string group { get; set; }
+        public DateTime? dateUpdated { get; set; }
+        public DateTime? dateAdded { get; set; }
     }
 }

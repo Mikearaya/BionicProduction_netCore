@@ -50,10 +50,6 @@ namespace BionicInventory.DataStore.Items {
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
 
-                builder.Property (e => e.Description)
-                    .HasColumnName ("description")
-                    .HasColumnType ("text");
-
                 builder.Property (e => e.GroupId)
                     .HasColumnName ("GROUP_ID")
                     .HasDefaultValueSql ("'1'");

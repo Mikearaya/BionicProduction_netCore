@@ -14,10 +14,11 @@ using BionicInventory.Domain.Items;
 namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsQuery {
         Item GetProductById (uint id);
-        bool IsProductCodeUnique(string code);
+        bool IsProductCodeUnique (string code);
         IEnumerable<Item> GetAllProduct ();
-        IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems();
-        CriticalStockItemsView GetCriticalBelowStockItem(uint id);
+        ProductView GetProductViewById (uint id);
+        IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems ();
+        CriticalStockItemsView GetCriticalBelowStockItem (uint id);
 
     }
 }
