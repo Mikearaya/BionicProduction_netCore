@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ItemModel } from 'src/app/Modules/core/DataModels/item-data-models';
+import { ItemModel, ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { ItemApiService } from '../stock-api.service';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
@@ -41,11 +41,12 @@ export class StockFormComponent extends CommonProperties implements OnInit {
     this.itemId = + this.activatedRoute.snapshot.paramMap.get('itemId');
 
     if (this.itemId) {
+
       this.title = 'Create New Item';
       this.submitButtonText = 'Update';
       this.isUpdate = true;
       this.itemApi.getItemById(this.itemId).subscribe(
-        (data: ItemModel) => this.initializeForm(data),
+        (data: ItemView) => this.initializeForm(data),
         this.handleError
       );
     } else {
@@ -121,28 +122,30 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   }
 
 
-  initializeForm(item: ItemModel): void {
+  initializeForm(item: ItemView) {
     this.productForm = this.formBuilder.group({
       code: [item.code, Validators.required],
       name: [item.name, Validators.required],
       groupId: [item.groupId, Validators.required],
-      storingUomId: [item.stockUomId, Validators.required],
+      storingUomId: [item.storingUomId, Validators.required],
       unitCost: [item.unitCost, [Validators.required, Validators.min(0)]],
       manufacturingUomId: [item.manufacturingUomId, Validators.required],
-      minimumQuantity: [[item.minimumQuantity, Validators.min(0)]],
-      isProdured: [item.isProcured],
+      minimumQuantity: [item.minimumQuantity, Validators.min(0)],
+      isProcured: [(item.isProcured) ? true : false],
       weight: [item.weight, [Validators.required, Validators.min(0)]],
-      isInventoryItem: [item.isInventoryItem],
+      isInventoryItem: [(item.isInventoryItem) ? true : false],
       shelfLife: [item.shelfLife, [Validators.required, Validators.min(0)]],
       price: [item.price, [Validators.required, Validators.min(0)]],
-      image: [item.image]
+      image: [item.photo]
     });
+
   }
 
-  onSubmit(): void {
+  onSubmit() {
+
     const formData = this.prepareFormData(this.productForm.value);
 
-    if (!this.isUpdate) {
+    if (this.isUpdate === false) {
       this.itemApi.saveItem(formData).subscribe(
         (data: ItemModel) => {
           this.notification.showMessage('Item Created!!!');
@@ -160,7 +163,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
           this.location.back();
         },
         (error: CustomErrorResponse) => {
-          this.notification.showMessage('Failed while Updateing Item Failed, error');
+          this.notification.showMessage('Failed while Updateing Item Failed', 'error');
           this.handleError(error);
         }
       );

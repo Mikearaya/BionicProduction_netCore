@@ -30,7 +30,7 @@ namespace BionicInventory.Application.Products.Factories {
                         Code = newProduct.code,
                         Weight = newProduct.weight,
                         UnitCost = newProduct.unitCost,
-                        Photo = newProduct.photo,
+                        Photo = newProduct.image,
                         MinimumQuantity = newProduct.MinimumQuantity,
                         GroupId = newProduct.groupId,
                         ShelfLife = newProduct.shelfLife,
@@ -76,7 +76,7 @@ namespace BionicInventory.Application.Products.Factories {
         
                 product.Name = updatedProduct.name;
                 product.UnitCost = updatedProduct.unitCost;
-                product.Photo = updatedProduct.photo;
+                product.Photo = updatedProduct.image;
                 product.Weight = updatedProduct.weight;
                 product.MinimumQuantity = updatedProduct.MinimumQuantity;
 

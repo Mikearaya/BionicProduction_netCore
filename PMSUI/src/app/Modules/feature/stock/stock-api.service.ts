@@ -8,7 +8,7 @@
  */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView, ItemModel, ItemViewModel } from '../../core/DataModels/item-data-models';
+import { LowStockItemsView, ItemModel, ItemView } from '../../core/DataModels/item-data-models';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -23,12 +23,12 @@ export class ItemApiService {
     return this.httpClient.get<LowStockItemsView[]>(`${this.apiUrl}/${this.controller}?type=low`);
   }
 
-  getItemById(itemId: number): Observable<ItemModel> {
-    return this.httpClient.get<ItemModel>(`${this.apiUrl}/${this.controller}/${itemId}`);
+  getItemById(itemId: number): Observable<ItemView> {
+    return this.httpClient.get<ItemView>(`${this.apiUrl}/${this.controller}/${itemId}`);
   }
 
-  getAllItems(): Observable<ItemViewModel[]> {
-    return this.httpClient.get<ItemViewModel[]>(`${this.apiUrl}/${this.controller}`);
+  getAllItems(): Observable<ItemView[]> {
+    return this.httpClient.get<ItemView[]>(`${this.apiUrl}/${this.controller}`);
   }
 
   saveItem(item: ItemModel): Observable<ItemModel> {

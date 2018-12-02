@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 24, 2018 10:21 PM
+ * @Last Modified Time: Dec 2, 2018 1:27 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -51,6 +51,10 @@ using BionicInventory.Application.Products.Factories.Booking;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.Application.Products.ProductGroups.Commands;
+using BionicInventory.Application.Products.ProductGroups.Factories;
+using BionicInventory.Application.Products.ProductGroups.Interfaces;
+using BionicInventory.Application.Products.ProductGroups.Queries;
 using BionicInventory.Application.Products.Queries;
 using BionicInventory.Application.Products.Queries.booking;
 using BionicInventory.Application.SalesOrders.Commands;
@@ -128,6 +132,9 @@ namespace BionicInventory.API {
             services.AddScoped<IShipmentCommand, ShipmentCommand> ();
             services.AddScoped<IShipmentFactory, ShipmentFactory> ();
             services.AddScoped<IDashboardQuery, DashboardQuery> ();
+            services.AddScoped<IProductGroupQuery, ProductGroupQuery> ();
+            services.AddScoped<IProductGroupCommand, ProductGroupCommand> ();
+            services.AddScoped<IProductGroupFactory, ProductGroupFactory> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 
@@ -135,7 +142,7 @@ namespace BionicInventory.API {
 
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
-                    builder => builder.AllowAnyOrigin().AllowAnyMethod ().AllowAnyHeader ());
+                    builder => builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             });
             services.AddMvc (
                 options => {

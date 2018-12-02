@@ -34,7 +34,7 @@ export class ItemModel {
 }
 
 
-export interface ItemViewModel {
+export interface StockView {
 
   itemId: number;
 
@@ -57,3 +57,27 @@ export interface ItemViewModel {
 
   averageCost: number;
 }
+
+ export interface ItemView {
+        id: number;
+        code: string;
+        name: string;
+        minimumQuantity: number | null;
+        description: string;
+        weight: number | null;
+        unitCost: number;
+        price: number | null;
+        storingUoM: string;
+        photo: string;
+        isInventoryItem: number | null;
+        isProcured: number | null;
+        manufacturingUomId: number | null;
+        manufacturingUom: string;
+        storingUomId: number;
+        storingUom: string;
+        shelfLife: number | null;
+        groupId: number;
+        group: string;
+        dateUpdated: Date | string | null;
+        dateAdded: Date | string | null;
+    }

@@ -2,7 +2,7 @@
   <h6 class="header">{{title}}</h6>
   <app-notification #notification></app-notification>
 
-  <form [formGroup]="productForm" name="productForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="productForm"  (ngSubmit)="onSubmit()" novalidate="">
       <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
       <div class="container e-card">
         <div class="row">

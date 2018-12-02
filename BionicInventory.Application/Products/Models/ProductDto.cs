@@ -22,15 +22,13 @@ namespace BionicInventory.Application.Products.Models {
             get { return _minimumQuantity; }
             set { _minimumQuantity = (value >= 0) ? value : 0; }
         }
-
-        [Required]
         public float weight { get; set; }
 
         [Required]
         public float unitCost { get; set; }
 
         [FileExtensions]
-        public string photo { get; set; }
+        public string image { get; set; }
         public sbyte isInventoryItem { get; set; }
         public sbyte isProcured { get; set; }
         public uint manufacturingUomId { get; set; }

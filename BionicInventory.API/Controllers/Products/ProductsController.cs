@@ -101,11 +101,6 @@ namespace BionicInventory.API.Controllers.Products {
             }
         }
 
-        /// <summary>
-        /// Creates New Item
-        /// </summary>
-        /// <param name="newProduct"></param>
-        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (ProductView))]
         [ProducesResponseType (422)]
@@ -149,7 +144,7 @@ namespace BionicInventory.API.Controllers.Products {
 
             try {
 
-                if (updatedData != null) {
+                if (updatedData == null) {
                     return StatusCode (400);
                 }
 
