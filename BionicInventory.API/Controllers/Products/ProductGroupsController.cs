@@ -129,7 +129,7 @@ namespace BionicInventory.API.Controllers.Products {
             var groupExist = _query.GetProductGroupById (id);
 
             if (groupExist == null) {
-                return StatusCode (404);
+                return StatusCode (404, "Product Group Not Found");
             }
 
             if (updatedGroup.ParentGroup != 0) {
@@ -148,7 +148,7 @@ namespace BionicInventory.API.Controllers.Products {
                 return StatusCode (500, "Unknown Error Occured try again later");
             }
 
-            return StatusCode (201, result);
+            return StatusCode (204);
         }
 
         [HttpDelete ("{id}")]

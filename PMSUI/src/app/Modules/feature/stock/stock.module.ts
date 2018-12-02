@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:40 AM
+ * @Last Modified Time: Dec 2, 2018 8:36 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -24,6 +24,9 @@ import { LowStockViewComponent } from './low-stock-view/low-stock-view.component
 import { StockViewComponent } from './stock-view/stock-view.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
 import { ItemApiService } from './stock-api.service';
+import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
+import { ProductGroupApiService } from './product-group-api.service';
+import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 
 @NgModule({
   imports: [
@@ -41,10 +44,12 @@ import { ItemApiService } from './stock-api.service';
   ],
   declarations: [
     // application
+    ProductGroupFormComponent,
+    ProductGroupViewComponent,
     StockFormComponent,
     StockViewComponent,
     LowStockViewComponent
   ],
-  providers: [ItemApiService]
+  providers: [ItemApiService, ProductGroupApiService]
 })
 export class StockModule { }

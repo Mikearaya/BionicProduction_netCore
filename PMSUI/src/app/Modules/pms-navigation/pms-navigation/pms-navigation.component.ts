@@ -34,11 +34,11 @@ export class PmsNavigationComponent {
         { id: 'stocks', name: 'Stock' },
         { id: 'products', name: 'Products' },
         { id: 'shipments', name: 'Shipments' },
-        { id: 'stock/low-stock', name: 'Critical-On-Hand' },
-        { id: 'stock/settings', name: 'Stock Settings ',
+        { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
+        { id: 'stocks/settings', name: 'Stock Settings ',
       subChild: [
-        { id: 'stock/product-groups', name: 'Product Groups' },
-        { id: 'stock/unit-of-measures', name: 'Unit of Measurements' },
+        { id: 'stocks/product-groups', name: 'Product Groups' },
+        { id: 'stocks/unit-of-measures', name: 'Unit of Measurements' },
       ] },
       ]
     },
@@ -97,9 +97,12 @@ export class PmsNavigationComponent {
 
   clickedNode(event: NodeSelectEventArgs) {
     const node = event.nodeData;
+
     if (!node.parentId) {
       this.router.navigate([`${node.id}`]);
     }
+
+
   }
 
 }

@@ -31,6 +31,10 @@ namespace BionicInventory.Application.Products.ProductGroups.Factories {
 
         public ProductGroup UpdatedProductGroup (ProductGroup oldGroup, UpdatedProductGroupDto newProduct) {
 
+            if (newProduct.ParentGroup != 0) {
+                oldGroup.ParentGroup = newProduct.ParentGroup;
+            }
+            
             oldGroup.GroupName = newProduct.GroupName;
             oldGroup.ParentGroup = newProduct.ParentGroup;
 

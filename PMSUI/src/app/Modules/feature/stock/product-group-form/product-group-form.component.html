@@ -1,0 +1,45 @@
+<app-notification #notification></app-notification>
+
+<section>
+  <h6>{{title}}</h6>
+
+  <form [formGroup]="productGroupForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="productGroupForm.invalid"></app-form-options>
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-8 col-xs-12">
+          <div class="row">
+            <div class="col-12">
+              <div>
+                Group Name
+              </div>
+              <input type="text" class="e-input" floatLabelType="Auto" formControlName="groupName" placeholder="Group Name">
+              <div class="e-error" *ngIf="groupName.errors">
+                <div *ngIf="groupName.errors['required']"> Group Name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                Parent Group
+              </div>
+              <ejs-dropdownlist [dataSource]="productGroupsList" [fields]="productGroupFields" formControlName="parentId"
+                placeholder="Parent Group" id="parentGroup" name="parentGroup"></ejs-dropdownlist>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div>
+                Description
+              </div>
+              <input type="text" class="e-input" formControlName="description" id="description" name="description"
+                placeholder="Description">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="productGroupForm.invalid"></app-form-options>
+  </form>
+</section>

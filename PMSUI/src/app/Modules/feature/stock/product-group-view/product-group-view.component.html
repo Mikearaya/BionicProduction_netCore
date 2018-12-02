@@ -1,0 +1,12 @@
+<section class="e-card">
+  <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowExcelExport]="true"
+    [toolbar]='toolbar' [allowPdfExport]="true" [allowPaging]="true" [allowReordering]="true" [allowResizing]="true"  rowHeight="25" id="productgroups"
+    (toolbarClick)='toolbarClick($event)' >
+    <e-columns>
+      <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint"
+        [field]='col.key' [width]="col.width" [visible]="col.visable" [headerText]='col.humanReadable' [editType]="col.type"></e-column>
+      <e-column [commands]="commands" [customAttributes]="customAttributes" width="40"> </e-column>
+    </e-columns>
+  </ejs-grid>
+</section>
+<app-notification #notification></app-notification>

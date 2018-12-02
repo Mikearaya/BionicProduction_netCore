@@ -12,6 +12,7 @@ using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.ProductGroups.Interfaces;
 using BionicInventory.Application.Products.ProductGroups.Models.Views;
 using BionicInventory.Domain.Items;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Products.ProductGroups.Queries {
@@ -31,8 +32,8 @@ namespace BionicInventory.Application.Products.ProductGroups.Queries {
 
         public ProductGroup GetProductGroupById (uint id) {
             return _database.ProductGroup
-                .Where (p => p.Id == id)
-                .FirstOrDefault ();
+                .AsNoTracking ()
+                .FirstOrDefault (p => p.Id == id);
         }
 
         public IEnumerable<ProductGroupView> GetProductGroupsView () {
