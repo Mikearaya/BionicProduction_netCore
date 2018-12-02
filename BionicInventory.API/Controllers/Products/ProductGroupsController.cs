@@ -3,22 +3,29 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 2, 2018 5:25 PM
+ * @Last Modified Time: Dec 2, 2018 7:43 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using BionicInventory.Application.Products.ProductGroups.Commands;
 using BionicInventory.Application.Products.ProductGroups.Interfaces;
 using BionicInventory.Application.Products.ProductGroups.Models;
 using BionicInventory.Application.Products.ProductGroups.Models.Views;
+using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.API.Controllers.Products {
 
     [InventoryAPI ("products/groups/")]
     public class ProductGroupsController : Controller {
+        private readonly IMediator _mediator;
         private readonly ILogger<ProductGroupsController> _logger;
         private readonly IProductGroupCommand _command;
         private readonly IProductGroupQuery _query;
@@ -28,8 +35,10 @@ namespace BionicInventory.API.Controllers.Products {
             ILogger<ProductGroupsController> logger,
             IProductGroupQuery query,
             IProductGroupCommand command,
-            IProductGroupFactory factory
+            IProductGroupFactory factory,
+            IMediator mediator
         ) {
+            _mediator = mediator;
             _logger = logger;
             _command = command;
             _query = query;
@@ -145,27 +154,26 @@ namespace BionicInventory.API.Controllers.Products {
         [HttpDelete ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (423)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public ActionResult DeleteProductGroup (uint id) {
+        public async Task<ActionResult> DeleteProductGroup (uint id) {
+            try {
 
-            if (id == 0) {
-                return StatusCode (400);
+                await _mediator.Send (new DeleteProductGroupCommand () { Id = id });
+
+                return StatusCode (204);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+
+            } catch (DbUpdateException) {
+
+                return StatusCode (423, "Can not delete product group with id: {id}, because its being used for other data");
+
+            } catch (Exception e) {
+                return StatusCode (500, "Unknown error occured try again later!");
             }
-
-            var groupExists = _query.GetProductGroupById (id);
-
-            if (groupExists == null) {
-                return StatusCode (404, $"Product Group with id: {id} not Found");
-            }
-
-            var result = _command.DeleteProductGroup (groupExists);
-
-            if (result == false) {
-                return StatusCode (500, "Unknown error occured try again later");
-            }
-
-            return StatusCode (204);
 
         }
 

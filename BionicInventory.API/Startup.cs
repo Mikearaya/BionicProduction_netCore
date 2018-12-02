@@ -3,13 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 2, 2018 1:27 AM
+ * @Last Modified Time: Dec 2, 2018 7:03 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Analisis.Interfaces;
@@ -72,6 +73,7 @@ using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.ItemPrices;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -137,7 +139,7 @@ namespace BionicInventory.API {
             services.AddScoped<IProductGroupFactory, ProductGroupFactory> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
-
+            services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
             services.AddSwaggerDocument ();
 
             services.AddCors (options => {
@@ -164,7 +166,10 @@ namespace BionicInventory.API {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
                 app.UseDatabaseErrorPage ();
+            } else {
+                app.UseExceptionHandler ("/Error");
             }
+
             app.UseCors ("AllowAllOrigins");
 
             app.UseMvc ();

@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 2:48 PM
+ * @Last Modified Time: Dec 2, 2018 6:49 PM
  * @Description: Modify Here, Please 
  */
+using System.Threading.Tasks;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
@@ -55,7 +56,9 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<BomItems> BomItems { get; set; }
         DbSet<ProductGroup> ProductGroup { get; set; }
         DbSet<UnitOfMeasurments> UnitsOfMeasurment { get; set; }
+
         void Save ();
+        Task SaveAsync ();
 
     }
 

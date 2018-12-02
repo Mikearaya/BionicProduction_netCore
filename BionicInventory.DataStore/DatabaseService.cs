@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 2:47 PM
+ * @Last Modified Time: Dec 2, 2018 6:50 PM
  * @Description: Modify Here, Please 
  */
+using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
@@ -105,16 +106,19 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
             modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
             modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
-            modelBuilder.ApplyConfiguration(new BillOfMaterialsConfigurations());
-            modelBuilder.ApplyConfiguration(new ProductGroupsConfigurations());
-            modelBuilder.ApplyConfiguration(new UnitsOfMeasurmentConfigurations());
-            modelBuilder.ApplyConfiguration(new BillOfMaterialItemsConfigurations());
-
+            modelBuilder.ApplyConfiguration (new BillOfMaterialsConfigurations ());
+            modelBuilder.ApplyConfiguration (new ProductGroupsConfigurations ());
+            modelBuilder.ApplyConfiguration (new UnitsOfMeasurmentConfigurations ());
+            modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
 
         }
 
         public void Save () {
             this.SaveChanges ();
+        }
+
+        public Task SaveAsync () {
+            return this.SaveChangesAsync ();
         }
 
     }
