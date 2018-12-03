@@ -35,11 +35,13 @@ export class PmsNavigationComponent {
         { id: 'products', name: 'Products' },
         { id: 'shipments', name: 'Shipments' },
         { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
-        { id: 'stocks/settings', name: 'Stock Settings ',
-      subChild: [
-        { id: 'stocks/product-groups', name: 'Product Groups' },
-        { id: 'stocks/unit-of-measures', name: 'Unit of Measurements' },
-      ] },
+        {
+          id: 'stocks/settings', name: 'Stock Settings ',
+          subChild: [
+            { id: 'stocks/product-groups', name: 'Product Groups' },
+            { id: 'unit-of-measure', name: 'Unit of Measurements' },
+          ]
+        },
       ]
     },
     {

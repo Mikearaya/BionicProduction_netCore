@@ -15,7 +15,8 @@ const routes: Routes = [{
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'invoices', loadChildren: '../feature/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
-    { path: 'shipments', loadChildren: '../feature/shipment/shipment.module#ShipmentModule' }
+    { path: 'shipments', loadChildren: '../feature/shipment/shipment.module#ShipmentModule' },
+    { path: 'unit-of-measure', loadChildren: '../feature/unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule' }
 
 
   ]
