@@ -3,12 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 11:26 AM
+ * @Last Modified Time: Dec 3, 2018 8:50 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
-using BionicInventory.Domain.Items.UOMs;
+using BionicInventory.Domain.UnitOfMeasurments;
 
 namespace BionicInventory.Domain.Items.BOMs {
     public partial class BomItems {
@@ -21,6 +21,6 @@ namespace BionicInventory.Domain.Items.BOMs {
         public DateTime? DateUpdated { get; set; }
 
         public Item Item { get; set; }
-        public UnitOfMeasurments Uom { get; set; }
+        public UnitOfMeasurment Uom { get; set; }
     }
 }

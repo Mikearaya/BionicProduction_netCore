@@ -1,19 +1,18 @@
 /*
- * @CreateTime: Nov 29, 2018 11:39 AM
+ * @CreateTime: Dec 3, 2018 8:46 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 2:37 PM
+ * @Last Modified Time: Dec 3, 2018 8:49 PM
  * @Description: Modify Here, Please 
  */
-using BionicInventory.Domain.Items.UOMs;
+using BionicInventory.Domain.UnitOfMeasurments;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BionicInventory.DataStore.Items.UOMs {
-    public class UnitsOfMeasurmentConfigurations : IEntityTypeConfiguration<UnitOfMeasurments> {
-        public void Configure (EntityTypeBuilder<UnitOfMeasurments> builder) {
-            builder.ToTable ("UNIT_OF_MEASURMENTS");
+namespace BionicInventory.DataStore.UnitOfMeasurments {
+    public class UnitOfMeasurmentsConfigurations : IEntityTypeConfiguration<UnitOfMeasurment> {
+        public void Configure (Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<UnitOfMeasurment> builder) {
+            builder.ToTable ("UNIT_OF_MEASURMENT");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -21,6 +20,12 @@ namespace BionicInventory.DataStore.Items.UOMs {
                 .IsRequired ()
                 .HasColumnName ("abrivation")
                 .HasColumnType ("varchar(10)");
+
+            
+            builder.Property (e => e.Active)
+                .IsRequired ()
+                .HasColumnName ("active")
+                .HasColumnType ("tinyint(4)");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
@@ -37,7 +42,6 @@ namespace BionicInventory.DataStore.Items.UOMs {
                 .IsRequired ()
                 .HasColumnName ("name")
                 .HasColumnType ("varchar(45)");
-
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductGroupApiService } from '../product-group-api.service';
+import { ProductGroupApiService } from '../../../core/services/items/product-group-api.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductGroupView, ProductGroup } from 'src/app/Modules/core/DataModels/product-group.model';

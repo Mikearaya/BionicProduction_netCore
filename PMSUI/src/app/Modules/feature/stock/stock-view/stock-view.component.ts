@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:12 AM
+ * @Last Modified Time: Dec 3, 2018 8:03 PM
  * @Description: Modify Here, Please
  */
 
@@ -15,7 +15,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
-  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel
+  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel
 } from '@syncfusion/ej2-angular-grids';
 import { stockViewColumnBluePrint } from './stock-column-blue-print';
 
@@ -47,10 +47,12 @@ export class StockViewComponent implements OnInit {
   public allowFiltering = true;
   public allowSorting = true;
   public editSettings: EditSettingsModel;
+  public wrapSettings: TextWrapSettingsModel;
 
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
     private route: Router) {
+    this.wrapSettings = { wrapMode: 'Header' };
 
   }
 
@@ -74,7 +76,12 @@ export class StockViewComponent implements OnInit {
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
 
     this.pageSettings = { pageSize: 6 };
-    this.toolbar = ['Add', 'Print', 'Search', 'ExcelExport', 'PdfExport'];
+    this.toolbar = ['Add',
+      'Print',
+      'Search',
+      'ExcelExport',
+      'PdfExport',
+      'ColumnChooser'];
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
     this.groupOptions = {
       showDropArea: false,

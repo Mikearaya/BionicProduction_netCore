@@ -37,7 +37,7 @@
                 Product Group
               </div>
               <div class="col-8 col-xs-12">
-                <ejs-dropdownlist [dataSource]="itemGroups" [width]=300 placeholder="Select Item Group" floatLabelType="Auto"
+                  <ejs-dropdownlist [dataSource]="itemGroups" [fields]="itemGroupFields" [width]=300 placeholder="Select Item Group" floatLabelType="Auto"
                   formControlName="groupId" name="groupId" id="groupId"></ejs-dropdownlist>
                   <div class="e-error" *ngIf="groupId.errors && groupId.touched">
                       <div *ngIf="groupId.errors['required']">Product Group is Required</div>

@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductGroupView, ProductGroup } from '../../core/DataModels/product-group.model';
+import { ProductGroupView, ProductGroup } from '../../DataModels/product-group.model';
 import { Observable } from 'rxjs';
 
 @Injectable()

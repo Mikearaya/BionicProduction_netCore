@@ -20,7 +20,7 @@ import {
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { ProductGroupApiService } from '../product-group-api.service';
+import { ProductGroupApiService } from '../../../core/services/items/product-group-api.service';
 import { productGroupColumnBluePrint } from './product-group-view-blue-print';
 import { ProductGroupView } from 'src/app/Modules/core/DataModels/product-group.model';
 import { Router } from '@angular/router';

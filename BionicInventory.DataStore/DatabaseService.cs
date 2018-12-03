@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 2, 2018 6:50 PM
+ * @Last Modified Time: Dec 3, 2018 8:51 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -21,13 +21,13 @@ using BionicInventory.DataStore.Invoices.InvoiceDetails;
 using BionicInventory.DataStore.Invoices.InvoicePayment;
 using BionicInventory.DataStore.Items;
 using BionicInventory.DataStore.Items.BOM;
-using BionicInventory.DataStore.Items.UOMs;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
 using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
+using BionicInventory.DataStore.UnitOfMeasurments;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
@@ -42,13 +42,13 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.ItemPrices;
-using BionicInventory.Domain.Items.UOMs;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
+using BionicInventory.Domain.UnitOfMeasurments;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
@@ -84,7 +84,7 @@ namespace BionicInventory.DataStore {
         public DbSet<Bom> Bom { get; set; }
         public DbSet<BomItems> BomItems { get; set; }
         public DbSet<ProductGroup> ProductGroup { get; set; }
-        public DbSet<UnitOfMeasurments> UnitsOfMeasurment { get; set; }
+        public DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -108,7 +108,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
             modelBuilder.ApplyConfiguration (new BillOfMaterialsConfigurations ());
             modelBuilder.ApplyConfiguration (new ProductGroupsConfigurations ());
-            modelBuilder.ApplyConfiguration (new UnitsOfMeasurmentConfigurations ());
+            modelBuilder.ApplyConfiguration (new UnitOfMeasurmentsConfigurations ());
             modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
 
         }
