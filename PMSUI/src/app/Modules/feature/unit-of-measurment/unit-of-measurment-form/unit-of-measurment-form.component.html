@@ -1,3 +1,55 @@
-<p>
-  unit-of-measurment-form works!
-</p>
+<section>
+  <app-notification #notification></app-notification>
+  <h6>{{title}}</h6>
+  <form [formGroup]="uomForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="uomForm.invalid"></app-form-options>
+
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-8 col-xs-12">
+          <div class="row">
+            <div class="col-2 col-xs-12 label-area " i18n="@@uomName">
+              Unit Name
+            </div>
+            <div class="col-8 col-xs-12">
+              <input type="text" class="e-input" floatLabelType="Auto" name="name" id="name" formControlName="name"
+                placeholder="Unit Name" i18n-placeholder="@@uomName unit of measurement name">
+              <div class="e-error" *ngIf="name.errors">
+                <div *ngIf="name.errors['required']" i18n="unit of measurment name is required form input">Unit Name is
+                  Required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 col-xs-12 label-area" i18n="@uomAbbr">
+              Abbrevation
+            </div>
+            <div class="col-8 col-xs-12">
+              <input type="text" class="e-input" floatLabelType="Auto" name="abbrevation" id="abbrevation"
+                formControlName="abbrevation" placeholder="Abbrevation" i18n-placeholder="@@uomAbbr unit of measurement abbrevation">
+              <div class="e-error" *ngIf="abbrevation.errors">
+                <div *ngIf="abbrevation.errors['required']" i18n="unit of measurment abbrevation is required form input">Unit
+                  abbrevation is Required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2 col-xs-12 label-area " i18n="uint of measurment status active/deactive">
+              Is Active (status)
+            </div>
+            <div class="col-8 col-xs-12">
+              <ejs-switch class="e-input" name="isActive" id="isActive" formControlName="isActive"></ejs-switch>
+              <div class="e-error" *ngIf="isActive.errors">
+                <div *ngIf="isActive.errors['required']" i18n="unit of measurment status is required form input">Unit
+                  status is Required</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="uomForm.invalid"></app-form-options>
+
+  </form>
+</section>

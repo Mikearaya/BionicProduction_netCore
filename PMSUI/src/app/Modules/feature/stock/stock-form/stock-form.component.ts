@@ -14,12 +14,14 @@ import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { ProductGroupApiService } from 'src/app/Modules/core/services/items/product-group-api.service';
 import { ProductGroupView } from 'src/app/Modules/core/DataModels/product-group.model';
+import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
+import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 /*
  * @CreateTime: Dec 3, 2018 7:38 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 7:38 PM
+ * @Last Modified Time: Dec 4, 2018 1:05 AM
  * @Description: Modify Here, Please
  */
 
@@ -35,7 +37,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   @ViewChild('notification')
   public notification: NotificationComponent;
   public itemGroups: ProductGroupView[];
-  public unitOfMesurmentList = [1];
+  public unitOfMesurmentList: UnitOfMeasurmentView[];
 
   public submitButtonText: string;
   public title: string;
@@ -44,22 +46,31 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   private itemId: number;
   public submitted: Boolean = false;
   public itemGroupFields: { text: string, value: string };
+  public unitOfMeasureFields: { text: string; value: string; };
 
   constructor(private itemApi: ItemApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private productGroupApi: ProductGroupApiService,
+    private unitOfMeasurmentApi: UnitOfMeasurmentApiService,
     private location: Location) {
     super();
     this.createForm();
     this.itemGroupFields = { text: 'groupName', value: 'id' };
+    this.unitOfMeasureFields = { text: 'name', value: 'id' };
   }
 
   ngOnInit() {
     this.itemId = + this.activatedRoute.snapshot.paramMap.get('itemId');
+
     this.productGroupApi.getAllProductGroups().subscribe(
       (data: ProductGroupView[]) => this.itemGroups = data,
       () => this.handleError
+    );
+
+    this.unitOfMeasurmentApi.getAllUnitOfMeasures().subscribe(
+      (data: UnitOfMeasurmentView[]) => this.unitOfMesurmentList = data,
+      this.handleError
     );
 
     if (this.itemId) {

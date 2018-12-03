@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Dec 4, 2018 12:45 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 4, 2018 12:45 AM
+ * @Description: Modify Here, Please 
+ */
 using System.ComponentModel.DataAnnotations;
 using MediatR;
 

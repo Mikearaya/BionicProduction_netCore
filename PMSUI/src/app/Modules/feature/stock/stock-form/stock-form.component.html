@@ -49,7 +49,7 @@
                 Storing Unit of Measurment
               </div>
               <div class="col-8 col-xs-12">
-                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [width]=200 floatLabelType="Auto" placeholder="Select Storing UoM"
+                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [fields]="unitOfMeasureFields" [width]=200 floatLabelType="Auto" placeholder="Select Storing UoM"
                   formControlName="storingUomId" name="storingUomId" id="storingUomId"></ejs-dropdownlist>
                   <div class="e-error" *ngIf="storingUomId.errors && storingUomId.touched">
                       <div *ngIf="storingUomId.errors['required']">Storing UoM is Required</div>
@@ -61,7 +61,7 @@
                 Manufacturing Unit of Measurment
               </div>
               <div class="col-8 col-xs-12">
-                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [width]=200 floatLabelType="Auto" placeholder="Select Manufacturing U0M"
+                <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [fields]="unitOfMeasureFields" [width]=200 floatLabelType="Auto" placeholder="Select Manufacturing U0M"
                   formControlName="manufacturingUomId" name="manufacturingUomId" id="manufacturingUomId"></ejs-dropdownlist>
                   <div class="e-error" *ngIf="manufacturingUomId.errors && manufacturingUomId.touched">
                       <div *ngIf="manufacturingUomId.errors['required']">Manufacturing UoM is Required</div>

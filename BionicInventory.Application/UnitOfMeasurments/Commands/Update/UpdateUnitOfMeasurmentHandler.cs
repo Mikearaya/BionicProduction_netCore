@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Dec 4, 2018 12:48 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 4, 2018 12:48 AM
+ * @Description: Modify Here, Please 
+ */
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,10 +21,9 @@ namespace BionicInventory.Application.UnitOfMeasurments.Commands.Update {
         public UpdateUnitOfMeasurmentHandler (IInventoryDatabaseService database) {
             _database = database;
         }
-        Task<Unit> IRequestHandler<UpdatedUnitOfMeasurmentDto, Unit>.Handle (UpdatedUnitOfMeasurmentDto request, CancellationToken cancellationToken) {
-            var uom = _database.UnitsOfMeasurment
-                .Where (u => u.Id == request.Id)
-                .FirstOrDefault ();
+        public async Task<Unit> Handle (UpdatedUnitOfMeasurmentDto request, CancellationToken cancellationToken) {
+            var uom = await _database.UnitsOfMeasurment
+                .FindAsync (request.Id);
 
             if (uom == null) {
                 throw new NotFoundException (nameof (UnitOfMeasurment), request.Id);
@@ -27,9 +34,9 @@ namespace BionicInventory.Application.UnitOfMeasurments.Commands.Update {
             uom.Active = request.Active;
 
             _database.UnitsOfMeasurment.Update (uom);
-            _database.Save ();
+            await _database.SaveAsync ();
 
-            return Unit.Task;
+            return Unit.Value;
 
         }
     }

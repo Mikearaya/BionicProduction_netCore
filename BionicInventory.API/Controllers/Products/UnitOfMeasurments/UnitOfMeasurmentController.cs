@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 10:43 PM
+ * @Last Modified Time: Dec 4, 2018 12:42 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -65,7 +65,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult> CreateUnitOfMeasure (NewUnitOfMeasureDto newUom) {
+        public async Task<ActionResult> CreateUnitOfMeasure ([FromBody] NewUnitOfMeasureDto newUom) {
 
             if (newUom == null) {
                 return StatusCode (400);
@@ -88,7 +88,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult> UpdateUnitOfMeasure (uint id, UpdatedUnitOfMeasurmentDto updatedUom) {
+        public async Task<ActionResult> UpdateUnitOfMeasure (uint id, [FromBody] UpdatedUnitOfMeasurmentDto updatedUom) {
 
             try {
                 if (updatedUom == null || id != updatedUom.Id) {

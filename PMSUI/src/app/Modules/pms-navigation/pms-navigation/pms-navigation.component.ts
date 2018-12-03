@@ -29,10 +29,9 @@ export class PmsNavigationComponent {
       id: 'dashboard', name: 'DASHBOARD'
     },
     {
-      id: 'stocks', name: 'STOCK',
+      id: 'stocks', name: 'Stock',
       subChild: [
         { id: 'stocks', name: 'Stock' },
-        { id: 'products', name: 'Products' },
         { id: 'shipments', name: 'Shipments' },
         { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
         {
@@ -45,7 +44,7 @@ export class PmsNavigationComponent {
       ]
     },
     {
-      id: '2', name: 'PRODUCTION',
+      id: '2', name: 'Production',
       subChild: [
         { id: 'workorders', name: 'MANUFACTURE ORDERS' },
         { id: 'workorders/pending', name: 'PRODUCTION REQUESTS' },
@@ -53,7 +52,7 @@ export class PmsNavigationComponent {
       ]
     },
     {
-      id: '345', name: 'SALES',
+      id: '345', name: 'Sales',
       subChild: [
         { id: 'customers', name: 'CUSTOMERS' },
         { id: 'sales', name: 'CUSTOMER ORDERS' },
@@ -62,13 +61,13 @@ export class PmsNavigationComponent {
     },
 
     {
-      id: 'reports', name: 'REPORT', subChild: [
+      id: 'reports', name: 'Reports', subChild: [
         { id: '22', name: 'PRODUCTION REPORTS' },
         { id: '33', name: 'SALES REPORTS' }
       ]
     },
     {
-      id: 'profile', name: 'SETTINGS',
+      id: 'profile', name: 'Settings',
       subChild: [
         { id: 'profile', name: 'PROFILE' },
         { id: 'employees', name: 'EMPLOYEES' }

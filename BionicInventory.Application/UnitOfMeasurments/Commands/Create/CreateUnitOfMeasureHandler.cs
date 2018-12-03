@@ -11,15 +11,16 @@ namespace BionicInventory.Application.UnitOfMeasurments.Commands.Create {
         public CreateUnitOfMeasureHandler (IInventoryDatabaseService database) {
             _database = database;
         }
-        public Task<Unit> Handle (NewUnitOfMeasureDto request, CancellationToken cancellationToken) {
+        public async Task<Unit> Handle (NewUnitOfMeasureDto request, CancellationToken cancellationToken) {
             UnitOfMeasurment newUnit = new UnitOfMeasurment () {
                 Name = request.Name,
                 Abrivation = request.Abrivation,
-                Active = request.Active
+                Active = request.Active 
             };
             _database.UnitsOfMeasurment.Add (newUnit);
+            await _database.SaveAsync ();
 
-            return Unit.Task;
+            return Unit.Value;
         }
     }
 }

@@ -33,6 +33,7 @@
 .e-filtermenudiv.e-icons.e-icon-filter {
   padding-right: 2em;
 }
+
 .e-search:before {
   content: '\e993';
 }
@@ -68,4 +69,10 @@ dt {
 
 body {
   background: honeydew !important;
+}
+
+div.label-area {
+  padding: 0;
+  text-align: center;
+  font-size: .8em;
 }

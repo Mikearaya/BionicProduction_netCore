@@ -14,9 +14,6 @@ export class UnitOfMeasure {
 
   id?: number;
   Abrivation: string;
-
-
   Name: string;
-
   Active: number | null;
 }
