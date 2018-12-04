@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 12:48 AM
+ * @Last Modified Time: Dec 4, 2018 7:54 PM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Shared.Exceptions;
+using BionicInventory.Application.UnitOfMeasurments.Models;
 using BionicInventory.Domain.UnitOfMeasurments;
 using MediatR;
 

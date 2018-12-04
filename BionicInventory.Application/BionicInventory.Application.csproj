@@ -7,6 +7,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2"/>
     <PackageReference Include="AutoMapper" Version="7.0.1"/>
     <PackageReference Include="MediatR" Version="5.1.0"/>
+    <PackageReference Include="FluentValidation" Version="8.0.101"/>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>

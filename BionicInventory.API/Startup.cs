@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 2, 2018 7:03 PM
+ * @Last Modified Time: Dec 4, 2018 10:13 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -63,6 +63,7 @@ using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Queries;
 using BionicInventory.Application.SalesOrders.Queries.Report;
+using BionicInventory.Application.Shared.Infrastructure;
 using BionicInventory.Application.Shipments.Commands;
 using BionicInventory.Application.Shipments.Factories;
 using BionicInventory.Application.Shipments.Interfaces;
@@ -74,6 +75,7 @@ using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.ItemPrices;
 using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
@@ -139,6 +141,12 @@ namespace BionicInventory.API {
             services.AddScoped<IProductGroupFactory, ProductGroupFactory> ();
 
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
+
+            // Add MediatR
+          
+            services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestPreProcessorBehavior<,>));
+            services.AddTransient (typeof (IPipelineBehavior<,>), typeof (ReuquestPerformaceLogger<,>));
+           // services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestValidationManager<,>));
             services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
             services.AddSwaggerDocument ();
 

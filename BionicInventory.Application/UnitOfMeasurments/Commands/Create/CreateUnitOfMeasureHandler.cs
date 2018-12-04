@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.UnitOfMeasurments.Models;
 using BionicInventory.Domain.UnitOfMeasurments;
 using MediatR;
 
@@ -15,7 +16,7 @@ namespace BionicInventory.Application.UnitOfMeasurments.Commands.Create {
             UnitOfMeasurment newUnit = new UnitOfMeasurment () {
                 Name = request.Name,
                 Abrivation = request.Abrivation,
-                Active = request.Active 
+                Active = request.Active
             };
             _database.UnitsOfMeasurment.Add (newUnit);
             await _database.SaveAsync ();

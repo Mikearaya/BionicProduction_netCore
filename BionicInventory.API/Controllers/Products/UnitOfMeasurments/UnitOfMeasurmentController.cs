@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 12:42 AM
+ * @Last Modified Time: Dec 4, 2018 8:01 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -12,6 +12,7 @@ using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.UnitOfMeasurments.Commands.Create;
 using BionicInventory.Application.UnitOfMeasurments.Commands.Delete;
 using BionicInventory.Application.UnitOfMeasurments.Commands.Update;
+using BionicInventory.Application.UnitOfMeasurments.Models;
 using BionicInventory.Application.UnitOfMeasurments.Queries;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
