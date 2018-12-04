@@ -27,7 +27,6 @@ namespace BionicInventory.Application.Products.Models {
         [Required]
         public float unitCost { get; set; }
 
-        [FileExtensions]
         public string image { get; set; }
         public sbyte isInventoryItem { get; set; }
         public sbyte isProcured { get; set; }

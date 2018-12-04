@@ -15,9 +15,14 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { Router } from '@angular/router';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
-  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel
+  FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, Column, IRow
 } from '@syncfusion/ej2-angular-grids';
 import { stockViewColumnBluePrint } from './stock-column-blue-print';
+import { ItemApiService } from '../stock-api.service';
+import { closest } from '@syncfusion/ej2-base';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 
 @Component({
@@ -26,9 +31,12 @@ import { stockViewColumnBluePrint } from './stock-column-blue-print';
   styleUrls: ['./stock-view.component.css']
 })
 
-export class StockViewComponent implements OnInit {
+export class StockViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
+
+  @ViewChild('notification')
+  public notification: NotificationComponent;
   public customAttributes: Object;
 
   public data: DataManager;
@@ -51,7 +59,10 @@ export class StockViewComponent implements OnInit {
 
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
+    private itemApi: ItemApiService,
     private route: Router) {
+
+    super();
     this.wrapSettings = { wrapMode: 'Header' };
 
   }
@@ -60,6 +71,8 @@ export class StockViewComponent implements OnInit {
   public printMode: 'CurrentPage';
 
   columnBluePrint = stockViewColumnBluePrint;
+
+  // TODO: change to service
 
   public dataManager: DataManager = new DataManager({
     url: `${this.apiUrl}/finished_products`,
@@ -91,8 +104,32 @@ export class StockViewComponent implements OnInit {
     this.filterSetting = {
       type: 'Menu'
     };
+    this.commands = [
+      {
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editItem.bind(this) }
+      }, {
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteItem.bind(this) }
+      }];
   }
 
+  editItem(args: Event): void {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.route.navigate([`stocks/item/${rowObj.data['itemId']}`]);
+
+  }
+
+  deleteItem(args: Event): void {
+    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+    this.itemApi.deleteItemById(rowObj.data['itemId']).subscribe(
+      () => this.notification.showMessage('Item Deleted'),
+      (error: CustomErrorResponse) => {
+        this.notification.showMessage('Unable to Delete Item', 'error');
+        this.handleError(error);
+      }
+    );
+  }
 
   toolbarClick(args: ClickEventArgs): void {
     if (args.item.id === 'stock_excelexport') {

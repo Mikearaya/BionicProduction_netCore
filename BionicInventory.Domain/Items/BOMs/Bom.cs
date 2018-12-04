@@ -19,6 +19,7 @@ namespace BionicInventory.Domain.Items.BOMs {
         public uint Id { get; set; }
         public string Name { get; set; }
         public uint ItemId { get; set; }
+        public sbyte? Active { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

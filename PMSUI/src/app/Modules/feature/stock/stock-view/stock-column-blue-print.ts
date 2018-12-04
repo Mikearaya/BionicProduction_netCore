@@ -115,7 +115,7 @@ export const stockViewColumnBluePrint = [
   {
     key: 'averageCost',
     humanReadable: 'Avg. Cost',
-    visable: true,
+    visable: false,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,
@@ -128,7 +128,7 @@ export const stockViewColumnBluePrint = [
   {
     key: 'totalCost',
     humanReadable: 'Total Cost',
-    visable: true,
+    visable: false,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,

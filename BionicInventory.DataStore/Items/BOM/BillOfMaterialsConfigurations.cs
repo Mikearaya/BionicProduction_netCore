@@ -19,6 +19,11 @@ namespace BionicInventory.DataStore.Items.BOM {
             builder.HasIndex (e => e.ItemId)
                 .HasName ("fk_BOM_item_idx");
 
+            builder.Property (e => e.Active)
+                .HasColumnType ("tinyint(4)")
+                .HasColumnName ("active");
+                
+
             builder.Property (e => e.Id).HasColumnName ("ID");
 
             builder.Property (e => e.DateAdded)

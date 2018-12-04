@@ -3,15 +3,15 @@
     [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="allowExcelExport" [toolbar]='toolbar'
     (toolbarClick)='toolbarClick($event)' [showColumnChooser]="showColumnChooser" [showColumnMenu]="showColumnMenu"
     [filterSettings]='filterSetting' [groupSettings]='groupOptions' [allowFiltering]="true" [allowSorting]="allowSorting"
-    [allowPdfExport]="allowPdfExport" [editSettings]="editSettings" [rowHeight]=25
-   >
+    [allowPdfExport]="allowPdfExport"  [editSettings]="editSettings" height="300" [rowHeight]=25>
     <e-columns>
-      <e-column *ngFor="let col of columnBluePrint" [width]="col.width" [allowEditing]="col.editable" [field]='col.key'
-        [allowFiltering]="col.allowFiltering" [allowGrouping]="col.allowGrouping" [isIdentity]="col.isIdentity"
+      <e-column *ngFor="let col of columnBluePrint" [width]="col.width" [field]='col.key'
+        [allowFiltering]="col.allowFiltering" [allowGrouping]="col.allowGrouping"
         [headerText]='col.humanReadable' [type]="col.type" [format]="col.format" [visible]="col.visable"
-        [customAttributes]="customAttributes" headerTextAlign="left">
+        [customAttributes]="customAttributes" >
       </e-column>
-
+      <e-column [commands]="commands" [customAttributes]="customAttributes" width="25"> </e-column>
     </e-columns>
   </ejs-grid>
 </section>
+<app-notification #notification></app-notification>
