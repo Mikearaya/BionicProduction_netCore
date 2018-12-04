@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 2:36 PM
+ * @Last Modified Time: Dec 4, 2018 10:15 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Items.BOMs;
@@ -19,12 +19,12 @@ namespace BionicInventory.DataStore.Items.BOM {
             builder.HasIndex (e => e.ItemId)
                 .HasName ("fk_BOM_item_idx");
 
-            builder.Property (e => e.Active)
-                .HasColumnType ("tinyint(4)")
-                .HasColumnName ("active");
-                
-
             builder.Property (e => e.Id).HasColumnName ("ID");
+
+            builder.Property (e => e.Active)
+                .HasColumnName ("active")
+                .HasColumnType ("tinyint(4)")
+                .HasDefaultValueSql ("'1'");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")

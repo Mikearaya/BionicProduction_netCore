@@ -38,14 +38,14 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public virtual DbSet<SocialMedia> SocialMedia { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
-        public virtual DbSet<UnitOfMeasurments> UnitOfMeasurments { get; set; }
+        public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;user=admin;password=admin;port=3306;database=bionic_inventory;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
             }
         }
 
@@ -100,6 +100,11 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.Active)
+                    .HasColumnName("active")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'1'");
+
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
                     .HasColumnType("datetime")
@@ -128,6 +133,9 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("BOM_ITEMS");
 
+                entity.HasIndex(e => e.BomId)
+                    .HasName("fk_BOM_ITEMS_bom_idx");
+
                 entity.HasIndex(e => e.ItemId)
                     .HasName("fk_BOM_ITEMS_item_idx");
 
@@ -135,6 +143,8 @@ namespace BionicProduction.Migration.Database
                     .HasName("fk_BOM_ITEMS_uom_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BomId).HasColumnName("BOM_ID");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -156,6 +166,11 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
                 entity.Property(e => e.UomId).HasColumnName("UOM_ID");
+
+                entity.HasOne(d => d.Bom)
+                    .WithMany(p => p.BomItems)
+                    .HasForeignKey(d => d.BomId)
+                    .HasConstraintName("fk_BOM_ITEMS_bom");
 
                 entity.HasOne(d => d.Item)
                     .WithMany(p => p.BomItems)
@@ -632,10 +647,6 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("text");
-
                 entity.Property(e => e.GroupId)
                     .HasColumnName("GROUP_ID")
                     .HasDefaultValueSql("'1'");
@@ -685,7 +696,6 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.ManufacturingUom)
                     .WithMany(p => p.ItemManufacturingUom)
                     .HasForeignKey(d => d.ManufacturingUomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ITEM_manufacture_uom");
 
                 entity.HasOne(d => d.StoringUom)
@@ -1143,9 +1153,9 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Percentage).HasColumnName("percentage");
             });
 
-            modelBuilder.Entity<UnitOfMeasurments>(entity =>
+            modelBuilder.Entity<UnitOfMeasurment>(entity =>
             {
-                entity.ToTable("UNIT_OF_MEASURMENTS");
+                entity.ToTable("UNIT_OF_MEASURMENT");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -1153,6 +1163,11 @@ namespace BionicProduction.Migration.Database
                     .IsRequired()
                     .HasColumnName("abrivation")
                     .HasColumnType("varchar(10)");
+
+                entity.Property(e => e.Active)
+                    .HasColumnName("active")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")

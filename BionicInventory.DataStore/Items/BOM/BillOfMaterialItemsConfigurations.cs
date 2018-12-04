@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 2:37 PM
+ * @Last Modified Time: Dec 4, 2018 10:16 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Items.BOMs;
@@ -15,6 +15,9 @@ namespace BionicInventory.DataStore.Items.BOM {
         public void Configure (EntityTypeBuilder<BomItems> builder) {
             builder.ToTable ("BOM_ITEMS");
 
+            builder.HasIndex (e => e.BomId)
+                .HasName ("fk_BOM_ITEMS_bom_idx");
+
             builder.HasIndex (e => e.ItemId)
                 .HasName ("fk_BOM_ITEMS_item_idx");
 
@@ -22,6 +25,8 @@ namespace BionicInventory.DataStore.Items.BOM {
                 .HasName ("fk_BOM_ITEMS_uom_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
+
+            builder.Property (e => e.BomId).HasColumnName ("BOM_ID");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
@@ -44,6 +49,11 @@ namespace BionicInventory.DataStore.Items.BOM {
 
             builder.Property (e => e.UomId).HasColumnName ("UOM_ID");
 
+            builder.HasOne (d => d.Bom)
+                .WithMany (p => p.BomItems)
+                .HasForeignKey (d => d.BomId)
+                .HasConstraintName ("fk_BOM_ITEMS_bom");
+
             builder.HasOne (d => d.Item)
                 .WithMany (p => p.BomItems)
                 .HasForeignKey (d => d.ItemId)
@@ -54,6 +64,7 @@ namespace BionicInventory.DataStore.Items.BOM {
                 .HasForeignKey (d => d.UomId)
                 .OnDelete (DeleteBehavior.ClientSetNull)
                 .HasConstraintName ("fk_BOM_ITEMS_uom");
+
         }
     }
 }

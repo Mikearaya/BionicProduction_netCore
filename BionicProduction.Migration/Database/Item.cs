@@ -16,8 +16,7 @@ namespace BionicProduction.Migration.Database
         public uint Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public float Weight { get; set; }
+        public float? Weight { get; set; }
         public float UnitCost { get; set; }
         public string Photo { get; set; }
         public uint GroupId { get; set; }
@@ -25,14 +24,14 @@ namespace BionicProduction.Migration.Database
         public sbyte? IsInventory { get; set; }
         public float? Price { get; set; }
         public uint? ShelfLife { get; set; }
-        public uint ManufacturingUomId { get; set; }
+        public uint? ManufacturingUomId { get; set; }
         public uint StoringUomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdate { get; set; }
 
         public ProductGroup Group { get; set; }
-        public UnitOfMeasurments ManufacturingUom { get; set; }
-        public UnitOfMeasurments StoringUom { get; set; }
+        public UnitOfMeasurment ManufacturingUom { get; set; }
+        public UnitOfMeasurment StoringUom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ItemPrice> ItemPrice { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }

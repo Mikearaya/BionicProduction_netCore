@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 8:50 PM
+ * @Last Modified Time: Dec 4, 2018 10:18 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -19,7 +19,9 @@ namespace BionicInventory.Domain.Items.BOMs {
         public uint UomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public uint BomId { get; set; }
 
+        public Bom Bom { get; set; }
         public Item Item { get; set; }
         public UnitOfMeasurment Uom { get; set; }
     }
