@@ -15,6 +15,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
+import { BomFormComponent } from './Modules/feature/stock/bom/bom-form/bom-form.component';
+import { BomViewComponent } from './Modules/feature/stock/bom/bom-view/bom-view.component';
 
 
 
@@ -22,7 +24,9 @@ import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BomFormComponent,
+    BomViewComponent
   ],
   imports: [
     BrowserModule,
