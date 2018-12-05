@@ -10,6 +10,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LowStockItemsView, ItemModel, ItemView } from '../../core/DataModels/item-data-models';
 import { Observable } from 'rxjs';
+import { BomView } from '../../core/DataModels/bom.model';
 
 @Injectable()
 export class ItemApiService {
@@ -30,6 +31,11 @@ export class ItemApiService {
   getAllItems(): Observable<ItemView[]> {
     return this.httpClient.get<ItemView[]>(`${this.apiUrl}/${this.controller}`);
   }
+
+
+
+
+
 
 
   saveItem(item: ItemModel): Observable<ItemModel> {

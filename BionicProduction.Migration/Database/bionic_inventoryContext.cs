@@ -45,7 +45,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
             }
         }
 
@@ -124,7 +124,7 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("varchar(45)");
 
                 entity.HasOne(d => d.Item)
-                    .WithMany(p => p.InverseItem)
+                    .WithMany(p => p.Bom)
                     .HasForeignKey(d => d.ItemId)
                     .HasConstraintName("fk_BOM_item");
             });

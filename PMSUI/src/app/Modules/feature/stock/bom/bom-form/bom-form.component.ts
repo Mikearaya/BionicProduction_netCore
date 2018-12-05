@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 1:55 PM
+ * @Last Modified Time: Dec 5, 2018 11:51 PM
  * @Description: Modify Here, Please
  */
 
@@ -95,7 +95,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
       name: ['', Validators.required],
       itemId: ['', Validators.required],
       isActive: [true],
-      bomItems: this.formBuilder.array([])
+      bomItems: this.formBuilder.array([this.createBomItem()])
     });
 
   }
@@ -149,6 +149,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
   private initializeForm(bom: BomView): void {
     this.bomForm = this.formBuilder.group({
+      id: [bom.id, Validators.required],
       name: [bom.name, Validators.required],
       itemId: [bom.itemId, Validators.required],
       isActive: [bom.active, Validators.required],

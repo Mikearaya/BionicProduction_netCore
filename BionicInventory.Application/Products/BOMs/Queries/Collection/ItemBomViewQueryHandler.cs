@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 9:51 PM
+ * @Last Modified Time: Dec 5, 2018 11:55 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -14,7 +14,6 @@ using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.BOMs.Queries.Models;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
-using MediatR;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

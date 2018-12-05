@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 8:51 PM
+ * @Last Modified Time: Dec 6, 2018 12:20 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -17,6 +17,7 @@ using BionicInventory.Domain.UnitOfMeasurments;
 namespace BionicInventory.Domain.Items {
     public class Item {
         public Item () {
+            Bom = new HashSet<Bom> ();
             BomItems = new HashSet<BomItems> ();
             ItemPrice = new HashSet<ItemPrice> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
@@ -43,6 +44,7 @@ namespace BionicInventory.Domain.Items {
         public ProductGroup Group { get; set; }
         public UnitOfMeasurment ManufacturingUom { get; set; }
         public UnitOfMeasurment StoringUom { get; set; }
+        public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ItemPrice> ItemPrice { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }

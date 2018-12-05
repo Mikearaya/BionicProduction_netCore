@@ -14,6 +14,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 import { BionicDialogComponent } from './bionic-dialog/bionic-dialog.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
+import { TabModule } from '@syncfusion/ej2-angular-navigations';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
     // angular
     ReactiveFormsModule,
     GridModule,
+    TabModule,
     NotificationComponent,
     // syncfusion
     BionicDialogComponent,

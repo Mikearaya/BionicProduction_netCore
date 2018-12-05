@@ -7,6 +7,7 @@ namespace BionicProduction.Migration.Database
     {
         public Item()
         {
+            Bom = new HashSet<Bom>();
             BomItems = new HashSet<BomItems>();
             ItemPrice = new HashSet<ItemPrice>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
@@ -32,6 +33,7 @@ namespace BionicProduction.Migration.Database
         public ProductGroup Group { get; set; }
         public UnitOfMeasurment ManufacturingUom { get; set; }
         public UnitOfMeasurment StoringUom { get; set; }
+        public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ItemPrice> ItemPrice { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }

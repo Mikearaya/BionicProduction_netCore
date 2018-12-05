@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 10:16 PM
+ * @Last Modified Time: Dec 6, 2018 12:16 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,7 +13,6 @@ namespace BionicInventory.Domain.Items.BOMs {
     public partial class Bom {
         public Bom () {
             BomItems = new HashSet<BomItems> ();
-            InverseItem = new HashSet<Bom> ();
         }
 
         public uint Id { get; set; }
@@ -23,8 +22,7 @@ namespace BionicInventory.Domain.Items.BOMs {
         public DateTime? DateUpdated { get; set; }
         public sbyte? Active { get; set; }
 
-        public Bom Item { get; set; }
+        public Item Item { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Bom> InverseItem { get; set; }
     }
 }

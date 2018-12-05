@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 1:05 AM
+ * @Last Modified Time: Dec 5, 2018 11:54 PM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -28,7 +28,9 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Update {
         public async Task<Unit> Handle (UpdatedBomDto request, CancellationToken cancellationToken) {
             var item = await _database.Item.FindAsync (request.ItemId);
 
-            var bom = await _database.Bom.FindAsync (request.Id);
+            var bom = await _database.Bom
+                .AsNoTracking ()
+                .FirstOrDefaultAsync (b => b.Id == request.Id);
 
             if (bom == null) {
                 throw new NotFoundException (nameof (Bom), request.Id);

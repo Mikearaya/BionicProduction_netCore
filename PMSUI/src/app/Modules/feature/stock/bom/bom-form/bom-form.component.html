@@ -60,8 +60,8 @@
                     <th class="description-header"><strong>Quantity</strong></th>
                     <th class="amunt-header"><strong>UOM Id</strong></th>
                     <th class="reference-header"><strong>Note</strong></th>
-                    <th class="action-header"> <button type="button" ejs-button class="e-round e-danger e-small e-icons e-times-icon"
-                        iconCss="e-icons e-del-icon" (click)="addBomItem()"></button></th>
+                    <th class="action-header"> <button type="button" [disabled]="bomItems.invalid" ejs-button class="e-small e-primary"
+                        iconCss="e-icons e-add-icon" (click)="addBomItem()"> Add </button></th>
                   </tr>
                 </thead>
                 <tbody formArrayName="bomItems">
@@ -94,8 +94,8 @@
                         placeholder="Note">
                     </td>
                     <td>
-                      <button type="button" ejs-button class="e-round e-info e-small " iconCss="e-icons e-add-icon"
-                        (click)="removeBomItem()"  [disabled]="bomItems?.invalid"></button>
+                      <button type="button" ejs-button class="e-round  e-small e-danger " iconCss="e-icons e-delete-icon"
+                        (click)="removeBomItem()"  [disabled]="bomItems?.controls.length < 2"></button>
 
                     </td>
                   </tr>

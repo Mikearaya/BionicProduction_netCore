@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 10:15 PM
+ * @Last Modified Time: Dec 6, 2018 12:20 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Items.BOMs;
@@ -45,10 +45,9 @@ namespace BionicInventory.DataStore.Items.BOM {
                 .HasColumnType ("varchar(45)");
 
             builder.HasOne (d => d.Item)
-                .WithMany (p => p.InverseItem)
+                .WithMany (p => p.Bom)
                 .HasForeignKey (d => d.ItemId)
                 .HasConstraintName ("fk_BOM_item");
-
         }
     }
 }

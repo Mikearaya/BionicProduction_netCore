@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 10:12 AM
+ * @Last Modified Time: Dec 5, 2018 11:48 PM
  * @Description: Modify Here, Please
  */
 import { Injectable, Inject } from '@angular/core';
@@ -27,7 +27,11 @@ export class BomApiService {
 
 
   getBomItemById(bomId: number): Observable<BomView> {
-    return this.httpClient.get<BomView>(`${this.httpClient}/${this.controller}/${bomId}`);
+    return this.httpClient.get<BomView>(`${this.apiUrl}/${this.controller}/${bomId}`);
+  }
+
+  getItemBOMsById(itemId: number): Observable<BomView[]> {
+    return this.httpClient.get<BomView[]>(`${this.apiUrl}/products/${itemId}/boms`);
   }
 
 

@@ -16,6 +16,7 @@ import { ProductGroupApiService } from 'src/app/Modules/core/services/items/prod
 import { ProductGroupView } from 'src/app/Modules/core/DataModels/product-group.model';
 import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
 import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
+import { TabComponent } from '@syncfusion/ej2-angular-navigations';
 /*
  * @CreateTime: Dec 3, 2018 7:38 PM
  * @Author:  Mikael Araya
@@ -38,6 +39,19 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   public notification: NotificationComponent;
   public itemGroups: ProductGroupView[];
   public unitOfMesurmentList: UnitOfMeasurmentView[];
+  @ViewChild('element') tabObj: TabComponent;
+
+  @ViewChild('headerStyles') listObj: TabComponent;
+  public headerText: Object[] = [
+    { Id: 'header1', headerStyle: 'fill', text: 'General' },
+    { Id: 'header2', headerStyle: 'fill', text: 'BOMs' },
+    { Id: 'header3', headerStyle: 'fill', text: 'Routings' },
+    { Id: 'header4', headerStyle: 'fill', text: 'Others' }
+  ];
+
+  public fields: Object = { text: 'text', value: 'headerStyle' };
+  public height: String = '220px';
+  public value: String = 'default';
 
   public submitButtonText: string;
   public title: string;

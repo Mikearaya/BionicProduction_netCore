@@ -8,7 +8,6 @@ namespace BionicProduction.Migration.Database
         public Bom()
         {
             BomItems = new HashSet<BomItems>();
-            InverseItem = new HashSet<Bom>();
         }
 
         public uint Id { get; set; }
@@ -18,8 +17,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public sbyte? Active { get; set; }
 
-        public Bom Item { get; set; }
+        public Item Item { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Bom> InverseItem { get; set; }
     }
 }

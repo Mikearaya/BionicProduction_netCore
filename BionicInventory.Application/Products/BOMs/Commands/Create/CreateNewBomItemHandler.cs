@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 10:40 PM
+ * @Last Modified Time: Dec 6, 2018 12:06 AM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
@@ -44,7 +45,7 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Create {
                 }
 
                 if (uomId == null) {
-                    throw new NotFoundException (nameof (Item), data.UomId);
+                    throw new NotFoundException (nameof (UnitOfMeasurment), data.UomId);
                 }
 
                 newBom.BomItems.Add (new BomItems () {
@@ -61,6 +62,11 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Create {
             await _database.SaveAsync ();
 
             return Unit.Value;
+        }
+
+        private object UnitOfMeasurment()
+        {
+            throw new NotImplementedException();
         }
     }
 }
