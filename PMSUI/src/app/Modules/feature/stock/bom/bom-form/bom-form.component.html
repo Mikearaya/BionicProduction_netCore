@@ -1,3 +1,113 @@
-<p>
-  bom-form works!
-</p>
+<section>
+  <app-notification #notification></app-notification>
+
+  <form [formGroup]="bomForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtomText" [submitDisabled]="bomForm.invalid"></app-form-options>
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-3 col-12">
+              BOM Name
+            </div>
+            <div class="col-8 col-12">
+              <input class="e-input" placeholder="BOM Name" id="bomName" name="bomName" formControlName="name"
+                floatLabelType="Auto">
+              <div class="e-error" *ngIf="name.errors">
+                <div *ngIf="name.errors['required']">BOM name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-3 col-12">
+              Item
+            </div>
+            <div class="col-8 col-12">
+              <ejs-dropdownlist [dataSource]="itemsList" placeholder="Select Item" id="item" name="item"
+                formControlName="itemId" [fields]="itemFields">
+              </ejs-dropdownlist>
+              <div class="e-error" *ngIf="itemId.errors">
+                <div *ngIf="itemId.errors['required']"> Item is Required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-3 col-12">
+              Is Active?
+            </div>
+            <div class="col-xs-12 col-12">
+              <ejs-switch formControlName="isActive" name="isActive" id="isActive"></ejs-switch>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div id='details'>
+            <div id="PrList">
+              <table id="Pr-table" class="table">
+                <colgroup>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+                  <col>
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th class="account-header"><strong>Item</strong></th>
+                    <th class="description-header"><strong>Quantity</strong></th>
+                    <th class="amunt-header"><strong>UOM Id</strong></th>
+                    <th class="reference-header"><strong>Note</strong></th>
+                    <th class="action-header"> <button type="button" ejs-button class="e-round e-danger e-small e-icons e-times-icon"
+                        iconCss="e-icons e-del-icon" (click)="addBomItem()"></button></th>
+                  </tr>
+                </thead>
+                <tbody formArrayName="bomItems">
+                  <tr *ngFor="let items of bomItems.controls; let i=index; let l=last;" [formGroup]="items">
+                    <td>
+                      <ejs-dropdownlist formControlName="itemId" [dataSource]='itemsList' [fields]="itemFields"
+                        placeholder="Select Item">
+                      </ejs-dropdownlist>
+                    </td>
+                    <td>
+                      <div class="form-group template">
+                        <div class="e-float-input">
+                          <ejs-numerictextbox showSpinButton=true formControlName="quantity" [attr.id]="'item'+i"
+                            [attr.name]="'item'+i" placeholder="Quantity">
+                          </ejs-numerictextbox>
+
+                          <span class="e-float-line"></span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+
+                      <ejs-dropdownlist formControlName="uomId" [dataSource]='uomsList' [fields]="uomFields"
+                        placeholder="UOM Item" [attr.id]="'uomId'+i" [attr.name]="'uomId'+i">
+                      </ejs-dropdownlist>
+
+                    </td>
+                    <td>
+                      <input type="text" class="e-input" [attr.name]="'note'+i" [attr.id]="'note'+i" formControlName="note"
+                        placeholder="Note">
+                    </td>
+                    <td>
+                      <button type="button" ejs-button class="e-round e-info e-small " iconCss="e-icons e-add-icon"
+                        (click)="removeBomItem()"  [disabled]="bomItems?.invalid"></button>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+    <app-form-options [submitButtonText]="submitButtomText" [submitDisabled]="bomForm.invalid"></app-form-options>
+  </form>
+</section>

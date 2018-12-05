@@ -39,6 +39,7 @@ export class PmsNavigationComponent {
           subChild: [
             { id: 'stocks/product-groups', name: 'Product Groups' },
             { id: 'unit-of-measure', name: 'Unit of Measurements' },
+            { id: 'boms', name: 'Bill of Material' }
           ]
         },
       ]

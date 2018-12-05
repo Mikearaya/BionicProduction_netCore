@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 10:58 AM
+ * @Last Modified Time: Dec 5, 2018 1:55 PM
  * @Description: Modify Here, Please
  */
 
@@ -22,6 +22,9 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
+import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
+import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 
 
 @Component({
@@ -33,21 +36,41 @@ export class BomFormComponent extends CommonProperties implements OnInit {
   @ViewChild('notification')
   public notification: NotificationComponent;
   private bomId: number;
-  private bomForm: FormGroup;
+  public bomForm: FormGroup;
   public isUpdate: Boolean;
+  public itemsList: Product[];
+  public uomsList: UnitOfMeasurmentView[];
+  public itemFields: { text: string, value: string };
+  public uomFields: { text: string, value: string };
+
   public submitButtomText: string;
   public title: string;
 
   constructor(private bomApi: BomApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
+    private productsApi: ProductsAPIService,
+    private unitOfMeasureApi: UnitOfMeasurmentApiService,
     private location: Location) {
     super();
     this.createForm();
+
+    this.uomFields = { text: 'abbrevation', value: 'id' };
+    this.itemFields = { text: 'name', value: 'id' };
   }
 
   ngOnInit() {
     this.bomId = + this.activatedRoute.snapshot.paramMap.get('bomId');
+
+    this.productsApi.getAllProducts().subscribe(
+      (data: any) => this.itemsList = data.Items,
+      this.handleError
+    );
+
+    this.unitOfMeasureApi.getAllUnitOfMeasures().subscribe(
+      (data: UnitOfMeasurmentView[]) => this.uomsList = data,
+      this.handleError
+    );
 
     if (this.bomId) {
 
@@ -159,7 +182,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
           }
         );
       } else {
-        this.bomApi.updateBomItem(bom).subscribe(
+        this.bomApi.saveBomItem(bom).subscribe(
           () => {
             this.notification.showMessage('Bom Item Created Successfuly');
             this.location.back();
@@ -177,9 +200,10 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
     const bomData = new Bom();
 
-    bomData.id = bom.id;
+    bomData.id = (bom.id) ? bom.id : 0;
     bomData.name = bom.name;
     bomData.active = bom.active;
+    bomData.itemId = bom.itemId;
 
     bom.bomItems.forEach(element => {
       bomData.bomItems.push(element);

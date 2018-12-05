@@ -62,6 +62,8 @@ namespace BionicInventory.API.Controllers.Products {
             }
         }
 
+        
+
         // api/products/boms
         [HttpPost]
         [ProducesResponseType (201)]

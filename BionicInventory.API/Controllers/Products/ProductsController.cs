@@ -3,16 +3,21 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 3:23 PM
+ * @Last Modified Time: Dec 5, 2018 9:35 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using BionicInventory.Application.Products.BOMs.Queries.Collection;
+using BionicInventory.Application.Products.BOMs.Queries.Models;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Items;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Products {
@@ -23,14 +28,18 @@ namespace BionicInventory.API.Controllers.Products {
         private readonly IProductsQuery _query;
         private readonly IProductsFactory _factory;
 
+        public IMediator _Mediator { get; }
+
         public ProductsController (
             IProductsCommand command,
             IProductsQuery query,
-            IProductsFactory factory
+            IProductsFactory factory,
+            IMediator mediator
         ) {
             _command = command;
             _query = query;
             _factory = factory;
+            _Mediator = mediator;
         }
 
         [HttpGet ("{id}")]
@@ -98,6 +107,28 @@ namespace BionicInventory.API.Controllers.Products {
             } catch (Exception e) {
 
                 return StatusCode (500, e.Message);
+            }
+        }
+
+        // api/id/boms
+        [HttpGet ("{id}/boms")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<BomView>>> GetItemBoms (uint id) {
+
+            if (id == 0) {
+                return StatusCode (400);
+            }
+
+            try {
+
+                var itemBom = await _Mediator.Send (new ItemBomViewQuery () { ItemId = id });
+                return StatusCode (200, itemBom);
+
+            } catch (NotFoundException e) {
+
+                return StatusCode (404, e.Message);
             }
         }
 

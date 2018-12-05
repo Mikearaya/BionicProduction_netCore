@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 10:10 AM
+ * @Last Modified Time: Dec 5, 2018 1:52 PM
  * @Description: Modify Here, Please
  */
 export class BomView {
@@ -40,7 +40,7 @@ export class Bom {
 
   itemId: number;
   active: number | null;
-  bomItems: BomItem[];
+  bomItems: BomItem[] = [];
 }
 
 
