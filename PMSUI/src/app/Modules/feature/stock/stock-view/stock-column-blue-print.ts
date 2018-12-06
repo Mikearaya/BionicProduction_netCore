@@ -91,7 +91,7 @@ export const stockViewColumnBluePrint = [
   {
     key: 'expectedAvailable',
     humanReadable: 'Expected Available',
-    visable: true,
+    visable: false,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,
@@ -103,7 +103,7 @@ export const stockViewColumnBluePrint = [
   {
     key: 'expectedBooked',
     humanReadable: 'Expected Booked',
-    visable: true,
+    visable: false,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,

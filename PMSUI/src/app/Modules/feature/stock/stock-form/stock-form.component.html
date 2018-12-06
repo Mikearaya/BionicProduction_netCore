@@ -5,7 +5,7 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate="">
     <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
     <div class="container e-card">
-      <ejs-tab id="element" class="e-fill" #element>
+      <ejs-tab id="element" class="e-fill" #element height=390 showCloseButton=false>
         <e-tabitems>
           <e-tabitem [header]='headerText[0]'>
             <ng-template #content>
@@ -13,80 +13,82 @@
 
                 <div class="col-8 col-xs-12">
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n="item code or sku">
                       Code (SKU)
                     </div>
                     <div class="col-8 col-xs-12">
-                      <input type="text" class="e-input" floatLabelType="Auto" placeholder="SKU Code" formControlName="code"
-                        name="code">
+                      <input type="text" class="e-input" floatLabelType="Auto" i18n-placeholder placeholder="SKU/Code"
+                        formControlName="code" name="code">
                       <div class="e-error" *ngIf="code.errors && code.touched">
-                        <div *ngIf="code.errors['required']">Product Code is Required</div>
+                        <div *ngIf="code.errors['required']" i18n>Product Code is Required</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n="extra not about product">
                       Part Description
                     </div>
                     <div class="col-8 col-xs-12">
-                      <input type="text" class="e-input" placeholder="Part Description" formControlName="name"
-                        floatLabelType="Auto" name="name" id="name">
+                      <input type="text" class="e-input" i18n-placholder="extra note about product" placeholder="Part Description"
+                        formControlName="name" floatLabelType="Auto" name="name" id="name">
                       <div class="e-error" *ngIf="name.errors && name.touched">
-                        <div *ngIf="name.errors['required']">Product description is Required</div>
+                        <div *ngIf="name.errors['required']" i18n>Product description is Required</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n="catagory of product">
                       Product Group
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-dropdownlist [dataSource]="itemGroups" [fields]="itemGroupFields" [width]=300 placeholder="Select Item Group"
-                        floatLabelType="Auto" formControlName="groupId" name="groupId" id="groupId"></ejs-dropdownlist>
+                      <ejs-dropdownlist [dataSource]="itemGroups" i18n-placeholder [fields]="itemGroupFields" [width]=300
+                        placeholder="Select Item Group" floatLabelType="Auto" formControlName="groupId" name="groupId"
+                        id="groupId"></ejs-dropdownlist>
                       <div class="e-error" *ngIf="groupId.errors && groupId.touched">
-                        <div *ngIf="groupId.errors['required']">Product Group is Required</div>
+                        <div *ngIf="groupId.errors['required']" i18n>Product Group is Required</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       Primary Unit of Measurment
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [fields]="unitOfMeasureFields" [width]=200
-                        floatLabelType="Auto" placeholder="Select Primary UoM" formControlName="primaryUomId" name="primaryUomId"
-                        id="primaryUomId"></ejs-dropdownlist>
+                      <ejs-dropdownlist [dataSource]="unitOfMesurmentList" i18n-placeholer [allowFiltering]="true"
+                        i18n-filterBarPlaceholder filterBarPlaceholder="Search for UOM" [fields]="unitOfMeasureFields"
+                        [width]=200 floatLabelType="Auto" placeholder="Select Primary UoM" formControlName="primaryUomId"
+                        name="primaryUomId" id="primaryUomId"></ejs-dropdownlist>
                       <div class="e-error" *ngIf="primaryUomId.errors && primaryUomId.touched">
-                        <div *ngIf="primaryUomId.errors['required']">Primary UoM is Required</div>
+                        <div *ngIf="primaryUomId.errors['required']" i18n>Primary UoM is Required</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n="minimum stock level for item">
                       Minimum Stock
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-numerictextbox formControlName="minimumQuantity" [width]=200 name="minimumQuantity" id="minimumQuantity"
-                        floatLabeType="Auto" placeholder="Minimum Quantity" format="##"></ejs-numerictextbox>
+                      <ejs-numerictextbox formControlName="minimumQuantity" i18n-placeholder [width]=200 name="minimumQuantity"
+                        id="minimumQuantity" floatLabeType="Auto" placeholder="Minimum Quantity" format="##"></ejs-numerictextbox>
                       <div class="e-error" *ngIf="minimumQuantity.errors && minimumQuantity.touched">
-                        <div *ngIf="minimumQuantity.errors['min']">Minimum Quantity Can't Be less than 0</div>
+                        <div *ngIf="minimumQuantity.errors['min']" i18n>Minimum Quantity Can't Be less than 0</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       Weight in Kg
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-numerictextbox formControlName="weight" [width]=200 name="weight" id="weight" floatLabeType="Auto"
-                        placeholder="Weight in Kg" format="N"></ejs-numerictextbox>
+                      <ejs-numerictextbox formControlName="weight" i18n-placeholder [width]=200 name="weight" id="weight"
+                        floatLabeType="Auto" placeholder="Weight in Kg" format="N"></ejs-numerictextbox>
                       <div class="e-error" *ngIf="weight.errors && weight.touched">
-                        <div *ngIf="weight.errors['min']">Weight Can't Be less than 0</div>
+                        <div *ngIf="weight.errors['min']" i18n>Weight Can't Be less than 0</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       This is Procured Item
                     </div>
                     <div class="col-8 col-xs-12">
@@ -94,7 +96,7 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       This is Inventory Item
                     </div>
                     <div class="col-8 col-xs-12">
@@ -102,38 +104,38 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n="item expiration in days">
                       Shelf Life in Days
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-numerictextbox floatLabelType="Auto" placeholder="Shelf Life in Days" [width]=200 format="##"
-                        formControlName="shelfLife" id="shelfLife" name="shelfLife"></ejs-numerictextbox>
+                      <ejs-numerictextbox floatLabelType="Auto" i18n-placeholder placeholder="Shelf Life in Days"
+                        [width]=200 format="##" formControlName="shelfLife" id="shelfLife" name="shelfLife"></ejs-numerictextbox>
                       <div class="e-error" *ngIf="shelfLife.errors && shelfLife.touched">
-                        <div *ngIf="shelfLife.errors['min']">Shelf Life Can't Be less than 0</div>
+                        <div *ngIf="shelfLife.errors['min']" i18n>Shelf Life Can't Be less than 0</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       Unit Cost
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-numerictextbox floatLabelType="Auto" placeholder="Unit Cost" [width]=200 format="ETB 0.00"
-                        formControlName="unitCost" id="unitCost" name="unitCost"></ejs-numerictextbox>
+                      <ejs-numerictextbox floatLabelType="Auto" i18n-placeholder placeholder="Unit Cost" [width]=200
+                        format="ETB 0.00" formControlName="unitCost" id="unitCost" name="unitCost"></ejs-numerictextbox>
                       <div class="e-error" *ngIf="unitCost.errors && unitCost.touched">
-                        <div *ngIf="unitCost.errors['min']">Cost Can't Be less than 0</div>
+                        <div *ngIf="unitCost.errors['min']" i18n>Cost Can't Be less than 0</div>
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
+                    <div class="col-3 col-xs-12 label-area" i18n>
                       Selling Price
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-numerictextbox floatLabelType="Auto" [width]=200 placeholder="Selling Price" format="ETB 0.00"
-                        formControlName="price" id="price" name="price"></ejs-numerictextbox>
+                      <ejs-numerictextbox floatLabelType="Auto" i18n-placeholder [width]=200 placeholder="Selling Price"
+                        format="ETB 0.00" formControlName="price" id="price" name="price"></ejs-numerictextbox>
                       <div class="e-error" *ngIf="price.errors && price.touched">
-                        <div *ngIf="price.errors['min']">Price Can't Be less than 0</div>
+                        <div *ngIf="price.errors['min']" i18n>Price Can't Be less than 0</div>
                       </div>
                     </div>
                   </div>
