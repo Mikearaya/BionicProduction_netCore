@@ -112,13 +112,10 @@ export class StockFormComponent extends CommonProperties implements OnInit {
     return this.productForm.get('groupId') as FormControl;
   }
 
-  get storingUomId(): FormControl {
-    return this.productForm.get('storingUomId') as FormControl;
+  get primaryUomId(): FormControl {
+    return this.productForm.get('primaryUomId') as FormControl;
   }
 
-  get manufacturingUomId(): FormControl {
-    return this.productForm.get('manufacturingUomId') as FormControl;
-  }
 
   get minimumQuantity(): FormControl {
     return this.productForm.get('minimumQuantity') as FormControl;
@@ -155,8 +152,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       code: ['', Validators.required],
       name: ['', Validators.required],
       groupId: ['', Validators.required],
-      storingUomId: ['', Validators.required],
-      manufacturingUomId: ['', Validators.required],
+      primaryUomId: ['', Validators.required],
       minimumQuantity: [0, Validators.min(0)],
       isProcured: [false],
       isInventoryItem: [true],
@@ -174,9 +170,8 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       code: [item.code, Validators.required],
       name: [item.name, Validators.required],
       groupId: [item.groupId, Validators.required],
-      storingUomId: [item.storingUomId, Validators.required],
+      primaryUomId: [item.primaryUomId, Validators.required],
       unitCost: [item.unitCost, [Validators.required, Validators.min(0)]],
-      manufacturingUomId: [item.manufacturingUomId, Validators.required],
       minimumQuantity: [item.minimumQuantity, Validators.min(0)],
       isProcured: [(item.isProcured) ? true : false],
       weight: [item.weight, [Validators.required, Validators.min(0)]],
@@ -225,8 +220,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       description: form.description,
       name: form.name,
       groupId: form.groupId,
-      stockUomId: form.storingUomId,
-      manufacturingUomId: form.manufacturingUomId,
+      primaryUomId: form.primaryUomId,
       isProcured: form.isProcured,
       isInventoryItem: form.isInventoryItem,
       minimumQuantity: form.minimumQuantity,

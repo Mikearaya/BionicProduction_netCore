@@ -36,8 +36,7 @@ namespace BionicInventory.Application.Products.Factories {
                         ShelfLife = newProduct.shelfLife,
                         IsInventory = newProduct.isInventoryItem,
                         IsProcured = newProduct.isProcured,
-                        ManufacturingUomId = newProduct.manufacturingUomId,
-                        StoringUomId = newProduct.stockUomId,
+                        PrimaryUomId = newProduct.primaryUomId,
                         Price = newProduct.price
                 };
 

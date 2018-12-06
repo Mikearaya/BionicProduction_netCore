@@ -172,7 +172,7 @@ namespace BionicInventory.API.Controllers.Products {
                 return StatusCode (423, "Can not delete product group with id: {id}, because its being used for other data");
 
             } catch (Exception e) {
-                return StatusCode (500, "Unknown error occured try again later!");
+                return StatusCode (500, e.Message);
             }
 
         }

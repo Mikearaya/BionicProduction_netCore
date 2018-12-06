@@ -24,10 +24,8 @@ namespace BionicInventory.Application.Products.Models {
         public string photo;
         public sbyte? isInventoryItem { get; set; }
         public sbyte? isProcured { get; set; }
-        public uint? manufacturingUomId { get; set; }
-        public string manufacturingUom { get; set; }
-        public uint storingUomId { get; set; }
-        public string storingUom { get; set; }
+        public uint primaryUomId { get; set; }
+        public string primaryUom { get; set; }
         public uint? shelfLife { get; set; }
         public uint groupId { get; set; }
         public string group { get; set; }

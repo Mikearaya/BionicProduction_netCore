@@ -25,8 +25,7 @@ export class ItemModel {
   image: string;
   isInventoryItem: number;
   isProcured: number;
-  manufacturingUomId: number;
-  stockUomId: number;
+  primaryUomId: number;
   price: number | null;
   shelfLife: number | null;
   groupId: number;
@@ -71,10 +70,8 @@ export interface StockView {
         photo: string;
         isInventoryItem: number | null;
         isProcured: number | null;
-        manufacturingUomId: number | null;
-        manufacturingUom: string;
-        storingUomId: number;
-        storingUom: string;
+        primaryUomId: number;
+        primaryUom: string;
         shelfLife: number | null;
         groupId: number;
         group: string;

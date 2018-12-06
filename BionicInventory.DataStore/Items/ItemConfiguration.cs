@@ -26,10 +26,7 @@ namespace BionicInventory.DataStore.Items {
                 builder.HasIndex (e => e.GroupId)
                     .HasName ("fk_ITEM_group_idx");
 
-                builder.HasIndex (e => e.ManufacturingUomId)
-                    .HasName ("fk_ITEM_manufacture_uom_idx");
-
-                builder.HasIndex (e => e.StoringUomId)
+                builder.HasIndex (e => e.PrimaryUomId)
                     .HasName ("fk_ITEM_storing_uom_idx");
 
                 builder.Property (e => e.Id).HasColumnName ("ID");
@@ -67,9 +64,6 @@ namespace BionicInventory.DataStore.Items {
                 builder.Property (e => e.MinimumQuantity)
                     .HasColumnName ("minimum_quantity");
 
-                builder.Property (e => e.ManufacturingUomId)
-                    .HasColumnName ("manufacturing_UOM_ID")
-                    .HasDefaultValueSql ("'1'");
 
                 builder.Property (e => e.Name)
                     .IsRequired ()
@@ -86,8 +80,8 @@ namespace BionicInventory.DataStore.Items {
                     .HasColumnName ("shelf_life")
                     .HasDefaultValueSql ("'0'");
 
-                builder.Property (e => e.StoringUomId)
-                    .HasColumnName ("storing_UOM_ID")
+                builder.Property (e => e.PrimaryUomId)
+                    .HasColumnName ("primary_UOM_ID")
                     .HasDefaultValueSql ("'1'");
 
                 builder.Property (e => e.UnitCost).HasColumnName ("unit_cost");
@@ -99,15 +93,9 @@ namespace BionicInventory.DataStore.Items {
                     .HasForeignKey (d => d.GroupId)
                     .HasConstraintName ("fk_ITEM_group");
 
-                builder.HasOne (d => d.ManufacturingUom)
-                    .WithMany (p => p.ItemManufacturingUom)
-                    .HasForeignKey (d => d.ManufacturingUomId)
-                    .OnDelete (DeleteBehavior.ClientSetNull)
-                    .HasConstraintName ("fk_ITEM_manufacture_uom");
-
-                builder.HasOne (d => d.StoringUom)
-                    .WithMany (p => p.ItemStoringUom)
-                    .HasForeignKey (d => d.StoringUomId)
+                builder.HasOne (d => d.PrimaryUom)
+                    .WithMany (p => p.ItemPrimaryUom)
+                    .HasForeignKey (d => d.PrimaryUomId)
                     .OnDelete (DeleteBehavior.ClientSetNull)
                     .HasConstraintName ("fk_ITEM_storing_uom");
             }

@@ -50,27 +50,14 @@
                   </div>
                   <div class="row">
                     <div class="col-3 col-xs-12 label-area">
-                      Storing Unit of Measurment
+                      Primary Unit of Measurment
                     </div>
                     <div class="col-8 col-xs-12">
                       <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [fields]="unitOfMeasureFields" [width]=200
-                        floatLabelType="Auto" placeholder="Select Storing UoM" formControlName="storingUomId" name="storingUomId"
-                        id="storingUomId"></ejs-dropdownlist>
-                      <div class="e-error" *ngIf="storingUomId.errors && storingUomId.touched">
-                        <div *ngIf="storingUomId.errors['required']">Storing UoM is Required</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-3 col-xs-12 label-area">
-                      Manufacturing Unit of Measurment
-                    </div>
-                    <div class="col-8 col-xs-12">
-                      <ejs-dropdownlist [dataSource]="unitOfMesurmentList" [fields]="unitOfMeasureFields" [width]=200
-                        floatLabelType="Auto" placeholder="Select Manufacturing U0M" formControlName="manufacturingUomId"
-                        name="manufacturingUomId" id="manufacturingUomId"></ejs-dropdownlist>
-                      <div class="e-error" *ngIf="manufacturingUomId.errors && manufacturingUomId.touched">
-                        <div *ngIf="manufacturingUomId.errors['required']">Manufacturing UoM is Required</div>
+                        floatLabelType="Auto" placeholder="Select Primary UoM" formControlName="primaryUomId" name="primaryUomId"
+                        id="primaryUomId"></ejs-dropdownlist>
+                      <div class="e-error" *ngIf="primaryUomId.errors && primaryUomId.touched">
+                        <div *ngIf="primaryUomId.errors['required']">Primary UoM is Required</div>
                       </div>
                     </div>
                   </div>
@@ -164,9 +151,9 @@
             </ng-template>
           </e-tabitem>
           <e-tabitem [header]='headerText[3]'>
-              <ng-template #content>
+            <ng-template #content>
 
-              </ng-template>
+            </ng-template>
           </e-tabitem>
         </e-tabitems>
       </ejs-tab>

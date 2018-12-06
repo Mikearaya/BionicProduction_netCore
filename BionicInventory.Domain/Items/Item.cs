@@ -35,15 +35,14 @@ namespace BionicInventory.Domain.Items {
         public sbyte? IsInventory { get; set; }
         public float? Price { get; set; }
         public uint? ShelfLife { get; set; }
-        public uint? ManufacturingUomId { get; set; }
+
         public float? MinimumQuantity { get; set; }
-        public uint StoringUomId { get; set; }
+        public uint PrimaryUomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdate { get; set; }
 
         public ProductGroup Group { get; set; }
-        public UnitOfMeasurment ManufacturingUom { get; set; }
-        public UnitOfMeasurment StoringUom { get; set; }
+        public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ItemPrice> ItemPrice { get; set; }
