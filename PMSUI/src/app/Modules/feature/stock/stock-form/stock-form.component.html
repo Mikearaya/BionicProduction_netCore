@@ -5,7 +5,7 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate="">
     <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
     <div class="container e-card">
-      <ejs-tab id="element" class="e-fill" #element height=390 showCloseButton=false>
+      <ejs-tab id="element" class="e-fill" #element  showCloseButton=false>
         <e-tabitems>
           <e-tabitem [header]='headerText[0]'>
             <ng-template #content>
@@ -143,16 +143,19 @@
               </div>
             </ng-template>
           </e-tabitem>
-          <e-tabitem [header]='headerText[1]'>
+          <e-tabitem [header]='headerText[1]' [disabled]="!created && !isUpdate">
             <ng-template #content>
+              <div class="container">
+                <app-item-bom-list-view [itemId]="itemId"></app-item-bom-list-view>
+              </div>
             </ng-template>
           </e-tabitem>
-          <e-tabitem [header]='headerText[2]'>
+          <e-tabitem [header]='headerText[2]' [disabled]="!created && !isUpdate">
             <ng-template #content>
 
             </ng-template>
           </e-tabitem>
-          <e-tabitem [header]='headerText[3]'>
+          <e-tabitem [header]='headerText[3]' [disabled]="!created && !isUpdate">
             <ng-template #content>
 
             </ng-template>

@@ -6,6 +6,7 @@ import { BomFormComponent } from './bom-form/bom-form.component';
 const routes: Routes = [
   { path: '', component: BomViewComponent },
   { path: 'new', component: BomFormComponent },
+  { path: 'new/:itemId', component: BomFormComponent },
   { path: ':bomId/update', component: BomFormComponent }
 ];
 

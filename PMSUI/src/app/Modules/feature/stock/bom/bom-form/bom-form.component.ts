@@ -3,13 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 11:51 PM
+ * @Last Modified Time: Dec 7, 2018 11:32 PM
  * @Description: Modify Here, Please
  */
 
 import { ActivatedRoute } from '@angular/router';
 import { Bom, BomItemView, BomView } from 'src/app/Modules/core/DataModels/bom.model';
-import { BomApiService } from '../bom-api.service';
+
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
@@ -25,6 +25,7 @@ import { NotificationComponent } from 'src/app/Modules/shared/notification/notif
 import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
 import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
 import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
+import { BomApiService } from 'src/app/Modules/core/services/bom/bom-api.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
   public submitButtomText: string;
   public title: string;
+  public item: number;
 
   constructor(private bomApi: BomApiService,
     private formBuilder: FormBuilder,
@@ -61,11 +63,22 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
   ngOnInit() {
     this.bomId = + this.activatedRoute.snapshot.paramMap.get('bomId');
+    this.item = + this.activatedRoute.snapshot.paramMap.get('itemId');
+
+
 
     this.productsApi.getAllProducts().subscribe(
-      (data: any) => this.itemsList = data.Items,
+      (data: any) => {
+      this.itemsList = data.Items;
+        if (this.item) {
+          this.itemId.setValue(this.item.toString());
+          this.itemId.updateValueAndValidity();
+
+        }
+      },
       this.handleError
     );
+
 
     this.unitOfMeasureApi.getAllUnitOfMeasures().subscribe(
       (data: UnitOfMeasurmentView[]) => this.uomsList = data,
@@ -204,7 +217,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
     bomData.id = (bom.id) ? bom.id : 0;
     bomData.name = bom.name;
     bomData.active = bom.active;
-    bomData.itemId = bom.itemId;
+    bomData.itemId = this.itemId.value;
 
     bom.bomItems.forEach(element => {
       bomData.bomItems.push(element);

@@ -22,7 +22,7 @@ import { TabComponent } from '@syncfusion/ej2-angular-navigations';
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 1:05 AM
+ * @Last Modified Time: Dec 7, 2018 11:24 PM
  * @Description: Modify Here, Please
  */
 
@@ -49,6 +49,9 @@ export class StockFormComponent extends CommonProperties implements OnInit {
     { Id: 'header4', headerStyle: 'fill', text: 'Others' }
   ];
 
+  public submited: Boolean;
+  public created: Boolean;
+
   public fields: Object = { text: 'text', value: 'headerStyle' };
   public height: String = '220px';
   public value: String = 'default';
@@ -57,7 +60,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   public title: string;
   public productForm: FormGroup;
   public isUpdate: Boolean = false;
-  private itemId: number;
+  public itemId: number;
   public submitted: Boolean = false;
   public itemGroupFields: { text: string, value: string };
   public unitOfMeasureFields: { text: string; value: string; };
@@ -186,16 +189,20 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   onSubmit() {
 
     const formData = this.prepareFormData(this.productForm.value);
-
+    this.submited = true;
     if (this.isUpdate === false) {
       this.itemApi.saveItem(formData).subscribe(
         (data: ItemModel) => {
           this.notification.showMessage('Item Created!!!');
-          this.location.back();
+          this.itemId = data.id;
+          this.submited = true;
+          this.created = true;
         },
         (error: CustomErrorResponse) => {
           this.notification.showMessage('Item Creation Failed', 'error');
           this.handleError(error);
+          this.created = false;
+          this.submited = false;
         }
       );
     } else {

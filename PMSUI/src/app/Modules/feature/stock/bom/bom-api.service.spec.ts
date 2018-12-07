@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BomApiService } from './bom-api.service';
+import { BomApiService } from '../../../core/services/bom/bom-api.service';
 
 describe('BomApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

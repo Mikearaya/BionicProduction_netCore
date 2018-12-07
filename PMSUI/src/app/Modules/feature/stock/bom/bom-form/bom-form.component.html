@@ -8,7 +8,7 @@
         <div class="col-6">
           <div class="row">
             <div class="col-3 col-12">
-              BOM Name
+              BOM Name {{bomForm.value | json}}
             </div>
             <div class="col-8 col-12">
               <input class="e-input" placeholder="BOM Name" id="bomName" name="bomName" formControlName="name"
@@ -23,7 +23,7 @@
               Item
             </div>
             <div class="col-8 col-12">
-              <ejs-dropdownlist [dataSource]="itemsList" placeholder="Select Item" id="item" name="item"
+              <ejs-dropdownlist [dataSource]="itemsList"  placeholder="Select Item" id="item" name="item"
                 formControlName="itemId" [fields]="itemFields">
               </ejs-dropdownlist>
               <div class="e-error" *ngIf="itemId.errors">
