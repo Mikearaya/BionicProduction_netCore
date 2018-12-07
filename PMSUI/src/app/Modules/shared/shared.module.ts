@@ -15,6 +15,7 @@ import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 import { BionicDialogComponent } from './bionic-dialog/bionic-dialog.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { DocumentCreatorModule } from './document-creator/document-creator.module';
 
 
 @NgModule({
@@ -32,12 +33,14 @@ import { TabModule } from '@syncfusion/ej2-angular-navigations';
     SwitchModule,
     DatePickerModule,
     DocumentEditorAllModule,
-    DialogModule
+    DialogModule,
+    DocumentCreatorModule
   ],
   declarations: [FormOptionsComponent, NotificationComponent, ToastComponent,  BionicDialogComponent],
   exports: [
     // angular
     ReactiveFormsModule,
+    DocumentCreatorModule,
     GridModule,
     TabModule,
     NotificationComponent,

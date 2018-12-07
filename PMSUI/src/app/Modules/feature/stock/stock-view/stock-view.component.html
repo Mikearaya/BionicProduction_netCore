@@ -3,7 +3,7 @@
     [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="allowExcelExport" [toolbar]='toolbar'
     (toolbarClick)='toolbarClick($event)' [showColumnChooser]="showColumnChooser" [showColumnMenu]="showColumnMenu"
     [filterSettings]='filterSetting' [groupSettings]='groupOptions' [allowFiltering]="true" [allowSorting]="allowSorting"
-    [allowPdfExport]="allowPdfExport"  [editSettings]="editSettings" height="300" [rowHeight]=25>
+    [allowPdfExport]="allowPdfExport"  [editSettings]="editSettings" height="500" [rowHeight]=25>
     <e-columns>
       <e-column *ngFor="let col of columnBluePrint" [width]="col.width" [field]='col.key'
         [allowFiltering]="col.allowFiltering" [allowGrouping]="col.allowGrouping"

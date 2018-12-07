@@ -1,0 +1,8 @@
+#items-section {
+  min-height: 400px;
+}
+
+
+td.black-input {
+  border-top: 1px solid gray !important;
+}
