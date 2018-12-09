@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 8:51 PM
+ * @Last Modified Time: Dec 9, 2018 11:43 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -21,6 +21,7 @@ using BionicInventory.DataStore.Invoices.InvoiceDetails;
 using BionicInventory.DataStore.Invoices.InvoicePayment;
 using BionicInventory.DataStore.Items;
 using BionicInventory.DataStore.Items.BOM;
+using BionicInventory.DataStore.Items.Routings;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
@@ -28,6 +29,7 @@ using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
 using BionicInventory.DataStore.UnitOfMeasurments;
+using BionicInventory.DataStore.Workstations;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
@@ -41,6 +43,7 @@ using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
+using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
@@ -48,6 +51,7 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.UnitOfMeasurments;
+using BionicInventory.Domain.Workstations;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
@@ -83,6 +87,9 @@ namespace BionicInventory.DataStore {
         public DbSet<BomItems> BomItems { get; set; }
         public DbSet<ProductGroup> ProductGroup { get; set; }
         public DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
+        public DbSet<Workstation> WorkStation { get; set; }
+        public DbSet<Routing> Routing { get; set; }
+        public DbSet<RoutingDetail> RoutingDetail { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -108,6 +115,9 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new ProductGroupsConfigurations ());
             modelBuilder.ApplyConfiguration (new UnitOfMeasurmentsConfigurations ());
             modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
+            modelBuilder.ApplyConfiguration (new WorkstationConfiguration ());
+            modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
+            modelBuilder.ApplyConfiguration (new RoutingDetailConfiguration ());
 
         }
 

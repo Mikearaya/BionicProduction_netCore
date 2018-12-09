@@ -21,6 +21,7 @@ namespace BionicInventory.Domain.Workstations {
         public double? HourlyRate { get; set; }
         public sbyte? CustomeWorkingHoures { get; set; }
         public sbyte? CustomHolidays { get; set; }
+        public sbyte? IsActive { get; set; }
         public string Color { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }

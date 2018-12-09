@@ -1,0 +1,43 @@
+/*
+ * @CreateTime: Dec 9, 2018 11:57 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 10, 2018 12:08 AM
+ * @Description: Modify Here, Please 
+ */
+using System.Threading;
+using System.Threading.Tasks;
+using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Domain.Workstations;
+using MediatR;
+
+namespace BionicInventory.Application.Workstations.Commands.Create {
+    public class NewWorkstationCommandHandler : IRequestHandler<NewWorkstationDto, Unit> {
+        private readonly IInventoryDatabaseService _database;
+
+        public NewWorkstationCommandHandler (IInventoryDatabaseService database) {
+            _database = database;
+        }
+
+        public async Task<Unit> Handle (NewWorkstationDto request, CancellationToken cancellationToken) {
+
+            for (var i = 0; i < request.instances; i++) {
+                _database.WorkStation.Add (new Workstation () {
+                    Title = request.Title,
+                        CustomHolidays = request.CustomHolidays,
+                        CustomeWorkingHoures = request.CustomWorkingHoures,
+                        IsActive = request.IsActive,
+                        Color = request.Color,
+                        HourlyRate = request.HourlyRate,
+
+                });
+            }
+
+            await _database.SaveAsync ();
+
+            return Unit.Value;
+
+        }
+    }
+}

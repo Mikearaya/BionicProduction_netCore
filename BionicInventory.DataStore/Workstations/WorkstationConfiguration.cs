@@ -33,6 +33,11 @@ namespace BionicInventory.DataStore.Workstations {
                 .HasColumnType ("tinyint(4)")
                 .HasDefaultValueSql ("'0'");
 
+            builder.Property (e => e.IsActive)
+                .HasColumnName ("is_active")
+                .HasColumnType ("tinyint(4)")
+                .HasDefaultValueSql ("'1'");
+
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
                 .HasColumnType ("datetime")
