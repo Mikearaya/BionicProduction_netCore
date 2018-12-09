@@ -8,7 +8,6 @@
  */
 using System;
 using System.Collections.Generic;
-using BionicInventory.Domain.Items.ItemPrices;
 
 namespace BionicInventory.Application.Products.Models {
     public class ProductView {

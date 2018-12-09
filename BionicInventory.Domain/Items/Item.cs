@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items.BOMs;
-using BionicInventory.Domain.Items.ItemPrices;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.UnitOfMeasurments;
@@ -19,7 +18,6 @@ namespace BionicInventory.Domain.Items {
         public Item () {
             Bom = new HashSet<Bom> ();
             BomItems = new HashSet<BomItems> ();
-            ItemPrice = new HashSet<ItemPrice> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
         }
@@ -45,7 +43,6 @@ namespace BionicInventory.Domain.Items {
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<ItemPrice> ItemPrice { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
     }

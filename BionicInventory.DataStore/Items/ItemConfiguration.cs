@@ -64,7 +64,6 @@ namespace BionicInventory.DataStore.Items {
                 builder.Property (e => e.MinimumQuantity)
                     .HasColumnName ("minimum_quantity");
 
-
                 builder.Property (e => e.Name)
                     .IsRequired ()
                     .HasColumnName ("name")
@@ -81,8 +80,8 @@ namespace BionicInventory.DataStore.Items {
                     .HasDefaultValueSql ("'0'");
 
                 builder.Property (e => e.PrimaryUomId)
-                    .HasColumnName ("primary_UOM_ID")
-                    .HasDefaultValueSql ("'1'");
+                    .IsRequired ()
+                    .HasColumnName ("primary_UOM_ID");
 
                 builder.Property (e => e.UnitCost).HasColumnName ("unit_cost");
 

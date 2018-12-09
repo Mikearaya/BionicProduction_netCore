@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.Items.ItemPrices;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Products.Factories {

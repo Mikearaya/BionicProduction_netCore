@@ -8,11 +8,13 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.Items.Rotings;
 
 namespace BionicInventory.Domain.Items.BOMs {
     public partial class Bom {
         public Bom () {
             BomItems = new HashSet<BomItems> ();
+            Routing = new HashSet<Routing> ();
         }
 
         public uint Id { get; set; }
@@ -24,5 +26,6 @@ namespace BionicInventory.Domain.Items.BOMs {
 
         public Item Item { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
+        public ICollection<Routing> Routing { get; set; }
     }
 }

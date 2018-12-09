@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using BionicInventory.Application.Products.Models;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.Items.ItemPrices;
+
 
 namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsFactory {

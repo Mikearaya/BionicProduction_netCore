@@ -41,7 +41,6 @@ using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
-using BionicInventory.Domain.Items.ItemPrices;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
@@ -71,7 +70,6 @@ namespace BionicInventory.DataStore {
         public DbSet<InvoiceDetail> InvoiceDetail { get; set; }
         public DbSet<InvoicePayments> InvoicePayments { get; set; }
         public DbSet<Item> Item { get; set; }
-        public DbSet<ItemPrice> ItemPrice { get; set; }
         public DbSet<PhoneNumber> PhoneNumber { get; set; }
         public DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrder { get; set; }

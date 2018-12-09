@@ -73,7 +73,6 @@ using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.Items.ItemPrices;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;

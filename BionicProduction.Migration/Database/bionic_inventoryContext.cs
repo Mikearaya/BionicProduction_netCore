@@ -28,24 +28,26 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<InvoiceDetail> InvoiceDetail { get; set; }
         public virtual DbSet<InvoicePayments> InvoicePayments { get; set; }
         public virtual DbSet<Item> Item { get; set; }
-        public virtual DbSet<ItemPrice> ItemPrice { get; set; }
         public virtual DbSet<PhoneNumber> PhoneNumber { get; set; }
         public virtual DbSet<ProductGroup> ProductGroup { get; set; }
         public virtual DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public virtual DbSet<Routing> Routing { get; set; }
+        public virtual DbSet<RoutingDetail> RoutingDetail { get; set; }
         public virtual DbSet<Shipment> Shipment { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public virtual DbSet<SocialMedia> SocialMedia { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
+        public virtual DbSet<Workstation> Workstation { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
             }
         }
 
@@ -623,10 +625,7 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.GroupId)
                     .HasName("fk_ITEM_group_idx");
 
-                entity.HasIndex(e => e.ManufacturingUomId)
-                    .HasName("fk_ITEM_manufacture_uom_idx");
-
-                entity.HasIndex(e => e.StoringUomId)
+                entity.HasIndex(e => e.PrimaryUomId)
                     .HasName("fk_ITEM_storing_uom_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
@@ -661,10 +660,6 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("tinyint(4)")
                     .HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.ManufacturingUomId)
-                    .HasColumnName("manufacturing_UOM_ID")
-                    .HasDefaultValueSql("'1'");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
@@ -676,13 +671,13 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Price).HasColumnName("price");
 
+                entity.Property(e => e.PrimaryUomId)
+                    .HasColumnName("primary_UOM_ID")
+                    .HasDefaultValueSql("'1'");
+
                 entity.Property(e => e.ShelfLife)
                     .HasColumnName("shelf_life")
                     .HasDefaultValueSql("'0'");
-
-                entity.Property(e => e.StoringUomId)
-                    .HasColumnName("storing_UOM_ID")
-                    .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.UnitCost).HasColumnName("unit_cost");
 
@@ -693,56 +688,11 @@ namespace BionicProduction.Migration.Database
                     .HasForeignKey(d => d.GroupId)
                     .HasConstraintName("fk_ITEM_group");
 
-                entity.HasOne(d => d.ManufacturingUom)
-                    .WithMany(p => p.ItemManufacturingUom)
-                    .HasForeignKey(d => d.ManufacturingUomId)
-                    .HasConstraintName("fk_ITEM_manufacture_uom");
-
-                entity.HasOne(d => d.StoringUom)
-                    .WithMany(p => p.ItemStoringUom)
-                    .HasForeignKey(d => d.StoringUomId)
+                entity.HasOne(d => d.PrimaryUom)
+                    .WithMany(p => p.Item)
+                    .HasForeignKey(d => d.PrimaryUomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ITEM_storing_uom");
-            });
-
-            modelBuilder.Entity<ItemPrice>(entity =>
-            {
-                entity.ToTable("ITEM_PRICE");
-
-                entity.HasIndex(e => e.ItemId)
-                    .HasName("fk_ITEM_PRICE_item_idx");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.CategoryName)
-                    .IsRequired()
-                    .HasColumnName("category_name")
-                    .HasColumnType("varchar(45)");
-
-                entity.Property(e => e.Currency)
-                    .HasColumnName("currency")
-                    .HasColumnType("varchar(45)")
-                    .HasDefaultValueSql("'ETB'");
-
-                entity.Property(e => e.DateAdded)
-                    .HasColumnName("date_added")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
-
-                entity.Property(e => e.DateUpdated)
-                    .HasColumnName("date_updated")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
-                    .ValueGeneratedOnAddOrUpdate();
-
-                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
-
-                entity.Property(e => e.Price).HasColumnName("price");
-
-                entity.HasOne(d => d.Item)
-                    .WithMany(p => p.ItemPrice)
-                    .HasForeignKey(d => d.ItemId)
-                    .HasConstraintName("fk_ITEM_PRICE_item");
             });
 
             modelBuilder.Entity<PhoneNumber>(entity =>
@@ -980,6 +930,116 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_PURCHASE_ORDER_PO_ID");
             });
 
+            modelBuilder.Entity<Routing>(entity =>
+            {
+                entity.ToTable("ROUTING");
+
+                entity.HasIndex(e => e.BomId)
+                    .HasName("fk_ROUTING_bom_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BomId).HasColumnName("BOM_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.FixedCost).HasColumnName("fixed_cost");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.VariableCost).HasColumnName("variable_cost");
+
+                entity.HasOne(d => d.Bom)
+                    .WithMany(p => p.Routing)
+                    .HasForeignKey(d => d.BomId)
+                    .HasConstraintName("fk_ROUTING_bom");
+            });
+
+            modelBuilder.Entity<RoutingDetail>(entity =>
+            {
+                entity.ToTable("ROUTING_DETAIL");
+
+                entity.HasIndex(e => e.RoutingId)
+                    .HasName("fk_ROUTING_DETAIL_routing_idx");
+
+                entity.HasIndex(e => e.WorkerId)
+                    .HasName("fk_ROUTING_DETAIL_worker_idx");
+
+                entity.HasIndex(e => e.WorkstationId)
+                    .HasName("fk_ROUTING_DETAIL_workstation_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.FixedCost).HasColumnName("fixed_cost");
+
+                entity.Property(e => e.FixedTime).HasColumnName("fixed_time");
+
+                entity.Property(e => e.Operation)
+                    .HasColumnName("operation")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Quantity)
+                    .HasColumnName("quantity")
+                    .HasColumnType("int(11)");
+
+                entity.Property(e => e.RoutingId).HasColumnName("ROUTING_ID");
+
+                entity.Property(e => e.VariableCost).HasColumnName("variable_cost");
+
+                entity.Property(e => e.VariableTime).HasColumnName("variable_time");
+
+                entity.Property(e => e.WorkerId).HasColumnName("WORKER_ID");
+
+                entity.Property(e => e.WorkstationId).HasColumnName("WORKSTATION_ID");
+
+                entity.HasOne(d => d.Routing)
+                    .WithMany(p => p.RoutingDetail)
+                    .HasForeignKey(d => d.RoutingId)
+                    .HasConstraintName("fk_ROUTING_DETAIL_routing");
+
+                entity.HasOne(d => d.Worker)
+                    .WithMany(p => p.RoutingDetail)
+                    .HasForeignKey(d => d.WorkerId)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("fk_ROUTING_DETAIL_worker");
+
+                entity.HasOne(d => d.Workstation)
+                    .WithMany(p => p.RoutingDetail)
+                    .HasForeignKey(d => d.WorkstationId)
+                    .HasConstraintName("fk_ROUTING_DETAIL_workstation");
+            });
+
             modelBuilder.Entity<Shipment>(entity =>
             {
                 entity.ToTable("SHIPMENT");
@@ -1183,6 +1243,46 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
+                    .HasColumnType("varchar(45)");
+            });
+
+            modelBuilder.Entity<Workstation>(entity =>
+            {
+                entity.ToTable("WORKSTATION");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Color)
+                    .HasColumnName("color")
+                    .HasColumnType("varchar(45)")
+                    .HasDefaultValueSql("'blue'");
+
+                entity.Property(e => e.CustomHolidays)
+                    .HasColumnName("custom_holidays")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.CustomeWorkingHoures)
+                    .HasColumnName("custome_working_houres")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.HourlyRate).HasColumnName("hourly_rate");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnName("title")
                     .HasColumnType("varchar(45)");
             });
         }

@@ -1,0 +1,30 @@
+/*
+ * @CreateTime: Dec 9, 2018 10:54 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 9, 2018 10:59 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
+using System.Collections.Generic;
+using BionicInventory.Domain.Items.Rotings;
+
+namespace BionicInventory.Domain.Workstations {
+    public class Workstation {
+        public Workstation () {
+            RoutingDetail = new HashSet<RoutingDetail> ();
+        }
+
+        public uint Id { get; set; }
+        public string Title { get; set; }
+        public double? HourlyRate { get; set; }
+        public sbyte? CustomeWorkingHoures { get; set; }
+        public sbyte? CustomHolidays { get; set; }
+        public string Color { get; set; }
+        public DateTime? DateAdded { get; set; }
+        public DateTime? DateUpdated { get; set; }
+
+        public ICollection<RoutingDetail> RoutingDetail { get; set; }
+    }
+}

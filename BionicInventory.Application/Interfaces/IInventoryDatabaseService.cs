@@ -20,7 +20,6 @@ using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
-using BionicInventory.Domain.Items.ItemPrices;
 
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
@@ -46,7 +45,6 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         DbSet<Shipment> Shipment { get; set; }
         DbSet<Item> Item { get; set; }
-        DbSet<ItemPrice> ItemPrice { get; set; }
         DbSet<PhoneNumber> PhoneNumber { get; set; }
         DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }

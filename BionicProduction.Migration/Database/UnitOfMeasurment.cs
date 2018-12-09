@@ -8,8 +8,7 @@ namespace BionicProduction.Migration.Database
         public UnitOfMeasurment()
         {
             BomItems = new HashSet<BomItems>();
-            ItemManufacturingUom = new HashSet<Item>();
-            ItemStoringUom = new HashSet<Item>();
+            Item = new HashSet<Item>();
         }
 
         public uint Id { get; set; }
@@ -20,7 +19,6 @@ namespace BionicProduction.Migration.Database
         public sbyte? Active { get; set; }
 
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Item> ItemManufacturingUom { get; set; }
-        public ICollection<Item> ItemStoringUom { get; set; }
+        public ICollection<Item> Item { get; set; }
     }
 }
