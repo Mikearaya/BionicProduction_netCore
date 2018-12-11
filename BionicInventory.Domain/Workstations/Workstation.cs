@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:05 AM
+ * @Last Modified Time: Dec 12, 2018 1:19 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -28,6 +28,7 @@ namespace BionicInventory.Domain.Workstations {
         public uint? Productivity { get; set; }
         public uint GroupId { get; set; }
         public uint? MaintenanceItems { get; set; }
+        public float? MaintenanceHours { get; set; }
 
         public WorkstationGroup Group { get; set; }
         public ICollection<RoutingDetail> RoutingDetail { get; set; }

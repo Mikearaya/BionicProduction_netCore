@@ -1,5 +1,5 @@
 /*
- * @CreateTime: Dec 9, 2018 11:53 PM
+ * @CreateTime: Dec 12, 2018 1:15 AM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
@@ -9,24 +9,21 @@
 using System.ComponentModel.DataAnnotations;
 using MediatR;
 
-namespace BionicInventory.Application.Workstations.Commands.Create {
-    public class NewWorkstationDto : IRequest {
-
+namespace BionicInventory.Application.Workstations.Commands.Update {
+    public class UpdatedWorkstationDto : IRequest {
         public uint Id { get; set; }
 
         [Required]
         public string Title { get; set; }
-
-        public int? instances { get; set; } = 1;
         public double? HourlyRate { get; set; }
-        public sbyte? CustomWorkingHoures { get; set; }
+        public sbyte? CustomeWorkingHoures { get; set; }
         public sbyte? CustomHolidays { get; set; }
         public string Color { get; set; }
         public sbyte? IsActive { get; set; }
+        public float? MaintenanceHours { get; set; }
         public uint? Productivity { get; set; }
         public uint GroupId { get; set; }
         public uint? MaintenanceItems { get; set; }
-        public float? MaintenanceHours { get; set; }
 
     }
 }

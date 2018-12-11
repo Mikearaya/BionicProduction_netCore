@@ -3,12 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 10, 2018 12:08 AM
+ * @Last Modified Time: Dec 12, 2018 1:25 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Workstations;
 using MediatR;
 
@@ -22,6 +23,12 @@ namespace BionicInventory.Application.Workstations.Commands.Create {
 
         public async Task<Unit> Handle (NewWorkstationDto request, CancellationToken cancellationToken) {
 
+            var workstationGroup = await _database.WorkStationGroup.FindAsync (request.GroupId);
+
+            if (workstationGroup == null) {
+                throw new NotFoundException (nameof (WorkstationGroup), request.Id);
+            }
+
             for (var i = 0; i < request.instances; i++) {
                 _database.WorkStation.Add (new Workstation () {
                     Title = request.Title,
@@ -30,6 +37,10 @@ namespace BionicInventory.Application.Workstations.Commands.Create {
                         IsActive = request.IsActive,
                         Color = request.Color,
                         HourlyRate = request.HourlyRate,
+                        MaintenanceItems = request.MaintenanceItems,
+                        MaintenanceHours = request.MaintenanceHours,
+                        Productivity = request.Productivity,
+                        GroupId = request.GroupId
 
                 });
             }

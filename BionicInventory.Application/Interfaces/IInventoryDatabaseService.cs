@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 11:40 PM
+ * @Last Modified Time: Dec 12, 2018 1:22 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -57,6 +57,7 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<ProductGroup> ProductGroup { get; set; }
         DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
         DbSet<Workstation> WorkStation { get; set; }
+        DbSet<WorkstationGroup> WorkStationGroup { get; set; }
         DbSet<Routing> Routing { get; set; }
         DbSet<RoutingDetail> RoutingDetail { get; set; }
 

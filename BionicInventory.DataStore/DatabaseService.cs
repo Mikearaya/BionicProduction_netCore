@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 11:43 PM
+ * @Last Modified Time: Dec 12, 2018 1:23 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -90,6 +90,7 @@ namespace BionicInventory.DataStore {
         public DbSet<Workstation> WorkStation { get; set; }
         public DbSet<Routing> Routing { get; set; }
         public DbSet<RoutingDetail> RoutingDetail { get; set; }
+        public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -118,6 +119,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new WorkstationConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingDetailConfiguration ());
+            modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
 
         }
 

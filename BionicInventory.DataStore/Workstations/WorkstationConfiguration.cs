@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:11 AM
+ * @Last Modified Time: Dec 12, 2018 1:19 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Workstations;
@@ -65,6 +65,10 @@ namespace BionicInventory.DataStore.Workstations {
                 .IsRequired ()
                 .HasColumnName ("title")
                 .HasColumnType ("varchar(45)");
+
+            builder.Property (e => e.MaintenanceHours)
+                .HasColumnName ("maintenance_hours")
+                .HasColumnType ("float");
 
             builder.HasOne (d => d.Group)
                 .WithMany (p => p.Workstation)
