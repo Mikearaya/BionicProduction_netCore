@@ -41,6 +41,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
         public virtual DbSet<Workstation> Workstation { get; set; }
+        public virtual DbSet<WorkstationGroup> WorkstationGroup { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -671,9 +672,7 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Price).HasColumnName("price");
 
-                entity.Property(e => e.PrimaryUomId)
-                    .HasColumnName("primary_UOM_ID")
-                    .HasDefaultValueSql("'1'");
+                entity.Property(e => e.PrimaryUomId).HasColumnName("primary_UOM_ID");
 
                 entity.Property(e => e.ShelfLife)
                     .HasColumnName("shelf_life")
@@ -1250,6 +1249,9 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("WORKSTATION");
 
+                entity.HasIndex(e => e.GroupId)
+                    .HasName("fk_WORKSTATION_idx");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Color)
@@ -1278,12 +1280,62 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
+
                 entity.Property(e => e.HourlyRate).HasColumnName("hourly_rate");
+
+                entity.Property(e => e.IsActive)
+                    .HasColumnName("is_active")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.MaintenanceItems).HasColumnName("maintenance_items");
+
+                entity.Property(e => e.Productivity)
+                    .HasColumnName("productivity")
+                    .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnName("title")
                     .HasColumnType("varchar(45)");
+
+                entity.HasOne(d => d.Group)
+                    .WithMany(p => p.Workstation)
+                    .HasForeignKey(d => d.GroupId)
+                    .HasConstraintName("fk_WORKSTATION_group");
+            });
+
+            modelBuilder.Entity<WorkstationGroup>(entity =>
+            {
+                entity.ToTable("WORKSTATION_GROUP");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Active)
+                    .HasColumnName("active")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(20)");
             });
         }
     }

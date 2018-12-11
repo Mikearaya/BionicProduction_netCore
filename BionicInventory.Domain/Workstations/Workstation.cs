@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 10:59 PM
+ * @Last Modified Time: Dec 12, 2018 1:05 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -21,11 +21,16 @@ namespace BionicInventory.Domain.Workstations {
         public double? HourlyRate { get; set; }
         public sbyte? CustomeWorkingHoures { get; set; }
         public sbyte? CustomHolidays { get; set; }
-        public sbyte? IsActive { get; set; }
         public string Color { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public sbyte? IsActive { get; set; }
+        public uint? Productivity { get; set; }
+        public uint GroupId { get; set; }
+        public uint? MaintenanceItems { get; set; }
 
+        public WorkstationGroup Group { get; set; }
         public ICollection<RoutingDetail> RoutingDetail { get; set; }
     }
+
 }

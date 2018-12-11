@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 10:58 PM
+ * @Last Modified Time: Dec 12, 2018 1:11 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Workstations;
@@ -13,8 +13,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Workstations {
     public class WorkstationConfiguration : IEntityTypeConfiguration<Workstation> {
         public void Configure (EntityTypeBuilder<Workstation> builder) {
-
             builder.ToTable ("WORKSTATION");
+
+            builder.HasIndex (e => e.GroupId)
+                .HasName ("fk_WORKSTATION_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -33,11 +35,6 @@ namespace BionicInventory.DataStore.Workstations {
                 .HasColumnType ("tinyint(4)")
                 .HasDefaultValueSql ("'0'");
 
-            builder.Property (e => e.IsActive)
-                .HasColumnName ("is_active")
-                .HasColumnType ("tinyint(4)")
-                .HasDefaultValueSql ("'1'");
-
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
                 .HasColumnType ("datetime")
@@ -49,12 +46,30 @@ namespace BionicInventory.DataStore.Workstations {
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                 .ValueGeneratedOnAddOrUpdate ();
 
+            builder.Property (e => e.GroupId).HasColumnName ("GROUP_ID");
+
             builder.Property (e => e.HourlyRate).HasColumnName ("hourly_rate");
+
+            builder.Property (e => e.IsActive)
+                .HasColumnName ("is_active")
+                .HasColumnType ("tinyint(4)")
+                .HasDefaultValueSql ("'1'");
+
+            builder.Property (e => e.MaintenanceItems).HasColumnName ("maintenance_items");
+
+            builder.Property (e => e.Productivity)
+                .HasColumnName ("productivity")
+                .HasDefaultValueSql ("'1'");
 
             builder.Property (e => e.Title)
                 .IsRequired ()
                 .HasColumnName ("title")
                 .HasColumnType ("varchar(45)");
+
+            builder.HasOne (d => d.Group)
+                .WithMany (p => p.Workstation)
+                .HasForeignKey (d => d.GroupId)
+                .HasConstraintName ("fk_WORKSTATION_group");
         }
     }
 }
