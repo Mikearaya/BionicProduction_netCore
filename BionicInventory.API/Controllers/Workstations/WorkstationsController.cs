@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 3:14 AM
+ * @Last Modified Time: Dec 12, 2018 3:21 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -53,7 +53,7 @@ namespace BionicInventory.API.Controllers.Workstations {
                     return StatusCode (400);
                 }
 
-                var workstationGroup = await _Mediator.Send (new SingleWorkstationGroupViewQuery ());
+                var workstationGroup = await _Mediator.Send (new SingleWorkstationGroupViewQuery () { Id = id });
 
                 return StatusCode (200, workstationGroup);
 

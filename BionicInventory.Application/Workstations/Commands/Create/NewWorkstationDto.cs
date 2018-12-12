@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:20 AM
+ * @Last Modified Time: Dec 12, 2018 3:23 AM
  * @Description: Modify Here, Please 
  */
 using System.ComponentModel.DataAnnotations;
@@ -11,8 +11,6 @@ using MediatR;
 
 namespace BionicInventory.Application.Workstations.Commands.Create {
     public class NewWorkstationDto : IRequest {
-
-        public uint Id { get; set; }
 
         [Required]
         public string Title { get; set; }

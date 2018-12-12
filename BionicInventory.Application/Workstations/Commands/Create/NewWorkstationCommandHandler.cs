@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:25 AM
+ * @Last Modified Time: Dec 12, 2018 3:24 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading;
@@ -26,7 +26,7 @@ namespace BionicInventory.Application.Workstations.Commands.Create {
             var workstationGroup = await _database.WorkStationGroup.FindAsync (request.GroupId);
 
             if (workstationGroup == null) {
-                throw new NotFoundException (nameof (WorkstationGroup), request.Id);
+                throw new NotFoundException (nameof (WorkstationGroup), request.GroupId);
             }
 
             for (var i = 0; i < request.instances; i++) {
