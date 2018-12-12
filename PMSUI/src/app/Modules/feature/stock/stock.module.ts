@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 7, 2018 11:16 PM
+ * @Last Modified Time: Dec 13, 2018 1:54 AM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -25,7 +25,6 @@ import { StockViewComponent } from './stock-view/stock-view.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
 import { ItemApiService } from './stock-api.service';
 import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
-import { ProductGroupApiService } from '../../core/services/items/product-group-api.service';
 import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
 

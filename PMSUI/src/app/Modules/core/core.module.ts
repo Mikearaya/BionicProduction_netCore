@@ -30,6 +30,7 @@ import { ProductsAPIService } from './services/items/products-api.service';
 import { ShipmentApiService } from './services/shipment/shipment-api.service';
 import { UnitOfMeasurmentApiService } from './services/unit-of-measurment/unit-of-measurment-api.service';
 import { BomApiService } from './services/bom/bom-api.service';
+import { WorkStationApiService } from './services/work-station/work-station-api.service';
 /*
  * @CreateTime: Nov 10, 2018 11:44 PM
  * @Author:  Mikael Araya
@@ -47,6 +48,7 @@ import { BomApiService } from './services/bom/bom-api.service';
   ],
   declarations: [],
   providers: [
+    WorkStationApiService,
     ShipmentApiService,
     EmployeeApiService,
     ProductsAPIService,

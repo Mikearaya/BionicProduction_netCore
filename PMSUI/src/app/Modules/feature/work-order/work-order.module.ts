@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 1, 2018 1:39 AM
+ * @Last Modified Time: Dec 13, 2018 1:48 AM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -26,6 +26,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';
 import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
+import { WorkStationModule } from './work-station/work-station.module';
 
 
 
@@ -35,14 +36,12 @@ import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // syncfustion
-    GridModule,
-    DatePickerModule,
-    DateTimePickerModule,
-    DropDownListModule,
+
     // application
+    WorkStationModule,
     WorkOrderRoutingModule,
     SharedModule
+
 
   ],
   declarations: [

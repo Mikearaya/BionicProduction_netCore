@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 7, 2018 11:27 PM
+ * @Last Modified Time: Dec 13, 2018 1:51 AM
  * @Description: Modify Here, Please
  */
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,12 +15,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
-import { SharedModule } from './Modules/shared/shared.module';
-import { PickingListComponent } from './Modules/shared/document-creator/picking-list/picking-list.component';
-import { CustomerInvoiceComponent } from './Modules/shared/document-creator/customer-invoice/customer-invoice.component';
-
-
-
 
 
 

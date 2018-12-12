@@ -51,9 +51,9 @@ export class PmsNavigationComponent {
         { id: 'workorders/pending', name: 'Production Requests' },
         { id: 'workorders/completed', name: 'Completed Productions' },
         { id: 'schedules', name: 'Production Schedules' },
-        { id: 'workstations', name: 'Work Stations' },
-        { id: 'workstations/types', name: 'Work Stations types' },
-        { id: 'boms', name: 'Bills of Material' }
+        { id: 'work-stations/stations', name: 'Work Stations' },
+        { id: 'work-stations', name: 'Work Stations Groups' },
+        { id: 'boms', name: 'Bills of Material' },
 
       ]
     },
