@@ -32,8 +32,8 @@ namespace BionicInventory.Application.Workstations.Commands.Create {
             for (var i = 0; i < request.instances; i++) {
                 _database.WorkStation.Add (new Workstation () {
                     Title = request.Title,
-                        CustomHolidays = request.CustomHolidays,
-                        CustomeWorkingHoures = request.CustomWorkingHoures,
+                        HolidayHours = request.HolidayHours,
+                        WorkingHours = request.WorkingHours,
                         IsActive = request.IsActive,
                         Color = request.Color,
                         HourlyRate = request.HourlyRate,

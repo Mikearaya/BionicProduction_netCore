@@ -17,8 +17,8 @@ namespace BionicInventory.Application.Workstations.Commands.Create {
 
         public int? instances { get; set; } = 1;
         public double? HourlyRate { get; set; }
-        public sbyte? CustomWorkingHoures { get; set; }
-        public sbyte? CustomHolidays { get; set; }
+        public double? WorkingHours { get; set; }
+        public double? HolidayHours { get; set; }
         public string Color { get; set; }
         public sbyte? IsActive { get; set; }
         public uint? Productivity { get; set; }

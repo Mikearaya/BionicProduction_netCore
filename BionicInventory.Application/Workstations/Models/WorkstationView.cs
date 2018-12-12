@@ -8,8 +8,8 @@ namespace BionicInventory.Application.Workstations.Models {
         public uint id { get; set; }
         public string title { get; set; }
         public double? hourlyRate { get; set; }
-        public bool customWorkingHoures { get; set; }
-        public bool customHolidays { get; set; }
+        public double? workingHours { get; set; }
+        public double? holidayHours { get; set; }
         public bool isActive { get; set; }
         public string color { get; set; }
         public DateTime? dateAdded { get; set; }
@@ -22,8 +22,8 @@ namespace BionicInventory.Application.Workstations.Models {
                     id = station.Id,
                     title = station.Title,
                     hourlyRate = (station.HourlyRate != null) ? station.HourlyRate : 0,
-                    customHolidays = (station.CustomHolidays != 0) ? true : false,
-                    customWorkingHoures = (station.CustomeWorkingHoures != 0) ? true : false,
+                    holidayHours = (station.HolidayHours != 0) ? station.HolidayHours : 0,
+                    workingHours = (station.WorkingHours != 0) ? station.WorkingHours : 0,
                     isActive = (station.IsActive != 0) ? true : false,
                     color = station.Color,
                     dateAdded = station.DateAdded,

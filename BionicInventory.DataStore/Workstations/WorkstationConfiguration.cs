@@ -25,15 +25,13 @@ namespace BionicInventory.DataStore.Workstations {
                 .HasColumnType ("varchar(45)")
                 .HasDefaultValueSql ("'blue'");
 
-            builder.Property (e => e.CustomHolidays)
-                .HasColumnName ("custom_holidays")
-                .HasColumnType ("tinyint(4)")
-                .HasDefaultValueSql ("'0'");
+            builder.Property (e => e.HolidayHours)
+                .HasColumnName ("holiday_hours")
+                .HasColumnType ("double");
 
-            builder.Property (e => e.CustomeWorkingHoures)
-                .HasColumnName ("custome_working_houres")
-                .HasColumnType ("tinyint(4)")
-                .HasDefaultValueSql ("'0'");
+            builder.Property (e => e.WorkingHours)
+                .HasColumnName ("working_houres")
+                .HasColumnType ("double");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")

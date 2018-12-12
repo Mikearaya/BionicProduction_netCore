@@ -38,6 +38,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<Shipment> Shipment { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public virtual DbSet<SocialMedia> SocialMedia { get; set; }
+        public virtual DbSet<StorageLocation> StorageLocation { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
         public virtual DbSet<Workstation> Workstation { get; set; }
@@ -48,7 +49,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
             }
         }
 
@@ -1182,6 +1183,38 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_SOCIAL_MEDIA_customer");
             });
 
+            modelBuilder.Entity<StorageLocation>(entity =>
+            {
+                entity.ToTable("STORAGE_LOCATION");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Active)
+                    .HasColumnName("active")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("varchar(255)");
+            });
+
             modelBuilder.Entity<Tax>(entity =>
             {
                 entity.ToTable("tax");
@@ -1259,16 +1292,6 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("varchar(45)")
                     .HasDefaultValueSql("'blue'");
 
-                entity.Property(e => e.CustomHolidays)
-                    .HasColumnName("custom_holidays")
-                    .HasColumnType("tinyint(4)")
-                    .HasDefaultValueSql("'0'");
-
-                entity.Property(e => e.CustomeWorkingHoures)
-                    .HasColumnName("custome_working_houres")
-                    .HasColumnType("tinyint(4)")
-                    .HasDefaultValueSql("'0'");
-
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
                     .HasColumnType("datetime")
@@ -1282,12 +1305,18 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.GroupId).HasColumnName("GROUP_ID");
 
+                entity.Property(e => e.HolidayHours)
+                    .HasColumnName("holiday_hours")
+                    .HasDefaultValueSql("'0'");
+
                 entity.Property(e => e.HourlyRate).HasColumnName("hourly_rate");
 
                 entity.Property(e => e.IsActive)
                     .HasColumnName("is_active")
                     .HasColumnType("tinyint(4)")
                     .HasDefaultValueSql("'1'");
+
+                entity.Property(e => e.MaintenanceHours).HasColumnName("maintenance_hours");
 
                 entity.Property(e => e.MaintenanceItems).HasColumnName("maintenance_items");
 
@@ -1299,6 +1328,10 @@ namespace BionicProduction.Migration.Database
                     .IsRequired()
                     .HasColumnName("title")
                     .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.WorkingHours)
+                    .HasColumnName("working_hours")
+                    .HasDefaultValueSql("'0'");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Workstation)

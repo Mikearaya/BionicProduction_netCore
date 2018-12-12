@@ -30,8 +30,8 @@ namespace BionicInventory.Application.Workstations.Commands.Update {
 
             workstation.Title = request.Title;
             workstation.Color = request.Color;
-            workstation.CustomHolidays = request.CustomHolidays;
-            workstation.CustomeWorkingHoures = request.CustomeWorkingHoures;
+            workstation.HolidayHours = request.HolidayHours;
+            workstation.WorkingHours = request.WorkingHours;
             workstation.GroupId = request.GroupId;
             workstation.IsActive = request.IsActive;
             workstation.MaintenanceHours = request.MaintenanceHours;

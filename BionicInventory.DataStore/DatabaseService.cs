@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:23 AM
+ * @Last Modified Time: Dec 13, 2018 12:15 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -28,6 +28,7 @@ using BionicInventory.DataStore.PurchaseOrders;
 using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
+using BionicInventory.DataStore.StorageLocations;
 using BionicInventory.DataStore.UnitOfMeasurments;
 using BionicInventory.DataStore.Workstations;
 using BionicInventory.Domain.BookedStockItem;
@@ -50,6 +51,7 @@ using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
+using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
 using BionicInventory.Domain.Workstations;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +93,7 @@ namespace BionicInventory.DataStore {
         public DbSet<Routing> Routing { get; set; }
         public DbSet<RoutingDetail> RoutingDetail { get; set; }
         public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
+        public DbSet<StorageLocation> StorageLocation { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -120,6 +123,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingDetailConfiguration ());
             modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
+            modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
 
         }
 

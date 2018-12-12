@@ -16,8 +16,8 @@ namespace BionicInventory.Application.Workstations.Commands.Update {
         [Required]
         public string Title { get; set; }
         public double? HourlyRate { get; set; }
-        public sbyte? CustomeWorkingHoures { get; set; }
-        public sbyte? CustomHolidays { get; set; }
+        public double? WorkingHours { get; set; }
+        public double? HolidayHours { get; set; }
         public string Color { get; set; }
         public sbyte? IsActive { get; set; }
         public float? MaintenanceHours { get; set; }
