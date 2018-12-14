@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:19 AM
+ * @Last Modified Time: Dec 15, 2018 1:50 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Workstations;
@@ -30,7 +30,7 @@ namespace BionicInventory.DataStore.Workstations {
                 .HasColumnType ("double");
 
             builder.Property (e => e.WorkingHours)
-                .HasColumnName ("working_houres")
+                .HasColumnName ("working_hours")
                 .HasColumnType ("double");
 
             builder.Property (e => e.DateAdded)

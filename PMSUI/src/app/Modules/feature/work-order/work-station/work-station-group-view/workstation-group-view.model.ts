@@ -14,4 +14,18 @@ export const workstationGroupViewBluePrint = [
     visable: true,
     type: 'string',
   },
+  {
+    key: 'dateAdded',
+    humanReadable: 'Created',
+    visable: false,
+    type: 'date',
+    width: '40'
+  },
+  {
+    key: 'dateUpdated',
+    humanReadable: 'Update',
+    visable: false,
+    type: 'date',
+    width: '40'
+  },
 ];

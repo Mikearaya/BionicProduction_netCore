@@ -41,6 +41,11 @@ export class WorkstationView {
   workingHours: number | null;
   holidayHours: number | null;
   isActive: boolean;
+  groupName: string;
+  groupId: number;
+  maintenanceHours: number | null;
+  maintenanceItems: number | null;
+  productivity: number | null;
   color: string;
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
@@ -55,6 +60,6 @@ export class WorkstationGroupDetailView {
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
 
-  workstations: WorkstationView[];
+  workstations: WorkstationView[] = [];
 }
 
