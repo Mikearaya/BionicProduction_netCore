@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 3:21 AM
+ * @Last Modified Time: Dec 14, 2018 9:57 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
@@ -22,7 +23,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Workstations {
 
-    [InventoryAPI ("productstions/workstations")]
+    [InventoryAPI ("productions/workstations")]
     public class WorkstationsController : Controller {
         private readonly IMediator _Mediator;
 
@@ -47,15 +48,21 @@ namespace BionicInventory.API.Controllers.Workstations {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<WorkstationGroupDetailView>> GetWorkstationGroupDetail (uint id) {
+        public async Task<ActionResult<WorkstationGroupDetailView>> GetWorkstationGroupDetail (uint id, string type = "detail") {
             try {
                 if (id == 0) {
                     return StatusCode (400);
                 }
 
-                var workstationGroup = await _Mediator.Send (new SingleWorkstationGroupViewQuery () { Id = id });
+                Object workStationGroup;
 
-                return StatusCode (200, workstationGroup);
+                if (type.ToUpper () == "DETAIL") {
+                    workStationGroup = await _Mediator.Send (new SingleWorkstationGroupDetailQuery () { Id = id });
+                } else {
+                    workStationGroup = await _Mediator.Send (new SingleWorkstationGroupViewQuery () { Id = id });
+                }
+
+                return StatusCode (200, workStationGroup);
 
             } catch (NotFoundException e) {
 
@@ -168,7 +175,7 @@ namespace BionicInventory.API.Controllers.Workstations {
             }
         }
 
-        // api/productions/workstations/1/stations/13
+        // api/productions/workstations/1/stations
         [HttpPost ("{id}/stations")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]

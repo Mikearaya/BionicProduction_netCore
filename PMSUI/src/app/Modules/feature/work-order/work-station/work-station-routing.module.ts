@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'stations', component: WorkStationViewComponent },
   { path: 'new', component: WorkStationGroupFormComponent },
   { path: 'stations/new', component: WorkStationFormComponent },
-  { path: ':stationGroupId/update', component: WorkStationGroupFormComponent },
+  { path: ':workstationGroupId/update', component: WorkStationGroupFormComponent },
   { path: 'stations/:stationId', component: WorkStationFormComponent }
 ];
 

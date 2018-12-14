@@ -1,9 +1,9 @@
 /*
- * @CreateTime: Dec 14, 2018 9:50 PM
+ * @CreateTime: Dec 12, 2018 2:03 AM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 14, 2018 9:53 PM
+ * @Last Modified Time: Dec 14, 2018 9:48 PM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -17,17 +17,17 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Workstations.Queries.Single {
-    public class SingleWorkstationGroupViewQueryHandler : IRequestHandler<SingleWorkstationGroupViewQuery, WorkstationGroupView> {
+    public class SingleWorkstationGroupDetailQueryHandler : IRequestHandler<SingleWorkstationGroupDetailQuery, WorkstationGroupDetailView> {
         private readonly IInventoryDatabaseService _database;
 
-        public SingleWorkstationGroupViewQueryHandler (IInventoryDatabaseService database) {
+        public SingleWorkstationGroupDetailQueryHandler (IInventoryDatabaseService database) {
             _database = database;
         }
 
-        public async Task<WorkstationGroupView> Handle (SingleWorkstationGroupViewQuery request, CancellationToken cancellationToken) {
+        public async Task<WorkstationGroupDetailView> Handle (SingleWorkstationGroupDetailQuery request, CancellationToken cancellationToken) {
             var workstationGroup = await _database.WorkStationGroup
                 .Where (w => w.Id == request.Id)
-                .Select (WorkstationGroupView.Projection)
+                .Select (WorkstationGroupDetailView.Projection)
                 .FirstOrDefaultAsync ();
 
             if (workstationGroup == null) {

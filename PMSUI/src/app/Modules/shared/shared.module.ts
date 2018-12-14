@@ -2,7 +2,7 @@
 
 import { NgModule } from '@angular/core';
 import { FormOptionsComponent } from './form-options/form-options.component';
-import { TextBoxModule, NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import { TextBoxModule, NumericTextBoxModule, ColorPickerModule } from '@syncfusion/ej2-angular-inputs';
 import { RadioButtonModule, ButtonModule, SwitchModule } from '@syncfusion/ej2-angular-buttons';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -41,6 +41,7 @@ import { DocumentCreatorModule } from './document-creator/document-creator.modul
     // angular
     ReactiveFormsModule,
     DocumentCreatorModule,
+    ColorPickerModule,
     GridModule,
     TabModule,
     NotificationComponent,

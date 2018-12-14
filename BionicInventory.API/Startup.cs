@@ -142,10 +142,10 @@ namespace BionicInventory.API {
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 
             // Add MediatR
-          
+
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestPreProcessorBehavior<,>));
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (ReuquestPerformaceLogger<,>));
-           // services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestValidationManager<,>));
+            // services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestValidationManager<,>));
             services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
             services.AddSwaggerDocument ();
 
