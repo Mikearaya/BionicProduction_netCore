@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 13, 2018 1:54 AM
+ * @Last Modified Time: Dec 15, 2018 10:04 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -27,6 +27,7 @@ import { ItemApiService } from './stock-api.service';
 import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
 import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
+import { StorageLocationModule } from './storage-location/storage-location.module';
 
 @NgModule({
   imports: [
@@ -34,13 +35,10 @@ import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-vie
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    StorageLocationModule,
     // application
     StockRoutingModule,
     SharedModule,
-    // syncfusion
-    GridModule,
-    DropDownListModule,
-    ButtonModule
   ],
   declarations: [
     // application

@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Dec 15, 2018 9:56 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 15, 2018 9:56 PM
+ * @Description: Modify Here, Please
+ */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PmsNavigationComponent } from './pms-navigation/pms-navigation.component';
@@ -19,6 +27,7 @@ const routes: Routes = [{
     { path: 'unit-of-measure', loadChildren: '../feature/unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule' },
     { path: 'boms', loadChildren: '../feature/stock/bom/bom.module#BOMModule' },
     { path: 'work-stations', loadChildren: '../feature/work-order/work-station/work-station.module#WorkStationModule' },
+    { path: 'storages', loadChildren: '../feature/stock/storage-location/storage-location.module#StorageLocationModule' },
 
 
   ]

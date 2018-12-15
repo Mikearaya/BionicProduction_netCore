@@ -31,12 +31,13 @@ import { ShipmentApiService } from './services/shipment/shipment-api.service';
 import { UnitOfMeasurmentApiService } from './services/unit-of-measurment/unit-of-measurment-api.service';
 import { BomApiService } from './services/bom/bom-api.service';
 import { WorkStationApiService } from './services/work-station/work-station-api.service';
+import { StorageLocationApiService } from './services/storage-location/storage-location-api.service';
 /*
  * @CreateTime: Nov 10, 2018 11:44 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 7, 2018 11:29 PM
+ * @Last Modified Time: Dec 15, 2018 9:44 PM
  * @Description: Modify Here, Please
  */
 
@@ -48,6 +49,7 @@ import { WorkStationApiService } from './services/work-station/work-station-api.
   ],
   declarations: [],
   providers: [
+    StorageLocationApiService,
     WorkStationApiService,
     ShipmentApiService,
     EmployeeApiService,
@@ -76,8 +78,7 @@ import { WorkStationApiService } from './services/work-station/work-station-api.
     CoreApiService,
     ProductGroupApiService,
     BomApiService,
-    UnitOfMeasurmentApiService,
-    { provide: 'EMPLOYEE_API_URL', useValue: 'http://localhost:5000/api/employees' }
+    UnitOfMeasurmentApiService
   ],
 
 })
