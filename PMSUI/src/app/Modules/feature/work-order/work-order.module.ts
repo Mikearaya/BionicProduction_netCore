@@ -14,13 +14,7 @@ import { WorkOrderAPIService } from './work-order-api.service';
 
 import { WorkOrderFormComponent } from './work-order-form/work-order-form.component';
 import { WorkOrderViewComponent } from './work-order-view/work-order-view.component';
-
-import { DatePickerModule, DateTimePickerModule } from '@syncfusion/ej2-angular-calendars';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  GridModule
-} from '@syncfusion/ej2-angular-grids';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../../shared/shared.module';
 import { FinishedOrderFormComponent } from './finished-order-form/finished-order-form.component';

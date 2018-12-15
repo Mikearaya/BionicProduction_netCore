@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'new', component: WorkStationGroupFormComponent },
   { path: 'stations/new', component: WorkStationFormComponent },
   { path: ':workstationGroupId/update', component: WorkStationGroupFormComponent },
-  { path: 'stations/:stationId', component: WorkStationFormComponent }
+  { path: ':workstationGroupId/stations/:stationId', component: WorkStationFormComponent }
 ];
 
 @NgModule({

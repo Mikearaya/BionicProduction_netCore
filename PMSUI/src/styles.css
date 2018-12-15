@@ -71,7 +71,7 @@ body {
   background: honeydew !important;
 }
 
-div.label-area {
+.label-area {
   padding: 0;
   text-align: center;
   font-size: .8em;

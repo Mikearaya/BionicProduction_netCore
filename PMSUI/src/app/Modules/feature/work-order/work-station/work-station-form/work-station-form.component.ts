@@ -37,7 +37,7 @@ export class WorkStationFormComponent extends CommonProperties implements OnInit
 
   ngOnInit() {
 
-    this.workstationId = + this.activatedRoute.snapshot.paramMap.get('workstationId');
+    this.workstationId = + this.activatedRoute.snapshot.paramMap.get('stationId');
 
     if (this.workstationId) {
       this.isUpdate = true;
@@ -45,7 +45,7 @@ export class WorkStationFormComponent extends CommonProperties implements OnInit
       this.submitButtontext = 'Update';
 
       this.workstationApi.getWorkStationById(this.workstationId).subscribe(
-        (data) => this.initializeForm(data),
+        (data: WorkstationView) => this.initializeForm(data),
         this.handleError
       );
     } else {
@@ -178,6 +178,7 @@ export class WorkStationFormComponent extends CommonProperties implements OnInit
       workstation.maintenanceItems = formData.maintainanceItems;
       workstation.holidayHours = formData.holidayHours;
       workstation.productivity = formData.productivity;
+      workstation.hourlyRate = formData.hourlyRate;
 
       return workstation;
     } else {

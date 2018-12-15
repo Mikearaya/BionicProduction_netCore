@@ -90,7 +90,7 @@ export class WorkStationViewComponent extends CommonProperties implements OnInit
 
   editStation(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`work-stations/${rowObj.data['groupId']}/stations/${rowObj.data['groupId']}/update`]);
+    this.route.navigate([`work-stations/${rowObj.data['groupId']}/stations/${rowObj.data['id']}`]);
 
   }
 

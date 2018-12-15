@@ -94,7 +94,7 @@ namespace BionicInventory.API.Controllers.Workstations {
                     return StatusCode (400);
                 }
 
-                var station = await _Mediator.Send (new SingleWorkstationQuery ());
+                var station = await _Mediator.Send (new SingleWorkstationQuery () { Id = id });
 
                 return StatusCode (200, station);
 
@@ -231,15 +231,15 @@ namespace BionicInventory.API.Controllers.Workstations {
         }
 
         // api/productions/1/stations/13
-        [HttpDelete ("{id}/stations/{stationId}")]
+        [HttpDelete ("stations/{stationId}")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult> DeleteWorkstation (uint id, uint stationId) {
+        public async Task<ActionResult> DeleteWorkstation (uint stationId) {
 
             try {
-                if (id == 0 || stationId == 0) {
+                if ( stationId == 0) {
                     return StatusCode (400);
                 }
 

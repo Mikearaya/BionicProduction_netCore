@@ -5,7 +5,7 @@ export const workstationViewBluePrint = [
     humanReadable: 'ID',
     visable: true,
     type: 'number',
-    width: '20'
+    width: '35'
   },
   {
     key: 'groupName',
@@ -28,30 +28,16 @@ export const workstationViewBluePrint = [
     type: 'string',
   },
   {
-    key: 'groupName',
-    humanReadable: 'Group',
-    visable: true,
-    type: 'string',
-    width: '100'
-  },
-  {
-    key: 'groupId',
-    humanReadable: 'Group Id',
-    visable: false,
-    type: 'number',
-    width: '20'
-  },
-  {
     key: 'hourlyRate',
     humanReadable: 'Hourly Rate',
     visable: true,
     type: 'number',
-    width: '40'
+    width: '50'
   },
   {
     key: 'holidayHours',
     humanReadable: 'Holiday Rate',
-    visable: true,
+    visable: false,
     type: 'number',
     width: '40'
   },
