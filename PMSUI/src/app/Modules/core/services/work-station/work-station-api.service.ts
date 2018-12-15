@@ -57,12 +57,12 @@ export class WorkStationApiService {
     return this.httpClient.delete<Boolean>(`${this.apiUrl}/${this.controller}/${workstationGroupId}`);
   }
 
-  createWorkstation(workstationGroupId: number, workstation: Workstation): Observable<Boolean> {
-    return this.httpClient.post<Boolean>(`${this.apiUrl}/${this.controller}/${workstationGroupId}/stations`, workstation);
+  createWorkstation(workstation: Workstation): Observable<Boolean> {
+    return this.httpClient.post<Boolean>(`${this.apiUrl}/${this.controller}/${workstation.groupId}/stations`, workstation);
   }
 
-  updateWorkstation(workstationGroupId: number, workstation: Workstation): Observable<Boolean> {
-    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${workstationGroupId}/stations/${workstation.id}`, workstation);
+  updateWorkstation(workstation: Workstation): Observable<Boolean> {
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${workstation.groupId}/stations/${workstation.id}`, workstation);
   }
 
 

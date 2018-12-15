@@ -22,7 +22,7 @@ export class FormOptionsComponent implements OnInit {
   @Input('submitDisabled') submitDisabled: Boolean;
   @Input('cancelDisabled') cancelDisabled: Boolean;
   @Input('submitButtonText') submitButtonText: String = 'Submit';
-  @Input('cancelButtonText') cancelButtonText: String = 'Cancel';
+  @Input('cancelButtonText') cancelButtonText: String = 'Back';
 
   constructor(private location: Location) {
     this.cancelDisabled = false;

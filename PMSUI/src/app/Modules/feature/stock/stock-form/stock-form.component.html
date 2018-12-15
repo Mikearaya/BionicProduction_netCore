@@ -5,7 +5,7 @@
   <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate="">
     <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
     <div class="container e-card">
-      <ejs-tab id="element" class="e-fill" #element  showCloseButton=false>
+      <ejs-tab id="element" class="e-fill" #element showCloseButton=false>
         <e-tabitems>
           <e-tabitem [header]='headerText[0]'>
             <ng-template #content>
@@ -43,7 +43,8 @@
                     <div class="col-8 col-xs-12">
                       <ejs-dropdownlist [dataSource]="itemGroups" i18n-placeholder [fields]="itemGroupFields" [width]=300
                         placeholder="Select Item Group" floatLabelType="Auto" formControlName="groupId" name="groupId"
-                        id="groupId"></ejs-dropdownlist>
+                        id="groupId">
+                      </ejs-dropdownlist>
                       <div class="e-error" *ngIf="groupId.errors && groupId.touched">
                         <div *ngIf="groupId.errors['required']" i18n>Product Group is Required</div>
                       </div>

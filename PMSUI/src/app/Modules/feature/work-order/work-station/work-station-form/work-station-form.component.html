@@ -1,3 +1,79 @@
-<p>
-  work-station-form works!
-</p>
+<section>
+  <h5>{{title}}</h5>
+  <app-notification #notification></app-notification>
+
+  <form [formGroup]="workstationForm" (ngSubmit)="onSubmit()" >
+    <app-form-options [submitButtonText]='submitButtontext' [submitDisabled]='workstationForm.invalid'></app-form-options>
+    <div class="container e-card text-center">
+      <div class="col-6 col-xs-12">
+        <div class="row">
+          <div class="col-12">
+            <input type="text" class="e-input" floatLabelType="Auto" formControlName="name" id="name" name="name"
+              placeholder="Workstation Name">
+            <div class="e-error" *ngIf="name.errors">
+              <div *ngIf="name.errors['required']">
+                Workstation Name is Required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ejs-dropdownlist [dataSource]="workstationGroupList" [fields]="workstationGroupFields"
+              filterBarPlaceholder='Search Group Name' formControlName="groupId" id="workstationgroup" name="workstationGroup"
+              placeholder="Select Workstation Group" floatLabelType="Auto">
+              <ng-template #headerTemplate let-data>
+                <div> <button type="button" (click)="createWorkstationGroup()" ejs-button>Create Workstation Group
+                  </button></div>
+              </ng-template>
+            </ejs-dropdownlist>
+            <div class="e-error" *ngIf="groupId.errors">
+              <div *ngIf="groupId.errors['required']"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ejs-numerictextbox formControlName="hourlyRate" id="hourlyRate" name="hourlyRate" placeholder="Hourly Rate"></ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ejs-numerictextbox formControlName="holidayHours" id="holidayHours" name="holidayHours" placeholder="Holidays Rate"></ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ejs-numerictextbox formControlName="maintainanceHours" id="maintainanceHours" name="maintainanceHours"
+              placeholder="Maintainance Cycle Hours"></ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3 col-xs-6">Maintainance Cycle/ Item</div>
+          <div class="col-3 col-xs-6">
+            <ejs-switch #maintainanceItem></ejs-switch>
+          </div>
+          <div class="col-6">
+            <ejs-numerictextbox formControlName="maintainanceItems" *ngIf="maintainanceItem.checked" id="maintainanceItems"
+              name="maintainanceItems" placeholder="Maintainance Cycle Items"></ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <ejs-numerictextbox formControlName="productivity" id="productivity" name="productivity" placeholder="Productivity Level"></ejs-numerictextbox>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div xi18>Active</div>
+            <ejs-switch formControlName="isActive" name="isActive" id="isActive"></ejs-switch>
+            <div class="e-error" *ngIf="isActive.errors">
+              <div *ngIf="isActive.errors['required']" x18n="workstation status ">Group Status is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitButtonText]='submitButtontext' [submitDisabled]='workstationForm.invalid'></app-form-options>
+  </form>
+</section>

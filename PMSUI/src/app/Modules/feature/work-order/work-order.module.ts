@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 13, 2018 1:48 AM
+ * @Last Modified Time: Dec 15, 2018 2:12 AM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -38,8 +38,9 @@ import { WorkStationModule } from './work-station/work-station.module';
     HttpClientModule,
 
     // application
-    WorkStationModule,
+
     WorkOrderRoutingModule,
+    WorkStationModule,
     SharedModule
 
 
