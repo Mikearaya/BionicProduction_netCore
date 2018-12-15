@@ -1,3 +1,40 @@
-<p>
-  storage-location-form works!
-</p>
+<section>
+  <h5>{{title}}</h5>
+  <app-notification #notification></app-notification>
+
+  <form [formGroup]="storageForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="storageForm.invalid"></app-form-options>
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <label for="name" class="label-area col-3 col-xs-12">Name</label>
+            <div class="col-9 col-xs-12">
+              <input type="text" class="e-input" placeholder="Location Name" formControlName="name" id="name" name="name">
+              <div class="e-error" *ngIf="name.errors">
+                <div *ngIf="name.errors['required']"> Location Name Is Required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <label for="note" class="label-area col-3 col-xs-12">Note</label>
+            <div class="col-9 col-xs-12">
+              <textarea class="e-input" placeholder="Extra Note" formControlName="note" id="note" name="note"> </textarea>
+            </div>
+          </div>
+          <div class="row">
+            <label for="active" class="label-area col-3 col-xs-12">Active</label>
+            <div class="col-9 col-xs-12">
+              <ejs-switch formControlName="active" id="active" name="active"></ejs-switch>
+              <div class="e-error" *ngIf="active.errors">
+                <div *ngIf="active.errors['required']"> Location Status is Required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="storageForm.invalid"></app-form-options>
+  </form>
+
+</section>

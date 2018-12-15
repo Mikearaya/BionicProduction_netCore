@@ -35,7 +35,6 @@ import { StorageLocationModule } from './storage-location/storage-location.modul
     CommonModule,
     HttpClientModule,
     ReactiveFormsModule,
-    StorageLocationModule,
     // application
     StockRoutingModule,
     SharedModule,

@@ -97,7 +97,7 @@ export class StorageLocationViewComponent extends CommonProperties implements On
   deleteStorage(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.storageApi.deleteStorageLocation(rowObj.data['id']).subscribe(
-      () => this.notification.showMessage('Storage LocationDeleted'),
+      () => this.notification.showMessage('Storage Location Deleted'),
       (error: CustomErrorResponse) => {
         this.notification.showMessage('Unable to Delete Storage Location', 'error');
         this.handleError(error);

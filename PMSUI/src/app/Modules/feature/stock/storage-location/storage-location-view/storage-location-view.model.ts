@@ -2,7 +2,7 @@ export const storageLocationColumnBluePrint = [
 
   {
     key: 'id',
-    humanReadable: 'ID',
+    humanReadable: 'Id',
     visable: true,
     type: 'number',
     width: 30,
@@ -10,7 +10,7 @@ export const storageLocationColumnBluePrint = [
   },
   {
     key: 'name',
-    humanReadable: 'name',
+    humanReadable: 'Name',
     visable: true,
     type: 'string',
 
@@ -19,7 +19,8 @@ export const storageLocationColumnBluePrint = [
     key: 'dateAdded',
     humanReadable: 'Created',
     visable: true,
-    type: 'date',
+    type: 'datetime',
+    format: 'yMd',
     width: '50'
 
   },
@@ -27,7 +28,8 @@ export const storageLocationColumnBluePrint = [
     key: 'dateUpdated',
     humanReadable: 'Updated',
     visable: false,
-    type: 'date',
+    type: 'datetime',
+    format: 'yMd',
     width: '50'
 
   }

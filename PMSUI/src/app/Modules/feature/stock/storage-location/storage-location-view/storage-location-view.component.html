@@ -1,10 +1,10 @@
 <section class="e-card">
   <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowGrouping]="true" [allowExcelExport]="true"
     [toolbar]='toolbar' [allowPdfExport]="true" [allowPaging]="true" height="300" [showColumnChooser]=true
-    [allowReordering]="true" [allowResizing]="true" rowHeight="25" id="storage" (toolbarClick)='toolbarClick($event)'>
+    [allowReordering]="true" [allowResizing]="true" rowHeight="30" id="storage" (toolbarClick)='toolbarClick($event)'>
     <e-columns>
       <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint" [field]='col.key' [width]="col.width"
-        [visible]="col.visable" [headerText]='col.humanReadable' [editType]="col.type"></e-column>
+        [visible]="col.visable" [headerText]='col.humanReadable' [format]="col.format" [type]="col.type"></e-column>
       <e-column headerText="Active" width="30" [customAttributes]="customAttributes" textAlign="center">
         <ng-template #template let-data>
           <ejs-switch [checked]="data.active"></ejs-switch>

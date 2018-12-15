@@ -8,7 +8,7 @@
  */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { StorageLocationView } from '../../DataModels/storage-location.model';
+import { StorageLocationView, StorageLocation } from '../../DataModels/storage-location.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -27,11 +27,11 @@ export class StorageLocationApiService {
     return this.httpClient.get<StorageLocationView>(`${this.apiUrl}/${this.controller}/${storageId}`);
   }
 
-  createStorageLocation(storage: Storage): Observable<Boolean> {
+  createStorageLocation(storage: StorageLocation): Observable<Boolean> {
     return this.httpClient.post<Boolean>(`${this.apiUrl}/${this.controller}`, storage);
   }
 
-  updateStorageLocation(storage: Storage): Observable<Boolean> {
+  updateStorageLocation(storage: StorageLocation): Observable<Boolean> {
     return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${storage.id}`, storage);
   }
 
