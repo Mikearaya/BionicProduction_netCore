@@ -5,11 +5,6 @@ namespace BionicProduction.Migration.Database
 {
     public partial class Workstation
     {
-        public Workstation()
-        {
-            RoutingDetail = new HashSet<RoutingDetail>();
-        }
-
         public uint Id { get; set; }
         public string Title { get; set; }
         public double? HourlyRate { get; set; }
@@ -25,6 +20,5 @@ namespace BionicProduction.Migration.Database
         public uint? MaintenanceItems { get; set; }
 
         public WorkstationGroup Group { get; set; }
-        public ICollection<RoutingDetail> RoutingDetail { get; set; }
     }
 }

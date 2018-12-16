@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:19 AM
+ * @Last Modified Time: Dec 16, 2018 11:11 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,10 +12,6 @@ using BionicInventory.Domain.Items.Rotings;
 
 namespace BionicInventory.Domain.Workstations {
     public class Workstation {
-        public Workstation () {
-            RoutingDetail = new HashSet<RoutingDetail> ();
-        }
-
         public uint Id { get; set; }
         public string Title { get; set; }
         public double? HourlyRate { get; set; }
@@ -27,11 +23,10 @@ namespace BionicInventory.Domain.Workstations {
         public sbyte? IsActive { get; set; }
         public uint? Productivity { get; set; }
         public uint GroupId { get; set; }
-        public uint? MaintenanceItems { get; set; }
         public float? MaintenanceHours { get; set; }
+        public uint? MaintenanceItems { get; set; }
 
         public WorkstationGroup Group { get; set; }
-        public ICollection<RoutingDetail> RoutingDetail { get; set; }
     }
 
 }

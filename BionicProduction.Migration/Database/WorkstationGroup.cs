@@ -7,6 +7,7 @@ namespace BionicProduction.Migration.Database
     {
         public WorkstationGroup()
         {
+            RoutingOperation = new HashSet<RoutingOperation>();
             Workstation = new HashSet<Workstation>();
         }
 
@@ -17,6 +18,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public sbyte? Active { get; set; }
 
+        public ICollection<RoutingOperation> RoutingOperation { get; set; }
         public ICollection<Workstation> Workstation { get; set; }
     }
 }

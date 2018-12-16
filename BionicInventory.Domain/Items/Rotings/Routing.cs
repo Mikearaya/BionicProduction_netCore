@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 10:47 PM
+ * @Last Modified Time: Dec 16, 2018 11:49 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -14,8 +14,8 @@ using BionicInventory.Domain.Routings;
 namespace BionicInventory.Domain.Items.Rotings {
     public class Routing {
         public Routing () {
-            RoutingDetail = new HashSet<RoutingDetail> ();
             RoutingBoms = new HashSet<RoutingBoms> ();
+            RoutingOperation = new HashSet<RoutingOperation> ();
         }
 
         public uint Id { get; set; }
@@ -26,8 +26,11 @@ namespace BionicInventory.Domain.Items.Rotings {
         public float? FixedCost { get; set; }
         public float? VariableCost { get; set; }
         public uint? Quantity { get; set; }
-        public ICollection<RoutingDetail> RoutingDetail { get; set; }
+        public uint ItemId { get; set; }
+
+        public Item Item { get; set; }
         public ICollection<RoutingBoms> RoutingBoms { get; set; }
+        public ICollection<RoutingOperation> RoutingOperation { get; set; }
 
     }
 }

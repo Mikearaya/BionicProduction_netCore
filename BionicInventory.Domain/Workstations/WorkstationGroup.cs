@@ -3,16 +3,18 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 12, 2018 1:07 AM
+ * @Last Modified Time: Dec 16, 2018 11:12 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.Items.Rotings;
 
 namespace BionicInventory.Domain.Workstations {
 
     public partial class WorkstationGroup {
         public WorkstationGroup () {
+            RoutingOperation = new HashSet<RoutingOperation> ();
             Workstation = new HashSet<Workstation> ();
         }
 
@@ -23,6 +25,7 @@ namespace BionicInventory.Domain.Workstations {
         public DateTime? DateUpdated { get; set; }
         public sbyte? Active { get; set; }
 
+        public ICollection<RoutingOperation> RoutingOperation { get; set; }
         public ICollection<Workstation> Workstation { get; set; }
     }
 }

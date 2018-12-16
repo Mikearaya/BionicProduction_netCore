@@ -8,7 +8,7 @@ namespace BionicProduction.Migration.Database
         public Routing()
         {
             RoutingBoms = new HashSet<RoutingBoms>();
-            RoutingDetail = new HashSet<RoutingDetail>();
+            RoutingOperation = new HashSet<RoutingOperation>();
         }
 
         public uint Id { get; set; }
@@ -19,8 +19,10 @@ namespace BionicProduction.Migration.Database
         public float? FixedCost { get; set; }
         public float? VariableCost { get; set; }
         public uint? Quantity { get; set; }
+        public uint ItemId { get; set; }
 
+        public Item Item { get; set; }
         public ICollection<RoutingBoms> RoutingBoms { get; set; }
-        public ICollection<RoutingDetail> RoutingDetail { get; set; }
+        public ICollection<RoutingOperation> RoutingOperation { get; set; }
     }
 }

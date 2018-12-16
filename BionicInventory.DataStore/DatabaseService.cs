@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 10:52 PM
+ * @Last Modified Time: Dec 16, 2018 11:16 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -92,7 +92,7 @@ namespace BionicInventory.DataStore {
         public DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
         public DbSet<Workstation> WorkStation { get; set; }
         public DbSet<Routing> Routing { get; set; }
-        public DbSet<RoutingDetail> RoutingDetail { get; set; }
+        public DbSet<RoutingOperation> RoutingDetail { get; set; }
         public DbSet<RoutingBoms> RoutingBoms { get; set; }
         public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
         public DbSet<StorageLocation> StorageLocation { get; set; }
@@ -123,7 +123,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
             modelBuilder.ApplyConfiguration (new WorkstationConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
-            modelBuilder.ApplyConfiguration (new RoutingDetailConfiguration ());
+            modelBuilder.ApplyConfiguration (new RoutingOperationConfiguration ());
             modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
             modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingBomsConfiguration ());

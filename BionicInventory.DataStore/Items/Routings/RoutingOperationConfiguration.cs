@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 10:57 PM
+ * @Last Modified Time: Dec 16, 2018 11:15 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Items.Rotings;
@@ -11,16 +11,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BionicInventory.DataStore.Items.Routings {
-    public class RoutingDetailConfiguration : IEntityTypeConfiguration<RoutingDetail> {
-        public void Configure (EntityTypeBuilder<RoutingDetail> builder) {
+    public class RoutingOperationConfiguration : IEntityTypeConfiguration<RoutingOperation> {
+        public void Configure (EntityTypeBuilder<RoutingOperation> builder) {
 
-            builder.ToTable ("ROUTING_DETAIL");
+            builder.ToTable ("ROUTING_OPERATION");
 
             builder.HasIndex (e => e.RoutingId)
                 .HasName ("fk_ROUTING_DETAIL_routing_idx");
-
-            builder.HasIndex (e => e.WorkerId)
-                .HasName ("fk_ROUTING_DETAIL_worker_idx");
 
             builder.HasIndex (e => e.WorkstationId)
                 .HasName ("fk_ROUTING_DETAIL_workstation_idx");
@@ -56,23 +53,15 @@ namespace BionicInventory.DataStore.Items.Routings {
 
             builder.Property (e => e.VariableTime).HasColumnName ("variable_time");
 
-            builder.Property (e => e.WorkerId).HasColumnName ("WORKER_ID");
-
             builder.Property (e => e.WorkstationId).HasColumnName ("WORKSTATION_ID");
 
             builder.HasOne (d => d.Routing)
-                .WithMany (p => p.RoutingDetail)
+                .WithMany (p => p.RoutingOperation)
                 .HasForeignKey (d => d.RoutingId)
                 .HasConstraintName ("fk_ROUTING_DETAIL_routing");
 
-            builder.HasOne (d => d.Worker)
-                .WithMany (p => p.RoutingDetail)
-                .HasForeignKey (d => d.WorkerId)
-                .OnDelete (DeleteBehavior.SetNull)
-                .HasConstraintName ("fk_ROUTING_DETAIL_worker");
-
             builder.HasOne (d => d.Workstation)
-                .WithMany (p => p.RoutingDetail)
+                .WithMany (p => p.RoutingOperation)
                 .HasForeignKey (d => d.WorkstationId)
                 .HasConstraintName ("fk_ROUTING_DETAIL_workstation");
         }

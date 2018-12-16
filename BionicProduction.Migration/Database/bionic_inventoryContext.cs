@@ -35,7 +35,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public virtual DbSet<Routing> Routing { get; set; }
         public virtual DbSet<RoutingBoms> RoutingBoms { get; set; }
-        public virtual DbSet<RoutingDetail> RoutingDetail { get; set; }
+        public virtual DbSet<RoutingOperation> RoutingOperation { get; set; }
         public virtual DbSet<Shipment> Shipment { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public virtual DbSet<SocialMedia> SocialMedia { get; set; }
@@ -935,6 +935,9 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("ROUTING");
 
+                entity.HasIndex(e => e.ItemId)
+                    .HasName("fk_ROUTING_item_idx");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.DateAdded)
@@ -950,6 +953,8 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.FixedCost).HasColumnName("fixed_cost");
 
+                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnName("name")
@@ -964,6 +969,11 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.VariableCost).HasColumnName("variable_cost");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.Routing)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("fk_ROUTING_item");
             });
 
             modelBuilder.Entity<RoutingBoms>(entity =>
@@ -1004,15 +1014,12 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_ROUTING_BOMS_routing");
             });
 
-            modelBuilder.Entity<RoutingDetail>(entity =>
+            modelBuilder.Entity<RoutingOperation>(entity =>
             {
-                entity.ToTable("ROUTING_DETAIL");
+                entity.ToTable("ROUTING_OPERATION");
 
                 entity.HasIndex(e => e.RoutingId)
                     .HasName("fk_ROUTING_DETAIL_routing_idx");
-
-                entity.HasIndex(e => e.WorkerId)
-                    .HasName("fk_ROUTING_DETAIL_worker_idx");
 
                 entity.HasIndex(e => e.WorkstationId)
                     .HasName("fk_ROUTING_DETAIL_workstation_idx");
@@ -1048,23 +1055,15 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.VariableTime).HasColumnName("variable_time");
 
-                entity.Property(e => e.WorkerId).HasColumnName("WORKER_ID");
-
                 entity.Property(e => e.WorkstationId).HasColumnName("WORKSTATION_ID");
 
                 entity.HasOne(d => d.Routing)
-                    .WithMany(p => p.RoutingDetail)
+                    .WithMany(p => p.RoutingOperation)
                     .HasForeignKey(d => d.RoutingId)
                     .HasConstraintName("fk_ROUTING_DETAIL_routing");
 
-                entity.HasOne(d => d.Worker)
-                    .WithMany(p => p.RoutingDetail)
-                    .HasForeignKey(d => d.WorkerId)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("fk_ROUTING_DETAIL_worker");
-
                 entity.HasOne(d => d.Workstation)
-                    .WithMany(p => p.RoutingDetail)
+                    .WithMany(p => p.RoutingOperation)
                     .HasForeignKey(d => d.WorkstationId)
                     .HasConstraintName("fk_ROUTING_DETAIL_workstation");
             });

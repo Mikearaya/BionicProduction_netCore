@@ -11,6 +11,7 @@ namespace BionicProduction.Migration.Database
             BomItems = new HashSet<BomItems>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
+            Routing = new HashSet<Routing>();
         }
 
         public uint Id { get; set; }
@@ -34,5 +35,6 @@ namespace BionicProduction.Migration.Database
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<Routing> Routing { get; set; }
     }
 }
