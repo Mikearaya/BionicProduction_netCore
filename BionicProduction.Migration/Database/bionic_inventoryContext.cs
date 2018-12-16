@@ -34,6 +34,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public virtual DbSet<Routing> Routing { get; set; }
+        public virtual DbSet<RoutingBoms> RoutingBoms { get; set; }
         public virtual DbSet<RoutingDetail> RoutingDetail { get; set; }
         public virtual DbSet<Shipment> Shipment { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
@@ -934,12 +935,7 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("ROUTING");
 
-                entity.HasIndex(e => e.BomId)
-                    .HasName("fk_ROUTING_bom_idx");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.BomId).HasColumnName("BOM_ID");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -968,11 +964,44 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.VariableCost).HasColumnName("variable_cost");
+            });
+
+            modelBuilder.Entity<RoutingBoms>(entity =>
+            {
+                entity.ToTable("ROUTING_BOMS");
+
+                entity.HasIndex(e => e.BomId)
+                    .HasName("fk_ROUTING_BOMS_bom_idx");
+
+                entity.HasIndex(e => e.RoutingId)
+                    .HasName("fk_ROUTING_BOMS_routing_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BomId).HasColumnName("BOM_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.RoutingId).HasColumnName("ROUTING_ID");
 
                 entity.HasOne(d => d.Bom)
-                    .WithMany(p => p.Routing)
+                    .WithMany(p => p.RoutingBoms)
                     .HasForeignKey(d => d.BomId)
-                    .HasConstraintName("fk_ROUTING_bom");
+                    .HasConstraintName("fk_ROUTING_BOMS_bom");
+
+                entity.HasOne(d => d.Routing)
+                    .WithMany(p => p.RoutingBoms)
+                    .HasForeignKey(d => d.RoutingId)
+                    .HasConstraintName("fk_ROUTING_BOMS_routing");
             });
 
             modelBuilder.Entity<RoutingDetail>(entity =>

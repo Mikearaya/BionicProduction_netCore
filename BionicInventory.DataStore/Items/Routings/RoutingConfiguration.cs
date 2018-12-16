@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 9, 2018 10:57 PM
+ * @Last Modified Time: Dec 16, 2018 10:50 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Items.Rotings;
@@ -16,12 +16,7 @@ namespace BionicInventory.DataStore.Items.Routings {
 
             builder.ToTable ("ROUTING");
 
-            builder.HasIndex (e => e.BomId)
-                .HasName ("fk_ROUTING_bom_idx");
-
             builder.Property (e => e.Id).HasColumnName ("ID");
-
-            builder.Property (e => e.BomId).HasColumnName ("BOM_ID");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
@@ -50,11 +45,6 @@ namespace BionicInventory.DataStore.Items.Routings {
                 .HasDefaultValueSql ("'0'");
 
             builder.Property (e => e.VariableCost).HasColumnName ("variable_cost");
-
-            builder.HasOne (d => d.Bom)
-                .WithMany (p => p.Routing)
-                .HasForeignKey (d => d.BomId)
-                .HasConstraintName ("fk_ROUTING_bom");
         }
     }
 }

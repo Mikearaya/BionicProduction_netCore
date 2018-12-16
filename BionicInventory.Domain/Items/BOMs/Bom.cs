@@ -3,18 +3,19 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 6, 2018 12:16 AM
+ * @Last Modified Time: Dec 16, 2018 10:46 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items.Rotings;
+using BionicInventory.Domain.Routings;
 
 namespace BionicInventory.Domain.Items.BOMs {
     public partial class Bom {
         public Bom () {
             BomItems = new HashSet<BomItems> ();
-            Routing = new HashSet<Routing> ();
+            RoutingBoms = new HashSet<RoutingBoms> ();
         }
 
         public uint Id { get; set; }
@@ -26,6 +27,6 @@ namespace BionicInventory.Domain.Items.BOMs {
 
         public Item Item { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Routing> Routing { get; set; }
+        public ICollection<RoutingBoms> RoutingBoms { get; set; }
     }
 }

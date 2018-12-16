@@ -8,7 +8,7 @@ namespace BionicProduction.Migration.Database
         public Bom()
         {
             BomItems = new HashSet<BomItems>();
-            Routing = new HashSet<Routing>();
+            RoutingBoms = new HashSet<RoutingBoms>();
         }
 
         public uint Id { get; set; }
@@ -20,6 +20,6 @@ namespace BionicProduction.Migration.Database
 
         public Item Item { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Routing> Routing { get; set; }
+        public ICollection<RoutingBoms> RoutingBoms { get; set; }
     }
 }

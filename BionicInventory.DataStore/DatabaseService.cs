@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 13, 2018 12:15 AM
+ * @Last Modified Time: Dec 16, 2018 10:52 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -49,6 +49,7 @@ using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
@@ -92,6 +93,7 @@ namespace BionicInventory.DataStore {
         public DbSet<Workstation> WorkStation { get; set; }
         public DbSet<Routing> Routing { get; set; }
         public DbSet<RoutingDetail> RoutingDetail { get; set; }
+        public DbSet<RoutingBoms> RoutingBoms { get; set; }
         public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
         public DbSet<StorageLocation> StorageLocation { get; set; }
 
@@ -124,6 +126,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new RoutingDetailConfiguration ());
             modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
             modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
+            modelBuilder.ApplyConfiguration (new RoutingBomsConfiguration ());
 
         }
 
