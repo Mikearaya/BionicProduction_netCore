@@ -126,4 +126,9 @@ export class WorkStationViewComponent extends CommonProperties implements OnInit
 
   }
 
+  changeStatus(): void {
+    this.notification.showMessage(`Sorry this feature is not currently implemented,
+      use the workstation detail page instead to perform this action `, 'info');
+  }
+
 }

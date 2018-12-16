@@ -21,7 +21,7 @@
           </div>
           <div class="row">
             <label for="workstationGroup" class="col-4 col-xs-6 label-area">Group/Type</label>
-            <div class="col-6">
+            <div class="col-6 col-xs-12">
               <ejs-dropdownlist [dataSource]="workstationGroupList" [fields]="workstationGroupFields"
                 filterBarPlaceholder='Search Group Name' formControlName="groupId" id="workstationgroup" name="workstationGroup"
                 placeholder="Select Workstation Group" floatLabelType="Auto">
@@ -37,12 +37,12 @@
           </div>
           <div class="row">
             <label for="productivity" class="col-4 col-xs-6 label-area">Productivity Level</label>
-            <div class="col-6">
+            <div class="col-6 col-xs-12">
               <ejs-numerictextbox formControlName="productivity" id="productivity" name="productivity" placeholder="Productivity Level"></ejs-numerictextbox>
             </div>
           </div>
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 col-xs-12">
               <label for="isActive" class="col-4 col-xs-6 label-area">Is Active</label>
               <ejs-switch formControlName="isActive" name="isActive" id="isActive"></ejs-switch>
               <div class="e-error" *ngIf="isActive.errors">
@@ -54,8 +54,12 @@
         <div class="col-6 col-xs-12">
           <div class="row">
             <label for="hourlyRate" class="col-4 col-xs-6 label-area">Hourly Rate</label>
-            <div class="col-6">
-              <ejs-numerictextbox formControlName="hourlyRate" id="hourlyRate" name="hourlyRate" placeholder="Hourly Rate"></ejs-numerictextbox>
+            <div class="col-2 col-xs-6">
+              <ejs-switch #hourRate [checked]="hourlyRate.value"></ejs-switch>
+            </div>
+            <div class="col-6 col-xs-12">
+              <ejs-numerictextbox *ngIf="hourRate.checked" formControlName="hourlyRate" id="hourlyRate" name="hourlyRate"
+                placeholder="Hourly Rate"></ejs-numerictextbox>
             </div>
           </div>
           <div class="row">
@@ -63,7 +67,7 @@
             <div class="col-2 col-xs-6">
               <ejs-switch #holidayHour [checked]="holidayHours.value"></ejs-switch>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-xs-12">
               <ejs-numerictextbox *ngIf="holidayHour.checked" formControlName="holidayHours" id="holidayHours" name="holidayHours"
                 placeholder="Holidays Rate"></ejs-numerictextbox>
             </div>
@@ -73,7 +77,7 @@
             <div class="col-2 col-xs-6">
               <ejs-switch #maintainanceHour [checked]="maintainanceHours.value"></ejs-switch>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-xs-12">
               <ejs-numerictextbox *ngIf="maintainanceHour.checked" formControlName="maintainanceHours" id="maintainanceHours"
                 name="maintainanceHours" placeholder="Maintainance Cycle Hours"></ejs-numerictextbox>
             </div>
@@ -83,7 +87,7 @@
             <div class="col-2 col-xs-6">
               <ejs-switch #maintainanceItem [checked]=" maintainanceItems.value"></ejs-switch>
             </div>
-            <div class="col-6">
+            <div class="col-6 col-xs-12">
               <ejs-numerictextbox formControlName="maintainanceItems" *ngIf="maintainanceItem.checked" id="maintainanceItems"
                 name="maintainanceItems" placeholder="Maintainance Cycle Items"></ejs-numerictextbox>
             </div>

@@ -136,12 +136,10 @@ export class WorkStationFormComponent extends CommonProperties implements OnInit
       const workstation = this.prepareFormData();
       if (this.isUpdate && workstation) {
         this.workstationApi.updateWorkstation(workstation).subscribe(
-          () => {
-            this.notification.showMessage('Workstation Updated');
-            this.workstationForm.reset();
-          },
+          () => this.notification.showMessage('Workstation Updated'),
           (error: CustomErrorResponse) => {
             this.notification.showMessage('Unable to Update Workstation try Again', 'error');
+            this.handleError(error);
           }
         );
 

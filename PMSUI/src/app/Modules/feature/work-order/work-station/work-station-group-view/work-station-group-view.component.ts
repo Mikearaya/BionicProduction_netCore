@@ -125,4 +125,10 @@ export class WorkStationGroupViewComponent extends CommonProperties implements O
     }
 
   }
+
+  changeStatus(): void {
+    this.notification.showMessage(`Sorry this feature is not currently implemented,
+      use the workstation group detail page instead to perform this action `, 'info');
+  }
+
 }

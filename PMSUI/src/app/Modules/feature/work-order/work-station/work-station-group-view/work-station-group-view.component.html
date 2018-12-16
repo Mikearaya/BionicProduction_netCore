@@ -7,7 +7,7 @@
         [visible]="col.visable" [headerText]='col.humanReadable' [editType]="col.type"></e-column>
       <e-column headerText="Active" width="30"  [customAttributes]="customAttributes" textAlign="center">
         <ng-template #template let-data>
-          <ejs-switch [checked]="data.active"></ejs-switch>
+          <ejs-switch [checked]="data.active" (change)="changeStatus()"></ejs-switch>
         </ng-template>
       </e-column>
       <e-column [commands]="commands" [customAttributes]="customAttributes" textAlign="center" width="30"> </e-column>

@@ -8,6 +8,12 @@ export const workstationViewBluePrint = [
     width: '35'
   },
   {
+    key: 'title',
+    humanReadable: 'Name',
+    visable: true,
+    type: 'string',
+  },
+  {
     key: 'groupName',
     humanReadable: 'Group',
     visable: true,
@@ -20,12 +26,6 @@ export const workstationViewBluePrint = [
     visable: false,
     type: 'number',
     width: '20'
-  },
-  {
-    key: 'title',
-    humanReadable: 'Name',
-    visable: true,
-    type: 'string',
   },
   {
     key: 'hourlyRate',
@@ -43,15 +43,15 @@ export const workstationViewBluePrint = [
   },
   {
     key: 'maintenanceItems',
-    humanReadable: 'Maintainance Items',
+    humanReadable: 'Until Mainteinance (Items)',
     visable: false,
     type: 'number',
     width: '40'
   },
   {
     key: 'maintenanceHours',
-    humanReadable: 'Maintainance Hours',
-    visable: false,
+    humanReadable: 'Until Mainteinance (Hours)',
+    visable: true,
     type: 'number',
     width: '40'
   },
