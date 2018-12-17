@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 12:58 AM
+ * @Last Modified Time: Dec 17, 2018 10:57 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -35,11 +35,11 @@ namespace BionicInventory.Application.Routings.Models {
                     itemGroupId = routing.Item.GroupId,
                     itemGroupName = routing.Item.Group.GroupName,
                     approximateCost =
-                    ((routing.VariableCost * routing.Quantity) +
-                    routing.RoutingOperation.Sum (o => o.VariableCost * o.Quantity) +
+                    ((routing.VariableCost * (double?) routing.Quantity) +
+                    routing.RoutingOperation.Sum (o => o.VariableCost * (double?) o.Quantity) +
                     routing.RoutingOperation.Sum (o => o.FixedCost) + routing.FixedCost),
                     approximateTime =
-                    routing.RoutingOperation.Sum (o => o.VariableTime * o.Quantity) + routing.RoutingOperation.Sum (o => o.FixedTime),
+                    routing.RoutingOperation.Sum (o => o.VariableTime * (double?) o.Quantity) + routing.RoutingOperation.Sum (o => o.FixedTime),
                     dateAdded = routing.DateAdded,
                     dateUpdated = routing.DateUpdated,
                 };

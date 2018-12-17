@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 9:07 PM
+ * @Last Modified Time: Dec 17, 2018 11:22 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -20,6 +20,10 @@ namespace BionicInventory.Application.Routings.Models {
         public string itemName { get; set; }
         public uint itemGroupId { get; set; }
         public string itemGroupName { get; set; }
+        public double? otherFixedCost { get; set; }
+        public double? otherVariableCost { get; set; }
+        public uint? quantity { get; set; }
+        public double? fixedCost { get; set; }
         public double? approximateCost { get; set; }
         public double? approximateTime { get; set; }
         public DateTime? dateAdded { get; set; }
@@ -36,13 +40,16 @@ namespace BionicInventory.Application.Routings.Models {
                     itemId = routing.ItemId,
                     itemName = routing.Item.Name,
                     itemGroupId = routing.Item.GroupId,
+                    otherFixedCost = routing.FixedCost,
+                    otherVariableCost = routing.VariableCost,
+                    quantity = routing.Quantity,
                     itemGroupName = routing.Item.Group.GroupName,
                     approximateCost =
-                    ((routing.VariableCost * routing.Quantity) +
-                    routing.RoutingOperation.Sum (o => o.VariableCost * o.Quantity) +
+                    ((routing.VariableCost * (double?) routing.Quantity) +
+                    routing.RoutingOperation.Sum (o => o.VariableCost * (double?) o.Quantity) +
                     routing.RoutingOperation.Sum (o => o.FixedCost) + routing.FixedCost),
                     approximateTime =
-                    routing.RoutingOperation.Sum (o => o.VariableTime * o.Quantity) + routing.RoutingOperation.Sum (o => o.FixedTime),
+                    routing.RoutingOperation.Sum (o => o.VariableTime * (double?) o.Quantity) + routing.RoutingOperation.Sum (o => o.FixedTime),
                     dateAdded = routing.DateAdded,
                     dateUpdated = routing.DateUpdated,
                     routingBoms = routing.RoutingBoms.AsQueryable ().Select (RoutingBomView.Projection),

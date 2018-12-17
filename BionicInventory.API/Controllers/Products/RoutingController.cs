@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 9:56 PM
+ * @Last Modified Time: Dec 17, 2018 11:02 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -77,7 +77,7 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult> CreateProductRouting (uint itemId, [FromBody] NewRoutingDto newRouting) {
+        public async Task<ActionResult<RoutingDetailView>> CreateProductRouting (uint itemId, [FromBody] NewRoutingDto newRouting) {
 
             try {
                 if (newRouting.ItemId != itemId || newRouting == null) {
@@ -88,9 +88,9 @@ namespace BionicInventory.API.Controllers.Products {
                     return new InvalidInputResponse (ModelState);
                 }
 
-                await _Mediator.Send (newRouting);
+                var routing = await _Mediator.Send (newRouting);
 
-                return StatusCode (204);
+                return StatusCode (201, routing);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
             }
@@ -137,7 +137,7 @@ namespace BionicInventory.API.Controllers.Products {
                 }
                 var routing = await _Mediator.Send (new DeletedRoutingDto () { Id = id });
 
-                return StatusCode (200, routing);
+                return StatusCode (204);
 
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);

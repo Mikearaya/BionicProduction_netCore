@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 11:16 PM
+ * @Last Modified Time: Dec 17, 2018 10:51 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -135,7 +135,7 @@ namespace BionicInventory.DataStore {
         }
 
         public Task SaveAsync () {
-            return this.SaveChangesAsync ();
+            return this.SaveChangesAsync();
         }
 
     }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 11:53 PM
+ * @Last Modified Time: Dec 17, 2018 11:03 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -27,14 +27,15 @@ namespace BionicInventory.Application.Routings.Commands.Create {
 
         public async Task<Unit> Handle (NewRoutingDto request, CancellationToken cancellationToken) {
 
-            Routing newRouting = new Routing (){
+            Routing newRouting = new Routing () {
                 Name = request.Name,
                 Note = request.Note,
                 FixedCost = request.FixedCost,
                 VariableCost = request.VariableCost,
-                Quantity = request.Quantity,                
+                Quantity = request.Quantity,
+                ItemId = request.ItemId
             };
-            
+
             var itemObj = await _database.Item.FindAsync (request.ItemId);
 
             if (itemObj == null) {
@@ -51,6 +52,7 @@ namespace BionicInventory.Application.Routings.Commands.Create {
                 newRouting.RoutingBoms.Add (new RoutingBoms () {
                     BomId = item.BomId
                 });
+                
             }
 
             //TODO check if operations have at least 1
