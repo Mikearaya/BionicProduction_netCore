@@ -15,12 +15,16 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
+import { RoutingFormComponent } from './Modules/feature/work-order/production-routing/routing-form/routing-form.component';
+import { RoutingViewComponent } from './Modules/feature/work-order/production-routing/routing-view/routing-view.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    RoutingFormComponent,
+    RoutingViewComponent
   ],
   imports: [
     BrowserModule,
