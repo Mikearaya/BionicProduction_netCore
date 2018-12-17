@@ -55,11 +55,32 @@ namespace BionicInventory.API.Controllers.Products {
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<RoutingDetailView>> GetRoutingDetailById (uint itemId, uint id) {
+        public async Task<ActionResult<RoutingDetailView>> GetItemRoutingDetailById (uint itemId, uint id) {
 
             try {
 
                 if (itemId == 0 || id == 0) {
+                    return StatusCode (400);
+                }
+                var routing = await _Mediator.Send (new GetRoutingDetailQuery () { Id = id });
+
+                return StatusCode (200, routing);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpGet ("routings/{id}")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<RoutingDetailView>> GetRoutingDetailById (uint id) {
+
+            try {
+
+                if (id == 0) {
                     return StatusCode (400);
                 }
                 var routing = await _Mediator.Send (new GetRoutingDetailQuery () { Id = id });

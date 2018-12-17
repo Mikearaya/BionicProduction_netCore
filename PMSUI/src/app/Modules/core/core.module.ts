@@ -1,3 +1,12 @@
+/*
+ * @CreateTime: Nov 10, 2018 11:44 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 15, 2018 9:44 PM
+ * @Description: Modify Here, Please
+ */
+
 import {
   AggregateService,
   ColumnChooserService,
@@ -32,14 +41,8 @@ import { UnitOfMeasurmentApiService } from './services/unit-of-measurment/unit-o
 import { BomApiService } from './services/bom/bom-api.service';
 import { WorkStationApiService } from './services/work-station/work-station-api.service';
 import { StorageLocationApiService } from './services/storage-location/storage-location-api.service';
-/*
- * @CreateTime: Nov 10, 2018 11:44 PM
- * @Author:  Mikael Araya
- * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 15, 2018 9:44 PM
- * @Description: Modify Here, Please
- */
+import { RoutingApiService } from './services/production-routing/routing-api.service';
+
 
 
 
@@ -49,6 +52,7 @@ import { StorageLocationApiService } from './services/storage-location/storage-l
   ],
   declarations: [],
   providers: [
+    RoutingApiService,
     StorageLocationApiService,
     WorkStationApiService,
     ShipmentApiService,
