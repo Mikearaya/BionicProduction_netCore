@@ -13,8 +13,10 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Items.Routings {
     public class RoutingConfiguration : IEntityTypeConfiguration<Routing> {
         public void Configure (EntityTypeBuilder<Routing> builder) {
-
             builder.ToTable ("ROUTING");
+
+            builder.HasIndex (e => e.ItemId)
+                .HasName ("fk_ROUTING_item_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -31,6 +33,8 @@ namespace BionicInventory.DataStore.Items.Routings {
 
             builder.Property (e => e.FixedCost).HasColumnName ("fixed_cost");
 
+            builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
+
             builder.Property (e => e.Name)
                 .IsRequired ()
                 .HasColumnName ("name")
@@ -45,6 +49,11 @@ namespace BionicInventory.DataStore.Items.Routings {
                 .HasDefaultValueSql ("'0'");
 
             builder.Property (e => e.VariableCost).HasColumnName ("variable_cost");
+
+            builder.HasOne (d => d.Item)
+                .WithMany (p => p.Routing)
+                .HasForeignKey (d => d.ItemId)
+                .HasConstraintName ("fk_ROUTING_item");
         }
     }
 }

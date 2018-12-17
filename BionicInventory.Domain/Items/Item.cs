@@ -3,12 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 6, 2018 12:20 AM
+ * @Last Modified Time: Dec 17, 2018 1:00 AM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items.BOMs;
+using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.UnitOfMeasurments;
@@ -20,6 +21,7 @@ namespace BionicInventory.Domain.Items {
             BomItems = new HashSet<BomItems> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
+            Routing = new HashSet<Routing> ();
         }
 
         public uint Id { get; set; }
@@ -45,5 +47,6 @@ namespace BionicInventory.Domain.Items {
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<Routing> Routing { get; set; }
     }
 }

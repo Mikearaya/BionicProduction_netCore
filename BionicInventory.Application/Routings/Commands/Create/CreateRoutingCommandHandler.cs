@@ -27,7 +27,14 @@ namespace BionicInventory.Application.Routings.Commands.Create {
 
         public async Task<Unit> Handle (NewRoutingDto request, CancellationToken cancellationToken) {
 
-            Routing newRouting = new Routing ();
+            Routing newRouting = new Routing (){
+                Name = request.Name,
+                Note = request.Note,
+                FixedCost = request.FixedCost,
+                VariableCost = request.VariableCost,
+                Quantity = request.Quantity,                
+            };
+            
             var itemObj = await _database.Item.FindAsync (request.ItemId);
 
             if (itemObj == null) {
