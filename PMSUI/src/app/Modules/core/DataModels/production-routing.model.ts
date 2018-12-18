@@ -1,5 +1,5 @@
 export class RoutingModel {
-  id: number;
+  id?: number;
   itemId: number;
   name: string;
   note: string;
@@ -12,8 +12,8 @@ export class RoutingModel {
 
 
 export class RoutingOperationModel {
-  id: number;
-  routingId: number;
+  id?: number;
+  routingId?: number;
   workstationId: number;
   operation: string;
   fixedCost: number | null;
@@ -24,9 +24,9 @@ export class RoutingOperationModel {
 }
 
 export class RoutingBomsModel {
-  Id: number | null;
-  RoutingId: number;
-  BomId: number;
+  id: number | null;
+  routingId: number;
+  bomId: number;
 }
 
 

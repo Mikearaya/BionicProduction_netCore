@@ -19,8 +19,8 @@ export class RoutingApiService {
     return this.httpClient.get<RoutingViewModel[]>(`${this.apiUrl}/${this.mainController}/${itemId}/${this.subController}`);
   }
 
-  getProductionRoutingById(id: number): Observable<RoutingDetailViewModel[]> {
-    return this.httpClient.get<RoutingDetailViewModel[]>(`${this.apiUrl}/${this.mainController}/${this.subController}/${id}`);
+  getProductionRoutingById(id: number): Observable<RoutingDetailViewModel> {
+    return this.httpClient.get<RoutingDetailViewModel>(`${this.apiUrl}/${this.mainController}/${this.subController}/${id}`);
   }
 
   getItemRoutingById(itemId: number, id: number): Observable<RoutingDetailViewModel> {

@@ -55,7 +55,8 @@ namespace BionicInventory.Application.Routings.Commands.Update {
                 }
 
                 updatedRouting.RoutingBoms.Add (new RoutingBoms () {
-                    BomId = item.BomId
+                    RoutingId = (item.RoutingId != 0) ? item.RoutingId : 0,
+                        BomId = item.BomId
                 });
             }
 
@@ -71,7 +72,8 @@ namespace BionicInventory.Application.Routings.Commands.Update {
                 }
 
                 updatedRouting.RoutingOperation.Add (new RoutingOperation () {
-                    WorkstationId = item.WorkstationId,
+                    RoutingId = (item.RoutingId != 0) ? item.RoutingId : 0,
+                        WorkstationId = item.WorkstationId,
                         Operation = item.Operation,
                         FixedCost = item.FixedCost,
                         FixedTime = item.FixedTime,
