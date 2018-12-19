@@ -21,6 +21,8 @@ import { FinishedOrderFormComponent } from './finished-order-form/finished-order
 import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
 import { WorkStationModule } from './work-station/work-station.module';
+import { ProductionRoutingModule } from './production-routing/production-routing.module';
+
 
 
 
@@ -30,10 +32,11 @@ import { WorkStationModule } from './work-station/work-station.module';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
+    WorkOrderRoutingModule,
 
     // application
+    ProductionRoutingModule,
 
-    WorkOrderRoutingModule,
     WorkStationModule,
     SharedModule
 

@@ -8,7 +8,7 @@
  */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView, ItemModel, ItemView } from '../../core/DataModels/item-data-models';
+import { LowStockItemsView, ItemModel, ItemView } from '../../DataModels/item-data-models';
 import { Observable } from 'rxjs';
 
 @Injectable()

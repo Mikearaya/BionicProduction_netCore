@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class RoutingApiService {
-  private mainController = 'production';
+  private mainController = 'productions';
   private subController = 'routings';
   constructor(
     @Inject('BASE_URL') private apiUrl: string,

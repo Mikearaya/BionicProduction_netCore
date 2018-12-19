@@ -19,7 +19,7 @@ import {
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
 import { closest } from '@syncfusion/ej2-base';
-import { ItemApiService } from '../stock-api.service';
+import { ItemApiService } from '../../../core/services/stock/stock-api.service';
 
 @Component({
   selector: 'app-low-stock-view',

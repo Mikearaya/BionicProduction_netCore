@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Products {
 
-    [InventoryAPI ("products")]
+    [InventoryAPI ("productions")]
     public class RoutingController : Controller {
         private readonly IMediator _Mediator;
 

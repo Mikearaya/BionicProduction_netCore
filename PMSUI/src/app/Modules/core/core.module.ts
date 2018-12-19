@@ -42,6 +42,8 @@ import { BomApiService } from './services/bom/bom-api.service';
 import { WorkStationApiService } from './services/work-station/work-station-api.service';
 import { StorageLocationApiService } from './services/storage-location/storage-location-api.service';
 import { RoutingApiService } from './services/production-routing/routing-api.service';
+import { ItemApiService } from './services/stock/stock-api.service';
+import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
 
 
 
@@ -53,6 +55,8 @@ import { RoutingApiService } from './services/production-routing/routing-api.ser
   declarations: [],
   providers: [
     RoutingApiService,
+
+    ItemApiService,
     StorageLocationApiService,
     WorkStationApiService,
     ShipmentApiService,
@@ -73,6 +77,7 @@ import { RoutingApiService } from './services/production-routing/routing-api.ser
     ForeignKeyService,
     ReorderService,
     RowDDService,
+    CheckBoxSelectionService,
     EditService,
     ExcelExportService,
     ResizeService,

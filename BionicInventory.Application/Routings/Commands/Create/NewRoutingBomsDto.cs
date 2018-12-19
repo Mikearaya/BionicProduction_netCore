@@ -10,7 +10,7 @@ using MediatR;
 
 namespace BionicInventory.Application.Routings.Commands.Create {
     public class NewRoutingBomsDto : IRequest {
-        public uint RoutingId { get; set; }
+        public uint? RoutingId { get; set; }
         public uint BomId { get; set; }
 
     }

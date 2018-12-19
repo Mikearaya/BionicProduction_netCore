@@ -1,3 +1,178 @@
-<p>
-  routing-form works!
-</p>
+<section>
+  <app-notification #notification></app-notification>
+  <h3>{{title}}</h3>
+  <form [formGroup]="routingForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="routingForm.invalid"></app-form-options>
+    <div class="e-card">
+      <div class="container-fluid  ">
+        <div class="row">
+          <div class="col-xs-12 col-6">
+            <div class="row">
+              <label class="col-3 col-xs-12 label-area"> Item </label>
+              <ejs-dropdownlist [dataSource]="itemsList" class="col-9 col-xs-12" placeholder="Select Item"  [fields]="itemFields" formControlName="itemId"
+                name="itemId" id="itemId">
+              </ejs-dropdownlist>
+            </div>
+            <div class="row">
+              <label class="col-3 col-xs-12 label-area"> Route Name </label>
+              <input type="text" formControlName="routName" class="col-9 col-xs-12 e-input" id="routeName" placeholder="Enter Route Name" name="routeName" />
+            </div>
+            <div class="row">
+              <label class="col-3 col-xs-12 label-area">Boms</label>
+              <ejs-multiselect id='multiselectelement' class="col-9 col-xs-12" formControlName="boms" [dataSource]='bomsList'
+                [fields]='bomFields' mode='CheckBox' placeholder='Bill of Material (BOM)'></ejs-multiselect>
+
+
+            </div>
+          </div>
+          <div class="col-xs-12"></div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table id="Pr-table" class="table">
+              <colgroup>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+                <col>
+              </colgroup>
+              <thead>
+                <tr>
+                  <th class="workstation-header"><strong>Workstation Group</strong></th>
+                  <th class="operation-header"><strong>Operation</strong></th>
+                  <th class="amount-header"><strong>Setup Time</strong></th>
+                  <th class="amount-header"><strong>Cycle Time</strong></th>
+                  <th class="amount-header"><strong>Fixed Cost</strong></th>
+                  <th class="amount-header"><strong>Variable Cost</strong></th>
+                  <th class="quantity amount-header"><strong>QUantity</strong></th>
+                  <th class="action-header"> <button type="button" [disabled]="routingOperations.invalid" ejs-button
+                      class="e-small e-primary" iconCss="e-icons e-add-icon" (click)="addOperation()">
+                      Add </button></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="operations">
+                <tr *ngFor="let items of routingOperations.controls; let i=index; let l=last;" [formGroup]="items">
+                  <td>
+
+                    <div>
+
+                      <ejs-dropdownlist formControlName="workstationId" [dataSource]='workstationsList' [fields]="workstationFields"
+                        placeholder="Select Workstation Group">
+                        <ng-template #headerTemplate let-data>
+                          <div> <button type="button" (click)="createWorkstationGroup()" ejs-button>Create Workstation
+                              Group
+                            </button></div>
+                        </ng-template>
+                      </ejs-dropdownlist>
+
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <input formControlName="operation" [attr.name]="'operation'+i" [attr.id]="'operation'+i" class="e-input">
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <ejs-numerictextbox showSpinButton="true" formControlName="fixedTime" placeholder="in Minute" [attr.id]="'fixedtime'+i"
+                          [attr.name]="'fixedtime'+i">
+                        </ejs-numerictextbox>
+
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <ejs-numerictextbox showSpinButton=true formControlName="variableTime" placeholder="in Minute" [attr.id]="'variableTime'+i"
+                          [attr.name]="'variableTime'+i">
+                        </ejs-numerictextbox>
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <ejs-numerictextbox showSpinButton=true formControlName="fixedCost" [attr.id]="'fixedCost'+i"    [attr.name]="'fixedCost'+i">
+                        </ejs-numerictextbox>
+
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <ejs-numerictextbox showSpinButton=true formControlName="variableCost" [attr.id]="'variableCost'+i"
+                          [attr.name]="'variableCost'+i">
+                        </ejs-numerictextbox>
+
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="e-float-input">
+                        <ejs-numerictextbox showSpinButton=true formControlName="quantity" [attr.id]="'item'+i"
+                          [attr.name]="'item'+i">
+                        </ejs-numerictextbox>
+
+                        <span class="e-float-line"></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <button type="button" ejs-button class="e-round  e-small e-danger " iconCss="e-icons e-delete-icon"
+                      (click)="removeOperation(i)" [disabled]="routingOperations?.controls.length < 2"></button>
+
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th> <label for="otherFixedCost" class="label-area">Other Fixed Cost</label></th>
+                  <td>
+                    <ejs-numerictextbox showSpinButton=true formControlName="otherFixedCost" id="otherFixedCost" name="otherFixedCost">
+                    </ejs-numerictextbox>
+                  </td>
+                  <td colspan="4">
+
+                  </td>
+                </tr>
+                <tr>
+                  <th> <label for="otherFixedCost" class="label-area">Other Variable Cost</label></th>
+                  <td>
+                    <ejs-numerictextbox showSpinButton=true formControlName="otherVariableCost" id="otherVariableCost"
+                      name="otherVariableCost">
+                    </ejs-numerictextbox>
+                  </td>
+                  <th> <label for="otherCostQuantity" class="label-area">Quantity</label></th>
+                  <td>
+                    <ejs-numerictextbox showSpinButton=true formControlName="otherCostQuantity" id="otherCostQuantity"
+                      name="otherCostQuantity">
+                    </ejs-numerictextbox>
+                  </td>
+                  <td colspan="4">
+
+                  </td>
+                </tr>
+
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="routingForm.invalid"></app-form-options>
+  </form>
+</section>

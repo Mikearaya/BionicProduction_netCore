@@ -11,17 +11,21 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { ItemApiService } from '../../../stock/stock-api.service';
 import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
-import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { RoutingApiService } from 'src/app/Modules/core/services/production-routing/routing-api.service';
 import {
   RoutingDetailViewModel,
   RoutingModel,
   RoutingOperationModel,
-  RoutingOperationViewModel
+  RoutingOperationViewModel,
+  RoutingBomsModel
 } from 'src/app/Modules/core/DataModels/production-routing.model';
+import { WorkStationApiService } from 'src/app/Modules/core/services/work-station/work-station-api.service';
+import { WorkstationGroupView } from 'src/app/Modules/core/DataModels/workstation.model';
+import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
+import { ItemApiService } from 'src/app/Modules/core/services/stock/stock-api.service';
+import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 
 @Component({
   selector: 'app-routing-form',
@@ -32,44 +36,62 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
 
   @ViewChild('notification')
   public notification: NotificationComponent;
+  @ViewChild('bomDropdown')
+  public bomDropdown: DropDownListComponent;
 
-  private routingForm: FormGroup;
+  public routingForm: FormGroup;
   public title: String;
   public submitButtonText: String;
   private routingId: number;
   public isUpdate: Boolean;
-  public itemsList: ItemView[];
+  public itemsList: Product[];
   public itemFields: { text: string, value: string };
   public bomsList: BomView[];
   public bomFields: { text: string, value: string };
+  public workstationsList: WorkstationGroupView[];
+  public workstationFields: { text: string, value: string };
+  selectedItemId: number;
 
 
   constructor(private routingApi: RoutingApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
-    private itemApi: ItemApiService,
+    private workstationApi: WorkStationApiService,
+    private itemApi: ProductsAPIService,
     private bomApi: BomApiService) {
     super();
     this.createForm();
 
     this.bomFields = { text: 'name', value: 'id' };
     this.itemFields = { text: 'name', value: 'id' };
+    this.workstationFields = { text: 'name', value: 'id' };
   }
 
   ngOnInit() {
     this.routingId = + this.activatedRoute.snapshot.paramMap.get('routingId');
+    this.selectedItemId = + this.activatedRoute.snapshot.paramMap.get('itemId');
 
-    this.itemApi.getAllItems().subscribe(
-      (data: ItemView[]) => this.itemsList = data,
+    this.itemApi.getAllProducts().subscribe(
+      (data: any) => this.itemsList = data.Items,
       this.handleError
     );
 
-    this.bomApi.getAllBomItems().subscribe(
-      (data: BomView[]) => this.bomsList = data,
+    if (this.selectedItemId) {
+      this.bomApi.getItemBOMsById(this.selectedItemId).subscribe(
+        (data: BomView[]) => this.bomsList = data,
+        this.handleError
+      );
+    } else {
+      this.bomApi.getAllBomItems().subscribe(
+        (data: BomView[]) => this.bomsList = data,
+        this.handleError
+      );
+    }
+
+    this.workstationApi.getWorkStationGroups().subscribe(
+      (data: WorkstationGroupView[]) => this.workstationsList = data,
       this.handleError
     );
-
 
     this.isUpdate = false;
     this.submitButtonText = 'Save';
@@ -102,6 +124,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       operations: this.formBuilder.array([
         this.createRoutingOperation()
       ]),
+      boms: ['']
 
     });
   }
@@ -118,6 +141,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       operations: this.formBuilder.array([
         route.routingOperations.map(o => this.initializeRoutingOperation(o))
       ]),
+      boms: ['']
 
     });
   }
@@ -126,27 +150,33 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
 
   private createRoutingOperation(): FormGroup {
     return this.formBuilder.group({
-      workStationId: ['', Validators.required],
+      workstationId: ['', Validators.required],
       operation: ['', Validators.required],
       fixedCost: [''],
       fixedTime: [''],
       variableCost: [''],
       variableTime: [''],
-      quantity: ['']
+      quantity: ['', [Validators.required, Validators.min(0)]]
     });
   }
 
 
+
+
   private initializeRoutingOperation(route: RoutingOperationViewModel): FormGroup {
     return this.formBuilder.group({
-      workStationId: [route.workstationId, Validators.required],
+      workstationId: [route.workstationId, Validators.required],
       operation: [route.operation, Validators.required],
       fixedCost: [route.fixedCost],
       fixedTime: [route.fixedTime],
       variableCost: [route.variableCost],
       variableTime: [route.variableTime],
-      quantity: [route.quantity]
+      quantity: [route.quantity, [Validators.required, Validators.min(0)]]
     });
+  }
+
+  get boms(): FormControl {
+    return this.routingForm.get('boms') as FormControl;
   }
 
   get routingOperations(): FormArray {
@@ -154,7 +184,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
   }
 
   get routeName(): FormControl {
-    return this.routingForm.get('routeName') as FormControl;
+    return this.routingForm.get('routName') as FormControl;
   }
 
   get routeItemId(): FormControl {
@@ -194,7 +224,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
           this.routingForm.reset();
         },
         (error: CustomErrorResponse) => {
-          this.notification.showMessage('Routing information Could not be Created successfuly, Try Again');
+          this.notification.showMessage('Routing information Could not be Created successfuly, Try Again', 'error');
           this.handleError(error);
         }
       );
@@ -217,20 +247,31 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       this.routingOperations.controls.forEach(element => {
         const op = new RoutingOperationModel();
         op.workstationId = element.value.workstationId;
-        op.operation = element.value.operation;
-        op.fixedCost = element.value.fixedCost;
-        op.fixedTime = element.value.fixedTime;
-        op.variableCost = element.value.variableCost;
-        op.variableTime = element.value.variableTime;
+        op.operation = (element.value.operation) ? element.value.operation : 0;
+        op.fixedCost = (element.value.fixedCost) ? element.value.fixedCost : 0;
+        op.fixedTime = (element.value.fixedTime) ? element.value.fixedTime : 0;
+        op.variableCost = element.value.variableCost ? element.value.variableCost : 0;
+        op.variableTime = element.value.variableTime ? element.value.variableTime : 0;
         op.quantity = element.value.quantity;
+        routing.Operations.push(op);
       });
 
+      this.boms.value.forEach(element => {
+        const bom = new RoutingBomsModel();
+        bom.bomId = element;
+        bom.routingId = (this.routingId) ? this.routingId : 0;
+        routing.Boms.push(bom);
+      });
       return routing;
 
     } else {
       return null;
     }
 
+
+  }
+
+  createWorkstationGroup(): void {
 
   }
 

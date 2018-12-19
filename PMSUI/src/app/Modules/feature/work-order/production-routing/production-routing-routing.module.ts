@@ -6,6 +6,7 @@ import { RoutingFormComponent } from './routing-form/routing-form.component';
 const routes: Routes = [
   { path: '', component: RoutingViewComponent },
   { path: 'new', component: RoutingFormComponent },
+  { path: 'new/:itemId', component: RoutingFormComponent },
   { path: ':routingId/update', component: RoutingFormComponent }
 ];
 

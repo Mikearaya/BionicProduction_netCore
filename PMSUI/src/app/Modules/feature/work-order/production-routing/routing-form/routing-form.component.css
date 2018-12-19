@@ -1,0 +1,48 @@
+th strong,
+th label {
+  font-size: .7em;
+}
+
+th {
+  padding: 0;
+  margin: 1px;
+  text-align: center;
+}
+
+tfoot td,
+tfoot th {
+  padding: 0;
+  margin: 1px;
+  text-align: center;
+}
+
+tr td .e-input-group-icon.e-spin-down,
+tr td .e-input-group-icon.e-spin-up {
+  display: none;
+}
+
+
+th:nth-child(1) {
+  width: 25%;
+}
+
+
+th:nth-child(2) {
+  width: 25%;
+}
+
+
+tbody tr {
+  padding: 0;
+}
+
+tbody tr td {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+
+.e-input,
+input.e-input {
+  padding: 0px !important;
+}

@@ -55,6 +55,7 @@ export class PmsNavigationComponent {
         { id: 'work-stations/stations', name: 'Work Stations' },
         { id: 'work-stations', name: 'Work Stations Groups' },
         { id: 'boms', name: 'Bills of Material' },
+        { id: 'routings', name: 'Routings' },
 
       ]
     },

@@ -23,11 +23,9 @@ import { LowStockViewComponent } from './low-stock-view/low-stock-view.component
 
 import { StockViewComponent } from './stock-view/stock-view.component';
 import { StockFormComponent } from './stock-form/stock-form.component';
-import { ItemApiService } from './stock-api.service';
 import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
 import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
-import { StorageLocationModule } from './storage-location/storage-location.module';
 
 @NgModule({
   imports: [
@@ -48,6 +46,6 @@ import { StorageLocationModule } from './storage-location/storage-location.modul
     LowStockViewComponent,
     ItemBomListViewComponent
   ],
-  providers: [ItemApiService]
+  providers: []
 })
 export class StockModule { }

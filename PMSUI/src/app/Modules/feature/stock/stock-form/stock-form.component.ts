@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { ItemApiService } from '../stock-api.service';
+import { ItemApiService } from '../../../core/services/stock/stock-api.service';
 import { ItemModel, ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
