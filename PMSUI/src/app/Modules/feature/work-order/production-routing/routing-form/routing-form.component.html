@@ -9,7 +9,7 @@
           <div class="col-xs-12 col-6">
             <div class="row">
               <label class="col-3 col-xs-12 label-area"> Item </label>
-              <ejs-dropdownlist [dataSource]="itemsList" class="col-9 col-xs-12" placeholder="Select Item"  [fields]="itemFields" formControlName="itemId"
+              <ejs-dropdownlist #itemDropdown [dataSource]="itemsList" (change)="itemChanged()" class="col-9 col-xs-12" placeholder="Select Item"  [fields]="itemFields" formControlName="itemId"
                 name="itemId" id="itemId">
               </ejs-dropdownlist>
             </div>
@@ -19,7 +19,7 @@
             </div>
             <div class="row">
               <label class="col-3 col-xs-12 label-area">Boms</label>
-              <ejs-multiselect id='multiselectelement' class="col-9 col-xs-12" formControlName="boms" [dataSource]='bomsList'
+              <ejs-multiselect #bomDropdown id='multiselectelement' class="col-9 col-xs-12" formControlName="boms" [dataSource]='bomsList'
                 [fields]='bomFields' mode='CheckBox' placeholder='Bill of Material (BOM)'></ejs-multiselect>
 
 

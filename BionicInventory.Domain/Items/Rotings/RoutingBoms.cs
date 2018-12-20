@@ -12,7 +12,7 @@ using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
 
 namespace BionicInventory.Domain.Routings {
-    public partial class RoutingBoms {
+    public class RoutingBoms {
         public uint Id { get; set; }
         public uint RoutingId { get; set; }
         public uint BomId { get; set; }

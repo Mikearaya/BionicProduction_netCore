@@ -26,6 +26,7 @@ import { WorkstationGroupView } from 'src/app/Modules/core/DataModels/workstatio
 import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
 import { ItemApiService } from 'src/app/Modules/core/services/stock/stock-api.service';
 import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
+import { Query } from '@syncfusion/ej2-data';
 
 @Component({
   selector: 'app-routing-form',
@@ -38,6 +39,8 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
   public notification: NotificationComponent;
   @ViewChild('bomDropdown')
   public bomDropdown: DropDownListComponent;
+  @ViewChild('itemDropdown')
+  public itemDropdown: DropDownListComponent;
 
   public routingForm: FormGroup;
   public title: String;
@@ -139,14 +142,12 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       otherVariableCost: [route.otherVariableCost],
       routingBoms: [''],
       note: [''],
-      operations: this.formBuilder.array([
-        route.routingOperations.map(o => this.initializeRoutingOperation(o))
-      ]),
-      boms: ['']
+      operations: this.formBuilder.array(route.routingOperations.map(o => this.initializeRoutingOperation(o))
+      ),
+      boms: [route.routingBoms.map(b => b.bomId)]
 
     });
   }
-
 
 
   private createRoutingOperation(): FormGroup {
@@ -214,7 +215,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       this.routingApi.updateRouting(routingData).subscribe(
         () => this.notification.showMessage('Routing information updated successfuly'),
         (error: CustomErrorResponse) => {
-          this.notification.showMessage('Routing information Could not be updated successfuly, Try Again');
+          this.notification.showMessage('Routing information Could not be updated successfuly, Try Again', 'error');
           this.handleError(error);
         }
       );
@@ -238,6 +239,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
     if (this.routingForm.valid) {
       const formData = this.routingForm.value;
       const routing = new RoutingModel();
+      routing.id = this.routingId ? this.routingId : 0;
       routing.name = this.routeName.value;
       routing.quantity = this.otherCostQuantity.value;
       routing.fixedCost = this.otherFixedCost.value;
@@ -272,6 +274,19 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
 
   }
 
+  itemChanged(): void {
+
+    if (!!this.itemDropdown.value) {
+
+      this.bomApi.getItemBOMsById(this.itemDropdown.value as number).subscribe(
+        (data: BomView[]) => this.bomsList = data,
+        this.handleError
+      );
+      this.bomDropdown.text = null;
+      this.bomDropdown.dataBind();
+    }
+
+  }
   createWorkstationGroup(): void {
 
   }

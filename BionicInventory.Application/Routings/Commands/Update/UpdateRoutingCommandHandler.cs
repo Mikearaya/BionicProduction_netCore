@@ -7,6 +7,7 @@
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
@@ -16,6 +17,7 @@ using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.Routings;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Routings.Commands.Update {
     public class UpdateRoutingCommandHandler : IRequestHandler<UpdatedRoutingDto, Unit> {
@@ -27,7 +29,11 @@ namespace BionicInventory.Application.Routings.Commands.Update {
 
         public async Task<Unit> Handle (UpdatedRoutingDto request, CancellationToken cancellationToken) {
 
-            var updatedRouting = await _database.Routing.FindAsync (request.Id);
+            var updatedRouting = await _database.Routing
+                .Include (r => r.RoutingOperation)
+                .Include (r => r.RoutingBoms)
+                .Where (r => r.Id == request.Id)
+                .FirstOrDefaultAsync ();
 
             if (updatedRouting == null) {
                 throw new NotFoundException (nameof (Routing), request.Id);
