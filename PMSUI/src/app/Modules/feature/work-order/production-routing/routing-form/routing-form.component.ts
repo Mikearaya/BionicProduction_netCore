@@ -259,12 +259,16 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
         routing.Operations.push(op);
       });
 
-      this.boms.value.forEach(element => {
-        const bom = new RoutingBomsModel();
-        bom.bomId = element;
-        bom.routingId = (this.routingId) ? this.routingId : 0;
-        routing.Boms.push(bom);
-      });
+      if (this.boms.value) {
+
+        this.boms.value.forEach(element => {
+          const bom = new RoutingBomsModel();
+          bom.bomId = element;
+          bom.routingId = (this.routingId) ? this.routingId : 0;
+          routing.Boms.push(bom);
+        });
+
+      }
       return routing;
 
     } else {

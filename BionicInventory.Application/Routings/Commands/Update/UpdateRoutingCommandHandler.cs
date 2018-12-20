@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
@@ -66,7 +67,9 @@ namespace BionicInventory.Application.Routings.Commands.Update {
                 });
             }
 
-            //TODO check if operations have at least 1
+            if (request.Operations.Count == 0) {
+                throw new BelowRequiredMinimumItemException (nameof (Routing), 1, nameof (RoutingBoms));
+            }
 
             updatedRouting.RoutingOperation = new List<RoutingOperation> ();
 

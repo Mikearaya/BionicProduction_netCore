@@ -6,6 +6,7 @@
  * @Last Modified Time: Dec 17, 2018 11:02 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using BionicInventory.Application.Routings.Commands.Create;
@@ -14,6 +15,7 @@ using BionicInventory.Application.Routings.Commands.Update;
 using BionicInventory.Application.Routings.Models;
 using BionicInventory.Application.Routings.Queries.Collections;
 using BionicInventory.Application.Routings.Queries.Single;
+using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
@@ -114,6 +116,9 @@ namespace BionicInventory.API.Controllers.Products {
                 return StatusCode (201, routing);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
+            } catch (BelowRequiredMinimumItemException e) {
+                ModelState.AddModelError ("Operations", e.Message);
+                return new InvalidInputResponse (ModelState);
             }
 
         }
@@ -140,6 +145,9 @@ namespace BionicInventory.API.Controllers.Products {
                 return StatusCode (204);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
+            } catch (BelowRequiredMinimumItemException e) {
+                ModelState.AddModelError ("Operations", e.Message);
+                return new InvalidInputResponse (ModelState);
             }
 
         }

@@ -22,8 +22,8 @@ namespace BionicInventory.Application.Routings.Commands.Update {
         public float? VariableCost { get; set; }
         public uint? Quantity { get; set; }
 
-        public IEnumerable<UpdatedRoutingOperationDto> Operations { get; set; } = new List<UpdatedRoutingOperationDto> ();
-        public IEnumerable<UpdatedRoutingBomsDto> Boms { get; set; } = new List<UpdatedRoutingBomsDto> ();
+        public IList<UpdatedRoutingOperationDto> Operations { get; set; } = new List<UpdatedRoutingOperationDto> ();
+        public IList<UpdatedRoutingBomsDto> Boms { get; set; } = new List<UpdatedRoutingBomsDto> ();
 
     }
 }

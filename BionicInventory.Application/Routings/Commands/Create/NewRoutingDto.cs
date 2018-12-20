@@ -21,8 +21,8 @@ namespace BionicInventory.Application.Routings.Commands.Create {
         public float? VariableCost { get; set; }
         public uint? Quantity { get; set; }
 
-        public IEnumerable<NewRoutingOperationDto> Operations { get; set; } = new List<NewRoutingOperationDto> ();
-        public IEnumerable<NewRoutingBomsDto> Boms { get; set; } = new List<NewRoutingBomsDto> ();
+        public IList<NewRoutingOperationDto> Operations { get; set; } = new List<NewRoutingOperationDto> ();
+        public IList<NewRoutingBomsDto> Boms { get; set; } = new List<NewRoutingBomsDto> ();
 
     }
 }
