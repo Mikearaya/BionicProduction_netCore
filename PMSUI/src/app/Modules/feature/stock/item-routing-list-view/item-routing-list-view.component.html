@@ -1,0 +1,13 @@
+<section class="e-card">
+  <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [toolbar]='toolbar' rowHeight="30" id="boms"
+    (toolbarClick)='toolbarClick($event)' gridLines='Both'>
+    <e-columns>
+      <e-column [customAttributes]="customAttributes" field="id" headerText="id" width=100></e-column>
+      <e-column [customAttributes]="customAttributes" field="name"  headerText="Name"></e-column>
+<e-column [customAttributes]="customAttributes" field="approximateTime" width="150" headerText="Duration"></e-column>
+<e-column [customAttributes]="customAttributes" field="approximateCost" width="150" headerText="Cost"></e-column>
+      <e-column [commands]="commands" textAlign='center' [customAttributes]="customAttributes" width="100"> </e-column>
+    </e-columns>
+  </ejs-grid>
+</section>
+<app-notification #notification></app-notification>

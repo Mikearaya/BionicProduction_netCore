@@ -75,4 +75,16 @@ body {
   padding: 0;
   text-align: center;
   font-size: .8em;
+  font-weight: bold;
+}
+
+
+.e-input,
+input.e-input {
+  padding: 0px !important;
+}
+
+section {
+  margin-top: 1em;
+  margin-bottom: 1em;
 }

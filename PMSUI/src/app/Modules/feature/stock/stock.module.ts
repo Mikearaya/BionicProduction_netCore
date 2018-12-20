@@ -12,11 +12,6 @@ import { CommonModule } from '@angular/common';
 
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import {
-  GridModule
-} from '@syncfusion/ej2-angular-grids';
-import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { SharedModule } from '../../shared/shared.module';
 import { StockRoutingModule } from './stock-routing.module';
 import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
@@ -26,6 +21,7 @@ import { StockFormComponent } from './stock-form/stock-form.component';
 import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
 import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
+import { ItemRoutingListViewComponent } from './item-routing-list-view/item-routing-list-view.component';
 
 @NgModule({
   imports: [
@@ -44,7 +40,8 @@ import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-vie
     StockFormComponent,
     StockViewComponent,
     LowStockViewComponent,
-    ItemBomListViewComponent
+    ItemBomListViewComponent,
+    ItemRoutingListViewComponent
   ],
   providers: []
 })

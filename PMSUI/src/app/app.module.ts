@@ -15,6 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
+import { ItemRoutingListViewComponent } from './Modules/feature/stock/item-routing-list-view/item-routing-list-view.component';
 
 
 

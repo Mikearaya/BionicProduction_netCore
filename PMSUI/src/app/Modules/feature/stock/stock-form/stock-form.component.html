@@ -153,7 +153,7 @@
           </e-tabitem>
           <e-tabitem [header]='headerText[2]' [disabled]="!created && !isUpdate">
             <ng-template #content>
-
+              <app-item-routing-list-view [itemId]="itemId"></app-item-routing-list-view>
             </ng-template>
           </e-tabitem>
           <e-tabitem [header]='headerText[3]' [disabled]="!created && !isUpdate">
