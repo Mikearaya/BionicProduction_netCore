@@ -76,6 +76,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
       this.handleError
     );
 
+
     if (this.selectedItemId) {
       this.bomApi.getItemBOMsById(this.selectedItemId).subscribe(
         (data: BomView[]) => this.bomsList = data,

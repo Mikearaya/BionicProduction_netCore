@@ -14,8 +14,8 @@ namespace BionicInventory.Application.Routings.Commands.Create {
 
         [Required]
         public string Operation { get; set; }
-        public double? FixedCost { get; set; }
-        public double? VariableCost { get; set; }
+        public float? FixedCost { get; set; }
+        public float? VariableCost { get; set; }
         public float? FixedTime { get; set; }
         public float? VariableTime { get; set; }
         public int Quantity { get; set; }

@@ -16,8 +16,8 @@ namespace BionicInventory.Domain.Items.Rotings {
         public uint RoutingId { get; set; }
         public uint WorkstationId { get; set; }
         public string Operation { get; set; }
-        public double? FixedCost { get; set; }
-        public double? VariableCost { get; set; }
+        public float? FixedCost { get; set; }
+        public float? VariableCost { get; set; }
         public float? FixedTime { get; set; }
         public float? VariableTime { get; set; }
         public int Quantity { get; set; }

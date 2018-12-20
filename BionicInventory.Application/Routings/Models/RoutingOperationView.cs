@@ -26,8 +26,8 @@ namespace BionicInventory.Application.Routings.Models {
         public uint workstationId { get; set; }
         public string workstation { get; set; }
         public string operation { get; set; }
-        public double? fixedCost { get; set; }
-        public double? variableCost { get; set; }
+        public float? fixedCost { get; set; }
+        public float? variableCost { get; set; }
         public float? fixedTime { get; set; }
         public float? variableTime { get; set; }
         public int quantity { get; set; }

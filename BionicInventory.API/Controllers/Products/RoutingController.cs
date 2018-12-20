@@ -165,5 +165,26 @@ namespace BionicInventory.API.Controllers.Products {
             }
         }
 
+        [HttpDelete ("routings/{id}")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<RoutingDetailView>> DeleteRouting (uint id) {
+
+            try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+                var routing = await _Mediator.Send (new DeletedRoutingDto () { Id = id });
+
+                return StatusCode (204);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
     }
 }

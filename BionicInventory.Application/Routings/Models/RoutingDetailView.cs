@@ -20,8 +20,8 @@ namespace BionicInventory.Application.Routings.Models {
         public string itemName { get; set; }
         public uint itemGroupId { get; set; }
         public string itemGroupName { get; set; }
-        public double? otherFixedCost { get; set; }
-        public double? otherVariableCost { get; set; }
+        public float? otherFixedCost { get; set; }
+        public float? otherVariableCost { get; set; }
         public uint? quantity { get; set; }
         public double? fixedCost { get; set; }
         public double? approximateCost { get; set; }
