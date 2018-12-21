@@ -31,6 +31,9 @@ namespace BionicInventory.DataStore.Items {
 
                 builder.Property (e => e.Id).HasColumnName ("ID");
 
+                builder.HasIndex (e => e.DefaultStorageId)
+                    .HasName ("fk_ITEM_storage_location_idx");
+
                 builder.Property (e => e.Code)
                     .IsRequired ()
                     .HasColumnName ("code")
@@ -64,6 +67,9 @@ namespace BionicInventory.DataStore.Items {
                 builder.Property (e => e.MinimumQuantity)
                     .HasColumnName ("minimum_quantity");
 
+                builder.Property (e => e.DefaultStorageId)
+                    .HasColumnName ("DEFAULT_STORAGE_ID");
+
                 builder.Property (e => e.Name)
                     .IsRequired ()
                     .HasColumnName ("name")
@@ -91,6 +97,12 @@ namespace BionicInventory.DataStore.Items {
                     .WithMany (p => p.Item)
                     .HasForeignKey (d => d.GroupId)
                     .HasConstraintName ("fk_ITEM_group");
+
+                builder.HasOne (d => d.StorageLocation)
+                    .WithMany (p => p.Item)
+                    .HasForeignKey (d => d.DefaultStorageId)
+                    .OnDelete (DeleteBehavior.ClientSetNull)
+                    .HasConstraintName ("fk_ITEM_storage_location");
 
                 builder.HasOne (d => d.PrimaryUom)
                     .WithMany (p => p.ItemPrimaryUom)

@@ -13,7 +13,7 @@ using BionicInventory.Domain.Items;
 
 namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsFactory {
-        Item CreateProductModel (NewProductDto newProduct);
+        Item CreateProductModel (NewItemDto newProduct);
 
         Item ProductUpdateModel (Item product, UpdatedProductDto updatedProduct);
         ProductView CreateProductView (Item product);

@@ -28,7 +28,9 @@ namespace BionicProduction.Migration.Database
         public uint PrimaryUomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdate { get; set; }
+        public uint DefaultStorage { get; set; }
 
+        public StorageLocation DefaultStorageNavigation { get; set; }
         public ProductGroup Group { get; set; }
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }

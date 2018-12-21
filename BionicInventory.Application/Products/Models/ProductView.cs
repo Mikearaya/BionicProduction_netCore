@@ -21,6 +21,10 @@ namespace BionicInventory.Application.Products.Models {
         public float? price;
         public string storingUoM;
         public string photo;
+
+        public string defaultStorage { get; set; }
+        public uint defaultStorageId { get; set; }
+
         public sbyte? isInventoryItem { get; set; }
         public sbyte? isProcured { get; set; }
         public uint primaryUomId { get; set; }

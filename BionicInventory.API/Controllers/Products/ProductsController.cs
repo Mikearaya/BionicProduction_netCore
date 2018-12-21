@@ -133,35 +133,33 @@ namespace BionicInventory.API.Controllers.Products {
         }
 
         [HttpPost]
-        [ProducesResponseType (201, Type = typeof (ProductView))]
+        [ProducesResponseType (201)]
         [ProducesResponseType (422)]
         [ProducesResponseType (409)]
         [ProducesResponseType (500)]
-        public IActionResult AddProduct ([FromBody] NewProductDto newProduct) {
+        public async Task<ActionResult<ProductView>> AddProduct ([FromBody] NewItemDto newProduct) {
             try {
 
-                if (ModelState.IsValid && newProduct != null) {
+                if (newProduct == null) {
+                    return StatusCode (400);
+                }
 
-                    if (!_query.IsProductCodeUnique (newProduct.code)) {
-                        return StatusCode (409, "item Code Already used for another item");
-                    } else {
-
-                        var product = _factory.CreateProductModel (newProduct);
-
-                        var result = _command.CreateProduct (product);
-
-                        if (result != null) {
-                            ProductView productView = _factory.CreateProductView (result);
-                            return StatusCode (201, productView);
-                        } else {
-                            return StatusCode (500, "One or more required fields missing for Product");
-                        }
-                    }
-
-                } else {
+                if (!ModelState.IsValid) {
                     return new InvalidInputResponse (ModelState);
                 }
 
+                if (!_query.IsProductCodeUnique (newProduct.code)) {
+                    return StatusCode (409, "item Code Already used for another item");
+                }
+
+                var result = await _Mediator.Send (newProduct);
+
+                var view = _query.GetProductViewById (result);
+
+                return StatusCode (201, view);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
             } catch (Exception) {
                 return StatusCode (500, "Server Error, Try Again Later");
             }

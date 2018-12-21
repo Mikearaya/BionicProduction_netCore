@@ -64,25 +64,27 @@ namespace BionicInventory.Application.Products.Queries {
         public ProductView GetProductViewById (uint id) {
 
             return _database.Item
-            .Where(i => i.Id == id).Select (i => new ProductView () {
-                id = i.Id,
-                    code = i.Code,
-                    name = i.Name,
-                    weight = i.Weight,
-                    price = i.Price,
-                    unitCost = i.UnitCost,
-                    shelfLife = i.ShelfLife,
-                    primaryUom = i.PrimaryUom.Abrivation,
-                    primaryUomId = i.PrimaryUomId,
-                    dateAdded = i.DateAdded,
-                    dateUpdated = i.DateUpdate,
-                    isProcured = i.IsProcured,
-                    isInventoryItem = i.IsInventory,
-                    photo = i.Photo,
-                    minimumQuantity = i.MinimumQuantity,
-                    group = i.Group.GroupName,
-                    groupId = i.GroupId
-            }).FirstOrDefault ();
+                .Where (i => i.Id == id).Select (i => new ProductView () {
+                    id = i.Id,
+                        code = i.Code,
+                        name = i.Name,
+                        weight = i.Weight,
+                        price = i.Price,
+                        unitCost = i.UnitCost,
+                        shelfLife = i.ShelfLife,
+                        primaryUom = i.PrimaryUom.Abrivation,
+                        primaryUomId = i.PrimaryUomId,
+                        dateAdded = i.DateAdded,
+                        dateUpdated = i.DateUpdate,
+                        defaultStorage = i.StorageLocation.Name,
+                        defaultStorageId = i.DefaultStorageId,
+                        isProcured = i.IsProcured,
+                        isInventoryItem = i.IsInventory,
+                        photo = i.Photo,
+                        minimumQuantity = i.MinimumQuantity,
+                        group = i.Group.GroupName,
+                        groupId = i.GroupId
+                }).FirstOrDefault ();
         }
 
         private IQueryable<CriticalStockItemsView> CriticalStockItemsGroup () {

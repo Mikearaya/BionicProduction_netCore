@@ -12,6 +12,7 @@ using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
 
 namespace BionicInventory.Domain.Items {
@@ -40,6 +41,10 @@ namespace BionicInventory.Domain.Items {
         public uint PrimaryUomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdate { get; set; }
+
+        public uint DefaultStorageId { get; set; }
+
+        public StorageLocation StorageLocation { get; set; }
 
         public ProductGroup Group { get; set; }
         public UnitOfMeasurment PrimaryUom { get; set; }

@@ -1,3 +1,12 @@
+/*
+ * @CreateTime: Dec 3, 2018 7:38 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 7, 2018 11:24 PM
+ * @Description: Modify Here, Please
+ */
+
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -17,14 +26,9 @@ import { ProductGroupView } from 'src/app/Modules/core/DataModels/product-group.
 import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
 import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 import { TabComponent } from '@syncfusion/ej2-angular-navigations';
-/*
- * @CreateTime: Dec 3, 2018 7:38 PM
- * @Author:  Mikael Araya
- * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 7, 2018 11:24 PM
- * @Description: Modify Here, Please
- */
+import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
+import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
+
 
 
 
@@ -39,6 +43,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   public notification: NotificationComponent;
   public itemGroups: ProductGroupView[];
   public unitOfMesurmentList: UnitOfMeasurmentView[];
+  public storagesList: StorageLocationView[];
   @ViewChild('element') tabObj: TabComponent;
 
   @ViewChild('headerStyles') listObj: TabComponent;
@@ -64,17 +69,20 @@ export class StockFormComponent extends CommonProperties implements OnInit {
   public submitted: Boolean = false;
   public itemGroupFields: { text: string, value: string };
   public unitOfMeasureFields: { text: string; value: string; };
+  public storageFields: { text: string; value: string; };
 
   constructor(private itemApi: ItemApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private productGroupApi: ProductGroupApiService,
     private unitOfMeasurmentApi: UnitOfMeasurmentApiService,
-    private location: Location) {
+    private location: Location,
+    private storageApi: StorageLocationApiService) {
     super();
     this.createForm();
     this.itemGroupFields = { text: 'groupName', value: 'id' };
     this.unitOfMeasureFields = { text: 'name', value: 'id' };
+    this.storageFields = { text: 'name', value: 'id' };
   }
 
   ngOnInit() {
@@ -87,6 +95,11 @@ export class StockFormComponent extends CommonProperties implements OnInit {
 
     this.unitOfMeasurmentApi.getAllUnitOfMeasures().subscribe(
       (data: UnitOfMeasurmentView[]) => this.unitOfMesurmentList = data,
+      this.handleError
+    );
+
+    this.storageApi.getAllStorageLocations().subscribe(
+      (data: StorageLocationView[]) => this.storagesList = data,
       this.handleError
     );
 
@@ -124,6 +137,10 @@ export class StockFormComponent extends CommonProperties implements OnInit {
     return this.productForm.get('minimumQuantity') as FormControl;
   }
 
+  get storageId(): FormControl {
+    return this.productForm.get('storageId') as FormControl;
+  }
+
   get isProcured(): FormControl {
     return this.productForm.get('isProcured') as FormControl;
   }
@@ -155,6 +172,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       code: ['', Validators.required],
       name: ['', Validators.required],
       groupId: ['', Validators.required],
+      storageId: ['', Validators.required],
       primaryUomId: ['', Validators.required],
       minimumQuantity: [0, Validators.min(0)],
       isProcured: [false],
@@ -177,6 +195,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       unitCost: [item.unitCost, [Validators.required, Validators.min(0)]],
       minimumQuantity: [item.minimumQuantity, Validators.min(0)],
       isProcured: [(item.isProcured) ? true : false],
+      storageId: [item.defaultStorageId, Validators.required],
       weight: [item.weight, [Validators.required, Validators.min(0)]],
       isInventoryItem: [(item.isInventoryItem) ? true : false],
       shelfLife: [item.shelfLife, [Validators.required, Validators.min(0)]],
@@ -231,6 +250,7 @@ export class StockFormComponent extends CommonProperties implements OnInit {
       isProcured: form.isProcured,
       isInventoryItem: form.isInventoryItem,
       minimumQuantity: form.minimumQuantity,
+      defaultStorageId: form.storageId,
       weight: form.weight,
       price: form.price,
       shelfLife: form.shelfLife,

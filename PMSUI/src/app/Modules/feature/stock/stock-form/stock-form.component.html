@@ -140,6 +140,20 @@
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-3 col-xs-12 label-area" i18n>
+                      Default Storage Location
+                    </div>
+                    <div class="col-8 col-xs-12">
+                      <ejs-dropdownlist [dataSource]="storagesList" i18n-placeholer [allowFiltering]="true"
+                        i18n-filterBarPlaceholder filterBarPlaceholder="Search for store" [fields]="storageFields"
+                        [width]=200 floatLabelType="Auto" placeholder="Select Default Storage" formControlName="storageId"
+                        name="storageId" id="storageId"></ejs-dropdownlist>
+                      <div class="e-error" *ngIf="storageId.errors && storageId.touched">
+                        <div *ngIf="storageId.errors['required']" i18n>Default Storage Locationis Required</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ng-template>
@@ -154,11 +168,6 @@
           <e-tabitem [header]='headerText[2]' [disabled]="!created && !isUpdate">
             <ng-template #content>
               <app-item-routing-list-view [itemId]="itemId"></app-item-routing-list-view>
-            </ng-template>
-          </e-tabitem>
-          <e-tabitem [header]='headerText[3]' [disabled]="!created && !isUpdate">
-            <ng-template #content>
-
             </ng-template>
           </e-tabitem>
         </e-tabitems>

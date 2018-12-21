@@ -20,7 +20,7 @@ namespace BionicInventory.Application.Products.Factories {
         public ProductsFactory (ILogger<ProductsFactory> logger) {
             _logger = logger;
         }
-        public Item CreateProductModel (NewProductDto newProduct) {
+        public Item CreateProductModel (NewItemDto newProduct) {
 
             try {
 

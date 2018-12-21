@@ -625,6 +625,9 @@ namespace BionicProduction.Migration.Database
                     .HasName("code_UNIQUE")
                     .IsUnique();
 
+                entity.HasIndex(e => e.DefaultStorage)
+                    .HasName("fk_ITEM_storage_location_idx");
+
                 entity.HasIndex(e => e.GroupId)
                     .HasName("fk_ITEM_group_idx");
 
@@ -648,6 +651,10 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.DefaultStorage)
+                    .HasColumnName("DEFAULT_STORAGE")
+                    .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.GroupId)
                     .HasColumnName("GROUP_ID")
@@ -683,6 +690,12 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.UnitCost).HasColumnName("unit_cost");
 
                 entity.Property(e => e.Weight).HasColumnName("weight");
+
+                entity.HasOne(d => d.DefaultStorageNavigation)
+                    .WithMany(p => p.Item)
+                    .HasForeignKey(d => d.DefaultStorage)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_ITEM_storage_location");
 
                 entity.HasOne(d => d.Group)
                     .WithMany(p => p.Item)
