@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.BOMs.Models;
+using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
@@ -36,14 +37,20 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Create {
                 Name = request.Name
             };
 
+            if (request.BomItems.Count < 1) {
+                throw new BelowRequiredMinimumItemException (nameof (BomItems), 1, nameof (Item));
+            }
+
             foreach (var data in request.BomItems) {
+
                 var bomItem = await _database.Item.FindAsync (data.ItemId);
-                var uomId = await _database.UnitsOfMeasurment.FindAsync (data.UomId);
 
                 if (bomItem == null) {
                     throw new NotFoundException (nameof (Item), data.ItemId);
                 }
 
+                var uomId = await _database.UnitsOfMeasurment.FindAsync (data.UomId);
+                
                 if (uomId == null) {
                     throw new NotFoundException (nameof (UnitOfMeasurment), data.UomId);
                 }
@@ -64,9 +71,8 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Create {
             return Unit.Value;
         }
 
-        private object UnitOfMeasurment()
-        {
-            throw new NotImplementedException();
+        private object UnitOfMeasurment () {
+            throw new NotImplementedException ();
         }
     }
 }

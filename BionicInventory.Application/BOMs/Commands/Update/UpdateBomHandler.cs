@@ -6,11 +6,13 @@
  * @Last Modified Time: Dec 5, 2018 11:54 PM
  * @Description: Modify Here, Please 
  */
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Products.BOMs.Models;
+using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
@@ -26,67 +28,64 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Update {
             _database = database;
         }
         public async Task<Unit> Handle (UpdatedBomDto request, CancellationToken cancellationToken) {
-            var item = await _database.Item.FindAsync (request.ItemId);
+            var item = await _database.Item.AsNoTracking ()
+                .FirstOrDefaultAsync (i => i.Id == request.ItemId);
 
-            var bom = await _database.Bom
-                .AsNoTracking ()
+            var updatedBom = await _database.Bom
+                .Include (b => b.BomItems)
                 .FirstOrDefaultAsync (b => b.Id == request.Id);
 
-            if (bom == null) {
+            if (updatedBom == null) {
                 throw new NotFoundException (nameof (Bom), request.Id);
             }
 
             if (item == null) {
                 throw new NotFoundException (nameof (Item), request.ItemId);
             }
-            Bom newBom = new Bom () {
-                Id = request.Id,
-                ItemId = request.ItemId,
-                Active = request.Active,
-                Name = request.Name
-            };
+            updatedBom.ItemId = request.ItemId;
+            updatedBom.Active = request.Active;
+            updatedBom.Name = request.Name;
+
+            if (request.BomItems.Count < 1) {
+                throw new BelowRequiredMinimumItemException (nameof (BomItems), 1, nameof (Item));
+            }
+
+            updatedBom.BomItems = new List<BomItems> ();
 
             foreach (var data in request.BomItems) {
-                var bomItem = await _database.Item.FindAsync (data.ItemId);
-
-                var uomId = await _database.UnitsOfMeasurment.FindAsync (data.UomId);
-
+                BomItems bo = new BomItems ();
                 if (data.Id != 0) {
-                    var bomItems = await _database.BomItems.AsNoTracking ().FirstOrDefaultAsync (b => b.Id == data.Id);
+                    bo = await _database.BomItems.FirstOrDefaultAsync (b => b.Id == data.Id);
 
-                    if (bomItems == null) {
+                    if (bo == null) {
                         throw new NotFoundException (nameof (BomItems), data.Id);
                     }
 
+                } else {
+                    var bomItem = await _database.Item.AsNoTracking ()
+                        .FirstOrDefaultAsync (i => i.Id == data.ItemId);
+
+                    if (bomItem == null) {
+                        throw new NotFoundException (nameof (Item), data.ItemId);
+                    }
                 }
 
-                if (bomItem == null) {
-                    throw new NotFoundException (nameof (Item), data.ItemId);
-                }
+                var uomId = await _database.UnitsOfMeasurment.AsNoTracking ()
+                    .FirstOrDefaultAsync (i => i.Id == data.UomId);
 
                 if (uomId == null) {
                     throw new NotFoundException (nameof (UnitOfMeasurment), data.UomId);
                 }
 
-                BomItems updatedItem = new BomItems () {
-                    ItemId = data.ItemId,
-                    Quantity = data.Quantity,
-                    UomId = data.UomId,
-                    Note = data.Note,
-                    BomId = request.Id
-
-                };
-
-                if (data.Id != 0) {
-                    updatedItem.Id = (uint) data.Id;
-                }
-
-                newBom.BomItems.Add (updatedItem);
+                bo.ItemId = data.ItemId;
+                bo.Quantity = data.Quantity;
+                bo.UomId = data.UomId;
+                bo.Note = data.Note;
+                bo.BomId = request.Id;
+                updatedBom.BomItems.Add(bo);
 
             }
-
-            _database.Bom.Update (newBom);
-
+            _database.Bom.Update (updatedBom);
             await _database.SaveAsync ();
 
             return Unit.Value;

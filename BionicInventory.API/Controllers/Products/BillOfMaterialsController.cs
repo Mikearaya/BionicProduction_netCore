@@ -119,10 +119,7 @@ namespace BionicInventory.API.Controllers.Products {
 
                 return StatusCode (404, e.Message);
 
-            } catch (Exception e) {
-
-                return StatusCode (500, e.Message);
-            }
+            } 
         }
 
         // api/products/boms/1

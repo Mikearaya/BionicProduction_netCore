@@ -8,6 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
+using BionicInventory.Domain.Items;
 
 namespace BionicInventory.Application.Products.Models {
     public class ProductView {
@@ -25,8 +27,8 @@ namespace BionicInventory.Application.Products.Models {
         public string defaultStorage { get; set; }
         public uint defaultStorageId { get; set; }
 
-        public sbyte? isInventoryItem { get; set; }
-        public sbyte? isProcured { get; set; }
+        public bool isInventoryItem { get; set; }
+        public bool isProcured { get; set; }
         public uint primaryUomId { get; set; }
         public string primaryUom { get; set; }
         public uint? shelfLife { get; set; }
@@ -34,5 +36,32 @@ namespace BionicInventory.Application.Products.Models {
         public string group { get; set; }
         public DateTime? dateUpdated { get; set; }
         public DateTime? dateAdded { get; set; }
+
+        public static Expression<Func<Item, ProductView>> Projection {
+
+            get {
+                return item => new ProductView() {
+                    id = item.Id,
+                    code = item.Code,
+                    name = item.Name,
+                    minimumQuantity = item.MinimumQuantity,
+                    weight = item.Weight,
+                    unitCost = item.UnitCost,
+                    price = item.Price,
+                    primaryUom = item.PrimaryUom.Abrivation,
+                    primaryUomId = item.PrimaryUomId,
+                    photo = item.Photo,
+                    defaultStorage = item.StorageLocation.Name,
+                    defaultStorageId = item.DefaultStorageId,
+                    isInventoryItem = (item.IsInventory == 1) ? true : false,
+                    isProcured = (item.IsProcured == 1) ? true : false,
+                    shelfLife = item.ShelfLife,
+                    groupId = item.GroupId,
+                    group = item.Group.GroupName,
+                    dateAdded = item.DateAdded,
+                    dateUpdated = item.DateUpdate
+                };
+            }
+        }
     }
 }

@@ -69,7 +69,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
     this.productsApi.getAllProducts().subscribe(
       (data: any) => {
-      this.itemsList = data.Items;
+        this.itemsList = data.Items;
         if (this.item) {
           this.itemId.setValue(this.item.toString());
           this.itemId.updateValueAndValidity();
@@ -210,16 +210,17 @@ export class BomFormComponent extends CommonProperties implements OnInit {
     }
   }
 
-  prepareFormData(bom: Bom): Bom {
+  prepareFormData(bom: any): Bom {
 
     const bomData = new Bom();
 
     bomData.id = (bom.id) ? bom.id : 0;
     bomData.name = bom.name;
-    bomData.active = bom.active;
+    bomData.active = bom.isActive;
     bomData.itemId = this.itemId.value;
 
     bom.bomItems.forEach(element => {
+      element.id = (element.id) ? element.id : 0;
       bomData.bomItems.push(element);
     });
 
