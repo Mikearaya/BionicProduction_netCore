@@ -29,6 +29,7 @@ namespace BionicInventory.Application.Products.BOMs.Queries.Models {
                     id = bomItem.Id,
                     itemId = bomItem.ItemId,
                     item = bomItem.Item.Name,
+                    note = bomItem.Note,
                     quantity = bomItem.Quantity,
                     uom = bomItem.Uom.Abrivation,
                     uomId = bomItem.UomId,
