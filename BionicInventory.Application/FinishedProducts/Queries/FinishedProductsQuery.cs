@@ -107,6 +107,9 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
                         itemName = product.Name,
 
+                        primaryUomId = product.PrimaryUomId,
+                        minimumQuantity = product.MinimumQuantity,
+
                         averageCost = manufactureOrder.Sum (item => item.CostPerItem) / manufactureOrder.Count (),
 
                         inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.ShipmentDetail == null).Count ()),
@@ -114,7 +117,7 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                         totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.ShipmentDetail != null)))),
 
                         booked = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => (fin.Order.PurchaseOrder != null || fin.BookedStockItems != null ) && fin.ShipmentDetail == null  && fin.OrderId == MO.Id).Count ()),
+                            .Where (fin => (fin.Order.PurchaseOrder != null || fin.BookedStockItems != null) && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
 
                         available = manufactureOrder.Sum (MO => MO.FinishedProduct
                             .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.BookedStockItems == null && fin.OrderId == MO.Id).Count ()),

@@ -137,5 +137,31 @@ export const stockViewColumnBluePrint = [
     width: '30',
     isIdentity: false,
     format: 'C2'
+  },
+  {
+    key: 'minimumQuantity',
+    humanReadable: 'Min. Qty',
+    visable: false,
+    type: 'number',
+    allowFiltering: true,
+    primaryKey: false,
+    allowGrouping: true,
+    editable: false,
+    width: '30',
+    isIdentity: false,
+    format: '#.##'
+  },
+  {
+    key: 'primaryUomId',
+    humanReadable: 'Primary UOM Id',
+    visable: false,
+    type: 'number',
+    allowFiltering: true,
+    primaryKey: false,
+    allowGrouping: true,
+    editable: false,
+    width: '20',
+    isIdentity: false,
+    format: '###'
   }
 ];

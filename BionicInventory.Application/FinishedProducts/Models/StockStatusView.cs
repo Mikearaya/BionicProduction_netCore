@@ -6,6 +6,11 @@
  * @Last Modified Time: Sep 30, 2018 5:42 PM
  * @Description: Modify Here, Please 
  */
+using System;
+using System.Linq.Expressions;
+using BionicInventory.Domain.Items;
+using Microsoft.EntityFrameworkCore;
+
 namespace BionicInventory.Application.FinishedProducts.Models {
     public class StockStatusView {
 
@@ -26,8 +31,11 @@ namespace BionicInventory.Application.FinishedProducts.Models {
 
         public int expectedBooked { get; set; }
 
-        public double totalCost { get; set; }
+        public float? minimumQuantity { get; set; }
+        public string primaryUom { get; set; }
+        public uint primaryUomId { get; set; }
 
+        public double totalCost { get; set; }
         public float averageCost { get; set; }
     }
 }
