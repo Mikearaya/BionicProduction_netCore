@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 11:16 PM
+ * @Last Modified Time: Dec 23, 2018 10:44 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -30,7 +30,10 @@ using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
+using BionicInventory.Domain.Vendors;
 using BionicInventory.Domain.Workstations;
+using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bionic_inventory.Application.Interfaces {
@@ -64,6 +67,14 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<RoutingOperation> RoutingDetail { get; set; }
         DbSet<StorageLocation> StorageLocation { get; set; }
         DbSet<RoutingBoms> RoutingBoms { get; set; }
+        DbSet<WriteOff> WriteOff { get; set; }
+        DbSet<WriteOffDetail> WriteOffDetail { get; set; }
+
+        DbSet<Vendor> Vendor { get; set; }
+        DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        DbSet<StockBatch> StockBatch { get; set; }
+        DbSet<StockBatchStorage> StockBatchStorage { get; set; }
+        DbSet<BookedStockBatch> BookedStockBatch { get; set; }
 
         void Save ();
         Task SaveAsync ();

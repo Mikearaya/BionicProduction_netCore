@@ -1,15 +1,25 @@
-﻿using System;
+﻿/*
+ * @CreateTime: Dec 23, 2018 9:59 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 23, 2018 10:21 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
     public class ProductionOrderList {
-        public ProductionOrderList()
-        {
-            FinishedProduct = new HashSet<FinishedProduct>();
+        public ProductionOrderList () {
+            FinishedProduct = new HashSet<FinishedProduct> ();
+            BookedStockBatch = new HashSet<BookedStockBatch> ();
+            StockBatch = new HashSet<StockBatch> ();
         }
 
         public uint Id { get; set; }
@@ -29,5 +39,7 @@ namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
         public Employee OrderedByNavigation { get; set; }
         public PurchaseOrderDetail PurchaseOrder { get; set; }
         public ICollection<FinishedProduct> FinishedProduct { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
     }
 }

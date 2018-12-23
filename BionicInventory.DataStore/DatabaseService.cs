@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 10:51 PM
+ * @Last Modified Time: Dec 23, 2018 10:42 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -28,9 +28,12 @@ using BionicInventory.DataStore.PurchaseOrders;
 using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
+using BionicInventory.DataStore.StockBatchs;
 using BionicInventory.DataStore.StorageLocations;
 using BionicInventory.DataStore.UnitOfMeasurments;
+using BionicInventory.DataStore.Vendors;
 using BionicInventory.DataStore.Workstations;
+using BionicInventory.DataStore.WriteOffs;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
 using BionicInventory.Domain.Customers;
@@ -54,7 +57,10 @@ using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
+using BionicInventory.Domain.Vendors;
 using BionicInventory.Domain.Workstations;
+using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
@@ -96,6 +102,14 @@ namespace BionicInventory.DataStore {
         public DbSet<RoutingBoms> RoutingBoms { get; set; }
         public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
         public DbSet<StorageLocation> StorageLocation { get; set; }
+        public DbSet<WriteOff> WriteOff { get; set; }
+        public DbSet<WriteOffDetail> WriteOffDetail { get; set; }
+
+        public DbSet<Vendor> Vendor { get; set; }
+        public DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public DbSet<StockBatch> StockBatch { get; set; }
+        public DbSet<StockBatchStorage> StockBatchStorage { get; set; }
+        public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -127,6 +141,13 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
             modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
             modelBuilder.ApplyConfiguration (new RoutingBomsConfiguration ());
+            modelBuilder.ApplyConfiguration (new VendorConfiguration ());
+            modelBuilder.ApplyConfiguration (new VendorPurchaseTermConfiguration ());
+            modelBuilder.ApplyConfiguration (new WriteOffConfiguration ());
+            modelBuilder.ApplyConfiguration (new WriteOffDetailConfiguration ());
+            modelBuilder.ApplyConfiguration (new StockBatchConfiguration ());
+            modelBuilder.ApplyConfiguration (new StockBatchStorageConfiguration ());
+            modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
 
         }
 
@@ -135,7 +156,7 @@ namespace BionicInventory.DataStore {
         }
 
         public Task SaveAsync () {
-            return this.SaveChangesAsync();
+            return this.SaveChangesAsync ();
         }
 
     }

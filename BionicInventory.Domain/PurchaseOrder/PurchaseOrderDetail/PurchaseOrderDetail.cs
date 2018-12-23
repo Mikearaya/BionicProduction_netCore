@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:34 PM
+ * @Last Modified Time: Dec 23, 2018 10:31 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,6 +13,7 @@ using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
+using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
     public class PurchaseOrderDetail {
@@ -20,6 +21,7 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
             BookedStockItems = new HashSet<BookedStockItems> ();
             ShipmentDetail = new HashSet<ShipmentDetail> ();
             InvoiceDetail = new HashSet<InvoiceDetail> ();
+            BookedStockBatch = new HashSet<BookedStockBatch> ();
         }
 
         public uint Id { get; set; }
@@ -37,5 +39,6 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ProductionOrderList ProductionOrderList { get; set; }
         public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
     }
 }

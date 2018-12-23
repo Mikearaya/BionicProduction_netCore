@@ -46,6 +46,7 @@ namespace BionicInventory.Application.Products.BOMs.Commands.Update {
             updatedBom.Active = request.Active;
             updatedBom.Name = request.Name;
 
+
             if (request.BomItems.Count < 1) {
                 throw new BelowRequiredMinimumItemException (nameof (BomItems), 1, nameof (Item));
             }

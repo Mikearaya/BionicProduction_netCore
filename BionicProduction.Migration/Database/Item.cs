@@ -12,6 +12,9 @@ namespace BionicProduction.Migration.Database
             ProductionOrderList = new HashSet<ProductionOrderList>();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
             Routing = new HashSet<Routing>();
+            StockBatch = new HashSet<StockBatch>();
+            VendorPurchaseTerm = new HashSet<VendorPurchaseTerm>();
+            WriteOff = new HashSet<WriteOff>();
         }
 
         public uint Id { get; set; }
@@ -28,9 +31,9 @@ namespace BionicProduction.Migration.Database
         public uint PrimaryUomId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdate { get; set; }
-        public uint DefaultStorage { get; set; }
+        public uint DefaultStorageId { get; set; }
 
-        public StorageLocation DefaultStorageNavigation { get; set; }
+        public StorageLocation DefaultStorage { get; set; }
         public ProductGroup Group { get; set; }
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
@@ -38,5 +41,8 @@ namespace BionicProduction.Migration.Database
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public ICollection<Routing> Routing { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
+        public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public ICollection<WriteOff> WriteOff { get; set; }
     }
 }

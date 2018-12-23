@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 1:00 AM
+ * @Last Modified Time: Dec 23, 2018 10:20 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -14,6 +14,9 @@ using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
+using BionicInventory.Domain.Vendors;
+using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 
 namespace BionicInventory.Domain.Items {
     public class Item {
@@ -23,6 +26,9 @@ namespace BionicInventory.Domain.Items {
             ProductionOrderList = new HashSet<ProductionOrderList> ();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
             Routing = new HashSet<Routing> ();
+            VendorPurchaseTerm = new HashSet<VendorPurchaseTerm> ();
+            StockBatch = new HashSet<StockBatch> ();
+            WriteOff = new HashSet<WriteOff> ();
         }
 
         public uint Id { get; set; }
@@ -53,5 +59,8 @@ namespace BionicInventory.Domain.Items {
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public ICollection<Routing> Routing { get; set; }
+        public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
+        public ICollection<WriteOff> WriteOff { get; set; }
     }
 }
