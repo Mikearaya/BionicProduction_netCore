@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 28, 2018 10:41 AM
+ * @Last Modified Time: Dec 23, 2018 11:40 PM
  * @Description: Customer Factory Class 
  */
 using System;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
-using BionicInventory.Application.Shared;
+using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -31,7 +31,7 @@ namespace BionicInventory.Application.Customers.Factories {
         public Customer CustomerForCreation (NewCustomerDto customer) {
 
             if (!_customerQuery.IsTinUnique (customer.tin.Trim ())) {
-                throw new DuplicateTinException (customer.tin.Trim ());
+                throw new DuplicateTinNumberException (customer.tin.Trim ());
             }
 
             Customer newCustomer = new Customer () {

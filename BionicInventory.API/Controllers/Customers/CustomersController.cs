@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 28, 2018 10:50 AM
+ * @Last Modified Time: Dec 23, 2018 11:41 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,7 +12,6 @@ using System.Collections.Generic;
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
-using BionicInventory.Application.Shared;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Customers;
@@ -21,6 +20,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using BionicInventory.Application.Shared.Exceptions;
 
 namespace BionicInventory.API.Controllers.Customers {
 
@@ -99,7 +99,7 @@ namespace BionicInventory.API.Controllers.Customers {
                     return StatusCode (500, "Something Went Wrong please try again later");
                 }
 
-            } catch (DuplicateTinException tinDuplicate) {
+            } catch (DuplicateTinNumberException tinDuplicate) {
                 ModelState.AddModelError ("TIN No", tinDuplicate.Message);
                 return new InvalidInputResponse (ModelState);
 
