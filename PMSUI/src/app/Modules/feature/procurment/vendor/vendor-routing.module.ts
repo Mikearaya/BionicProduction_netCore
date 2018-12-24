@@ -6,7 +6,7 @@ import { VendorFormComponent } from './vendor-form/vendor-form.component';
 const routes: Routes = [
   { path: '', component: VendorViewComponent },
   { path: 'new', component: VendorFormComponent },
-  { path: ':vendorId/new', component: VendorFormComponent },
+  { path: ':vendorId/update', component: VendorFormComponent },
 ];
 
 @NgModule({

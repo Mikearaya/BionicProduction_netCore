@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VendorViewModel, VendorModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { Observable } from 'rxjs';
-import { VendorPurchaseTermViewModel, VendorPurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
+import { VendorPurchaseTermViewModel} from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class VendorApiService {
   }
 
   updateVendor(updatedVendor: VendorModel): Observable<Boolean> {
-    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${updatedVendor.Id}`, updatedVendor);
+    return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.controller}/${updatedVendor.id}`, updatedVendor);
   }
 
 
