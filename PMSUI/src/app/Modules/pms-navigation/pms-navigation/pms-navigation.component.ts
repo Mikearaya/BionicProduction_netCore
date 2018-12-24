@@ -67,6 +67,14 @@ export class PmsNavigationComponent {
         { id: 'invoices', name: 'INVOICES' }
       ]
     },
+    {
+      id: 'procurments', name: 'Procurments',
+      subChild: [
+        { id: 'procurments', name: 'Purchase Orders' },
+        { id: 'procurments/vendors', name: 'vendors' },
+        { id: 'procurments/purchase-terms', name: 'purchase-terms' }
+      ]
+    },
 
     {
       id: 'reports', name: 'Reports', subChild: [

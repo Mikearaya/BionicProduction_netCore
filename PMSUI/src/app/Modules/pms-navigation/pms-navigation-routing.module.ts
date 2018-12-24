@@ -29,6 +29,7 @@ const routes: Routes = [{
     { path: 'work-stations', loadChildren: '../feature/work-order/work-station/work-station.module#WorkStationModule' },
     { path: 'routings', loadChildren: '../feature/work-order/production-routing/production-routing.module#ProductionRoutingModule' },
     { path: 'storages', loadChildren: '../feature/stock/storage-location/storage-location.module#StorageLocationModule' },
+    { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
 
 
   ]
