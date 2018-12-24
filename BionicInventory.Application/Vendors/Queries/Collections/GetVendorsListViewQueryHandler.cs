@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 11:29 PM
+ * @Last Modified Time: Dec 24, 2018 8:48 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -16,16 +16,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Vendors.Queries.Collections {
-    public class GetVendorsListViewQueryHandler : IRequestHandler<GetVendorsListQuery, IEnumerable<VendorsListView>> {
+    public class GetVendorsListViewQueryHandler : IRequestHandler<GetVendorsListQuery, IEnumerable<VendorView>> {
         private IInventoryDatabaseService _database;
 
         public GetVendorsListViewQueryHandler (IInventoryDatabaseService database) {
             _database = database;
         }
 
-        public async Task<IEnumerable<VendorsListView>> Handle (GetVendorsListQuery request, CancellationToken cancellationToken) {
+        public async Task<IEnumerable<VendorView>> Handle (GetVendorsListQuery request, CancellationToken cancellationToken) {
             return await _database.Vendor
-                .Select (VendorsListView.Projection)
+                .Select (VendorView.Projection)
                 .ToListAsync ();
         }
     }

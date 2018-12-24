@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 24, 2018 12:53 AM
+ * @Last Modified Time: Dec 24, 2018 9:50 PM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -18,14 +18,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Vendors.PurchaseTerms.Queries.Single {
     public class GetVendorPurchaseTermByIdQueryHandler
-        : IRequestHandler<GetVendorPurchaseTermById, VendorPurchaseTermView> {
+        : IRequestHandler<GetVendorPurchaseTermByIdQuery, VendorPurchaseTermView> {
             private readonly IInventoryDatabaseService _database;
 
             public GetVendorPurchaseTermByIdQueryHandler (IInventoryDatabaseService database) {
                 _database = database;
             }
 
-            public async Task<VendorPurchaseTermView> Handle (GetVendorPurchaseTermById request, CancellationToken cancellationToken) {
+            public async Task<VendorPurchaseTermView> Handle (GetVendorPurchaseTermByIdQuery request, CancellationToken cancellationToken) {
 
                 var purchaseTerm = await _database.VendorPurchaseTerm
                     .Select (VendorPurchaseTermView.Projection)
