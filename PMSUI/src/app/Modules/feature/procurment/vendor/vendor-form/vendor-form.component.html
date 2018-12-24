@@ -10,10 +10,12 @@
             <label for="name" i18n="@@supplierName" class="col-xs-12 col-4 label-area">
               Vendor Name
             </label>
-            <input type="text" class="col-xs-12 col-8 e-input" formControlName="name" name="name" id="name" placeholder="Vendor Name"
-              i18n-placeholder="supplier name @@supplierName">
-            <div class="e-error" *ngIf="vendorName.errors">
-              <div *ngIf="vendorName.errors['required']" i18n="Supplier name is required"> Vendor Name is required</div>
+            <div class="col-xs-12 col-8">
+              <input type="text" class=" e-input" formControlName="name" name="name" id="name" placeholder="Vendor Name"
+                i18n-placeholder="supplier name @@supplierName">
+              <div class="e-error" *ngIf="vendorName.errors">
+                <div *ngIf="vendorName.errors['required']" i18n="Supplier name is required"> Vendor Name is required</div>
+              </div>
             </div>
           </div>
           <div class="row">
