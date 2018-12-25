@@ -1,0 +1,7166 @@
+﻿{
+  "x-generator": "NSwag v12.0.9.0 (NJsonSchema v9.13.10.0 (Newtonsoft.Json v11.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/analisis": {
+      "get": {
+        "tags": [
+          "Analisis"
+        ],
+        "operationId": "Analisis_GetBasicSystemStatstics",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/customers": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_GetAllCustomers",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_AddNewCustomer",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewCustomerDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/customers/{id}": {
+      "get": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_GetCustomer",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_UpdateCustomerRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedCustomerDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_DeleteSingleCustomer",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/customers/{customerId}/address/{id}": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_DeleteCustomerAddress",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/customers/{customerId}/socialMedia/{id}": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_DeleteCustomerSocialMediaAddress",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/customers/{customerId}/phonenumber/{id}": {
+      "delete": {
+        "tags": [
+          "Customers"
+        ],
+        "operationId": "Customers_DeleteCustomerPhoneNumber",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/companyprofile": {
+      "get": {
+        "tags": [
+          "Companyprofile"
+        ],
+        "operationId": "Companyprofile_GetCompanyProfile",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CompanyProfileView"
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/companyprofile/{id}": {
+      "put": {
+        "tags": [
+          "Companyprofile"
+        ],
+        "operationId": "Companyprofile_UpdateCompanyProfile",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedProfile",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedCompanyProfileDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/employees/{id}": {
+      "get": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_GetEmployeeById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployeeViewModel"
+            }
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_UpdateEmployeeRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedEmployeeDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_DeleteSingleEmployeeRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/employees": {
+      "get": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_GetAllEmployees",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployeeViewModel"
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_AddEmploeeRecord",
+        "parameters": [
+          {
+            "name": "newEmployee",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewEmployeeDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployeeViewModel"
+            }
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Employees"
+        ],
+        "operationId": "Employees_UpdateEmployeeRecord2",
+        "parameters": [
+          {
+            "name": "updatedData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedEmployeeDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/finished_products/{id}": {
+      "get": {
+        "tags": [
+          "FinishedProducts"
+        ],
+        "operationId": "FinishedProducts_GetFinishedProductsById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinishedProductsViewModel"
+            }
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "FinishedProducts"
+        ],
+        "operationId": "FinishedProducts_UpdateFinishedProductRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedFinishedProductDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "FinishedProducts"
+        ],
+        "operationId": "FinishedProducts_DeleteSingleFinishedProductEntry",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/finished_products": {
+      "get": {
+        "tags": [
+          "FinishedProducts"
+        ],
+        "operationId": "FinishedProducts_GetAllFinishedProducts",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinishedProductsViewModel"
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "FinishedProducts"
+        ],
+        "operationId": "FinishedProducts_AddFinishedProduct",
+        "parameters": [
+          {
+            "name": "newFinishedProduct",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewFinishedProductDto"
+              }
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/FinishedProductsViewModel"
+            }
+          },
+          "422": {
+            "description": "\nor\n"
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/invoices/{invoiceId}/payments": {
+      "get": {
+        "tags": [
+          "InvoicePayment"
+        ],
+        "operationId": "InvoicePayment_GetAllInvoicePayments",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PaymentView"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "InvoicePayment"
+        ],
+        "operationId": "InvoicePayment_AddInvoicePayment",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "payment",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewInvoicePaymentDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PaymentView"
+            }
+          }
+        }
+      }
+    },
+    "/api/salesorders/invoices/{id}": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "Invoices_GetInvoiceById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "VIEW",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders/{customerOrderId}/invoices": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "Invoices_GetCustomerOrderInvoiceById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerOrderId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "VIEW",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "Invoices_CreateNewInvoice",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerOrderId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "invoice",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewInvoiceDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders/invoices": {
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "operationId": "Invoices_GetInvoices",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "VIEW",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Invoice"
+              }
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/purchaseterms": {
+      "get": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_GetAllPurchaseTerms",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/purchaseterms/purchaseterms/{id}": {
+      "put": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_updatePurchaseTerm",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedPurchaseTerm",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedVendorPurchaseTermDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_deletePurchaseTerm",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors": {
+      "get": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_GetAllVendors",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_AddVendor",
+        "parameters": [
+          {
+            "name": "newVendor",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewVendorDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{id}": {
+      "get": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_GetVendorById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_UpdateVendor",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedVendor",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedVendorDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_DeleteVendor",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{id}/purchaseterms": {
+      "get": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_GetVendorPurchaseTerms",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{id}/items/{itemId}/purchaseterms": {
+      "get": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_GetVendorPurchaseTerms2",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{vendorId}/purchaseterms": {
+      "post": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_CreatePurchaseTerm",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "vendorId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "newPurchaseTerm",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewVendorPurchaseTermDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{vendorId}/purchaseterms/{id}": {
+      "put": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_updatePurchaseTerm",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "vendorId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedPurchaseTerm",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedVendorPurchaseTermDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Vendors"
+        ],
+        "operationId": "Vendors_deletePurchaseTerm",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "vendorId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/boms": {
+      "get": {
+        "tags": [
+          "BillOfMaterials"
+        ],
+        "operationId": "BillOfMaterials_GetBomList",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BillOfMaterials"
+        ],
+        "operationId": "BillOfMaterials_CreateBillOfMaterial",
+        "parameters": [
+          {
+            "name": "newBom",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewBomDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/boms/{id}": {
+      "get": {
+        "tags": [
+          "BillOfMaterials"
+        ],
+        "operationId": "BillOfMaterials_GetBomById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BillOfMaterials"
+        ],
+        "operationId": "BillOfMaterials_UpdateBillOfMaterial",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedBom",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedBomDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BillOfMaterials"
+        ],
+        "operationId": "BillOfMaterials_deleteBillOfMaterial",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/groups": {
+      "get": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroups_GetProductGroups",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroups_CreateNewGroup",
+        "parameters": [
+          {
+            "name": "newGroup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewProductGroupDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/groups/{id}": {
+      "get": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroups_GetProductGroupsById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroups_UpdateProductGroup",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedGroup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedProductGroupDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroups_DeleteProductGroup",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "423": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_GetProductById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "VIEW",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_UpdateProductRecord",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedData",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedProductDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_DeleteProduct",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_GetAllProducts",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "ALL",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductView"
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_AddProduct",
+        "parameters": [
+          {
+            "name": "newProduct",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewItemDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "409": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/Products/{id}/boms": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Products_GetItemBoms",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/routings": {
+      "get": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_GetRoutingList",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/{itemId}/routings": {
+      "get": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_GetProductRoutingList",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_CreateProductRouting",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "newRouting",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewRoutingDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/{itemId}/routings/{id}": {
+      "get": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_GetItemRoutingDetailById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_UpdateProductRouting",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedRouting",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedRoutingDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_DeleteProductRouting",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/routings/{id}": {
+      "get": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_GetRoutingDetailById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Routing"
+        ],
+        "operationId": "Routing_DeleteRouting",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/shipments": {
+      "get": {
+        "tags": [
+          "Shipments"
+        ],
+        "operationId": "Shipments_GetAllShipments",
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/shipments/{id}": {
+      "get": {
+        "tags": [
+          "Shipments"
+        ],
+        "operationId": "Shipments_GetShipmentById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/shipments/salesorders/{customerOrderId}": {
+      "get": {
+        "tags": [
+          "Shipments"
+        ],
+        "operationId": "Shipments_GetCustomerOrderShipmentSummary",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerOrderId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "DETAIL",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Shipments"
+        ],
+        "operationId": "Shipments_CreateNewCustomerOrderShipment",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "customerOrderId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "newShipment",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewShipmentDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/shipments/pickings/{shipmentId}": {
+      "put": {
+        "tags": [
+          "Shipments"
+        ],
+        "operationId": "Shipments_PickShipmentItems",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "shipmentId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/Products/bookings/{id}": {
+      "get": {
+        "tags": [
+          "StockBooking"
+        ],
+        "operationId": "StockBooking_GetStocksBookingAvailablity",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "BOOKED",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "file"
+            }
+          }
+        }
+      }
+    },
+    "/api/products/uom": {
+      "get": {
+        "tags": [
+          "UnitOfMeasurment"
+        ],
+        "operationId": "UnitOfMeasurment_GetAllUnitOfMeasurments",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UnitOfMeasurment"
+        ],
+        "operationId": "UnitOfMeasurment_CreateUnitOfMeasure",
+        "parameters": [
+          {
+            "name": "newUom",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewUnitOfMeasureDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/products/uom/{id}": {
+      "get": {
+        "tags": [
+          "UnitOfMeasurment"
+        ],
+        "operationId": "UnitOfMeasurment_GetUnitOfMeasurmentById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "UnitOfMeasurment"
+        ],
+        "operationId": "UnitOfMeasurment_UpdateUnitOfMeasure",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedUom",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedUnitOfMeasurmentDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "\nor\n"
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "UnitOfMeasurment"
+        ],
+        "operationId": "UnitOfMeasurment_UpdateUnitOfMeasure2",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders/{id}/booking": {
+      "get": {
+        "tags": [
+          "CustomerOrderBooking"
+        ],
+        "operationId": "CustomerOrderBooking_GetSalesOrderById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerOrderBookings"
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CustomerOrderBooking"
+        ],
+        "operationId": "CustomerOrderBooking_BookCustomerOrderItems",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "orderItem",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderItemBookingDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerOrderBookings"
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders": {
+      "get": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_GetAllSalesOrders",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "pageNumber",
+            "in": "query",
+            "format": "int32",
+            "default": 1,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "pageSize",
+            "in": "query",
+            "format": "int32",
+            "default": 10,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerOrdersView"
+              }
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_CreateSalesOrder",
+        "parameters": [
+          {
+            "name": "newOrder",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewSalesOrderDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PurchaseOrder"
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders/{id}": {
+      "get": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_GetSalesOrderById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "VIEW",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/PurchaseOrder"
+            }
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_UpdateCustomerOrderStatus",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "newStatus",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StatusUpdateDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_DeleteCustomerOrder",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/salesorders/reports": {
+      "get": {
+        "tags": [
+          "SalesOrder"
+        ],
+        "operationId": "SalesOrder_GetSalesReport",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "YEARLY",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/storages": {
+      "get": {
+        "tags": [
+          "StorageLocations"
+        ],
+        "operationId": "StorageLocations_GetAllStorageLocations",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StorageLocations"
+        ],
+        "operationId": "StorageLocations_CreateStorageLocation",
+        "parameters": [
+          {
+            "name": "newLocation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewStorageLocationDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/storages/{id}": {
+      "get": {
+        "tags": [
+          "StorageLocations"
+        ],
+        "operationId": "StorageLocations_GetStorageLocationById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StorageLocations"
+        ],
+        "operationId": "StorageLocations_UpdateStorageLocation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedLocation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedStorageLocationDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StorageLocations"
+        ],
+        "operationId": "StorageLocations_DeleteStorageLocation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/workorders": {
+      "get": {
+        "tags": [
+          "WorkOrders"
+        ],
+        "operationId": "WorkOrders_GetAllWorkOrders",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "ALL",
+            "x-nullable": true
+          },
+          {
+            "type": "integer",
+            "name": "salesOrderItemId",
+            "in": "query",
+            "default": 0,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkOrderView"
+              }
+            }
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "WorkOrders"
+        ],
+        "operationId": "WorkOrders_CreateNewWorkWorder",
+        "parameters": [
+          {
+            "name": "newWork",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewWorkOrderDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkOrderView"
+              }
+            }
+          },
+          "422": {
+            "description": ""
+          },
+          "409": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/workorders/{id}": {
+      "get": {
+        "tags": [
+          "WorkOrders"
+        ],
+        "operationId": "WorkOrders_GetWorkOrderById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkOrderView"
+              }
+            }
+          },
+          "500": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "WorkOrders"
+        ],
+        "operationId": "WorkOrders_UpdateWorkWorder",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updated",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedWorkOrderDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "x-nullable": true,
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkOrderView"
+              }
+            }
+          },
+          "422": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "409": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "WorkOrders"
+        ],
+        "operationId": "WorkOrders_DeleteWorkOrder",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations": {
+      "get": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_GetAllWorkstationGroups",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_CreateWorkstationGroup",
+        "parameters": [
+          {
+            "name": "workStationGroup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewWorkStationGroupDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/{id}": {
+      "get": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_GetWorkstationGroupDetail",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "string",
+            "name": "type",
+            "in": "query",
+            "default": "detail",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_UpdateWorkstationGroup",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedWorkStationGroup",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedWorkStationGroupDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_DeleteWorkstationGroup",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/stations": {
+      "get": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_GetWorkstation",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/stations/{id}": {
+      "get": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_GetWorkstationDetail",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/{id}/stations": {
+      "post": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_CreateWorkstation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "workstation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewWorkstationDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/{id}/stations/{stationId}": {
+      "put": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_UpdateWorkstation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "type": "integer",
+            "name": "stationId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "workstation",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedWorkstationDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/productions/workstations/stations/{stationId}": {
+      "delete": {
+        "tags": [
+          "Workstations"
+        ],
+        "operationId": "Workstations_DeleteWorkstation",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "stationId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "NewCustomerDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CustomerDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "telephones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerPhoneDto"
+              }
+            },
+            "addresses": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerAddressDto"
+              }
+            },
+            "socialMedias": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerSocialMediaDto"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CustomerPhoneDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "number"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "number": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "CustomerAddressDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Location",
+        "City",
+        "SubCity",
+        "Country"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "City": {
+          "type": "string",
+          "minLength": 1
+        },
+        "SubCity": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Country": {
+          "type": "string",
+          "minLength": 1
+        },
+        "PhoneNumber": {
+          "type": "string"
+        }
+      }
+    },
+    "CustomerSocialMediaDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "site",
+        "address"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "site": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "CustomerDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "FullName",
+        "type"
+      ],
+      "properties": {
+        "FullName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tin": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10
+        },
+        "email": {
+          "type": "string"
+        },
+        "paymentPeriod": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "creditLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "poBox": {
+          "type": "string"
+        },
+        "taxAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "type": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "UpdatedCustomerDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CustomerDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "telephones": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerPhoneDto"
+              }
+            },
+            "addresses": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerAddressDto"
+              }
+            },
+            "socialMedias": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CustomerSocialMediaDto"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CompanyProfileView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "dateAdded",
+        "dateUpdated"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tin": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "subCity": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "dateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "UpdatedCompanyProfileDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CompanyProfileDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "CompanyProfileDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "Name",
+        "Tin"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Tin": {
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 10
+        },
+        "Country": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "SubCity": {
+          "type": "string"
+        },
+        "Location": {
+          "type": "string"
+        }
+      }
+    },
+    "EmployeeViewModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "dateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewEmployeeDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdatedEmployeeDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        }
+      }
+    },
+    "FinishedProductsViewModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cost",
+        "quantity"
+      ],
+      "properties": {
+        "product": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "NewFinishedProductDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/FinishedProductDTO"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "FinishedProductDTO": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "orderId",
+        "quantity",
+        "recievedBy",
+        "submitedBy"
+      ],
+      "properties": {
+        "orderId": {
+          "type": "integer"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "recievedBy": {
+          "type": "integer"
+        },
+        "submitedBy": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedFinishedProductDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/FinishedProductDTO"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "PaymentView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "InvoiceNo",
+        "Amount"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "InvoiceNo": {
+          "type": "integer"
+        },
+        "Amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CasherName": {
+          "type": "string"
+        },
+        "PreparedBy": {
+          "type": "string"
+        }
+      }
+    },
+    "NewInvoicePaymentDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/InvoicePaymentDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "InvoicePaymentDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Amount",
+        "CashierId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "CashierId": {
+          "type": "integer"
+        },
+        "Note": {
+          "type": "string"
+        }
+      }
+    },
+    "Invoice": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "PurchaseOrderId",
+        "PreparedBy",
+        "Tax",
+        "Discount"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "PreparedBy": {
+          "type": "integer"
+        },
+        "PrintCount": {
+          "type": "integer",
+          "format": "byte"
+        },
+        "InvoiceType": {
+          "type": "string"
+        },
+        "PaymentMethod": {
+          "type": "string"
+        },
+        "Tax": {
+          "type": "number",
+          "format": "double"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Discount": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "PreparedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "PurchaseOrder": {
+          "$ref": "#/definitions/PurchaseOrder"
+        },
+        "InvoiceDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoiceDetail"
+          }
+        },
+        "InvoicePayments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoicePayments"
+          }
+        }
+      }
+    },
+    "Employee": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FirstName": {
+          "type": "string"
+        },
+        "LastName": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BookedStockItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockItems"
+          }
+        },
+        "FinishedProductRecievedByNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinishedProduct"
+          }
+        },
+        "FinishedProductSubmittedByNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinishedProduct"
+          }
+        },
+        "Invoice": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Invoice"
+          }
+        },
+        "InvoicePayments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoicePayments"
+          }
+        },
+        "ProductionOrderList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductionOrderList"
+          }
+        },
+        "PurchaseOrder": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrder"
+          }
+        },
+        "Shipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Shipment"
+          }
+        }
+      }
+    },
+    "BookedStockItems": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "StockId",
+        "BookedBy",
+        "BookedFor"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "StockId": {
+          "type": "integer"
+        },
+        "Canceled": {
+          "$ref": "#/definitions/SByte"
+        },
+        "BookedBy": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BookedFor": {
+          "type": "integer"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "BookedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "BookedForNavigation": {
+          "$ref": "#/definitions/PurchaseOrderDetail"
+        },
+        "Stock": {
+          "$ref": "#/definitions/FinishedProduct"
+        }
+      }
+    },
+    "SByte": {
+      "type": "object",
+      "additionalProperties": false
+    },
+    "PurchaseOrderDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "PurchaseOrderId",
+        "ItemId",
+        "Quantity",
+        "PricePerItem",
+        "DueDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "PricePerItem": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "PurchaseOrder": {
+          "$ref": "#/definitions/PurchaseOrder"
+        },
+        "BookedStockItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockItems"
+          }
+        },
+        "InvoiceDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoiceDetail"
+          }
+        },
+        "ProductionOrderList": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "ShipmentDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShipmentDetail"
+          }
+        },
+        "BookedStockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockBatch"
+          }
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "UnitCost",
+        "GroupId",
+        "PrimaryUomId",
+        "DefaultStorageId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Code": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Weight": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Photo": {
+          "type": "string"
+        },
+        "GroupId": {
+          "type": "integer"
+        },
+        "IsProcured": {
+          "$ref": "#/definitions/SByte"
+        },
+        "IsInventory": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Price": {
+          "type": "number",
+          "format": "double"
+        },
+        "ShelfLife": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "PrimaryUomId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DefaultStorageId": {
+          "type": "integer"
+        },
+        "StorageLocation": {
+          "$ref": "#/definitions/StorageLocation"
+        },
+        "Group": {
+          "$ref": "#/definitions/ProductGroup"
+        },
+        "PrimaryUom": {
+          "$ref": "#/definitions/UnitOfMeasurment"
+        },
+        "Bom": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bom"
+          }
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BomItems"
+          }
+        },
+        "ProductionOrderList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductionOrderList"
+          }
+        },
+        "PurchaseOrderDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrderDetail"
+          }
+        },
+        "Routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Routing"
+          }
+        },
+        "VendorPurchaseTerm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VendorPurchaseTerm"
+          }
+        },
+        "StockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatch"
+          }
+        },
+        "WriteOff": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WriteOff"
+          }
+        }
+      }
+    },
+    "StorageLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Item": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "StockBatchStorage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        }
+      }
+    },
+    "StockBatchStorage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "BachId",
+        "StorageId",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "BachId": {
+          "type": "integer"
+        },
+        "StorageId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "PreviousStorage": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Bach": {
+          "$ref": "#/definitions/StockBatch"
+        },
+        "PreviousStorageNavigation": {
+          "$ref": "#/definitions/StockBatchStorage"
+        },
+        "Storage": {
+          "$ref": "#/definitions/StorageLocation"
+        },
+        "InversePreviousStorageNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        },
+        "WriteOffDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WriteOffDetail"
+          }
+        }
+      }
+    },
+    "StockBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "Quantity",
+        "UnitCost",
+        "AvailableFrom"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "ManufactureOrderId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "AvailableFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ExpiryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "ManufactureOrder": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "StockBatchStorage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        }
+      }
+    },
+    "ProductionOrderList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "OrderedBy",
+        "Quantity",
+        "CostPerItem",
+        "Start",
+        "DueDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "OrderedBy": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "CostPerItem": {
+          "type": "number",
+          "format": "double"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "OrderedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "PurchaseOrder": {
+          "$ref": "#/definitions/PurchaseOrderDetail"
+        },
+        "FinishedProduct": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinishedProduct"
+          }
+        },
+        "BookedStockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockBatch"
+          }
+        },
+        "StockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatch"
+          }
+        }
+      }
+    },
+    "FinishedProduct": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "OrderId",
+        "SubmittedBy",
+        "RecievedBy"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "OrderId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "SubmittedBy": {
+          "type": "integer"
+        },
+        "RecievedBy": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Order": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "RecievedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "SubmittedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "BookedStockItems": {
+          "$ref": "#/definitions/BookedStockItems"
+        },
+        "ShipmentDetail": {
+          "$ref": "#/definitions/ShipmentDetail"
+        }
+      }
+    },
+    "ShipmentDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ShipmentId",
+        "StockId",
+        "OrderItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ShipmentId": {
+          "type": "integer"
+        },
+        "StockId": {
+          "type": "integer"
+        },
+        "OrderItemId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Picked": {
+          "$ref": "#/definitions/SByte"
+        },
+        "OrderItem": {
+          "$ref": "#/definitions/PurchaseOrderDetail"
+        },
+        "Shipment": {
+          "$ref": "#/definitions/Shipment"
+        },
+        "Stock": {
+          "$ref": "#/definitions/FinishedProduct"
+        }
+      }
+    },
+    "Shipment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "BookedBy",
+        "DeliveryDate",
+        "CustomerOrderId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "BookedBy": {
+          "type": "integer"
+        },
+        "ShipmentNote": {
+          "type": "string"
+        },
+        "DeliveryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CustomerOrderId": {
+          "type": "integer"
+        },
+        "BookedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "CustomerOrder": {
+          "$ref": "#/definitions/PurchaseOrder"
+        },
+        "ShipmentDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShipmentDetail"
+          }
+        }
+      }
+    },
+    "PurchaseOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ClientId",
+        "CreatedBy"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ClientId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "OrderStatus": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Client": {
+          "$ref": "#/definitions/Customer"
+        },
+        "CreatedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "Invoice": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Invoice"
+          }
+        },
+        "PurchaseOrderDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrderDetail"
+          }
+        },
+        "Shipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Shipment"
+          }
+        }
+      }
+    },
+    "Customer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "FullName": {
+          "type": "string"
+        },
+        "Tin": {
+          "type": "string"
+        },
+        "Email": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CreditLimit": {
+          "type": "number",
+          "format": "double"
+        },
+        "PaymentPeriod": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Fax": {
+          "type": "string"
+        },
+        "PoBox": {
+          "type": "string"
+        },
+        "SocialMedia": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SocialMedia"
+          }
+        },
+        "Address": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address"
+          }
+        },
+        "PhoneNumber": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PhoneNumber"
+          }
+        },
+        "PurchaseOrder": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrder"
+          }
+        }
+      }
+    },
+    "SocialMedia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ClientId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ClientId": {
+          "type": "integer"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "Site": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Client": {
+          "$ref": "#/definitions/Customer"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ClientId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ClientId": {
+          "type": "integer"
+        },
+        "SubCity": {
+          "type": "string"
+        },
+        "City": {
+          "type": "string"
+        },
+        "Country": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "Location": {
+          "type": "string"
+        },
+        "Client": {
+          "$ref": "#/definitions/Customer"
+        }
+      }
+    },
+    "PhoneNumber": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ClientId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ClientId": {
+          "type": "integer"
+        },
+        "Number": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Client": {
+          "$ref": "#/definitions/Customer"
+        }
+      }
+    },
+    "BookedStockBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "BachStorageId",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "BachStorageId": {
+          "type": "integer"
+        },
+        "ProductionOrderId": {
+          "type": "integer"
+        },
+        "CustomerOrderId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "CustomerOrder": {
+          "$ref": "#/definitions/PurchaseOrderDetail"
+        },
+        "ProductionOrder": {
+          "$ref": "#/definitions/ProductionOrderList"
+        }
+      }
+    },
+    "WriteOffDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "WriteOffId",
+        "Quantity",
+        "BachStorageId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "WriteOffId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "BachStorageId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BachStorage": {
+          "$ref": "#/definitions/StockBatchStorage"
+        },
+        "WriteOff": {
+          "$ref": "#/definitions/WriteOff"
+        }
+      }
+    },
+    "WriteOff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "WriteOffDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WriteOffDetail"
+          }
+        }
+      }
+    },
+    "ProductGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "GroupName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ParentGroup": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ParentGroupNavigation": {
+          "$ref": "#/definitions/ProductGroup"
+        },
+        "InverseParentGroupNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductGroup"
+          }
+        },
+        "Item": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      }
+    },
+    "UnitOfMeasurment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Abrivation": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BomItems"
+          }
+        },
+        "ItemPrimaryUom": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        }
+      }
+    },
+    "BomItems": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "Quantity",
+        "UomId",
+        "BomId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "UomId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BomId": {
+          "type": "integer"
+        },
+        "Bom": {
+          "$ref": "#/definitions/Bom"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "Uom": {
+          "$ref": "#/definitions/UnitOfMeasurment"
+        }
+      }
+    },
+    "Bom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BomItems"
+          }
+        },
+        "RoutingBoms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingBoms"
+          }
+        }
+      }
+    },
+    "RoutingBoms": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "RoutingId",
+        "BomId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "RoutingId": {
+          "type": "integer"
+        },
+        "BomId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Bom": {
+          "$ref": "#/definitions/Bom"
+        },
+        "Routing": {
+          "$ref": "#/definitions/Routing"
+        }
+      }
+    },
+    "Routing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "RoutingBoms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingBoms"
+          }
+        },
+        "RoutingOperation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingOperation"
+          }
+        }
+      }
+    },
+    "RoutingOperation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "RoutingId",
+        "WorkstationId",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "RoutingId": {
+          "type": "integer"
+        },
+        "WorkstationId": {
+          "type": "integer"
+        },
+        "Operation": {
+          "type": "string"
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "FixedTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Routing": {
+          "$ref": "#/definitions/Routing"
+        },
+        "Workstation": {
+          "$ref": "#/definitions/WorkstationGroup"
+        }
+      }
+    },
+    "WorkstationGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "RoutingOperation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RoutingOperation"
+          }
+        },
+        "Workstation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Workstation"
+          }
+        }
+      }
+    },
+    "Workstation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "GroupId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Title": {
+          "type": "string"
+        },
+        "HourlyRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "WorkingHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "HolidayHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "Color": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "IsActive": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Productivity": {
+          "type": "integer"
+        },
+        "GroupId": {
+          "type": "integer"
+        },
+        "MaintenanceHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "MaintenanceItems": {
+          "type": "integer"
+        },
+        "Group": {
+          "$ref": "#/definitions/WorkstationGroup"
+        }
+      }
+    },
+    "VendorPurchaseTerm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "VendorId",
+        "ItemId",
+        "UnitPrice"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "VendorId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "VendorProductId": {
+          "type": "string"
+        },
+        "Priority": {
+          "type": "integer"
+        },
+        "Leadtime": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "Vendor": {
+          "$ref": "#/definitions/Vendor"
+        }
+      }
+    },
+    "Vendor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "TinNumber": {
+          "type": "string"
+        },
+        "LeadTime": {
+          "type": "integer"
+        },
+        "PaymentPeriod": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "VendorPurchaseTerm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VendorPurchaseTerm"
+          }
+        }
+      }
+    },
+    "InvoiceDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "SalesOrderId",
+        "InvoiceNo",
+        "Quantity",
+        "UnitPrice"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "DateAddded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Discount": {
+          "type": "number",
+          "format": "double"
+        },
+        "SalesOrderId": {
+          "type": "integer"
+        },
+        "InvoiceNo": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "Tax": {
+          "type": "number",
+          "format": "double"
+        },
+        "InvoiceNoNavigation": {
+          "$ref": "#/definitions/Invoice"
+        },
+        "SalesOrder": {
+          "$ref": "#/definitions/PurchaseOrderDetail"
+        }
+      }
+    },
+    "InvoicePayments": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "InvoiceNo",
+        "Amount",
+        "CashierId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "InvoiceNo": {
+          "type": "integer"
+        },
+        "Amount": {
+          "type": "number",
+          "format": "double"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CashierId": {
+          "type": "integer"
+        },
+        "PrintCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Cashier": {
+          "$ref": "#/definitions/Employee"
+        },
+        "InvoiceNoNavigation": {
+          "$ref": "#/definitions/Invoice"
+        }
+      }
+    },
+    "NewInvoiceDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/InvoiceDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "InvoiceItems"
+          ],
+          "properties": {
+            "InvoiceItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewInvoiceItemDto"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "NewInvoiceItemDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/InvoiceItemDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "InvoiceItemDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "CustomerOrderItemId",
+        "Quantity",
+        "UnitPrice",
+        "Discount",
+        "Tax"
+      ],
+      "properties": {
+        "CustomerOrderItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "UnitPrice": {
+          "type": "integer"
+        },
+        "Discount": {
+          "type": "number",
+          "format": "double"
+        },
+        "Tax": {
+          "type": "number",
+          "format": "double"
+        },
+        "Note": {
+          "type": "string"
+        }
+      }
+    },
+    "InvoiceDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "CustomerOrderId",
+        "CreatedBy",
+        "InvoiceType",
+        "PaymentMethod",
+        "Discount",
+        "Tax"
+      ],
+      "properties": {
+        "CustomerOrderId": {
+          "type": "integer"
+        },
+        "CreatedBy": {
+          "type": "integer"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "InvoiceType": {
+          "type": "string",
+          "minLength": 1
+        },
+        "PaymentMethod": {
+          "type": "string",
+          "minLength": 1
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CreatedOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Discount": {
+          "type": "number",
+          "format": "double"
+        },
+        "Tax": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "UpdatedVendorPurchaseTermDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "VendorId",
+        "ItemId",
+        "UnitPrice"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "VendorId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "VendorProductId": {
+          "type": "string"
+        },
+        "Priority": {
+          "type": "integer"
+        },
+        "Leadtime": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "NewVendorDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "TinNumber": {
+          "type": "string"
+        },
+        "LeadTime": {
+          "type": "integer"
+        },
+        "PaymentPeriod": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedVendorDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "TinNumber": {
+          "type": "string"
+        },
+        "LeadTime": {
+          "type": "integer"
+        },
+        "PaymentPeriod": {
+          "type": "integer"
+        }
+      }
+    },
+    "NewVendorPurchaseTermDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "VendorId",
+        "ItemId",
+        "UnitPrice"
+      ],
+      "properties": {
+        "VendorId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "VendorProductId": {
+          "type": "string"
+        },
+        "Priority": {
+          "type": "integer"
+        },
+        "Leadtime": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "NewBomDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Name",
+        "ItemId"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NewBomItemDto"
+          }
+        }
+      }
+    },
+    "NewBomItemDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ItemId",
+        "Quantity",
+        "UomId"
+      ],
+      "properties": {
+        "ItemId": {
+          "type": "integer"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "UomId": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedBomDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Name",
+        "ItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UpdatedBomItemDto"
+          }
+        }
+      }
+    },
+    "UpdatedBomItemDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ItemId",
+        "Quantity",
+        "UomId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "UomId": {
+          "type": "integer"
+        }
+      }
+    },
+    "NewProductGroupDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductGroupDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ProductGroupDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "GroupName"
+      ],
+      "properties": {
+        "GroupName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Description": {
+          "type": "string"
+        },
+        "ParentGroup": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedProductGroupDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductGroupDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "ProductView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "unitCost",
+        "defaultStorageId",
+        "isInventoryItem",
+        "isProcured",
+        "primaryUomId",
+        "groupId"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "minimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "description": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number",
+          "format": "double"
+        },
+        "unitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "storingUoM": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "defaultStorage": {
+          "type": "string"
+        },
+        "defaultStorageId": {
+          "type": "integer"
+        },
+        "isInventoryItem": {
+          "type": "boolean"
+        },
+        "isProcured": {
+          "type": "boolean"
+        },
+        "primaryUomId": {
+          "type": "integer"
+        },
+        "primaryUom": {
+          "type": "string"
+        },
+        "shelfLife": {
+          "type": "integer"
+        },
+        "groupId": {
+          "type": "integer"
+        },
+        "group": {
+          "type": "string"
+        },
+        "dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateAdded": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewItemDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "name",
+        "MinimumQuantity",
+        "weight",
+        "unitCost",
+        "isInventoryItem",
+        "isProcured",
+        "primaryUomId",
+        "groupId",
+        "DefaultStorageId"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "weight": {
+          "type": "number",
+          "format": "double"
+        },
+        "unitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "image": {
+          "type": "string"
+        },
+        "isInventoryItem": {
+          "$ref": "#/definitions/SByte"
+        },
+        "isProcured": {
+          "$ref": "#/definitions/SByte"
+        },
+        "primaryUomId": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "shelfLife": {
+          "type": "integer"
+        },
+        "groupId": {
+          "type": "integer"
+        },
+        "DefaultStorageId": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedProductDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "ProductDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "name",
+        "MinimumQuantity",
+        "weight",
+        "unitCost",
+        "isInventoryItem",
+        "isProcured",
+        "primaryUomId",
+        "groupId"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "weight": {
+          "type": "number",
+          "format": "double"
+        },
+        "unitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "image": {
+          "type": "string"
+        },
+        "isInventoryItem": {
+          "$ref": "#/definitions/SByte"
+        },
+        "isProcured": {
+          "$ref": "#/definitions/SByte"
+        },
+        "primaryUomId": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "shelfLife": {
+          "type": "integer"
+        },
+        "groupId": {
+          "type": "integer"
+        }
+      }
+    },
+    "NewRoutingDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ItemId",
+        "Name"
+      ],
+      "properties": {
+        "ItemId": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Note": {
+          "type": "string"
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NewRoutingOperationDto"
+          }
+        },
+        "Boms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NewRoutingBomsDto"
+          }
+        }
+      }
+    },
+    "NewRoutingOperationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "WorkstationId",
+        "Operation",
+        "Quantity"
+      ],
+      "properties": {
+        "WorkstationId": {
+          "type": "integer"
+        },
+        "Operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "FixedTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "NewRoutingBomsDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "BomId"
+      ],
+      "properties": {
+        "RoutingId": {
+          "type": "integer"
+        },
+        "BomId": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedRoutingDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "Name"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Note": {
+          "type": "string"
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "Operations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UpdatedRoutingOperationDto"
+          }
+        },
+        "Boms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UpdatedRoutingBomsDto"
+          }
+        }
+      }
+    },
+    "UpdatedRoutingOperationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "RoutingId",
+        "WorkstationId",
+        "Operation",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "RoutingId": {
+          "type": "integer"
+        },
+        "WorkstationId": {
+          "type": "integer"
+        },
+        "Operation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "FixedCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "FixedTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "VariableTime": {
+          "type": "number",
+          "format": "double"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "UpdatedRoutingBomsDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "RoutingId",
+        "BomId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "RoutingId": {
+          "type": "integer"
+        },
+        "BomId": {
+          "type": "integer"
+        }
+      }
+    },
+    "NewShipmentDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ShipmentDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "ShipmentItems"
+          ],
+          "properties": {
+            "ShipmentItems": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewShipmentItemDto"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "NewShipmentItemDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ShipmentItemDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ShipmentItemDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "CustomerOrderItemId",
+        "Quantity"
+      ],
+      "properties": {
+        "CustomerOrderItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ShipmentDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "deliveryDate",
+        "customerOrderId",
+        "bookedBy"
+      ],
+      "properties": {
+        "deliveryDate": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "customerOrderId": {
+          "type": "integer"
+        },
+        "bookedBy": {
+          "type": "integer"
+        },
+        "shipmentNote": {
+          "type": "string"
+        }
+      }
+    },
+    "NewUnitOfMeasureDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Abrivation",
+        "Name",
+        "Active"
+      ],
+      "properties": {
+        "Abrivation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "UpdatedUnitOfMeasurmentDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Abrivation",
+        "Name",
+        "Active"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Abrivation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "CustomerOrderBookings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "customer": {
+          "type": "string"
+        },
+        "orderItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedOrderItemDetail"
+          }
+        }
+      }
+    },
+    "BookedOrderItemDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "availableAmount",
+        "inStock",
+        "bookedAmount",
+        "afterBooking",
+        "neededAmount",
+        "remainingAmount"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "availableAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "inStock": {
+          "type": "number",
+          "format": "double"
+        },
+        "bookedAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "afterBooking": {
+          "type": "number",
+          "format": "double"
+        },
+        "neededAmount": {
+          "type": "number",
+          "format": "double"
+        },
+        "remainingAmount": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "OrderItemBookingDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Items",
+        "BookedBy"
+      ],
+      "properties": {
+        "CreateManufactureOrder": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookingItemDto"
+          }
+        },
+        "BookedBy": {
+          "type": "integer"
+        },
+        "WorkStartDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "WorkEndDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "BookingItemDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Quantity",
+        "CustomerOrderItemId"
+      ],
+      "properties": {
+        "Quantity": {
+          "type": "integer"
+        },
+        "CustomerOrderItemId": {
+          "type": "integer"
+        }
+      }
+    },
+    "CustomerOrdersView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "customerName": {
+          "type": "string"
+        },
+        "createdBy": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "totalQuantity": {
+          "type": "integer"
+        },
+        "totalProducts": {
+          "type": "integer"
+        },
+        "totalPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "profit": {
+          "type": "number",
+          "format": "double"
+        },
+        "totalCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "invoiceStatus": {
+          "type": "string"
+        },
+        "paymentStatus": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "deliveryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewSalesOrderDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SalesOrderDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "purchaseOrderDetail"
+          ],
+          "properties": {
+            "purchaseOrderDetail": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NewSalesOrderDetailDto"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "NewSalesOrderDetailDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SalesOrderDetailDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "SalesOrderDetailDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ItemId",
+        "Quantity",
+        "DueDate",
+        "UnitPrice"
+      ],
+      "properties": {
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "SalesOrderDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "Status",
+        "ClientId",
+        "CreatedBy"
+      ],
+      "properties": {
+        "Status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ClientId": {
+          "type": "integer"
+        },
+        "CreatedBy": {
+          "type": "integer"
+        },
+        "Description": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "DeliveryDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "StatusUpdateDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Status"
+      ],
+      "properties": {
+        "Status": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "NewStorageLocationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Name"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "UpdatedStorageLocationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Name"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "WorkOrderView": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "orderedById",
+        "productId",
+        "quantity"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "orderedBy": {
+          "type": "string"
+        },
+        "orderedById": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "salesOrderItemId": {
+          "type": "integer"
+        },
+        "product": {
+          "type": "string"
+        },
+        "cost": {
+          "type": "number",
+          "format": "double"
+        },
+        "percentageCompleted": {
+          "type": "number",
+          "format": "double"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "productId": {
+          "type": "integer"
+        },
+        "start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "orderDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "customer": {
+          "type": "string"
+        }
+      }
+    },
+    "NewWorkOrderDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/WorkOrderDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false
+        }
+      ]
+    },
+    "WorkOrderDto": {
+      "type": "object",
+      "x-abstract": true,
+      "additionalProperties": false,
+      "required": [
+        "OrderedBy",
+        "ItemId",
+        "Quantity",
+        "DueDate",
+        "Start"
+      ],
+      "properties": {
+        "Description": {
+          "type": "string"
+        },
+        "OrderedBy": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "Start": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "PurchaseOrderItemId": {
+          "type": "integer"
+        }
+      }
+    },
+    "UpdatedWorkOrderDto": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/WorkOrderDto"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "Id"
+          ],
+          "properties": {
+            "Id": {
+              "type": "integer"
+            }
+          }
+        }
+      ]
+    },
+    "NewWorkStationGroupDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "UpdatedWorkStationGroupDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        }
+      }
+    },
+    "NewWorkstationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Title",
+        "GroupId"
+      ],
+      "properties": {
+        "Title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "instances": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "HourlyRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "WorkingHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "HolidayHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "Color": {
+          "type": "string"
+        },
+        "IsActive": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Productivity": {
+          "type": "integer"
+        },
+        "GroupId": {
+          "type": "integer"
+        },
+        "MaintenanceItems": {
+          "type": "integer"
+        },
+        "MaintenanceHours": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "UpdatedWorkstationDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Title",
+        "GroupId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "HourlyRate": {
+          "type": "number",
+          "format": "double"
+        },
+        "WorkingHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "HolidayHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "Color": {
+          "type": "string"
+        },
+        "IsActive": {
+          "$ref": "#/definitions/SByte"
+        },
+        "MaintenanceHours": {
+          "type": "number",
+          "format": "double"
+        },
+        "Productivity": {
+          "type": "integer"
+        },
+        "GroupId": {
+          "type": "integer"
+        },
+        "MaintenanceItems": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}
