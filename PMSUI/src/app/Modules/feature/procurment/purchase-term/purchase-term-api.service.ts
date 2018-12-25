@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { VendorPurchaseTermViewModel, VendorPurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
+import { PurchaseTermViewModel, PurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -14,11 +14,20 @@ export class PurchaseTermApiService {
 
   }
 
-  getAllPurchaseTerms(id: number): Observable<VendorPurchaseTermViewModel[]> {
-    return this.httpClient.get<VendorPurchaseTermViewModel[]>(`${this.apiUrl}`);
+
+  getPurchaseTermById(id: number): Observable<PurchaseTermViewModel> {
+    return this.httpClient.get<PurchaseTermViewModel>(`${this.apiUrl}/${this.controller}/${id}`);
   }
 
-  updatePurchaseTerm(id: number, updatedPurchaseTerm: VendorPurchaseTermModel): Observable<void> {
+  getAllPurchaseTerms(id: number): Observable<PurchaseTermViewModel[]> {
+    return this.httpClient.get<PurchaseTermViewModel[]>(`${this.apiUrl}/${this.controller}`);
+  }
+
+  createPurchaseTerm(newPurchaseTerm: PurchaseTermModel): Observable<PurchaseTermViewModel> {
+    return this.httpClient.post<PurchaseTermViewModel>(`${this.apiUrl}/${this.controller}`, newPurchaseTerm);
+  }
+
+  updatePurchaseTerm(id: number, updatedPurchaseTerm: PurchaseTermModel): Observable<void> {
     return this.httpClient.put<void>(`${this.apiUrl}/${this.controller}/${id}`, updatedPurchaseTerm);
   }
 

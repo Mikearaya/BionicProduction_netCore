@@ -1,4 +1,6 @@
-export interface VendorPurchaseTermViewModel {
+
+
+export interface PurchaseTermViewModel {
   id: number;
   vendorId: number;
   itemId: number;
@@ -14,14 +16,14 @@ export interface VendorPurchaseTermViewModel {
 }
 
 
-export interface VendorPurchaseTermModel {
-  Id: number;
-  VendorId: number;
-  ItemId: number;
-  VendorProductId: string;
-  Priority: number | null;
-  Leadtime: number | null;
-  MinimumQuantity: number | null;
-  UnitPrice: number;
+export class PurchaseTermModel {
+  id: number | null;
+  vendorId: number;
+  itemId: number;
+  vendorProductId: string;
+  priority: number | null;
+  leadtime: number | null;
+  minimumQuantity: number | null;
+  unitPrice: number;
 
 }

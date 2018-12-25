@@ -50,7 +50,7 @@
       "convertConstructorInterfaceData": false,
       "importRequiredTypes": true,
       "useGetBaseUrlMethod": false,
-      "baseUrlTokenName": "API_BASE_URL",
+      "baseUrlTokenName": "BASE_URL",
       "queryNullValue": "",
       "inlineNamedDictionaries": false,
       "templateDirectory": null,

@@ -28,6 +28,29 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
             _Mediator = mediator;
         }
 
+        [HttpGet ("purchaseterms/{id}")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<VendorPurchaseTermView>> GetPurchaseTermById (uint id) {
+
+            try {
+
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
+                var term = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = id });
+
+                return StatusCode (200, term);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+
+        }
+
         [HttpGet]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
@@ -42,6 +65,36 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
                 var purchaseTerm = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = id });
 
                 return StatusCode (200, purchaseTerm);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+
+        }
+
+        [HttpPost ("purchaseterms")]
+        [ProducesResponseType (201)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<VendorPurchaseTermView>> CreatePurchaseTerm ([FromBody] NewVendorPurchaseTermDto newPurchaseTerm) {
+
+            try {
+
+                if (newPurchaseTerm == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                var result = await _Mediator.Send (newPurchaseTerm);
+
+                var newTerm = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = result });
+
+                return StatusCode (201, newTerm);
 
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
