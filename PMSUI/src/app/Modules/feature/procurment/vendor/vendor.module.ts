@@ -8,7 +8,10 @@ import { VendorApiService } from './vendor-api.service';
 import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 @NgModule({
-  declarations: [VendorFormComponent, VendorViewComponent],
+  declarations: [
+    VendorFormComponent,
+    VendorViewComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,

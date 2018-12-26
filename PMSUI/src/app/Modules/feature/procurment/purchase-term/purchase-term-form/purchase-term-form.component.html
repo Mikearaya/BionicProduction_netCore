@@ -1,3 +1,82 @@
-<p>
-  purchase-term-form works!
-</p>
+<section>
+  <h3>{{title}}</h3>
+  <app-notification #notification></app-notification>
+
+  <form [formGroup]="purchaseTermForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="purchaseTermForm.invalid"></app-form-options>
+    <div class="e-card">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-8 col-sm-12">
+            <div class="row">
+              <label for="itemId" class="col-md-3 col-xs-12">Product</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="itemsList" placeholder="Select Vendor" formControlName="itemId" name="itemId"
+                  id="itemId" [fields]="itemFields">
+                </ejs-dropdownlist>
+                <div class="e-error" *ngIf="itemId.errors && itemId.touched">
+                  <div *ngIf="itemId.errors['required']">Product is required </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="vendorId" class="col-md-3 col-xs-12">vendor</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="vendorsList" placeholder="Select Item" formControlName="vendorId" name="vendorId"
+                  id="vendorId" [fields]="vendorFields">
+                </ejs-dropdownlist>
+                <div class="e-error" *ngIf="vendorId.errors && vendorId.touched">
+                  <div *ngIf="vendorId.errors['required']">Vendor is required </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="vendorProductId" class="col-md-3 col-xs-12">Vendor Part no</label>
+              <div class="col-md-9 col-sm-12">
+                <input type="text" id="vendorProductId" name="vendorProductId" formControlName="vendorProductId" class="e-input col-md-9 col-sm-12"
+                  placeholder="Vendor Part No" />
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="priority" class="col-md-3 col-xs-12">Priority</label>
+              <ejs-numerictextbox format="##" id="priority" [width]='100' name="priority" formControlName="priority"
+                class="col-md-9 col-sm-12" placeholder="Priority">
+              </ejs-numerictextbox>
+            </div>
+            <div class="row">
+              <label for="leadTime" class="col-md-3 col-xs-12">Leadtime</label>
+              <ejs-numerictextbox format="##" id="leadTime" [width]='100' name="leadTime" formControlName="leadTime"
+                class="col-md-9 col-sm-12" placeholder="Lead time">
+              </ejs-numerictextbox>
+            </div>
+            <div class="row">
+              <label for="unitPrice" class="col-md-3 col-xs-12">Unit Price</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-numerictextbox format="###.##" [width]='100' id="unitPrice" name="unitPrice" formControlName="unitPrice"
+                  placeholder="Unit Price">
+                </ejs-numerictextbox>
+                <div class="e-error" *ngIf="unitPrice.errors && unitPrice.touched">
+                  <div *ngIf="unitPrice.errors['required']">Unit Price is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="minimumQuantity" class="col-md-3 col-xs-12">Minimum Quantity</label>
+              <ejs-numerictextbox format="##" id="minimumQuantity" [width]='100' name="minimumQuantity" formControlName="minimumQuantity"
+                class="col-md-9 col-sm-12" placeholder="Minimum Quantity">
+              </ejs-numerictextbox>
+            </div>
+          </div>
+
+          <div class="col-md-4 col-sm-12 text-right" *ngIf="isUpdate">
+            <button ejs-button type="button" class="e-warning " iconCss="e-icons e-delete-icon" (click)="deletePurchaseTerm()">Delete</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="purchaseTermForm.invalid"></app-form-options>
+  </form>
+</section>

@@ -71,8 +71,10 @@ body {
   background: honeydew !important;
 }
 
-.label-area {
+.label-area,
+label {
   padding: 0;
+  margin: 0;
   text-align: center;
   font-size: .8em;
   font-weight: bold;

@@ -36,17 +36,11 @@ namespace BionicInventory.DataStore.Vendors {
 
             builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
-            builder.Property (e => e.Leadtime)
-                .HasColumnName ("leadtime")
-                .HasDefaultValueSql ("'0'");
+            builder.Property (e => e.Leadtime).HasColumnName ("leadtime");
 
-            builder.Property (e => e.MinimumQuantity)
-                .HasColumnName ("minimum_quantity")
-                .HasDefaultValueSql ("'0'");
+            builder.Property (e => e.MinimumQuantity).HasColumnName ("minimum_quantity");
 
-            builder.Property (e => e.Priority)
-                .HasColumnName ("priority")
-                .HasDefaultValueSql ("'0'");
+            builder.Property (e => e.Priority).HasColumnName ("priority");
 
             builder.Property (e => e.UnitPrice).HasColumnName ("unit_price");
 
@@ -65,7 +59,6 @@ namespace BionicInventory.DataStore.Vendors {
                 .WithMany (p => p.VendorPurchaseTerm)
                 .HasForeignKey (d => d.VendorId)
                 .HasConstraintName ("fk_VENDOR_PURCHASE_TERM_vendor");
-
         }
     }
 }

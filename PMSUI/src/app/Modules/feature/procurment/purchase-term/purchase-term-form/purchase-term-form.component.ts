@@ -5,6 +5,11 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { PurchaseTermViewModel, PurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { ProductsAPIService } from 'src/app/Modules/core/services/items/products-api.service';
+import { VendorApiService } from '../../vendor/vendor-api.service';
+import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
+import { Location } from '@angular/common';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 
 @Component({
   selector: 'app-purchase-term-form',
@@ -19,13 +24,24 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
   public isUpdate: Boolean;
   public title: string;
   public submitButtonText: string;
-  public pruchaseTermForm: FormGroup;
+  public purchaseTermForm: FormGroup;
+  public itemsList: any[] = [];
+  public itemFields: { text: string, value: string };
+  public vendorsList: any[] = [];
+  public vendorFields: { text: string, value: string };
 
   constructor(private purchaseTermApi: PurchaseTermApiService,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private productApi: ProductsAPIService,
+    private vendorApi: VendorApiService,
+    private location: Location) {
     super();
+    this.vendorFields = { text: 'name', value: 'id' };
+    this.itemFields = { text: 'name', value: 'id' };
     this.createForm();
+
+
   }
 
   ngOnInit() {
@@ -36,8 +52,19 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
     this.title = 'Create Vendor Purchase Term';
     this.submitButtonText = 'Save';
 
-    if (this.itemId) {
-      this.isUpdate = false;
+
+    this.productApi.getAllProducts().subscribe(
+      (data: any) => this.itemsList = data.Items,
+      this.handleError
+    );
+
+    this.vendorApi.getAllVendors().subscribe(
+      (data: any[]) => this.vendorsList = data,
+      this.handleError
+    );
+
+    if (this.termId) {
+      this.isUpdate = true;
       this.title = `Update Vendor Purchase Term #${this.termId}`;
       this.submitButtonText = 'Update';
 
@@ -46,11 +73,11 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
         this.handleError
       );
     }
+
   }
 
-
   private createForm(): void {
-    this.pruchaseTermForm = this.formBuilder.group({
+    this.purchaseTermForm = this.formBuilder.group({
       vendorId: ['', Validators.required],
       itemId: ['', Validators.required],
       vendorProductId: [''],
@@ -63,7 +90,7 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
 
 
   private initializeForm(term: PurchaseTermViewModel): void {
-    this.pruchaseTermForm = this.formBuilder.group({
+    this.purchaseTermForm = this.formBuilder.group({
       vendorId: [term.vendorId, Validators.required],
       itemId: [term.itemId, Validators.required],
       vendorProductId: [term.vendorProductId],
@@ -75,31 +102,31 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
   }
 
   get vendorId(): FormControl {
-    return this.pruchaseTermForm.get('vendorId') as FormControl;
+    return this.purchaseTermForm.get('vendorId') as FormControl;
   }
 
   get itemId(): FormControl {
-    return this.pruchaseTermForm.get('itemId') as FormControl;
+    return this.purchaseTermForm.get('itemId') as FormControl;
   }
 
   get vendorProductId(): FormControl {
-    return this.pruchaseTermForm.get('vendorProductId') as FormControl;
+    return this.purchaseTermForm.get('vendorProductId') as FormControl;
   }
 
   get priority(): FormControl {
-    return this.pruchaseTermForm.get('priority') as FormControl;
+    return this.purchaseTermForm.get('priority') as FormControl;
   }
 
   get leadTime(): FormControl {
-    return this.pruchaseTermForm.get('leadTime') as FormControl;
+    return this.purchaseTermForm.get('leadTime') as FormControl;
   }
 
   get minimumQuantity(): FormControl {
-    return this.pruchaseTermForm.get('minimumQuantity') as FormControl;
+    return this.purchaseTermForm.get('minimumQuantity') as FormControl;
   }
 
   get unitPrice(): FormControl {
-    return this.pruchaseTermForm.get('unitPrice') as FormControl;
+    return this.purchaseTermForm.get('unitPrice') as FormControl;
   }
 
 
@@ -116,7 +143,7 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
       this.purchaseTermApi.createPurchaseTerm(purchaseTerm).subscribe(
         () => {
           this.notification.showMessage('Purchase term Created!!!');
-          this.pruchaseTermForm.reset();
+          this.purchaseTermForm.reset();
         },
         this.handleError
       );
@@ -127,7 +154,7 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
   private prepareFormData(): PurchaseTermModel | null {
     const purchaseTerm = new PurchaseTermModel();
 
-    if (this.pruchaseTermForm.valid) {
+    if (this.purchaseTermForm.valid) {
       purchaseTerm.id = (this.termId) ? this.termId : 0;
       purchaseTerm.vendorId = this.vendorId.value;
       purchaseTerm.itemId = this.itemId.value;
@@ -143,6 +170,20 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
       return null;
     }
 
+  }
+
+  deletePurchaseTerm(): void {
+    if (this.isUpdate) {
+      this.purchaseTermApi.deletePurchaseTerm(this.termId).subscribe(
+        () => {
+          this.location.back();
+          this.notification.showMessage('Purchase Term Removed Successfuly');
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Unable to delete Purchase Term Try Again Later!!', 'error');
+          this.handleError(error);
+      );
+    }
   }
 
 

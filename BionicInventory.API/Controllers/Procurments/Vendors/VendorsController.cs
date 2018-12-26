@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 24, 2018 10:08 PM
+ * @Last Modified Time: Dec 26, 2018 9:10 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -207,7 +207,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors {
 
                 var result = await _Mediator.Send (newPurchaseTerm);
 
-                var newPurchaseTermView = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = result });
+                var newPurchaseTermView = await _Mediator.Send (new GetPurchaseTermByIdQuery () { Id = result });
                 return StatusCode (201, newPurchaseTermView);
 
             } catch (NotFoundException e) {

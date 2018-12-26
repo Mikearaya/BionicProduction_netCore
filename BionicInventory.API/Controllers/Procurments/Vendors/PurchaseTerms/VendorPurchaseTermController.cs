@@ -3,15 +3,17 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 24, 2018 10:09 PM
+ * @Last Modified Time: Dec 26, 2018 9:22 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
+using BionicInventory.Application.VendorPurchaseTerms.Queries.Collections;
 using BionicInventory.Application.Vendors.PurchaseTerms.Commands.Create;
 using BionicInventory.Application.Vendors.PurchaseTerms.Commands.Delete;
 using BionicInventory.Application.Vendors.PurchaseTerms.Commands.Update;
 using BionicInventory.Application.Vendors.PurchaseTerms.Models;
+using BionicInventory.Application.Vendors.PurchaseTerms.Queries.Collections;
 using BionicInventory.Application.Vendors.PurchaseTerms.Queries.Single;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
@@ -28,7 +30,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
             _Mediator = mediator;
         }
 
-        [HttpGet ("purchaseterms/{id}")]
+        [HttpGet ("{id}")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -41,7 +43,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
                     return StatusCode (400);
                 }
 
-                var term = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = id });
+                var term = await _Mediator.Send (new GetPurchaseTermByIdQuery () { Id = id });
 
                 return StatusCode (200, term);
 
@@ -53,16 +55,12 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         [HttpGet]
         [ProducesResponseType (200)]
-        [ProducesResponseType (400)]
-        [ProducesResponseType (404)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<VendorPurchaseTermView>> GetAllPurchaseTerms (uint id) {
+        public async Task<ActionResult<VendorPurchaseTermView>> GetAllPurchaseTerms () {
 
             try {
-                if (id == 0) {
-                    return StatusCode (400);
-                }
-                var purchaseTerm = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = id });
+
+                var purchaseTerm = await _Mediator.Send (new GetPurchaseTermsListQuery ());
 
                 return StatusCode (200, purchaseTerm);
 
@@ -72,7 +70,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpPost ("purchaseterms")]
+        [HttpPost]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -92,7 +90,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
                 var result = await _Mediator.Send (newPurchaseTerm);
 
-                var newTerm = await _Mediator.Send (new GetVendorPurchaseTermByIdQuery () { Id = result });
+                var newTerm = await _Mediator.Send (new GetPurchaseTermByIdQuery () { Id = result });
 
                 return StatusCode (201, newTerm);
 
@@ -102,7 +100,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpPut ("purchaseterms/{id}")]
+        [HttpPut ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -130,7 +128,7 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpDelete ("purchaseterms/{id}")]
+        [HttpDelete ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

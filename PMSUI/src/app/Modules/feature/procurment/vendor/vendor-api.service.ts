@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VendorViewModel, VendorModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { Observable } from 'rxjs';
-import { VendorPurchaseTermViewModel} from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
+import { PurchaseTermViewModel} from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,12 +24,12 @@ export class VendorApiService {
     return this.httpClient.get<VendorViewModel>(`${this.apiUrl}/${this.controller}/${id}`);
   }
 
-  getVendorPurchseTerms(id: number): Observable<VendorPurchaseTermViewModel[]> {
-    return this.httpClient.get<VendorPurchaseTermViewModel[]>(`${this.apiUrl}/${this.controller}/${id}/purchaseterms`);
+  getVendorPurchseTerms(id: number): Observable<PurchaseTermViewModel[]> {
+    return this.httpClient.get<PurchaseTermViewModel[]>(`${this.apiUrl}/${this.controller}/${id}/purchaseterms`);
   }
 
-  getVendorItemPurchseTerms(id: number, itemId: number): Observable<VendorPurchaseTermViewModel[]> {
-    return this.httpClient.get<VendorPurchaseTermViewModel[]>(`${this.apiUrl}/${this.controller}/${id}/items/${itemId}/purchaseterms`);
+  getVendorItemPurchseTerms(id: number, itemId: number): Observable<PurchaseTermViewModel[]> {
+    return this.httpClient.get<PurchaseTermViewModel[]>(`${this.apiUrl}/${this.controller}/${id}/items/${itemId}/purchaseterms`);
   }
 
 

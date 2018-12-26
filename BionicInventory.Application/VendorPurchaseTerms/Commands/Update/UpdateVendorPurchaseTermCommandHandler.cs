@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 24, 2018 12:09 AM
+ * @Last Modified Time: Dec 26, 2018 9:25 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading;
@@ -47,11 +47,10 @@ namespace BionicInventory.Application.Vendors.PurchaseTerms.Commands.Update {
                 throw new NotFoundException (nameof (Item), request.ItemId);
             }
 
-            updatedTerm.VendorId = request.VendorId;
-            updatedTerm.ItemId = request.ItemId;
             updatedTerm.MinimumQuantity = request.MinimumQuantity;
             updatedTerm.Leadtime = request.Leadtime;
             updatedTerm.Priority = request.Priority;
+            updatedTerm.VendorProductId = request.VendorProductId;
             updatedTerm.UnitPrice = request.UnitPrice;
 
             _database.VendorPurchaseTerm.Update (updatedTerm);

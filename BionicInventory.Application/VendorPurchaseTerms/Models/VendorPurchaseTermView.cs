@@ -33,7 +33,7 @@ namespace BionicInventory.Application.Vendors.PurchaseTerms.Models {
                     item = term.Item.Name,
                     vendorProductId = term.VendorProductId,
                     priority = term.Priority,
-                    leadtime = (term.Leadtime == 0) ? term.Vendor.LeadTime : 0,
+                    leadtime = (term.Leadtime == null) ? term.Vendor.LeadTime : term.Leadtime,
                     minimumQuantity = term.MinimumQuantity,
                     unitPrice = term.UnitPrice,
                     itemId = term.ItemId,
