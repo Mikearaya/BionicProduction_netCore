@@ -75,7 +75,7 @@ body {
 label {
   padding: 0;
   margin: 0;
-  text-align: center;
+  text-align: right;
   font-size: .8em;
   font-weight: bold;
 }
@@ -89,4 +89,10 @@ input.e-input {
 section {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+
+ejs-numerictextbox span.e-spin-up,
+ejs-numerictextbox span.e-spin-down {
+  display: none !important;
 }

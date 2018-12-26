@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { VendorApiService } from '../vendor-api.service';
+
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { VendorViewModel, VendorModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { TabComponent } from '@syncfusion/ej2-angular-navigations';
+import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';
+
 
 @Component({
   selector: 'app-vendor-form',
@@ -16,14 +19,25 @@ export class VendorFormComponent extends CommonProperties implements OnInit {
 
   @ViewChild('notification')
   public notification: NotificationComponent;
-
   public isUpdate: Boolean;
   public errorMessages: any[];
+  public created: Boolean;
   public vendorForm: FormGroup;
   public title: string;
   public submitButtonText: string;
+  public fields: Object = { text: 'text', value: 'headerStyle' };
+  public height: String = '220px';
+  public value: String = 'default';
 
-  private vendorId: number;
+  public vendorId: number;
+  @ViewChild('element') tabObj: TabComponent;
+
+  @ViewChild('headerStyles') listObj: TabComponent;
+  public headerText: Object[] = [
+    { Id: 'header1', headerStyle: 'fill', text: 'General' },
+    { Id: 'header2', headerStyle: 'fill', text: 'Purchase Terms' }
+  ];
+
 
   constructor(private vendorApi: VendorApiService,
     private activatedRoute: ActivatedRoute,
@@ -114,11 +128,13 @@ export class VendorFormComponent extends CommonProperties implements OnInit {
     } else {
       this.vendorApi.createVendor(vendor).subscribe(
         (data: VendorViewModel) => {
-          this.vendorForm.reset();
+          this.created = true;
+          this.vendorId = data.id;
           this.notification.showMessage('Vendor Created Successfuly');
         },
         (error: CustomErrorResponse) => {
           if (error.errorNumber === 422) {
+            this.created = false;
             this.errorMessages = error.errorDetail;
           } else {
             this.handleError(error);

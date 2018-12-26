@@ -3,17 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { PurchaseTermRoutingModule } from './purchase-term-routing.module';
 import { PurchaseTermFormComponent } from './purchase-term-form/purchase-term-form.component';
-import { PurchaseTermViewComponent } from './purchase-term-view/purchase-term-view.component';
-import { PurchaseTermApiService } from './purchase-term-api.service';
 import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 @NgModule({
-  declarations: [PurchaseTermFormComponent, PurchaseTermViewComponent],
+  declarations: [PurchaseTermFormComponent],
   imports: [
     CommonModule,
     SharedModule,
     PurchaseTermRoutingModule
   ],
-  providers: [PurchaseTermApiService]
+  providers: []
 })
 export class PurchaseTermModule { }

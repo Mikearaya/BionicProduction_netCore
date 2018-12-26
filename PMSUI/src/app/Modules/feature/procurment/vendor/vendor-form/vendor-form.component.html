@@ -3,46 +3,62 @@
   <app-notification #notification></app-notification>
   <form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
     <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="vendorForm.invalid"> </app-form-options>
-    <div class="e-card">
-      <div class="container-fluid">
-        <div class="col-md-6 col-sm-12">
-          <div class="row">
-            <label for="name" i18n="@@supplierName" class="col-xs-12 col-4 label-area">
-              Vendor Name
-            </label>
-            <div class="col-xs-12 col-8">
-              <input type="text" class=" e-input" formControlName="name" name="name" id="name" placeholder="Vendor Name"
-                i18n-placeholder="supplier name @@supplierName">
-              <div class="e-error" *ngIf="vendorName.errors">
-                <div *ngIf="vendorName.errors['required']" i18n="Supplier name is required"> Vendor Name is required</div>
+    <div class=" e-card">
+      <ejs-tab id="element" class="e-fill" #element showCloseButton=false>
+        <e-tabitems>
+          <e-tabitem [header]='headerText[0]'>
+            <ng-template #content>
+              <div class="row">
+                <label for="name" i18n="@@supplierName" class="col-xs-12 col-4 label-area">
+                  Vendor Name
+                </label>
+                <div class="col-xs-12 col-8">
+                  <input type="text" class=" e-input" formControlName="name" name="name" id="name" placeholder="Vendor Name"
+                    i18n-placeholder="supplier name @@supplierName">
+                  <div class="e-error" *ngIf="vendorName.errors">
+                    <div *ngIf="vendorName.errors['required']" i18n="Supplier name is required"> Vendor Name is
+                      required</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <label for="phoneNumber" class="col-4 col-xs-12 label-area" i18n="@@phoneNumber">Phone Number</label>
-            <ejs-numerictextbox type="text" class="col-xs-12 col-8" formControlName="phoneNumber" id="phoneNumber" name="phoneNumber"
-              format="#" placeholder="Phone Number" i18n-placeholder="Phone Number @@phoneNumber"> </ejs-numerictextbox>
-          </div>
-          <div class="row">
-            <label for="tinNumber" class="col-4 col-xs-12 label-area" i18n="@@tinNumber">TIN Number</label>
-            <ejs-numerictextbox type="text" class="col-xs-12 col-8" placeholder="Tin Number" i18n-placeholder="Tin Number @@tinNumber"
-              formControlName="tinNumber" id="tinNumber" name="tinNumber" format="#"> </ejs-numerictextbox>
-          </div>
-          <div class="row">
-            <label for="leadTime" class="col-4 col-xs-12 label-area" i18n="@@leadTime">Default Lead time (days)</label>
-            <ejs-numerictextbox type="text" class="col-xs-12 col-8" placeholder="Default Lead Time (Days)"
-              i18n-placeholder=" @@leadTime" formControlName="leadTime" id="leadTime" name="leadTime" format="#">
-            </ejs-numerictextbox>
-          </div>
-          <div class="row">
-            <label for="paymentPeriod" class="col-4 col-xs-12 label-area" i18n="@@paymentPeriod">Payment Periods (days)</label>
-            <ejs-numerictextbox type="text" class="col-xs-12 col-8" placeholder="Payment Period (Days)"
-              i18n-placeholder=" @@paymentPeriod" formControlName="paymentPeriod" id="paymentPeriod" name="paymentPeriod"
-              format="#"> </ejs-numerictextbox>
-          </div>
-        </div>
-      </div>
+              <div class="row">
+                <label for="phoneNumber" class="col-4 col-xs-12 label-area" i18n="@@phoneNumber">Phone Number</label>
+                <ejs-numerictextbox type="text" class="col-xs-12 col-8" formControlName="phoneNumber" id="phoneNumber"
+                  name="phoneNumber" format="#" placeholder="Phone Number" [width]='200' i18n-placeholder="Phone Number @@phoneNumber">
+                </ejs-numerictextbox>
+              </div>
+              <div class="row">
+                <label for="tinNumber" class="col-4 col-xs-12 label-area" i18n="@@tinNumber">TIN Number</label>
+                <ejs-numerictextbox type="text" class="col-xs-12 col-8" placeholder="Tin Number" i18n-placeholder="Tin Number @@tinNumber"
+                  formControlName="tinNumber" id="tinNumber" name="tinNumber" format="#" [width]='200'>
+                </ejs-numerictextbox>
+              </div>
+              <div class="row">
+                <label for="leadTime" class="col-4 col-xs-12 label-area" i18n="@@leadTime">Default Lead time (days)</label>
+                <ejs-numerictextbox type="text" class="col-xs-12 col-8" [width]='100' placeholder="Default Lead Time (Days)"
+                  i18n-placeholder=" @@leadTime" formControlName="leadTime" id="leadTime" name="leadTime" format="#">
+                </ejs-numerictextbox>
+              </div>
+              <div class="row">
+                <label for="paymentPeriod" class="col-4 col-xs-12 label-area" i18n="@@paymentPeriod">Payment Periods
+                  (days)</label>
+                <ejs-numerictextbox type="text" class="col-xs-12 col-8" [width]='100' placeholder="Payment Period (Days)"
+                  i18n-placeholder=" @@paymentPeriod" formControlName="paymentPeriod" id="paymentPeriod" name="paymentPeriod"
+                  format="#"> </ejs-numerictextbox>
+              </div>
+            </ng-template>
+          </e-tabitem>
+          <e-tabitem [header]='headerText[1]' [disabled]="!created && !isUpdate">
+            <ng-template #content>
+
+              <app-vendor-purchase-term-view [vendorId]="vendorId"></app-vendor-purchase-term-view>
+
+            </ng-template>
+          </e-tabitem>
+        </e-tabitems>
+      </ejs-tab>
     </div>
+
     <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="vendorForm.invalid"> </app-form-options>
   </form>
 </section>

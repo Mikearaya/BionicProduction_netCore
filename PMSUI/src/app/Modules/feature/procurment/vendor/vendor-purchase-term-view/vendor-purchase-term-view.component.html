@@ -1,0 +1,23 @@
+<ejs-grid #grid [dataSource]='purchaseTerms' [editSettings]='editSettings' [toolbar]='toolbar' [rowHeight]=25 id="purchaseterms"
+  (toolbarClick)='toolbarClick($event)' gridLines='Both'>
+  <e-columns>
+    <e-column [customAttributes]="customAttributes" field="id" [visible]='false' headerText="id" width=20></e-column>
+    <e-column [customAttributes]="customAttributes" field="vendor" width="100" headerText="Vendor"></e-column>
+    <e-column [customAttributes]="customAttributes" field="item" width="70" textAlign='center' headerText="Product"></e-column>
+    <e-column [customAttributes]="customAttributes" field="vendorProductId" textAlign='center' width="30" headerText="Vendor Code"></e-column>
+    <e-column [customAttributes]="customAttributes" field="priority" width="20" textAlign='center' format="##"
+      headerText="Priority"></e-column>
+    <e-column [customAttributes]="customAttributes" field="leadtime" width="20" textAlign='center' format="##"
+      headerText="Leadtime"></e-column>
+    <e-column [customAttributes]="customAttributes" field="minimumQuantity" format="##" width="20" textAlign='
+      center'
+      headerText="Min Qty."></e-column>
+    <e-column [customAttributes]="customAttributes" field="uom" width="10" textAlign='center' headerText="UOM"></e-column>
+    <e-column [customAttributes]="customAttributes" field="unitPrice" width="30" format="##.##" textAlign='center'
+      headerText="Unit Price"></e-column>
+    <e-column [commands]="commands" textAlign='center' [customAttributes]="customAttributes" textAlign='center' width="25">
+    </e-column>
+  </e-columns>
+</ejs-grid>
+
+<app-notification #notification></app-notification>

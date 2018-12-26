@@ -18,11 +18,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class FormOptionsComponent implements OnInit {
 
-  @Input('isSelfContained') isSelfContained: Boolean;
-  @Input('submitDisabled') submitDisabled: Boolean;
-  @Input('cancelDisabled') cancelDisabled: Boolean;
-  @Input('submitButtonText') submitButtonText: String = 'Submit';
-  @Input('cancelButtonText') cancelButtonText: String = 'Back';
+  @Input() isSelfContained: Boolean;
+  @Input() submitDisabled: Boolean;
+  @Input() cancelDisabled: Boolean;
+  @Input() submitButtonText: String = 'Submit';
+  @Input() cancelButtonText: String = 'Back';
 
   constructor(private location: Location) {
     this.cancelDisabled = false;

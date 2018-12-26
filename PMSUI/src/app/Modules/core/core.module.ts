@@ -44,6 +44,8 @@ import { StorageLocationApiService } from './services/storage-location/storage-l
 import { RoutingApiService } from './services/production-routing/routing-api.service';
 import { ItemApiService } from './services/stock/stock-api.service';
 import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
+import { VendorApiService } from './services/vendor/vendor-api.service';
+import { PurchaseTermApiService } from './services/purchase-terms/purchase-term-api.service';
 
 
 
@@ -55,7 +57,8 @@ import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
   declarations: [],
   providers: [
     RoutingApiService,
-
+    VendorApiService,
+    PurchaseTermApiService,
     ItemApiService,
     StorageLocationApiService,
     WorkStationApiService,

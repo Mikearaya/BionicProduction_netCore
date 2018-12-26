@@ -27,6 +27,10 @@ export class PurchaseTermApiService {
     return this.httpClient.post<PurchaseTermViewModel>(`${this.apiUrl}/${this.controller}`, newPurchaseTerm);
   }
 
+  getVendorPurchseTerms(id: number): Observable<PurchaseTermViewModel[]> {
+    return this.httpClient.get<PurchaseTermViewModel[]>(`${this.apiUrl}/procurments/vendors/${id}/purchaseterms`);
+  }
+
   updatePurchaseTerm(id: number, updatedPurchaseTerm: PurchaseTermModel): Observable<void> {
     return this.httpClient.put<void>(`${this.apiUrl}/${this.controller}/${id}`, updatedPurchaseTerm);
   }

@@ -72,7 +72,6 @@ export class PmsNavigationComponent {
       subChild: [
         { id: 'procurments', name: 'Purchase Orders' },
         { id: 'procurments/vendors', name: 'vendors' },
-        { id: 'procurments/purchase-terms', name: 'purchase-terms' },
         { id: 'procurments/critical-on-hand', name: 'Critical Stock' },
         { id: 'procurments/requirments', name: 'Requirments' }
       ]

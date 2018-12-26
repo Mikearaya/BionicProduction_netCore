@@ -16,9 +16,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { Router } from '@angular/router';
-import { VendorApiService } from '../vendor-api.service';
 import { vendorColumnBluePrint } from './vendor-view-column.model';
 import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
+import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';
 
 @Component({
   selector: 'app-vendor-view',

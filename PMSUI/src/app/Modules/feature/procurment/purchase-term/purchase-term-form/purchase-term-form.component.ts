@@ -1,13 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PurchaseTermApiService } from '../purchase-term-api.service';
+import { PurchaseTermApiService } from '../../../../core/services/purchase-terms/purchase-term-api.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { PurchaseTermViewModel, PurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { ProductsAPIService } from 'src/app/Modules/core/services/items/products-api.service';
-import { VendorApiService } from '../../vendor/vendor-api.service';
-import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
+import { VendorApiService } from '../../../../core/services/vendor/vendor-api.service';
 import { Location } from '@angular/common';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 
@@ -182,6 +181,7 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
         (error: CustomErrorResponse) => {
           this.notification.showMessage('Unable to delete Purchase Term Try Again Later!!', 'error');
           this.handleError(error);
+        }
       );
     }
   }
