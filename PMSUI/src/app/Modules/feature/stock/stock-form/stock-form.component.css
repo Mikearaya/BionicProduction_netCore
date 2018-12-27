@@ -4,17 +4,6 @@ input.e-input {
 }
 
 
-span.e-input-group-icon.e-spin-down,
-span.e-input-group-icon.e-spin-up {
-  display: none;
-}
-
-div.label-area {
-  padding: 0;
-  text-align: center;
-  font-size: .9em;
-}
-
 e-tabitem {
 padding: 1em;
 }

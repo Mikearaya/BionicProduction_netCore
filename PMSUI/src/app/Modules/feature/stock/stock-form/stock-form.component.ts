@@ -39,6 +39,8 @@ import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-loc
 })
 export class StockFormComponent extends CommonProperties implements OnInit {
 
+  @ViewChild('procured')
+  public procured: any;
   @ViewChild('notification')
   public notification: NotificationComponent;
   public itemGroups: ProductGroupView[];
@@ -51,7 +53,8 @@ export class StockFormComponent extends CommonProperties implements OnInit {
     { Id: 'header1', headerStyle: 'fill', text: 'General' },
     { Id: 'header2', headerStyle: 'fill', text: 'BOMs' },
     { Id: 'header3', headerStyle: 'fill', text: 'Routings' },
-    { Id: 'header4', headerStyle: 'fill', text: 'Others' }
+    { Id: 'header4', headerStyle: 'fill', text: 'Purchase Term' },
+    { Id: 'header5', headerStyle: 'fill', text: 'General' }
   ];
 
   public submited: Boolean;

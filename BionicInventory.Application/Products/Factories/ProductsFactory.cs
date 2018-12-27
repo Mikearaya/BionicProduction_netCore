@@ -75,6 +75,8 @@ namespace BionicInventory.Application.Products.Factories {
                 product.UnitCost = updatedProduct.unitCost;
                 product.Photo = updatedProduct.image;
                 product.Weight = updatedProduct.weight;
+                product.IsProcured = updatedProduct.isProcured;
+                product.IsInventory = updatedProduct.isInventoryItem;
                 product.MinimumQuantity = updatedProduct.MinimumQuantity;
                 product.ShelfLife = updatedProduct.shelfLife;
 

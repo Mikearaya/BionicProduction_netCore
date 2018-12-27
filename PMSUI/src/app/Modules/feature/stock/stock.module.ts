@@ -22,6 +22,7 @@ import { ProductGroupFormComponent } from './product-group-form/product-group-fo
 import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
 import { ItemRoutingListViewComponent } from './item-routing-list-view/item-routing-list-view.component';
+import { ItemPurchaseTermViewComponent } from './item-purchase-term-view/item-purchase-term-view.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { ItemRoutingListViewComponent } from './item-routing-list-view/item-rout
     StockViewComponent,
     LowStockViewComponent,
     ItemBomListViewComponent,
-    ItemRoutingListViewComponent
+    ItemRoutingListViewComponent,
+    ItemPurchaseTermViewComponent
   ],
   providers: []
 })

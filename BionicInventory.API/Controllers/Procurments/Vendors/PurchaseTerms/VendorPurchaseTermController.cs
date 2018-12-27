@@ -6,6 +6,7 @@
  * @Last Modified Time: Dec 26, 2018 9:22 PM
  * @Description: Modify Here, Please 
  */
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.VendorPurchaseTerms.Queries.Collections;
@@ -22,7 +23,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
-    [InventoryAPI ("procurments/purchaseterms")]
+    [InventoryAPI ("procurments")]
     public class VendorPurchaseTermController : Controller {
         private readonly IMediator _Mediator;
 
@@ -30,7 +31,8 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
             _Mediator = mediator;
         }
 
-        [HttpGet ("{id}")]
+        // api/procurments/purchaseterms/2
+        [HttpGet ("purchaseterms/{id}")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -53,7 +55,52 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpGet]
+        // api/procurments/vendors/2/purchaseterms
+        [HttpGet ("vendors/{id}/purchaseterms")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<VendorPurchaseTermView>>> GetVendorPurchaseTerms (uint id) {
+
+            try {
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
+                var vendorPurchaseTerms = await _Mediator.Send (new GetVendorPurchaseTermListQuery () { VendorId = id });
+                return StatusCode (200, vendorPurchaseTerms);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        // api/procurments/items/5/purchaseterms
+        [HttpGet ("items/{itemId}/purchaseterms")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<VendorPurchaseTermView>>> GetItemPurchaseTerms (uint itemId) {
+
+            try {
+                if (itemId == 0) {
+                    return StatusCode (400);
+                }
+
+                var vendorItemPurchaseTerms = await _Mediator.Send (
+                    new GetItemPurchaseTermsListQuery () {
+                        ItemId = itemId
+                    });
+
+                return StatusCode (200, vendorItemPurchaseTerms);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        // api/procurments/purchaseterms
+        [HttpGet ("purchaseterms")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<VendorPurchaseTermView>> GetAllPurchaseTerms () {
@@ -70,7 +117,8 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpPost]
+        // api/procurments/purchaseterms
+        [HttpPost ("purchaseterms")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -100,7 +148,8 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpPut ("{id}")]
+        // api/procurments/purchaseterms/2
+        [HttpPut ("purchaseterms/{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -128,7 +177,8 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors.PurchaseTerms {
 
         }
 
-        [HttpDelete ("{id}")]
+        // api/procurments/purchaseterms/2
+        [HttpDelete ("purchaseterms/{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

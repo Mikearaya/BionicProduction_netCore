@@ -30,7 +30,7 @@
                     </div>
                     <div class="col-8 col-xs-12">
                       <input type="text" class="e-input" i18n-placholder="extra note about product" placeholder="Part Description"
-                        formControlName="name" floatLabelType="Auto" name="name" id="name">
+                        formControlName="name"  name="name" id="name">
                       <div class="e-error" *ngIf="name.errors && name.touched">
                         <div *ngIf="name.errors['required']" i18n>Product description is Required</div>
                       </div>
@@ -93,7 +93,7 @@
                       This is Procured Item
                     </div>
                     <div class="col-8 col-xs-12">
-                      <ejs-switch formControlName="isProcured" id="isProcured" name="isProcured"></ejs-switch>
+                      <ejs-switch formControlName="isProcured" #procured id="isProcured" name="isProcured"></ejs-switch>
                     </div>
                   </div>
                   <div class="row">
@@ -116,6 +116,7 @@
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-3 col-xs-12 label-area" i18n>
                       Unit Cost
@@ -170,10 +171,14 @@
               <app-item-routing-list-view [itemId]="itemId"></app-item-routing-list-view>
             </ng-template>
           </e-tabitem>
+          <e-tabitem [header]='headerText[3]' [disabled]="!created && !isUpdate">
+            <ng-template #content>
+              <app-item-purchase-term-view [itemId]="itemId"></app-item-purchase-term-view>
+            </ng-template>
+          </e-tabitem>
         </e-tabitems>
       </ejs-tab>
     </div>
-
     <app-form-options [submitDisabled]="productForm.invalid" [submitButtonText]="submitButtonText"></app-form-options>
 
   </form>
