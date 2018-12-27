@@ -22,10 +22,11 @@ import {
 } from '@angular/forms';
 import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
 import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
 import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 import { BomApiService } from 'src/app/Modules/core/services/bom/bom-api.service';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
   private bomId: number;
   public bomForm: FormGroup;
   public isUpdate: Boolean;
-  public itemsList: Product[];
+  public itemsList: ItemView[];
   public uomsList: UnitOfMeasurmentView[];
   public itemFields: { text: string, value: string };
   public uomFields: { text: string, value: string };
@@ -51,7 +52,7 @@ export class BomFormComponent extends CommonProperties implements OnInit {
   constructor(private bomApi: BomApiService,
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private productsApi: ProductsAPIService,
+    private itemApi: ItemApiService,
     private unitOfMeasureApi: UnitOfMeasurmentApiService,
     private location: Location) {
     super();
@@ -67,9 +68,9 @@ export class BomFormComponent extends CommonProperties implements OnInit {
 
 
 
-    this.productsApi.getAllProducts().subscribe(
-      (data: any) => {
-        this.itemsList = data.Items;
+    this.itemApi.getAllItems().subscribe(
+      (data: ItemView[]) => {
+        this.itemsList = data;
         if (this.item) {
           this.itemId.setValue(this.item.toString());
           this.itemId.updateValueAndValidity();

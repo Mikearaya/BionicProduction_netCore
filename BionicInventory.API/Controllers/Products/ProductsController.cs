@@ -83,17 +83,8 @@ namespace BionicInventory.API.Controllers.Products {
                 if (type.Trim ().ToUpper () == "ALL") {
 
                     products = _query.GetAllProduct ();
-                    ResponseDataFormat response = new ResponseDataFormat ();
 
-                    List<ProductView> productsList = new List<ProductView> ();
-
-                    foreach (var product in products) {
-                        productsList.Add (_factory.CreateProductView ((Item) product));
-                    }
-                    response.Items = productsList;
-                    response.Count = productsList.Count;
-
-                    return StatusCode (200, response);
+                    return StatusCode (200, products);
                 }
 
                 if (type.Trim ().ToUpper () == "LOW") {

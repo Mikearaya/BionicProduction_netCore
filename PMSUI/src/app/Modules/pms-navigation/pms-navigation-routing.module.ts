@@ -17,7 +17,6 @@ const routes: Routes = [{
     { path: 'dashboard', component: DashboardComponent },
     { path: 'customers', loadChildren: '../feature/customer/customer.module#CustomerModule' },
     { path: 'workorders', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
-    { path: 'products', loadChildren: '../feature/products/products.module#ProductsModule' },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
     { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },

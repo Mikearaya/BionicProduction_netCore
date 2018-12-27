@@ -5,10 +5,12 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { PurchaseTermViewModel, PurchaseTermModel } from 'src/app/Modules/core/DataModels/purchase-terms-data.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { ProductsAPIService } from 'src/app/Modules/core/services/items/products-api.service';
 import { VendorApiService } from '../../../../core/services/vendor/vendor-api.service';
 import { Location } from '@angular/common';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 
 @Component({
   selector: 'app-purchase-term-form',
@@ -24,15 +26,15 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
   public title: string;
   public submitButtonText: string;
   public purchaseTermForm: FormGroup;
-  public itemsList: any[] = [];
+  public itemsList: ItemView[] = [];
   public itemFields: { text: string, value: string };
-  public vendorsList: any[] = [];
+  public vendorsList: VendorViewModel[] = [];
   public vendorFields: { text: string, value: string };
 
   constructor(private purchaseTermApi: PurchaseTermApiService,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private productApi: ProductsAPIService,
+    private itemApi: ItemApiService,
     private vendorApi: VendorApiService,
     private location: Location) {
     super();
@@ -52,13 +54,13 @@ export class PurchaseTermFormComponent extends CommonProperties implements OnIni
     this.submitButtonText = 'Save';
 
 
-    this.productApi.getAllProducts().subscribe(
-      (data: any) => this.itemsList = data.Items,
+    this.itemApi.getAllItems().subscribe(
+      (data: ItemView[]) => this.itemsList = data,
       this.handleError
     );
 
     this.vendorApi.getAllVendors().subscribe(
-      (data: any[]) => this.vendorsList = data,
+      (data: VendorViewModel[]) => this.vendorsList = data,
       this.handleError
     );
 

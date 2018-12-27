@@ -33,6 +33,14 @@ export class ItemApiService {
 
 
 
+  getCriticalProductById(id: number): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/products/${id}?type=low`);
+  }
+
+  getAllCriticalProduct(id: number): Observable<any> {
+    return this.httpClient.get(`${this.apiUrl}/products/${id}`);
+  }
+
 
 
 

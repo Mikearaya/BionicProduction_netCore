@@ -17,17 +17,17 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { ItemApiService } from '../../../core/services/stock/stock-api.service';
 import { ItemModel, ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { Location } from '@angular/common';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { ProductGroupApiService } from 'src/app/Modules/core/services/items/product-group-api.service';
 import { ProductGroupView } from 'src/app/Modules/core/DataModels/product-group.model';
 import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
 import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 import { TabComponent } from '@syncfusion/ej2-angular-navigations';
 import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
 import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { ProductGroupApiService } from 'src/app/Modules/core/services/product-group/product-group-api.service';
 
 
 

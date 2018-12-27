@@ -26,11 +26,14 @@ namespace BionicInventory.Application.Products.Queries {
             _database = database;
             _logger = logger;
         }
-        public IEnumerable<Item> GetAllProduct () {
+        public IEnumerable<ProductView> GetAllProduct () {
 
             try {
 
-                return _database.Item.AsNoTracking ().ToList ();
+                return _database.Item
+                    .AsNoTracking ()
+                    .Select (ProductView.Projection)
+                    .ToList ();
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);

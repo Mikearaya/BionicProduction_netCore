@@ -18,11 +18,11 @@ import {
   FilterSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, EditSettingsModel, TextWrapSettingsModel, Column, IRow
 } from '@syncfusion/ej2-angular-grids';
 import { stockViewColumnBluePrint } from './stock-column-blue-print';
-import { ItemApiService } from '../../../core/services/stock/stock-api.service';
 import { closest } from '@syncfusion/ej2-base';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
 
 
 @Component({

@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ProductGroupApiService } from '../../../core/services/items/product-group-api.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProductGroupView, ProductGroup } from 'src/app/Modules/core/DataModels/product-group.model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { Location } from '@angular/common';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { ProductGroupApiService } from 'src/app/Modules/core/services/product-group/product-group-api.service';
 
 @Component({
   selector: 'app-product-group-form',
