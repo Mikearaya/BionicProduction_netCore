@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 27, 2018 11:50 PM
+ * @Last Modified Time: Dec 28, 2018 10:31 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -59,7 +59,10 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 throw new BelowRequiredMinimumItemException ("Stock Batch", 1, "Storage Location");
             }
 
+            float storedQuantity = 0;
             foreach (var data in request.StorageLocation) {
+                storedQuantity += data.Quantity;
+
                 var store = await _database.StorageLocation.FindAsync (data.StorageId);
 
                 if (store == null) {
@@ -71,6 +74,11 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                         Quantity = data.Quantity
                 });
 
+            }
+
+            // check if the sum of items allocated on each storage matchs the quantity stored in main 
+            if (request.Quantity != storedQuantity) {
+                throw new InequalMasterDetailQuantityException ("Item Batch", request.Quantity, storedQuantity);
             }
 
             _database.StockBatch.Add (batch);
