@@ -57,7 +57,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
             }
         }
 
@@ -200,6 +200,9 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("BOOKED_STOCK_BATCH");
 
+                entity.HasIndex(e => e.BatchStorageId)
+                    .HasName("fk_BOOKED_STOCK_BATCH_bach_id_idx");
+
                 entity.HasIndex(e => e.CustomerOrderId)
                     .HasName("fk_BOOKED_STOCK_BATCH_customer_or_idx");
 
@@ -208,7 +211,7 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.BachStorageId).HasColumnName("BACH_STORAGE_ID");
+                entity.Property(e => e.BatchStorageId).HasColumnName("BATCH_STORAGE_ID");
 
                 entity.Property(e => e.CustomerOrderId).HasColumnName("CUSTOMER_ORDER_ID");
 
@@ -226,6 +229,12 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.ProductionOrderId).HasColumnName("PRODUCTION_ORDER_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.HasOne(d => d.BatchStorage)
+                    .WithMany(p => p.BookedStockBatch)
+                    .HasForeignKey(d => d.BatchStorageId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_BOOKED_STOCK_BATCH_bach_id");
 
                 entity.HasOne(d => d.CustomerOrder)
                     .WithMany(p => p.BookedStockBatch)
@@ -1337,7 +1346,7 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("STOCK_BATCH_STORAGE");
 
-                entity.HasIndex(e => e.BachId)
+                entity.HasIndex(e => e.BatchId)
                     .HasName("fk_STOCK_BACH_STORAGE_bach_idx");
 
                 entity.HasIndex(e => e.PreviousStorage)
@@ -1348,7 +1357,7 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.BachId).HasColumnName("BACH_ID");
+                entity.Property(e => e.BatchId).HasColumnName("BATCH_ID");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -1367,10 +1376,9 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.StorageId).HasColumnName("STORAGE_ID");
 
-                entity.HasOne(d => d.Bach)
+                entity.HasOne(d => d.Batch)
                     .WithMany(p => p.StockBatchStorage)
-                    .HasForeignKey(d => d.BachId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasForeignKey(d => d.BatchId)
                     .HasConstraintName("fk_STOCK_BACH_STORAGE_bach");
 
                 entity.HasOne(d => d.Storage)

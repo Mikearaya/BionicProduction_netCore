@@ -15,7 +15,7 @@ namespace BionicInventory.DataStore.StockBatchs {
         public void Configure (EntityTypeBuilder<StockBatchStorage> builder) {
             builder.ToTable ("STOCK_BATCH_STORAGE");
 
-            builder.HasIndex (e => e.BachId)
+            builder.HasIndex (e => e.BatchId)
                 .HasName ("fk_STOCK_BACH_STORAGE_bach_idx");
 
             builder.HasIndex (e => e.PreviousStorage)
@@ -26,7 +26,7 @@ namespace BionicInventory.DataStore.StockBatchs {
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
-            builder.Property (e => e.BachId).HasColumnName ("BACH_ID");
+            builder.Property (e => e.BatchId).HasColumnName ("BATCH_ID");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
@@ -45,10 +45,9 @@ namespace BionicInventory.DataStore.StockBatchs {
 
             builder.Property (e => e.StorageId).HasColumnName ("STORAGE_ID");
 
-            builder.HasOne (d => d.Bach)
+            builder.HasOne (d => d.Batch)
                 .WithMany (p => p.StockBatchStorage)
-                .HasForeignKey (d => d.BachId)
-                .OnDelete (DeleteBehavior.ClientSetNull)
+                .HasForeignKey (d => d.BatchId)
                 .HasConstraintName ("fk_STOCK_BACH_STORAGE_bach");
 
             builder.HasOne (d => d.Storage)

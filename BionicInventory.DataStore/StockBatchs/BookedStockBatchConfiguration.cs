@@ -15,6 +15,9 @@ namespace BionicInventory.DataStore.StockBatchs {
         public void Configure (EntityTypeBuilder<BookedStockBatch> builder) {
             builder.ToTable ("BOOKED_STOCK_BATCH");
 
+            builder.HasIndex (e => e.BatchStorageId)
+                .HasName ("fk_BOOKED_STOCK_BATCH_bach_id_idx");
+
             builder.HasIndex (e => e.CustomerOrderId)
                 .HasName ("fk_BOOKED_STOCK_BATCH_customer_or_idx");
 
@@ -23,7 +26,7 @@ namespace BionicInventory.DataStore.StockBatchs {
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
-            builder.Property (e => e.BachStorageId).HasColumnName ("BACH_STORAGE_ID");
+            builder.Property (e => e.BatchStorageId).HasColumnName ("BATCH_STORAGE_ID");
 
             builder.Property (e => e.CustomerOrderId).HasColumnName ("CUSTOMER_ORDER_ID");
 
@@ -41,6 +44,12 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.Property (e => e.ProductionOrderId).HasColumnName ("PRODUCTION_ORDER_ID");
 
             builder.Property (e => e.Quantity).HasColumnName ("quantity");
+
+            builder.HasOne (d => d.BatchStorage)
+                .WithMany (p => p.BookedStockBatch)
+                .HasForeignKey (d => d.BatchStorageId)
+                .OnDelete (DeleteBehavior.Cascade)
+                .HasConstraintName ("fk_BOOKED_STOCK_BATCH_bach_id");
 
             builder.HasOne (d => d.CustomerOrder)
                 .WithMany (p => p.BookedStockBatch)

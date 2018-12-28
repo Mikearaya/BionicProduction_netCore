@@ -15,6 +15,7 @@ using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 namespace BionicProduction.Domain.StockBatchs {
     public partial class StockBatch {
         public StockBatch () {
+            BookedStockBatch = new HashSet<BookedStockBatch> ();
             StockBatchStorage = new HashSet<StockBatchStorage> ();
         }
 
@@ -32,6 +33,7 @@ namespace BionicProduction.Domain.StockBatchs {
 
         public Item Item { get; set; }
         public ProductionOrderList ManufactureOrder { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
     }
 }
