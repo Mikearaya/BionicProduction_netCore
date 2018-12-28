@@ -11,11 +11,12 @@ namespace BionicProduction.Migration.Database
         public uint SalesOrderId { get; set; }
         public uint InvoiceNo { get; set; }
         public int Quantity { get; set; }
+        public float? Discount { get; set; }
         public string Note { get; set; }
         public float UnitPrice { get; set; }
         public float? Tax { get; set; }
 
         public Invoice InvoiceNoNavigation { get; set; }
-        public PurchaseOrderDetail SalesOrder { get; set; }
+        public CustomerOrderItem SalesOrder { get; set; }
     }
 }

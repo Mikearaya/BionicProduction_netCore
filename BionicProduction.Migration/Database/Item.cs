@@ -9,8 +9,8 @@ namespace BionicProduction.Migration.Database
         {
             Bom = new HashSet<Bom>();
             BomItems = new HashSet<BomItems>();
+            CustomerOrderItem = new HashSet<CustomerOrderItem>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
             Routing = new HashSet<Routing>();
             StockBatch = new HashSet<StockBatch>();
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm>();
@@ -23,6 +23,7 @@ namespace BionicProduction.Migration.Database
         public float? Weight { get; set; }
         public float UnitCost { get; set; }
         public string Photo { get; set; }
+        public float? MinimumQuantity { get; set; }
         public uint GroupId { get; set; }
         public sbyte? IsProcured { get; set; }
         public sbyte? IsInventory { get; set; }
@@ -38,8 +39,8 @@ namespace BionicProduction.Migration.Database
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
+        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
         public ICollection<Routing> Routing { get; set; }
         public ICollection<StockBatch> StockBatch { get; set; }
         public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }

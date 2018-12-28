@@ -14,7 +14,7 @@ namespace BionicProduction.Migration.Database
         public float Quantity { get; set; }
 
         public StockBatch BatchStorage { get; set; }
-        public PurchaseOrderDetail CustomerOrder { get; set; }
+        public CustomerOrderItem CustomerOrder { get; set; }
         public ProductionOrderList ProductionOrder { get; set; }
     }
 }
