@@ -9,15 +9,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.CustomerOrders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BionicInventory.DataStore.PurchaseOrders {
-    public class PurchaseOrderConfiguration
-        : IEntityTypeConfiguration<PurchaseOrder> {
+    public class CustomerOrderConfiguration
+        : IEntityTypeConfiguration<CustomerOrder> {
 
-            public void Configure (EntityTypeBuilder<PurchaseOrder> builder) {
+            public void Configure (EntityTypeBuilder<CustomerOrder> builder) {
                 builder.ToTable ("PURCHASE_ORDER");
 
                 builder.HasIndex (e => e.ClientId)
@@ -57,12 +57,12 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
                 builder.HasOne (d => d.Client)
-                    .WithMany (p => p.PurchaseOrder)
+                    .WithMany (p => p.CustomerOrder)
                     .HasForeignKey (d => d.ClientId)
                     .HasConstraintName ("fk_PURCHASE_ORDER_customer");
 
                 builder.HasOne (d => d.CreatedByNavigation)
-                    .WithMany (p => p.PurchaseOrder)
+                    .WithMany (p => p.CustomerOrder)
                     .HasForeignKey (d => d.CreatedBy)
                     .HasConstraintName ("fk_PURCHASE_ORDER_employee");
             }

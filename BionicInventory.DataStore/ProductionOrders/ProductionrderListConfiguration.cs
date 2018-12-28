@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -26,7 +26,7 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                 builder.HasIndex (e => e.OrderedBy)
                     .HasName ("fk_PRODUCTION_ORDER_ordered_by_idx");
 
-                builder.HasIndex (e => e.PurchaseOrderId)
+                builder.HasIndex (e => e.CustomerOrderItemId)
                     .HasName ("PURCHASE_ORDER_ID_UNIQUE")
                     .IsUnique ();
 
@@ -60,7 +60,7 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
 
-                builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
+                builder.Property (e => e.CustomerOrderItemId).HasColumnName ("PURCHASE_ORDER_ID");
 
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
 
@@ -70,9 +70,9 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasConstraintName ("fk_IN_ORDER_LIST_item");
 
 
-                builder.HasOne (d => d.PurchaseOrder)
+                builder.HasOne (d => d.CustomerOrderItem)
                     .WithOne (p => p.ProductionOrderList)
-                    .HasForeignKey<ProductionOrderList> (d => d.PurchaseOrderId)
+                    .HasForeignKey<ProductionOrderList> (d => d.CustomerOrderItemId)
                     .OnDelete (DeleteBehavior.Cascade)
                     .HasConstraintName ("fk_PRODUCTION_ORDER_LIST_sales_id");
     

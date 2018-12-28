@@ -8,13 +8,13 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicProduction.Domain.StockBatchs;
 
-namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
+namespace BionicInventory.Domain.ProductionOrders {
     public class ProductionOrderList {
         public ProductionOrderList () {
             FinishedProduct = new HashSet<FinishedProduct> ();
@@ -32,12 +32,12 @@ namespace BionicInventory.Domain.ProductionOrders.ProductionOrderLists {
         public DateTime? DateUpdated { get; set; }
         public DateTime Start { get; set; }
         public DateTime DueDate { get; set; }
-        public uint? PurchaseOrderId { get; set; }
+        public uint? CustomerOrderItemId { get; set; }
 
         public Item Item { get; set; }
 
         public Employee OrderedByNavigation { get; set; }
-        public PurchaseOrderDetail PurchaseOrder { get; set; }
+        public CustomerOrderItem CustomerOrderItem { get; set; }
         public ICollection<FinishedProduct> FinishedProduct { get; set; }
         public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<StockBatch> StockBatch { get; set; }

@@ -67,8 +67,8 @@ namespace BionicInventory.Application.Shipments.Queries {
         }
 
         public IEnumerable<CustomerOrderShipmentDetail> GetCustomerOrderShipmentStatus (uint customerOrderId) {
-            return _database.PurchaseOrderDetail
-                .Where (co => co.PurchaseOrderId == customerOrderId)
+            return _database.CustomerOrderItem
+                .Where (co => co.CustomerOrderId == customerOrderId)
                 .Select (d => new CustomerOrderShipmentDetail () {
                     avalableForShipment = (int?) d.BookedStockItems.Count (b => b.Stock.ShipmentDetail == null) +
                         (int?) d.ProductionOrderList.FinishedProduct.Count (b => b.ShipmentDetail == null),
@@ -77,7 +77,7 @@ namespace BionicInventory.Application.Shipments.Queries {
                         itemName = d.Item.Name,
                         totalShiped = (int?) d.ShipmentDetail.Count (),
                         orderQuantity = (int?) d.Quantity,
-                        customerOrderId = d.PurchaseOrderId,
+                        customerOrderId = d.CustomerOrderId,
                         customerOrderItemId = d.Id,
 
                 });
@@ -94,7 +94,7 @@ namespace BionicInventory.Application.Shipments.Queries {
         public List<FinishedProduct> GetUnshipedCustomerOrderItems (uint orderItemId, int quantity) {
             return _database.FinishedProduct
                 .Where (f => f.ShipmentDetail == null &&
-                    f.BookedStockItems.BookedFor == orderItemId || f.Order.PurchaseOrderId == orderItemId)
+                    f.BookedStockItems.BookedFor == orderItemId || f.Order.CustomerOrderItemId == orderItemId)
                 .Take (quantity)
                 .ToList ();
         }
@@ -127,7 +127,7 @@ namespace BionicInventory.Application.Shipments.Queries {
 
                                 items = de.Select (det => new {
                                     orderItemId = det.OrderItemId,
-                                        itemName = det.OrderItem.Item.Name,
+                                        itemName = det.CustomerOrderItem.Item.Name,
                                 }),
 
                         })

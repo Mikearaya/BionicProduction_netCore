@@ -49,7 +49,7 @@ namespace BionicInventory.DataStore.Shipments.ShipmentDetails {
 
             builder.Property (e => e.StockId).HasColumnName ("STOCK_ID");
 
-            builder.HasOne (d => d.OrderItem)
+            builder.HasOne (d => d.CustomerOrderItem)
                 .WithMany (p => p.ShipmentDetail)
                 .HasForeignKey (d => d.OrderItemId)
                 .OnDelete (DeleteBehavior.ClientSetNull)

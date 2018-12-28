@@ -8,8 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.CustomerOrders;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicProduction.Domain.StockBatchs {
     public partial class BookedStockBatch {
@@ -22,7 +22,7 @@ namespace BionicProduction.Domain.StockBatchs {
         public float Quantity { get; set; }
 
         public StockBatch BatchStorage { get; set; }
-        public PurchaseOrderDetail CustomerOrder { get; set; }
+        public CustomerOrderItem CustomerOrder { get; set; }
         public ProductionOrderList ProductionOrder { get; set; }
     }
 }

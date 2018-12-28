@@ -13,7 +13,7 @@ using BionicInventory.Domain.Invoices.InvoiceDetails;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
+namespace BionicInventory.DataStore.Invoices {
     public class InvoiceDetailConfiguration
         : IEntityTypeConfiguration<InvoiceDetail> {
 
@@ -63,7 +63,7 @@ namespace BionicInventory.DataStore.Invoices.InvoiceDetails {
                     .HasForeignKey (d => d.InvoiceNo)
                     .HasConstraintName ("fk_INVOICE_ID");
 
-                builder.HasOne (d => d.SalesOrder)
+                builder.HasOne (d => d.CustomerOrderItem)
                     .WithMany (p => p.InvoiceDetail)
                     .HasForeignKey (d => d.SalesOrderId)
                     .OnDelete (DeleteBehavior.ClientSetNull)

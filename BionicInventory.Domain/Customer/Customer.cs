@@ -8,17 +8,17 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
 using BionicInventory.Domain.Customers.SocialMedias;
-using BionicInventory.Domain.PurchaseOrders;
 
 namespace BionicInventory.Domain.Customers {
     public class Customer {
         public Customer () {
             Address = new HashSet<Address> ();
             PhoneNumber = new HashSet<PhoneNumber> ();
-            PurchaseOrder = new HashSet<PurchaseOrder> ();
+            CustomerOrder = new HashSet<CustomerOrder> ();
             SocialMedia = new HashSet<SocialMedia> ();
         }
 
@@ -38,6 +38,6 @@ namespace BionicInventory.Domain.Customers {
         public ICollection<SocialMedia> SocialMedia { get; set; }
         public ICollection<Address> Address { get; set; }
         public ICollection<PhoneNumber> PhoneNumber { get; set; }
-        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public ICollection<CustomerOrder> CustomerOrder { get; set; }
     }
 }

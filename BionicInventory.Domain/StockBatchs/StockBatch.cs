@@ -9,8 +9,7 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicProduction.Domain.StockBatchs {
     public partial class StockBatch {

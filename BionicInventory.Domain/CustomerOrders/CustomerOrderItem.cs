@@ -11,13 +11,13 @@ using System.Collections.Generic;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicProduction.Domain.StockBatchs;
 
-namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
-    public class PurchaseOrderDetail {
-        public PurchaseOrderDetail () {
+namespace BionicInventory.Domain.CustomerOrders {
+    public class CustomerOrderItem {
+        public CustomerOrderItem () {
             BookedStockItems = new HashSet<BookedStockItems> ();
             ShipmentDetail = new HashSet<ShipmentDetail> ();
             InvoiceDetail = new HashSet<InvoiceDetail> ();
@@ -25,7 +25,7 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
         }
 
         public uint Id { get; set; }
-        public uint PurchaseOrderId { get; set; }
+        public uint CustomerOrderId { get; set; }
         public uint ItemId { get; set; }
         public uint Quantity { get; set; }
         public float PricePerItem { get; set; }
@@ -34,7 +34,7 @@ namespace BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails {
         public DateTime DueDate { get; set; }
 
         public Item Item { get; set; }
-        public PurchaseOrder PurchaseOrder { get; set; }
+        public CustomerOrder CustomerOrder { get; set; }
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
         public ProductionOrderList ProductionOrderList { get; set; }

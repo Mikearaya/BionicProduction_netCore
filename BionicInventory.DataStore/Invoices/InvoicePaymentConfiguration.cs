@@ -5,7 +5,7 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BionicInventory.DataStore.Invoices.InvoicePayment {
+namespace BionicInventory.DataStore.Invoices {
     public class InvoicePaymentsConfiguration
         : IEntityTypeConfiguration<InvoicePayments> {
 
@@ -29,7 +29,7 @@ namespace BionicInventory.DataStore.Invoices.InvoicePayment {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
-                    builder.Property (e => e.Note)
+                builder.Property (e => e.Note)
                     .HasColumnName ("note")
                     .HasColumnType ("varchar(50)");
 

@@ -14,7 +14,7 @@ using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 using BionicProduction.Domain.StockBatchs;
 using MediatR;
 
@@ -25,7 +25,6 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
         public CreateStockBatchCommandHandler (IInventoryDatabaseService database) {
             _database = database;
         }
-        
 
         public async Task<uint> Handle (NewStockBatchDto request, CancellationToken cancellationToken) {
 

@@ -10,7 +10,6 @@ using System;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Commands {
     public class WorkOrdersCommand : IWorkOrdersCommand {
@@ -22,10 +21,9 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
         }
         public ProductionOrderList CreateNewWorkOrder (ProductionOrderList newWorkOrder) {
 
-
-                _database.ProductionOrderList.Add (newWorkOrder);
-                _database.Save ();
-                return newWorkOrder;
+            _database.ProductionOrderList.Add (newWorkOrder);
+            _database.Save ();
+            return newWorkOrder;
 
         }
 
@@ -42,14 +40,12 @@ namespace BionicInventory.Application.ProductionOrders.Commands {
             }
         }
 
-
         public ProductionOrderList UpdateWorkOrder (ProductionOrderList updatedWorkOrder) {
 
+            _database.ProductionOrderList.Update (updatedWorkOrder);
+            _database.Save ();
 
-                _database.ProductionOrderList.Update (updatedWorkOrder);
-                _database.Save ();
-
-                return updatedWorkOrder;
+            return updatedWorkOrder;
         }
     }
 }

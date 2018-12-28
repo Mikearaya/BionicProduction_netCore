@@ -11,15 +11,14 @@ using System.Collections.Generic;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Shipments;
 using BionicProduction.Domain.StockBatchs;
 
-namespace BionicInventory.Domain.PurchaseOrders {
-    public class PurchaseOrder {
-        public PurchaseOrder () {
+namespace BionicInventory.Domain.CustomerOrders {
+    public class CustomerOrder {
+        public CustomerOrder () {
             Invoice = new HashSet<Invoice> ();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
+            CustomerOrderItem = new HashSet<CustomerOrderItem> ();
             Shipment = new HashSet<Shipment> ();
         }
 
@@ -35,7 +34,7 @@ namespace BionicInventory.Domain.PurchaseOrders {
         public Customer Client { get; set; }
         public Employee CreatedByNavigation { get; set; }
         public ICollection<Invoice> Invoice { get; set; }
-        public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public ICollection<Shipment> Shipment { get; set; }
     }
 }

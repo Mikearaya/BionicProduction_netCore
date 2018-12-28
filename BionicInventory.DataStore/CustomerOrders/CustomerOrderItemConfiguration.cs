@@ -9,21 +9,21 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.CustomerOrders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails {
-    public class PurchaseOrderDetailConfiguration
-        : IEntityTypeConfiguration<PurchaseOrderDetail> {
+namespace BionicInventory.DataStore.CustomerOrders {
+    public class CustomerOrderItemConfiguration
+        : IEntityTypeConfiguration<CustomerOrderItem> {
 
-            public void Configure (EntityTypeBuilder<PurchaseOrderDetail> builder) {
+            public void Configure (EntityTypeBuilder<CustomerOrderItem> builder) {
                 builder.ToTable ("PURCHASE_ORDER_DETAIL");
 
                 builder.HasIndex (e => e.ItemId)
                     .HasName ("fk_OUT_ORDER_LIST_item_idx");
 
-                builder.HasIndex (e => e.PurchaseOrderId)
+                builder.HasIndex (e => e.CustomerOrderId)
                     .HasName ("fk_OUT_ORDER_LIST_order_idx");
 
                 builder.Property (e => e.Id).HasColumnName ("ID");
@@ -47,18 +47,18 @@ namespace BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails {
 
                 builder.Property (e => e.PricePerItem).HasColumnName ("price_per_item");
 
-                builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
+                builder.Property (e => e.CustomerOrderId).HasColumnName ("CUSTOMER_ORDER_ID");
 
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
 
                 builder.HasOne (d => d.Item)
-                    .WithMany (p => p.PurchaseOrderDetail)
+                    .WithMany (p => p.CustomerOrderItem)
                     .HasForeignKey (d => d.ItemId)
                     .HasConstraintName ("fk_OUT_ORDER_LIST_item");
 
-                builder.HasOne (d => d.PurchaseOrder)
-                    .WithMany (p => p.PurchaseOrderDetail)
-                    .HasForeignKey (d => d.PurchaseOrderId)
+                builder.HasOne (d => d.CustomerOrder)
+                    .WithMany (p => p.CustomerOrderItem)
+                    .HasForeignKey (d => d.CustomerOrderId)
                     .HasConstraintName ("fk_PURCHASE_ORDER_PO_ID");
             }
         }

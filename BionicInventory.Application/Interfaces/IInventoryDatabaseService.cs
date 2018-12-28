@@ -9,6 +9,7 @@
 using System.Threading.Tasks;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -22,9 +23,6 @@ using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
@@ -53,8 +51,8 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<Item> Item { get; set; }
         DbSet<PhoneNumber> PhoneNumber { get; set; }
         DbSet<ProductionOrderList> ProductionOrderList { get; set; }
-        DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        DbSet<CustomerOrder> CustomerOrder { get; set; }
+        DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
         DbSet<SocialMedia> SocialMedia { get; set; }
         DbSet<BookedStockItems> BookedStockItems { get; set; }
         DbSet<Bom> Bom { get; set; }

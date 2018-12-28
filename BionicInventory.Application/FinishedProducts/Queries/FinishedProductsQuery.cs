@@ -117,15 +117,15 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
                         totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.ShipmentDetail != null)))),
 
                         booked = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => (fin.Order.PurchaseOrder != null || fin.BookedStockItems != null) && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
+                            .Where (fin => (fin.Order.CustomerOrderItem != null || fin.BookedStockItems != null) && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
 
                         available = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.BookedStockItems == null && fin.OrderId == MO.Id).Count ()),
+                            .Where (fin => fin.Order.CustomerOrderItem == null && fin.ShipmentDetail == null && fin.BookedStockItems == null && fin.OrderId == MO.Id).Count ()),
 
-                        expectedAvailable = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
+                        expectedAvailable = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem == null).Sum (MO => MO.Quantity -
                             MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null)),
 
-                        expectedBooked = (int) manufactureOrder.Where (MO => MO.PurchaseOrder != null).Sum (MO => MO.Quantity - MO.FinishedProduct
+                        expectedBooked = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem != null).Sum (MO => MO.Quantity - MO.FinishedProduct
                             .Count (fin => fin.ShipmentDetail == null)),
 
                         totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => (fin.ShipmentDetail == null && fin.BookedStockItems == null) || fin.Order != null))

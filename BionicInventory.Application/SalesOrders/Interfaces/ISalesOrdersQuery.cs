@@ -10,17 +10,16 @@ using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
 using BionicInventory.Application.SalesOrders.Models.Booking;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.CustomerOrders;
 
 namespace BionicInventory.Application.SalesOrders.Interfaces {
-    public interface ISalesOrderQuery  {
+    public interface ISalesOrderQuery {
 
-        CustomerOrderDetailView GetCustomerOrderDetail(uint id);
-        IEnumerable<CustomerOrdersView> GetAllCustomerOrders();
-        PurchaseOrder GetSalesOrderById(uint id);
-        PurchaseOrderDetail GetSalesOrderItemById(uint id);
-        uint GetTotalBookedOrder(uint customerOrderItemId);
+        CustomerOrderDetailView GetCustomerOrderDetail (uint id);
+        IEnumerable<CustomerOrdersView> GetAllCustomerOrders ();
+        CustomerOrder GetSalesOrderById (uint id);
+        CustomerOrderItem GetSalesOrderItemById (uint id);
+        uint GetTotalBookedOrder (uint customerOrderItemId);
 
     }
 }

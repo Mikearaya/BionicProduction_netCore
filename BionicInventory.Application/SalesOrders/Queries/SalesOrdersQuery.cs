@@ -13,8 +13,7 @@ using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
 using BionicInventory.Application.SalesOrders.Models.Booking;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.CustomerOrders;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Queries {
@@ -27,12 +26,12 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             _database = databse;
             _logger = logger;
         }
-        public CustomerOrderDetailView GetCustomerOrderDetail (uint id) {
+        public CustomerOrderDetailView GetCustomerOrderItem (uint id) {
 
-            var salesOrders = _database.PurchaseOrderDetail
-                .Where (customerOrder => customerOrder.PurchaseOrderId == id)
-                .OrderByDescending (req => req.PurchaseOrderId)
-                .GroupBy (customerOrder => customerOrder.PurchaseOrderId)
+            var salesOrders = _database.CustomerOrderItem
+                .Where (customerOrder => customerOrder.CustomerOrderId == id)
+                .OrderByDescending (req => req.CustomerOrderId)
+                .GroupBy (customerOrder => customerOrder.CustomerOrderId)
                 .Select (order => new {
                     ID = order.Key,
                         totalProducts = order.Count (),
@@ -41,14 +40,14 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         totalQuantity = order.Sum (itemQuantity => itemQuantity.Quantity),
 
                         detail = order.Select (CO => new {
-                            customerName = CO.PurchaseOrder.Client.FullName,
-                                createdBy = CO.PurchaseOrder.CreatedByNavigation.FullName (),
-                                dateAdded = CO.PurchaseOrder.DateAdded,
-                                dateUpdated = CO.PurchaseOrder.DateUpdated,
-                                description = CO.PurchaseOrder.Description,
-                                status = CO.PurchaseOrder.OrderStatus,
-                                createdOn = CO.PurchaseOrder.DateAdded,
-                                deliveryDaye = CO.PurchaseOrder.DueDate,
+                            customerName = CO.CustomerOrder.Client.FullName,
+                                createdBy = CO.CustomerOrder.CreatedByNavigation.FullName (),
+                                dateAdded = CO.CustomerOrder.DateAdded,
+                                dateUpdated = CO.CustomerOrder.DateUpdated,
+                                description = CO.CustomerOrder.Description,
+                                status = CO.CustomerOrder.OrderStatus,
+                                createdOn = CO.CustomerOrder.DateAdded,
+                                deliveryDaye = CO.CustomerOrder.DueDate,
                                 uintCost = CO.Item.UnitCost,
                                 id = CO.Id,
                                 unitPrice = CO.PricePerItem,
@@ -107,19 +106,19 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         public IEnumerable<CustomerOrdersView> GetAllCustomerOrders () {
 
-            var salesOrders = _database.PurchaseOrder
+            var salesOrders = _database.CustomerOrder
                 .GroupBy (customerOrder => customerOrder.Id)
                 .Select (order => new {
                     ID = order.Key,
                         itemCount = order.Count (),
-                        totalPrice = order.Sum (price => price.PurchaseOrderDetail.Sum (d => d.PricePerItem * (double?) d.Quantity)),
-                        totalCost = order.Sum (itemCost => itemCost.PurchaseOrderDetail.Sum (c => c.ProductionOrderList.CostPerItem * (double?) c.Quantity)),
-                        totalQuantity = order.Sum (q => q.PurchaseOrderDetail.Sum (itemQuantity => itemQuantity.Quantity)),
+                        totalPrice = order.Sum (price => price.CustomerOrderItem.Sum (d => d.PricePerItem * (double?) d.Quantity)),
+                        totalCost = order.Sum (itemCost => itemCost.CustomerOrderItem.Sum (c => c.ProductionOrderList.CostPerItem * (double?) c.Quantity)),
+                        totalQuantity = order.Sum (q => q.CustomerOrderItem.Sum (itemQuantity => itemQuantity.Quantity)),
                         invoicedAmount = order.Sum (i => i.Invoice.Sum (o => o.InvoiceDetail.Sum (id => (double?) id.Quantity * id.UnitPrice))),
                         invoicePaid = order.Sum (i => i.Invoice.Sum (o => o.InvoicePayments.Sum (id => id.Amount))),
                         totalShipment = order.Sum (p => p.Shipment.Sum (s => s.ShipmentDetail.Count ())),
-                        inProductionAmount = order.Sum (o => o.PurchaseOrderDetail.Sum (d => d.ProductionOrderList.Quantity)),
-                        bookedQuantity = order.Sum (o => o.PurchaseOrderDetail.Sum (b => b.BookedStockItems.Count ())),
+                        inProductionAmount = order.Sum (o => o.CustomerOrderItem.Sum (d => d.ProductionOrderList.Quantity)),
+                        bookedQuantity = order.Sum (o => o.CustomerOrderItem.Sum (b => b.BookedStockItems.Count ())),
                         detail = order.Select (CO => new {
                             customerName = CO.Client.FullName,
                                 addedBy = CO.CreatedByNavigation.FullName (),
@@ -141,8 +140,8 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     totalQuantity = (uint) order.totalQuantity,
                     totalProducts = (uint) order.itemCount,
                     profit = order.totalPrice - order.totalCost,
-                    invoiceStatus = IdentifyInvoiceStatus(order.totalQuantity, order.invoicedAmount),
-                    paymentStatus = IdentityPaymentStatus(order.totalPrice, order.invoicePaid)
+                    invoiceStatus = IdentifyInvoiceStatus (order.totalQuantity, order.invoicedAmount),
+                    paymentStatus = IdentityPaymentStatus (order.totalPrice, order.invoicePaid)
                 };
                 var sum = order.bookedQuantity + order.inProductionAmount;
                 var orderStatus = "";
@@ -180,10 +179,10 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         }
 
-        private string IdentityPaymentStatus(double? totalPrice, double? paidAmount) {
-            double? paidPercent = (paidAmount/totalPrice) * 100;
+        private string IdentityPaymentStatus (double? totalPrice, double? paidAmount) {
+            double? paidPercent = (paidAmount / totalPrice) * 100;
 
-            if(paidPercent == 100) {
+            if (paidPercent == 100) {
                 return "Paid";
             } else if (paidAmount > 0) {
                 return $"Partially Paid {paidPercent} %";
@@ -195,21 +194,21 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         private string IdentifyInvoiceStatus (double? orderQuantity, double? invoicedQuantity) {
 
             double? invoicedPercent = (invoicedQuantity / orderQuantity) * 100;
-    
-                if(invoicedPercent == 100) {
-                    return "Invoiced";
-                } else if (invoicedPercent > 0) {
-                    return $"Partially Invoiced {invoicedPercent} %";
-                } else {
-                    return "Not Invoiced";
-                }
+
+            if (invoicedPercent == 100) {
+                return "Invoiced";
+            } else if (invoicedPercent > 0) {
+                return $"Partially Invoiced {invoicedPercent} %";
+            } else {
+                return "Not Invoiced";
+            }
         }
 
         //TODO remove duplicate function
-        public PurchaseOrder GetSalesOrderById (uint id) {
-            return _database.PurchaseOrder
+        public CustomerOrder GetSalesOrderById (uint id) {
+            return _database.CustomerOrder
                 .Where (order => order.Id == id)
-                .Select (co => new PurchaseOrder () {
+                .Select (co => new CustomerOrder () {
                     Id = co.Id,
                         ClientId = co.ClientId,
                         CreatedBy = co.CreatedBy,
@@ -217,18 +216,18 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         Description = co.Description,
                         DateAdded = co.DateAdded,
                         DateUpdated = co.DateAdded,
-                        PurchaseOrderDetail = co.PurchaseOrderDetail,
+                        CustomerOrderItem = co.CustomerOrderItem,
                         Shipment = co.Shipment
                 }).FirstOrDefault ();
         }
 
-        public PurchaseOrderDetail GetSalesOrderItemById (uint id) {
-            return _database.PurchaseOrderDetail
+        public CustomerOrderItem GetSalesOrderItemById (uint id) {
+            return _database.CustomerOrderItem
                 .Where (order => order.Id == id)
-                .Select (orderItem => new PurchaseOrderDetail () {
+                .Select (orderItem => new CustomerOrderItem () {
                     Id = orderItem.Id,
                         PricePerItem = orderItem.PricePerItem,
-                        PurchaseOrderId = orderItem.PurchaseOrderId,
+                        CustomerOrderId = orderItem.CustomerOrderId,
                         ItemId = orderItem.ItemId,
                         Quantity = orderItem.Quantity,
                         DateAdded = orderItem.DateAdded,
@@ -238,7 +237,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
         }
 
         public uint GetTotalBookedOrder (uint customerOrderItemId) {
-            var book = _database.PurchaseOrderDetail
+            var book = _database.CustomerOrderItem
                 .Where (co => co.Id == customerOrderItemId)
                 .Select (co => new {
                     Id = co.Id,
@@ -251,6 +250,9 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
         }
 
+        public CustomerOrderDetailView GetCustomerOrderDetail (uint id) {
+            throw new NotImplementedException ();
+        }
     }
 
 }

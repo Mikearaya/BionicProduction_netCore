@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
+using BionicInventory.DataStore.CustomerOrders;
 using BionicInventory.DataStore.Customers;
 using BionicInventory.DataStore.Customers.Addresses;
 using BionicInventory.DataStore.Customers.PhoneNumbers;
@@ -17,15 +18,12 @@ using BionicInventory.DataStore.Customers.SocialMedias;
 using BionicInventory.DataStore.Employees;
 using BionicInventory.DataStore.FinishedProducts;
 using BionicInventory.DataStore.Invoices;
-using BionicInventory.DataStore.Invoices.InvoiceDetails;
-using BionicInventory.DataStore.Invoices.InvoicePayment;
 using BionicInventory.DataStore.Items;
 using BionicInventory.DataStore.Items.BOM;
 using BionicInventory.DataStore.Items.Routings;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
-using BionicInventory.DataStore.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
 using BionicInventory.DataStore.StockBatchs;
@@ -36,6 +34,7 @@ using BionicInventory.DataStore.Workstations;
 using BionicInventory.DataStore.WriteOffs;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -49,9 +48,6 @@ using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
@@ -85,8 +81,8 @@ namespace BionicInventory.DataStore {
         public DbSet<Item> Item { get; set; }
         public DbSet<PhoneNumber> PhoneNumber { get; set; }
         public DbSet<ProductionOrderList> ProductionOrderList { get; set; }
-        public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        public DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public DbSet<CustomerOrder> CustomerOrder { get; set; }
+        public DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
         public DbSet<SocialMedia> SocialMedia { get; set; }
         public DbSet<FinishedProduct> FinishedProduct { get; set; }
         public DbSet<ShipmentDetail> ShipmentDetail { get; set; }
@@ -120,8 +116,8 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new CustomerConfiguration ());
             modelBuilder.ApplyConfiguration (new EmployeeConfiguration ());
             modelBuilder.ApplyConfiguration (new ItemConfiguration ());
-            modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
-            modelBuilder.ApplyConfiguration (new PurchaseOrderDetailConfiguration ());
+            modelBuilder.ApplyConfiguration (new CustomerOrderConfiguration ());
+            modelBuilder.ApplyConfiguration (new CustomerOrderItemConfiguration ());
             modelBuilder.ApplyConfiguration (new ProductionOrderListConfiguration ());
             modelBuilder.ApplyConfiguration (new AddressConfiguration ());
             modelBuilder.ApplyConfiguration (new SocialMediaConfiguration ());

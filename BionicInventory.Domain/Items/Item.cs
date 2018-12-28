@@ -8,10 +8,10 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
 using BionicInventory.Domain.Vendors;
@@ -24,7 +24,7 @@ namespace BionicInventory.Domain.Items {
             Bom = new HashSet<Bom> ();
             BomItems = new HashSet<BomItems> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
+            CustomerOrderItem = new HashSet<CustomerOrderItem> ();
             Routing = new HashSet<Routing> ();
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm> ();
             StockBatch = new HashSet<StockBatch> ();
@@ -57,7 +57,7 @@ namespace BionicInventory.Domain.Items {
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public ICollection<Routing> Routing { get; set; }
         public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
         public ICollection<StockBatch> StockBatch { get; set; }

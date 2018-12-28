@@ -80,7 +80,7 @@ namespace BionicInventory.DataStore.Invoices {
                     .OnDelete (DeleteBehavior.ClientSetNull)
                     .HasConstraintName ("fk_INVOICE_prepared_by");
 
-                builder.HasOne (d => d.PurchaseOrder)
+                builder.HasOne (d => d.CustomerOrder)
                     .WithMany (p => p.Invoice)
                     .HasForeignKey (d => d.PurchaseOrderId)
                     .OnDelete (DeleteBehavior.ClientSetNull)
