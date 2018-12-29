@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:23 PM
+ * @Last Modified Time: Dec 29, 2018 2:13 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -14,7 +14,6 @@ using BionicInventory.Domain.ProductionOrders;
 namespace BionicProduction.Domain.StockBatchs {
     public partial class StockBatch {
         public StockBatch () {
-            BookedStockBatch = new HashSet<BookedStockBatch> ();
             StockBatchStorage = new HashSet<StockBatchStorage> ();
         }
 
@@ -32,7 +31,6 @@ namespace BionicProduction.Domain.StockBatchs {
 
         public Item Item { get; set; }
         public ProductionOrderList ManufactureOrder { get; set; }
-        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
     }
 }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:29 PM
+ * @Last Modified Time: Dec 29, 2018 2:15 AM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.StockBatchs;

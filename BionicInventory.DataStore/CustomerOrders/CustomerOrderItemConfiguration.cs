@@ -2,8 +2,8 @@
  * @CreateTime: Oct 31, 2018 10:55 PM
  * @Author: undefined
  * @Contact: undefined
- * @Last Modified By: undefined
- * @Last Modified Time: Oct 31, 2018 10:55 PM
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 29, 2018 2:48 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -59,7 +59,7 @@ namespace BionicInventory.DataStore.CustomerOrders {
                 builder.HasOne (d => d.CustomerOrder)
                     .WithMany (p => p.CustomerOrderItem)
                     .HasForeignKey (d => d.CustomerOrderId)
-                    .HasConstraintName ("fk_PURCHASE_ORDER_PO_ID");
+                    .HasConstraintName ("fk_CUSTOMER_ORDER_item");
             }
         }
 

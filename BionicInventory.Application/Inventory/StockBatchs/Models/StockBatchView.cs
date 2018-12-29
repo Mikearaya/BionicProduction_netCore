@@ -3,27 +3,61 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 27, 2018 11:45 PM
+ * @Last Modified Time: Dec 29, 2018 2:20 AM
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Linq;
+using System.Linq.Expressions;
+using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class StockBatchView {
-        public uint Id { get; set; }
-        public uint ItemId { get; set; }
-        public float Quantity { get; set; }
-        public float UnitCost { get; set; }
-        public string Status { get; set; }
-        public uint? PurchaseOrderId { get; set; }
-        public uint? ManufactureOrderId { get; set; }
-        public DateTime? DateAdded { get; set; }
-        public DateTime? DateUpdated { get; set; }
-        public DateTime AvailableFrom { get; set; }
-        public DateTime? ExpiryDate { get; set; }
+        public uint id { get; set; }
+        public uint itemId { get; set; }
+        public float quantity { get; set; }
+        public float totalBooked { get; set; }
+        public float unitCost { get; set; }
+        public string status { get; set; }
+        public string storageLocation { get; set; }
+        public uint storageLocationId { get; set; }
+        public uint? purchaseOrderId { get; set; }
+        public uint? manufactureOrderId { get; set; }
+        public DateTime? dateAdded { get; set; }
+        public DateTime? dateUpdated { get; set; }
+        public DateTime availableFrom { get; set; }
+        public DateTime? expiryDate { get; set; }
+        public string item { get; set; }
+        public string itemGroup { get; set; }
+        public uint itemGroupId { get; set; }
+        public string source { get; set; }
 
-        //  public Item Item { get; set; }
-        //     public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
-        //      public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
+        public static Expression<Func<StockBatchStorage, StockBatchView>> Projection {
+
+            get {
+                return batch => new StockBatchView () {
+                    id = batch.Id,
+                    itemId = batch.Batch.ItemId,
+                    item = batch.Batch.Item.Name,
+                    itemGroup = batch.Batch.Item.Group.GroupName,
+                    itemGroupId = batch.Batch.Item.GroupId,
+                    source = (batch.Batch.PurchaseOrderId == null) ?
+                    (batch.Batch.ManufactureOrderId == null) ? "" :
+                    $"MO-{batch.Batch.ManufactureOrderId}" : $"{batch.Batch.PurchaseOrderId}",
+                    quantity = batch.Quantity,
+                    storageLocation = batch.Storage.Name,
+                    storageLocationId = batch.StorageId,
+                    unitCost = batch.Batch.UnitCost,
+                    totalBooked = batch.BookedStockBatch.Sum (b => b.Quantity),
+                    manufactureOrderId = batch.Batch.ManufactureOrderId,
+                    purchaseOrderId = batch.Batch.PurchaseOrderId,
+                    availableFrom = batch.Batch.AvailableFrom,
+                    dateAdded = batch.DateAdded,
+                    dateUpdated = batch.DateUpdated,
+                    expiryDate = batch.Batch.ExpiryDate,
+                };
+            }
+        }
+
     }
 }

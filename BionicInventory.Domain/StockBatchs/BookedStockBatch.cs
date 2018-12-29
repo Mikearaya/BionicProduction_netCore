@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 9:58 PM
+ * @Last Modified Time: Dec 29, 2018 2:13 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -21,7 +21,7 @@ namespace BionicProduction.Domain.StockBatchs {
         public DateTime? DateUpdated { get; set; }
         public float Quantity { get; set; }
 
-        public StockBatch BatchStorage { get; set; }
+        public StockBatchStorage BatchStorage { get; set; }
         public CustomerOrderItem CustomerOrder { get; set; }
         public ProductionOrderList ProductionOrder { get; set; }
     }

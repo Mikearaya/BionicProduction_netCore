@@ -7,6 +7,7 @@ namespace BionicProduction.Migration.Database
     {
         public StockBatchStorage()
         {
+            BookedStockBatch = new HashSet<BookedStockBatch>();
             WriteOffDetail = new HashSet<WriteOffDetail>();
         }
 
@@ -20,6 +21,7 @@ namespace BionicProduction.Migration.Database
 
         public StockBatch Batch { get; set; }
         public StorageLocation Storage { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<WriteOffDetail> WriteOffDetail { get; set; }
     }
 }

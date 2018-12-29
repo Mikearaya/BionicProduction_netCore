@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 9:54 PM
+ * @Last Modified Time: Dec 29, 2018 2:14 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -14,6 +14,7 @@ using BionicProduction.Domain.WriteOffs;
 namespace BionicProduction.Domain.StockBatchs {
     public partial class StockBatchStorage {
         public StockBatchStorage () {
+            BookedStockBatch = new HashSet<BookedStockBatch> ();
             WriteOffDetail = new HashSet<WriteOffDetail> ();
         }
 
@@ -27,6 +28,7 @@ namespace BionicProduction.Domain.StockBatchs {
 
         public StockBatch Batch { get; set; }
         public StorageLocation Storage { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<WriteOffDetail> WriteOffDetail { get; set; }
     }
 }
