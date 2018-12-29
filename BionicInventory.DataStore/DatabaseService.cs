@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:42 PM
+ * @Last Modified Time: Dec 29, 2018 10:10 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -21,6 +21,7 @@ using BionicInventory.DataStore.Invoices;
 using BionicInventory.DataStore.Items;
 using BionicInventory.DataStore.Items.BOM;
 using BionicInventory.DataStore.Items.Routings;
+using BionicInventory.DataStore.Procurment.PurchaseOrders;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
@@ -47,13 +48,14 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
-using BionicInventory.Domain.Vendors;
 using BionicInventory.Domain.Workstations;
 using BionicProduction.Domain.StockBatchs;
 using BionicProduction.Domain.WriteOffs;
@@ -100,6 +102,8 @@ namespace BionicInventory.DataStore {
         public DbSet<StorageLocation> StorageLocation { get; set; }
         public DbSet<WriteOff> WriteOff { get; set; }
         public DbSet<WriteOffDetail> WriteOffDetail { get; set; }
+        public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        public DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
 
         public DbSet<Vendor> Vendor { get; set; }
         public DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
@@ -144,6 +148,8 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new StockBatchConfiguration ());
             modelBuilder.ApplyConfiguration (new StockBatchStorageConfiguration ());
             modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
+            modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
+            modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
 
         }
 

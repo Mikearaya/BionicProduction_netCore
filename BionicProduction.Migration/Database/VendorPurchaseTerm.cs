@@ -10,9 +10,9 @@ namespace BionicProduction.Migration.Database
         public uint ItemId { get; set; }
         public string VendorProductId { get; set; }
         public uint? Priority { get; set; }
-        public uint? Leadtime { get; set; }
-        public float? MinimumQuantity { get; set; }
-        public float UnitPrice { get; set; }
+        public uint? LeadTime { get; set; }
+        public uint? MinimumQuantity { get; set; }
+        public float? UnitPrice { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

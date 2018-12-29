@@ -18,10 +18,10 @@ using BionicProduction.Domain.StockBatchs;
 namespace BionicInventory.Domain.CustomerOrders {
     public class CustomerOrderItem {
         public CustomerOrderItem () {
-            BookedStockItems = new HashSet<BookedStockItems> ();
-            ShipmentDetail = new HashSet<ShipmentDetail> ();
-            InvoiceDetail = new HashSet<InvoiceDetail> ();
             BookedStockBatch = new HashSet<BookedStockBatch> ();
+            BookedStockItems = new HashSet<BookedStockItems> ();
+            InvoiceDetail = new HashSet<InvoiceDetail> ();
+            ShipmentDetail = new HashSet<ShipmentDetail> ();
         }
 
         public uint Id { get; set; }
@@ -33,12 +33,12 @@ namespace BionicInventory.Domain.CustomerOrders {
         public DateTime? DateUpdated { get; set; }
         public DateTime DueDate { get; set; }
 
-        public Item Item { get; set; }
         public CustomerOrder CustomerOrder { get; set; }
+        public Item Item { get; set; }
+        public ProductionOrderList ProductionOrderList { get; set; }
+        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
         public ICollection<BookedStockItems> BookedStockItems { get; set; }
         public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-        public ProductionOrderList ProductionOrderList { get; set; }
         public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
-        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
     }
 }

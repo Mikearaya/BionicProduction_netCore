@@ -61,7 +61,10 @@ namespace BionicInventory.Application.Analisis.Queries {
         }
 
         private double? GetTotalStockCost () {
-            return (from pro in _database.Item join mo in _database.ProductionOrderList on pro.Id equals mo.ItemId join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where fin.BookedStockItems == null && fin.ShipmentDetail == null && mo.CustomerOrderItem == null select new {
+            return (from pro in _database.Item 
+            join mo in _database.ProductionOrderList on pro.Id equals mo.ItemId 
+            join fin in _database.FinishedProduct on mo.Id equals fin.OrderId
+             where fin.BookedStockItems == null && fin.ShipmentDetail == null && mo.CustomerOrderItem == null select new {
                 cost = (double?) mo.Quantity * mo.CostPerItem
             }).Sum (c => c.cost);
         }
@@ -74,7 +77,8 @@ namespace BionicInventory.Application.Analisis.Queries {
         }
 
         private int GetLateManufactureOrdersCount () {
-            return (from mo in _database.ProductionOrderList join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where ((DateTime.Today - mo.DueDate).TotalDays > 0 &&
+            return (from mo in _database.ProductionOrderList 
+            join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where ((DateTime.Today - mo.DueDate).TotalDays > 0 &&
                     fin.ShipmentDetail == null) ||
                 mo.FinishedProduct == null select new {
                     moId = mo.Id

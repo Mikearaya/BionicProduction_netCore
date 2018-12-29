@@ -14,9 +14,11 @@ using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Application.Shared;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Items;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicInventory.Domain.ProductionOrders;
 using BionicProduction.Domain.StockBatchs;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
     public class CreateStockBatchCommandHandler : IRequestHandler<NewStockBatchDto, uint> {
@@ -28,32 +30,54 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
 
         public async Task<uint> Handle (NewStockBatchDto request, CancellationToken cancellationToken) {
 
-            var item = await _database.Item.FindAsync (request.ItemId);
+            var item = await _database.Item
+                .AsNoTracking ()
+                .FirstOrDefaultAsync (i => i.Id == request.ItemId);
 
             if (item == null) {
                 throw new NotFoundException (nameof (Item), request.ItemId);
             }
 
-            Object manufacture;
-            if (request.ManufactureOrderId != null && request.ManufactureOrderId != 0) {
-                manufacture = await _database.ProductionOrderList.FindAsync (request.ManufactureOrderId);
-
-                if (manufacture == null) {
-                    throw new NotFoundException (nameof (ProductionOrderList), request.ManufactureOrderId);
-                }
-            }
-
-            // TODO: Handle if purchase order is not defined exception
-
             StockBatch batch = new StockBatch () {
                 ItemId = request.ItemId,
                 Quantity = request.Quantity,
                 UnitCost = request.UnitCost,
-                PurchaseOrderId = request.PurchaseOrderId,
-                ManufactureOrderId = request.ManufactureOrderId,
                 AvailableFrom = request.AvailableFrom,
-                ExpiryDate = request.ExpiryDate
             };
+
+            Object manufacture;
+            // check if manufacture order id is defined
+            if (request.ManufactureOrderId != null && request.ManufactureOrderId != 0) {
+                manufacture = await _database.ProductionOrderList
+                    .AsNoTracking ()
+                    .FirstOrDefaultAsync (m => m.Id == request.ManufactureOrderId);
+
+                if (manufacture == null) {
+                    throw new NotFoundException (nameof (ProductionOrderList), request.ManufactureOrderId);
+                }
+
+                batch.ManufactureOrderId = request.ManufactureOrderId;
+            }
+
+            Object purchaseOrder;
+            // check if purchase order id is defined
+            if (request.PurchaseOrderId != null && request.PurchaseOrderId != 0) {
+                purchaseOrder = await _database.PurchaseOrder
+                    .AsNoTracking ()
+                    .FirstOrDefaultAsync (p => p.Id == request.PurchaseOrderId);
+
+                if (purchaseOrder == null) {
+                    throw new NotFoundException (nameof (PurchaseOrder), request.PurchaseOrderId);
+                }
+
+                batch.PurchaseOrderId = request.PurchaseOrderId;
+            }
+
+            if (request.ExpiryDate != null) {
+                batch.ExpiryDate = request.ExpiryDate;
+            } else if (item.ShelfLife != 0 && item.ShelfLife != null) {
+                batch.ExpiryDate = batch.ArrivalDate.Value.AddDays ((double) item.ShelfLife);
+            }
 
             if (request.StorageLocation.Count < 1) {
                 throw new BelowRequiredMinimumItemException ("Stock Batch", 1, "Storage Location");
@@ -89,8 +113,5 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
 
         }
 
-        private object PurchaseOrderList () {
-            throw new NotImplementedException ();
-        }
     }
 }

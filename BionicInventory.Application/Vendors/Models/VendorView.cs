@@ -3,12 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 24, 2018 8:47 PM
+ * @Last Modified Time: Dec 29, 2018 9:57 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Linq.Expressions;
-using BionicInventory.Domain.Vendors;
+using BionicInventory.Domain.Procurment.Vendors;
 
 namespace BionicInventory.Application.Vendors.Models {
     public class VendorView {

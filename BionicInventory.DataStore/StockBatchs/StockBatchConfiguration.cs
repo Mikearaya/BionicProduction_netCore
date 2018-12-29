@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:24 PM
+ * @Last Modified Time: Dec 29, 2018 10:02 PM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.StockBatchs;
@@ -16,12 +16,16 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.ToTable ("STOCK_BATCH");
 
             builder.HasIndex (e => e.ItemId)
-                .HasName ("fk_STOCK_BACH_item_idx");
+                .HasName ("fk_STOCK_BATCH_item_idx");
 
             builder.HasIndex (e => e.ManufactureOrderId)
-                .HasName ("fk_STOCK_BACH_manufacture_idx");
+                .HasName ("fk_STOCK_BATCH_manufacture_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
+
+            builder.Property (e => e.ArrivalDate)
+                .HasColumnName ("arrival_date")
+                .HasColumnType ("datetime");
 
             builder.Property (e => e.AvailableFrom)
                 .HasColumnName ("available_from")
@@ -51,7 +55,6 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.Property (e => e.Quantity).HasColumnName ("quantity");
 
             builder.Property (e => e.Status)
-                .IsRequired ()
                 .HasColumnName ("status")
                 .HasColumnType ("varchar(45)");
 
@@ -60,13 +63,13 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.HasOne (d => d.Item)
                 .WithMany (p => p.StockBatch)
                 .HasForeignKey (d => d.ItemId)
-                .HasConstraintName ("fk_STOCK_BACH_item");
+                .HasConstraintName ("fk_STOCK_BATCH_item");
 
             builder.HasOne (d => d.ManufactureOrder)
                 .WithMany (p => p.StockBatch)
                 .HasForeignKey (d => d.ManufactureOrderId)
                 .OnDelete (DeleteBehavior.Cascade)
-                .HasConstraintName ("fk_STOCK_BACH_manufacture");
+                .HasConstraintName ("fk_STOCK_BATCH_manufacture");
         }
     }
 }

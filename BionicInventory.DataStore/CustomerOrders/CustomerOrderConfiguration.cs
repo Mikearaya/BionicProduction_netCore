@@ -18,7 +18,7 @@ namespace BionicInventory.DataStore.PurchaseOrders {
         : IEntityTypeConfiguration<CustomerOrder> {
 
             public void Configure (EntityTypeBuilder<CustomerOrder> builder) {
-                builder.ToTable ("PURCHASE_ORDER");
+                builder.ToTable ("CUSTOMER_ORDER");
 
                 builder.HasIndex (e => e.ClientId)
                     .HasName ("fk_PURCHASE_ORDER_customer_idx");
@@ -31,10 +31,6 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                 builder.Property (e => e.ClientId).HasColumnName ("CLIENT_ID");
 
                 builder.Property (e => e.CreatedBy).HasColumnName ("CREATED_BY");
-
-                builder.Property (e => e.OrderStatus)
-                    .HasColumnName ("order_status")
-                    .HasColumnType ("varchar(20)");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")
@@ -56,6 +52,11 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .HasColumnType ("datetime")
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
+                builder.Property (e => e.OrderStatus)
+                    .HasColumnName ("order_status")
+                    .HasColumnType ("varchar(45)")
+                    .HasDefaultValueSql ("'Quotation'");
+
                 builder.HasOne (d => d.Client)
                     .WithMany (p => p.CustomerOrder)
                     .HasForeignKey (d => d.ClientId)
@@ -65,6 +66,7 @@ namespace BionicInventory.DataStore.PurchaseOrders {
                     .WithMany (p => p.CustomerOrder)
                     .HasForeignKey (d => d.CreatedBy)
                     .HasConstraintName ("fk_PURCHASE_ORDER_employee");
+
             }
         }
 }

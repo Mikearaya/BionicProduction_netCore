@@ -13,8 +13,8 @@ namespace BionicProduction.Migration.Database
         public uint Id { get; set; }
         public uint ItemId { get; set; }
         public string Status { get; set; }
-        public string Type { get; set; }
         public string Note { get; set; }
+        public string Type { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:42 PM
+ * @Last Modified Time: Dec 29, 2018 10:04 PM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.StockBatchs;
@@ -16,13 +16,13 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.ToTable ("STOCK_BATCH_STORAGE");
 
             builder.HasIndex (e => e.BatchId)
-                .HasName ("fk_STOCK_BACH_STORAGE_bach_idx");
+                .HasName ("fk_STOCK_BATCH_STORAGE_bach_idx");
 
-            builder.HasIndex (e => e.PreviousStorage)
-                .HasName ("fk_STOCK_BACH_STORAGE_previous_idx");
+            builder.HasIndex (e => e.PreviousStorageId)
+                .HasName ("fk_STOCK_BATCH_STORAGE_parent_idx");
 
             builder.HasIndex (e => e.StorageId)
-                .HasName ("fk_STOCK_BACH_STORAGE_storage_idx");
+                .HasName ("fk_STOCK_BATCH_STORAGE_storage_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -39,7 +39,7 @@ namespace BionicInventory.DataStore.StockBatchs {
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                 .ValueGeneratedOnAddOrUpdate ();
 
-            builder.Property (e => e.PreviousStorage).HasColumnName ("PREVIOUS_STORAGE");
+            builder.Property (e => e.PreviousStorageId).HasColumnName ("PREVIOUS_STORAGE_ID");
 
             builder.Property (e => e.Quantity).HasColumnName ("quantity");
 
@@ -48,12 +48,18 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.HasOne (d => d.Batch)
                 .WithMany (p => p.StockBatchStorage)
                 .HasForeignKey (d => d.BatchId)
-                .HasConstraintName ("fk_STOCK_BACH_STORAGE_bach");
+                .HasConstraintName ("fk_STOCK_BATCH_STORAGE_bach");
+
+            builder.HasOne (d => d.PreviousStorage)
+                .WithMany (p => p.PreviousStorageNavigation)
+                .HasForeignKey (d => d.PreviousStorageId)
+                .OnDelete (DeleteBehavior.Cascade)
+                .HasConstraintName ("fk_STOCK_BATCH_STORAGE_parent");
 
             builder.HasOne (d => d.Storage)
                 .WithMany (p => p.StockBatchStorage)
                 .HasForeignKey (d => d.StorageId)
-                .HasConstraintName ("fk_STOCK_BACH_STORAGE_storage");
+                .HasConstraintName ("fk_STOCK_BATCH_STORAGE_storage");
         }
     }
 }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 11:21 PM
+ * @Last Modified Time: Dec 29, 2018 9:57 PM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Shared.Exceptions;
-using BionicInventory.Domain.Vendors;
+using BionicInventory.Domain.Procurment.Vendors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

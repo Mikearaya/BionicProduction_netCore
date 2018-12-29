@@ -7,11 +7,11 @@ namespace BionicProduction.Migration.Database
     {
         public uint Id { get; set; }
         public uint? BatchStorageId { get; set; }
-        public uint? ProductionOrderId { get; set; }
         public uint? CustomerOrderId { get; set; }
+        public uint? ProductionOrderId { get; set; }
+        public float Quantity { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public float Quantity { get; set; }
 
         public StockBatchStorage BatchStorage { get; set; }
         public CustomerOrderItem CustomerOrder { get; set; }

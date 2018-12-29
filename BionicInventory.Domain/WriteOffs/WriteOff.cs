@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 9:51 PM
+ * @Last Modified Time: Dec 29, 2018 9:51 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -19,8 +19,8 @@ namespace BionicProduction.Domain.WriteOffs {
         public uint Id { get; set; }
         public uint ItemId { get; set; }
         public string Status { get; set; }
-        public string Type { get; set; }
         public string Note { get; set; }
+        public string Type { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 

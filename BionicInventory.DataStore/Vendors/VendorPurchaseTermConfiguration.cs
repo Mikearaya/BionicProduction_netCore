@@ -3,10 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 9:44 PM
+ * @Last Modified Time: Dec 29, 2018 9:54 PM
  * @Description: Modify Here, Please 
  */
-using BionicInventory.Domain.Vendors;
+using BionicInventory.Domain.Procurment.Vendors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

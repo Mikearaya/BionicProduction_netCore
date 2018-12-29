@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 2:15 AM
+ * @Last Modified Time: Dec 29, 2018 10:08 PM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.StockBatchs;
@@ -16,13 +16,13 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.ToTable ("BOOKED_STOCK_BATCH");
 
             builder.HasIndex (e => e.BatchStorageId)
-                .HasName ("fk_BOOKED_STOCK_BATCH_bach_id_idx");
+                .HasName ("fk_BOOKED_STOCK_BATCH_storage_idx");
 
             builder.HasIndex (e => e.CustomerOrderId)
                 .HasName ("fk_BOOKED_STOCK_BATCH_customer_or_idx");
 
             builder.HasIndex (e => e.ProductionOrderId)
-                .HasName ("fk_BOOKED_STOCK_BATCH_production_idx");
+                .HasName ("fk_BOOKED_STOCK_BATCH_1_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -38,8 +38,7 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.Property (e => e.DateUpdated)
                 .HasColumnName ("date_updated")
                 .HasColumnType ("datetime")
-                .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
-                .ValueGeneratedOnAddOrUpdate ();
+                .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
             builder.Property (e => e.ProductionOrderId).HasColumnName ("PRODUCTION_ORDER_ID");
 

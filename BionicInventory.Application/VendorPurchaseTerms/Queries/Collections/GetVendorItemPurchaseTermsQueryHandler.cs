@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.Vendors.PurchaseTerms.Models;
-using BionicInventory.Domain.Vendors;
+using BionicInventory.Domain.Procurment.Vendors;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

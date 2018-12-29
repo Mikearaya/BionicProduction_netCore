@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:44 PM
+ * @Last Modified Time: Dec 29, 2018 10:09 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -22,13 +22,14 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
-using BionicInventory.Domain.Vendors;
 using BionicInventory.Domain.Workstations;
 using BionicProduction.Domain.StockBatchs;
 using BionicProduction.Domain.WriteOffs;
@@ -73,6 +74,9 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<StockBatch> StockBatch { get; set; }
         DbSet<StockBatchStorage> StockBatchStorage { get; set; }
         DbSet<BookedStockBatch> BookedStockBatch { get; set; }
+
+        DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
 
         void Save ();
         Task SaveAsync ();

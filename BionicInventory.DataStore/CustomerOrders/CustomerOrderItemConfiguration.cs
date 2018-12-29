@@ -3,7 +3,7 @@
  * @Author: undefined
  * @Contact: undefined
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 2:48 AM
+ * @Last Modified Time: Dec 29, 2018 10:07 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,15 +18,17 @@ namespace BionicInventory.DataStore.CustomerOrders {
         : IEntityTypeConfiguration<CustomerOrderItem> {
 
             public void Configure (EntityTypeBuilder<CustomerOrderItem> builder) {
-                builder.ToTable ("PURCHASE_ORDER_DETAIL");
-
-                builder.HasIndex (e => e.ItemId)
-                    .HasName ("fk_OUT_ORDER_LIST_item_idx");
+                builder.ToTable ("CUSTOMER_ORDER_ITEM");
 
                 builder.HasIndex (e => e.CustomerOrderId)
                     .HasName ("fk_OUT_ORDER_LIST_order_idx");
 
+                builder.HasIndex (e => e.ItemId)
+                    .HasName ("fk_OUT_ORDER_LIST_item_idx");
+
                 builder.Property (e => e.Id).HasColumnName ("ID");
+
+                builder.Property (e => e.CustomerOrderId).HasColumnName ("CUSTOMER_ORDER_ID");
 
                 builder.Property (e => e.DateAdded)
                     .HasColumnName ("date_added")
@@ -47,20 +49,19 @@ namespace BionicInventory.DataStore.CustomerOrders {
 
                 builder.Property (e => e.PricePerItem).HasColumnName ("price_per_item");
 
-                builder.Property (e => e.CustomerOrderId).HasColumnName ("CUSTOMER_ORDER_ID");
-
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
-
-                builder.HasOne (d => d.Item)
-                    .WithMany (p => p.CustomerOrderItem)
-                    .HasForeignKey (d => d.ItemId)
-                    .HasConstraintName ("fk_OUT_ORDER_LIST_item");
 
                 builder.HasOne (d => d.CustomerOrder)
                     .WithMany (p => p.CustomerOrderItem)
                     .HasForeignKey (d => d.CustomerOrderId)
                     .HasConstraintName ("fk_CUSTOMER_ORDER_item");
+
+                builder.HasOne (d => d.Item)
+                    .WithMany (p => p.CustomerOrderItem)
+                    .HasForeignKey (d => d.ItemId)
+                    .HasConstraintName ("fk_OUT_ORDER_LIST_item");
             }
+
         }
 
 }

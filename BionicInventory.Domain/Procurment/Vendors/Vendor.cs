@@ -3,13 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 9:41 PM
+ * @Last Modified Time: Dec 29, 2018 9:43 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
 
-namespace BionicInventory.Domain.Vendors {
+namespace BionicInventory.Domain.Procurment.Vendors {
     public class Vendor {
         public Vendor () {
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm> ();
@@ -25,5 +26,6 @@ namespace BionicInventory.Domain.Vendors {
         public DateTime? DateUpdated { get; set; }
 
         public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
     }
 }

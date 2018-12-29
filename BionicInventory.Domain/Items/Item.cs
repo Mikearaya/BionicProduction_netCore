@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:20 PM
+ * @Last Modified Time: Dec 29, 2018 9:44 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -11,10 +11,11 @@ using System.Collections.Generic;
 using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
-using BionicInventory.Domain.Vendors;
 using BionicProduction.Domain.StockBatchs;
 using BionicProduction.Domain.WriteOffs;
 
@@ -26,6 +27,7 @@ namespace BionicInventory.Domain.Items {
             ProductionOrderList = new HashSet<ProductionOrderList> ();
             CustomerOrderItem = new HashSet<CustomerOrderItem> ();
             Routing = new HashSet<Routing> ();
+            PurchaseOrderItem = new HashSet<PurchaseOrderItem> ();
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm> ();
             StockBatch = new HashSet<StockBatch> ();
             WriteOff = new HashSet<WriteOff> ();
@@ -56,6 +58,7 @@ namespace BionicInventory.Domain.Items {
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
+        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
         public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public ICollection<Routing> Routing { get; set; }

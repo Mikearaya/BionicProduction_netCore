@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 23, 2018 10:13 PM
+ * @Last Modified Time: Dec 29, 2018 10:06 PM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.WriteOffs;
@@ -15,7 +15,7 @@ namespace BionicInventory.DataStore.WriteOffs {
         public void Configure (EntityTypeBuilder<WriteOffDetail> builder) {
             builder.ToTable ("WRITE_OFF_DETAIL");
 
-            builder.HasIndex (e => e.BachStorageId)
+            builder.HasIndex (e => e.BatchStorageId)
                 .HasName ("fk_WRITE_OFF_DETAIL_bach_id_idx");
 
             builder.HasIndex (e => e.WriteOffId)
@@ -23,7 +23,7 @@ namespace BionicInventory.DataStore.WriteOffs {
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
-            builder.Property (e => e.BachStorageId).HasColumnName ("BACH_STORAGE_ID");
+            builder.Property (e => e.BatchStorageId).HasColumnName ("BATCH_STORAGE_ID");
 
             builder.Property (e => e.DateAdded)
                 .HasColumnName ("date_added")
@@ -40,9 +40,9 @@ namespace BionicInventory.DataStore.WriteOffs {
 
             builder.Property (e => e.WriteOffId).HasColumnName ("WRITE_OFF_ID");
 
-            builder.HasOne (d => d.BachStorage)
+            builder.HasOne (d => d.BatchStorage)
                 .WithMany (p => p.WriteOffDetail)
-                .HasForeignKey (d => d.BachStorageId)
+                .HasForeignKey (d => d.BatchStorageId)
                 .HasConstraintName ("fk_WRITE_OFF_DETAIL_bach_id");
 
             builder.HasOne (d => d.WriteOff)

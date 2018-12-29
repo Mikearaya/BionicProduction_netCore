@@ -7,6 +7,7 @@ namespace BionicProduction.Migration.Database
     {
         public Vendor()
         {
+            PurchaseOrder = new HashSet<PurchaseOrder>();
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm>();
         }
 
@@ -19,6 +20,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
+        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
     }
 }
