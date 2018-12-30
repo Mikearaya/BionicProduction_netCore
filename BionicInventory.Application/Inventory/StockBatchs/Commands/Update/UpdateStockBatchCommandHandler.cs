@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 11:03 PM
+ * @Last Modified Time: Dec 30, 2018 9:10 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -34,7 +34,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Update {
             batch.ExpiryDate = request.ExpiryDate;
 
             if (request.status.Trim ().ToUpper () == "RECIEVED" && batch.Status.Trim ().ToUpper () != "RECIEVED") {
-                batch.ArrivalDate = DateTime.Now;
+                batch.Status = "Recieved";
             }
 
             _database.StockBatch.Update (batch);

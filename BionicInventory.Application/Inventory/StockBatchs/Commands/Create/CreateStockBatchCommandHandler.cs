@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 28, 2018 10:31 PM
+ * @Last Modified Time: Dec 30, 2018 9:03 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -43,8 +43,9 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 Quantity = request.Quantity,
                 UnitCost = request.UnitCost,
                 AvailableFrom = request.AvailableFrom,
+                Status = "Planed"
             };
-
+            batch.Source = "Manual";
             Object manufacture;
             // check if manufacture order id is defined
             if (request.ManufactureOrderId != null && request.ManufactureOrderId != 0) {
@@ -55,7 +56,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 if (manufacture == null) {
                     throw new NotFoundException (nameof (ProductionOrderList), request.ManufactureOrderId);
                 }
-
+                batch.Source = "Manufactured";
                 batch.ManufactureOrderId = request.ManufactureOrderId;
             }
 
@@ -69,14 +70,14 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 if (purchaseOrder == null) {
                     throw new NotFoundException (nameof (PurchaseOrder), request.PurchaseOrderId);
                 }
-
+                batch.Source = "Procured";
                 batch.PurchaseOrderId = request.PurchaseOrderId;
             }
 
             if (request.ExpiryDate != null) {
                 batch.ExpiryDate = request.ExpiryDate;
             } else if (item.ShelfLife != 0 && item.ShelfLife != null) {
-                batch.ExpiryDate = batch.ArrivalDate.Value.AddDays ((double) item.ShelfLife);
+                batch.ExpiryDate = request.AvailableFrom.AddDays ((double) item.ShelfLife);
             }
 
             if (request.StorageLocation.Count < 1) {

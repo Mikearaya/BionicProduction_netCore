@@ -96,3 +96,9 @@ ejs-numerictextbox span.e-spin-up,
 ejs-numerictextbox span.e-spin-down {
   display: none !important;
 }
+
+
+
+.e-btn-icon.e-delete.e-icons {
+  color: red;
+}

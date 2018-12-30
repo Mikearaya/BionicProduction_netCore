@@ -18,10 +18,11 @@ namespace BionicProduction.Migration.Database
         public float Quantity { get; set; }
         public float UnitCost { get; set; }
         public string Status { get; set; }
-        public DateTime? ExpiryData { get; set; }
+        public DateTime? ExpiryDate { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? ArrivalDate { get; set; }
+        public string Source { get; set; }
 
         public Item Item { get; set; }
         public ProductionOrderList ManufactureOrder { get; set; }

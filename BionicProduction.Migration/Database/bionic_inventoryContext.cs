@@ -59,7 +59,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
+                optionsBuilder.UseMySql("server=localhost;port=3306;user=admin;password=admin;database=bionic_inventory");
             }
         }
 
@@ -1461,8 +1461,8 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.ExpiryData)
-                    .HasColumnName("expiry_data")
+                entity.Property(e => e.ExpiryDate)
+                    .HasColumnName("expiry_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
@@ -1472,6 +1472,10 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Source)
+                    .HasColumnName("source")
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.Status)
                     .HasColumnName("status")
@@ -1498,7 +1502,7 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.BatchId)
                     .HasName("fk_STOCK_BATCH_STORAGE_bach_idx");
 
-                entity.HasIndex(e => e.PreviousStorage)
+                entity.HasIndex(e => e.PreviousStorageId)
                     .HasName("fk_STOCK_BATCH_STORAGE_parent_idx");
 
                 entity.HasIndex(e => e.StorageId)
@@ -1519,7 +1523,7 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.PreviousStorage).HasColumnName("PREVIOUS_STORAGE");
+                entity.Property(e => e.PreviousStorageId).HasColumnName("PREVIOUS_STORAGE_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
@@ -1530,9 +1534,9 @@ namespace BionicProduction.Migration.Database
                     .HasForeignKey(d => d.BatchId)
                     .HasConstraintName("fk_STOCK_BATCH_STORAGE_bach");
 
-                entity.HasOne(d => d.PreviousStorageNavigation)
-                    .WithMany(p => p.InversePreviousStorageNavigation)
-                    .HasForeignKey(d => d.PreviousStorage)
+                entity.HasOne(d => d.PreviousStorage)
+                    .WithMany(p => p.InversePreviousStorage)
+                    .HasForeignKey(d => d.PreviousStorageId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_STOCK_BATCH_STORAGE_parent");
 

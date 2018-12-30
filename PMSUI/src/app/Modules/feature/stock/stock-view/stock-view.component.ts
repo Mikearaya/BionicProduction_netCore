@@ -106,11 +106,13 @@ export class StockViewComponent extends CommonProperties implements OnInit {
     };
     this.commands = [
       {
+        title: 'Edit Item',
         buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editItem.bind(this) }
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', isToggle: true, click: this.editItem.bind(this) }
       }, {
+        title: 'Delete Item',
         buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteItem.bind(this) }
+          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', isPrimary: true, click: this.deleteItem.bind(this) }
       }];
   }
 

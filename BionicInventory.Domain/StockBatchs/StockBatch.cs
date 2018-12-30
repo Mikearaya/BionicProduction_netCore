@@ -25,6 +25,7 @@ namespace BionicProduction.Domain.StockBatchs {
         public float Quantity { get; set; }
         public float UnitCost { get; set; }
         public string Status { get; set; }
+        public string Source { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }

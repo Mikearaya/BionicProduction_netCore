@@ -1,0 +1,144 @@
+/*
+ * @CreateTime: Dec 30, 2018 7:38 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Dec 30, 2018 8:55 PM
+ * @Description: Modify Here, Please 
+ */
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using BionicInventory.Application.Inventory.StockBatchs.Models;
+using BionicInventory.Application.Inventory.StockBatchs.Queries.Collection;
+using BionicInventory.Application.Inventory.StockBatchs.Queries.Single;
+using BionicInventory.Application.Shared;
+using BionicInventory.Application.Shared.Exceptions;
+using BionicInventory.API.Commons;
+using BionicInventory.Commons;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+
+namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
+
+    [InventoryAPI ("inventory/stock-batchs")]
+    public class StockBatchController : Controller {
+        private readonly IMediator _Mediator;
+
+        public StockBatchController (IMediator mediator) {
+            _Mediator = mediator;
+        }
+
+        [HttpGet]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<StockBatchListView>>> GetAllStockBatchs () {
+
+            var stockBatchs = await _Mediator.Send (new GetStockBatchListQuery ());
+
+            return StatusCode (200, stockBatchs);
+
+        }
+
+        [HttpGet ("{id}")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<StockBatchDetailView>> GetStockBatchById (uint id) {
+
+            try {
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
+                var batch = await _Mediator.Send (new GetStockBatchDetailViewQuery () { Id = id });
+
+                return StatusCode (200, batch);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType (201)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<StockBatchDetailView>> CreateStockBatch ([FromBody] NewStockBatchDto newBatch) {
+
+            try {
+
+                if (newBatch == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                var result = await _Mediator.Send (newBatch);
+
+                var createdBatch = await _Mediator.Send (new GetStockBatchDetailViewQuery () { Id = result });
+
+                return StatusCode (201, createdBatch);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            } catch (BelowRequiredMinimumItemException e) {
+                ModelState.AddModelError ("Storage", e.Message);
+                return new InvalidInputResponse (ModelState);
+            } catch (InequalMasterDetailQuantityException e) {
+                ModelState.AddModelError ("Storage", e.Message);
+                return new InvalidInputResponse (ModelState);
+            }
+        }
+
+        [HttpPut ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult> UpdateStockBatch (uint id, [FromBody] UpdatedStockBatchDto updatedBatch) {
+
+            try {
+
+                if (updatedBatch == null || updatedBatch.Id != id || id == 0) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                await _Mediator.Send (updatedBatch);
+
+                return StatusCode (204);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpDelete ("{id}")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult> DeleteStockBatchById (uint id) {
+
+            try {
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
+                var batch = await _Mediator.Send (new DeletedStockBatchDto () { Id = id });
+
+                return StatusCode (204);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+    }
+}

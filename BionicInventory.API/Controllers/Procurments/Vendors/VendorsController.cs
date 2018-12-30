@@ -74,20 +74,24 @@ namespace BionicInventory.API.Controllers.Procurments.Vendors {
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<VendorView>> AddVendor ([FromBody] NewVendorDto newVendor) {
+            try {
+                if (newVendor == null) {
+                    return StatusCode (400);
+                }
 
-            if (newVendor == null) {
-                return StatusCode (400);
-            }
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
 
-            if (!ModelState.IsValid) {
+                var result = await _Mediator.Send (newVendor);
+
+                var newVendorView = await _Mediator.Send (new GetVendorByIdQuery () { Id = result });
+
+                return StatusCode (201, newVendorView);
+            } catch (DuplicateTinNumberException e) {
+                ModelState.AddModelError ("TinNumber", e.Message);
                 return new InvalidInputResponse (ModelState);
             }
-
-            var result = await _Mediator.Send (newVendor);
-
-            var newVendorView = await _Mediator.Send (new GetVendorByIdQuery () { Id = result });
-
-            return StatusCode (201, newVendorView);
 
         }
 

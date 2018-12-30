@@ -33,7 +33,12 @@ export class PmsNavigationComponent {
       subChild: [
         { id: 'stocks', name: 'Stock' },
         { id: 'shipments', name: 'Shipments' },
+        { id: 'stocks/batchs', name: 'Stock Batchs' },
+        { id: 'stocks/transfer-orders', name: 'Transfer Orders' },
+        { id: 'stocks/stock-count', name: 'Inventory Count' },
         { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
+        { id: 'stocks/write-offs', name: 'Write-offs' },
+        { id: 'stocks/stock-movement', name: 'Stock Movement' },
         {
           id: 'stocks/settings', name: 'Stock Settings ',
           subChild: [

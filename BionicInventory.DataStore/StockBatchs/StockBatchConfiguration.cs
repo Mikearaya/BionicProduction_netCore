@@ -42,6 +42,10 @@ namespace BionicInventory.DataStore.StockBatchs {
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                 .ValueGeneratedOnAddOrUpdate ();
 
+            builder.Property (e => e.Source)
+                .HasColumnName ("source")
+                .HasColumnType ("varchar(45)");
+
             builder.Property (e => e.ExpiryDate)
                 .HasColumnName ("expiry_date")
                 .HasColumnType ("datetime");
