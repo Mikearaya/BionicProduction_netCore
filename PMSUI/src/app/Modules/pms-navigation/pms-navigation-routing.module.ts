@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 15, 2018 9:56 PM
+ * @Last Modified Time: Dec 30, 2018 10:03 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -29,6 +29,7 @@ const routes: Routes = [{
     { path: 'routings', loadChildren: '../feature/work-order/production-routing/production-routing.module#ProductionRoutingModule' },
     { path: 'storages', loadChildren: '../feature/stock/storage-location/storage-location.module#StorageLocationModule' },
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
+    { path: 'inventory/batchs', loadChildren: '../feature/stock/stock-batch/stock-batch.module#StockBatchModule' },
 
 
   ]

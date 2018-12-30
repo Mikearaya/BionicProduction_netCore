@@ -691,6 +691,157 @@
         }
       }
     },
+    "/api/inventory/stock-batchs": {
+      "get": {
+        "tags": [
+          "StockBatch"
+        ],
+        "operationId": "StockBatch_GetAllStockBatchs",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "StockBatch"
+        ],
+        "operationId": "StockBatch_CreateStockBatch",
+        "parameters": [
+          {
+            "name": "newBatch",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewStockBatchDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/inventory/stock-batchs/{id}": {
+      "get": {
+        "tags": [
+          "StockBatch"
+        ],
+        "operationId": "StockBatch_GetStockBatchById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "StockBatch"
+        ],
+        "operationId": "StockBatch_UpdateStockBatch",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          },
+          {
+            "name": "updatedBatch",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatedStockBatchDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "StockBatch"
+        ],
+        "operationId": "StockBatch_DeleteStockBatchById",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/invoices/{invoiceId}/payments": {
       "get": {
         "tags": [
@@ -911,17 +1062,17 @@
         }
       }
     },
-    "/api/procurments/purchaseterms": {
+    "/api/procurments/purchaseterms/{id}": {
       "get": {
         "tags": [
           "VendorPurchaseTerm"
         ],
-        "operationId": "VendorPurchaseTerm_GetAllPurchaseTerms",
+        "operationId": "VendorPurchaseTerm_GetPurchaseTermById",
         "parameters": [
           {
             "type": "integer",
             "name": "id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "x-nullable": false
           }
@@ -940,9 +1091,7 @@
             "description": ""
           }
         }
-      }
-    },
-    "/api/procurments/purchaseterms/purchaseterms/{id}": {
+      },
       "put": {
         "tags": [
           "VendorPurchaseTerm"
@@ -1006,6 +1155,118 @@
             "description": ""
           },
           "404": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/vendors/{id}/purchaseterms": {
+      "get": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_GetVendorPurchaseTerms",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/items/{itemId}/purchaseterms": {
+      "get": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_GetItemPurchaseTerms",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "itemId",
+            "in": "path",
+            "required": true,
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/procurments/purchaseterms": {
+      "get": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_GetAllPurchaseTerms",
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "500": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "VendorPurchaseTerm"
+        ],
+        "operationId": "VendorPurchaseTerm_CreatePurchaseTerm",
+        "parameters": [
+          {
+            "name": "newPurchaseTerm",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewVendorPurchaseTermDto"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": ""
+          },
+          "400": {
+            "description": ""
+          },
+          "404": {
+            "description": ""
+          },
+          "422": {
             "description": ""
           },
           "500": {
@@ -1138,204 +1399,6 @@
         ],
         "operationId": "Vendors_DeleteVendor",
         "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
-          },
-          "404": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/procurments/vendors/{id}/purchaseterms": {
-      "get": {
-        "tags": [
-          "Vendors"
-        ],
-        "operationId": "Vendors_GetVendorPurchaseTerms",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "404": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/procurments/vendors/{id}/items/{itemId}/purchaseterms": {
-      "get": {
-        "tags": [
-          "Vendors"
-        ],
-        "operationId": "Vendors_GetVendorPurchaseTerms2",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          },
-          {
-            "type": "integer",
-            "name": "itemId",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          },
-          "404": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/procurments/vendors/{vendorId}/purchaseterms": {
-      "post": {
-        "tags": [
-          "Vendors"
-        ],
-        "operationId": "Vendors_CreatePurchaseTerm",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "vendorId",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          },
-          {
-            "name": "newPurchaseTerm",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/NewVendorPurchaseTermDto"
-            },
-            "x-nullable": true
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
-          },
-          "404": {
-            "description": ""
-          },
-          "422": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
-          }
-        }
-      }
-    },
-    "/api/procurments/vendors/{vendorId}/purchaseterms/{id}": {
-      "put": {
-        "tags": [
-          "Vendors"
-        ],
-        "operationId": "Vendors_updatePurchaseTerm",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "vendorId",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          },
-          {
-            "type": "integer",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          },
-          {
-            "name": "updatedPurchaseTerm",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/UpdatedVendorPurchaseTermDto"
-            },
-            "x-nullable": true
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": ""
-          },
-          "400": {
-            "description": ""
-          },
-          "404": {
-            "description": ""
-          },
-          "422": {
-            "description": ""
-          },
-          "500": {
-            "description": ""
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Vendors"
-        ],
-        "operationId": "Vendors_deletePurchaseTerm",
-        "parameters": [
-          {
-            "type": "integer",
-            "name": "vendorId",
-            "in": "path",
-            "required": true,
-            "x-nullable": false
-          },
           {
             "type": "integer",
             "name": "id",
@@ -2564,7 +2627,7 @@
             "x-nullable": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/PurchaseOrder"
+              "$ref": "#/definitions/CustomerOrder"
             }
           },
           "400": {
@@ -2606,7 +2669,7 @@
             "x-nullable": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/PurchaseOrder"
+              "$ref": "#/definitions/CustomerOrder"
             }
           },
           "400": {
@@ -3793,6 +3856,93 @@
         }
       ]
     },
+    "NewStockBatchDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ItemId",
+        "Quantity",
+        "UnitCost",
+        "AvailableFrom"
+      ],
+      "properties": {
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "ManufactureOrderId": {
+          "type": "integer"
+        },
+        "AvailableFrom": {
+          "type": "string",
+          "format": "date-time",
+          "minLength": 1
+        },
+        "ExpiryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "StorageLocation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NewStockBatchStorageDto"
+          }
+        }
+      }
+    },
+    "NewStockBatchStorageDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "StorageId",
+        "Quantity"
+      ],
+      "properties": {
+        "StorageId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "UpdatedStockBatchDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "status",
+        "AvailableFrom"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "status": {
+          "type": "string",
+          "minLength": 1
+        },
+        "AvailableFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ExpiryDate": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "PaymentView": {
       "type": "object",
       "additionalProperties": false,
@@ -3920,8 +4070,8 @@
         "PreparedByNavigation": {
           "$ref": "#/definitions/Employee"
         },
-        "PurchaseOrder": {
-          "$ref": "#/definitions/PurchaseOrder"
+        "CustomerOrder": {
+          "$ref": "#/definitions/CustomerOrder"
         },
         "InvoiceDetail": {
           "type": "array",
@@ -3997,10 +4147,10 @@
             "$ref": "#/definitions/ProductionOrderList"
           }
         },
-        "PurchaseOrder": {
+        "CustomerOrder": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PurchaseOrder"
+            "$ref": "#/definitions/CustomerOrder"
           }
         },
         "Shipment": {
@@ -4051,7 +4201,7 @@
           "$ref": "#/definitions/Employee"
         },
         "BookedForNavigation": {
-          "$ref": "#/definitions/PurchaseOrderDetail"
+          "$ref": "#/definitions/CustomerOrderItem"
         },
         "Stock": {
           "$ref": "#/definitions/FinishedProduct"
@@ -4062,12 +4212,12 @@
       "type": "object",
       "additionalProperties": false
     },
-    "PurchaseOrderDetail": {
+    "CustomerOrderItem": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "Id",
-        "PurchaseOrderId",
+        "CustomerOrderId",
         "ItemId",
         "Quantity",
         "PricePerItem",
@@ -4077,7 +4227,7 @@
         "Id": {
           "type": "integer"
         },
-        "PurchaseOrderId": {
+        "CustomerOrderId": {
           "type": "integer"
         },
         "ItemId": {
@@ -4102,11 +4252,20 @@
           "type": "string",
           "format": "date-time"
         },
+        "CustomerOrder": {
+          "$ref": "#/definitions/CustomerOrder"
+        },
         "Item": {
           "$ref": "#/definitions/Item"
         },
-        "PurchaseOrder": {
-          "$ref": "#/definitions/PurchaseOrder"
+        "ProductionOrderList": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "BookedStockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockBatch"
+          }
         },
         "BookedStockItems": {
           "type": "array",
@@ -4120,524 +4279,6 @@
             "$ref": "#/definitions/InvoiceDetail"
           }
         },
-        "ProductionOrderList": {
-          "$ref": "#/definitions/ProductionOrderList"
-        },
-        "ShipmentDetail": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ShipmentDetail"
-          }
-        },
-        "BookedStockBatch": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BookedStockBatch"
-          }
-        }
-      }
-    },
-    "Item": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "UnitCost",
-        "GroupId",
-        "PrimaryUomId",
-        "DefaultStorageId"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "Code": {
-          "type": "string"
-        },
-        "Name": {
-          "type": "string"
-        },
-        "Weight": {
-          "type": "number",
-          "format": "double"
-        },
-        "UnitCost": {
-          "type": "number",
-          "format": "double"
-        },
-        "Photo": {
-          "type": "string"
-        },
-        "GroupId": {
-          "type": "integer"
-        },
-        "IsProcured": {
-          "$ref": "#/definitions/SByte"
-        },
-        "IsInventory": {
-          "$ref": "#/definitions/SByte"
-        },
-        "Price": {
-          "type": "number",
-          "format": "double"
-        },
-        "ShelfLife": {
-          "type": "integer"
-        },
-        "MinimumQuantity": {
-          "type": "number",
-          "format": "double"
-        },
-        "PrimaryUomId": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DefaultStorageId": {
-          "type": "integer"
-        },
-        "StorageLocation": {
-          "$ref": "#/definitions/StorageLocation"
-        },
-        "Group": {
-          "$ref": "#/definitions/ProductGroup"
-        },
-        "PrimaryUom": {
-          "$ref": "#/definitions/UnitOfMeasurment"
-        },
-        "Bom": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Bom"
-          }
-        },
-        "BomItems": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BomItems"
-          }
-        },
-        "ProductionOrderList": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ProductionOrderList"
-          }
-        },
-        "PurchaseOrderDetail": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PurchaseOrderDetail"
-          }
-        },
-        "Routing": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Routing"
-          }
-        },
-        "VendorPurchaseTerm": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VendorPurchaseTerm"
-          }
-        },
-        "StockBatch": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StockBatch"
-          }
-        },
-        "WriteOff": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/WriteOff"
-          }
-        }
-      }
-    },
-    "StorageLocation": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "Name": {
-          "type": "string"
-        },
-        "Note": {
-          "type": "string"
-        },
-        "Active": {
-          "$ref": "#/definitions/SByte"
-        },
-        "Item": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Item"
-          }
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "StockBatchStorage": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StockBatchStorage"
-          }
-        }
-      }
-    },
-    "StockBatchStorage": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "BachId",
-        "StorageId",
-        "Quantity"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "BachId": {
-          "type": "integer"
-        },
-        "StorageId": {
-          "type": "integer"
-        },
-        "Quantity": {
-          "type": "number",
-          "format": "double"
-        },
-        "PreviousStorage": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Bach": {
-          "$ref": "#/definitions/StockBatch"
-        },
-        "PreviousStorageNavigation": {
-          "$ref": "#/definitions/StockBatchStorage"
-        },
-        "Storage": {
-          "$ref": "#/definitions/StorageLocation"
-        },
-        "InversePreviousStorageNavigation": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StockBatchStorage"
-          }
-        },
-        "WriteOffDetail": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/WriteOffDetail"
-          }
-        }
-      }
-    },
-    "StockBatch": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "ItemId",
-        "Quantity",
-        "UnitCost",
-        "AvailableFrom"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "ItemId": {
-          "type": "integer"
-        },
-        "Quantity": {
-          "type": "number",
-          "format": "double"
-        },
-        "UnitCost": {
-          "type": "number",
-          "format": "double"
-        },
-        "Status": {
-          "type": "string"
-        },
-        "PurchaseOrderId": {
-          "type": "integer"
-        },
-        "ManufactureOrderId": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "AvailableFrom": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "ExpiryDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Item": {
-          "$ref": "#/definitions/Item"
-        },
-        "ManufactureOrder": {
-          "$ref": "#/definitions/ProductionOrderList"
-        },
-        "StockBatchStorage": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StockBatchStorage"
-          }
-        }
-      }
-    },
-    "ProductionOrderList": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "ItemId",
-        "OrderedBy",
-        "Quantity",
-        "CostPerItem",
-        "Start",
-        "DueDate"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "ItemId": {
-          "type": "integer"
-        },
-        "OrderedBy": {
-          "type": "integer"
-        },
-        "Quantity": {
-          "type": "integer"
-        },
-        "CostPerItem": {
-          "type": "number",
-          "format": "double"
-        },
-        "Description": {
-          "type": "string"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Start": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DueDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "PurchaseOrderId": {
-          "type": "integer"
-        },
-        "Item": {
-          "$ref": "#/definitions/Item"
-        },
-        "OrderedByNavigation": {
-          "$ref": "#/definitions/Employee"
-        },
-        "PurchaseOrder": {
-          "$ref": "#/definitions/PurchaseOrderDetail"
-        },
-        "FinishedProduct": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/FinishedProduct"
-          }
-        },
-        "BookedStockBatch": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/BookedStockBatch"
-          }
-        },
-        "StockBatch": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StockBatch"
-          }
-        }
-      }
-    },
-    "FinishedProduct": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "OrderId",
-        "SubmittedBy",
-        "RecievedBy"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "OrderId": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "SubmittedBy": {
-          "type": "integer"
-        },
-        "RecievedBy": {
-          "type": "integer"
-        },
-        "Quantity": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "Order": {
-          "$ref": "#/definitions/ProductionOrderList"
-        },
-        "RecievedByNavigation": {
-          "$ref": "#/definitions/Employee"
-        },
-        "SubmittedByNavigation": {
-          "$ref": "#/definitions/Employee"
-        },
-        "BookedStockItems": {
-          "$ref": "#/definitions/BookedStockItems"
-        },
-        "ShipmentDetail": {
-          "$ref": "#/definitions/ShipmentDetail"
-        }
-      }
-    },
-    "ShipmentDetail": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "ShipmentId",
-        "StockId",
-        "OrderItemId"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "ShipmentId": {
-          "type": "integer"
-        },
-        "StockId": {
-          "type": "integer"
-        },
-        "OrderItemId": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "Picked": {
-          "$ref": "#/definitions/SByte"
-        },
-        "OrderItem": {
-          "$ref": "#/definitions/PurchaseOrderDetail"
-        },
-        "Shipment": {
-          "$ref": "#/definitions/Shipment"
-        },
-        "Stock": {
-          "$ref": "#/definitions/FinishedProduct"
-        }
-      }
-    },
-    "Shipment": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id",
-        "BookedBy",
-        "DeliveryDate",
-        "CustomerOrderId"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "BookedBy": {
-          "type": "integer"
-        },
-        "ShipmentNote": {
-          "type": "string"
-        },
-        "DeliveryDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "CustomerOrderId": {
-          "type": "integer"
-        },
-        "BookedByNavigation": {
-          "$ref": "#/definitions/Employee"
-        },
-        "CustomerOrder": {
-          "$ref": "#/definitions/PurchaseOrder"
-        },
         "ShipmentDetail": {
           "type": "array",
           "items": {
@@ -4646,7 +4287,7 @@
         }
       }
     },
-    "PurchaseOrder": {
+    "CustomerOrder": {
       "type": "object",
       "additionalProperties": false,
       "required": [
@@ -4669,13 +4310,13 @@
           "type": "string",
           "format": "date-time"
         },
-        "OrderStatus": {
-          "type": "string"
-        },
         "CreatedBy": {
           "type": "integer"
         },
         "Description": {
+          "type": "string"
+        },
+        "OrderStatus": {
           "type": "string"
         },
         "DueDate": {
@@ -4688,16 +4329,16 @@
         "CreatedByNavigation": {
           "$ref": "#/definitions/Employee"
         },
+        "CustomerOrderItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerOrderItem"
+          }
+        },
         "Invoice": {
           "type": "array",
           "items": {
             "$ref": "#/definitions/Invoice"
-          }
-        },
-        "PurchaseOrderDetail": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/PurchaseOrderDetail"
           }
         },
         "Shipment": {
@@ -4770,10 +4411,10 @@
             "$ref": "#/definitions/PhoneNumber"
           }
         },
-        "PurchaseOrder": {
+        "CustomerOrder": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PurchaseOrder"
+            "$ref": "#/definitions/CustomerOrder"
           }
         }
       }
@@ -4878,25 +4519,74 @@
         }
       }
     },
-    "BookedStockBatch": {
+    "Shipment": {
       "type": "object",
       "additionalProperties": false,
       "required": [
         "Id",
-        "BachStorageId",
-        "Quantity"
+        "BookedBy",
+        "DeliveryDate",
+        "CustomerOrderId"
       ],
       "properties": {
         "Id": {
           "type": "integer"
         },
-        "BachStorageId": {
+        "BookedBy": {
           "type": "integer"
         },
-        "ProductionOrderId": {
-          "type": "integer"
+        "ShipmentNote": {
+          "type": "string"
+        },
+        "DeliveryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
         },
         "CustomerOrderId": {
+          "type": "integer"
+        },
+        "BookedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "CustomerOrder": {
+          "$ref": "#/definitions/CustomerOrder"
+        },
+        "ShipmentDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShipmentDetail"
+          }
+        }
+      }
+    },
+    "ShipmentDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ShipmentId",
+        "StockId",
+        "OrderItemId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ShipmentId": {
+          "type": "integer"
+        },
+        "StockId": {
+          "type": "integer"
+        },
+        "OrderItemId": {
           "type": "integer"
         },
         "DateAdded": {
@@ -4907,12 +4597,493 @@
           "type": "string",
           "format": "date-time"
         },
+        "Picked": {
+          "$ref": "#/definitions/SByte"
+        },
+        "CustomerOrderItem": {
+          "$ref": "#/definitions/CustomerOrderItem"
+        },
+        "Shipment": {
+          "$ref": "#/definitions/Shipment"
+        },
+        "Stock": {
+          "$ref": "#/definitions/FinishedProduct"
+        }
+      }
+    },
+    "FinishedProduct": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "OrderId",
+        "SubmittedBy",
+        "RecievedBy"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "OrderId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "SubmittedBy": {
+          "type": "integer"
+        },
+        "RecievedBy": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "Order": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "RecievedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "SubmittedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "BookedStockItems": {
+          "$ref": "#/definitions/BookedStockItems"
+        },
+        "ShipmentDetail": {
+          "$ref": "#/definitions/ShipmentDetail"
+        }
+      }
+    },
+    "ProductionOrderList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "OrderedBy",
+        "Quantity",
+        "CostPerItem",
+        "Start",
+        "DueDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "OrderedBy": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "integer"
+        },
+        "CostPerItem": {
+          "type": "number",
+          "format": "double"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Start": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DueDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "CustomerOrderItemId": {
+          "type": "integer"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "OrderedByNavigation": {
+          "$ref": "#/definitions/Employee"
+        },
+        "CustomerOrderItem": {
+          "$ref": "#/definitions/CustomerOrderItem"
+        },
+        "FinishedProduct": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FinishedProduct"
+          }
+        },
+        "BookedStockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockBatch"
+          }
+        },
+        "StockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatch"
+          }
+        }
+      }
+    },
+    "Item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "UnitCost",
+        "GroupId",
+        "PrimaryUomId",
+        "DefaultStorageId"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Code": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Weight": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Photo": {
+          "type": "string"
+        },
+        "GroupId": {
+          "type": "integer"
+        },
+        "IsProcured": {
+          "$ref": "#/definitions/SByte"
+        },
+        "IsInventory": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Price": {
+          "type": "number",
+          "format": "double"
+        },
+        "ShelfLife": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "PrimaryUomId": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DefaultStorageId": {
+          "type": "integer"
+        },
+        "StorageLocation": {
+          "$ref": "#/definitions/StorageLocation"
+        },
+        "Group": {
+          "$ref": "#/definitions/ProductGroup"
+        },
+        "PrimaryUom": {
+          "$ref": "#/definitions/UnitOfMeasurment"
+        },
+        "Bom": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bom"
+          }
+        },
+        "BomItems": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BomItems"
+          }
+        },
+        "PurchaseOrderItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrderItem"
+          }
+        },
+        "ProductionOrderList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductionOrderList"
+          }
+        },
+        "CustomerOrderItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerOrderItem"
+          }
+        },
+        "Routing": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Routing"
+          }
+        },
+        "VendorPurchaseTerm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VendorPurchaseTerm"
+          }
+        },
+        "StockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatch"
+          }
+        },
+        "WriteOff": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WriteOff"
+          }
+        }
+      }
+    },
+    "StorageLocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Note": {
+          "type": "string"
+        },
+        "Active": {
+          "$ref": "#/definitions/SByte"
+        },
+        "Item": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "StockBatchStorage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        }
+      }
+    },
+    "StockBatchStorage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "BatchId",
+        "StorageId",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "BatchId": {
+          "type": "integer"
+        },
+        "StorageId": {
+          "type": "integer"
+        },
+        "PreviousStorageId": {
+          "type": "integer"
+        },
         "Quantity": {
           "type": "number",
           "format": "double"
         },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Batch": {
+          "$ref": "#/definitions/StockBatch"
+        },
+        "PreviousStorage": {
+          "$ref": "#/definitions/StockBatchStorage"
+        },
+        "Storage": {
+          "$ref": "#/definitions/StorageLocation"
+        },
+        "BookedStockBatch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BookedStockBatch"
+          }
+        },
+        "PreviousStorageNavigation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        },
+        "WriteOffDetail": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/WriteOffDetail"
+          }
+        }
+      }
+    },
+    "StockBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "ItemId",
+        "AvailableFrom",
+        "Quantity",
+        "UnitCost"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "ManufactureOrderId": {
+          "type": "integer"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "AvailableFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "Source": {
+          "type": "string"
+        },
+        "ExpiryDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ArrivalDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "ManufactureOrder": {
+          "$ref": "#/definitions/ProductionOrderList"
+        },
+        "StockBatchStorage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StockBatchStorage"
+          }
+        }
+      }
+    },
+    "BookedStockBatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "Quantity"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "BatchStorageId": {
+          "type": "integer"
+        },
+        "CustomerOrderId": {
+          "type": "integer"
+        },
+        "ProductionOrderId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "BatchStorage": {
+          "$ref": "#/definitions/StockBatchStorage"
+        },
         "CustomerOrder": {
-          "$ref": "#/definitions/PurchaseOrderDetail"
+          "$ref": "#/definitions/CustomerOrderItem"
         },
         "ProductionOrder": {
           "$ref": "#/definitions/ProductionOrderList"
@@ -4924,12 +5095,15 @@
       "additionalProperties": false,
       "required": [
         "Id",
+        "BatchStorageId",
         "WriteOffId",
-        "Quantity",
-        "BachStorageId"
+        "Quantity"
       ],
       "properties": {
         "Id": {
+          "type": "integer"
+        },
+        "BatchStorageId": {
           "type": "integer"
         },
         "WriteOffId": {
@@ -4939,9 +5113,6 @@
           "type": "number",
           "format": "double"
         },
-        "BachStorageId": {
-          "type": "integer"
-        },
         "DateAdded": {
           "type": "string",
           "format": "date-time"
@@ -4950,7 +5121,7 @@
           "type": "string",
           "format": "date-time"
         },
-        "BachStorage": {
+        "BatchStorage": {
           "$ref": "#/definitions/StockBatchStorage"
         },
         "WriteOff": {
@@ -4975,10 +5146,10 @@
         "Status": {
           "type": "string"
         },
-        "Type": {
+        "Note": {
           "type": "string"
         },
-        "Note": {
+        "Type": {
           "type": "string"
         },
         "DateAdded": {
@@ -5425,6 +5596,177 @@
         }
       }
     },
+    "PurchaseOrderItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "PurchaseOrderId",
+        "ItemId",
+        "Quantity",
+        "UnitPrice",
+        "ExpectedDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "PurchaseOrderId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "ExpectedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Item": {
+          "$ref": "#/definitions/Item"
+        },
+        "PurchaseOrder": {
+          "$ref": "#/definitions/PurchaseOrder"
+        }
+      }
+    },
+    "PurchaseOrder": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id",
+        "VendorId",
+        "ExpectedDate"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "VendorId": {
+          "type": "integer"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "ExpectedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "OrderedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "ShippedDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Tax": {
+          "type": "number",
+          "format": "double"
+        },
+        "AdditionalFee": {
+          "type": "number",
+          "format": "double"
+        },
+        "Discount": {
+          "type": "number",
+          "format": "double"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "OrderId": {
+          "type": "string"
+        },
+        "PaymentDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "InvoiceId": {
+          "type": "string"
+        },
+        "InvoiceDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Vendor": {
+          "$ref": "#/definitions/Vendor"
+        },
+        "PurchaseOrderItem": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrderItem"
+          }
+        }
+      }
+    },
+    "Vendor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Id"
+      ],
+      "properties": {
+        "Id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "TinNumber": {
+          "type": "string"
+        },
+        "LeadTime": {
+          "type": "integer"
+        },
+        "PaymentPeriod": {
+          "type": "integer"
+        },
+        "DateAdded": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "DateUpdated": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "VendorPurchaseTerm": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VendorPurchaseTerm"
+          }
+        },
+        "PurchaseOrder": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PurchaseOrder"
+          }
+        }
+      }
+    },
     "VendorPurchaseTerm": {
       "type": "object",
       "additionalProperties": false,
@@ -5474,47 +5816,6 @@
         },
         "Vendor": {
           "$ref": "#/definitions/Vendor"
-        }
-      }
-    },
-    "Vendor": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "Id"
-      ],
-      "properties": {
-        "Id": {
-          "type": "integer"
-        },
-        "Name": {
-          "type": "string"
-        },
-        "PhoneNumber": {
-          "type": "string"
-        },
-        "TinNumber": {
-          "type": "string"
-        },
-        "LeadTime": {
-          "type": "integer"
-        },
-        "PaymentPeriod": {
-          "type": "integer"
-        },
-        "DateAdded": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "DateUpdated": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "VendorPurchaseTerm": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/VendorPurchaseTerm"
-          }
         }
       }
     },
@@ -5568,8 +5869,8 @@
         "InvoiceNoNavigation": {
           "$ref": "#/definitions/Invoice"
         },
-        "SalesOrder": {
-          "$ref": "#/definitions/PurchaseOrderDetail"
+        "CustomerOrderItem": {
+          "$ref": "#/definitions/CustomerOrderItem"
         }
       }
     },
@@ -5737,6 +6038,40 @@
         }
       }
     },
+    "NewVendorPurchaseTermDto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "VendorId",
+        "ItemId",
+        "UnitPrice"
+      ],
+      "properties": {
+        "VendorId": {
+          "type": "integer"
+        },
+        "ItemId": {
+          "type": "integer"
+        },
+        "VendorProductId": {
+          "type": "string"
+        },
+        "Priority": {
+          "type": "integer"
+        },
+        "Leadtime": {
+          "type": "integer"
+        },
+        "MinimumQuantity": {
+          "type": "number",
+          "format": "double"
+        },
+        "UnitPrice": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
     "UpdatedVendorPurchaseTermDto": {
       "type": "object",
       "additionalProperties": false,
@@ -5824,40 +6159,6 @@
         },
         "PaymentPeriod": {
           "type": "integer"
-        }
-      }
-    },
-    "NewVendorPurchaseTermDto": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "VendorId",
-        "ItemId",
-        "UnitPrice"
-      ],
-      "properties": {
-        "VendorId": {
-          "type": "integer"
-        },
-        "ItemId": {
-          "type": "integer"
-        },
-        "VendorProductId": {
-          "type": "string"
-        },
-        "Priority": {
-          "type": "integer"
-        },
-        "Leadtime": {
-          "type": "integer"
-        },
-        "MinimumQuantity": {
-          "type": "number",
-          "format": "double"
-        },
-        "UnitPrice": {
-          "type": "number",
-          "format": "double"
         }
       }
     },
