@@ -18,6 +18,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public float quantity { get; set; }
         public float totalBooked { get; set; }
         public float unitCost { get; set; }
+        public double? totalCost { get; set; }
         public string status { get; set; }
         public string storageLocation { get; set; }
         public uint storageLocationId { get; set; }
@@ -45,6 +46,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     (batch.Batch.ManufactureOrderId == null) ? "" :
                     $"MO-{batch.Batch.ManufactureOrderId}" : $"{batch.Batch.PurchaseOrderId}",
                     quantity = batch.Quantity,
+                    totalCost = (double) (batch.Quantity * batch.Batch.UnitCost),
                     storageLocation = batch.Storage.Name,
                     storageLocationId = batch.StorageId,
                     unitCost = batch.Batch.UnitCost,

@@ -33,6 +33,7 @@ export class StockBatchListView {
   manufactureOrderId: number | null;
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
+  totalCost: number;
   availableFrom: Date | string;
   expiryDate: Date | string | null;
   item: string;
