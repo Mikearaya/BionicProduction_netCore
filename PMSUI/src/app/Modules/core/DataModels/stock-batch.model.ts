@@ -3,7 +3,7 @@ export class NewStockBatchModel {
   Quantity: number;
   UnitCost: number;
   PurchaseOrderId: number | null;
-
+  Status: string;
   ManufactureOrderId: number | null;
   AvailableFrom: Date | string;
   ExpiryDate: Date | string | null;
@@ -14,7 +14,7 @@ export class NewStockBatchModel {
 
 export class UpdatedStockBatchModel {
   Id: number;
-  status: string;
+  Status: string;
   AvailableFrom: Date | string;
   ExpiryDate: Date | string | null;
 }

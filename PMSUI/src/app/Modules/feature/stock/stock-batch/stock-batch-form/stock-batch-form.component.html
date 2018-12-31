@@ -1,3 +1,91 @@
-<p>
-  stock-batch-form works!
-</p>
+<section>
+  <app-notification #notification></app-notification>
+  <h3>{{title}}</h3>
+  <form [formGroup]="stockBatchForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitButtonText]='submitButtonText' [submitDisabled]='stockBatchForm.invalid'></app-form-options>
+    <div class='e-card'>
+      <div class="container">
+        <div class="row">
+          <div class="col-6 col-xs-12">
+            <div class="row">
+              <label for="itemId" class="label-area col-md-3 col-xs-12">Stock Item</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]='itemsList' [fields]='itemField' placeholder="Select Item" name="itemId"
+                  id='itemId' formControlName="itemId" filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+              </div>
+            </div>
+            <div class="row">
+              <label for="status" class="label-area col-md-3 col-xs-12">Status</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]='stockBatchStatus' placeholder="Status" name="status" id='status'
+                  formControlName="status"></ejs-dropdownlist>
+              </div>
+            </div>
+            <div class="row">
+              <label for="quantity" class="label-area col-md-3 col-xs-12">Quantity</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-numerictextbox format='##' formControlName="quantity" id='quantity' name='quantity' placeholder='Quantity'
+                  [width]='70'></ejs-numerictextbox>
+              </div>
+            </div>
+            <div class="row">
+              <label for="unitCost" class="label-area col-md-3 col-xs-12">Unit Cost</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-numerictextbox format='ETB ##.#' formControlName="unitCost" id='unitCost' name='unitCost'
+                  placeholder='Unit Cost' [width]='100'></ejs-numerictextbox>
+              </div>
+            </div>
+            <div class="row">
+              <label for="availableFrom" class="label-area col-md-3 col-xs-12">Available From</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="availableFrom" id='availableFrom' name='availableFrom'
+                  placeholder='Available From' [width]='150'></ejs-datepicker>
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="expiryDate" class="label-area col-md-3 col-xs-12">Expiry Date</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="expiryDate" id='expiryDate' name='expiryDate' placeholder='Expiry Date'
+                  [width]='150'></ejs-datepicker>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Storage Location</th>
+                      <th>Quantity</th>
+                      <th><button ejs-button class='e-small e-primary' (click)="addStorage()" [disabled]='storageLocation.invalid'
+                          iconCss='e-icons e-add-icon'>Add</button></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="storageLocation">
+                    <tr *ngFor="let storage of storageLocation.controls; let i=index; let last=last;" [formGroup]="storage">
+                      <td>
+                        <ejs-dropdownlist [dataSource]='storesList' [fields]='storageField' formControlName="storageId"
+                          id='storageId' name='storageId' placeholder='Select Storage'></ejs-dropdownlist>
+                      </td>
+                      <td>
+                        <ejs-numerictextbox format='##' formControlName="quantity" [attr.id]="'quantity'+i" name="'quantity'+i"
+                          placeholder='Quantity' [width]='50'></ejs-numerictextbox>
+                      </td>
+                      <td>
+                        <button ejs-button class='e-round-corner e-round e-danger e-small' *ngIf="last && storageLocation.controls.length > 1"
+                          (click)='deleteStorage(i)' iconCss='e-icons e-delete-icon'></button>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-form-options [submitButtonText]='submitButtonText' [submitDisabled]='stockBatchForm.invalid'></app-form-options>
+  </form>
+</section>

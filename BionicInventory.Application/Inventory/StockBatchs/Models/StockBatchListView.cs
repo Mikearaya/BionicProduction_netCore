@@ -40,11 +40,10 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     id = batch.Id,
                     itemId = batch.Batch.ItemId,
                     item = batch.Batch.Item.Name,
+                    status = batch.Batch.Status,
                     itemGroup = batch.Batch.Item.Group.GroupName,
                     itemGroupId = batch.Batch.Item.GroupId,
-                    source = (batch.Batch.PurchaseOrderId == null) ?
-                    (batch.Batch.ManufactureOrderId == null) ? "" :
-                    $"MO-{batch.Batch.ManufactureOrderId}" : $"{batch.Batch.PurchaseOrderId}",
+                    source = batch.Batch.Source,
                     quantity = batch.Quantity,
                     totalCost = (double) (batch.Quantity * batch.Batch.UnitCost),
                     storageLocation = batch.Storage.Name,

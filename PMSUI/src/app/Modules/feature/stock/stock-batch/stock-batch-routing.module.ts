@@ -6,7 +6,7 @@ import { StockBatchFormComponent } from './stock-batch-form/stock-batch-form.com
 const routes: Routes = [
   { path: '', component: StockBatchViewComponent },
   { path: 'new', component: StockBatchFormComponent },
-  { path: ':stockbatchId/update', component: StockBatchFormComponent }
+  { path: ':stockBatchId/update', component: StockBatchFormComponent }
 ];
 
 @NgModule({

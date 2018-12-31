@@ -43,7 +43,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 Quantity = request.Quantity,
                 UnitCost = request.UnitCost,
                 AvailableFrom = request.AvailableFrom,
-                Status = "Planed"
+                Status = request.Status
             };
             batch.Source = "Manual";
             Object manufacture;
