@@ -69,6 +69,7 @@ export class StockBatchDetailView {
 
 
 export class StockBatchStorageModel {
+  id?: number;
   StorageId: number;
   Quantity: number;
 }
