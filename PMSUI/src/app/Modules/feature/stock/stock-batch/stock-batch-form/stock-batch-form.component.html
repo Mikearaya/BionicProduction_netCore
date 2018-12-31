@@ -8,46 +8,61 @@
         <div class="row">
           <div class="col-6 col-xs-12">
             <div class="row">
-              <label for="itemId" class="label-area col-md-3 col-xs-12">Stock Item</label>
+              <label for="itemId" class="label-area col-md-3 col-xs-12" i18n>Stock Item</label>
               <div class="col-md-9 col-xs-12">
                 <ejs-dropdownlist [dataSource]='itemsList' [fields]='itemField' placeholder="Select Item" name="itemId"
-                  id='itemId' formControlName="itemId" filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+                  id='itemId' formControlName="itemId" i18n-filterBarPlaceholder i18n-placeholder filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+                <div class="e-error" *ngIf='itemId.errors'>
+                  <div *ngIf="itemId.errors['required']" i18n> Item is Required</div>
+                </div>
               </div>
             </div>
             <div class="row">
-              <label for="status" class="label-area col-md-3 col-xs-12">Status</label>
+              <label for="status" class="label-area col-md-3 col-xs-12" i18n="@@status stock status">Status</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-dropdownlist [dataSource]='stockBatchStatus' placeholder="Status" name="status" id='status'
-                  formControlName="status"></ejs-dropdownlist>
+                <ejs-dropdownlist [dataSource]='stockBatchStatus' i18n-placeholder="@@status" placeholder="Status" name="status"
+                  id='status' formControlName="status"></ejs-dropdownlist>
+                <div class="e-error" *ngIf='status.errors'>
+                  <div *ngIf="status.errors['required']" i18n> Status is Required</div>
+                </div>
               </div>
             </div>
             <div class="row">
-              <label for="quantity" class="label-area col-md-3 col-xs-12">Quantity</label>
+              <label for="quantity" class="label-area col-md-3 col-xs-12" i18n="@@quantity">Quantity</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-numerictextbox format='##' formControlName="quantity" id='quantity' name='quantity' placeholder='Quantity'
-                  [width]='70'></ejs-numerictextbox>
+                <ejs-numerictextbox format='##' formControlName="quantity" id='quantity' i18n-placeholder="@@quantity" name='quantity'
+                  placeholder='Quantity' [width]='70'></ejs-numerictextbox>
+                <div class="e-error" *ngIf='quantity.errors'>
+                  <div *ngIf="quantity.errors['required']" i18n> Quantity is Required</div>
+                </div>
               </div>
             </div>
             <div class="row">
-              <label for="unitCost" class="label-area col-md-3 col-xs-12">Unit Cost</label>
+              <label for="unitCost" class="label-area col-md-3 col-xs-12" i18n="@@unitCost stock item unit cost">Unit Cost</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-numerictextbox format='ETB ##.#' formControlName="unitCost" id='unitCost' name='unitCost'
+                <ejs-numerictextbox format='ETB ##.#' i18n-placeholder="@@unitCost stock item unit cost" formControlName="unitCost" id='unitCost' name='unitCost'
                   placeholder='Unit Cost' [width]='100'></ejs-numerictextbox>
+                <div class="e-error" *ngIf='unitCost.errors'>
+                  <div *ngIf="unitCost.errors['required']" i18n> Unit Cost is Required</div>
+                </div>
               </div>
             </div>
             <div class="row">
-              <label for="availableFrom" class="label-area col-md-3 col-xs-12">Available From</label>
+              <label for="availableFrom" class="label-area col-md-3 col-xs-12" i18n="@@availableDate stock item available date">Available From</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-datepicker format='yyyy-MM-dd' formControlName="availableFrom" id='availableFrom' name='availableFrom'
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="availableFrom" id='availableFrom' i18n-placeholder="@@availableDate" name='availableFrom'
                   placeholder='Available From' [width]='150'></ejs-datepicker>
+                <div class="e-error" *ngIf='availableFrom.errors'>
+                  <div *ngIf="availableFrom.errors['required']" i18n> Available Date is Required</div>
+                </div>
               </div>
             </div>
 
             <div class="row">
-              <label for="expiryDate" class="label-area col-md-3 col-xs-12">Expiry Date</label>
+              <label for="expiryDate" class="label-area col-md-3 col-xs-12" i18n="@@expireDate stock item expiry date">Expiry Date</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-datepicker format='yyyy-MM-dd' formControlName="expiryDate" id='expiryDate' name='expiryDate' placeholder='Expiry Date'
-                  [width]='150'></ejs-datepicker>
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="expiryDate" id='expiryDate' i18n-placeholder="@@expireDate" name='expiryDate'
+                  placeholder='Expiry Date' [width]='150'></ejs-datepicker>
               </div>
             </div>
             <div class="row">
@@ -55,21 +70,27 @@
                 <table class="table table-striped">
                   <thead>
                     <tr>
-                      <th>Storage Location</th>
-                      <th>Quantity</th>
+                      <th i18n>Storage Location</th>
+                      <th i18n="@@quantity">Quantity</th>
                       <th><button ejs-button class='e-small e-primary' (click)="addStorage()" [disabled]='storageLocation.invalid'
-                          iconCss='e-icons e-add-icon'>Add</button></th>
+                          iconCss='e-icons e-add-icon' i18n="add stock item">Add</button></th>
                     </tr>
                   </thead>
                   <tbody formArrayName="storageLocation">
                     <tr *ngFor="let storage of storageLocation.controls; let i=index; let last=last;" [formGroup]="storage">
                       <td>
-                        <ejs-dropdownlist [dataSource]='storesList' [fields]='storageField' formControlName="storageId"
+                        <ejs-dropdownlist [dataSource]='storesList' [fields]='storageField' i18n-placeholder formControlName="storageId"
                           id='storageId' name='storageId' placeholder='Select Storage'></ejs-dropdownlist>
+                        <div class="e-error" *ngIf="storage.get('storageId').errors">
+                          <div *ngIf="storage.get('storageId').errors['required']" i18n> Storage is Required</div>
+                        </div>
                       </td>
                       <td>
                         <ejs-numerictextbox format='##' formControlName="quantity" [attr.id]="'quantity'+i" name="'quantity'+i"
-                          placeholder='Quantity' [width]='50'></ejs-numerictextbox>
+                          placeholder='Quantity' i18n-placeholder="@@quantity" [width]='70'></ejs-numerictextbox>
+                        <div class="e-error" *ngIf="storage.get('quantity').errors">
+                          <div *ngIf="storage.get('quantity').errors['required']" i18n> QUantity is Required</div>
+                        </div>
                       </td>
                       <td>
                         <button ejs-button class='e-round-corner e-round e-danger e-small' *ngIf="last && storageLocation.controls.length > 1"
