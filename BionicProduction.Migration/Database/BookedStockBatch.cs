@@ -12,6 +12,7 @@ namespace BionicProduction.Migration.Database
         public float Quantity { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public float? ConsumedQuantity { get; set; }
 
         public StockBatchStorage BatchStorage { get; set; }
         public CustomerOrderItem CustomerOrder { get; set; }

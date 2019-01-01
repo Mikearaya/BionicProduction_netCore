@@ -45,6 +45,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<StockBatch> StockBatch { get; set; }
         public virtual DbSet<StockBatchStorage> StockBatchStorage { get; set; }
         public virtual DbSet<StorageLocation> StorageLocation { get; set; }
+        public virtual DbSet<SystemLookups> SystemLookups { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
@@ -59,7 +60,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;port=3306;user=admin;password=admin;database=bionic_inventory");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;port=3306;password=admin;");
             }
         }
 
@@ -214,6 +215,10 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.BatchStorageId).HasColumnName("BATCH_STORAGE_ID");
+
+                entity.Property(e => e.ConsumedQuantity)
+                    .HasColumnName("consumed_quantity")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.CustomerOrderId).HasColumnName("CUSTOMER_ORDER_ID");
 
@@ -1576,6 +1581,56 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Note)
                     .HasColumnName("note")
                     .HasColumnType("varchar(255)");
+            });
+
+            modelBuilder.Entity<SystemLookups>(entity =>
+            {
+                entity.ToTable("SYSTEM_LOOKUPS");
+
+                entity.HasIndex(e => new { e.Type, e.Value })
+                    .HasName("look_up_type_val_uq")
+                    .IsUnique();
+
+                entity.HasIndex(e => new { e.Category, e.Type, e.Value })
+                    .HasName("lookup_cat_typ_val_uq")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Category)
+                    .IsRequired()
+                    .HasColumnName("category")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.System)
+                    .HasColumnName("system")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasColumnName("type")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasColumnName("value")
+                    .HasColumnType("varchar(45)");
             });
 
             modelBuilder.Entity<Tax>(entity =>

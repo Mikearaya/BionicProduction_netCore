@@ -15,7 +15,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class StockBatchListView {
         public uint id { get; set; }
         public uint itemId { get; set; }
-        public float quantity { get; set; }
+        public float? quantity { get; set; }
         public float totalBooked { get; set; }
         public float unitCost { get; set; }
         public double? totalCost { get; set; }
@@ -31,6 +31,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public string item { get; set; }
         public string itemGroup { get; set; }
         public uint itemGroupId { get; set; }
+        public float totalWritenOff { get; set; }
         public string source { get; set; }
 
         public static Expression<Func<StockBatchStorage, StockBatchListView>> Projection {
@@ -45,6 +46,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     itemGroupId = batch.Batch.Item.GroupId,
                     source = batch.Batch.Source,
                     quantity = batch.Quantity,
+                    totalWritenOff = batch.WriteOffDetail.Sum (w => w.Quantity),
                     totalCost = (double) (batch.Quantity * batch.Batch.UnitCost),
                     storageLocation = batch.Storage.Name,
                     storageLocationId = batch.StorageId,
