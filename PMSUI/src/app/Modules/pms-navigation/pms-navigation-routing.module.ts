@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 30, 2018 10:03 PM
+ * @Last Modified Time: Jan 1, 2019 11:27 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -30,6 +30,7 @@ const routes: Routes = [{
     { path: 'storages', loadChildren: '../feature/stock/storage-location/storage-location.module#StorageLocationModule' },
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
     { path: 'inventory/batchs', loadChildren: '../feature/stock/stock-batch/stock-batch.module#StockBatchModule' },
+    { path: 'inventory/write-offs', loadChildren: '../feature/stock/write-off/write-off.module#WriteOffModule' },
 
 
   ]

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 9:15 PM
+ * @Last Modified Time: Jan 1, 2019 11:50 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -19,6 +19,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
         public uint itemId { get; set; }
         public uint itemGroupId { get; set; }
         public string item { get; set; }
+        public string uom { get; set; }
         public string itemGroup { get; set; }
         public string status { get; set; }
         public string note { get; set; }
@@ -34,6 +35,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     itemId = writeoffs.ItemId,
                     item = writeoffs.Item.Name,
                     itemGroup = writeoffs.Item.Group.GroupName,
+                    uom = writeoffs.Item.PrimaryUom.Abrivation,
                     itemGroupId = writeoffs.Item.GroupId,
                     status = writeoffs.Status,
                     type = writeoffs.Type,

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 9:49 PM
+ * @Last Modified Time: Jan 1, 2019 11:07 PM
  * @Description: Modify Here, Please 
  */
 
@@ -16,8 +16,6 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
         public NewWriteOffDto () {
             WriteOffBatchs = new List<WriteOffItemDto> ();
         }
-
-        public uint Id { get; set; }
         public uint ItemId { get; set; }
 
         [Required]

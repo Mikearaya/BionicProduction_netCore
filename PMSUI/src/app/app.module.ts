@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 30, 2018 10:04 PM
+ * @Last Modified Time: Jan 1, 2019 11:24 PM
  * @Description: Modify Here, Please
  */
 import { BrowserModule } from '@angular/platform-browser';

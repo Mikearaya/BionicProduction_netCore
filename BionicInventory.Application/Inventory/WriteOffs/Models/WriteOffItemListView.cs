@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 9:09 PM
+ * @Last Modified Time: Jan 1, 2019 11:51 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -17,8 +17,10 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
         public uint batchStorageId { get; set; }
         public uint batchId { get; set; }
         public string storage { get; set; }
+
         public uint storageId { get; set; }
         public string item { get; set; }
+        public string uom { get; set; }
         public string batchStatus { get; set; }
         public float totalBooked { get; set; }
         public uint itemId { get; set; }
@@ -41,6 +43,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     storage = writeoff_detail.BatchStorage.Storage.Name,
                     storageId = writeoff_detail.BatchStorage.StorageId,
                     item = writeoff_detail.BatchStorage.Batch.Item.Name,
+                    uom = writeoff_detail.BatchStorage.Batch.Item.PrimaryUom.Name,
                     itemId = writeoff_detail.BatchStorage.Batch.ItemId,
                     writeOffId = writeoff_detail.WriteOffId,
                     quantity = writeoff_detail.Quantity,
