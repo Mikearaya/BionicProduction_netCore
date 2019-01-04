@@ -1,0 +1,14 @@
+th,
+td {
+  padding: 0;
+  font-size: .8em;
+}
+
+tr p {
+  margin: 0;
+}
+
+
+#quantityBox {
+  background: white;
+}

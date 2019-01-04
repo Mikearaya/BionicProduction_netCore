@@ -1,4 +1,4 @@
-export class WriteOffListModel {
+export class WriteOffItemDetailModel {
   id: number;
   batchStorageId: number;
   batchId: number;
@@ -31,15 +31,13 @@ export class WriteOffDetailModel {
   type: string;
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
-  WriteOffItems: WriteOffListModel[];
+  WriteOffItems: WriteOffItemDetailModel[];
 
 }
 
 
 export class NewWriteOffModel {
   itemId: number;
-
-  status: string;
 
   note: string;
 
@@ -52,7 +50,7 @@ export class NewWriteOffModel {
 
 export class WriteOffItemModel {
   batchStorageId: number;
-  writeOffId: number;
+  writeOffId?: number;
   quantity: number;
 }
 
@@ -62,4 +60,23 @@ export interface UpdatedWriteOffModel {
   status: string;
   note: string;
   type: string;
+}
+
+
+export class WriteOffListModel {
+  id: number;
+  itemId: number;
+  itemGroupId: number;
+  item: string;
+  uom: string;
+  itemGroup: string;
+  status: string;
+  quantity: number;
+
+  totalCost: number;
+  note: string;
+  type: string;
+  dateAdded: Date | string | null;
+  dateUpdated: Date | string | null;
+
 }

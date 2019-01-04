@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 15, 2018 10:04 PM
+ * @Last Modified Time: Jan 4, 2019 8:41 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -23,6 +23,7 @@ import { ProductGroupViewComponent } from './product-group-view/product-group-vi
 import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
 import { ItemRoutingListViewComponent } from './item-routing-list-view/item-routing-list-view.component';
 import { ItemPurchaseTermViewComponent } from './item-purchase-term-view/item-purchase-term-view.component';
+import { StockBatchApiService } from '../../core/services/stock-batch/stock-batch-api.service';
 
 @NgModule({
   imports: [
@@ -45,6 +46,6 @@ import { ItemPurchaseTermViewComponent } from './item-purchase-term-view/item-pu
     ItemRoutingListViewComponent,
     ItemPurchaseTermViewComponent
   ],
-  providers: []
+  providers: [StockBatchApiService]
 })
 export class StockModule { }

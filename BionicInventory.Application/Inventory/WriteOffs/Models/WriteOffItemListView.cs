@@ -13,6 +13,9 @@ using BionicProduction.Domain.WriteOffs;
 
 namespace BionicInventory.Application.Inventory.WriteOffs.Models {
     public class WriteOffItemListView {
+
+        private float _quantity = 0;
+        private float _unitCost = 0;
         public uint id { get; set; }
         public uint batchStorageId { get; set; }
         public uint batchId { get; set; }
@@ -27,10 +30,29 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
         public uint writeOffId { get; set; }
 
         public float totalCost { get; set; }
-        public float unitCost { get; set; }
-        public float quantity { get; set; }
+        public float unitCost {
+            get {
+                return _unitCost;
+            }
+            set {
+                _unitCost = value;
+                calculateTotalCost ();
+            }
+        }
+        public float quantity {
+            get {
+                return _quantity;
+            }
+            set {
+                _quantity = value;
+                calculateTotalCost ();
+            }
+        }
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
+        private void calculateTotalCost () {
+            totalCost = unitCost * quantity;
+        }
 
         public static Expression<Func<WriteOffDetail, WriteOffItemListView>> Projection {
             get {
@@ -47,8 +69,6 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     itemId = writeoff_detail.BatchStorage.Batch.ItemId,
                     writeOffId = writeoff_detail.WriteOffId,
                     quantity = writeoff_detail.Quantity,
-                    totalBooked = writeoff_detail.BatchStorage.BookedStockBatch.Sum (b => b.Quantity),
-                    totalCost = writeoff_detail.Quantity * writeoff_detail.BatchStorage.Batch.UnitCost,
                     unitCost = writeoff_detail.BatchStorage.Batch.UnitCost,
                     dateAdded = writeoff_detail.DateAdded,
                     dateUpdated = writeoff_detail.DateUpdated

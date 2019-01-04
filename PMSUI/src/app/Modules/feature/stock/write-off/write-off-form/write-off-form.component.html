@@ -1,3 +1,86 @@
-<p>
-  write-off-form works!
-</p>
+<section>
+  <app-notification #notification></app-notification>
+  <h3>{{title}}</h3>
+  <form [formGroup]="writeOffForm" (ngSubmit)="onSubmit()" novalidate>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="writeOffForm.invalid"></app-form-options>
+    <div class="e-card">
+      <div class="container">
+        {{writeOffForm.value | json}}
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <div class="row">
+              <div class="col-12">
+                <label for="itemId">Stock Item</label>
+                <ejs-dropdownlist [dataSource]="itemsList" width="400" [fields]="itemFields" formControlName="itemId"
+                  name="itemId" id="itemId" placeholder="Select Item" filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+                <div class="e-error" *ngIf="itemId.errors">
+                  <div *ngIf="itemId.errors['required']">Item is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <label for="type">Type</label>
+                <ejs-dropdownlist [dataSource]="writeOffTypes" width="200" formControlName="type" name="type" id="type"
+                  placeholder="Select type"></ejs-dropdownlist>
+                <div class="e-error" *ngIf="type.errors">
+                  <div *ngIf="type.errors['required']">Write off type is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <label for="note">Note</label>
+                <textarea class="e-input" formControlName="note" id="note" name="note" placeholder="Extra Note..."></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Batch No</th>
+                      <th>Storage Location</th>
+                      <th>status</th>
+                      <th>Quantity</th>
+                      <th>Unit Cost</th>
+                      <th>Booked</th>
+                      <th>Write-offs</th>
+                      <th>Quantity</th>
+                      <th><button type="button" ejs-button (click)="addWriteOff()" *ngIf="isUpdate" class="e-small e-primary"
+                          iconCss="e-icons e-add-icon"> Add</button></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="writeoffBatchs">
+                    <tr *ngFor="let batch of writeoffBatchs.controls; let i=index; let last=last;" [formGroup]="batch">
+                      <td>{{itemBatchList[i]?.id}}</td>
+                      <td>{{itemBatchList[i]?.storageLocation}}</td>
+                      <td>{{itemBatchList[i]?.status}}</td>
+                      <td>{{itemBatchList[i]?.quantity}}</td>
+                      <td>{{itemBatchList[i]?.unitCost}}</td>
+                      <td>{{itemBatchList[i]?.totalBooked}}</td>
+                      <td>{{itemBatchList[i]?.totalWritenOff}}</td>
+                      <td id="quantityBox">
+                        <ejs-numerictextbox formControlName="quantity" id="quantity" name="quantity" width="50" format="##"></ejs-numerictextbox>
+                      </td>
+                      <td *ngIf="isUpdate">
+                        <button type="button" ejs-button (click)="updateWrittenOffItem()" *ngIf="isUpdate" class="e-small e-danger e-rounded"
+                          iconCss="e-icons e-edit-icon"> </button> </td>
+                    </tr>
+                    <tr *ngIf="itemBatchList.length == 0">
+                      <td colspan="8">
+                        <p>No Stock Batch found for selected item</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="writeOffForm.invalid"></app-form-options>
+  </form>
+</section>

@@ -17,11 +17,11 @@ import {
   UpdatedStockBatchModel
 } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { StockBatchApiService } from '../stock-batch-api.service';
 import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
 import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
 import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
+import { StockBatchApiService } from 'src/app/Modules/core/services/stock-batch/stock-batch-api.service';
 
 @Component({
   selector: 'app-stock-batch-form',

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 10:34 PM
+ * @Last Modified Time: Jan 4, 2019 11:17 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         [HttpGet]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<IEnumerable<WriteOffItemListView>>> GetWriteOffItemsList () {
+        public async Task<ActionResult<IEnumerable<WriteOffListView>>> GetWriteOffItemsList () {
 
             var writeOffs = await _Mediator.Send (new GetWriteOffsListQuery ());
 

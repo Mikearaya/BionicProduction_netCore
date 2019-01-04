@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 10:09 PM
+ * @Last Modified Time: Jan 4, 2019 11:16 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -16,16 +16,16 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Inventory.WriteOffs.Queries.Collections {
-    public class GetWriteOffListQueryHandler : IRequestHandler<GetWriteOffsListQuery, IEnumerable<WriteOffItemListView>> {
+    public class GetWriteOffListQueryHandler : IRequestHandler<GetWriteOffsListQuery, IEnumerable<WriteOffListView>> {
         private readonly IInventoryDatabaseService _database;
 
         public GetWriteOffListQueryHandler (IInventoryDatabaseService database) {
             _database = database;
         }
 
-        public async Task<IEnumerable<WriteOffItemListView>> Handle (GetWriteOffsListQuery request, CancellationToken cancellationToken) {
-            return await _database.WriteOffDetail
-                .Select (WriteOffItemListView.Projection)
+        public async Task<IEnumerable<WriteOffListView>> Handle (GetWriteOffsListQuery request, CancellationToken cancellationToken) {
+            return await _database.WriteOff
+                .Select (WriteOffListView.Projection)
                 .ToListAsync ();
         }
     }

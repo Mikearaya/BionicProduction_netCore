@@ -43,6 +43,7 @@ import { VendorApiService } from './services/vendor/vendor-api.service';
 import { PurchaseTermApiService } from './services/purchase-terms/purchase-term-api.service';
 import { ItemApiService } from './services/item/item-api.service';
 import { ProductGroupApiService } from './services/product-group/product-group-api.service';
+import { StockBatchApiService } from './services/stock-batch/stock-batch-api.service';
 
 
 
@@ -84,7 +85,8 @@ import { ProductGroupApiService } from './services/product-group/product-group-a
     CustomerOrderGetterApiService,
     ProductGroupApiService,
     BomApiService,
-    UnitOfMeasurmentApiService
+    UnitOfMeasurmentApiService,
+    StockBatchApiService
   ],
 
 })

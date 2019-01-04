@@ -8,9 +8,7 @@ import {
 } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class StockBatchApiService {
 
   private controller = 'inventory/stock-batchs';
@@ -22,6 +20,10 @@ export class StockBatchApiService {
 
   getStockBatchById(id: number): Observable<StockBatchDetailView> {
     return this.httpClient.get<StockBatchDetailView>(`${this.apiUrl}/${this.controller}/${id}`);
+  }
+
+  getItemStockBatchById(itemId: number): Observable<StockBatchListView[]> {
+    return this.httpClient.get<StockBatchListView[]>(`${this.apiUrl}/${this.controller}/items/${itemId}`);
   }
 
   getAllStockBatchs(): Observable<StockBatchListView[]> {

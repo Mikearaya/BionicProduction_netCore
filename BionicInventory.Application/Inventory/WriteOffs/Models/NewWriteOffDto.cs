@@ -18,9 +18,6 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
         }
         public uint ItemId { get; set; }
 
-        [Required]
-        public string Status { get; set; }
-
         public string Note { get; set; }
 
         [Required]

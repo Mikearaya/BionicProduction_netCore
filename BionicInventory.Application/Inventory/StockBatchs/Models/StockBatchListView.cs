@@ -46,7 +46,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     itemGroupId = batch.Batch.Item.GroupId,
                     source = batch.Batch.Source,
                     quantity = batch.Quantity,
-                    totalWritenOff = batch.WriteOffDetail.Sum (w => w.Quantity),
+                    totalWritenOff = batch.WriteOffDetail.GroupBy (w => w.BatchStorage).Sum (w => w.Sum (sto => sto.Quantity)),
                     totalCost = (double) (batch.Quantity * batch.Batch.UnitCost),
                     storageLocation = batch.Storage.Name,
                     storageLocationId = batch.StorageId,

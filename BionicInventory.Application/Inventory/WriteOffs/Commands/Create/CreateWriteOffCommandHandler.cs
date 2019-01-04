@@ -39,7 +39,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Commands.Create {
             }
 
             WriteOff newWriteOff = new WriteOff () {
-                Status = request.Status,
+                Status = "Valid",
                 ItemId = request.ItemId,
                 Type = request.Type,
                 Note = request.Note

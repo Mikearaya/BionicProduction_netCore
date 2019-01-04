@@ -34,6 +34,7 @@ export class StockBatchListView {
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
   totalCost: number;
+  totalWritenOff: number;
   availableFrom: Date | string;
   expiryDate: Date | string | null;
   item: string;

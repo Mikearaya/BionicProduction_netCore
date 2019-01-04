@@ -21,6 +21,10 @@ export class WriteOffApiService {
     return this.httpClient.get<WriteOffDetailModel>(`${this.apiUrl}/${this.controller}/${id}`);
   }
 
+  getItemkWriteOffById(itemId: number): Observable<WriteOffListModel[]> {
+    return this.httpClient.get<WriteOffListModel[]>(`${this.apiUrl}/${this.controller}/item/${itemId}`);
+  }
+
   createWriteOff(newWriteOff: NewWriteOffModel): Observable<WriteOffDetailModel> {
     return this.httpClient.post<WriteOffDetailModel>(`${this.apiUrl}/${this.controller}`, newWriteOff);
   }

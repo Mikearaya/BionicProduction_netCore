@@ -16,9 +16,9 @@ import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { Router } from '@angular/router';
-import { StockBatchApiService } from '../stock-batch-api.service';
 import { stockBatchColumnBluePrint } from './stock-batch-view-blue-print.model';
 import { StockBatchListView } from 'src/app/Modules/core/DataModels/stock-batch.model';
+import { StockBatchApiService } from 'src/app/Modules/core/services/stock-batch/stock-batch-api.service';
 
 @Component({
   selector: 'app-stock-batch-view',

@@ -26,6 +26,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public string status { get; set; }
         public uint? purchaseOrderId { get; set; }
         public uint? manufactureOrderId { get; set; }
+        public float totalWriteOff { get; set; }
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
         public DateTime availableFrom { get; set; }

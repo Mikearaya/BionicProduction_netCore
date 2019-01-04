@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: ':writeoffId/update', component: WriteOffFormComponent,
-    data: { title: 'Create new write off', breadcrum: '/inventory/write-offs' }
+    data: { title: 'Update write off :writeoffId', breadcrum: '/inventory/write-offs' }
   }
 ];
 
