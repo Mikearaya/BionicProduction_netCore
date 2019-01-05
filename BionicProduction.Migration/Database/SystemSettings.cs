@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BionicProduction.Migration.Database
 {
-    public partial class SystemLookups
+    public partial class SystemSettings
     {
         public uint Id { get; set; }
         public string Category { get; set; }

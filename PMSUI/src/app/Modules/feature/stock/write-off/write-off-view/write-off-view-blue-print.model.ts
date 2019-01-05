@@ -7,7 +7,7 @@ export const writeOffColumnBluePrint = [
     type: 'number',
     width: '20',
   },
-    {
+  {
     key: 'item',
     humanReadable: 'Item',
     visable: true,

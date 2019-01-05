@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 10:09 PM
+ * @Last Modified Time: Jan 6, 2019 12:55 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -26,6 +26,7 @@ using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Routings;
+using BionicInventory.Domain.Settings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
@@ -77,6 +78,7 @@ namespace Bionic_inventory.Application.Interfaces {
 
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        DbSet<SystemSettings> SystemSettings { get; set; }
 
         void Save ();
         Task SaveAsync ();

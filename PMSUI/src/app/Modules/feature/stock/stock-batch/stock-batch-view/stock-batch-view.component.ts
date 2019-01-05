@@ -8,7 +8,8 @@ import {
   IRow,
   PageSettingsModel,
   SortSettingsModel,
-  ToolbarItems
+  ToolbarItems,
+  TextWrapSettingsModel
 } from '@syncfusion/ej2-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -41,6 +42,7 @@ export class StockBatchViewComponent extends CommonProperties implements OnInit 
   public toolbar: ToolbarItems[];
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
+  public wrapSettings: TextWrapSettingsModel;
 
   public columnBluePrint = stockBatchColumnBluePrint;
   public customAttributes: { class: string; };
@@ -79,10 +81,12 @@ export class StockBatchViewComponent extends CommonProperties implements OnInit 
     this.sortSetting = { columns: [{ direction: 'Ascending', field: 'id' }] };
 
   }
+  dataBound() {
 
-
+  }
 
   ngOnInit(): void {
+    this.wrapSettings = { wrapMode: 'Header' };
 
     this.stockBatchApi.getAllStockBatchs().subscribe(
       (data: StockBatchListView[]) => this.data = data,

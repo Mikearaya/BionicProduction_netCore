@@ -111,7 +111,7 @@ export const stockBatchColumnBluePrint = [
     key: 'availableFrom',
     humanReadable: 'Available From',
     visable: true,
-    type: 'datetime',
+    type: 'date',
     width: '35',
     format: 'yMd'
   },
@@ -119,7 +119,7 @@ export const stockBatchColumnBluePrint = [
     key: 'expiryDate',
     humanReadable: 'Expiry Date',
     visable: false,
-    type: 'datetime',
+    type: 'date',
     width: '35',
     format: 'yMd'
   },

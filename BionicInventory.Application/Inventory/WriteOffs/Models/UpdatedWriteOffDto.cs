@@ -6,11 +6,16 @@
  * @Last Modified Time: Jan 1, 2019 9:56 PM
  * @Description: Modify Here, Please 
  */
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace BionicInventory.Application.Inventory.WriteOffs.Models {
     public class UpdatedWriteOffDto : IRequest {
+        public UpdatedWriteOffDto () {
+            WriteOffBatchs = new List<WriteOffItemDto> ();
+        }
+
         public uint Id { get; set; }
 
         [Required]
@@ -19,6 +24,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
 
         [Required]
         public string Type { get; set; }
+        public IEnumerable<WriteOffItemDto> WriteOffBatchs { get; set; }
 
     }
 }

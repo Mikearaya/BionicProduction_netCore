@@ -95,7 +95,7 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
 
   editWriteOff(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`inventory/write-offs/${rowObj.data['writeOffId']}/update`]);
+    this.route.navigate([`inventory/write-offs/${rowObj.data['id']}/update`]);
 
   }
 

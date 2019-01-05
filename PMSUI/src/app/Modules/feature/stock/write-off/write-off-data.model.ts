@@ -5,16 +5,18 @@ export class WriteOffItemDetailModel {
   storage: string;
   storageId: number;
   item: string;
+  uom: string;
   batchStatus: string;
   totalBooked: number;
   itemId: number;
   writeOffId: number;
-
   totalCost: number;
   unitCost: number;
+  batchQuantity: number;
   quantity: number;
   dateAdded: Date | string | null;
   dateUpdated: Date | string | null;
+
 }
 
 
@@ -38,11 +40,9 @@ export class WriteOffDetailModel {
 
 export class NewWriteOffModel {
   itemId: number;
-
   note: string;
-
   type: string;
-
+  status: string;
   writeOffBatchs: WriteOffItemModel[] = [];
 }
 
@@ -50,16 +50,16 @@ export class NewWriteOffModel {
 
 export class WriteOffItemModel {
   batchStorageId: number;
-  writeOffId?: number;
   quantity: number;
 }
 
 
-export interface UpdatedWriteOffModel {
+export class UpdatedWriteOffModel {
   id: number;
   status: string;
   note: string;
   type: string;
+  writeOffBatchs: WriteOffItemModel[] = [];
 }
 
 
@@ -72,7 +72,6 @@ export class WriteOffListModel {
   itemGroup: string;
   status: string;
   quantity: number;
-
   totalCost: number;
   note: string;
   type: string;

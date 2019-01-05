@@ -17,7 +17,7 @@ export class CoreHttpInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     return next.handle(req).pipe(
-      debounceTime(500) ,
+      debounceTime(1000),
       retry(3),
       tap(event => {
         if (event.type === HttpEventType.Response) {
@@ -30,7 +30,7 @@ export class CoreHttpInterceptor implements HttpInterceptor {
   }
 
   private handleError(errorResponse: HttpErrorResponse) {
-    if (errorResponse.error instanceof ErrorEvent ) {
+    if (errorResponse.error instanceof ErrorEvent) {
       console.error('Client Side Error: ', errorResponse.error.message);
     }
     const customerErrorResponse = new CustomErrorResponse();

@@ -34,7 +34,6 @@ export class PmsNavigationComponent {
         { id: 'stocks', name: 'Stock' },
         { id: 'shipments', name: 'Shipments' },
         { id: 'inventory/batchs', name: 'Stock Batchs' },
-        { id: 'stocks/transfer-orders', name: 'Transfer Orders' },
         { id: 'stocks/stock-count', name: 'Inventory Count' },
         { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
         { id: 'inventory/write-offs', name: 'Write-offs' },

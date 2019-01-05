@@ -10,6 +10,10 @@ using System;
 
 namespace BionicInventory.Application.Shared.Exceptions {
     public class QuantityGreaterThanAvailableException : Exception {
-        public QuantityGreaterThanAvailableException (string type, double quantity, double available) : base ($" {type} specified quantity {quantity} is greater than  ({available}) Quantity.") { }
+        public QuantityGreaterThanAvailableException (
+            string type,
+            double quantity,
+            double available) 
+            : base ($" {type} specified quantity {quantity} is greater than available   Quantity ({available}).") { }
     }
 }

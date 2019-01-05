@@ -45,7 +45,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<StockBatch> StockBatch { get; set; }
         public virtual DbSet<StockBatchStorage> StockBatchStorage { get; set; }
         public virtual DbSet<StorageLocation> StorageLocation { get; set; }
-        public virtual DbSet<SystemLookups> SystemLookups { get; set; }
+        public virtual DbSet<SystemSettings> SystemSettings { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
         public virtual DbSet<Vendor> Vendor { get; set; }
@@ -60,7 +60,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;port=3306;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;password=admin;user=admin;");
             }
         }
 
@@ -1583,13 +1583,9 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("varchar(255)");
             });
 
-            modelBuilder.Entity<SystemLookups>(entity =>
+            modelBuilder.Entity<SystemSettings>(entity =>
             {
-                entity.ToTable("SYSTEM_LOOKUPS");
-
-                entity.HasIndex(e => new { e.Type, e.Value })
-                    .HasName("look_up_type_val_uq")
-                    .IsUnique();
+                entity.ToTable("SYSTEM_SETTINGS");
 
                 entity.HasIndex(e => new { e.Category, e.Type, e.Value })
                     .HasName("lookup_cat_typ_val_uq")

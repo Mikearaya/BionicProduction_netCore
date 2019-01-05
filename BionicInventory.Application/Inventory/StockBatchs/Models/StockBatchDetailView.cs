@@ -17,10 +17,18 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public StockBatchDetailView () {
             storages = new List<StockBatchStorageView> ();
         }
+        private float _quantity = 0;
 
         public uint id { get; set; }
         public uint itemId { get; set; }
-        public float quantity { get; set; }
+        public float quantity {
+            get {
+                return _quantity - totalWriteOff;
+            }
+            set {
+                _quantity = value;
+            }
+        }
         public float? totalBooked { get; set; }
         public float unitCost { get; set; }
         public string status { get; set; }

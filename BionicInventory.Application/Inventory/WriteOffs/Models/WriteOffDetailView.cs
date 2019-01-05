@@ -39,12 +39,13 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     uom = writeoff.Item.PrimaryUom.Abrivation,
                     itemGroupId = writeoff.Item.GroupId,
                     status = writeoff.Status,
-                    quantity = writeoff.WriteOffDetail.GroupBy (wd => wd.WriteOff).Sum (d => d.Sum (dq => dq.Quantity)),
                     type = writeoff.Type,
                     note = writeoff.Note,
                     dateAdded = writeoff.DateAdded,
                     dateUpdated = writeoff.DateUpdated,
-                    WriteOffItems = writeoff.WriteOffDetail.AsQueryable ().Select (WriteOffItemListView.Projection)
+                    WriteOffItems = writeoff.WriteOffDetail.AsQueryable ()
+                    .Select (WriteOffItemListView.Projection)
+
                 };
             }
         }

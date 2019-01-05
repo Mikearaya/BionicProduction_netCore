@@ -14,6 +14,7 @@ using BionicProduction.Domain.WriteOffs;
 namespace BionicInventory.Application.Inventory.WriteOffs.Models {
     public class WriteOffItemListView {
 
+        private float _batchQuantity = 0;
         private float _quantity = 0;
         private float _unitCost = 0;
         public uint id { get; set; }
@@ -39,6 +40,15 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                 calculateTotalCost ();
             }
         }
+
+        public float batchQuantity {
+            get {
+                return _batchQuantity - quantity;
+            }
+            set {
+                _batchQuantity = value;
+            }
+        }
         public float quantity {
             get {
                 return _quantity;
@@ -60,7 +70,6 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     id = writeoff_detail.Id,
                     batchId = writeoff_detail.BatchStorage.BatchId,
                     batchStatus = writeoff_detail.BatchStorage.Batch.Status,
-
                     batchStorageId = writeoff_detail.BatchStorageId,
                     storage = writeoff_detail.BatchStorage.Storage.Name,
                     storageId = writeoff_detail.BatchStorage.StorageId,
@@ -69,6 +78,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Models {
                     itemId = writeoff_detail.BatchStorage.Batch.ItemId,
                     writeOffId = writeoff_detail.WriteOffId,
                     quantity = writeoff_detail.Quantity,
+                    batchQuantity = writeoff_detail.BatchStorage.Quantity,
                     unitCost = writeoff_detail.BatchStorage.Batch.UnitCost,
                     dateAdded = writeoff_detail.DateAdded,
                     dateUpdated = writeoff_detail.DateUpdated

@@ -30,6 +30,11 @@
 
 }
 
+.e-grid .e-altrow {
+  background-color: #fafafa;
+}
+
+
 .e-filtermenudiv.e-icons.e-icon-filter {
   padding-right: 2em;
 }

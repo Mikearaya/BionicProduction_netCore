@@ -13,9 +13,17 @@ using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class StockBatchListView {
+        private float _quantity = 0;
         public uint id { get; set; }
         public uint itemId { get; set; }
-        public float? quantity { get; set; }
+        public float quantity {
+            get {
+                return _quantity - totalWritenOff;
+            }
+            set {
+                _quantity = value;
+            }
+        }
         public float totalBooked { get; set; }
         public float unitCost { get; set; }
         public double? totalCost { get; set; }

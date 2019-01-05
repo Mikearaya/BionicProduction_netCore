@@ -27,7 +27,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Queries.Single {
         public async Task<WriteOffDetailView> Handle (GetWriteOffDetailQuery request, CancellationToken cancellationToken) {
             var writeOff = await _database.WriteOff
                 .Where (w => w.Id == request.Id)
-                .Select (WriteOffDetailView.Projection)
+                .Select (WriteOffDetailView.Projection)                
                 .FirstOrDefaultAsync ();
 
             if (writeOff == null) {

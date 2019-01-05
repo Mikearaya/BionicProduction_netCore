@@ -4,35 +4,52 @@
   <form [formGroup]="writeOffForm" (ngSubmit)="onSubmit()" novalidate>
     <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="writeOffForm.invalid"></app-form-options>
     <div class="e-card">
-      <div class="container">
-        {{writeOffForm.value | json}}
+      <div class="container-fluid">
+
         <div class="row">
           <div class="col-md-8 col-xs-12">
             <div class="row">
-              <div class="col-12">
-                <label for="itemId">Stock Item</label>
-                <ejs-dropdownlist [dataSource]="itemsList" width="400" [fields]="itemFields" formControlName="itemId"
-                  name="itemId" id="itemId" placeholder="Select Item" filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+              <label for="itemId" class="col-md-2 col-sm-12 label-area">Stock Item</label>
+              <div class="col-md-10 col-sm-12">
+                <span *ngIf="writenOffItems?.item"> {{writenOffItems.item}}</span>
+                <ejs-dropdownlist [dataSource]="itemsList" width="400" *ngIf="!isUpdate" [fields]="itemFields"
+                  formControlName="itemId" name="itemId" id="itemId" placeholder="Select Item" filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
                 <div class="e-error" *ngIf="itemId.errors">
                   <div *ngIf="itemId.errors['required']">Item is required</div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
-                <label for="type">Type</label>
+
+              <label for="type" class="col-md-2 col-sm-12 label-area" i18n>Type</label>
+              <div class="col-md-10 col-sm-12">
                 <ejs-dropdownlist [dataSource]="writeOffTypes" width="200" formControlName="type" name="type" id="type"
-                  placeholder="Select type"></ejs-dropdownlist>
+                  placeholder="Select type" i18n-placeholder></ejs-dropdownlist>
                 <div class="e-error" *ngIf="type.errors">
-                  <div *ngIf="type.errors['required']">Write off type is required</div>
+                  <div *ngIf="type.errors['required']" i18n>Write off type is required</div>
                 </div>
               </div>
+
+            </div>
+            <div class="row" *ngIf="isUpdate">
+
+              <label for="status" class="col-md-2 col-sm-12 label-area">status</label>
+              <div class="col-md-10 col-sm-12">
+                <ejs-dropdownlist [dataSource]="writeOffStatus" width="200" formControlName="status" name="status" id="status"
+                  placeholder="Select status"></ejs-dropdownlist>
+                <div class="e-error" *ngIf="status?.errors">
+                  <div *ngIf="status?.errors['required']">Write off Status is required</div>
+                </div>
+              </div>
+
             </div>
             <div class="row">
-              <div class="col-12">
-                <label for="note">Note</label>
+
+              <label for="note" class="col-md-2 col-sm-12 label-area">Note</label>
+              <div class="col-md-10 col-sm-12">
                 <textarea class="e-input" formControlName="note" id="note" name="note" placeholder="Extra Note..."></textarea>
               </div>
+
             </div>
             <div class="row">
               <div class="col-12">
@@ -60,19 +77,34 @@
                       <td>{{itemBatchList[i]?.unitCost}}</td>
                       <td>{{itemBatchList[i]?.totalBooked}}</td>
                       <td>{{itemBatchList[i]?.totalWritenOff}}</td>
-                      <td id="quantityBox">
+                      <td id="quantityBox" colspan="2">
                         <ejs-numerictextbox formControlName="quantity" id="quantity" name="quantity" width="50" format="##"></ejs-numerictextbox>
                       </td>
-                      <td *ngIf="isUpdate">
-                        <button type="button" ejs-button (click)="updateWrittenOffItem()" *ngIf="isUpdate" class="e-small e-danger e-rounded"
-                          iconCss="e-icons e-edit-icon"> </button> </td>
+
                     </tr>
-                    <tr *ngIf="itemBatchList.length == 0">
+                    <tr *ngIf="itemBatchList.length == 0  && (!isUpdate || isAddNew) ">
                       <td colspan="8">
                         <p>No Stock Batch found for selected item</p>
                       </td>
+                      <td *ngIf="isUpdate">&nbsp;</td>
                     </tr>
                   </tbody>
+                  <tfoot *ngIf="!isAddNew && isUpdate">
+                    <tr *ngFor="let writeoff of writenOffItems?.WriteOffItems; let i = index; let last=last;">
+                      <td>{{writeoff.batchId}}</td>
+                      <td>{{writeoff.storage}}</td>
+                      <td>{{writeoff.batchStatus}}</td>
+                      <td>{{writeoff.batchQuantity}}</td>
+                      <td>{{writeoff.unitCost}}</td>
+                      <td>{{writeoff.totalBooked}}</td>
+                      <td>{{writeoff.quantity}}</td>
+                      <td> &nbsp;</td>
+                      <td *ngIf="isUpdate">
+                        <button type="button" ejs-button (click)="updateWrittenOffItem()" *ngIf="isUpdate" class="e-small e-danger e-rounded"
+                          iconCss="e-icons e-delete-icon"> </button>
+                      </td>
+                    </tr>
+                  </tfoot>
                 </table>
               </div>
             </div>
