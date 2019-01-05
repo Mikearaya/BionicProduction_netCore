@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 10:10 PM
+ * @Last Modified Time: Jan 6, 2019 1:30 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -25,6 +25,7 @@ using BionicInventory.DataStore.Procurment.PurchaseOrders;
 using BionicInventory.DataStore.ProductionOrders;
 using BionicInventory.DataStore.ProductionOrders.ProductionOrderLists;
 using BionicInventory.DataStore.PurchaseOrders;
+using BionicInventory.DataStore.Settings;
 using BionicInventory.DataStore.Shipments;
 using BionicInventory.DataStore.Shipments.ShipmentDetails;
 using BionicInventory.DataStore.StockBatchs;
@@ -52,6 +53,7 @@ using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Routings;
+using BionicInventory.Domain.Settings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
@@ -110,6 +112,7 @@ namespace BionicInventory.DataStore {
         public DbSet<StockBatch> StockBatch { get; set; }
         public DbSet<StockBatchStorage> StockBatchStorage { get; set; }
         public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
+        public DbSet<SystemSettings> SystemSettings { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -150,6 +153,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
+            modelBuilder.ApplyConfiguration (new SystemSettingsConfiguration ());
 
         }
 

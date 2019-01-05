@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 4, 2019 8:27 PM
+ * @Last Modified Time: Jan 6, 2019 1:29 AM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -73,6 +73,22 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
                 var batch = await _Mediator.Send (new GetItemStockBatchsQuery () { ItemId = itemId });
 
                 return StatusCode (200, batch);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpGet ("inventory")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<InventoryView>>> GetInventoryDetail () {
+
+            try {
+
+                var inventory = await _Mediator.Send (new GetInventoryViewQuery ());
+
+                return StatusCode (200, inventory);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
             }
