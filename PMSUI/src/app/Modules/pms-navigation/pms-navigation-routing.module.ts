@@ -31,6 +31,7 @@ const routes: Routes = [{
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
     { path: 'inventory/batchs', loadChildren: '../feature/stock/stock-batch/stock-batch.module#StockBatchModule' },
     { path: 'inventory/write-offs', loadChildren: '../feature/stock/write-off/write-off.module#WriteOffModule' },
+    { path: 'stocks/inventory', loadChildren: '../feature/stock/inventory/inventory.module#InventoryModule' },
 
 
   ]

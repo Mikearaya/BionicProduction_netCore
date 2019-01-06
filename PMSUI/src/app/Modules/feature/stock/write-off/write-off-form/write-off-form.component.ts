@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { WriteOffApiService } from '../write-off-api.service';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
@@ -40,7 +41,8 @@ export class WriteOffFormComponent extends CommonProperties implements OnInit {
     private writeoffApi: WriteOffApiService,
     private activatedRoute: ActivatedRoute,
     private itemsApi: ItemApiService,
-    private stockBatchApi: StockBatchApiService) {
+    private stockBatchApi: StockBatchApiService,
+    private location: Location) {
     super();
 
     this.itemFields = { text: 'name', value: 'id' };
@@ -69,6 +71,21 @@ export class WriteOffFormComponent extends CommonProperties implements OnInit {
     }
 
 
+  }
+
+  deleteWriteOff() {
+    if (this.isUpdate && this.writeoffId) {
+      this.writeoffApi.deleteWriteOff(this.writeoffId).subscribe(
+        () => {
+          this.notification.showMessage('Write-off deleted Successfully!!!');
+          this.location.back();
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed while attempting to delete write-off, try again', 'error');
+          this.handleError(error);
+        }
+      );
+    }
   }
 
   private createForm(): void {

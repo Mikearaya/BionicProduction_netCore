@@ -16,14 +16,14 @@
 
 .e-grid .e-rowcell.info-grid-header {
   font-family: 'Bell MT';
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .e-grid .e-headercell.custom-grid-header {
   background-color: #2382c3;
   color: white;
   font-family: 'Bell MT';
-  font-size: 13px;
+  font-size: 11px;
   word-wrap: break-word;
   padding: 0;
   margin: 0;
@@ -34,6 +34,9 @@
   background-color: #fafafa;
 }
 
+.e-grid .e-headertext {
+  font-size: 11px;
+}
 
 .e-filtermenudiv.e-icons.e-icon-filter {
   padding-right: 2em;
