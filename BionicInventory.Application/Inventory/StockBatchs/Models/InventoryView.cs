@@ -28,26 +28,33 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
             }
 
         }
+
+        public float totalWriteOffs { get; set; }
         public string uom { get; set; }
 
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
 
-        public static Expression<Func<Item, InventoryView>> Projection {
+        public static Expression<Func<ItemBatchJoin, InventoryView>> Projection {
 
             get {
                 return inventory => new InventoryView () {
-                    itemId = inventory.Id,
-                    item = inventory.Name,
-                    itemCode = inventory.Code,
-                    uom = inventory.PrimaryUom.Abrivation,
-                    itemGroupId = inventory.GroupId,
-                    itemGroup = inventory.Group.GroupName,
-                    dateAdded = inventory.DateAdded,
-                    dateUpdated = inventory.DateUpdate,
+                    itemId = inventory.Item.Id,
+                    item = inventory.Item.Name,
+                    itemCode = inventory.Item.Code,
+                    uom = inventory.Item.PrimaryUom.Abrivation,
+                    itemGroupId = inventory.Item.GroupId,
+                    itemGroup = inventory.Item.Group.GroupName,
+                    dateAdded = inventory.Item.DateAdded,
+                    dateUpdated = inventory.Item.DateUpdate,
+                    totalWriteOffs = inventory.totalWriteOffs,
+                    quantity = inventory.Batch
+                    .GroupBy (d => d.BatchId)
+                    .Sum (item => item.Sum (storage => storage.Quantity - inventory.totalWriteOffs)),
+                    totalCost = inventory.Batch
+                    .GroupBy (d => d.BatchId)
+                    .Sum (item => item.Sum (w => (w.Quantity - inventory.totalWriteOffs) * w.Batch.UnitCost)),
 
-                    quantity = inventory.StockBatch.GroupBy (s => s.Item).Sum (i => i.Sum (b => b.Quantity)),
-                    totalCost = inventory.StockBatch.GroupBy (s => s.Item).Sum (i => i.Sum (b => b.Quantity)),
                 };
             }
         }

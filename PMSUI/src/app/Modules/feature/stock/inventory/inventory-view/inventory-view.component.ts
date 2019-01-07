@@ -4,7 +4,9 @@ import {
   FilterSettingsModel,
   PageSettingsModel,
   SortSettingsModel,
-  ToolbarItems
+  ToolbarItems,
+  IRow,
+  Column
 } from '@syncfusion/ej2-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -15,6 +17,7 @@ import { inventoryColumnBluePrint } from './inventory-view-columns-blue-print.mo
 import { InventoryApiService } from '../inventory-api.service';
 import { Router } from '@angular/router';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { closest } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-inventory-view',
@@ -87,8 +90,10 @@ export class InventoryViewComponent extends CommonProperties implements OnInit {
 
   updateAllInventory(data: any) {
     console.log('update all');
-    const rows = this.grid.getDataRows();
-    console.log(rows);
+    const rows = this.grid.getColumns();
+    // console.log(rows);
+    //  const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
+
   }
 
   updateInventory(data: any) {

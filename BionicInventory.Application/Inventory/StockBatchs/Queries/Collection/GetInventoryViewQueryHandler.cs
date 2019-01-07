@@ -25,6 +25,16 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
 
         public async Task<IEnumerable<InventoryView>> Handle (GetInventoryViewQuery request, CancellationToken cancellationToken) {
             return await _database.Item
+                .GroupJoin (_database.StockBatchStorage
+                    .Where (s => s.Batch.Status.Trim ().ToUpper () == "RECIEVED"),
+                    i => i.Id,
+                    b => b.Batch.ItemId,
+                    (item, batch) => new ItemBatchJoin () {
+                        Batch = batch,
+                            Item = item,
+                            totalWriteOffs = batch.GroupBy (d => d.BatchId)
+                            .Sum (im => im.Where (o => o.WriteOffDetail != null).Sum (w => w.WriteOffDetail.Sum (e => e.Quantity))),
+                    })
                 .Select (InventoryView.Projection)
                 .ToListAsync ();
         }

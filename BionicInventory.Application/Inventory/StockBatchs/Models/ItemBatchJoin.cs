@@ -13,6 +13,7 @@ using BionicProduction.Domain.StockBatchs;
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class ItemBatchJoin {
         public Item Item { get; set; }
-        public StockBatch Batch { get; set; }
+        public float totalWriteOffs { get; set; }
+        public IEnumerable<StockBatchStorage> Batch { get; set; } = new List<StockBatchStorage> ();
     }
 }

@@ -78,7 +78,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             }
         }
 
-        [HttpGet ("inventory")]
+        [HttpGet ("count")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (500)]
