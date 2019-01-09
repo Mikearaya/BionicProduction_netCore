@@ -46,6 +46,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 Status = request.Status
             };
             batch.Source = "Manual";
+
             Object manufacture;
             // check if manufacture order id is defined
             if (request.ManufactureOrderId != null && request.ManufactureOrderId != 0) {

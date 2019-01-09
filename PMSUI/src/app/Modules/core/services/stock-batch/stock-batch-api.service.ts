@@ -4,14 +4,15 @@ import {
   NewStockBatchModel,
   StockBatchDetailView,
   StockBatchListView,
-  UpdatedStockBatchModel
+  UpdatedStockBatchModel,
+  StockLotMovementModel
 } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class StockBatchApiService {
 
-  private controller = 'inventory/stock-batchs';
+  private controller = 'inventory/stock-lots';
 
   constructor(@Inject('BASE_URL') private apiUrl: string,
     private httpClient: HttpClient) { }
@@ -41,6 +42,10 @@ export class StockBatchApiService {
 
   deleteStockBatch(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.apiUrl}/${this.controller}/${id}`);
+  }
+
+  moveStockLot(lotMovement: StockLotMovementModel): Observable<StockBatchDetailView> {
+    return this.httpClient.post<StockBatchDetailView>(`${this.apiUrl}/${this.controller}/movements`, lotMovement);
   }
 
 }

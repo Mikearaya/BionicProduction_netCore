@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
@@ -9,7 +9,6 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { Location } from '@angular/common';
 import {
   NewStockBatchModel,
   StockBatchDetailView,
@@ -49,7 +48,8 @@ export class StockBatchFormComponent extends CommonProperties implements OnInit 
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private itemApi: ItemApiService,
-    private storageApi: StorageLocationApiService) {
+    private storageApi: StorageLocationApiService,
+    private router: Router) {
     super();
     this.itemField = { text: 'name', value: 'id' };
     this.storageField = { text: 'name', value: 'id' };
@@ -142,6 +142,11 @@ export class StockBatchFormComponent extends CommonProperties implements OnInit 
 
   get quantity(): FormControl {
     return this.stockBatchForm.get('quantity') as FormControl;
+  }
+
+
+  moveStockLot(index: number): void {
+    this.router.navigate(['inventort/stock-batchs/movements']);
   }
 
 

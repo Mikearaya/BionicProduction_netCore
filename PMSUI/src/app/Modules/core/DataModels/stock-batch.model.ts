@@ -89,3 +89,9 @@ export class StockBatchStorageView {
 
 }
 
+
+export class StockLotMovementModel {
+  lotId: number;
+  quantity: number;
+  newStorageId: number;
+}

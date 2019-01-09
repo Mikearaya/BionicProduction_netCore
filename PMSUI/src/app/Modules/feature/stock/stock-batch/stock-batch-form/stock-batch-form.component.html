@@ -30,28 +30,30 @@
             <div class="row">
               <label for="quantity" class="label-area col-md-3 col-xs-12" i18n="@@quantity">Quantity</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-numerictextbox format='##' formControlName="quantity" id='quantity' i18n-placeholder="@@quantity" name='quantity'
-                  placeholder='Quantity' [width]='70'></ejs-numerictextbox>
+                <ejs-numerictextbox format='##' formControlName="quantity" id='quantity' i18n-placeholder="@@quantity"
+                  name='quantity' placeholder='Quantity' [width]='70'></ejs-numerictextbox>
                 <div class="e-error" *ngIf='quantity.errors'>
                   <div *ngIf="quantity.errors['required']" i18n> Quantity is Required</div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <label for="unitCost" class="label-area col-md-3 col-xs-12" i18n="@@unitCost stock item unit cost">Unit Cost</label>
+              <label for="unitCost" class="label-area col-md-3 col-xs-12" i18n="@@unitCost stock item unit cost">Unit
+                Cost</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-numerictextbox format='ETB ##.#' i18n-placeholder="@@unitCost stock item unit cost" formControlName="unitCost" id='unitCost' name='unitCost'
-                  placeholder='Unit Cost' [width]='100'></ejs-numerictextbox>
+                <ejs-numerictextbox format='ETB ##.#' i18n-placeholder="@@unitCost stock item unit cost"
+                  formControlName="unitCost" id='unitCost' name='unitCost' placeholder='Unit Cost' [width]='100'></ejs-numerictextbox>
                 <div class="e-error" *ngIf='unitCost.errors'>
                   <div *ngIf="unitCost.errors['required']" i18n> Unit Cost is Required</div>
                 </div>
               </div>
             </div>
             <div class="row">
-              <label for="availableFrom" class="label-area col-md-3 col-xs-12" i18n="@@availableDate stock item available date">Available From</label>
+              <label for="availableFrom" class="label-area col-md-3 col-xs-12" i18n="@@availableDate stock item available date">Available
+                From</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-datepicker format='yyyy-MM-dd' formControlName="availableFrom" id='availableFrom' i18n-placeholder="@@availableDate" name='availableFrom'
-                  placeholder='Available From' [width]='150'></ejs-datepicker>
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="availableFrom" id='availableFrom' i18n-placeholder="@@availableDate"
+                  name='availableFrom' placeholder='Available From' [width]='150'></ejs-datepicker>
                 <div class="e-error" *ngIf='availableFrom.errors'>
                   <div *ngIf="availableFrom.errors['required']" i18n> Available Date is Required</div>
                 </div>
@@ -59,10 +61,11 @@
             </div>
 
             <div class="row">
-              <label for="expiryDate" class="label-area col-md-3 col-xs-12" i18n="@@expireDate stock item expiry date">Expiry Date</label>
+              <label for="expiryDate" class="label-area col-md-3 col-xs-12" i18n="@@expireDate stock item expiry date">Expiry
+                Date</label>
               <div class="col-md-9 col-xs-12">
-                <ejs-datepicker format='yyyy-MM-dd' formControlName="expiryDate" id='expiryDate' i18n-placeholder="@@expireDate" name='expiryDate'
-                  placeholder='Expiry Date' [width]='150'></ejs-datepicker>
+                <ejs-datepicker format='yyyy-MM-dd' formControlName="expiryDate" id='expiryDate' i18n-placeholder="@@expireDate"
+                  name='expiryDate' placeholder='Expiry Date' [width]='150'></ejs-datepicker>
               </div>
             </div>
             <div class="row">
@@ -72,15 +75,15 @@
                     <tr>
                       <th i18n>Storage Location</th>
                       <th i18n="@@quantity">Quantity</th>
-                      <th><button ejs-button class='e-small e-primary' (click)="addStorage()" [disabled]='storageLocation.invalid'
-                          iconCss='e-icons e-add-icon' i18n="add stock item">Add</button></th>
+                      <th><button type="button" ejs-button *ngIf="!isUpdate" class='e-small e-primary' (click)="addStorage()"
+                          [disabled]='storageLocation.invalid' iconCss='e-icons e-add-icon' i18n="add stock item">Add</button></th>
                     </tr>
                   </thead>
                   <tbody formArrayName="storageLocation">
                     <tr *ngFor="let storage of storageLocation.controls; let i=index; let last=last;" [formGroup]="storage">
                       <td>
-                        <ejs-dropdownlist [dataSource]='storesList' [fields]='storageField' i18n-placeholder formControlName="storageId"
-                          id='storageId' name='storageId' placeholder='Select Storage'></ejs-dropdownlist>
+                        <ejs-dropdownlist [dataSource]='storesList' [fields]='storageField' i18n-placeholder
+                          formControlName="storageId" id='storageId' name='storageId' placeholder='Select Storage'></ejs-dropdownlist>
                         <div class="e-error" *ngIf="storage.get('storageId').errors">
                           <div *ngIf="storage.get('storageId').errors['required']" i18n> Storage is Required</div>
                         </div>
@@ -93,7 +96,9 @@
                         </div>
                       </td>
                       <td>
-                        <button ejs-button class='e-round-corner e-round e-danger e-small' *ngIf="last && storageLocation.controls.length > 1"
+                        <button ejs-button type="button" *ngIf="isUpdate" class=' e-info e-small' (click)='moveStockLot(i)'
+                          iconCss='e-icons'>Move</button>
+                        <button ejs-button type="button" class='e-round-corner e-round e-danger e-small' *ngIf="last && storageLocation.controls.length > 1 && !isUpdate"
                           (click)='deleteStorage(i)' iconCss='e-icons e-delete-icon'></button>
                       </td>
 
