@@ -146,7 +146,7 @@ export class StockBatchFormComponent extends CommonProperties implements OnInit 
 
 
   moveStockLot(index: number): void {
-    this.router.navigate(['inventort/stock-batchs/movements']);
+    this.router.navigate(['inventory/batchs/movements']);
   }
 
 

@@ -46,7 +46,7 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
 
     this.storageFields = { text: 'name', value: 'id' };
     this.itemFields = { text: 'name', value: 'id' };
-    this.lotFields = { text: 'name', value: 'id' };
+    this.lotFields = { text: 'id', value: 'id' };
   }
 
   ngOnInit() {
@@ -73,9 +73,10 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
   private createForm(): void {
     this.lotMovementForm = this.formBuilder.group({
       itemId: ['', Validators.required],
+      currentLotId: ['', Validators.required],
       currentStorage: ['', Validators.required],
       quantity: ['', Validators.required],
-      newSorage: ['', Validators.required],
+      newStorage: ['', Validators.required],
     });
   }
 
@@ -83,7 +84,7 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
 
   }
 
-  lotChanges(event: Event): void {
+  lotChanged(event: Event): void {
 
   }
 
@@ -97,6 +98,10 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
 
   get quantity(): FormControl {
     return this.lotMovementForm.get('quantity') as FormControl;
+  }
+
+  get currentLotId(): FormControl {
+    return this.lotMovementForm.get('currentLotId') as FormControl;
   }
 
   get newStorage(): FormControl {
