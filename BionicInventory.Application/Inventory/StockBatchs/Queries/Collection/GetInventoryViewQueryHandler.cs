@@ -30,10 +30,9 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
                     i => i.Id,
                     b => b.Batch.ItemId,
                     (item, batch) => new ItemBatchJoin () {
-                        Batch = batch,
-                            Item = item,
-                            totalWriteOffs = batch.GroupBy (d => d.BatchId)
-                            .Sum (im => im.Where (o => o.WriteOffDetail != null).Sum (w => w.WriteOffDetail.Sum (e => e.Quantity))),
+
+                        Item = item,
+
                     })
                 .Select (InventoryView.Projection)
                 .ToListAsync ();

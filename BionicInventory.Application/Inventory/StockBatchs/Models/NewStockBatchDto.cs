@@ -18,6 +18,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public float UnitCost { get; set; }
         [Required]
         public string Status { get; set; }
+        public string Source {get; set;}
         public uint? PurchaseOrderId { get; set; }
 
         public uint? ManufactureOrderId { get; set; }

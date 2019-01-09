@@ -47,13 +47,13 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     itemGroup = inventory.Item.Group.GroupName,
                     dateAdded = inventory.Item.DateAdded,
                     dateUpdated = inventory.Item.DateUpdate,
-                    totalWriteOffs = inventory.totalWriteOffs,
-                    quantity = inventory.Batch
-                    .GroupBy (d => d.BatchId)
-                    .Sum (item => item.Sum (storage => storage.Quantity - inventory.totalWriteOffs)),
-                    totalCost = inventory.Batch
-                    .GroupBy (d => d.BatchId)
-                    .Sum (item => item.Sum (w => (w.Quantity - inventory.totalWriteOffs) * w.Batch.UnitCost)),
+                    //  //   totalWriteOffs = inventory.totalWriteOffs,
+                    //     quantity = inventory.Batch
+                    //     .GroupBy (d => d.BatchId)
+                    //     .Sum (item => item.Sum (storage => storage.Quantity - inventory.totalWriteOffs)),
+                    //     totalCost = inventory.Batch
+                    //     .GroupBy (d => d.BatchId)
+                    //     .Sum (item => item.Sum (w => (w.Quantity - inventory.totalWriteOffs) * w.Batch.UnitCost)),
 
                 };
             }
