@@ -3,11 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 6, 2019 1:29 AM
+ * @Last Modified Time: Jan 9, 2019 8:18 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using BionicInventory.Application.Inventory.StockBatchs.Commands.Create;
 using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Application.Inventory.StockBatchs.Queries.Collection;
 using BionicInventory.Application.Inventory.StockBatchs.Queries.Single;
@@ -20,7 +22,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
-    [InventoryAPI ("inventory/stock-batchs")]
+    [InventoryAPI ("inventory/stock-lots")]
     public class StockBatchController : Controller {
         private readonly IMediator _Mediator;
 
@@ -28,6 +30,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             _Mediator = mediator;
         }
 
+        // api/inventory/stock-lots
         [HttpGet]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
@@ -39,6 +42,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
         }
 
+        // api/inventory/stock-lots/2
         [HttpGet ("{id}")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
@@ -57,8 +61,10 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
             }
+
         }
 
+        // api/inventory/stock-lots/items/2
         [HttpGet ("items/{itemId}")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
@@ -78,6 +84,11 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        ///  api/inventory/stock-lots/count
         [HttpGet ("count")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
@@ -94,6 +105,12 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newBatch"></param>
+        /// <returns></returns>
+        ///   api/inventory/stock-lots
         [HttpPost]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
@@ -129,6 +146,13 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updatedBatch"></param>
+        /// <returns></returns>
+        ///   api/inventory/stock-lots/2
         [HttpPut ("{id}")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
@@ -156,7 +180,14 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ///   api/inventory/stock-lots/count
         [HttpDelete ("{id}")]
+        [DisplayName ("Delete Lot")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -174,6 +205,46 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
             }
+        }
+
+        [HttpPost ("movements")]
+        [DisplayName ("Create Lot Movement")]
+        [ProducesResponseType (201)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<StockBatchDetailView>> CreateNewStockMovement ([FromBody] StockLotMovementDto lotMovement) {
+
+            try {
+
+                if (lotMovement == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                var result = await _Mediator.Send (lotMovement);
+
+                if (result == 0) {
+                    return StatusCode (500);
+                }
+
+                var updatedLot = await _Mediator.Send (new GetStockBatchDetailViewQuery () { Id = result });
+
+                return StatusCode (201, updatedLot);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+
+            } catch (QuantityGreaterThanAvailableException e) {
+                ModelState.AddModelError ("Quantity", e.Message);
+                return new InvalidInputResponse (ModelState);
+
+            }
+
         }
     }
 }
