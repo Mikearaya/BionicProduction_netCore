@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 9, 2019 7:59 PM
+ * @Last Modified Time: Jan 9, 2019 8:03 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading;
@@ -26,16 +26,19 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
         public async Task<uint> Handle (StockLotMovementDto request, CancellationToken cancellationToken) {
             var mainLotStorage = await _database.StockBatchStorage.FindAsync (request.LotId);
 
+            // check if current stock lot exsists
             if (mainLotStorage == null) {
                 throw new NotFoundException (nameof (StockBatch), request.LotId);
             }
 
+            // check if there is sufficient amount in current stock lot
             if (mainLotStorage.Quantity < request.Quantity) {
-                throw new QuantityGreaterThanAvailableException ("Lot", mainLotStorage.Quantity, request.Quantity);
+                throw new QuantityGreaterThanAvailableException ("Lot", request.Quantity, mainLotStorage.Quantity);
             }
 
             var newLot = await _database.StorageLocation.FindAsync (request.newStorageId);
 
+            // check if new storage location exists
             if (newLot == null) {
                 throw new NotFoundException (nameof (StorageLocation), request.newStorageId);
             }
