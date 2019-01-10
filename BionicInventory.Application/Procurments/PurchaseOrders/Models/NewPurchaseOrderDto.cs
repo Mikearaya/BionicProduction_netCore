@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 12:08 AM
+ * @Last Modified Time: Jan 10, 2019 10:23 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,7 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
-    public class NewPurchaseOrderDto : IRequest<PurchaseOrderDetailView> {
+    public class NewPurchaseOrderDto : IRequest<uint> {
         public NewPurchaseOrderDto () {
             PurchaseOrderItems = new List<PurchaseOrderItemDto> ();
         }
@@ -32,7 +32,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public string InvoiceId { get; set; }
         public DateTime? InvoiceDate { get; set; }
 
-        IEnumerable<PurchaseOrderItemDto> PurchaseOrderItems { get; set; }
+        public IEnumerable<PurchaseOrderItemDto> PurchaseOrderItems { get; set; }
 
     }
 }

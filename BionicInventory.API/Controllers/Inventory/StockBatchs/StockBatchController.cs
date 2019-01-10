@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 10, 2019 8:22 PM
+ * @Last Modified Time: Jan 10, 2019 9:38 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -263,6 +263,9 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
                 ModelState.AddModelError ("Quantity", e.Message);
                 return new InvalidInputResponse (ModelState);
 
+            } catch (DuplicateStorageLocationMovementException e) {
+                ModelState.AddModelError ("Storage", e.Message);
+                return new InvalidInputResponse (ModelState);
             }
 
         }

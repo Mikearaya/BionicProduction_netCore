@@ -1,16 +1,26 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { StockBatchApiService } from 'src/app/Modules/core/services/stock-batch/stock-batch-api.service';
-import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
-import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
-import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
-import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
-import { StockBatchListView, StockLotMovementModel, StockBatchDetailView } from 'src/app/Modules/core/DataModels/stock-batch.model';
-import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { Location } from '@angular/common';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { StockBatchApiService } from 'src/app/Modules/core/services/stock-batch/stock-batch-api.service';
+import {
+  StockBatchDetailView,
+  StockBatchListView,
+  StockBatchStorageView,
+  StockLotMovementModel
+} from 'src/app/Modules/core/DataModels/stock-batch.model';
+import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
+import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
 
 @Component({
   selector: 'app-lot-movement-form',
@@ -31,6 +41,8 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
   public storageFields: { text: string, value: string };
   public lotsList: StockBatchListView[];
   public lotFields: { text: string, value: string };
+  public lotStoragesList: StockBatchStorageView[];
+  public lotStorageFields: { text: string, value: string };
 
   private lotId: number;
 
@@ -47,6 +59,7 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
     this.storageFields = { text: 'name', value: 'id' };
     this.itemFields = { text: 'name', value: 'id' };
     this.lotFields = { text: 'id', value: 'id' };
+    this.lotStorageFields = { text: 'storage', value: 'id' };
   }
 
   ngOnInit() {
@@ -80,13 +93,29 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
     });
   }
 
-  itemChanged(event: Event): void {
+  itemChanged(selectedItemId: number): void {
+    console.log(`item event`);
+    console.log(event);
 
+    if (selectedItemId) {
+      this.stockLotApi.getItemStockBatchById(selectedItemId).subscribe(
+        (data: any) => this.lotsList = data,
+        this.handleError
+      );
+    }
   }
 
-  lotChanged(event: Event): void {
-
+  lotChanged(selectedLotId: number): void {
+    console.log(`lot event `);
+    if (selectedLotId) {
+      this.stockLotApi.getStockLotStorages(selectedLotId).subscribe(
+        (data: StockBatchStorageView[]) => this.lotStoragesList = data,
+        this.handleError
+      );
+    }
   }
+
+
 
   get itemId(): FormControl {
     return this.lotMovementForm.get('itemId') as FormControl;

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 9, 2019 8:03 PM
+ * @Last Modified Time: Jan 10, 2019 9:37 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading;
@@ -36,6 +36,10 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
                 throw new QuantityGreaterThanAvailableException ("Lot", request.Quantity, mainLotStorage.Quantity);
             }
 
+            if (mainLotStorage.StorageId == request.newStorageId) {
+                throw new DuplicateStorageLocationMovementException (mainLotStorage.Id, mainLotStorage.Storage.Name);
+            }
+
             var newLot = await _database.StorageLocation.FindAsync (request.newStorageId);
 
             // check if new storage location exists
@@ -50,7 +54,8 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Commands.Create {
             _database.StockBatchStorage.Add (new StockBatchStorage () {
                 StorageId = request.newStorageId,
                     Quantity = request.Quantity,
-                    BatchId = mainLotStorage.BatchId
+                    BatchId = mainLotStorage.BatchId,
+                    PreviousStorageId = mainLotStorage.PreviousStorageId
             });
 
             await _database.SaveAsync ();

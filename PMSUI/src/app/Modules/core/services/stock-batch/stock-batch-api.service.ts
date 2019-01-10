@@ -5,7 +5,8 @@ import {
   StockBatchDetailView,
   StockBatchListView,
   UpdatedStockBatchModel,
-  StockLotMovementModel
+  StockLotMovementModel,
+  StockBatchStorageView
 } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { Observable } from 'rxjs';
 
@@ -30,6 +31,12 @@ export class StockBatchApiService {
   getAllStockBatchs(): Observable<StockBatchListView[]> {
     return this.httpClient.get<StockBatchListView[]>(`${this.apiUrl}/${this.controller}`);
   }
+
+
+  getStockLotStorages(lotId: number): Observable<StockBatchStorageView[]> {
+    return this.httpClient.get<StockBatchStorageView[]>(`${this.apiUrl}/${this.controller}/${lotId}/storages`);
+  }
+
 
   createNewStockBatch(newBatch: NewStockBatchModel): Observable<StockBatchDetailView> {
     return this.httpClient.post<StockBatchDetailView>(`${this.apiUrl}/${this.controller}`, newBatch);
