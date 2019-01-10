@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 30, 2018 9:05 PM
+ * @Last Modified Time: Jan 10, 2019 8:05 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -15,7 +15,7 @@ using BionicProduction.Domain.StockBatchs;
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class StockBatchDetailView {
         public StockBatchDetailView () {
-            storages = new List<StockBatchStorageView> ();
+            storages = new List<StockLotStorageView> ();
         }
         private float _quantity = 0;
 
@@ -44,7 +44,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public uint itemGroupId { get; set; }
         public string source { get; set; }
 
-        public IEnumerable<StockBatchStorageView> storages { get; set; }
+        public IEnumerable<StockLotStorageView> storages { get; set; }
 
         public static Expression<Func<StockBatch, StockBatchDetailView>> Projection {
 
@@ -68,7 +68,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     expiryDate = stock.ExpiryDate,
                     itemGroup = stock.Item.Group.GroupName,
                     itemGroupId = stock.Item.GroupId,
-                    storages = stock.StockBatchStorage.AsQueryable ().Select (StockBatchStorageView.Projection)
+                    storages = stock.StockBatchStorage.AsQueryable ().Select (StockLotStorageView.Projection)
                 };
             }
 

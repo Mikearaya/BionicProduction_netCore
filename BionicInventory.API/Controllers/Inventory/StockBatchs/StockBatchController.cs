@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 9, 2019 8:18 PM
+ * @Last Modified Time: Jan 10, 2019 8:22 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -69,7 +69,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<IEnumerable<StockBatchListView>>> GetItemStockBatchs (uint itemId) {
+        public async Task<ActionResult<IEnumerable<StockLotView>>> GetItemStockBatchs (uint itemId) {
 
             try {
                 if (itemId == 0) {
@@ -79,6 +79,26 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
                 var batch = await _Mediator.Send (new GetItemStockBatchsQuery () { ItemId = itemId });
 
                 return StatusCode (200, batch);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        // api/inventory/stock-lots/items/2
+        [HttpGet ("{lotId}/storages")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<StockLotStorageView>>> GetStockLotStorages (uint lotId) {
+
+            try {
+                if (lotId == 0) {
+                    return StatusCode (400);
+                }
+
+                var lot = await _Mediator.Send (new GetStockLotStoragesQuery () { LotId = lotId });
+
+                return StatusCode (200, lot);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
             }
