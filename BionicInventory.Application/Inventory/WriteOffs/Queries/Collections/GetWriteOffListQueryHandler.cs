@@ -27,6 +27,7 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Queries.Collections {
             return await _database.WriteOff
                 .Select (WriteOffListView.Projection)
                 .ToListAsync ();
+
         }
     }
 }

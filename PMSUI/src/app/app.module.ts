@@ -15,15 +15,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
-import { InventoryViewComponent } from './Modules/feature/stock/inventory/inventory-view/inventory-view.component';
-import { LotMovementFormComponent } from './Modules/feature/stock/stock-batch/lot-movement-form/lot-movement-form.component';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

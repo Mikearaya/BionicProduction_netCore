@@ -21,6 +21,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public uint itemGroupId { get; set; }
         public string itemGroup { get; set; }
         public float quantity { get; set; }
+        public uint writeOffId { get; set; }
         public float totalCost { get; set; }
         public float averageUnitCost {
             get {
@@ -29,7 +30,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
 
         }
 
-        public float totalWriteOffs { get; set; }
+        public float? totalWriteOffs { get; set; }
         public string uom { get; set; }
 
         public DateTime? dateAdded { get; set; }
@@ -47,6 +48,8 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
                     itemGroup = inventory.Item.Group.GroupName,
                     dateAdded = inventory.Item.DateAdded,
                     dateUpdated = inventory.Item.DateUpdate,
+                    //   totalWriteOffs = inventory.Sum (d => d.StockBatchStorage.Sum (q => q.WriteOffDetail.Sum (w => w.Quantity))),
+
                     //  //   totalWriteOffs = inventory.totalWriteOffs,
                     //     quantity = inventory.Batch
                     //     .GroupBy (d => d.BatchId)

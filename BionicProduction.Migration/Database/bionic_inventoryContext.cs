@@ -60,7 +60,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;password=admin;user=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
             }
         }
 
@@ -1445,6 +1445,9 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.ManufactureOrderId)
                     .HasName("fk_STOCK_BATCH_manufacture_idx");
 
+                entity.HasIndex(e => e.PurchaseOrderId)
+                    .HasName("fk_STOCK_BATCH_purchase_order_idx");
+
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.ArrivalDate)
@@ -1498,6 +1501,12 @@ namespace BionicProduction.Migration.Database
                     .HasForeignKey(d => d.ManufactureOrderId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("fk_STOCK_BATCH_manufacture");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithMany(p => p.StockBatch)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_STOCK_BATCH_purchase_order");
             });
 
             modelBuilder.Entity<StockBatchStorage>(entity =>

@@ -26,6 +26,7 @@ namespace BionicProduction.Migration.Database
 
         public Item Item { get; set; }
         public ProductionOrderList ManufactureOrder { get; set; }
+        public PurchaseOrderItem PurchaseOrder { get; set; }
         public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
     }
 }

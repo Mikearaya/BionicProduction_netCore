@@ -9,6 +9,7 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Items;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicProduction.Domain.StockBatchs {
@@ -25,14 +26,15 @@ namespace BionicProduction.Domain.StockBatchs {
         public float Quantity { get; set; }
         public float UnitCost { get; set; }
         public string Status { get; set; }
-        public string Source { get; set; }
         public DateTime? ExpiryDate { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? ArrivalDate { get; set; }
+        public string Source { get; set; }
 
         public Item Item { get; set; }
         public ProductionOrderList ManufactureOrder { get; set; }
+        public PurchaseOrderItem PurchaseOrder { get; set; }
         public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
 
     }

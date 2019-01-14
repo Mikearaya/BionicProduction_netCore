@@ -7,10 +7,12 @@
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Application.Procurments.PurchaseOrders.Models;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Domain.Procurment.PurchaseOrders;
@@ -21,9 +23,12 @@ using Microsoft.EntityFrameworkCore;
 namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create {
     public class CreatePurchaseOrderCommandHandler : IRequestHandler<NewPurchaseOrderDto, uint> {
         private readonly IInventoryDatabaseService _database;
+        private readonly IMediator _Mediator;
 
-        public CreatePurchaseOrderCommandHandler (IInventoryDatabaseService database) {
+        public CreatePurchaseOrderCommandHandler (IInventoryDatabaseService database,
+            IMediator mediator) {
             _database = database;
+            _Mediator = mediator;
         }
 
         public async Task<uint> Handle (NewPurchaseOrderDto request, CancellationToken cancellationToken) {
@@ -51,6 +56,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 OrderedDate = request.OrderedDate
             };
 
+            IList<NewStockBatchDto> newStockLotList = new List<NewStockBatchDto> ();
             foreach (var item in request.PurchaseOrderItems) {
 
                 var vendorItem = await _database.VendorPurchaseTerm
@@ -74,7 +80,25 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
             }
 
             _database.PurchaseOrder.Add (purchaseOrder);
+
             await _database.SaveAsync ();
+
+            // Create new lot  for each purchase order item
+
+            foreach (var item in purchaseOrder.PurchaseOrderItem) {
+
+                await _Mediator.Send (new NewStockBatchDto () {
+
+                    PurchaseOrderId = item.Id,
+                        ItemId = item.ItemId,
+                        Quantity = item.Quantity,
+                        Status = "Planned",
+                        UnitCost = item.UnitPrice,
+                        AvailableFrom = (item.ExpectedDate == null) ? request.ExpectedDate : (DateTime) item.ExpectedDate,
+
+                });
+
+            }
 
             return purchaseOrder.Id;
         }

@@ -21,6 +21,9 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.HasIndex (e => e.ManufactureOrderId)
                 .HasName ("fk_STOCK_BATCH_manufacture_idx");
 
+            builder.HasIndex (e => e.PurchaseOrderId)
+                .HasName ("fk_STOCK_BATCH_purchase_order_idx");
+
             builder.Property (e => e.Id).HasColumnName ("ID");
 
             builder.Property (e => e.ArrivalDate)
@@ -74,6 +77,12 @@ namespace BionicInventory.DataStore.StockBatchs {
                 .HasForeignKey (d => d.ManufactureOrderId)
                 .OnDelete (DeleteBehavior.Cascade)
                 .HasConstraintName ("fk_STOCK_BATCH_manufacture");
+
+            builder.HasOne (d => d.PurchaseOrder)
+                .WithMany (p => p.StockBatch)
+                .HasForeignKey (d => d.PurchaseOrderId)
+                .OnDelete (DeleteBehavior.Cascade)
+                .HasConstraintName ("fk_STOCK_BATCH_purchase_order");
         }
     }
 }

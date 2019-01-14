@@ -1,0 +1,203 @@
+<section>
+  <app-notification #notification></app-notification>
+  <h3>{{title}} </h3>
+
+  <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
+    <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
+    <div class="e-card">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              <label for="vendorId" class="col-md-3 col-sm-12" i18n>Vendor</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-dropdownlist [dataSource]='vendorsList' [fields]='vendorFields' formControlName="vendorId" id="vendorId"
+                  name="vendorId" i18n-placeholder i18n-filterBarPlaceholder placeholder="Select Vendor"
+                  filterBarPlaceholder='Search by vendor Name'></ejs-dropdownlist>
+                <div class="e-error" *ngIf="vendorId.errors">
+                  <div *ngIf="vendorId.errors['required']" i18n>Vendor is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="status" class="col-md-3 col-sm-12" i18n>Status</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-dropdownlist [dataSource]='purchaseOrderStatus' formControlName="status" id="status" name="status"
+                  i18n-placeholder placeholder="Select Status"></ejs-dropdownlist>
+                <div class="e-error" *ngIf="status.errors">
+                  <div *ngIf="status.errors['required']" i18n>Status is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="expectedDate" class="col-md-3 col-sm-12" i18n>Expected Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="expectedDate" id="expectedDate" name="expectedDate" placeholder="Selected Expected Date"></ejs-datepicker>
+                <div class="e-error" *ngIf="expectedDate.errors">
+                  <div *ngIf="expectedDate.errors['required']" i18n>Expected Date is Required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table-striped table">
+              <thead>
+                <tr>
+                  <th i18n>Item</th>
+                  <th i18n>Order Quantity</th>
+                  <th i18n>Price</th>
+                  <th i18n>Subtotal</th>
+                  <th i18n>Expected Date</th>
+                  <th i18n><button ejs-button class="e-small e-primary" (click)="addPurchaseOrderItem()" iconCss="e-icons e-add-icon">
+                      Add</button></th>
+                </tr>
+              </thead>
+              <tbody formArrayName="purchaseOrderItems">
+                <tr *ngFor="let purchaseItem of purchaseOrderItems.controls; let i=index; let last=last;" [formGroup]="purchaseItem">
+                  <td>
+                    <ejs-dropdownlist [dataSource]="itemsList" [fields]='itemFields' formControlName="itemId" [attr.id]="'itemId'+i"
+                      [attr.name]="'itemId'+i">
+                    </ejs-dropdownlist>
+                  </td>
+                  <td>
+                    <ejs-numerictextbox formControlName="quantity" [attr.id]="'quantity'+i" [attr.name]="'quantity'+i"
+                      format="##"></ejs-numerictextbox>
+                  </td>
+                  <td>
+                    <ejs-numerictextbox formControlName="unitPrice" [attr.id]="'unitPrice'+i" [attr.name]="'unitPrice'+i"
+                      format="##"></ejs-numerictextbox>
+                  </td>
+                  <td>
+
+                  </td>
+                  <td>
+                    <ejs-datepicker formControlName="expectedDate" [attr.name]="'expectedDate'+i" [attr.id]="'expectedDate'+i"></ejs-datepicker>
+                  </td>
+                  <td>
+                    <button ejs-button class="e-small e-primary e-round e-danger" iconCss="e-icons e-delete-icon"
+                      (click)="removePurchaseOrderItem(i)"></button>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Discount</th>
+                  <td>&nbsp;</td>
+                  <td>
+                    <ejs-numerictextbox formControlName="discount" id="discount" name="discount" format="##">
+                    </ejs-numerictextbox>
+                  </td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td colspan="2">&nbsp;</td>
+                  <td>
+                    9
+                  </td>
+
+                  <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>Tax</th>
+                  <td>&nbsp;</td>
+                  <td>
+                    <ejs-numerictextbox formControlName="tax" id="tax" name="tax" format="##">
+                    </ejs-numerictextbox>
+                  </td>
+                  <td colspan="3">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>Additional Fees</th>
+                  <td colspan="2">&nbsp;</td>
+                  <td>
+                    <ejs-numerictextbox formControlName="additionalFees" id="additionalFees" name="additionalFees"
+                      format="##">
+                    </ejs-numerictextbox>
+                  </td>
+
+                  <td colspan="2">&nbsp;</td>
+                </tr>
+                <tr>
+                  <th>Grand Total</th>
+                  <td colspan="2">&nbsp;</td>
+                  <td>
+                    3000
+                  </td>
+
+                  <td colspan="2">&nbsp;</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              <label for="note" class="col-md-3 col-sm-12">Note</label>
+              <div class="col-md-9 col-sm-12">
+                <textarea formControlName="note" class="e-input"></textarea>
+              </div>
+            </div>
+            <div class="row">
+              <label for="orderId" class="col-md-3 col-sm-12">Order ID</label>
+              <div class="col-md-9 col-sm-12">
+                <input formControlName="orderId" name="orderId" id="orderId" placeholder="Order Id" class="e-input">
+              </div>
+            </div>
+            <div class="row">
+              <label for="orderDate" class="col-md-3 col-sm-12">Order Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="orderDate" name="orderDate" id="orderDate" placeholder="Order Date"
+                  class="e-input">
+                </ejs-datepicker>
+              </div>
+            </div>
+            <div class="row">
+              <label for="invoiceId" class="col-md-3 col-sm-12">Invoice ID</label>
+              <div class="col-md-9 col-sm-12">
+                <input formControlName="invoiceId" name="invoiceId" id="invoiceId" placeholder="Invoice Id" class="e-input">
+              </div>
+            </div>
+            <div class="row">
+              <label for="invoiceDate" class="col-md-3 col-sm-12">Invoice Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="invoiceDate" name="invoiceDate" id="invoiceDate" placeholder="Invoice Date"
+                  class="e-input">
+                </ejs-datepicker>
+              </div>
+            </div>
+            <div class="row">
+              <label for="paymentDate" class="col-md-3 col-sm-12">Payment Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="paymentDate" name="paymentDate" id="paymentDate" placeholder="Payment Date"
+                  class="e-input">
+                </ejs-datepicker>
+              </div>
+            </div>
+            <div class="row">
+              <label for="shippedOn" class="col-md-3 col-sm-12">Shipped Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="shippedOn" name="shippedOn" id="shippedOn" placeholder="Shipped Date"
+                  class="e-input">
+                </ejs-datepicker>
+              </div>
+            </div>
+            <div class="row">
+              <label for="arrivalDate" class="col-md-3 col-sm-12">Arrival Date</label>
+              <div class="col-md-9 col-sm-12">
+                <ejs-datepicker formControlName="arrivalDate" name="arrivalDate" id="arrivalDate" placeholder="Arrival Date"
+                  class="e-input">
+                </ejs-datepicker>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
+  </form>
+</section>

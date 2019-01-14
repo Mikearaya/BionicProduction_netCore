@@ -9,11 +9,15 @@
 using System.Collections.Generic;
 using BionicInventory.Domain.Items;
 using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class ItemBatchJoin {
         public Item Item { get; set; }
-        public float totalWriteOffs { get; set; }
-        public IEnumerable<StockBatchStorage> Batch { get; set; } = new List<StockBatchStorage> ();
+        public StockBatch StockLots { get; set; }
+        public float? lotQuantity { get; set; }
+
+        public float? totalWriteOff { get; set; }
+        public WriteOff WriteOffs { get; set; }
     }
 }

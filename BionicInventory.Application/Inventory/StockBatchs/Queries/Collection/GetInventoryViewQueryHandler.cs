@@ -36,6 +36,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
                     })
                 .Select (InventoryView.Projection)
                 .ToListAsync ();
+
         }
     }
 }

@@ -5,6 +5,11 @@ namespace BionicProduction.Migration.Database
 {
     public partial class PurchaseOrderItem
     {
+        public PurchaseOrderItem()
+        {
+            StockBatch = new HashSet<StockBatch>();
+        }
+
         public uint Id { get; set; }
         public uint PurchaseOrderId { get; set; }
         public uint ItemId { get; set; }
@@ -16,5 +21,6 @@ namespace BionicProduction.Migration.Database
 
         public Item Item { get; set; }
         public PurchaseOrder PurchaseOrder { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
     }
 }
