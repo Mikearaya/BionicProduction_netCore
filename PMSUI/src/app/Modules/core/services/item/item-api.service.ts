@@ -3,12 +3,12 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 11, 2018 12:12 AM
+ * @Last Modified Time: Jan 15, 2019 12:51 AM
  * @Description: Modify Here, Please
  */
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView, ItemModel, ItemView } from '../../DataModels/item-data-models';
+import { LowStockItemsView, ItemModel, ItemView, VendorItemViewModel } from '../../DataModels/item-data-models';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -21,6 +21,10 @@ export class ItemApiService {
 
   getLowInventoryItems(): Observable<LowStockItemsView[]> {
     return this.httpClient.get<LowStockItemsView[]>(`${this.apiUrl}/${this.controller}?type=low`);
+  }
+
+  getVendorItems(vendorId: number): Observable<VendorItemViewModel[]> {
+    return this.httpClient.get<VendorItemViewModel[]>(`${this.apiUrl}/${this.controller}/vendors/${vendorId}`);
   }
 
   getItemById(itemId: number): Observable<ItemView> {

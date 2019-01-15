@@ -12,13 +12,13 @@ import {
   ToolbarItems, TextWrapSettingsModel, EditSettingsModel, SelectionSettingsModel,
   PageSettingsModel, CommandModel, PdfExportProperties, Column, IRow
 } from '@syncfusion/ej2-angular-grids';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { saleInvoiceColumnBluePrint } from './sales-invoice-view-blue-print';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
-import { InvoiceDetail } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { closest } from '@syncfusion/ej2-base';
+import { InvoiceDetail } from 'src/app/Modules/core/DataModels/invoice-data-model';
 
 
 @Component({
@@ -56,10 +56,11 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
 
   constructor(
     private router: Router,
-    private invoiceApi: SaleInvoiceApiService) {
+    private invoiceApi: SaleInvoiceApiService,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
-      {buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.viewInvoice.bind(this)} }];
+      { buttonOption: { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.viewInvoice.bind(this) } }];
     this.customAttributes = { class: 'custom-grid-header' };
     this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
     this.groupOptions = { showGroupedColumn: true }; // make columns used for grouping visable
@@ -80,7 +81,7 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
   viewInvoice(args: Event): void {
     console.log(args);
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.router.navigate([`invoices/${rowObj.data['Id']}`]);
+    this.router.navigate([`${rowObj.data['Id']}`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -95,22 +96,22 @@ export class SalesInvoiceViewComponent extends CommonProperties implements OnIni
   }
 
   addInvoice() {
-    this.router.navigate(['invoices/create']);
+    this.router.navigate(['create'], { relativeTo: this.activatedRoute });
   }
 
   toolbarClick(args: ClickEventArgs): void {
     switch (args.item.id) {
       case 'invoice_pdfexport':
-      const exportProperties: PdfExportProperties = {
-        pageSize: 'A4'
-    };
+        const exportProperties: PdfExportProperties = {
+          pageSize: 'A4'
+        };
         this.grid.pdfExport(exportProperties);
         break;
       case 'invoice_excelexport':
         this.grid.excelExport();
         break;
       case 'invoice_print':
-      this.grid.print();
+        this.grid.print();
         break;
 
     }

@@ -7,10 +7,8 @@
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-
-import { CustomerService } from '../../../core/services/customers/customer.service';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel, FilterSettingsModel
@@ -20,6 +18,7 @@ import { customerViewColumnsBluePrint } from './customer-view-blue-print.model';
 import { closest } from '@syncfusion/ej2-base';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';
 
 
 @Component({
@@ -50,12 +49,13 @@ export class CustomerViewComponent extends CommonProperties implements OnInit {
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
     private customerService: CustomerService,
+    private activatedRoute: ActivatedRoute,
     private route: Router) {
     super();
     this.commands = [
       {
         buttonOption:
-          {  cssClass: 'e-flat', iconCss: 'e-edit e-icons',   click: this.editCustomer.bind(this) }
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editCustomer.bind(this) }
       }, {
         buttonOption:
           { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteCustomer.bind(this) }
@@ -91,7 +91,7 @@ export class CustomerViewComponent extends CommonProperties implements OnInit {
 
   editCustomer(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`customers/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -112,7 +112,7 @@ export class CustomerViewComponent extends CommonProperties implements OnInit {
 
     switch (args.item.id) {
       case 'customer_add':
-        this.route.navigate([`customers/new`]);
+        this.route.navigate(['new'], { relativeTo: this.activatedRoute });
         break;
       case 'customer_pdfexport':
         this.grid.pdfExport();

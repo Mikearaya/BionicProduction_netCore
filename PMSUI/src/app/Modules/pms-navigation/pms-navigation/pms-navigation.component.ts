@@ -64,11 +64,11 @@ export class PmsNavigationComponent {
       ]
     },
     {
-      id: '345', name: 'Sales',
+      id: 'crm', name: 'Sales',
       subChild: [
-        { id: 'customers', name: 'CUSTOMERS' },
-        { id: 'sales', name: 'CUSTOMER ORDERS' },
-        { id: 'invoices', name: 'INVOICES' }
+        { id: 'crm/customers', name: 'CUSTOMERS' },
+        { id: 'crm/customer-orders', name: 'CUSTOMER ORDERS' },
+        { id: 'crm/invoices', name: 'INVOICES' }
       ]
     },
     {

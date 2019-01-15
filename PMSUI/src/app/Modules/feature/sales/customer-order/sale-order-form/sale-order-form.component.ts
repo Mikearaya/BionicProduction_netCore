@@ -11,12 +11,11 @@ import { Location } from '@angular/common';
 import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
-import { HttpErrorResponse } from '@angular/common/http';
-import { SalesOrder } from '../sales-data-model';
-import { Router } from '@angular/router';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { SalesOrder } from '../../sales-data-model';
+import { EmployeeApiService, Employee } from 'src/app/Modules/core/services/employees/employee-api.service';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -47,9 +46,9 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     @Inject('BASE_URL') private apiUrl: string,
     private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
-    private location: Location,
+    private activatedRoute: ActivatedRoute,
     private route: Router,
-    @Inject('EMPLOYEE_API_URL') private employeeApiUrl: string
+    private usersApi: EmployeeApiService
   ) {
 
     super();
@@ -66,11 +65,9 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
   ngOnInit(): void {
 
-    const dm: DataManager = new DataManager(
-      { url: this.employeeApiUrl, adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
+    this.usersApi.getAllEmployees().subscribe(
+      (data: Employee[]) => this.employeesList = data
     );
-
     const itemDm: DataManager = new DataManager(
       { url: `${this.apiUrl}/products`, adaptor: new WebApiAdaptor, offline: true },
       new Query().take(8)
@@ -83,7 +80,7 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
     customerDm.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
     itemDm.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
-    dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
+
 
 
 
@@ -146,7 +143,7 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     this.salesOrderApi.createSalesOrder(order).subscribe(
       (co: SalesOrder) => {
         this.notification.showMessage('Customer order Created Successfuly');
-        this.route.navigate([`sales/${co.Id}/booking`]);
+        this.route.navigate([`../${co.Id}/booking`], { relativeTo: this.activatedRoute });
 
       },
       this.handleError

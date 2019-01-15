@@ -15,12 +15,10 @@ const routes: Routes = [{
   path: '', component: PmsNavigationComponent, children: [
     { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'customers', loadChildren: '../feature/customer/customer.module#CustomerModule' },
     { path: 'workorders', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
     { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
-    { path: 'sales', loadChildren: '../feature/sales/sales.module#SalesModule' },
-    { path: 'invoices', loadChildren: '../feature/sale-invoice/sale-invoice.module#SaleInvoiceModule' },
+    { path: 'crm', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
     { path: 'shipments', loadChildren: '../feature/shipment/shipment.module#ShipmentModule' },
     { path: 'unit-of-measure', loadChildren: '../feature/unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule' },

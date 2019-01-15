@@ -11,7 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Invoice, InvoicePaymentSummary, InvoicePayments } from './sales-invoice-data-model';
-import { InvoiceDetail } from '../../core/DataModels/invoice-data-model';
+import { InvoiceDetail } from 'src/app/Modules/core/DataModels/invoice-data-model';
 
 @Injectable()
 export class SaleInvoiceApiService {

@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
-import { HttpErrorResponse } from '@angular/common/http';
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray, } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';

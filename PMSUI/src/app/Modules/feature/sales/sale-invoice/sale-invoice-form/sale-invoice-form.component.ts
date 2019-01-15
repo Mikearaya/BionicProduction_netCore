@@ -11,14 +11,13 @@ import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@ang
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 import { DataManager, WebApiAdaptor, Query, ReturnOption } from '@syncfusion/ej2-data';
 import { ActivatedRoute } from '@angular/router';
-
-import { CustomerOrder } from '../../../core/DataModels/customer-order-data-models';
 import { Invoice } from '../sales-invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Location } from '@angular/common';
 import { CustomerOrderGetterApiService } from 'src/app/Modules/core/services/customer-order/customer-order-getter-api.service';
 import { FormValidators } from '@syncfusion/ej2-angular-inputs';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CustomerOrder } from 'src/app/Modules/core/DataModels/customer-order-data-models';
 
 @Component({
   selector: 'app-sale-invoice-form',

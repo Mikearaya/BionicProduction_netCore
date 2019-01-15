@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 5, 2018 9:35 PM
+ * @Last Modified Time: Jan 15, 2019 12:22 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,6 +13,7 @@ using BionicInventory.Application.Products.BOMs.Queries.Collection;
 using BionicInventory.Application.Products.BOMs.Queries.Models;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Application.Products.Models;
+using BionicInventory.Application.Products.Queries;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
@@ -116,6 +117,28 @@ namespace BionicInventory.API.Controllers.Products {
 
                 var itemBom = await _Mediator.Send (new ItemBomViewQuery () { ItemId = id });
                 return StatusCode (200, itemBom);
+
+            } catch (NotFoundException e) {
+
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        // api/products/vendors/3
+        [HttpGet ("vendors/{vendorId}")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<BomView>>> GetVendorItemsList (uint vendorId) {
+
+            if (vendorId == 0) {
+                return StatusCode (400);
+            }
+
+            try {
+
+                var vendorItems = await _Mediator.Send (new GetVendorItemsList () { VendorId = vendorId });
+                return StatusCode (200, vendorItems);
 
             } catch (NotFoundException e) {
 

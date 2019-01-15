@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 9:54 PM
+ * @Last Modified Time: Jan 15, 2019 12:36 AM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Procurment.Vendors;
@@ -36,7 +36,7 @@ namespace BionicInventory.DataStore.Vendors {
 
             builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
-            builder.Property (e => e.Leadtime).HasColumnName ("leadtime");
+            builder.Property (e => e.Leadtime).HasColumnName ("lead_time");
 
             builder.Property (e => e.MinimumQuantity).HasColumnName ("minimum_quantity");
 

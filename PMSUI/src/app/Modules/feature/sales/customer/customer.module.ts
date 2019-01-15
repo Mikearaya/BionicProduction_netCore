@@ -6,7 +6,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 @NgModule({
   imports: [

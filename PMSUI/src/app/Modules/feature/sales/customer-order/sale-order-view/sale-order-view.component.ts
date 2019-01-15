@@ -14,7 +14,7 @@ import {
   PageSettingsModel, SortSettingsModel, FilterSettingsModel,
   EditSettingsModel, ToolbarItems, GroupSettingsModel, CommandModel, RowSelectEventArgs, IRow, Column
 } from '@syncfusion/ej2-angular-grids';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { salesOrderBluePrint } from './sale-order-view-blue-print';
 import { closest } from '@syncfusion/ej2-base';
@@ -59,8 +59,9 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
     private salesOrderApi: SaleOrderApiService,
+    private activatedRoute: ActivatedRoute,
     private route: Router) {
-      super();
+    super();
 
 
     this.pageSettings = { pageSize: 10 };
@@ -110,7 +111,7 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
   viewOrder(args: Event) {
 
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`sales/${rowObj.data['id']}`]);
+    this.route.navigate([`${rowObj.data['id']}`], { relativeTo: this.activatedRoute });
   }
 
   deleteOrder(args: any) {
@@ -119,11 +120,6 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
       succ => this.grid.refresh(),
       err => this.handleError
     );
-  }
-  rowSelected(args: RowSelectEventArgs) {
-    const selectedrowindex: number[] = this.grid.getSelectedRowIndexes();  // Get the selected row indexes.
-    // alert(selectedrowindex); // To alert the selected row indexes.
-    const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
 
@@ -136,11 +132,7 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
       this.grid.print();
     } else if (args.item.id === 'salesorder_add') {
 
-      this.route.navigate(['sales/new']);
-    } else if (args.item.id === 'salesorder_edit') {
-      // console.log(args);
-    } else if (args.item.id === 'salesorder_delete') {
-
+      this.route.navigate(['new'], { relativeTo: this.activatedRoute });
     }
   }
 

@@ -6,9 +6,9 @@ import { SaleInvoiceFormComponent } from './sale-invoice-form/sale-invoice-form.
 import { SaleInvoiceApiService } from './sale-invoice-api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SalesInvoiceViewComponent } from './sales-invoice-view/sales-invoice-view.component';
-import { SharedModule } from '../../shared/shared.module';
 import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.component';
 import { InvoicePaymentsViewComponent } from './invoice-payments-view/invoice-payments-view.component';
+import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 @NgModule({
   imports: [

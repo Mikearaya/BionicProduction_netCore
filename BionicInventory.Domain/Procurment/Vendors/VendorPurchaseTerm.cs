@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 9:42 PM
+ * @Last Modified Time: Jan 15, 2019 12:38 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -17,7 +17,7 @@ namespace BionicInventory.Domain.Procurment.Vendors {
         public string VendorProductId { get; set; }
         public uint? Priority { get; set; }
         public uint? Leadtime { get; set; }
-        public float? MinimumQuantity { get; set; }
+        public uint? MinimumQuantity { get; set; }
         public float UnitPrice { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }

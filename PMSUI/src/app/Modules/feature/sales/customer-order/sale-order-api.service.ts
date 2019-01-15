@@ -9,9 +9,9 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from './sales-data-model';
-import { InvoiceSummary } from '../../core/DataModels/invoice-data-model';
-import { ShipmentSummary } from '../../core/DataModels/shipment-data.model';
+import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from '../sales-data-model';
+import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
+import { ShipmentSummary } from '../../../core/DataModels/shipment-data.model';
 
 @Injectable()
 export class SaleOrderApiService {

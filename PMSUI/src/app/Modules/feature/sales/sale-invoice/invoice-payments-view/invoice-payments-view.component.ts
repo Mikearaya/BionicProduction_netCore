@@ -10,11 +10,9 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import {
   Component,
   Input,
-  OnInit,
-  ViewChild
+  OnInit
 } from '@angular/core';
 import { EmitType } from '@syncfusion/ej2-base';
-import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { invoicePaymentColumnBluePrint } from './invoice-payment-view-blue-print';
 import { SaleInvoiceApiService } from '../sale-invoice-api.service';
 
@@ -76,7 +74,7 @@ export class InvoicePaymentsViewComponent extends CommonProperties implements On
   }
 
   addPayment(): void {
-    this.router.navigate([`invoices/${this.invoiceId}/payments`]);
+    this.router.navigate([`${this.invoiceId}/payments`], { relativeTo: this.activatedRoute });
   }
 
 }

@@ -10,16 +10,15 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { GridComponent, CommandModel, Column, IRow } from '@syncfusion/ej2-angular-grids';
-
-import { CustomerOrderDetailView } from '../sales-data-model';
 import { SaleOrderApiService } from '../sale-order-api.service';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
-import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { closest } from '@syncfusion/ej2-base';
 import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { CustomerOrderDetailView } from '../../sales-data-model';
+import { InvoiceSummary } from 'src/app/Modules/core/DataModels/invoice-data-model';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -143,11 +142,11 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
 
 
   addNewOrderItem(): void {
-    this.route.navigate([`sales/${this.customerOrderId}/update`]);
+    this.route.navigate([`update`], { relativeTo: this.activatedRoute });
   }
 
   bookOrderItems(): void {
-    this.route.navigate([`sales/${this.customerOrderId}/booking`]);
+    this.route.navigate([`booking`], { relativeTo: this.activatedRoute });
   }
 
   addInvoice(): void {
