@@ -163,5 +163,7 @@ export class VendorFormComponent extends CommonProperties implements OnInit {
     vendor.paymentPeriod = this.paymentPeriod.value;
 
     return vendor;
+
   }
+
 }

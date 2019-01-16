@@ -15,7 +15,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { vendorColumnBluePrint } from './vendor-view-column.model';
 import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';
@@ -48,7 +48,8 @@ export class VendorViewComponent extends CommonProperties implements OnInit {
 
   constructor(
     private vendorApi: VendorApiService,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
@@ -90,7 +91,7 @@ export class VendorViewComponent extends CommonProperties implements OnInit {
 
   editVendor(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`procurments/vendors/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -111,7 +112,7 @@ export class VendorViewComponent extends CommonProperties implements OnInit {
 
     switch (args.item.id) {
       case 'vendor_add':
-        this.route.navigate([`procurments/vendors/new`]);
+        this.route.navigate([`new`], { relativeTo: this.activatedRoute });
         break;
       case 'vendor_pdfexport':
         this.grid.pdfExport();
@@ -125,4 +126,6 @@ export class VendorViewComponent extends CommonProperties implements OnInit {
     }
 
   }
+
+
 }
