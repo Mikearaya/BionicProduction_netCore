@@ -16,7 +16,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { stockBatchColumnBluePrint } from './stock-batch-view-blue-print.model';
 import { StockBatchListView } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { StockBatchApiService } from 'src/app/Modules/core/services/stock-batch/stock-batch-api.service';
@@ -51,7 +51,8 @@ export class StockBatchViewComponent extends CommonProperties implements OnInit 
 
   constructor(
     private stockBatchApi: StockBatchApiService,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
@@ -97,7 +98,7 @@ export class StockBatchViewComponent extends CommonProperties implements OnInit 
 
   editVendor(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`inventory/batchs/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -118,7 +119,7 @@ export class StockBatchViewComponent extends CommonProperties implements OnInit 
 
     switch (args.item.id) {
       case 'stockbatch_add':
-        this.route.navigate([`inventory/batchs/new`]);
+        this.route.navigate(['new'], { relativeTo: this.activatedRoute });
         break;
       case 'stockbatch_pdfexport':
         this.grid.pdfExport();

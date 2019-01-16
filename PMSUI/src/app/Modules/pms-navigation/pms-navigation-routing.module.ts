@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 11:27 PM
+ * @Last Modified Time: Jan 15, 2019 11:37 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
@@ -20,16 +20,10 @@ const routes: Routes = [{
     { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'crm', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
-    { path: 'shipments', loadChildren: '../feature/shipment/shipment.module#ShipmentModule' },
-    { path: 'unit-of-measure', loadChildren: '../feature/unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule' },
-    { path: 'boms', loadChildren: '../feature/stock/bom/bom.module#BOMModule' },
+    { path: 'boms', loadChildren: '../feature/work-order/bom/bom.module#BOMModule' },
     { path: 'work-stations', loadChildren: '../feature/work-order/work-station/work-station.module#WorkStationModule' },
     { path: 'routings', loadChildren: '../feature/work-order/production-routing/production-routing.module#ProductionRoutingModule' },
-    { path: 'storages', loadChildren: '../feature/stock/storage-location/storage-location.module#StorageLocationModule' },
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
-    { path: 'inventory/batchs', loadChildren: '../feature/stock/stock-batch/stock-batch.module#StockBatchModule' },
-    { path: 'inventory/write-offs', loadChildren: '../feature/stock/write-off/write-off.module#WriteOffModule' },
-    { path: 'stocks/inventory', loadChildren: '../feature/stock/inventory/inventory.module#InventoryModule' },
 
 
   ]

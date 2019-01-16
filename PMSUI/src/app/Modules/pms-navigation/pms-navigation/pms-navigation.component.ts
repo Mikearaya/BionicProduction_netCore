@@ -32,19 +32,19 @@ export class PmsNavigationComponent {
       id: 'stocks', name: 'Stock',
       subChild: [
         { id: 'stocks', name: 'Stock' },
-        { id: 'shipments', name: 'Shipments' },
-        { id: 'inventory/batchs', name: 'Stock Batchs' },
+        { id: 'stocks/shipments', name: 'Shipments' },
+        { id: 'stocks/stock-lots', name: 'Stock Lots' },
         { id: 'stocks/inventory', name: 'Inventory' },
         { id: 'stocks/low-stock', name: 'Critical-On-Hand' },
-        { id: 'inventory/write-offs', name: 'Write-offs' },
-        { id: 'stocks/stock-movement', name: 'Stock Movement' },
+        { id: 'stocks/write-offs', name: 'Write-offs' },
+        { id: 'stocks/stock-lots/movements', name: 'Stock Movement' },
         {
           id: 'stocks/settings', name: 'Stock Settings ',
           subChild: [
-            { id: 'stocks/product-groups', name: 'Product Groups' },
-            { id: 'unit-of-measure', name: 'Unit of Measurements' },
+            { id: 'stocks/settings/product-groups', name: 'Product Groups' },
+            { id: 'stocks/settings/unit-of-measure', name: 'Unit of Measurements' },
             { id: 'boms', name: 'Bill of Material' },
-            { id: 'storages', name: 'Storage Locations' }
+            { id: 'stocks/settings/storages', name: 'Storage Locations' }
           ]
         },
       ]

@@ -1,32 +1,31 @@
+import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { closest } from '@syncfusion/ej2-base';
 import {
+  Column,
   CommandModel,
   EditSettingsModel,
   FilterSettingsModel,
   GridComponent,
+  IRow,
   PageSettingsModel,
   SortSettingsModel,
-  ToolbarItems,
-  IRow,
-  Column
+  ToolbarItems
 } from '@syncfusion/ej2-angular-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { WriteOffApiService } from '../write-off-api.service';
-import { writeOffColumnBluePrint } from './write-off-view-blue-print.model';
-import { WriteOffListModel } from '../write-off-data.model';
-import { closest } from '@syncfusion/ej2-base';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
-import { ClickEventArgs } from '@syncfusion/ej2-navigations';
+import { unitOfMeasurementColumnBluePrint } from './unit-of-measurment-view-blue-print';
+import { UnitOfMeasurmentApiService } from 'src/app/Modules/core/services/unit-of-measurment/unit-of-measurment-api.service';
+import { UnitOfMeasurmentView } from 'src/app/Modules/core/DataModels/unit-of-measurment.mode';
 
 @Component({
-  selector: 'app-write-off-view',
-  templateUrl: './write-off-view.component.html',
-  styleUrls: ['./write-off-view.component.css']
+  selector: 'app-unit-of-measurment-view',
+  templateUrl: './unit-of-measurment-view.component.html',
+  styleUrls: ['./unit-of-measurment-view.component.css']
 })
-export class WriteOffViewComponent extends CommonProperties implements OnInit {
-
+export class UnitOfMeasurmentViewComponent extends CommonProperties implements OnInit {
 
   @ViewChild('grid')
   public grid: GridComponent;
@@ -34,7 +33,7 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
   @ViewChild('notification')
   private notification: NotificationComponent;
 
-  public data: WriteOffListModel[];
+  public data: UnitOfMeasurmentView[];
   public pageSettings: PageSettingsModel;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
@@ -43,29 +42,30 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
   public commands: CommandModel[];
   public printMode: 'CurrentPage';
 
-  public columnBluePrint = writeOffColumnBluePrint;
+  public columnBluePrint = unitOfMeasurementColumnBluePrint;
   public customAttributes: { class: string; };
   public filterOptions: { type: string; };
 
 
   constructor(
-    private writeOffApi: WriteOffApiService,
+    private unitOfMeasureApi: UnitOfMeasurmentApiService,
     private route: Router,
     private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
-        title: 'Edit Write-Off',
         buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editWriteOff.bind(this) }
-      }
-
-    ];
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editUom.bind(this) }
+      }, {
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteUom.bind(this) }
+      }];
 
     this.customAttributes = { class: 'custom-grid-header' };
     this.filterOptions = { type: 'Menu' }; // put unique filter menue for each column based on the column type
-    this.editSettings = { allowEditing: false, allowAdding: true, allowDeleting: false };
-    this.pageSettings = { pageSize: 10 };
+
+    this.pageSettings = { pageSize: 6 };
+    this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };
     this.toolbar = [
       'Add',
       'Print',
@@ -83,25 +83,25 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
 
   ngOnInit(): void {
 
-    this.writeOffApi.getAllWriteOffs().subscribe(
-      (data: WriteOffListModel[]) => this.data = data,
+    this.unitOfMeasureApi.getAllUnitOfMeasures().subscribe(
+      (data: UnitOfMeasurmentView[]) => this.data = data,
       this.handleError
     );
 
   }
 
-  editWriteOff(args: Event): void {
+  editUom(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
-  deleteWriteOff(args: Event): void {
+  deleteUom(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.writeOffApi.deleteWriteOff(rowObj.data['writeOffId']).subscribe(
-      () => this.notification.showMessage('Wite off Deleted'),
+    this.unitOfMeasureApi.deleteUnitOfMeasurment(rowObj.data['id']).subscribe(
+      () => this.notification.showMessage('Unit of Measurement Deleted'),
       (error: CustomErrorResponse) => {
-        this.notification.showMessage('Unable to Delete Write off', 'error');
+        this.notification.showMessage('Unable to Delete Unit of Measurment', 'error');
         this.handleError(error);
       }
     );
@@ -112,20 +112,19 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
   toolbarClick(args: ClickEventArgs): void {
 
     switch (args.item.id) {
-      case 'writeoff_add':
+      case 'uom_add':
         this.route.navigate(['new'], { relativeTo: this.activatedRoute });
         break;
-      case 'writeoff_pdfexport':
+      case 'uom_pdfexport':
         this.grid.pdfExport();
         break;
-      case 'writeoff_excelexport':
+      case 'uom_excelexport':
         this.grid.excelExport();
         break;
-      case 'writeoff_print':
+      case 'uom_print':
         this.grid.print();
         break;
     }
 
   }
-
 }
