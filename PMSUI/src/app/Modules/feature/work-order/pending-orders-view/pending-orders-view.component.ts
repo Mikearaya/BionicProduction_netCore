@@ -105,8 +105,6 @@ export class PendingOrdersViewComponent implements OnInit {
       this.grid.pdfExport();
     } else if (args.item.id === 'pendingOrder_print') {
       this.grid.print();
-    } else if (args.item.id === 'pendingOrder_delete') {
-      console.log(args);
     }
   }
 }

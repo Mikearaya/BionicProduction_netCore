@@ -6,6 +6,7 @@ import { SharedModule } from 'src/app/Modules/shared/shared.module';
 import { RoutingFormComponent } from './routing-form/routing-form.component';
 import { RoutingViewComponent } from './routing-view/routing-view.component';
 
+
 @NgModule({
   declarations: [RoutingFormComponent, RoutingViewComponent],
   imports: [

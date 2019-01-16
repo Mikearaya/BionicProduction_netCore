@@ -22,6 +22,7 @@ import { FinishedOrderApiService } from './finished-order-api.service';
 import { PendingOrdersViewComponent } from './pending-orders-view/pending-orders-view.component';
 import { WorkStationModule } from './work-station/work-station.module';
 import { ProductionRoutingModule } from './production-routing/production-routing.module';
+import { ProductionComponent } from './production.component';
 
 
 
@@ -36,18 +37,17 @@ import { ProductionRoutingModule } from './production-routing/production-routing
 
     // application
     ProductionRoutingModule,
-
     WorkStationModule,
     SharedModule
-
-
   ],
   declarations: [
     // application
     WorkOrderFormComponent,
     FinishedOrderFormComponent,
     WorkOrderViewComponent,
-    PendingOrdersViewComponent
+    PendingOrdersViewComponent,
+    ProductionComponent
+
   ],
   providers: [
     FinishedOrderApiService,

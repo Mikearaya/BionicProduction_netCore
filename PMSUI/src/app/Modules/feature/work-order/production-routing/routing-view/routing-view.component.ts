@@ -9,7 +9,7 @@ import {
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { routingColumnBluePrint } from './routing-view-column-blue-print.model';
 import { RoutingApiService } from 'src/app/Modules/core/services/production-routing/routing-api.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { closest } from '@syncfusion/ej2-base';
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 
@@ -42,7 +42,8 @@ export class RoutingViewComponent extends CommonProperties implements OnInit {
 
   constructor(
     private productGroupApi: RoutingApiService,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
@@ -84,7 +85,7 @@ export class RoutingViewComponent extends CommonProperties implements OnInit {
 
   editRoute(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`routings/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -105,7 +106,7 @@ export class RoutingViewComponent extends CommonProperties implements OnInit {
 
     switch (args.item.id) {
       case 'routing_add':
-        this.route.navigate([`routings/new`]);
+        this.route.navigate([`new`], { relativeTo: this.activatedRoute });
         break;
       case 'routing_pdfexport':
         this.grid.pdfExport();

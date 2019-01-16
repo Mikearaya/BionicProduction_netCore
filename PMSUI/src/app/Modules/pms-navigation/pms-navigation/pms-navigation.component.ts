@@ -52,14 +52,14 @@ export class PmsNavigationComponent {
     {
       id: '2', name: 'Production',
       subChild: [
-        { id: 'workorders', name: 'Manufacture Orders' },
-        { id: 'workorders/pending', name: 'Production Requests' },
-        { id: 'workorders/completed', name: 'Completed Productions' },
-        { id: 'schedules', name: 'Production Schedules' },
-        { id: 'work-stations/stations', name: 'Work Stations' },
-        { id: 'work-stations', name: 'Work Stations Groups' },
-        { id: 'boms', name: 'Bills of Material' },
-        { id: 'routings', name: 'Routings' },
+        { id: 'productions', name: 'Manufacture Orders' },
+        { id: 'productions/pending', name: 'Production Requests' },
+        { id: 'productions/completed', name: 'Completed Productions' },
+        { id: 'productions/schedules', name: 'Production Schedules' },
+        { id: 'productions/workstations/stations', name: 'Work Stations' },
+        { id: 'productions/workstations', name: 'Work Stations Groups' },
+        { id: 'productions/boms', name: 'Bills of Material' },
+        { id: 'productions/routings', name: 'Routings' },
 
       ]
     },

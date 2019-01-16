@@ -26,7 +26,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-bom-view',
@@ -58,7 +58,8 @@ export class BomViewComponent extends CommonProperties implements OnInit {
 
   constructor(
     private bomApi: BomApiService,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
@@ -103,7 +104,7 @@ export class BomViewComponent extends CommonProperties implements OnInit {
 
   editBom(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`boms/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -124,7 +125,7 @@ export class BomViewComponent extends CommonProperties implements OnInit {
 
     switch (args.item.id) {
       case 'bom_add':
-        this.route.navigate([`boms/new`]);
+        this.route.navigate(['new'], { relativeTo: this.activatedRoute });
         break;
       case 'bom_pdfexport':
         this.grid.pdfExport();
@@ -141,7 +142,7 @@ export class BomViewComponent extends CommonProperties implements OnInit {
 
   closeChanged(data: any, status: boolean): void {
 
-this.notification.showMessage('Sorry, Status Changing Not implemented currently', 'info');
+    this.notification.showMessage('Sorry, Status Changing Not implemented currently', 'info');
 
   }
 

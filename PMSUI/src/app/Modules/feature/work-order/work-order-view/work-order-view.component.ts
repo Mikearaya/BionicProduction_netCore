@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WorkOrderAPIService } from '../work-order-api.service';
 import { workOrderBluePrint } from './work-order-view-blue-print';
 import {
@@ -57,7 +57,8 @@ export class WorkOrderViewComponent implements OnInit {
   constructor(
     private workOrderApi: WorkOrderAPIService,
     @Inject('BASE_URL') private apiUrl: string,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     this.textWrapSettings = { wrapMode: 'Header' };
 
   }
@@ -106,7 +107,7 @@ export class WorkOrderViewComponent implements OnInit {
 
   editWorkOrder(args: Event) {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`workorders/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
   }
   deleteWorkOrder(args: any) {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
@@ -146,11 +147,7 @@ export class WorkOrderViewComponent implements OnInit {
     } else if (args.item.id === 'workorder_print') {
       this.grid.print();
     } else if (args.item.id === 'workorder_add') {
-
-      this.route.navigate(['workorders/new']);
-    } else if (args.item.id === 'workorder_edit') {
-    } else if (args.item.id === 'workorder_delete') {
-
+      this.route.navigate(['new'], { relativeTo: this.activatedRoute });
     }
   }
 

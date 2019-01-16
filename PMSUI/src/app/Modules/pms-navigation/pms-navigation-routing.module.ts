@@ -15,17 +15,12 @@ const routes: Routes = [{
   path: '', component: PmsNavigationComponent, children: [
     { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
-    { path: 'workorders', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
+    { path: 'productions', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'crm', loadChildren: '../feature/sales/sales.module#SalesModule' },
-    { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
-    { path: 'boms', loadChildren: '../feature/work-order/bom/bom.module#BOMModule' },
-    { path: 'work-stations', loadChildren: '../feature/work-order/work-station/work-station.module#WorkStationModule' },
-    { path: 'routings', loadChildren: '../feature/work-order/production-routing/production-routing.module#ProductionRoutingModule' },
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
-
-
+    { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
   ]
 }];
 
