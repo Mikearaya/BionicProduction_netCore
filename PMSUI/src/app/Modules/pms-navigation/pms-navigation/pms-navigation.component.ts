@@ -1,7 +1,7 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
 import { ButtonComponent } from '@syncfusion/ej2-angular-buttons';
 import { SidebarComponent, NodeSelectEventArgs, ItemDirective } from '@syncfusion/ej2-angular-navigations';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { EmitType } from '@syncfusion/ej2-base';
 import { DialogComponent } from '@syncfusion/ej2-angular-popups';
 import { BionicDialogComponent } from '../../shared/bionic-dialog/bionic-dialog.component';
@@ -29,7 +29,7 @@ export class PmsNavigationComponent {
       id: 'dashboard', name: 'DASHBOARD'
     },
     {
-      id: 'stocks', name: 'Stock',
+      id: 'home', name: 'Stock',
       subChild: [
         { id: 'stocks', name: 'Stock' },
         { id: 'stocks/shipments', name: 'Shipments' },
@@ -101,7 +101,8 @@ export class PmsNavigationComponent {
 
   public field: Object = { dataSource: this.hierarchicalData, id: 'id', text: 'name', child: 'subChild', routerLink: 'route' };
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
 
   btnClick() {

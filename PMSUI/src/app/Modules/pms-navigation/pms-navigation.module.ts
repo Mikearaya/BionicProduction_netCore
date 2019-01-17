@@ -6,6 +6,7 @@ import { TreeViewModule, SidebarModule } from '@syncfusion/ej2-angular-navigatio
 import { PmsNavigationComponent } from './pms-navigation/pms-navigation.component';
 import { SharedModule } from '../shared/shared.module';
 import { DashboardModule } from '../feature/dashboard/dashboard.module';
+import { EntryComponent } from 'src/app/entry/entry.component';
 
 @NgModule({
   imports: [

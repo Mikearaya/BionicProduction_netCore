@@ -10,10 +10,10 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PmsNavigationComponent } from './pms-navigation/pms-navigation.component';
 import { DashboardComponent } from '../feature/dashboard/dashboard/dashboard.component';
+import { EntryComponent } from 'src/app/entry/entry.component';
 
 const routes: Routes = [{
   path: '', component: PmsNavigationComponent, children: [
-    { path: '', component: DashboardComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'employees', loadChildren: '../feature/employee/employee.module#EmployeeModule' },
     { path: 'productions', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
@@ -21,6 +21,7 @@ const routes: Routes = [{
     { path: 'crm', loadChildren: '../feature/sales/sales.module#SalesModule' },
     { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule' },
     { path: 'profile', loadChildren: '../feature/organization-profile/organization-profile.module#OrganizationProfileModule' },
+    { path: '', redirectTo: '/home' }
   ]
 }];
 

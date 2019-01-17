@@ -15,19 +15,23 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
+import { EntryComponent } from './entry/entry.component';
+import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EntryComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToolbarModule,
     AppRoutingModule,
 
   ],
