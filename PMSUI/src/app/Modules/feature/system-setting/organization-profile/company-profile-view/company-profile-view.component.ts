@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CompanyProfileService } from '../company-profile.service';
-import { Router } from '@angular/router';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
@@ -16,7 +15,8 @@ export class CompanyProfileViewComponent extends CommonProperties implements OnI
   @ViewChild('notification') notitfication: NotificationComponent;
 
   constructor(private companyProfileService: CompanyProfileService,
-    private router: Router) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
   }
 
@@ -28,7 +28,7 @@ export class CompanyProfileViewComponent extends CommonProperties implements OnI
   }
 
   editProfile() {
-    this.router.navigate([`profile/${this.company.id}/edit`]);
+    this.router.navigate([`${this.company.id}/update`], { relativeTo: this.activatedRoute });
   }
 
 }

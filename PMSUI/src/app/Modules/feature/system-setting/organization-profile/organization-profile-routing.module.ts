@@ -4,8 +4,8 @@ import { CompanyProfileViewComponent } from './company-profile-view/company-prof
 import { CompanyProfileFormComponent } from './company-profile-form/company-profile-form.component';
 
 const routes: Routes = [
-  {path: '', component: CompanyProfileViewComponent },
-  {path: ':organizationId/edit', component: CompanyProfileFormComponent}
+  { path: '', component: CompanyProfileViewComponent },
+  { path: ':organizationId/update', component: CompanyProfileFormComponent }
 
 ];
 

@@ -12,13 +12,13 @@ import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { WebApiAdaptor, DataManager } from '@syncfusion/ej2-data';
 
 import { ClickEventArgs } from '@syncfusion/ej2-navigations';
-import { Router } from '@angular/router';
-import { EmployeeApiService } from '../../../core/services/employees/employee-api.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import {
   GridComponent, PageSettingsModel, SortSettingsModel,
   FilterSettingsModel, EditSettingsModel, ToolbarItems, CommandModel,
   RowSelectEventArgs
 } from '@syncfusion/ej2-angular-grids';
+import { EmployeeApiService } from 'src/app/Modules/core/services/employees/employee-api.service';
 
 
 @Component({
@@ -56,6 +56,7 @@ export class EmployeeViewComponent implements OnInit {
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
     private customerService: EmployeeApiService,
+    private activatedRoute: ActivatedRoute,
     private route: Router) { }
 
 
@@ -85,23 +86,6 @@ export class EmployeeViewComponent implements OnInit {
     const selectedrecords: Object[] = this.grid.getSelectedRecords();  // Get the selected records.
   }
 
-  clickHandler(args: ClickEventArgs): void {
-
-    if (args.item.id === 'employee_add') {
-
-    } else if (args.item.id === 'employee_update') {
-      console.log(args);
-    } else if (args.item.id === 'employee_delete') {
-
-    }
-    if (args.item.id === 'expandall') {
-      this.grid.groupModule.expandAll();
-    }
-
-    if (args.item.id === 'collapseall') {
-      this.grid.groupModule.collapseAll();
-    }
-  }
 
 
   toolbarClick(args: ClickEventArgs): void {

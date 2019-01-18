@@ -11,10 +11,11 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee, EmployeeApiService } from '../../../core/services/employees/employee-api.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { Employee, EmployeeApiService } from 'src/app/Modules/core/services/employees/employee-api.service';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ import { NotificationComponent } from 'src/app/Modules/shared/notification/notif
   styleUrls: ['./employee-form.component.css']
 })
 export class EmployeeFormComponent extends CommonProperties implements OnInit {
-  @Input('employee') employee: Employee;
+  @Input() employee: Employee;
   @ViewChild('notification') notification: NotificationComponent;
   form: FormGroup;
   isUpdate: Boolean = false;
@@ -99,7 +100,7 @@ export class EmployeeFormComponent extends CommonProperties implements OnInit {
           (error: HttpErrorResponse) => this.handelError);
     } else {
       this.employeeApiService.addEmployee(this.employee)
-        .subscribe((success: Employee) => this.notification.showMessage( 'Customer Information Updated'),
+        .subscribe((success: Employee) => this.notification.showMessage('Customer Information Updated'),
           (error: HttpErrorResponse) => this.handelError);
     }
   }
