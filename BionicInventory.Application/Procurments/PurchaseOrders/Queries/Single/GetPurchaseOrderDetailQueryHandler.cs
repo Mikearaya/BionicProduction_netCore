@@ -6,11 +6,13 @@
  * @Last Modified Time: Jan 1, 2019 12:22 AM
  * @Description: Modify Here, Please 
  */
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Procurments.PurchaseOrders.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Procurments.PurchaseOrders.Queries.Single {
     public class GetPurchaseOrderDetailQueryHandler : IRequestHandler<GetPurchaseOrderDetailQuery, PurchaseOrderDetailView> {
@@ -21,7 +23,10 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Queries.Single 
         }
 
         public Task<PurchaseOrderDetailView> Handle (GetPurchaseOrderDetailQuery request, CancellationToken cancellationToken) {
-            throw new System.NotImplementedException ();
+            return _database.PurchaseOrder
+                .Where (po => po.Id == request.Id)
+                .Select (PurchaseOrderDetailView.Projection)
+                .FirstOrDefaultAsync ();
         }
     }
 }

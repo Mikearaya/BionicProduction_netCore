@@ -7,11 +7,13 @@
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Procurments.PurchaseOrders.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Procurments.PurchaseOrders.Queries.Collections {
     public class GetPurchaseOrderListQueryHandler : IRequestHandler<GetPurchaseOrderListQuery, IEnumerable<PurchaseOrderListView>> {
@@ -21,8 +23,10 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Queries.Collect
             _database = database;
         }
 
-        public Task<IEnumerable<PurchaseOrderListView>> Handle (GetPurchaseOrderListQuery request, CancellationToken cancellationToken) {
-            throw new System.NotImplementedException ();
+        public async Task<IEnumerable<PurchaseOrderListView>> Handle (GetPurchaseOrderListQuery request, CancellationToken cancellationToken) {
+            return await _database.PurchaseOrder
+                .Select (PurchaseOrderListView.Projection)
+                .ToListAsync ();
         }
     }
 }
