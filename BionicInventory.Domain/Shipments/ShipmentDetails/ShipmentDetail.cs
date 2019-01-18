@@ -8,11 +8,11 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.FinishedProducts;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Domain.Shipments.ShipmentDetails {
-    public  class ShipmentDetail {
+    public class ShipmentDetail {
         public uint Id { get; set; }
         public uint ShipmentId { get; set; }
         public uint StockId { get; set; }
@@ -21,7 +21,7 @@ namespace BionicInventory.Domain.Shipments.ShipmentDetails {
         public DateTime? DateUpdated { get; set; }
         public sbyte? Picked { get; set; }
 
-        public PurchaseOrderDetail OrderItem { get; set; }
+        public CustomerOrderItem CustomerOrderItem { get; set; }
         public Shipment Shipment { get; set; }
         public FinishedProduct Stock { get; set; }
     }

@@ -1,23 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
-import { StockViewComponent } from './stock-view/stock-view.component';
-import { StockFormComponent } from './stock-form/stock-form.component';
-import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
-import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
+import { StockComponent } from './stock.component';
 
 
 
 
 const routes: Routes = [
-  { path: '', component: StockViewComponent },
-  { path: 'low-stock', component: LowStockViewComponent },
-  { path: 'item', component: StockFormComponent },
-  { path: 'item/:itemId', component: StockFormComponent },
-  { path: 'product-groups', component: ProductGroupViewComponent },
-  { path: 'product-groups/new', component: ProductGroupFormComponent },
-  { path: 'product-groups/:groupId/update', component: ProductGroupFormComponent }
-
+  {
+    path: '', component: StockComponent, children: [
+      { path: '', loadChildren: './item/item.module#ItemModule' },
+      { path: 'low-stock', loadChildren: './critical-item/critical-item.module#CriticalItemModule' },
+      { path: 'inventory', loadChildren: './inventory/inventory.module#InventoryModule' },
+      { path: 'stock-lots', loadChildren: './stock-batch/stock-batch.module#StockBatchModule' },
+      { path: 'write-offs', loadChildren: './write-off/write-off.module#WriteOffModule' },
+      { path: 'settings', loadChildren: './stock-setting/stock-setting.module#StockSettingModule' },
+      { path: 'shipments', loadChildren: './shipment/shipment.module#ShipmentModule' },
+    ]
+  }
 ];
 
 @NgModule({

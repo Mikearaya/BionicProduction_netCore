@@ -19,7 +19,7 @@ namespace BionicProduction.Migration.Database
         public DateTime DeliveryDate { get; set; }
 
         public Employee BookedByNavigation { get; set; }
-        public PurchaseOrder CustomerOrder { get; set; }
+        public CustomerOrder CustomerOrder { get; set; }
         public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
     }
 }

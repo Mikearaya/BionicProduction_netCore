@@ -1,0 +1,12 @@
+div.e-card {
+  padding: 1em;
+  margin: 1em;
+}
+
+
+div.feature-boxes {
+  padding: 1em;
+  margin: 1em;
+  float: left;
+  width: 20%;
+}

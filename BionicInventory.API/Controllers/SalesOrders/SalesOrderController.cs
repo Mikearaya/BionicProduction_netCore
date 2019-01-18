@@ -16,7 +16,7 @@ using BionicInventory.Application.SalesOrders.Models;
 using BionicInventory.Application.SalesOrders.Models.ReportModels;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
-using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.CustomerOrders;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -59,7 +59,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpGet ("{id}")]
-        [ProducesResponseType (200, Type = typeof (PurchaseOrder))]
+        [ProducesResponseType (200, Type = typeof (CustomerOrder))]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
@@ -83,7 +83,7 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         }
 
         [HttpPost (Name = "CreateSalesOrder")]
-        [ProducesResponseType (201, Type = typeof (PurchaseOrder))]
+        [ProducesResponseType (201, Type = typeof (CustomerOrder))]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]

@@ -13,7 +13,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public sbyte? Picked { get; set; }
 
-        public PurchaseOrderDetail OrderItem { get; set; }
+        public CustomerOrderItem OrderItem { get; set; }
         public Shipment Shipment { get; set; }
         public FinishedProduct Stock { get; set; }
     }

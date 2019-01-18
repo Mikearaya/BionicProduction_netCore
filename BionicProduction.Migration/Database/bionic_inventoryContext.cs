@@ -18,9 +18,12 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<Address> Address { get; set; }
         public virtual DbSet<Bom> Bom { get; set; }
         public virtual DbSet<BomItems> BomItems { get; set; }
+        public virtual DbSet<BookedStockBatch> BookedStockBatch { get; set; }
         public virtual DbSet<BookedStockItems> BookedStockItems { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<CustomerOrder> CustomerOrder { get; set; }
+        public virtual DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
         public virtual DbSet<EfmigrationsHistory> EfmigrationsHistory { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<FinishedProduct> FinishedProduct { get; set; }
@@ -32,25 +35,32 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<ProductGroup> ProductGroup { get; set; }
         public virtual DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public virtual DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
         public virtual DbSet<Routing> Routing { get; set; }
         public virtual DbSet<RoutingBoms> RoutingBoms { get; set; }
         public virtual DbSet<RoutingOperation> RoutingOperation { get; set; }
         public virtual DbSet<Shipment> Shipment { get; set; }
         public virtual DbSet<ShipmentDetail> ShipmentDetail { get; set; }
         public virtual DbSet<SocialMedia> SocialMedia { get; set; }
+        public virtual DbSet<StockBatch> StockBatch { get; set; }
+        public virtual DbSet<StockBatchStorage> StockBatchStorage { get; set; }
         public virtual DbSet<StorageLocation> StorageLocation { get; set; }
+        public virtual DbSet<SystemSettings> SystemSettings { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<UnitOfMeasurment> UnitOfMeasurment { get; set; }
+        public virtual DbSet<Vendor> Vendor { get; set; }
+        public virtual DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
         public virtual DbSet<Workstation> Workstation { get; set; }
         public virtual DbSet<WorkstationGroup> WorkstationGroup { get; set; }
+        public virtual DbSet<WriteOff> WriteOff { get; set; }
+        public virtual DbSet<WriteOffDetail> WriteOffDetail { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
             }
         }
 
@@ -187,6 +197,62 @@ namespace BionicProduction.Migration.Database
                     .HasForeignKey(d => d.UomId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_BOM_ITEMS_uom");
+            });
+
+            modelBuilder.Entity<BookedStockBatch>(entity =>
+            {
+                entity.ToTable("BOOKED_STOCK_BATCH");
+
+                entity.HasIndex(e => e.BatchStorageId)
+                    .HasName("fk_BOOKED_STOCK_BATCH_storage_idx");
+
+                entity.HasIndex(e => e.CustomerOrderId)
+                    .HasName("fk_BOOKED_STOCK_BATCH_customer_or_idx");
+
+                entity.HasIndex(e => e.ProductionOrderId)
+                    .HasName("fk_BOOKED_STOCK_BATCH_1_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BatchStorageId).HasColumnName("BATCH_STORAGE_ID");
+
+                entity.Property(e => e.ConsumedQuantity)
+                    .HasColumnName("consumed_quantity")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.CustomerOrderId).HasColumnName("CUSTOMER_ORDER_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.ProductionOrderId).HasColumnName("PRODUCTION_ORDER_ID");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.HasOne(d => d.BatchStorage)
+                    .WithMany(p => p.BookedStockBatch)
+                    .HasForeignKey(d => d.BatchStorageId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_BOOKED_STOCK_BATCH_bach_id");
+
+                entity.HasOne(d => d.CustomerOrder)
+                    .WithMany(p => p.BookedStockBatch)
+                    .HasForeignKey(d => d.CustomerOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_BOOKED_STOCK_BATCH_customer_or");
+
+                entity.HasOne(d => d.ProductionOrder)
+                    .WithMany(p => p.BookedStockBatch)
+                    .HasForeignKey(d => d.ProductionOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_BOOKED_STOCK_BATCH_production");
             });
 
             modelBuilder.Entity<BookedStockItems>(entity =>
@@ -352,6 +418,104 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("varchar(45)");
             });
 
+            modelBuilder.Entity<CustomerOrder>(entity =>
+            {
+                entity.ToTable("CUSTOMER_ORDER");
+
+                entity.HasIndex(e => e.ClientId)
+                    .HasName("fk_PURCHASE_ORDER_customer_idx");
+
+                entity.HasIndex(e => e.CreatedBy)
+                    .HasName("fk_PURCHASE_ORDER_employee_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ClientId).HasColumnName("CLIENT_ID");
+
+                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.OrderStatus)
+                    .HasColumnName("order_status")
+                    .HasColumnType("varchar(45)")
+                    .HasDefaultValueSql("'Quotation'");
+
+                entity.HasOne(d => d.Client)
+                    .WithMany(p => p.CustomerOrder)
+                    .HasForeignKey(d => d.ClientId)
+                    .HasConstraintName("fk_PURCHASE_ORDER_customer");
+
+                entity.HasOne(d => d.CreatedByNavigation)
+                    .WithMany(p => p.CustomerOrder)
+                    .HasForeignKey(d => d.CreatedBy)
+                    .HasConstraintName("fk_PURCHASE_ORDER_employee");
+            });
+
+            modelBuilder.Entity<CustomerOrderItem>(entity =>
+            {
+                entity.ToTable("CUSTOMER_ORDER_ITEM");
+
+                entity.HasIndex(e => e.CustomerOrderId)
+                    .HasName("fk_OUT_ORDER_LIST_order_idx");
+
+                entity.HasIndex(e => e.ItemId)
+                    .HasName("fk_OUT_ORDER_LIST_item_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.CustomerOrderId).HasColumnName("CUSTOMER_ORDER_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.DueDate)
+                    .HasColumnName("due_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
+
+                entity.Property(e => e.PricePerItem).HasColumnName("price_per_item");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.HasOne(d => d.CustomerOrder)
+                    .WithMany(p => p.CustomerOrderItem)
+                    .HasForeignKey(d => d.CustomerOrderId)
+                    .HasConstraintName("fk_CUSTOMER_ORDER_item");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.CustomerOrderItem)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("fk_OUT_ORDER_LIST_item");
+            });
+
             modelBuilder.Entity<EfmigrationsHistory>(entity =>
             {
                 entity.HasKey(e => e.MigrationId);
@@ -484,9 +648,19 @@ namespace BionicProduction.Migration.Database
                     .HasColumnName("due_date")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.InvoiceType)
+                    .IsRequired()
+                    .HasColumnName("invoice_type")
+                    .HasColumnType("varchar(45)")
+                    .HasDefaultValueSql("'INVOICE'");
+
                 entity.Property(e => e.Note)
                     .HasColumnName("note")
                     .HasColumnType("text");
+
+                entity.Property(e => e.PaymentMethod)
+                    .HasColumnName("payment_method")
+                    .HasColumnType("varchar(45)");
 
                 entity.Property(e => e.PreparedBy)
                     .HasColumnName("prepared_by")
@@ -537,6 +711,10 @@ namespace BionicProduction.Migration.Database
                     .HasColumnType("datetime")
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Discount)
+                    .HasColumnName("discount")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.InvoiceNo).HasColumnName("INVOICE_NO");
 
@@ -625,7 +803,7 @@ namespace BionicProduction.Migration.Database
                     .HasName("code_UNIQUE")
                     .IsUnique();
 
-                entity.HasIndex(e => e.DefaultStorage)
+                entity.HasIndex(e => e.DefaultStorageId)
                     .HasName("fk_ITEM_storage_location_idx");
 
                 entity.HasIndex(e => e.GroupId)
@@ -652,8 +830,8 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.DefaultStorage)
-                    .HasColumnName("DEFAULT_STORAGE")
+                entity.Property(e => e.DefaultStorageId)
+                    .HasColumnName("DEFAULT_STORAGE_ID")
                     .HasDefaultValueSql("'1'");
 
                 entity.Property(e => e.GroupId)
@@ -668,6 +846,10 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.IsProcured)
                     .HasColumnName("is_procured")
                     .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.MinimumQuantity)
+                    .HasColumnName("minimum_quantity")
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.Name)
@@ -691,9 +873,9 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Weight).HasColumnName("weight");
 
-                entity.HasOne(d => d.DefaultStorageNavigation)
+                entity.HasOne(d => d.DefaultStorage)
                     .WithMany(p => p.Item)
-                    .HasForeignKey(d => d.DefaultStorage)
+                    .HasForeignKey(d => d.DefaultStorageId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ITEM_storage_location");
 
@@ -739,6 +921,11 @@ namespace BionicProduction.Migration.Database
                     .IsRequired()
                     .HasColumnName("number")
                     .HasColumnType("varchar(13)");
+
+                entity.Property(e => e.Type)
+                    .HasColumnName("type")
+                    .HasColumnType("varchar(45)")
+                    .HasDefaultValueSql("'Mobile'");
 
                 entity.HasOne(d => d.Client)
                     .WithMany(p => p.PhoneNumber)
@@ -855,17 +1042,14 @@ namespace BionicProduction.Migration.Database
             {
                 entity.ToTable("PURCHASE_ORDER");
 
-                entity.HasIndex(e => e.ClientId)
-                    .HasName("fk_PURCHASE_ORDER_customer_idx");
-
-                entity.HasIndex(e => e.CreatedBy)
-                    .HasName("fk_PURCHASE_ORDER_employee_idx");
+                entity.HasIndex(e => e.VendorId)
+                    .HasName("fk_PURCHASE_ORDER_vendor_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.ClientId).HasColumnName("CLIENT_ID");
-
-                entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
+                entity.Property(e => e.AdditionalFee)
+                    .HasColumnName("additional_fee")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -878,35 +1062,62 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.Description)
-                    .HasColumnName("description")
-                    .HasColumnType("varchar(255)");
+                entity.Property(e => e.Discount).HasColumnName("discount");
 
-                entity.Property(e => e.DueDate)
-                    .HasColumnName("due_date")
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+                entity.Property(e => e.ExpectedDate)
+                    .HasColumnName("expected_date")
+                    .HasColumnType("datetime");
 
-                entity.HasOne(d => d.Client)
+                entity.Property(e => e.InvoiceDate)
+                    .HasColumnName("invoice_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.InvoiceId)
+                    .HasColumnName("invoice_id")
+                    .HasColumnType("varchar(20)");
+
+                entity.Property(e => e.OrderId)
+                    .HasColumnName("order_id")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.OrderedDate)
+                    .HasColumnName("ordered_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.PaymentDate)
+                    .HasColumnName("payment_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ShippedDate)
+                    .HasColumnName("shipped_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnName("status")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Tax)
+                    .HasColumnName("tax")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.HasOne(d => d.Vendor)
                     .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.ClientId)
-                    .HasConstraintName("fk_PURCHASE_ORDER_customer");
-
-                entity.HasOne(d => d.CreatedByNavigation)
-                    .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.CreatedBy)
-                    .HasConstraintName("fk_PURCHASE_ORDER_employee");
+                    .HasForeignKey(d => d.VendorId)
+                    .HasConstraintName("fk_PURCHASE_ORDER_vendor");
             });
 
-            modelBuilder.Entity<PurchaseOrderDetail>(entity =>
+            modelBuilder.Entity<PurchaseOrderItem>(entity =>
             {
-                entity.ToTable("PURCHASE_ORDER_DETAIL");
+                entity.ToTable("PURCHASE_ORDER_ITEM");
 
                 entity.HasIndex(e => e.ItemId)
-                    .HasName("fk_OUT_ORDER_LIST_item_idx");
+                    .HasName("fk_PURCHASE_ORDER_ITEM_id_idx");
 
                 entity.HasIndex(e => e.PurchaseOrderId)
-                    .HasName("fk_OUT_ORDER_LIST_order_idx");
+                    .HasName("fk_PURCHASE_ORDER_ITEM_po_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -921,27 +1132,27 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.DueDate)
-                    .HasColumnName("due_date")
+                entity.Property(e => e.ExpectedDate)
+                    .HasColumnName("expected_date")
                     .HasColumnType("datetime");
 
                 entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
-
-                entity.Property(e => e.PricePerItem).HasColumnName("price_per_item");
 
                 entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
+                entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
+
                 entity.HasOne(d => d.Item)
-                    .WithMany(p => p.PurchaseOrderDetail)
+                    .WithMany(p => p.PurchaseOrderItem)
                     .HasForeignKey(d => d.ItemId)
-                    .HasConstraintName("fk_OUT_ORDER_LIST_item");
+                    .HasConstraintName("fk_PURCHASE_ORDER_ITEM_id");
 
                 entity.HasOne(d => d.PurchaseOrder)
-                    .WithMany(p => p.PurchaseOrderDetail)
+                    .WithMany(p => p.PurchaseOrderItem)
                     .HasForeignKey(d => d.PurchaseOrderId)
-                    .HasConstraintName("fk_PURCHASE_ORDER_PO_ID");
+                    .HasConstraintName("fk_PURCHASE_ORDER_ITEM_po");
             });
 
             modelBuilder.Entity<Routing>(entity =>
@@ -1224,6 +1435,131 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_SOCIAL_MEDIA_customer");
             });
 
+            modelBuilder.Entity<StockBatch>(entity =>
+            {
+                entity.ToTable("STOCK_BATCH");
+
+                entity.HasIndex(e => e.ItemId)
+                    .HasName("fk_STOCK_BATCH_item_idx");
+
+                entity.HasIndex(e => e.ManufactureOrderId)
+                    .HasName("fk_STOCK_BATCH_manufacture_idx");
+
+                entity.HasIndex(e => e.PurchaseOrderId)
+                    .HasName("fk_STOCK_BATCH_purchase_order_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ArrivalDate)
+                    .HasColumnName("arrival_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.AvailableFrom)
+                    .HasColumnName("available_from")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.ExpiryDate)
+                    .HasColumnName("expiry_date")
+                    .HasColumnType("datetime");
+
+                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
+
+                entity.Property(e => e.ManufactureOrderId).HasColumnName("MANUFACTURE_ORDER_ID");
+
+                entity.Property(e => e.PurchaseOrderId).HasColumnName("PURCHASE_ORDER_ID");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.Source)
+                    .HasColumnName("source")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Status)
+                    .HasColumnName("status")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.UnitCost).HasColumnName("unit_cost");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.StockBatch)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("fk_STOCK_BATCH_item");
+
+                entity.HasOne(d => d.ManufactureOrder)
+                    .WithMany(p => p.StockBatch)
+                    .HasForeignKey(d => d.ManufactureOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_STOCK_BATCH_manufacture");
+
+                entity.HasOne(d => d.PurchaseOrder)
+                    .WithMany(p => p.StockBatch)
+                    .HasForeignKey(d => d.PurchaseOrderId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_STOCK_BATCH_purchase_order");
+            });
+
+            modelBuilder.Entity<StockBatchStorage>(entity =>
+            {
+                entity.ToTable("STOCK_BATCH_STORAGE");
+
+                entity.HasIndex(e => e.BatchId)
+                    .HasName("fk_STOCK_BATCH_STORAGE_bach_idx");
+
+                entity.HasIndex(e => e.PreviousStorageId)
+                    .HasName("fk_STOCK_BATCH_STORAGE_parent_idx");
+
+                entity.HasIndex(e => e.StorageId)
+                    .HasName("fk_STOCK_BATCH_STORAGE_storage_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BatchId).HasColumnName("BATCH_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.PreviousStorageId).HasColumnName("PREVIOUS_STORAGE_ID");
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.StorageId).HasColumnName("STORAGE_ID");
+
+                entity.HasOne(d => d.Batch)
+                    .WithMany(p => p.StockBatchStorage)
+                    .HasForeignKey(d => d.BatchId)
+                    .HasConstraintName("fk_STOCK_BATCH_STORAGE_bach");
+
+                entity.HasOne(d => d.PreviousStorage)
+                    .WithMany(p => p.InversePreviousStorage)
+                    .HasForeignKey(d => d.PreviousStorageId)
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("fk_STOCK_BATCH_STORAGE_parent");
+
+                entity.HasOne(d => d.Storage)
+                    .WithMany(p => p.StockBatchStorage)
+                    .HasForeignKey(d => d.StorageId)
+                    .HasConstraintName("fk_STOCK_BATCH_STORAGE_storage");
+            });
+
             modelBuilder.Entity<StorageLocation>(entity =>
             {
                 entity.ToTable("STORAGE_LOCATION");
@@ -1254,6 +1590,52 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.Note)
                     .HasColumnName("note")
                     .HasColumnType("varchar(255)");
+            });
+
+            modelBuilder.Entity<SystemSettings>(entity =>
+            {
+                entity.ToTable("SYSTEM_SETTINGS");
+
+                entity.HasIndex(e => new { e.Category, e.Type, e.Value })
+                    .HasName("lookup_cat_typ_val_uq")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Category)
+                    .IsRequired()
+                    .HasColumnName("category")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Description)
+                    .HasColumnName("description")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.System)
+                    .HasColumnName("system")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasColumnName("type")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Value)
+                    .IsRequired()
+                    .HasColumnName("value")
+                    .HasColumnType("varchar(45)");
             });
 
             modelBuilder.Entity<Tax>(entity =>
@@ -1317,6 +1699,91 @@ namespace BionicProduction.Migration.Database
                     .IsRequired()
                     .HasColumnName("name")
                     .HasColumnType("varchar(45)");
+            });
+
+            modelBuilder.Entity<Vendor>(entity =>
+            {
+                entity.ToTable("VENDOR");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.LeadTime).HasColumnName("lead_time");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasColumnType("varchar(70)");
+
+                entity.Property(e => e.PaymentPeriod).HasColumnName("payment_period");
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasColumnName("phone_number")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.TinNumber)
+                    .HasColumnName("tin_number")
+                    .HasColumnType("varchar(45)");
+            });
+
+            modelBuilder.Entity<VendorPurchaseTerm>(entity =>
+            {
+                entity.ToTable("VENDOR_PURCHASE_TERM");
+
+                entity.HasIndex(e => e.ItemId)
+                    .HasName("fk_VENDOR_PURCHASE_TERM_item_idx");
+
+                entity.HasIndex(e => e.VendorId)
+                    .HasName("fk_VENDOR_PURCHASE_TERM_vendor_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
+
+                entity.Property(e => e.LeadTime).HasColumnName("lead_time");
+
+                entity.Property(e => e.MinimumQuantity).HasColumnName("minimum_quantity");
+
+                entity.Property(e => e.Priority).HasColumnName("priority");
+
+                entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
+
+                entity.Property(e => e.VendorId).HasColumnName("VENDOR_ID");
+
+                entity.Property(e => e.VendorProductId)
+                    .HasColumnName("vendor_product_id")
+                    .HasColumnType("varchar(45)");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.VendorPurchaseTerm)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("fk_VENDOR_PURCHASE_TERM_item");
+
+                entity.HasOne(d => d.Vendor)
+                    .WithMany(p => p.VendorPurchaseTerm)
+                    .HasForeignKey(d => d.VendorId)
+                    .HasConstraintName("fk_VENDOR_PURCHASE_TERM_vendor");
             });
 
             modelBuilder.Entity<Workstation>(entity =>
@@ -1410,6 +1877,88 @@ namespace BionicProduction.Migration.Database
                     .IsRequired()
                     .HasColumnName("name")
                     .HasColumnType("varchar(20)");
+            });
+
+            modelBuilder.Entity<WriteOff>(entity =>
+            {
+                entity.ToTable("WRITE_OFF");
+
+                entity.HasIndex(e => e.ItemId)
+                    .HasName("fk_WRITE_OFF_item_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.ItemId).HasColumnName("ITEM_ID");
+
+                entity.Property(e => e.Note)
+                    .HasColumnName("note")
+                    .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnName("status")
+                    .HasColumnType("varchar(45)");
+
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasColumnName("type")
+                    .HasColumnType("varchar(45)");
+
+                entity.HasOne(d => d.Item)
+                    .WithMany(p => p.WriteOff)
+                    .HasForeignKey(d => d.ItemId)
+                    .HasConstraintName("fk_WRITE_OFF_item");
+            });
+
+            modelBuilder.Entity<WriteOffDetail>(entity =>
+            {
+                entity.ToTable("WRITE_OFF_DETAIL");
+
+                entity.HasIndex(e => e.BatchStorageId)
+                    .HasName("fk_WRITE_OFF_DETAIL_bach_id_idx");
+
+                entity.HasIndex(e => e.WriteOffId)
+                    .HasName("fk_WRITE_OFF_DETAIL_write_off_idx");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BatchStorageId).HasColumnName("BATCH_STORAGE_ID");
+
+                entity.Property(e => e.DateAdded)
+                    .HasColumnName("date_added")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.DateUpdated)
+                    .HasColumnName("date_updated")
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
+                    .ValueGeneratedOnAddOrUpdate();
+
+                entity.Property(e => e.Quantity).HasColumnName("quantity");
+
+                entity.Property(e => e.WriteOffId).HasColumnName("WRITE_OFF_ID");
+
+                entity.HasOne(d => d.BatchStorage)
+                    .WithMany(p => p.WriteOffDetail)
+                    .HasForeignKey(d => d.BatchStorageId)
+                    .HasConstraintName("fk_WRITE_OFF_DETAIL_bach_id");
+
+                entity.HasOne(d => d.WriteOff)
+                    .WithMany(p => p.WriteOffDetail)
+                    .HasForeignKey(d => d.WriteOffId)
+                    .HasConstraintName("fk_WRITE_OFF_DETAIL_write_off");
             });
         }
     }

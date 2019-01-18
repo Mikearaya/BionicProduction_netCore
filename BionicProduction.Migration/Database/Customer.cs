@@ -8,8 +8,8 @@ namespace BionicProduction.Migration.Database
         public Customer()
         {
             Address = new HashSet<Address>();
+            CustomerOrder = new HashSet<CustomerOrder>();
             PhoneNumber = new HashSet<PhoneNumber>();
-            PurchaseOrder = new HashSet<PurchaseOrder>();
             SocialMedia = new HashSet<SocialMedia>();
         }
 
@@ -26,8 +26,8 @@ namespace BionicProduction.Migration.Database
         public string PoBox { get; set; }
 
         public ICollection<Address> Address { get; set; }
+        public ICollection<CustomerOrder> CustomerOrder { get; set; }
         public ICollection<PhoneNumber> PhoneNumber { get; set; }
-        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
         public ICollection<SocialMedia> SocialMedia { get; set; }
     }
 }

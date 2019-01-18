@@ -1,15 +1,21 @@
 <div class="wrapper">
-
+  <!--
   <ejs-sidebar id="sidebar" #sidebar [type]="type" class="e-accent">
 
     <div id='treeparent' class="e-accent">
       <ejs-treeview class="e-accent" (nodeSelected)="clickedNode($event)" id='treeelement' [fields]='field'></ejs-treeview>
     </div>
-  </ejs-sidebar>
+  </ejs-sidebar> -->
   <div id="head">
     <ejs-toolbar>
       <e-items>
-        <e-item #togglebtn prefixIcon='e-icons e-menu-icon' (click)="btnClick()"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/home" text="Home"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/dashboard" text="Dashboard"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/stocks" text="Stocks"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/crm" text="CRM"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/productions" text="Production"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/procurments" text="Procurment"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings" text="Settings"></e-item>
       </e-items>
     </ejs-toolbar>
     <div class="main-content">

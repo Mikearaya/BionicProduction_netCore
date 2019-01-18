@@ -15,7 +15,7 @@ using BionicInventory.Application.FinishedProducts.Models;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.FinishedProducts.Factories {
@@ -50,14 +50,12 @@ namespace BionicInventory.Application.FinishedProducts.Factories {
             return current;
         }
 
-        public FinishedProductsViewModel FinishedProductForView(FinishedProduct finishedProduct)
-        {
-            throw new NotImplementedException();
+        public FinishedProductsViewModel FinishedProductForView (FinishedProduct finishedProduct) {
+            throw new NotImplementedException ();
         }
 
-        public List<FinishedProductsViewModel> FinishedProductForView(List<FinishedProduct> finishedProduct)
-        {
-            throw new NotImplementedException();
+        public List<FinishedProductsViewModel> FinishedProductForView (List<FinishedProduct> finishedProduct) {
+            throw new NotImplementedException ();
         }
     }
 }

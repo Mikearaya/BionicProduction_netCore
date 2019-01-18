@@ -16,18 +16,26 @@
 
 .e-grid .e-rowcell.info-grid-header {
   font-family: 'Bell MT';
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .e-grid .e-headercell.custom-grid-header {
   background-color: #2382c3;
   color: white;
   font-family: 'Bell MT';
-  font-size: 13px;
+  font-size: 11px;
   word-wrap: break-word;
   padding: 0;
   margin: 0;
 
+}
+
+.e-grid .e-altrow {
+  background-color: #fafafa;
+}
+
+.e-grid .e-headertext {
+  font-size: 11px;
 }
 
 .e-filtermenudiv.e-icons.e-icon-filter {
@@ -71,10 +79,12 @@ body {
   background: honeydew !important;
 }
 
-.label-area {
+.label-area,
+label {
   padding: 0;
-  text-align: center;
-  font-size: .8em;
+  margin: 0;
+  text-align: right;
+  font-size: .9em;
   font-weight: bold;
 }
 
@@ -87,4 +97,16 @@ input.e-input {
 section {
   margin-top: 1em;
   margin-bottom: 1em;
+}
+
+
+ejs-numerictextbox span.e-spin-up,
+ejs-numerictextbox span.e-spin-down {
+  display: none !important;
+}
+
+
+
+.e-btn-icon.e-delete.e-icons {
+  color: red;
 }

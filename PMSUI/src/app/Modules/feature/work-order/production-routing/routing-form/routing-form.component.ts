@@ -11,7 +11,7 @@ import {
   FormGroup,
   Validators
 } from '@angular/forms';
-import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { RoutingApiService } from 'src/app/Modules/core/services/production-routing/routing-api.service';
 import {
@@ -23,10 +23,10 @@ import {
 } from 'src/app/Modules/core/DataModels/production-routing.model';
 import { WorkStationApiService } from 'src/app/Modules/core/services/work-station/work-station-api.service';
 import { WorkstationGroupView } from 'src/app/Modules/core/DataModels/workstation.model';
-import { ProductsAPIService, Product } from 'src/app/Modules/core/services/items/products-api.service';
-import { ItemApiService } from 'src/app/Modules/core/services/stock/stock-api.service';
 import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
-import { Query } from '@syncfusion/ej2-data';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+
 
 @Component({
   selector: 'app-routing-form',
@@ -47,7 +47,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
   public submitButtonText: String;
   private routingId: number;
   public isUpdate: Boolean;
-  public itemsList: Product[];
+  public itemsList: ItemView[];
   public itemFields: { text: string, value: string };
   public bomsList: BomView[];
   public bomFields: { text: string, value: string };
@@ -60,7 +60,7 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private workstationApi: WorkStationApiService,
-    private itemApi: ProductsAPIService,
+    private itemApi: ItemApiService,
     private bomApi: BomApiService) {
     super();
     this.createForm();
@@ -74,8 +74,8 @@ export class RoutingFormComponent extends CommonProperties implements OnInit {
     this.routingId = + this.activatedRoute.snapshot.paramMap.get('routingId');
     this.selectedItemId = + this.activatedRoute.snapshot.paramMap.get('itemId');
 
-    this.itemApi.getAllProducts().subscribe(
-      (data: any) => this.itemsList = data.Items,
+    this.itemApi.getAllItems().subscribe(
+      (data: ItemView[]) => this.itemsList = data,
       this.handleError
     );
 

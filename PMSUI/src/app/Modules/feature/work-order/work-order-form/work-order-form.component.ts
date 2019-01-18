@@ -15,10 +15,10 @@ import { WorkOrderAPIService, WorkOrder, WorkOrderView, OrderModel } from '../wo
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { DataManager, Query, ReturnOption, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { ActivatedRoute } from '@angular/router';
-import { ProductGetterService } from '../../../core/services/product-getter.service';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
 
 
 @Component({
@@ -58,7 +58,7 @@ export class WorkOrderFormComponent extends CommonProperties implements OnInit {
     private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private location: Location,
-    private productApiService: ProductGetterService) {
+    private itemApi: ItemApiService) {
     super();
 
     this.createForm();
@@ -122,7 +122,7 @@ export class WorkOrderFormComponent extends CommonProperties implements OnInit {
         );
     } else if (this.itemId) {
       this.isFromItem = true;
-      this.productApiService.getCriticalProductById(this.itemId)
+      this.itemApi.getCriticalProductById(this.itemId)
         .subscribe((data: any) => {
           this.orderData.productId = data.id;
           this.orderData.product = data.product;
@@ -141,8 +141,8 @@ export class WorkOrderFormComponent extends CommonProperties implements OnInit {
 
     dm.ready.then((e: ReturnOption) => this.employeesList = <Object[]>e.result).catch((e) => true);
 
-    this.workOrderApi.getAllProducts().subscribe(
-      result => this.itemsList = result['Items']
+    this.itemApi.getAllItems().subscribe(
+      result => this.itemsList = result
     );
 
 

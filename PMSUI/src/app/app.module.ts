@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 13, 2018 1:51 AM
+ * @Last Modified Time: Jan 1, 2019 11:24 PM
  * @Description: Modify Here, Please
  */
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,20 +15,23 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
-import { ItemRoutingListViewComponent } from './Modules/feature/stock/item-routing-list-view/item-routing-list-view.component';
+import { EntryComponent } from './entry/entry.component';
+import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    EntryComponent
   ],
   imports: [
     BrowserModule,
     CoreModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToolbarModule,
     AppRoutingModule,
 
   ],

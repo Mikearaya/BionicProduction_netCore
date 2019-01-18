@@ -2,54 +2,45 @@ using System;
 using System.Collections.Generic;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Models;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
-namespace BionicInventory.Application.SalesOrders.Factory
-{
-    public class SalesOrderFactory : ISalesOrderFactory
-    {
+namespace BionicInventory.Application.SalesOrders.Factory {
+    public class SalesOrderFactory : ISalesOrderFactory {
 
-
-        public PurchaseOrder CreateNewSaleOrder(NewSalesOrderDto customerOrder )
-        {
-            PurchaseOrder newOrder = new PurchaseOrder() {
+        public CustomerOrder CreateNewSaleOrder (NewSalesOrderDto customerOrder) {
+            CustomerOrder newOrder = new CustomerOrder () {
                 ClientId = customerOrder.ClientId,
                 CreatedBy = customerOrder.CreatedBy,
                 OrderStatus = customerOrder.Status,
                 Description = customerOrder.Description,
                 DueDate = customerOrder.DeliveryDate,
             };
-            foreach (var item in customerOrder.purchaseOrderDetail)
-            {
-            newOrder.PurchaseOrderDetail.Add(new PurchaseOrderDetail(){
-                ItemId = item.ItemId,
-                Quantity = item.Quantity,
-                PricePerItem = item.UnitPrice,
-                DueDate = item.DueDate
-            });    
+            foreach (var item in customerOrder.purchaseOrderDetail) {
+                newOrder.CustomerOrderItem.Add (new CustomerOrderItem () {
+                    ItemId = item.ItemId,
+                        Quantity = item.Quantity,
+                        PricePerItem = item.UnitPrice,
+                        DueDate = item.DueDate
+                });
             }
-            
 
             return newOrder;
         }
 
-        public SalesOrderView CreateSaleOrderView(PurchaseOrder newOrder)
-        {
-            throw new NotImplementedException();
+        public SalesOrderView CreateSaleOrderView (CustomerOrder newOrder) {
+            throw new NotImplementedException ();
         }
 
-        public IEnumerable<PurchaseOrder> CreateUpdatesSaleOrder(IEnumerable<UpdatedSalesOrderDto> newOrder)
-        {
-            throw new NotImplementedException();
+        public IEnumerable<CustomerOrder> CreateUpdatesSaleOrder (IEnumerable<UpdatedSalesOrderDto> newOrder) {
+            throw new NotImplementedException ();
         }
 
-        public uint ExtractId(string id) {
-        string[] words = id.Split('-');
-        bool isNumerical = uint.TryParse(words[1], out uint orderId);
+        public uint ExtractId (string id) {
+            string[] words = id.Split ('-');
+            bool isNumerical = uint.TryParse (words[1], out uint orderId);
 
             return (isNumerical) ? orderId : 0;
 

@@ -9,7 +9,7 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Application.ProductionOrders.Models;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersFactory {

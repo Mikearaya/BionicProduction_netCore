@@ -14,7 +14,6 @@ using BionicInventory.Application.ProductionOrders.Iterfaces;
 using BionicInventory.Application.ProductionOrders.Models;
 using BionicInventory.Application.Products.Interfaces;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Factories {
     public class WorkOrderFactory : IWorkOrdersFactory {
@@ -44,7 +43,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 };
 
                 if (newOrder.PurchaseOrderItemId != 0) {
-                    productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
+                    productionOrder.CustomerOrderItemId = newOrder.PurchaseOrderItemId;
                 }
 
                 return productionOrder;
@@ -71,7 +70,7 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
             };
 
             if (newOrder.PurchaseOrderItemId != 0) {
-                productionOrder.PurchaseOrderId = newOrder.PurchaseOrderItemId;
+                productionOrder.CustomerOrderItemId = newOrder.PurchaseOrderItemId;
             }
 
             return productionOrder;

@@ -7,14 +7,14 @@
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Application.Interfaces;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersCommand {
 
-        ProductionOrderList CreateNewWorkOrder(ProductionOrderList newWorkOrder);
-        ProductionOrderList UpdateWorkOrder(ProductionOrderList newWorkOrder);
-        bool DeleteWorkOrder(ProductionOrderList deletedWorkOrder);
+        ProductionOrderList CreateNewWorkOrder (ProductionOrderList newWorkOrder);
+        ProductionOrderList UpdateWorkOrder (ProductionOrderList newWorkOrder);
+        bool DeleteWorkOrder (ProductionOrderList deletedWorkOrder);
 
     }
 }

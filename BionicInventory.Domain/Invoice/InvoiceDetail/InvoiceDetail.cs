@@ -8,8 +8,8 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Employees;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 
 namespace BionicInventory.Domain.Invoices.InvoiceDetails {
     public class InvoiceDetail {
@@ -27,6 +27,6 @@ namespace BionicInventory.Domain.Invoices.InvoiceDetails {
         public float? Tax { get; set; }
 
         public Invoice InvoiceNoNavigation { get; set; }
-        public PurchaseOrderDetail SalesOrder { get; set; }
+        public CustomerOrderItem CustomerOrderItem { get; set; }
     }
 }

@@ -61,7 +61,10 @@ namespace BionicInventory.Application.Analisis.Queries {
         }
 
         private double? GetTotalStockCost () {
-            return (from pro in _database.Item join mo in _database.ProductionOrderList on pro.Id equals mo.ItemId join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where fin.BookedStockItems == null && fin.ShipmentDetail == null && mo.PurchaseOrder == null select new {
+            return (from pro in _database.Item 
+            join mo in _database.ProductionOrderList on pro.Id equals mo.ItemId 
+            join fin in _database.FinishedProduct on mo.Id equals fin.OrderId
+             where fin.BookedStockItems == null && fin.ShipmentDetail == null && mo.CustomerOrderItem == null select new {
                 cost = (double?) mo.Quantity * mo.CostPerItem
             }).Sum (c => c.cost);
         }
@@ -74,7 +77,8 @@ namespace BionicInventory.Application.Analisis.Queries {
         }
 
         private int GetLateManufactureOrdersCount () {
-            return (from mo in _database.ProductionOrderList join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where ((DateTime.Today - mo.DueDate).TotalDays > 0 &&
+            return (from mo in _database.ProductionOrderList 
+            join fin in _database.FinishedProduct on mo.Id equals fin.OrderId where ((DateTime.Today - mo.DueDate).TotalDays > 0 &&
                     fin.ShipmentDetail == null) ||
                 mo.FinishedProduct == null select new {
                     moId = mo.Id
@@ -91,9 +95,9 @@ namespace BionicInventory.Application.Analisis.Queries {
                             inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.ShipmentDetail == null).Count ()),
 
                             availableQuantity = manufactureOrder.Sum (MO => MO.FinishedProduct
-                                .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
-                            required = product.PurchaseOrderDetail.Where (CO => CO.ProductionOrderList == null).Sum (C => C.Quantity),
-                            expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
+                                .Where (fin => fin.Order.CustomerOrderItem == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
+                            required = product.CustomerOrderItem.Where (CO => CO.ProductionOrderList == null).Sum (C => C.Quantity),
+                            expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem == null).Sum (MO => MO.Quantity -
                                 MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null || fin.Order.Id == MO.Id)),
 
                     }).Where (item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required))

@@ -1,9 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { EntryComponent } from './entry/entry.component';
 
 const routes: Routes = [
+  {
+    path: 'home', component: EntryComponent
+  },
   { path: '', loadChildren: './Modules/pms-navigation/pms-navigation.module#PmsNavigationModule' },
-  {path: '**', redirectTo: 'dashboard' }
+
 
 ];
 

@@ -10,21 +10,20 @@ using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
 using BionicInventory.Application.ProductionOrders.Models;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 
 namespace BionicInventory.Application.ProductionOrders.Iterfaces {
     public interface IWorkOrdersQuery {
 
-        ProductionOrderList GetWorkOrderById(uint id);
-        WorkOrderView GetWorkOrderItemById(uint id);
-        IEnumerable<ActiveOrdersView> GetActiveWorkOrders();
-        IEnumerable<WorkOrderView> GetWorkOrdersStatus();
-        IEnumerable<ProductionOrderList> GetAllWorkOrders();
-        bool saleOrderProductionExits(uint id);
-        IEnumerable<ProductionOrderList> GetCompletedWorkOrders();
-        WorkOrderView GetPendingWorkOrder(uint manufactureRequestId);
+        ProductionOrderList GetWorkOrderById (uint id);
+        WorkOrderView GetWorkOrderItemById (uint id);
+        IEnumerable<ActiveOrdersView> GetActiveWorkOrders ();
+        IEnumerable<WorkOrderView> GetWorkOrdersStatus ();
+        IEnumerable<ProductionOrderList> GetAllWorkOrders ();
+        bool saleOrderProductionExits (uint id);
+        IEnumerable<ProductionOrderList> GetCompletedWorkOrders ();
+        WorkOrderView GetPendingWorkOrder (uint manufactureRequestId);
 
-        IEnumerable<WorkOrderView> GetPendingWorkOrders();
+        IEnumerable<WorkOrderView> GetPendingWorkOrders ();
 
     }
 }

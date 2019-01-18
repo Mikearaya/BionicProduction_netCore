@@ -3,12 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 16, 2018 11:16 PM
+ * @Last Modified Time: Jan 6, 2019 12:55 AM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
 using BionicInventory.Domain.BookedStockItem;
 using BionicInventory.Domain.Companies;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Customers;
 using BionicInventory.Domain.Customers.Addresses;
 using BionicInventory.Domain.Customers.PhoneNumbers;
@@ -21,16 +22,18 @@ using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.Items;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicInventory.Domain.Procurment.Vendors;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
 using BionicInventory.Domain.Routings;
+using BionicInventory.Domain.Settings;
 using BionicInventory.Domain.Shipments;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
 using BionicInventory.Domain.Workstations;
+using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bionic_inventory.Application.Interfaces {
@@ -50,8 +53,8 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<Item> Item { get; set; }
         DbSet<PhoneNumber> PhoneNumber { get; set; }
         DbSet<ProductionOrderList> ProductionOrderList { get; set; }
-        DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        DbSet<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        DbSet<CustomerOrder> CustomerOrder { get; set; }
+        DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
         DbSet<SocialMedia> SocialMedia { get; set; }
         DbSet<BookedStockItems> BookedStockItems { get; set; }
         DbSet<Bom> Bom { get; set; }
@@ -64,6 +67,18 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<RoutingOperation> RoutingDetail { get; set; }
         DbSet<StorageLocation> StorageLocation { get; set; }
         DbSet<RoutingBoms> RoutingBoms { get; set; }
+        DbSet<WriteOff> WriteOff { get; set; }
+        DbSet<WriteOffDetail> WriteOffDetail { get; set; }
+
+        DbSet<Vendor> Vendor { get; set; }
+        DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        DbSet<StockBatch> StockBatch { get; set; }
+        DbSet<StockBatchStorage> StockBatchStorage { get; set; }
+        DbSet<BookedStockBatch> BookedStockBatch { get; set; }
+
+        DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+        DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        DbSet<SystemSettings> SystemSettings { get; set; }
 
         void Save ();
         Task SaveAsync ();

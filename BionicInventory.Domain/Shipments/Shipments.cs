@@ -8,10 +8,10 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
-using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.Shipments.ShipmentDetails;
 
 namespace BionicInventory.Domain.Shipments {
@@ -31,7 +31,7 @@ namespace BionicInventory.Domain.Shipments {
         public uint CustomerOrderId { get; set; }
 
         public Employee BookedByNavigation { get; set; }
-        public PurchaseOrder CustomerOrder { get; set; }
+        public CustomerOrder CustomerOrder { get; set; }
         public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
     }
 }

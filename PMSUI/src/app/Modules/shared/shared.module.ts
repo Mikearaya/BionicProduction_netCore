@@ -14,7 +14,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 import { BionicDialogComponent } from './bionic-dialog/bionic-dialog.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { TabModule } from '@syncfusion/ej2-angular-navigations';
+import { TabModule, ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 import { DocumentCreatorModule } from './document-creator/document-creator.module';
 
 
@@ -36,7 +36,7 @@ import { DocumentCreatorModule } from './document-creator/document-creator.modul
     DialogModule,
     DocumentCreatorModule
   ],
-  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent,  BionicDialogComponent],
+  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent, BionicDialogComponent],
   exports: [
     // angular
     ReactiveFormsModule,
@@ -47,6 +47,7 @@ import { DocumentCreatorModule } from './document-creator/document-creator.modul
     TabModule,
     CheckBoxModule,
     NotificationComponent,
+    ToolbarModule,
     // syncfusion
     BionicDialogComponent,
     RadioButtonModule,

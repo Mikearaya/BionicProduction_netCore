@@ -23,7 +23,7 @@ namespace BionicInventory.Application.Shared.Infrastructure {
             var name = typeof (TRequest).Name;
 
             // TODO: Add User Details
-            Console.Write ($"{name}");
+    
             _logger.LogInformation ("Bionic MRP Request: {Name} {@Request}", name, request);
 
             return Task.CompletedTask;

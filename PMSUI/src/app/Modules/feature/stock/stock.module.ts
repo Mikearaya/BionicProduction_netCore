@@ -3,46 +3,28 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 15, 2018 10:04 PM
+ * @Last Modified Time: Jan 4, 2019 8:41 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { StockRoutingModule } from './stock-routing.module';
-import { LowStockViewComponent } from './low-stock-view/low-stock-view.component';
-
-import { StockViewComponent } from './stock-view/stock-view.component';
-import { StockFormComponent } from './stock-form/stock-form.component';
-import { ProductGroupFormComponent } from './product-group-form/product-group-form.component';
-import { ProductGroupViewComponent } from './product-group-view/product-group-view.component';
-import { ItemBomListViewComponent } from './item-bom-list-view/item-bom-list-view.component';
-import { ItemRoutingListViewComponent } from './item-routing-list-view/item-routing-list-view.component';
+import { StockBatchApiService } from '../../core/services/stock-batch/stock-batch-api.service';
+import { StockComponent } from './stock.component';
 
 @NgModule({
   imports: [
     // angular
     CommonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
     // application
     StockRoutingModule,
     SharedModule,
   ],
   declarations: [
     // application
-    ProductGroupFormComponent,
-    ProductGroupViewComponent,
-    StockFormComponent,
-    StockViewComponent,
-    LowStockViewComponent,
-    ItemBomListViewComponent,
-    ItemRoutingListViewComponent
+    StockComponent
   ],
-  providers: []
+  providers: [StockBatchApiService]
 })
 export class StockModule { }

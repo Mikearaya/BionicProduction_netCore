@@ -8,10 +8,10 @@
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
-using BionicInventory.Domain.PurchaseOrders;
 
 namespace BionicInventory.Domain.Invoices {
     public class Invoice {
@@ -36,7 +36,7 @@ namespace BionicInventory.Domain.Invoices {
         public DateTime? DueDate { get; set; }
 
         public Employee PreparedByNavigation { get; set; }
-        public PurchaseOrder PurchaseOrder { get; set; }
+        public CustomerOrder CustomerOrder { get; set; }
         public List<InvoiceDetail> InvoiceDetail { get; set; }
         public List<InvoicePayments> InvoicePayments { get; set; }
     }

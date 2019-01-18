@@ -9,13 +9,12 @@
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.BookedStockItem;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
 using BionicInventory.Domain.ProductionOrders;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders;
 using BionicInventory.Domain.Shipments;
 
 namespace BionicInventory.Domain.Employees {
@@ -27,7 +26,7 @@ namespace BionicInventory.Domain.Employees {
             Invoice = new HashSet<Invoice> ();
             InvoicePayments = new HashSet<InvoicePayments> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
-            PurchaseOrder = new HashSet<PurchaseOrder> ();
+            CustomerOrder = new HashSet<CustomerOrder> ();
             Shipment = new HashSet<Shipment> ();
         }
 
@@ -43,7 +42,7 @@ namespace BionicInventory.Domain.Employees {
         public ICollection<Invoice> Invoice { get; set; }
         public ICollection<InvoicePayments> InvoicePayments { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public ICollection<CustomerOrder> CustomerOrder { get; set; }
         public ICollection<Shipment> Shipment { get; set; }
 
         public string FullName () {

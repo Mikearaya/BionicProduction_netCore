@@ -1,0 +1,31 @@
+<section class="e-card">
+  <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' [allowExcelExport]="true" [toolbar]='toolbar'
+    [allowPdfExport]="true" [allowPaging]="true" height="450" [showColumnChooser]=true [allowReordering]="true"
+    [allowResizing]="true" [allowFiltering]='true' [filterSettings]='filterOptions' rowHeight="25" id="inventory"
+    (toolbarClick)='toolbarClick($event)' rowHeight="35">
+    <e-columns>
+      <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint" [field]='col.key' [width]="col.width"
+        [visible]="col.visable" [headerText]='col.humanReadable' headerTextAlign="center" [format]='col.format' [type]="col.type"></e-column>
+      <e-column [customAttributes]="customAttributes" field='quantity' [width]="70" [visible]="true" headerText='Quantity'
+        headerTextAlign="center" [valueAccessor]='quantityValue' type="string"></e-column>
+
+      <e-column headerText='Physical Quantity' width='70' [customAttributes]="customAttributes" [allowFiltering]='true'
+        textAlign='Center'>
+        <ng-template #template let-data; let-index>
+
+          <ejs-numerictextbox class="inventory-input" [(ngModel)]="index.newQuantity" (change)="clicked(index)" #vas></ejs-numerictextbox>
+
+        </ng-template>
+      </e-column>
+      <e-column width='80' textAlign='Center'>
+        <ng-template #headerTemplate let-data let-index>
+          <button ejs-button class="e-primary e-small" (click)="updateAllInventory(data)">Update All</button>
+        </ng-template>
+        <ng-template #template let-data let-index>
+          <button ejs-button class="e-primary e-small" (click)="updateInventory(index)">Update</button>
+        </ng-template>
+      </e-column>
+    </e-columns>
+  </ejs-grid>
+</section>
+<app-notification #notification></app-notification>

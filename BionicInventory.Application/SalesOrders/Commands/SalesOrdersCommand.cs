@@ -9,7 +9,7 @@
 using System.Collections.Generic;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.SalesOrders.Interfaces;
-using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.CustomerOrders;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.SalesOrders.Commands {
@@ -22,21 +22,21 @@ namespace BionicInventory.Application.SalesOrders.Commands {
             _database = database;
             _logger = logger;
         }
-        public PurchaseOrder CreateSalesOrder (PurchaseOrder order) {
+        public CustomerOrder CreateSalesOrder (CustomerOrder order) {
 
-            _database.PurchaseOrder.Add (order);
+            _database.CustomerOrder.Add (order);
             _database.Save ();
             return order;
         }
 
-        public bool DeleteSalesOrders (PurchaseOrder order) {
-            _database.PurchaseOrder.Remove (order);
-            _database.Save();
+        public bool DeleteSalesOrders (CustomerOrder order) {
+            _database.CustomerOrder.Remove (order);
+            _database.Save ();
             return true;
         }
 
-        public bool UpdateSalesOrder (PurchaseOrder orders) {
-            _database.PurchaseOrder.Update (orders);
+        public bool UpdateSalesOrder (CustomerOrder orders) {
+            _database.CustomerOrder.Update (orders);
             _database.Save ();
             return true;
         }

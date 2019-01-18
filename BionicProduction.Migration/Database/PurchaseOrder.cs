@@ -7,23 +7,26 @@ namespace BionicProduction.Migration.Database
     {
         public PurchaseOrder()
         {
-            Invoice = new HashSet<Invoice>();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
-            Shipment = new HashSet<Shipment>();
+            PurchaseOrderItem = new HashSet<PurchaseOrderItem>();
         }
 
         public uint Id { get; set; }
-        public uint ClientId { get; set; }
+        public uint VendorId { get; set; }
+        public string Status { get; set; }
+        public DateTime ExpectedDate { get; set; }
+        public DateTime? OrderedDate { get; set; }
+        public DateTime? ShippedDate { get; set; }
+        public float? Tax { get; set; }
+        public float? AdditionalFee { get; set; }
+        public float? Discount { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public uint CreatedBy { get; set; }
-        public string Description { get; set; }
-        public DateTime? DueDate { get; set; }
+        public string OrderId { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public string InvoiceId { get; set; }
+        public DateTime? InvoiceDate { get; set; }
 
-        public Customer Client { get; set; }
-        public Employee CreatedByNavigation { get; set; }
-        public ICollection<Invoice> Invoice { get; set; }
-        public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
-        public ICollection<Shipment> Shipment { get; set; }
+        public Vendor Vendor { get; set; }
+        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
     }
 }

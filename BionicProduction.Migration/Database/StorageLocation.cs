@@ -8,6 +8,7 @@ namespace BionicProduction.Migration.Database
         public StorageLocation()
         {
             Item = new HashSet<Item>();
+            StockBatchStorage = new HashSet<StockBatchStorage>();
         }
 
         public uint Id { get; set; }
@@ -18,5 +19,6 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
 
         public ICollection<Item> Item { get; set; }
+        public ICollection<StockBatchStorage> StockBatchStorage { get; set; }
     }
 }

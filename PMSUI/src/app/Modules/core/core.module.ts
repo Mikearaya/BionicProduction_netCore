@@ -28,22 +28,22 @@ import {
   ToolbarService
 } from '@syncfusion/ej2-angular-grids';
 import { CommonModule } from '@angular/common';
-import { CoreApiService } from './core-api.service';
 import { CustomerOrderGetterApiService } from './services/customer-order/customer-order-getter-api.service';
 import { CustomerService } from './services/customers/customer.service';
 import { EmployeeApiService } from './services/employees/employee-api.service';
 import { NgModule } from '@angular/core';
-import { ProductGetterService } from './services/product-getter.service';
-import { ProductGroupApiService } from './services/items/product-group-api.service';
-import { ProductsAPIService } from './services/items/products-api.service';
 import { ShipmentApiService } from './services/shipment/shipment-api.service';
 import { UnitOfMeasurmentApiService } from './services/unit-of-measurment/unit-of-measurment-api.service';
 import { BomApiService } from './services/bom/bom-api.service';
 import { WorkStationApiService } from './services/work-station/work-station-api.service';
 import { StorageLocationApiService } from './services/storage-location/storage-location-api.service';
 import { RoutingApiService } from './services/production-routing/routing-api.service';
-import { ItemApiService } from './services/stock/stock-api.service';
 import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
+import { VendorApiService } from './services/vendor/vendor-api.service';
+import { PurchaseTermApiService } from './services/purchase-terms/purchase-term-api.service';
+import { ItemApiService } from './services/item/item-api.service';
+import { ProductGroupApiService } from './services/product-group/product-group-api.service';
+import { StockBatchApiService } from './services/stock-batch/stock-batch-api.service';
 
 
 
@@ -55,13 +55,13 @@ import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
   declarations: [],
   providers: [
     RoutingApiService,
-
+    VendorApiService,
+    PurchaseTermApiService,
     ItemApiService,
     StorageLocationApiService,
     WorkStationApiService,
     ShipmentApiService,
     EmployeeApiService,
-    ProductsAPIService,
     CustomerService,
     ToolbarService,
     PdfExportService,
@@ -82,12 +82,11 @@ import { CheckBoxSelectionService } from '@syncfusion/ej2-angular-dropdowns';
     ExcelExportService,
     ResizeService,
     DetailRowService,
-    ProductGetterService,
     CustomerOrderGetterApiService,
-    CoreApiService,
     ProductGroupApiService,
     BomApiService,
-    UnitOfMeasurmentApiService
+    UnitOfMeasurmentApiService,
+    StockBatchApiService
   ],
 
 })

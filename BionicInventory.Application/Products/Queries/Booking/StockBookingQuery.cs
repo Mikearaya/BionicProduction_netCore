@@ -7,7 +7,6 @@ using BionicInventory.Application.Products.Interfaces.Booking;
 using BionicInventory.Application.Products.Models.BookingModel;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.Items;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Products.Queries.booking {
@@ -22,18 +21,18 @@ namespace BionicInventory.Application.Products.Queries.booking {
         }
         public CustomerOrderBookings GetCustomerOrderBookings (uint id) {
 
-            var bookingDetail = (from pro in _database.Item join co in _database.PurchaseOrderDetail on pro.Id equals co.ItemId where co.PurchaseOrderId == id select new {
+            var bookingDetail = (from pro in _database.Item join co in _database.CustomerOrderItem on pro.Id equals co.ItemId where co.CustomerOrderId == id select new {
                 customerOrderItemId = co.Id,
-                    customerOrderId = co.PurchaseOrderId,
+                    customerOrderId = co.CustomerOrderId,
                     needed = co.Quantity,
-                    available = pro.ProductionOrderList.Where (mo => mo.PurchaseOrder == null)
+                    available = pro.ProductionOrderList.Where (mo => mo.CustomerOrderItem == null)
                     .Sum (mo => mo.FinishedProduct.Count (f => f.BookedStockItems == null && f.ShipmentDetail == null)),
-                    bookedM = pro.ProductionOrderList.Where (mo => mo.PurchaseOrderId == co.Id).Sum (d => d.Quantity),
+                    bookedM = pro.ProductionOrderList.Where (mo => mo.CustomerOrderItemId == co.Id).Sum (d => d.Quantity),
                     bookedF = pro.ProductionOrderList.Sum (mo => mo.FinishedProduct
-                        .Count (f => f.ShipmentDetail == null && (mo.PurchaseOrderId == co.Id || f.BookedStockItems.BookedFor == co.Id))),
+                        .Count (f => f.ShipmentDetail == null && (mo.CustomerOrderItemId == co.Id || f.BookedStockItems.BookedFor == co.Id))),
                     productName = $"{pro.Name} ({pro.Code})",
                     productId = pro.Id,
-                    customerName = co.PurchaseOrder.Client.FullName,
+                    customerName = co.CustomerOrder.Client.FullName,
             }).GroupBy (g => g.customerOrderItemId).Select (booking => new {
                 statistics = booking.Select (f => new {
                     available = f.available,
@@ -74,10 +73,10 @@ namespace BionicInventory.Application.Products.Queries.booking {
         }
 
         private IQueryable<FinishedProduct> availableStockItemFormCustomerOrder (uint customerOrderId) {
-            return (from pro in _database.FinishedProduct join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id join co in _database.PurchaseOrderDetail on mo.ItemId equals co.ItemId where co.Id == customerOrderId &&
+            return (from pro in _database.FinishedProduct join mo in _database.ProductionOrderList on pro.OrderId equals mo.Id join co in _database.CustomerOrderItem on mo.ItemId equals co.ItemId where co.Id == customerOrderId &&
                     pro.BookedStockItems == null &&
                     pro.ShipmentDetail == null &&
-                    (pro.Order.PurchaseOrder == null)
+                    (pro.Order.CustomerOrderItem == null)
 
                     select new FinishedProduct () {
                         Id = pro.Id,
@@ -116,7 +115,7 @@ public class bookingStatistics {
 
     public bookingStatistics Accumilate (Item item) {
         inStock = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.ShipmentDetail == null).Count ());
-        bookedAmount = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.ShipmentDetail == null && (m.PurchaseOrder != null || f.BookedStockItems != null)).Count ());
+        bookedAmount = item.ProductionOrderList.Sum (m => m.FinishedProduct.Where (f => f.ShipmentDetail == null && (m.CustomerOrderItem != null || f.BookedStockItems != null)).Count ());
         return this;
     }
 

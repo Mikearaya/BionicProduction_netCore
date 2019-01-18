@@ -1,0 +1,124 @@
+<section>
+  <app-notification #notification></app-notification>
+  <h3>{{title}}</h3>
+  <form [formGroup]="writeOffForm" (ngSubmit)="onSubmit()" novalidate>
+    <app-form-options [submitButtonText]="submitButtonText" [showDelete]='isUpdate' (deleted)="deleteWriteOff()"
+      [submitDisabled]="writeOffForm.invalid"></app-form-options>
+    <div class="e-card">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <div class="row">
+              <label for="itemId" class="col-md-2 col-sm-12 label-area" i18n>Stock Item</label>
+              <div class="col-md-10 col-sm-12">
+                <span *ngIf="writenOffItems?.item"> {{writenOffItems.item}}</span>
+                <ejs-dropdownlist [dataSource]="itemsList" width="400" *ngIf="!isUpdate" [fields]="itemFields"
+                  formControlName="itemId" name="itemId" id="itemId" placeholder="Select Item"
+                  i18n-filterBarPlaceholder i18n filterBarPlaceholder='Search by Item Name'></ejs-dropdownlist>
+                <div class="e-error" *ngIf="itemId.errors">
+                  <div *ngIf="itemId.errors['required']" i18n>Item is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+
+              <label for="type" class="col-md-2 col-sm-12 label-area" i18n i18n="item type">Type</label>
+              <div class="col-md-10 col-sm-12">
+                <ejs-dropdownlist [dataSource]="writeOffTypes" width="200" formControlName="type" name="type" id="type"
+                  placeholder="Select type" i18n-placeholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="type.errors">
+                  <div *ngIf="type.errors['required']" i18n>Write-off type is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row" *ngIf="isUpdate">
+
+              <label for="status" class="col-md-2 col-sm-12 label-area" i18n> Status</label>
+              <div class="col-md-10 col-sm-12">
+                <ejs-dropdownlist [dataSource]="writeOffStatus" width="200" formControlName="status" name="status" id="status"
+                  placeholder="Select Status" i18n-placeholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="status?.errors">
+                  <div *ngIf="status?.errors['required']" i18n>Write-off Status is required</div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+
+              <label for="note" class="col-md-2 col-sm-12 label-area" i18n="extra note">Note</label>
+              <div class="col-md-10 col-sm-12">
+                <textarea class="e-input" formControlName="note" id="note" name="note" i18n-placeholder placeholder="Extra Note..."></textarea>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th i18n>Batch No</th>
+                      <th i18n>Storage Location</th>
+                      <th i18n>status</th>
+                      <th i18n>Quantity</th>
+                      <th i18n>Unit Cost</th>
+                      <th i18n="reserved">Booked</th>
+                      <th i18n="write off quantity">Write-offs</th>
+                      <th>Quantity</th>
+                      <th><button type="button" ejs-button (click)="addWriteOff()" *ngIf="isUpdate" class="e-small e-primary"
+                          iconCss="e-icons e-add-icon" i18n> Add</button></th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="writeoffBatchs">
+                    <tr *ngFor="let batch of writeoffBatchs.controls; let i=index; let last=last;" [formGroup]="batch">
+                      <td>{{itemBatchList[i]?.id}}</td>
+                      <td>{{itemBatchList[i]?.storageLocation}}</td>
+                      <td>{{itemBatchList[i]?.status}}</td>
+                      <td>{{itemBatchList[i]?.quantity}}</td>
+                      <td>{{itemBatchList[i]?.unitCost}}</td>
+                      <td>{{itemBatchList[i]?.totalBooked}}</td>
+                      <td>{{itemBatchList[i]?.totalWritenOff}}</td>
+                      <td id="quantityBox" colspan="2">
+                        <ejs-numerictextbox formControlName="quantity" id="quantity" name="quantity" width="50" format="##"></ejs-numerictextbox>
+                        <div class="e-error" *ngIf="batch.get('quantity').errors">
+                          <div *ngIf="batch.get('quantity').errors['max']" i18n>Quantity Exceded available amount </div>
+                        </div>
+                      </td>
+
+                    </tr>
+                    <tr *ngIf="itemBatchList.length == 0  && (!isUpdate || isAddNew) ">
+                      <td colspan="8">
+                        <p i18n>No Stock Batch found for selected item</p>
+                      </td>
+                      <td *ngIf="isUpdate">&nbsp;</td>
+                    </tr>
+                  </tbody>
+                  <tfoot *ngIf="!isAddNew && isUpdate">
+                    <tr *ngFor="let writeoff of writenOffItems?.WriteOffItems; let i = index; let last=last;">
+                      <td>{{writeoff.batchId}}</td>
+                      <td>{{writeoff.storage}}</td>
+                      <td>{{writeoff.batchStatus}}</td>
+                      <td>{{writeoff.batchQuantity}}</td>
+                      <td>{{writeoff.unitCost}}</td>
+                      <td>{{writeoff.totalBooked}}</td>
+                      <td>{{writeoff.quantity}}</td>
+                      <td> &nbsp;</td>
+                      <td *ngIf="isUpdate">
+                        <button type="button" ejs-button (click)="updateWrittenOffItem()" *ngIf="isUpdate" class="e-small e-danger e-rounded"
+                          iconCss="e-icons e-delete-icon"> </button>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <app-form-options [submitButtonText]="submitButtonText" [isUpdate]='isUpdate' [showDelete]='isUpdate' (deleted)="deleteWriteOff()"
+      [submitDisabled]="writeOffForm.invalid"></app-form-options>
+  </form>
+</section>

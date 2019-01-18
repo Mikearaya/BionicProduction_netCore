@@ -1,0 +1,73 @@
+<section>
+
+  <h3>{{title}}</h3>
+  <app-notification #notification></app-notification>
+  <form [formGroup]="lotMovementForm" (ngSubmit)="onSubmit()" novalidate>
+    <app-form-options [submitDisabled]="lotMovementForm.invalid"></app-form-options>
+    <div class="e-card">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <div class="row">
+              <label for="itemId" col="col-md-3 col-xs-12 label-area" i18n>Stock Item</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="itemsList" #item [fields]="itemFields" formControlName="itemId"
+                  (change)="itemChanged(item.value)" name="itemId" id="itemId" placeholder="Select Stock Item"
+                  filterBarPlaceholder="Search by item Name" i18n-placeholder i18n-filterBarPlaceholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="itemId.errors">
+                  <div *ngIf="itemId.errors['required']" i18n>Stock Item is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="currentLotId" col="col-md-3 col-xs-12 label-area" i18n>Stock Lot</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="lotsList" [fields]="lotFields" #lot formControlName="currentLotId"
+                  (change)="lotChanged(lot.value)" name="currentLotId" id="currentLotId" placeholder="Select Stock Lot"
+                  filterBarPlaceholder="Search by Lot Name" i18n-placeholder i18n-filterBarPlaceholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="currentLotId.errors">
+                  <div *ngIf="currentLotId.errors['required']" i18n>Stock Lot is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="currentStorage" col="col-md-3 col-xs-12 label-area" i18n>Old place in stock</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="lotStoragesList" #storage [fields]="lotStorageFields" formControlName="currentStorage"
+                  name="currentStorage" id="currentStorage" placeholder="Select old stock location"
+                  filterBarPlaceholder="Search by location Name" i18n-placeholder i18n-filterBarPlaceholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="currentStorage.errors">
+                  <div *ngIf="currentStorage.errors['required']" i18n>Previous stock location is Required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label for="quantity" col="col-md-3 col-xs-12 label-area" i18n>Quantity</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-numerictextbox format="##.#" width="150" formControlName="quantity" name="quantity" id="quantity"
+                  placeholder="Quantity" i18n-placeholder></ejs-numerictextbox>
+                <div class="e-error" *ngIf="quantity.errors">
+                  <div *ngIf="quantity.errors['required']" i18n>Previous stock location is Required</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <label for="newStorage" col="col-md-3 col-xs-12 label-area" i18n>Newplace in stock</label>
+              <div class="col-md-9 col-xs-12">
+                <ejs-dropdownlist [dataSource]="storagesList" [fields]="storageFields" formControlName="newStorage"
+                  name="newStorage" id="newStorage" placeholder="Select new stock location" filterBarPlaceholder="Search by location Name"
+                  i18n-placeholder i18n-filterBarPlaceholder></ejs-dropdownlist>
+                <div class="e-error" *ngIf="newStorage.errors">
+                  <div *ngIf="newStorage.errors['required']" i18n>New stock location is Required</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitDisabled]="lotMovementForm.invalid"></app-form-options>
+  </form>
+</section>

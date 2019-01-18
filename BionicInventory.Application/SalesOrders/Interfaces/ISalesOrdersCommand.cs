@@ -8,16 +8,16 @@
  */
 using System.Collections.Generic;
 using BionicInventory.Application.Interfaces;
-using BionicInventory.Domain.PurchaseOrders;
+using BionicInventory.Domain.CustomerOrders;
 
 namespace BionicInventory.Application.SalesOrders.Interfaces {
     public interface ISalesOrderCommand {
 
-        PurchaseOrder CreateSalesOrder (PurchaseOrder orders);
+        CustomerOrder CreateSalesOrder (CustomerOrder orders);
 
-        bool UpdateSalesOrder (PurchaseOrder orders);
+        bool UpdateSalesOrder (CustomerOrder orders);
 
-        bool DeleteSalesOrders (PurchaseOrder order);
+        bool DeleteSalesOrders (CustomerOrder order);
 
     }
 }

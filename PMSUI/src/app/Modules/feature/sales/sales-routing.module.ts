@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SaleOrderViewComponent } from './sale-order-view/sale-order-view.component';
-import { SaleOrderFormComponent } from './sale-order-form/sale-order-form.component';
-import { SalesOrderDetailComponent } from './sales-order-detail/sales-order-detail.component';
+import { CustomerOrderComponent } from './customer-order.component';
 
 const routes: Routes = [
-  {path: '', component: SaleOrderViewComponent },
-  {path: 'new', component: SaleOrderFormComponent },
-  {path: ':customerOrderId/update', component: SaleOrderFormComponent },
-  {path: ':customerOrderId', component: SalesOrderDetailComponent },
-  {path: ':customerOrderId/booking', loadChildren: '../order-booking/order-booking.module#OrderBookingModule' },
+  {
+    path: '', component: CustomerOrderComponent, children: [
+      { path: 'customer-orders', loadChildren: './customer-order/customer-order.module#CustomerOrderModule' },
+      { path: 'invoices', loadChildren: './sale-invoice/sale-invoice.module#SaleInvoiceModule' },
+      { path: 'customers', loadChildren: './customer/customer.module#CustomerModule' },
+      { path: 'customer-orders/:customerOrderId/booking', loadChildren: './order-booking/order-booking.module#OrderBookingModule' },
+      { path: '', redirectTo: 'customer-orders', pathMatch: 'full' }
+    ]
+  }
 ];
 
 @NgModule({

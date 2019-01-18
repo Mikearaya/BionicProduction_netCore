@@ -10,17 +10,17 @@ using System.Collections.Generic;
 using BionicInventory.Application.FinishedProducts.Models;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
+using BionicInventory.Domain.ProductionOrders;
 
 namespace BionicInventory.Application.FinishedProducts.Interfaces {
     public interface IFinishedProductsFactories {
 
-        FinishedProduct NewFinishedProduct(ProductionOrderList order, Employee submited, Employee ordered, int quantity);
-        FinishedProduct FinishedProductForUpdate(UpdatedFinishedProductDto updated);
+        FinishedProduct NewFinishedProduct (ProductionOrderList order, Employee submited, Employee ordered, int quantity);
+        FinishedProduct FinishedProductForUpdate (UpdatedFinishedProductDto updated);
 
-        FinishedProductsViewModel FinishedProductForView(FinishedProduct finishedProduct);
+        FinishedProductsViewModel FinishedProductForView (FinishedProduct finishedProduct);
 
-        List<FinishedProductsViewModel> FinishedProductForView(List<FinishedProduct> finishedProduct);
+        List<FinishedProductsViewModel> FinishedProductForView (List<FinishedProduct> finishedProduct);
 
     }
 }

@@ -9,29 +9,22 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CoreApiService } from '../../core/core-api.service';
 import { catchError } from 'rxjs/operators';
 import { CustomErrorResponse } from '../../core/DataModels/system-data-models';
 
 @Injectable()
 export class WorkOrderAPIService {
   private url = 'workorders';
-  private productsIrl = 'products';
   private httpBody: URLSearchParams;
 
 
   constructor(private httpClient: HttpClient,
-    private coreApiService: CoreApiService,
     @Inject('BASE_URL') private apiUrl: string) {
     this.httpBody = new URLSearchParams();
   }
 
   getWorkOrderById(id: number): Observable<OrderModel> {
     return this.httpClient.get<OrderModel>(`${this.apiUrl}/${this.url}/${id}`);
-  }
-
-  getAllProducts(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.apiUrl}/${this.productsIrl}`);
   }
 
   getAllPendingWorkOrders(): Observable<PendingManufactureOrdersView[]> {
@@ -48,10 +41,7 @@ export class WorkOrderAPIService {
   }
 
   addWorkOrder(newWorkOrder: any): Observable<WorkOrderView | CustomErrorResponse> {
-
-    return this.httpClient.post<WorkOrderView>(`${this.apiUrl}/${this.url}`, newWorkOrder).pipe(
-      catchError((error: HttpErrorResponse) => this.coreApiService.handleHttpError(error))
-    );
+    return this.httpClient.post<WorkOrderView>(`${this.apiUrl}/${this.url}`, newWorkOrder);
   }
   updateWorkOrder(id: number, updatedWorkOrder: WorkOrder): Observable<Boolean> {
     // this.httpBody = this.prepareRequestBody(updatedWorkOrder);

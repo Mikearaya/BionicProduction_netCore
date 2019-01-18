@@ -26,11 +26,14 @@ namespace BionicInventory.Application.Products.Queries {
             _database = database;
             _logger = logger;
         }
-        public IEnumerable<Item> GetAllProduct () {
+        public IEnumerable<ProductView> GetAllProduct () {
 
             try {
 
-                return _database.Item.AsNoTracking ().ToList ();
+                return _database.Item
+                    .AsNoTracking ()
+                    .Select (ProductView.Projection)
+                    .ToList ();
 
             } catch (Exception e) {
                 _logger.LogError (1, e.Message, e);
@@ -82,9 +85,9 @@ namespace BionicInventory.Application.Products.Queries {
                         inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.ShipmentDetail == null).Count ()),
 
                         availableQuantity = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => fin.Order.PurchaseOrder == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
-                        required = product.PurchaseOrderDetail.Where (CO => CO.ProductionOrderList == null).Sum (C => C.Quantity),
-                        expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.PurchaseOrder == null).Sum (MO => MO.Quantity -
+                            .Where (fin => fin.Order.CustomerOrderItem == null && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
+                        required = product.CustomerOrderItem.Where (CO => CO.ProductionOrderList == null).Sum (C => C.Quantity),
+                        expectedAvailableQuantity = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem == null).Sum (MO => MO.Quantity -
                             MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null || fin.Order.Id == MO.Id)),
 
                 }).Where (item => item.minimumQuantity > ((item.availableQuantity + item.expectedAvailableQuantity) - item.required));

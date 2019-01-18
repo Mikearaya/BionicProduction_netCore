@@ -1,8 +1,14 @@
 <div class="row" *ngIf="isSelfContained">
   <div class="form-button-box">
-    <button type="submit" [disabled]="submitDisabled" class='e-success ' iconCss= "e-icons e-save-icon" iconPossition="Right" ejs-button>{{submitButtonText}}</button>
-    <button type="button" class='e-danger' (click)="cancel()" iconCss= "e-icons e-close-icon" iconPossition="Right" ejs-button>
+    <button type="submit" [disabled]="submitDisabled" class='e-success e-small' iconCss="e-icons e-save-icon"
+      iconPossition="Right" ejs-button>{{submitButtonText}}</button>
+    <button type="button" class='e-warning e-small' (click)="cancel()" iconCss="e-icons e-close-icon" iconPossition="Right"
+      ejs-button>
       {{cancelButtonText}}
+    </button>
+    <button type="button" class='e-danger e-small' *ngIf="showDelete" (click)="delete()" iconCss="e-icons e-delete-icon"
+      iconPossition="Right" ejs-button>
+      Delete
     </button>
   </div>
 </div>

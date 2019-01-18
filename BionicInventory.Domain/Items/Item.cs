@@ -3,17 +3,21 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 17, 2018 1:00 AM
+ * @Last Modified Time: Dec 29, 2018 9:44 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
+using BionicInventory.Domain.CustomerOrders;
 using BionicInventory.Domain.Items.BOMs;
 using BionicInventory.Domain.Items.Rotings;
-using BionicInventory.Domain.ProductionOrders.ProductionOrderLists;
-using BionicInventory.Domain.PurchaseOrders.PurchaseOrderDetails;
+using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicInventory.Domain.Procurment.Vendors;
+using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
+using BionicProduction.Domain.StockBatchs;
+using BionicProduction.Domain.WriteOffs;
 
 namespace BionicInventory.Domain.Items {
     public class Item {
@@ -21,8 +25,12 @@ namespace BionicInventory.Domain.Items {
             Bom = new HashSet<Bom> ();
             BomItems = new HashSet<BomItems> ();
             ProductionOrderList = new HashSet<ProductionOrderList> ();
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail> ();
+            CustomerOrderItem = new HashSet<CustomerOrderItem> ();
             Routing = new HashSet<Routing> ();
+            PurchaseOrderItem = new HashSet<PurchaseOrderItem> ();
+            VendorPurchaseTerm = new HashSet<VendorPurchaseTerm> ();
+            StockBatch = new HashSet<StockBatch> ();
+            WriteOff = new HashSet<WriteOff> ();
         }
 
         public uint Id { get; set; }
@@ -50,8 +58,12 @@ namespace BionicInventory.Domain.Items {
         public UnitOfMeasurment PrimaryUom { get; set; }
         public ICollection<Bom> Bom { get; set; }
         public ICollection<BomItems> BomItems { get; set; }
+        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public ICollection<Routing> Routing { get; set; }
+        public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
+        public ICollection<WriteOff> WriteOff { get; set; }
     }
 }

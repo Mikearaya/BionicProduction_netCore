@@ -15,7 +15,7 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { WorkStationApiService } from 'src/app/Modules/core/services/work-station/work-station-api.service';
 import { WorkstationGroupView } from 'src/app/Modules/core/DataModels/workstation.model';
 import { workstationGroupViewBluePrint } from './workstation-group-view.model';
@@ -48,7 +48,8 @@ export class WorkStationGroupViewComponent extends CommonProperties implements O
 
   constructor(
     private workstationApi: WorkStationApiService,
-    private route: Router) {
+    private route: Router,
+    private activatedRoute: ActivatedRoute) {
     super();
     this.commands = [
       {
@@ -90,7 +91,7 @@ export class WorkStationGroupViewComponent extends CommonProperties implements O
 
   editGroup(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`work-stations/${rowObj.data['id']}/update`]);
+    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
@@ -111,7 +112,7 @@ export class WorkStationGroupViewComponent extends CommonProperties implements O
 
     switch (args.item.id) {
       case 'workstationGroup_add':
-        this.route.navigate([`work-stations/new`]);
+        this.route.navigate([`new`], { relativeTo: this.activatedRoute });
         break;
       case 'workstationGroup_pdfexport':
         this.grid.pdfExport();

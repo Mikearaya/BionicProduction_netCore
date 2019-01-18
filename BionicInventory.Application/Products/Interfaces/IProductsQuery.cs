@@ -15,7 +15,7 @@ namespace BionicInventory.Application.Products.Interfaces {
     public interface IProductsQuery {
         Item GetProductById (uint id);
         bool IsProductCodeUnique (string code);
-        IEnumerable<Item> GetAllProduct ();
+        IEnumerable<ProductView> GetAllProduct ();
         ProductView GetProductViewById (uint id);
         IEnumerable<CriticalStockItemsView> GetCriticalBelowStockItems ();
         CriticalStockItemsView GetCriticalBelowStockItem (uint id);

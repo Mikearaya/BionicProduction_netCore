@@ -27,14 +27,14 @@ namespace BionicInventory.Application.SalesOrders.Queries.Report {
         }
 
         private IQueryable<MonthlySalesReportModel> IQueryableMonthlySalesReport () {
-            return _database.PurchaseOrder
+            return _database.CustomerOrder
                 .Where (co => co.DateAdded.Value.Year == DateTime.Today.Year)
                 .GroupBy (co => co.DateAdded.Value.Month)
                 .Select (d => new MonthlySalesReportModel () {
 
                     month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName (d.Key),
-                        amount = d.Sum (prof => (double?) prof.PurchaseOrderDetail
-                            .Sum (er => (double?) er.PricePerItem * (double?) er.Quantity) - (double?) prof.PurchaseOrderDetail
+                        amount = d.Sum (prof => (double?) prof.CustomerOrderItem
+                            .Sum (er => (double?) er.PricePerItem * (double?) er.Quantity) - (double?) prof.CustomerOrderItem
                             .Sum (wo => (double?) wo.ProductionOrderList.CostPerItem * (double?) wo.ProductionOrderList.Quantity)),
                 });
         }
