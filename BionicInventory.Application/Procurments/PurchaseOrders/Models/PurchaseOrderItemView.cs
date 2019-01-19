@@ -20,7 +20,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public uint itemGroupId { get; set; }
         public string itemGroup { get; set; }
         public float quantity { get; set; }
-        public float subTotal { get; set; }
+        public double subTotal { get; set; }
         public float unitPrice { get; set; }
         public DateTime expectedDate { get; set; }
         public DateTime? dateAdded { get; set; }
@@ -38,7 +38,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
                     itemGroup = po_item.Item.Group.GroupName,
                     quantity = po_item.Quantity,
                     unitPrice = po_item.UnitPrice,
-                    subTotal = po_item.Quantity * po_item.UnitPrice,
+                    subTotal = (double) po_item.Quantity * po_item.UnitPrice,
                     expectedDate = po_item.ExpectedDate,
                     dateAdded = po_item.DateAdded,
                     dateUpdated = po_item.DateUpdated

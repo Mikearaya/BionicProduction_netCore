@@ -2,7 +2,7 @@
   <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' (dataBound)="dataBound()" [allowGrouping]="true"
     [allowExcelExport]="true" [toolbar]='toolbar' [allowPdfExport]="true" [allowPaging]="true" height="300"
     [showColumnChooser]=true [allowReordering]="true" [allowResizing]="true" [allowFiltering]='true' [allowFiltering]='true'
-    allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]='filterOptions' rowHeight="25" id="purchaseorder"
+    allowTextWrap='true' [textWrapSettings]='wrapSettings' [filterSettings]='filterOptions' rowHeight="30" id="purchaseorder"
     (toolbarClick)='toolbarClick($event)'>
     <e-columns>
       <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint" [field]='col.key' [width]="col.width"

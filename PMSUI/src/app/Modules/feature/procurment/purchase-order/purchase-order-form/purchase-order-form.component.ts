@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Form, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { PurchaseOrderApiService } from '../purchase-order-api.service';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
@@ -7,6 +7,9 @@ import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';
 import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { NewPurchaseOrderModel, PurchaseOrderDetailView, PurchaseOrderItemModel, PurchaseOrderItemView } from '../pruchse-order-data.model';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
+
 
 @Component({
   selector: 'app-purchase-order-form',
@@ -14,6 +17,9 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
   styleUrls: ['./purchase-order-form.component.css']
 })
 export class PurchaseOrderFormComponent extends CommonProperties implements OnInit {
+
+  @ViewChild('notification')
+  public notification: NotificationComponent;
 
   public purchaseOrderForm: FormGroup;
   public title: string;
@@ -29,7 +35,7 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
 
   constructor(private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
-    private purchaseOorderApi: PurchaseOrderApiService,
+    private purchaseOrderApi: PurchaseOrderApiService,
     private itemApi: ItemApiService,
     private vendorApi: VendorApiService) {
     super();
@@ -49,7 +55,18 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
 
     if (this.purchaseOrderId) {
       this.isUpdate = true;
+      this.purchaseOrderApi.getPurchaseOrderById(this.purchaseOrderId).subscribe(
+        (data: PurchaseOrderDetailView) => this.initializeForm(data),
+        this.handleError
+      );
     }
+  }
+
+
+  vendorChanged(event: any) {
+    this.itemApi.getVendorItems(event.value).subscribe(
+      (data: any[]) => this.itemsList = data
+    );
   }
 
   private createForm(): void {
@@ -69,6 +86,30 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
       shippedOn: [''],
       arrivalDate: [''],
       purchaseOrderItems: this.formBuilder.array([this.createPurchaseOrderItems()])
+
+    });
+  }
+
+  private initializeForm(data: PurchaseOrderDetailView): void {
+
+    const vendor = { value: data.vendorId };
+    this.vendorChanged(vendor);
+    this.purchaseOrderForm = this.formBuilder.group({
+      vendorId: [data.vendorId, Validators.required],
+      status: [data.status, Validators.required],
+      expectedDate: [data.expectedDate, Validators.required],
+      tax: [data.tax],
+      discount: [data.discount],
+      additionalFees: [data.additionalFee],
+      note: [''],
+      orderId: [data.orderId],
+      orderDate: [data.orderedDate],
+      invoiceId: [data.invoiceId],
+      invoiceDate: [data.invoiceDate],
+      paymentDate: [data.paymentDate],
+      shippedOn: [data.shippedDate],
+      arrivalDate: [''],
+      purchaseOrderItems: this.formBuilder.array(data.OrderItems.map(i => this.initializePurchaseOrderItems(i)))
 
     });
   }
@@ -130,6 +171,14 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
   }
 
 
+  initializePurchaseOrderItems(data: PurchaseOrderItemView): FormGroup {
+    return this.formBuilder.group({
+      itemId: [data.itemId, Validators.required],
+      quantity: [data.quantity, Validators.required],
+      unitPrice: [data.unitPrice],
+      expectedDate: [data.expectedDate]
+    });
+  }
 
   private createPurchaseOrderItems(): FormGroup {
     return this.formBuilder.group({
@@ -149,6 +198,49 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
   }
 
   onSubmit(): void {
+    if (this.purchaseOrderForm.valid) {
+      if (!this.isUpdate) {
+        const purchaseOrder = this.prepareNewPurchaseOrderData();
+
+        this.purchaseOrderApi.createPurchaseOrder(purchaseOrder).subscribe(
+          (data: PurchaseOrderDetailView) => {
+            this.notification.showMessage('Purchase order created successfully');
+            this.isUpdate = true;
+            this.purchaseOrderId = data.id;
+          }
+        );
+      }
+    }
+  }
+
+  private prepareNewPurchaseOrderData(): NewPurchaseOrderModel {
+    const newPurchaseOrder = new NewPurchaseOrderModel();
+    newPurchaseOrder.VendorId = this.vendorId.value;
+    newPurchaseOrder.Status = this.status.value;
+    newPurchaseOrder.ExpectedDate = this.expectedDate.value;
+    newPurchaseOrder.Tax = this.tax.value;
+    newPurchaseOrder.Discount = this.discount.value;
+    newPurchaseOrder.AdditionalFee = this.additionalFees.value;
+    newPurchaseOrder.OrderId = this.orderId.value;
+    newPurchaseOrder.OrderedDate = this.orderDate.value;
+    newPurchaseOrder.InvoiceId = this.invoiceId.value;
+    newPurchaseOrder.InvoiceDate = this.invoiceDate.value;
+    newPurchaseOrder.PaymentDate = this.paymentDate.value;
+    newPurchaseOrder.ShippedDate = this.shippedOn.value;
+
+    this.purchaseOrderItems.controls.forEach(element => {
+      newPurchaseOrder.PurchaseOrderItems.push(
+        {
+          ExpectedDate: element.value.expectedDate,
+          ItemId: element.value.itemId,
+          Quantity: element.value.quantity,
+          UnitPrice: element.value.unitPrice,
+          Id: 0
+        }
+      );
+    });
+
+    return newPurchaseOrder;
 
   }
 

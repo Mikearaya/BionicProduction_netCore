@@ -26,7 +26,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public DateTime? orderedDate { get; set; }
         public DateTime? shippedDate { get; set; }
         public float? tax { get; set; }
-        public float totalCost { get; set; }
+        public double? totalCost { get; set; }
         public float? additionalFee { get; set; }
         public float? discount { get; set; }
         public DateTime? dateAdded { get; set; }
@@ -49,7 +49,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
                     orderedDate = po.OrderedDate,
                     shippedDate = po.ShippedDate,
                     tax = po.Tax,
-                    totalCost = po.PurchaseOrderItem.Sum (item => item.UnitPrice * item.Quantity) + (float) po.AdditionalFee,
+                    totalCost = (double) po.PurchaseOrderItem.Sum (item => item.UnitPrice * item.Quantity) + (float) po.AdditionalFee,
                     dateAdded = po.DateAdded,
                     dateUpdated = po.DateUpdated,
                     discount = po.Discount,

@@ -5,15 +5,15 @@
   <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
     <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
     <div class="e-card">
-      <div class="container">
+      <div class="container-fluid">
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <div class="row">
               <label for="vendorId" class="col-md-3 col-sm-12" i18n>Vendor</label>
               <div class="col-md-9 col-sm-12">
                 <ejs-dropdownlist [dataSource]='vendorsList' [fields]='vendorFields' formControlName="vendorId" id="vendorId"
-                  name="vendorId" i18n-placeholder i18n-filterBarPlaceholder placeholder="Select Vendor"
-                  filterBarPlaceholder='Search by vendor Name'></ejs-dropdownlist>
+                  name="vendorId" (change)="vendorChanged($event)" i18n-placeholder i18n-filterBarPlaceholder
+                  placeholder="Select Vendor" filterBarPlaceholder='Search by vendor Name'></ejs-dropdownlist>
                 <div class="e-error" *ngIf="vendorId.errors">
                   <div *ngIf="vendorId.errors['required']" i18n>Vendor is Required</div>
                 </div>

@@ -78,7 +78,7 @@ export class NewPurchaseOrderModel {
   InvoiceId: string;
   InvoiceDate: Date | string | null;
 
-  PurchaseOrderItems: PurchaseOrderItemModel[];
+  PurchaseOrderItems: PurchaseOrderItemModel[] = [];
 
 }
 

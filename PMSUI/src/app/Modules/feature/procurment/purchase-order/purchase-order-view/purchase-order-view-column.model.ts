@@ -57,7 +57,7 @@ export const purchaseOrderColumnBluePrint = [
     visable: true,
     type: 'number',
     width: '30',
-    format: '##'
+    format: '#'
   },
   {
     key: 'additionalFee',
@@ -65,7 +65,7 @@ export const purchaseOrderColumnBluePrint = [
     visable: false,
     type: 'number',
     width: '30',
-    format: '##'
+    format: '#'
   },
   {
     key: 'discount',
@@ -73,23 +73,22 @@ export const purchaseOrderColumnBluePrint = [
     visable: false,
     type: 'number',
     width: '30',
-    format: '##'
+    format: '#'
   },
   {
     key: 'orderId',
     humanReadable: 'Order id',
     visable: false,
-    type: 'number',
+    type: 'string',
     width: '30',
-    format: '##'
+
   },
   {
     key: 'invoiceId',
     humanReadable: 'Invoice id',
     visable: false,
-    type: 'number',
+    type: 'string',
     width: '30',
-    format: '##'
   },
   {
     key: 'invoiceDate',

@@ -62,7 +62,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 var vendorItem = await _database.VendorPurchaseTerm
                     .Include (v => v.Item)
                     .AsNoTracking ()
-                    .Where (v => v.Id == request.VendorId && v.ItemId == item.ItemId)
+                    .Where (v => v.VendorId == request.VendorId && v.ItemId == item.ItemId)
                     .OrderByDescending (v => v.Priority)
                     .FirstOrDefaultAsync ();
 
@@ -85,16 +85,27 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
 
             // Create new lot  for each purchase order item
 
-            foreach (var item in purchaseOrder.PurchaseOrderItem) {
+            foreach (var purchaseItem in purchaseOrder.PurchaseOrderItem) {
+
+                var item = await _database.Item
+                    .Where (i => i.Id == purchaseItem.ItemId)
+                    .AsNoTracking ()
+                    .FirstOrDefaultAsync ();
 
                 await _Mediator.Send (new NewStockBatchDto () {
 
-                    PurchaseOrderId = item.Id,
-                        ItemId = item.ItemId,
-                        Quantity = item.Quantity,
+                    PurchaseOrderId = purchaseItem.Id,
+                        ItemId = purchaseItem.ItemId,
+                        Quantity = purchaseItem.Quantity,
                         Status = "Planned",
-                        UnitCost = item.UnitPrice,
-                        AvailableFrom = (item.ExpectedDate == null) ? request.ExpectedDate : (DateTime) item.ExpectedDate,
+                        UnitCost = purchaseItem.UnitPrice,
+                        AvailableFrom = (purchaseItem.ExpectedDate == null) ? request.ExpectedDate : (DateTime) purchaseItem.ExpectedDate,
+                        StorageLocation = new List<NewStockBatchStorageDto> () {
+                            new NewStockBatchStorageDto () {
+                                Quantity = purchaseItem.Quantity,
+                                    StorageId = item.DefaultStorageId
+                            }
+                        }
 
                 });
 

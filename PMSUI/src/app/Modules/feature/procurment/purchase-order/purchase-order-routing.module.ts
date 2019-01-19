@@ -13,7 +13,7 @@ const routes: Routes = [
     data: { title: 'Create a purchase order', breadcrum: 'procuments/purchase-orders/new' }
   },
   {
-    path: ':purchaseOrderId/Update', component: PurchaseOrderFormComponent,
+    path: ':purchaseOrderId/update', component: PurchaseOrderFormComponent,
     data: { title: 'Update purchase order', breadcrum: 'procuments/purchase-orders/update' }
   }
 ];
