@@ -93,7 +93,9 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
   private initializeForm(data: PurchaseOrderDetailView): void {
 
     const vendor = { value: data.vendorId };
+
     this.vendorChanged(vendor);
+
     this.purchaseOrderForm = this.formBuilder.group({
       vendorId: [data.vendorId, Validators.required],
       status: [data.status, Validators.required],

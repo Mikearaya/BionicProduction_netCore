@@ -18,7 +18,8 @@ import {
   FilterSettingsModel, EditSettingsModel, ToolbarItems, CommandModel,
   RowSelectEventArgs
 } from '@syncfusion/ej2-angular-grids';
-import { EmployeeApiService } from 'src/app/Modules/core/services/employees/employee-api.service';
+import { EmployeeApiService, Employee } from 'src/app/Modules/core/services/employees/employee-api.service';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 
 
 @Component({
@@ -27,11 +28,11 @@ import { EmployeeApiService } from 'src/app/Modules/core/services/employees/empl
   styleUrls: ['./employee-view.component.css']
 })
 
-export class EmployeeViewComponent implements OnInit {
+export class EmployeeViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
 
-  public data: DataManager;
+  public data: Employee[];
   public pageSettings: PageSettingsModel;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
@@ -55,9 +56,11 @@ export class EmployeeViewComponent implements OnInit {
 
   constructor(
     @Inject('BASE_URL') private apiUrl: string,
-    private customerService: EmployeeApiService,
+    private employeeApi: EmployeeApiService,
     private activatedRoute: ActivatedRoute,
-    private route: Router) { }
+    private route: Router) {
+    super();
+  }
 
 
   public dataManager: DataManager = new DataManager({
@@ -70,7 +73,11 @@ export class EmployeeViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.data = this.dataManager;
+    this.employeeApi.getAllEmployees().subscribe(
+      (data: Employee[]) => this.data = data,
+      this.handleError
+    );
+
     this.pageSettings = { pageSize: 6 };
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel', 'Print', 'Search', 'ExcelExport', 'ColumnChooser'];

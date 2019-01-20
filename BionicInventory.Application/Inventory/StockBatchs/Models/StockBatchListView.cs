@@ -46,7 +46,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
 
             get {
                 return batch => new StockBatchListView () {
-                    id = batch.Id,
+                    id = batch.BatchId,
                     itemId = batch.Batch.ItemId,
                     item = batch.Batch.Item.Name,
                     status = batch.Batch.Status,

@@ -18,7 +18,7 @@ namespace BionicInventory.Application.Vendors.PurchaseTerms.Models {
         public string vendorProductId { get; set; }
         public uint? priority { get; set; }
         public uint? leadtime { get; set; }
-        public float? minimumQuantity { get; set; }
+        public uint? minimumQuantity { get; set; }
         public float unitPrice { get; set; }
         public string item { get; set; }
         public string vendor { get; set; }
@@ -34,7 +34,7 @@ namespace BionicInventory.Application.Vendors.PurchaseTerms.Models {
                     vendorProductId = term.VendorProductId,
                     priority = term.Priority,
                     leadtime = (term.Leadtime == null) ? term.Vendor.LeadTime : term.Leadtime,
-                    minimumQuantity = term.MinimumQuantity,
+                    minimumQuantity =  term.MinimumQuantity,
                     unitPrice = term.UnitPrice,
                     itemId = term.ItemId,
                     vendorId = term.VendorId,

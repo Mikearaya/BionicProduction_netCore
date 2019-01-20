@@ -16,6 +16,10 @@ import { CommonProperties } from 'src/app/Modules/core/DataModels/common-propert
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { SalesOrder } from '../../sales-data-model';
 import { EmployeeApiService, Employee } from 'src/app/Modules/core/services/employees/employee-api.service';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { Customer } from 'src/app/Modules/core/DataModels/customer-data.model';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -46,9 +50,11 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     @Inject('BASE_URL') private apiUrl: string,
     private salesOrderApi: SaleOrderApiService,
     private formBuilder: FormBuilder,
+    private employeeApi: EmployeeApiService,
+    private itemApi: ItemApiService,
+    private customerApi: CustomerService,
     private activatedRoute: ActivatedRoute,
-    private route: Router,
-    private usersApi: EmployeeApiService
+    private route: Router
   ) {
 
     super();
@@ -65,22 +71,20 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
   ngOnInit(): void {
 
-    this.usersApi.getAllEmployees().subscribe(
+    this.employeeApi.getAllEmployees().subscribe(
       (data: Employee[]) => this.employeesList = data
     );
-    const itemDm: DataManager = new DataManager(
-      { url: `${this.apiUrl}/products`, adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
+
+
+    this.itemApi.getAllItems().subscribe(
+      (data: ItemView[]) => this.itemsList = data,
+      this.handleError
     );
 
-    const customerDm: DataManager = new DataManager(
-      { url: `${this.apiUrl}/customers`, adaptor: new WebApiAdaptor, offline: true },
-      new Query().take(8)
+    this.customerApi.getAllCustomers().subscribe(
+      (data: Customer[]) => this.customersList = data,
+      this.handleError
     );
-
-    customerDm.ready.then((e: ReturnOption) => this.customersList = <Object[]>e.result).catch((e) => true);
-    itemDm.ready.then((e: ReturnOption) => this.itemsList = <Object[]>e.result).catch((e) => true);
-
 
 
 

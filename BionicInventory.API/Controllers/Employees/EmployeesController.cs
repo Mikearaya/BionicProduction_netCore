@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BionicInventory.API.Commons;
 using BionicInventory.Application.Employees.Interfaces;
 using BionicInventory.Application.Employees.Models;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using Microsoft.AspNetCore.Mvc;
 
@@ -61,25 +61,22 @@ namespace BionicInventory.API.Controllers.Employees {
             try {
 
                 var employees = _query.GetAllEmployees ();
-                ResponseDataFormat response = new ResponseDataFormat();
-                
+                ResponseDataFormat response = new ResponseDataFormat ();
+
                 List<EmployeeViewModel> employeesList = new List<EmployeeViewModel> ();
 
                 foreach (var employee in employees) {
                     employeesList.Add (_factory.EmployeeForView (employee));
                 }
 
-                response.Items = employeesList;
-                response.Count = employeesList.Count;
-
-                return StatusCode (200, response);
+                return StatusCode (200, employeesList);
 
             } catch (System.Exception) {
 
                 return StatusCode (500, "Unkown Error Occured while processing Request, Try Again");
             }
         }
-//TODO Find better DTO solution for employee CRUD
+        //TODO Find better DTO solution for employee CRUD
         [HttpPost]
         [ProducesResponseType (201, Type = typeof (EmployeeViewModel))]
         [ProducesResponseType (422)]

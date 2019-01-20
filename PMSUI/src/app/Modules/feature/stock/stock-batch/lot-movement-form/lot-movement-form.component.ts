@@ -21,6 +21,7 @@ import {
 } from 'src/app/Modules/core/DataModels/stock-batch.model';
 import { StorageLocationApiService } from 'src/app/Modules/core/services/storage-location/storage-location-api.service';
 import { StorageLocationView } from 'src/app/Modules/core/DataModels/storage-location.model';
+import { DropDownListComponent } from '@syncfusion/ej2-angular-dropdowns';
 
 @Component({
   selector: 'app-lot-movement-form',
@@ -80,7 +81,18 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
       (data: StockBatchListView[]) => this.lotsList = data,
       this.handleError
     );
+    if (this.lotId) {
+      this.currentLotId.setValue(this.lotId);
 
+      this.stockLotApi.getStockBatchById(this.lotId).subscribe(
+        (data: StockBatchDetailView) => {
+          this.itemChanged(data.itemId);
+          this.lotChanged(this.lotId);
+
+        },
+        this.handleError
+      );
+    }
   }
 
   private createForm(): void {
@@ -94,10 +106,9 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
   }
 
   itemChanged(selectedItemId: number): void {
-    console.log(`item event`);
-    console.log(event);
 
     if (selectedItemId) {
+      this.itemId.setValue(selectedItemId);
       this.stockLotApi.getItemStockBatchById(selectedItemId).subscribe(
         (data: any) => this.lotsList = data,
         this.handleError
@@ -106,8 +117,9 @@ export class LotMovementFormComponent extends CommonProperties implements OnInit
   }
 
   lotChanged(selectedLotId: number): void {
-    console.log(`lot event `);
+
     if (selectedLotId) {
+      this.currentLotId.setValue(selectedLotId);
       this.stockLotApi.getStockLotStorages(selectedLotId).subscribe(
         (data: StockBatchStorageView[]) => this.lotStoragesList = data,
         this.handleError
