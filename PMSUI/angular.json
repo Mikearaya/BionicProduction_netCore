@@ -40,7 +40,7 @@
               "./node_modules/@syncfusion/ej2-angular-documenteditor/styles/material.css",
               "./node_modules/@syncfusion/ej2-angular-navigations/styles/material.css"
             ],
-            "scripts": [  ]
+            "scripts": []
           },
           "configurations": {
             "production": {

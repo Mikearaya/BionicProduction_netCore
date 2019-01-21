@@ -17,6 +17,7 @@ import { CoreModule } from './Modules/core/core.module';
 import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
 import { EntryComponent } from './entry/entry.component';
 import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
+import { ListViewModule } from '@syncfusion/ej2-angular-lists';
 
 
 
@@ -24,7 +25,7 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 @NgModule({
   declarations: [
     AppComponent,
-    EntryComponent
+    EntryComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +34,7 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
     ReactiveFormsModule,
     ToolbarModule,
     AppRoutingModule,
+    ListViewModule,
 
   ],
   providers: [

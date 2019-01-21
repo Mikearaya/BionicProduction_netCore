@@ -1,3 +1,14 @@
-<p>
-  stock-setting works!
-</p>
+<section class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <ejs-listview id='List' [dataSource]='data' headerTitle='Stock settings' i18n-headerTitle showHeader='true'>
+        <ng-template #template let-data="">
+          <span type="button" routerLinkActive='active' [routerLink]="data.url">{{data.name}}</span>
+        </ng-template>
+      </ejs-listview>
+    </div>
+    <div class="col-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</section>

@@ -14,8 +14,9 @@ import { NotificationComponent } from './notification/notification.component';
 import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 import { BionicDialogComponent } from './bionic-dialog/bionic-dialog.component';
 import { DialogModule } from '@syncfusion/ej2-angular-popups';
-import { TabModule, ToolbarModule } from '@syncfusion/ej2-angular-navigations';
+import { TabModule, ToolbarModule, SidebarModule } from '@syncfusion/ej2-angular-navigations';
 import { DocumentCreatorModule } from './document-creator/document-creator.module';
+import { ListViewModule } from '@syncfusion/ej2-angular-lists';
 
 
 @NgModule({
@@ -60,7 +61,9 @@ import { DocumentCreatorModule } from './document-creator/document-creator.modul
     DateTimePickerModule,
     SwitchModule,
     DatePickerModule,
-    DialogModule
+    DialogModule,
+    SidebarModule,
+    ListViewModule
 
   ],
   providers: []

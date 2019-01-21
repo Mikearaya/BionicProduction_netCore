@@ -28,7 +28,7 @@
     "@syncfusion/ej2-angular-dropdowns": "^16.3.30",
     "@syncfusion/ej2-angular-grids": "^16.3.31",
     "@syncfusion/ej2-angular-inputs": "^16.3.18",
-    "@syncfusion/ej2-angular-lists": "^16.3.30",
+    "@syncfusion/ej2-angular-lists": "^16.4.47",
     "@syncfusion/ej2-angular-navigations": "^16.3.30",
     "@syncfusion/ej2-angular-notifications": "^16.3.34",
     "@syncfusion/ej2-angular-popups": "^16.3.30",
@@ -43,7 +43,7 @@
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.10.5",
+    "@angular-devkit/build-angular": "^0.12.2",
     "@angular/cli": "^7.0.5",
     "@angular/compiler-cli": "^7.0.3",
     "@angular/language-service": "^7.0.3",
