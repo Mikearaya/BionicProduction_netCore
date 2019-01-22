@@ -22,8 +22,9 @@ const routes: Routes = [
       { path: 'routings', loadChildren: './production-routing/production-routing.module#ProductionRoutingModule' },
       { path: 'boms', loadChildren: './bom/bom.module#BOMModule' },
       { path: 'workstations', loadChildren: './work-station/work-station.module#WorkStationModule' },
-      { path: ':workOrderId/update', component: WorkOrderFormComponent },
-      { path: 'new', component: WorkOrderFormComponent },
+      { path: 'work-orders/new', component: WorkOrderFormComponent },
+      { path: 'work-orders/:workOrderId/update', component: WorkOrderFormComponent },
+
       { path: 'pending', component: PendingOrdersViewComponent },
       { path: 'completed', component: FinishedOrderFormComponent },
       { path: 'request/:customerOrderId', component: WorkOrderFormComponent },

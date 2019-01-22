@@ -115,6 +115,7 @@ export class WorkOrderViewComponent implements OnInit {
       succ => this.grid.refresh(),
       err => console.log(err));
   }
+
   tooltip(args: QueryCellInfoEventArgs) {
     const cell = args.cell;
   }

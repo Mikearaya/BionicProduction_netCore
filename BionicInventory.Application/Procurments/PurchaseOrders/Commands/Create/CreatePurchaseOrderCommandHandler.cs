@@ -97,7 +97,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                     PurchaseOrderId = purchaseItem.Id,
                         ItemId = purchaseItem.ItemId,
                         Quantity = purchaseItem.Quantity,
-                        Status = "Planned",
+                        Status = request.ArrivalDate != null ? "Recieved" : "Planed",
                         UnitCost = purchaseItem.UnitPrice,
                         AvailableFrom = (purchaseItem.ExpectedDate == null) ? request.ExpectedDate : (DateTime) purchaseItem.ExpectedDate,
                         StorageLocation = new List<NewStockBatchStorageDto> () {

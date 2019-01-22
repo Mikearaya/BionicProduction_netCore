@@ -23,40 +23,37 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
             _database = database;
         }
 
-        public async Task<IEnumerable<InventoryView>> Handle (GetInventoryViewQuery request, CancellationToken cancellationToken) {
-            var stock = await _database.Item.GroupJoin (_database.StockBatchStorage, product => product.Id,
-                manufOrder => manufOrder.Batch.ItemId,
-                (product, manufactureOrder) => new InventoryView () {
+        public Task<IEnumerable<InventoryView>> Handle (GetInventoryViewQuery request, CancellationToken cancellationToken) {
+            var result = _database.Item.Include (u => u.Group)
+                .Include (u => u.PrimaryUom)
+                .GroupJoin (_database.StockBatchStorage, product => product.Id,
+                    manufOrder => manufOrder.Batch.ItemId,
+                    (product, manufactureOrder) => new {
+                        item = product,
+                            lot = manufactureOrder,
 
-                    itemId = product.Id,
+                    }).GroupBy (manuf => manuf.item)
+                .Select (i => new InventoryView () {
 
-                        itemCode = product.Code,
+                    itemId = i.Key.Id,
 
-                        item = product.Name,
-                        itemGroup = product.Group.GroupName,
-                        itemGroupId = product.GroupId,
-                        uom = product.PrimaryUom.Abrivation,
+                        itemCode = i.Key.Code,
 
-                        quantity = manufactureOrder.Where (i => i.Batch.Status.ToUpper () == "RECIEVED").GroupBy (i => i.Batch.ItemId)
-                        .Sum (MO => MO.Sum (f => f.Quantity)),
-                        totalWriteOffs = manufactureOrder.Sum (w => w.WriteOffDetail.GroupBy (t => t.WriteOff.ItemId).Sum (e => e.Sum (q => q.Quantity))),
-                        totalCost = manufactureOrder
-                        .Where (MO => MO.Batch.Status.ToUpper () == "RECIEVED").Sum (MO => MO.Batch.UnitCost *
-                            (MO.Quantity - (MO.WriteOffDetail.GroupBy (m => m.WriteOff.Item).Sum (q => q.Sum (s => s.Quantity))))),
+                        item = i.Key.Name,
+                        itemGroup = i.Key.Group.GroupName,
+                        itemGroupId = i.Key.GroupId,
+                        uom = i.Key.PrimaryUom.Abrivation,
+                        quantity = i.Sum (l => l.lot.Where (s => s.Batch.Status.ToUpper () == "RECIEVED").Sum (q => q.Quantity)),
+                        totalWriteOffs = i.Sum (l => l.lot.Where (s => s.Batch.Status.ToUpper () == "RECIEVED").Sum (q => q.Quantity * q.Batch.UnitCost)),
+                        totalCost = i.Sum (l => l.lot.Where (s => s.Batch.Status.ToUpper () == "RECIEVED").Sum (q => q.Quantity * q.Batch.UnitCost)),
 
-                        dateAdded = product.DateAdded,
-                        dateUpdated = product.DateUpdate
-                }).GroupBy (manuf => manuf.itemId).ToListAsync ();
+                        dateAdded = i.Key.DateAdded,
+                        dateUpdated = i.Key.DateUpdate
 
-            List<InventoryView> stockStatus = new List<InventoryView> ();
-            foreach (var item in stock) {
-                foreach (var status in item) {
-                    stockStatus.Add (status);
+                }).ToList ();
 
-                }
-            }
+            return Task.FromResult<IEnumerable<InventoryView>> (result);
 
-            return stockStatus;
         }
     }
 }

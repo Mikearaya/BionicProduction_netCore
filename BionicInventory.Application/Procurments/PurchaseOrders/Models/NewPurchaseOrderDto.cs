@@ -28,6 +28,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public float? AdditionalFee { get; set; }
         public float? Discount { get; set; }
         public string OrderId { get; set; }
+        public DateTime? ArrivalDate { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string InvoiceId { get; set; }
         public DateTime? InvoiceDate { get; set; }

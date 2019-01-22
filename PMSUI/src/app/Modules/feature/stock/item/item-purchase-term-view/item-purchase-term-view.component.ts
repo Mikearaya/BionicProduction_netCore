@@ -68,7 +68,7 @@ export class ItemPurchaseTermViewComponent extends CommonProperties implements A
 
   editTerm(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`procurments/purchase-terms/${rowObj.data['id']}`]);
+    this.route.navigate([`procurments/purchase-terms/${rowObj.data['id']}/update`]);
 
   }
 
