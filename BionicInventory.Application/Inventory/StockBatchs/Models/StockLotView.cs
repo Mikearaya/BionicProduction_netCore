@@ -13,6 +13,7 @@ using BionicProduction.Domain.StockBatchs;
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class StockLotView {
         public uint id { get; set; }
+        public uint lotId { get; set; }
         public uint itemId { get; set; }
         public string item { get; set; }
         public uint? manufactureOrderId { get; set; }
@@ -27,21 +28,22 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public DateTime? dateUpdated { get; set; }
         public DateTime? arrivalDate { get; set; }
 
-        public static Expression<Func<StockBatch, StockLotView>> Projection {
+        public static Expression<Func<StockBatchStorage, StockLotView>> Projection {
             get {
                 return lot => new StockLotView () {
                     id = lot.Id,
-                    itemId = lot.ItemId,
-                    item = lot.Item.Name,
-                    manufactureOrderId = lot.ManufactureOrderId,
-                    purchaseOrderId = lot.PurchaseOrderId,
-                    availableFrom = lot.AvailableFrom,
+                    lotId = lot.BatchId,
+                    itemId = lot.Batch.ItemId,
+                    item = lot.Batch.Item.Name,
+                    manufactureOrderId = lot.Batch.ManufactureOrderId,
+                    purchaseOrderId = lot.Batch.PurchaseOrderId,
+                    availableFrom = lot.Batch.AvailableFrom,
                     quantity = lot.Quantity,
-                    unitCost = lot.UnitCost,
-                    status = lot.Status,
-                    source = lot.Source,
-                    expiryDate = lot.ExpiryDate,
-                    arrivalDate = lot.ArrivalDate,
+                    unitCost = lot.Batch.UnitCost,
+                    status = lot.Batch.Status,
+                    source = lot.Batch.Source,
+                    expiryDate = lot.Batch.ExpiryDate,
+                    arrivalDate = lot.Batch.ArrivalDate,
                     dateAdded = lot.DateAdded,
                     dateUpdated = lot.DateUpdated
 
@@ -49,7 +51,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
             }
         }
 
-        public StockLotView create (StockBatch lot) {
+        public StockLotView create (StockBatchStorage lot) {
             return Projection.Compile ().Invoke (lot);
         }
     }

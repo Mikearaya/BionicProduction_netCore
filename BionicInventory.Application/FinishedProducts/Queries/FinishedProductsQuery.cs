@@ -12,6 +12,7 @@ using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Models;
+using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.ProductionOrders;
 using Microsoft.EntityFrameworkCore;
@@ -97,48 +98,31 @@ namespace BionicInventory.Application.FinishedProducts.Queries {
 
         public IEnumerable<StockStatusView> GetStockReport () {
 
-            var stock = _database.Item.GroupJoin (_database.ProductionOrderList, product => product.Id,
-                manufOrder => manufOrder.ItemId,
-                (product, manufactureOrder) => new StockStatusView () {
+            return _database.Item.Include (u => u.PrimaryUom).GroupJoin (_database.StockBatchStorage, product => product.Id,
+                    manufOrder => manufOrder.Batch.ItemId,
+                    (product, manufactureOrder) => new {
 
-                    itemId = product.Id,
+                        item = product,
 
-                        itemCode = product.Code,
+                            lot = manufactureOrder.DefaultIfEmpty (),
 
-                        itemName = product.Name,
+                    }).GroupBy (manuf => manuf.item)
+                .Select (i => new StockStatusView () {
+                    itemName = i.Key.Name,
+                        itemCode = i.Key.Code,
+                        primaryUom = i.Key.PrimaryUom.Abrivation,
+                        itemId = i.Key.Id,
+                        primaryUomId = i.Key.PrimaryUomId,
+                        minimumQuantity = i.Key.MinimumQuantity,
+                        inStock = i.Sum (f => f.lot.Where (l => l.Batch.Status.ToUpper () == "RECIEVED").Sum (q => q.Quantity)),
+                        totalWriteOff = i.Sum (l => l.lot.Sum (w => w.WriteOffDetail.Sum (q => q.Quantity))),
+                        booked = i.Sum (l => l.lot.Where (c => c.Batch.Status.ToUpper () == "RECIEVED").Sum (b => b.BookedStockBatch.Sum (q => q.Quantity))),
+                        expectedBooked = i.Sum (l => l.lot.Where (c => c.Batch.Status.ToUpper () != "RECIEVED").Sum (b => b.BookedStockBatch.Sum (q => q.Quantity))),
+                        totalExpected = i.Sum (l => l.lot.Where (c => c.Batch.Status.ToUpper () != "RECIEVED").Sum (b => b.Quantity)),
 
-                        primaryUomId = product.PrimaryUomId,
-                        minimumQuantity = product.MinimumQuantity,
+                        totalCost = i.Sum (m => m.lot.Sum (r => r.Batch.UnitCost * r.Quantity))
 
-                        averageCost = manufactureOrder.Sum (item => item.CostPerItem) / manufactureOrder.Count (),
-
-                        inStock = manufactureOrder.Sum (MO => MO.FinishedProduct.Where (item => item.ShipmentDetail == null).Count ()),
-
-                        totalCost = manufactureOrder.Sum (MO => MO.CostPerItem * (MO.Quantity - (MO.FinishedProduct.Count (fin => fin.ShipmentDetail != null)))),
-
-                        booked = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => (fin.Order.CustomerOrderItem != null || fin.BookedStockItems != null) && fin.ShipmentDetail == null && fin.OrderId == MO.Id).Count ()),
-
-                        available = manufactureOrder.Sum (MO => MO.FinishedProduct
-                            .Where (fin => fin.Order.CustomerOrderItem == null && fin.ShipmentDetail == null && fin.BookedStockItems == null && fin.OrderId == MO.Id).Count ()),
-
-                        expectedAvailable = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem == null).Sum (MO => MO.Quantity -
-                            MO.FinishedProduct.Count (fin => fin.ShipmentDetail == null)),
-
-                        expectedBooked = (int) manufactureOrder.Where (MO => MO.CustomerOrderItem != null).Sum (MO => MO.Quantity - MO.FinishedProduct
-                            .Count (fin => fin.ShipmentDetail == null)),
-
-                        totalExpected = (int) manufactureOrder.Sum (MO => MO.Quantity - MO.FinishedProduct.Count (fin => (fin.ShipmentDetail == null && fin.BookedStockItems == null) || fin.Order != null))
-                }).GroupBy (manuf => manuf.itemId).ToList ();
-
-            List<StockStatusView> stockStatus = new List<StockStatusView> ();
-            foreach (var item in stock) {
-                foreach (var status in item) {
-                    stockStatus.Add (status);
-
-                }
-            }
-            return stockStatus;
+                }).ToList ();
 
         }
     }

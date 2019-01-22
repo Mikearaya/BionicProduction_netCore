@@ -14,13 +14,20 @@ using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Application.Inventory.StockBatchs.Models {
     public class InventoryView {
-
+        private float _quantity = 0;
         public uint itemId { get; set; }
         public string itemCode { get; set; }
         public string item { get; set; }
         public uint itemGroupId { get; set; }
         public string itemGroup { get; set; }
-        public float quantity { get; set; }
+        public float quantity {
+            get {
+                return _quantity - totalWriteOffs;
+            }
+            set {
+                _quantity = value;
+            }
+        }
         public uint writeOffId { get; set; }
         public float totalCost { get; set; }
         public float averageUnitCost {
@@ -30,7 +37,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
 
         }
 
-        public float? totalWriteOffs { get; set; }
+        public float totalWriteOffs { get; set; }
         public string uom { get; set; }
 
         public DateTime? dateAdded { get; set; }

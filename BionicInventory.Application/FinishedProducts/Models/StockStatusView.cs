@@ -14,28 +14,66 @@ using Microsoft.EntityFrameworkCore;
 namespace BionicInventory.Application.FinishedProducts.Models {
     public class StockStatusView {
 
+        private float _totalWriteOff = 0;
+        private float _quantity = 0;
+        private float _totalCost = 0;
+        private float _inStock = 0;
         public uint itemId { get; set; }
 
         public string itemName { get; set; }
 
         public string itemCode { get; set; }
 
-        public int inStock { get; set; }
-        public int available { get; set; }
+        public float inStock {
+            get {
+                return _inStock;
+            }
+            set {
+                _inStock = value;
+            }
+        }
+        public float available {
+            get {
+                return inStock - booked;
+            }
+        }
 
-        public int booked { get; set; }
+        public float booked { get; set; }
 
-        public int totalExpected { get; set; }
+        public float totalExpected { get; set; }
+        public float totalWriteOff {
+            get {
+                return _totalWriteOff;
+            }
+            set {
+                _totalWriteOff = value;
+            }
+        }
 
-        public int expectedAvailable { get; set; }
+        public float expectedAvailable {
+            get {
+                return totalExpected - expectedBooked;
+            }
+        }
 
-        public int expectedBooked { get; set; }
+        public float expectedBooked { get; set; }
 
         public float? minimumQuantity { get; set; }
         public string primaryUom { get; set; }
         public uint primaryUomId { get; set; }
 
-        public double totalCost { get; set; }
-        public float averageCost { get; set; }
+        public float totalCost {
+            get {
+                return _totalCost;
+            }
+            set {
+                _totalCost = value;
+            }
+        }
+        public float averageCost {
+            get {
+                return (inStock != 0 || totalExpected != 0) ? _totalCost / (inStock + totalExpected) : 0;
+            }
+        }
     }
 }

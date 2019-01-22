@@ -47,24 +47,27 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Commands.Create {
 
             foreach (var data in request.WriteOffBatchs) {
                 var batch = await _database.StockBatchStorage
-                    .Include (b => b.WriteOffDetail)
-                    .AsNoTracking ()
                     .Where (b => b.Id == data.BatchStorageId)
                     .FirstOrDefaultAsync ();
 
                 if (batch == null) {
                     throw new NotFoundException (nameof (StockBatchStorage), data.BatchStorageId);
-                } else if (batch.Quantity - batch.WriteOffDetail.Sum (q => q.Quantity) < data.Quantity) {
+                } else if (batch.Quantity < data.Quantity) {
                     throw new QuantityGreaterThanAvailableException (
                         nameof (WriteOff),
                         data.Quantity,
-                        batch.Quantity - batch.WriteOffDetail.Sum (q => q.Quantity));
+                        batch.Quantity);
                 }
+
+                batch.Quantity = batch.Quantity - data.Quantity;
 
                 newWriteOff.WriteOffDetail.Add (new WriteOffDetail () {
                     BatchStorageId = data.BatchStorageId,
                         Quantity = data.Quantity,
                 });
+                // update storage
+                _database.StockBatchStorage.Update (batch);
+
             }
 
             _database.WriteOff.Add (newWriteOff);

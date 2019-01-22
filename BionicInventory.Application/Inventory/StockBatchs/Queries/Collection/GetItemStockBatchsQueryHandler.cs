@@ -24,8 +24,8 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
         }
 
         public async Task<IEnumerable<StockLotView>> Handle (GetItemStockBatchsQuery request, CancellationToken cancellationToken) {
-            return await _database.StockBatch
-                .Where (lot => lot.ItemId == request.ItemId)
+            return await _database.StockBatchStorage
+                .Where (lot => lot.Batch.ItemId == request.ItemId)
                 .Select (StockLotView.Projection)
                 .ToListAsync ();
         }

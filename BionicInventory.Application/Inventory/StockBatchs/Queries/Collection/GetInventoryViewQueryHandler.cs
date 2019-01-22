@@ -24,19 +24,39 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Queries.Collection {
         }
 
         public async Task<IEnumerable<InventoryView>> Handle (GetInventoryViewQuery request, CancellationToken cancellationToken) {
-            return await _database.Item
-                .GroupJoin (_database.StockBatchStorage
-                    .Where (s => s.Batch.Status.Trim ().ToUpper () == "RECIEVED"),
-                    i => i.Id,
-                    b => b.Batch.ItemId,
-                    (item, batch) => new ItemBatchJoin () {
+            var stock = await _database.Item.GroupJoin (_database.StockBatchStorage, product => product.Id,
+                manufOrder => manufOrder.Batch.ItemId,
+                (product, manufactureOrder) => new InventoryView () {
 
-                        Item = item,
+                    itemId = product.Id,
 
-                    })
-                .Select (InventoryView.Projection)
-                .ToListAsync ();
+                        itemCode = product.Code,
 
+                        item = product.Name,
+                        itemGroup = product.Group.GroupName,
+                        itemGroupId = product.GroupId,
+                        uom = product.PrimaryUom.Abrivation,
+
+                        quantity = manufactureOrder.Where (i => i.Batch.Status.ToUpper () == "RECIEVED").GroupBy (i => i.Batch.ItemId)
+                        .Sum (MO => MO.Sum (f => f.Quantity)),
+                        totalWriteOffs = manufactureOrder.Sum (w => w.WriteOffDetail.GroupBy (t => t.WriteOff.ItemId).Sum (e => e.Sum (q => q.Quantity))),
+                        totalCost = manufactureOrder
+                        .Where (MO => MO.Batch.Status.ToUpper () == "RECIEVED").Sum (MO => MO.Batch.UnitCost *
+                            (MO.Quantity - (MO.WriteOffDetail.GroupBy (m => m.WriteOff.Item).Sum (q => q.Sum (s => s.Quantity))))),
+
+                        dateAdded = product.DateAdded,
+                        dateUpdated = product.DateUpdate
+                }).GroupBy (manuf => manuf.itemId).ToListAsync ();
+
+            List<InventoryView> stockStatus = new List<InventoryView> ();
+            foreach (var item in stock) {
+                foreach (var status in item) {
+                    stockStatus.Add (status);
+
+                }
+            }
+
+            return stockStatus;
         }
     }
 }

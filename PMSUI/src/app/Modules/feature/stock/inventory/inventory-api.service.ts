@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class InventoryApiService {
-  private controller = 'inventory/stock-batchs/count';
+  private controller = 'inventory/stock-lots/count';
   constructor(@Inject('BASE_URL') private apiUrl: string,
     private httpClient: HttpClient) { }
 

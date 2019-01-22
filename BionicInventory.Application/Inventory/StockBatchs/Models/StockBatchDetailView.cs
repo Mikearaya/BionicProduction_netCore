@@ -23,7 +23,7 @@ namespace BionicInventory.Application.Inventory.StockBatchs.Models {
         public uint itemId { get; set; }
         public float quantity {
             get {
-                return _quantity - totalWriteOff;
+                return _quantity;
             }
             set {
                 _quantity = value;
