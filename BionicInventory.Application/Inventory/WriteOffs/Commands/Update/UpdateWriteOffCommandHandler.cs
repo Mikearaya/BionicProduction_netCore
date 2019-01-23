@@ -49,11 +49,11 @@ namespace BionicInventory.Application.Inventory.WriteOffs.Commands.Update {
                     throw new NotFoundException (nameof (StockBatchStorage), data.BatchStorageId);
 
                     // check if there is available stock 
-                } else if (batch.Quantity - batch.WriteOffDetail.Sum (q => q.Quantity) < data.Quantity) {
+                } else if (batch.Quantity < data.Quantity) {
                     throw new QuantityGreaterThanAvailableException (
                         nameof (WriteOff),
                         data.Quantity,
-                        batch.Quantity - batch.WriteOffDetail.Sum (q => q.Quantity));
+                        batch.Quantity);
                 }
 
                 writeOff.WriteOffDetail.Add (new WriteOffDetail () {

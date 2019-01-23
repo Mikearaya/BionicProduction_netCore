@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 4, 2019 11:17 PM
+ * @Last Modified Time: Jan 23, 2019 9:02 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -137,6 +137,27 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
                 }
 
                 await _Mediator.Send (new DeletedWriteOffDto () { Id = id });
+
+                return StatusCode (204);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpDelete ("{id}/detail/")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult> DeleteWriteOffDetail (uint id) {
+
+            try {
+                if (id == 0) {
+                    return StatusCode (400);
+                }
+
+                await _Mediator.Send (new DeleteWriteOffDetailDto () { WriteOffDetailId = id });
 
                 return StatusCode (204);
 
