@@ -19,7 +19,6 @@ export const inventoryColumnBluePrint = [
     humanReadable: 'Item',
     visable: true,
     type: 'string',
-    width: '125',
   },
   {
     key: 'itemGroup',

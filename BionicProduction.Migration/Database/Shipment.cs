@@ -18,8 +18,6 @@ namespace BionicProduction.Migration.Database
         public uint CustomerOrderId { get; set; }
         public DateTime DeliveryDate { get; set; }
 
-        public Employee BookedByNavigation { get; set; }
-        public CustomerOrder CustomerOrder { get; set; }
         public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
     }
 }

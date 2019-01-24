@@ -14,7 +14,6 @@ namespace BionicProduction.Migration.Database
             Invoice = new HashSet<Invoice>();
             InvoicePayments = new HashSet<InvoicePayments>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
-            Shipment = new HashSet<Shipment>();
         }
 
         public uint Id { get; set; }
@@ -30,6 +29,5 @@ namespace BionicProduction.Migration.Database
         public ICollection<Invoice> Invoice { get; set; }
         public ICollection<InvoicePayments> InvoicePayments { get; set; }
         public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<Shipment> Shipment { get; set; }
     }
 }

@@ -28,14 +28,13 @@ export const stockViewColumnBluePrint = [
   },
   {
     key: 'itemName',
-    humanReadable: 'Description',
+    humanReadable: 'Name',
     visable: true,
     type: 'string',
     allowFiltering: true,
     primaryKey: false,
-    allowGrouping: false,
+    allowGrouping: true,
     editable: false,
-    width: '40',
     isIdentity: false,
   },
   {
@@ -47,7 +46,7 @@ export const stockViewColumnBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false,
 
   },
@@ -60,7 +59,7 @@ export const stockViewColumnBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false,
 
   },
@@ -73,7 +72,7 @@ export const stockViewColumnBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false
   },
   {
@@ -85,31 +84,31 @@ export const stockViewColumnBluePrint = [
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false
   },
   {
     key: 'expectedAvailable',
     humanReadable: 'Expected Available',
-    visable: false,
+    visable: true,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false
   },
   {
     key: 'expectedBooked',
     humanReadable: 'Expected Booked',
-    visable: false,
+    visable: true,
     type: 'number',
     allowFiltering: true,
     primaryKey: false,
     allowGrouping: true,
     editable: false,
-    width: '30',
+    width: '40',
     isIdentity: false
   },
   {

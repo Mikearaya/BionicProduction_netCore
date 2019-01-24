@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 6, 2019 1:30 AM
+ * @Last Modified Time: Jan 24, 2019 8:36 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -17,6 +17,7 @@ using BionicInventory.DataStore.Customers.PhoneNumbers;
 using BionicInventory.DataStore.Customers.SocialMedias;
 using BionicInventory.DataStore.Employees;
 using BionicInventory.DataStore.FinishedProducts;
+using BionicInventory.DataStore.Identity;
 using BionicInventory.DataStore.Invoices;
 using BionicInventory.DataStore.Items;
 using BionicInventory.DataStore.Items.BOM;
@@ -43,6 +44,7 @@ using BionicInventory.Domain.Customers.PhoneNumbers;
 using BionicInventory.Domain.Customers.SocialMedias;
 using BionicInventory.Domain.Employees;
 using BionicInventory.Domain.FinishedProducts;
+using BionicInventory.Domain.Identity;
 using BionicInventory.Domain.Invoices;
 using BionicInventory.Domain.Invoices.InvoiceDetails;
 using BionicInventory.Domain.Invoices.InvoicePayment;
@@ -114,6 +116,14 @@ namespace BionicInventory.DataStore {
         public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
         public DbSet<SystemSettings> SystemSettings { get; set; }
 
+        public DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
 
@@ -154,6 +164,13 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
             modelBuilder.ApplyConfiguration (new SystemSettingsConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetUserConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetRoleClaimsConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetRolesConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetUserClaimsConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetUserLoginsConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetUserRolesConfiguration ());
+            modelBuilder.ApplyConfiguration (new AspNetUserTokensConfiguration ());
 
         }
 

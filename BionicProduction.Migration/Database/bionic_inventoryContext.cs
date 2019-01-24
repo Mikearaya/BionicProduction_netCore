@@ -16,6 +16,13 @@ namespace BionicProduction.Migration.Database
         }
 
         public virtual DbSet<Address> Address { get; set; }
+        public virtual DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
         public virtual DbSet<Bom> Bom { get; set; }
         public virtual DbSet<BomItems> BomItems { get; set; }
         public virtual DbSet<BookedStockBatch> BookedStockBatch { get; set; }
@@ -60,7 +67,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306");
             }
         }
 
@@ -104,6 +111,154 @@ namespace BionicProduction.Migration.Database
                     .WithMany(p => p.Address)
                     .HasForeignKey(d => d.ClientId)
                     .HasConstraintName("fk_ADDRESS_client");
+            });
+
+            modelBuilder.Entity<AspNetRoleClaims>(entity =>
+            {
+                entity.HasIndex(e => e.RoleId);
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.ClaimType).HasColumnType("longtext");
+
+                entity.Property(e => e.ClaimValue).HasColumnType("longtext");
+
+                entity.Property(e => e.RoleId)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetRoleClaims)
+                    .HasForeignKey(d => d.RoleId);
+            });
+
+            modelBuilder.Entity<AspNetRoles>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedName)
+                    .HasName("RoleNameIndex")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.ConcurrencyStamp).HasColumnType("longtext");
+
+                entity.Property(e => e.Name).HasColumnType("varchar(256)");
+
+                entity.Property(e => e.NormalizedName).HasColumnType("varchar(256)");
+            });
+
+            modelBuilder.Entity<AspNetUserClaims>(entity =>
+            {
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.Id).HasColumnType("int(11)");
+
+                entity.Property(e => e.ClaimType).HasColumnType("longtext");
+
+                entity.Property(e => e.ClaimValue).HasColumnType("longtext");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserClaims)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserLogins>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+                entity.HasIndex(e => e.UserId);
+
+                entity.Property(e => e.LoginProvider).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.ProviderKey).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.ProviderDisplayName).HasColumnType("longtext");
+
+                entity.Property(e => e.UserId)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserLogins)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserRoles>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+
+                entity.HasIndex(e => e.RoleId);
+
+                entity.Property(e => e.UserId).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.RoleId).HasColumnType("varchar(255)");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.RoleId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUsers>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail)
+                    .HasName("EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName)
+                    .HasName("UserNameIndex")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.AccessFailedCount).HasColumnType("int(11)");
+
+                entity.Property(e => e.ConcurrencyStamp).HasColumnType("longtext");
+
+                entity.Property(e => e.Email).HasColumnType("varchar(256)");
+
+                entity.Property(e => e.EmailConfirmed).HasColumnType("bit(1)");
+
+                entity.Property(e => e.LockoutEnabled).HasColumnType("bit(1)");
+
+                entity.Property(e => e.NormalizedEmail).HasColumnType("varchar(256)");
+
+                entity.Property(e => e.NormalizedUserName).HasColumnType("varchar(256)");
+
+                entity.Property(e => e.PasswordHash).HasColumnType("longtext");
+
+                entity.Property(e => e.PhoneNumber).HasColumnType("longtext");
+
+                entity.Property(e => e.PhoneNumberConfirmed).HasColumnType("bit(1)");
+
+                entity.Property(e => e.SecurityStamp).HasColumnType("longtext");
+
+                entity.Property(e => e.TwoFactorEnabled).HasColumnType("bit(1)");
+
+                entity.Property(e => e.UserName).HasColumnType("varchar(256)");
+            });
+
+            modelBuilder.Entity<AspNetUserTokens>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+                entity.Property(e => e.UserId).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.LoginProvider).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Name).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Value).HasColumnType("longtext");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserTokens)
+                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Bom>(entity =>
@@ -195,7 +350,6 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.Uom)
                     .WithMany(p => p.BomItems)
                     .HasForeignKey(d => d.UomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_BOM_ITEMS_uom");
             });
 
@@ -602,13 +756,11 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.RecievedByNavigation)
                     .WithMany(p => p.FinishedProductRecievedByNavigation)
                     .HasForeignKey(d => d.RecievedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_FINISHED_PRODUCT_recieved_by");
 
                 entity.HasOne(d => d.SubmittedByNavigation)
                     .WithMany(p => p.FinishedProductSubmittedByNavigation)
                     .HasForeignKey(d => d.SubmittedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_FINISHED_PRODUCT_submitter");
             });
 
@@ -876,7 +1028,6 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.DefaultStorage)
                     .WithMany(p => p.Item)
                     .HasForeignKey(d => d.DefaultStorageId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ITEM_storage_location");
 
                 entity.HasOne(d => d.Group)
@@ -887,7 +1038,6 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.PrimaryUom)
                     .WithMany(p => p.Item)
                     .HasForeignKey(d => d.PrimaryUomId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_ITEM_storing_uom");
             });
 
@@ -1030,12 +1180,6 @@ namespace BionicProduction.Migration.Database
                     .WithMany(p => p.ProductionOrderList)
                     .HasForeignKey(d => d.OrderedBy)
                     .HasConstraintName("fk_PRODUCTION_ORDER_ordered_by");
-
-                entity.HasOne(d => d.PurchaseOrder)
-                    .WithOne(p => p.ProductionOrderList)
-                    .HasForeignKey<ProductionOrderList>(d => d.PurchaseOrderId)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("fk_PRODUCTION_ORDER_LIST_sales_id");
             });
 
             modelBuilder.Entity<PurchaseOrder>(entity =>
@@ -1326,18 +1470,6 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.ShipmentNote)
                     .HasColumnName("shipment_note")
                     .HasColumnType("varchar(255)");
-
-                entity.HasOne(d => d.BookedByNavigation)
-                    .WithMany(p => p.Shipment)
-                    .HasForeignKey(d => d.BookedBy)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_SHIPMENT_BOOKER");
-
-                entity.HasOne(d => d.CustomerOrder)
-                    .WithMany(p => p.Shipment)
-                    .HasForeignKey(d => d.CustomerOrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_SHIPMENT_CO_ID");
             });
 
             modelBuilder.Entity<ShipmentDetail>(entity =>
@@ -1392,7 +1524,6 @@ namespace BionicProduction.Migration.Database
                 entity.HasOne(d => d.Stock)
                     .WithOne(p => p.ShipmentDetail)
                     .HasForeignKey<ShipmentDetail>(d => d.StockId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_SHIPMENT_DETAIL_stock");
             });
 

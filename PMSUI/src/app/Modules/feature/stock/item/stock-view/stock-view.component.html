@@ -1,5 +1,5 @@
-<section class="e-card">
-  <ejs-grid #grid id="stock" [dataSource]='dataManager' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing"
+<section >
+  <ejs-grid #grid id="stock" [dataSource]='dataManager' [allowGrouping]="allowGrouping" [allowResizing]="allowResizing" [allowGrouping]='true'
     [allowReordering]="allowReordering" [allowPaging]="pageSettings" [allowExcelExport]="allowExcelExport" [toolbar]='toolbar'
     (toolbarClick)='toolbarClick($event)' [showColumnChooser]="showColumnChooser" [showColumnMenu]="showColumnMenu"
     [filterSettings]='filterSetting' [groupSettings]='groupOptions' [allowFiltering]="true" [allowSorting]="allowSorting"
@@ -10,7 +10,7 @@
         [headerText]='col.humanReadable' [type]="col.type" [format]="col.format" [visible]="col.visable"
         [customAttributes]="customAttributes" >
       </e-column>
-      <e-column [commands]="commands" [customAttributes]="customAttributes" width="25"> </e-column>
+      <e-column [commands]="commands" [customAttributes]="customAttributes" width="50"> </e-column>
     </e-columns>
   </ejs-grid>
 </section>

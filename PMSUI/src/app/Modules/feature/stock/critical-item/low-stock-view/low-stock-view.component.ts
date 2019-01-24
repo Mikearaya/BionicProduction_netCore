@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 15, 2019 11:23 PM
+ * @Last Modified Time: Jan 23, 2019 9:14 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -66,10 +66,9 @@ export class LowStockViewComponent implements OnInit {
 
     this.pageSettings = { pageSize: 6 };
     this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];
-    this.sortSetting = { columns: [{ direction: 'Ascending', field: 'OrderID' }] };
+    this.sortSetting = { columns: [{ direction: 'Ascending'}] };
     this.groupOptions = {
-      showDropArea: false,
-      disablePageWiseAggregates: true
+      showDropArea: true,
     };
     this.editSettings = { allowEditing: true, allowDeleting: true };
 
