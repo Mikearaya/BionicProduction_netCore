@@ -3,11 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 24, 2019 8:36 PM
+ * @Last Modified Time: Jan 25, 2019 9:32 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Models;
+using BionicInventory.Application.Users.Models;
 using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
 using BionicInventory.DataStore.CustomerOrders;
@@ -63,14 +65,13 @@ using BionicInventory.Domain.UnitOfMeasurments;
 using BionicInventory.Domain.Workstations;
 using BionicProduction.Domain.StockBatchs;
 using BionicProduction.Domain.WriteOffs;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
-    public partial class DatabaseService : DbContext, IInventoryDatabaseService {
+    public partial class DatabaseService : IdentityDbContext<ApplicationUser>, IInventoryDatabaseService {
         public DatabaseService () { }
-
-        public DatabaseService (DbContextOptions<DatabaseService> options) : base (options) { }
-
         protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {
                 optionsBuilder.UseMySql ("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;",
@@ -116,13 +117,13 @@ namespace BionicInventory.DataStore {
         public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
         public DbSet<SystemSettings> SystemSettings { get; set; }
 
-        public DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
-        public DbSet<AspNetRoles> AspNetRoles { get; set; }
-        public DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        public DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        public DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public DbSet<AspNetUsers> AspNetUsers { get; set; }
-        public DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public new DbSet<AspNetRoleClaims> RoleClaims { get; set; }
+        public new DbSet<AspNetRoles> Roles { get; set; }
+        public new DbSet<AspNetUserClaims> UserClaims { get; set; }
+        public new DbSet<AspNetUserLogins> UserLogins { get; set; }
+        public new DbSet<AspNetUserRoles> UserRoles { get; set; }
+        public new DbSet<AspNetUsers> Users { get; set; }
+        public new DbSet<AspNetUserTokens> UserTokens { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);

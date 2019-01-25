@@ -14,7 +14,7 @@ namespace BionicInventory.DataStore.Identity {
     public class AspNetUserTokensConfiguration : IEntityTypeConfiguration<AspNetUserTokens> {
         public void Configure (EntityTypeBuilder<AspNetUserTokens> builder) {
 
-            builder.ToTable ("AspNetUserTokens");
+
             builder.HasKey (e => new { e.UserId, e.LoginProvider, e.Name });
 
             builder.Property (e => e.UserId).HasColumnType ("varchar(255)");

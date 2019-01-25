@@ -13,8 +13,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Identity {
     public class AspNetRoleClaimsConfiguration : IEntityTypeConfiguration<AspNetRoleClaims> {
         public void Configure (EntityTypeBuilder<AspNetRoleClaims> builder) {
-
-            builder.ToTable ("AspNetRoleClaims");
             builder.HasIndex (e => e.RoleId);
 
             builder.Property (e => e.Id).HasColumnType ("int(11)");

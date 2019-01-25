@@ -72,12 +72,15 @@ using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
+using BionicInventory.DataStore.Identity;
 using BionicInventory.Domain.Items;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -86,6 +89,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NSwag.AspNetCore;
+using BionicInventory.Application.Models;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -142,6 +146,13 @@ namespace BionicInventory.API {
             services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
 
             // Add MediatR
+            //and this: add identity and create the db
+            services.AddIdentityCore<ApplicationUser> (options => { });
+            new IdentityBuilder (typeof (ApplicationUser), typeof (ApplicationRole), services)
+                .AddRoleManager<RoleManager<ApplicationRole>> ()
+                .AddSignInManager<SignInManager<ApplicationUser>> ()
+                .AddEntityFrameworkStores<DatabaseService> ()
+                .AddDefaultTokenProviders ();
 
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestPreProcessorBehavior<,>));
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (ReuquestPerformaceLogger<,>));
@@ -154,21 +165,22 @@ namespace BionicInventory.API {
                     builder => builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             });
             services.AddMvc (
-                options => {
-                    // Self referencing loop detected for property entity framework solution
-                    options.OutputFormatters.Clear ();
-                    options.OutputFormatters.Add (new JsonOutputFormatter (new JsonSerializerSettings () {
-                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                    }, ArrayPool<char>.Shared));
-                }
-            ).AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ());
+                    options => {
+                        // Self referencing loop detected for property entity framework solution
+                        options.OutputFormatters.Clear ();
+                        options.OutputFormatters.Add (new JsonOutputFormatter (new JsonSerializerSettings () {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                        }, ArrayPool<char>.Shared));
+                    }
+                ).AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ())
+                .SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory) {
 
-            loggerFactory.AddConsole ();
+            // loggerFactory.AddConsole();
 
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
@@ -176,7 +188,7 @@ namespace BionicInventory.API {
             } else {
                 app.UseExceptionHandler ("/Error");
             }
-
+            app.UseAuthentication ();
             app.UseCors ("AllowAllOrigins");
 
             app.UseMvc ();

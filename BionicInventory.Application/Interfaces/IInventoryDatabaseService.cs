@@ -80,13 +80,13 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }
         DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
         DbSet<SystemSettings> SystemSettings { get; set; }
-        DbSet<AspNetRoleClaims> AspNetRoleClaims { get; set; }
-        DbSet<AspNetRoles> AspNetRoles { get; set; }
-        DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
-        DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
-        DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        DbSet<AspNetUsers> AspNetUsers { get; set; }
-        DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        DbSet<AspNetRoleClaims> RoleClaims { get; set; }
+        DbSet<AspNetRoles> Roles { get; set; }
+        DbSet<AspNetUserClaims> UserClaims { get; set; }
+        DbSet<AspNetUserLogins> UserLogins { get; set; }
+        DbSet<AspNetUserRoles> UserRoles { get; set; }
+        DbSet<AspNetUsers> Users { get; set; }
+        DbSet<AspNetUserTokens> UserTokens { get; set; }
 
         void Save ();
         Task SaveAsync ();

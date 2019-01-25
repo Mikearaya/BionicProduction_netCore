@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Identity {
     public class AspNetUserLoginsConfiguration : IEntityTypeConfiguration<AspNetUserLogins> {
         public void Configure (EntityTypeBuilder<AspNetUserLogins> builder) {
-            builder.ToTable ("AspNetUserLogins");
+        
             builder.HasKey (e => new { e.LoginProvider, e.ProviderKey });
 
             builder.HasIndex (e => e.UserId);

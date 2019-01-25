@@ -1,0 +1,30 @@
+/*
+ * @CreateTime: Jan 17, 2019 11:43 AM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Jan 25, 2019 9:31 PM
+ * @Description: Modify Here, Please 
+ */
+using System;
+using System.Linq.Expressions;
+
+namespace BionicInventory.Application.Users.Models {
+    public class UserViewModel {
+        public string userName { get; set; }
+        public string phoneNumber { get; set; }
+        public string id { get; set; }
+
+        public static Expression<Func<ApplicationUser, UserViewModel>> Projection {
+
+            get {
+                return user => new UserViewModel () {
+                    userName = user.UserName,
+                    phoneNumber = user.PhoneNumber,
+                    id = user.Id
+                };
+            }
+
+        }
+    }
+}

@@ -14,8 +14,6 @@ namespace BionicInventory.DataStore.Identity {
     public class AspNetUserConfiguration : IEntityTypeConfiguration<AspNetUsers> {
         public void Configure (EntityTypeBuilder<AspNetUsers> builder) {
 
-            builder.ToTable ("AspNetUsers");
-
             builder.HasIndex (e => e.NormalizedEmail)
                 .HasName ("EmailIndex");
 

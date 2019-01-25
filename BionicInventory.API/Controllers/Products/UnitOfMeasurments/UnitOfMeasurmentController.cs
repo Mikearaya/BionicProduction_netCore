@@ -16,8 +16,8 @@ using BionicInventory.Application.UnitOfMeasurments.Models;
 using BionicInventory.Application.UnitOfMeasurments.Queries;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
     // api/products/uom

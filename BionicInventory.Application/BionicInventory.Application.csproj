@@ -4,10 +4,11 @@
     <ProjectReference Include="..\BionicInventory.Domain\BionicInventory.Domain.csproj"/>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.0"/>
     <PackageReference Include="AutoMapper" Version="7.0.1"/>
     <PackageReference Include="MediatR" Version="5.1.0"/>
     <PackageReference Include="FluentValidation" Version="8.0.101"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0"/>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
