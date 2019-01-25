@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 4, 2018 10:13 AM
+ * @Last Modified Time: Jan 25, 2019 11:46 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -64,6 +64,7 @@ using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
 using BionicInventory.Application.SalesOrders.Queries;
 using BionicInventory.Application.SalesOrders.Queries.Report;
+using BionicInventory.Application.Security.Roles.Models;
 using BionicInventory.Application.Shared.Infrastructure;
 using BionicInventory.Application.Shipments.Commands;
 using BionicInventory.Application.Shipments.Factories;
