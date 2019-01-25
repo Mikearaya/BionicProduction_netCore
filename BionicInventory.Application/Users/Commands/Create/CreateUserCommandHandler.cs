@@ -15,7 +15,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace BionicInventory.Application.Users.Commands.Create {
-    public class CreateUserCommandHandler : IRequestHandler<NewUserModel, string> {
+    public class CreateUserCommandHandler : IRequestHandler<NewUserDto, string> {
         private readonly UserManager<ApplicationUser> _userManager;
 
         public CreateUserCommandHandler (
@@ -24,7 +24,7 @@ namespace BionicInventory.Application.Users.Commands.Create {
             _userManager = userManager;
         }
 
-        public async Task<string> Handle (NewUserModel request, CancellationToken cancellationToken) {
+        public async Task<string> Handle (NewUserDto request, CancellationToken cancellationToken) {
             var userModel = new ApplicationUser () {
                 UserName = request.userName,
                 PasswordHash = request.password,

@@ -11,7 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 
 namespace BionicInventory.Application.Users.Models {
-    public class NewUserModel : IRequest<string> {
+    public class NewUserDto : IRequest<string> {
         [Required]
         public string userName { get; set; }
 

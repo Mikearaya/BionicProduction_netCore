@@ -41,6 +41,7 @@ using BionicInventory.Application.Invoices.InvoicePayment.Factories;
 using BionicInventory.Application.Invoices.InvoicePayment.Interfaces;
 using BionicInventory.Application.Invoices.InvoicePayment.Queries;
 using BionicInventory.Application.Invoices.Queries;
+using BionicInventory.Application.Models;
 using BionicInventory.Application.ProductionOrders.Commands;
 using BionicInventory.Application.ProductionOrders.Factories;
 using BionicInventory.Application.ProductionOrders.Iterfaces;
@@ -68,11 +69,11 @@ using BionicInventory.Application.Shipments.Commands;
 using BionicInventory.Application.Shipments.Factories;
 using BionicInventory.Application.Shipments.Interfaces;
 using BionicInventory.Application.Shipments.Queries;
+using BionicInventory.Application.Users.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
-using BionicInventory.DataStore.Identity;
 using BionicInventory.Domain.Items;
 using MediatR;
 using MediatR.Pipeline;
@@ -89,7 +90,6 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NSwag.AspNetCore;
-using BionicInventory.Application.Models;
 
 namespace BionicInventory.API {
     public class Startup {
@@ -101,6 +101,9 @@ namespace BionicInventory.API {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
+
+            services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
+            services.AddDbContext<DatabaseService> ();
 
             services.AddScoped<ICustomersQuery, CustomersQuery> ();
             services.AddScoped<ICustomersCommand, CustomersCommand> ();
@@ -143,8 +146,6 @@ namespace BionicInventory.API {
             services.AddScoped<IProductGroupCommand, ProductGroupCommand> ();
             services.AddScoped<IProductGroupFactory, ProductGroupFactory> ();
 
-            services.AddScoped<IInventoryDatabaseService, DatabaseService> ();
-
             // Add MediatR
             //and this: add identity and create the db
             services.AddIdentityCore<ApplicationUser> (options => { });
@@ -174,6 +175,25 @@ namespace BionicInventory.API {
                     }
                 ).AddJsonOptions (options => options.SerializerSettings.ContractResolver = new DefaultContractResolver ())
                 .SetCompatibilityVersion (CompatibilityVersion.Version_2_2);
+
+            services.Configure<IdentityOptions> (options => {
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 1;
+                options.Password.RequiredUniqueChars = 0;
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes (5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
 
         }
 
