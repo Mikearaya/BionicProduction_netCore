@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 26, 2019 7:35 PM
+ * @Last Modified Time: Jan 26, 2019 8:50 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Securities.Roles {
-    [InventoryAPI ("security/roles")]
+    [InventoryAPI ("settings/roles")]
     public class RolesController : Controller {
         private readonly IMediator _Mediator;
 

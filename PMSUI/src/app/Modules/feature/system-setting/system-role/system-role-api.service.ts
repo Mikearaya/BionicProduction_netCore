@@ -3,11 +3,9 @@ import { RoleDetailViewModel, RoleListViewModel, SystemRoleModel } from './syste
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SystemRoleApiService {
-  private controller = 'roles';
+  private controller = 'settings/roles';
 
   constructor(@Inject('BASE_URL') private apiUrl: string,
     private httpClient: HttpClient) { }
