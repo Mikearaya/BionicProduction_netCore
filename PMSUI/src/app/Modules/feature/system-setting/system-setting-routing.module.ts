@@ -6,7 +6,8 @@ const routes: Routes = [
   {
     path: '', component: SystemSettingComponent, children: [
       { path: 'users', loadChildren: './employee/employee.module#EmployeeModule' },
-      { path: 'company-profile', loadChildren: './organization-profile/organization-profile.module#OrganizationProfileModule' }
+      { path: 'company-profile', loadChildren: './organization-profile/organization-profile.module#OrganizationProfileModule' },
+      { path: 'roles', loadChildren: './system-role/system-role.module#SystemRoleModule' }
     ]
   }
 ];

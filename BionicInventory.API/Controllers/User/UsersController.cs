@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 25, 2019 9:55 PM
+ * @Last Modified Time: Jan 26, 2019 8:00 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -91,7 +91,7 @@ namespace BionicInventory.API.Controllers.User {
             };
 
             var token = new JwtSecurityToken (_configuration["Jwt:Issuer"],
-                _configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
                 claims,
                 expires : DateTime.Now.AddMinutes (30),
                 signingCredentials : creds);

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 19, 2019 4:59 PM
+ * @Last Modified Time: Jan 26, 2019 7:53 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -36,14 +36,12 @@ namespace BionicInventory.API.Commons {
             }
 
             if (!IsUserAuthenticated (context)) {
-                Console.WriteLine ("Is not authenticated");
                 context.Result = new UnauthorizedResult ();
                 return;
             }
 
             var actionId = GetActionId (context);
             var userName = context.HttpContext.User.Identity.Name;
-            Console.WriteLine ($"User Name {userName}");
             var roles = await (from user in _database.Users join userRole in _database.UserRoles on user.Id equals userRole.UserId join role in _database.Roles on userRole.RoleId equals role.Id where user.UserName == "appdiv8"
                     select role
                 )
@@ -55,9 +53,6 @@ namespace BionicInventory.API.Commons {
                 }
 
                 var accessList = JsonConvert.DeserializeObject<IEnumerable<MvcControllerInfo>> (role.Access);
-
-                //var ids = accessList.SelectMany(c => c.Actions).Select(a => a.Id.Trim().ToLower());
-                //Console.WriteLine($"{ids}");
                 if (accessList.SelectMany (c => c.Actions).Any (a => a.id.Trim ().ToLower () == $"{actionId.Trim().ToLower()}")) {
 
                     return;
