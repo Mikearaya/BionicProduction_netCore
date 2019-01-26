@@ -9,6 +9,7 @@
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.Models;
+using BionicInventory.Application.Security.Roles.Models;
 using BionicInventory.Application.Users.Models;
 using BionicInventory.DataStore.BookedStockItem;
 using BionicInventory.DataStore.Companies;
@@ -70,7 +71,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
-    public partial class DatabaseService : IdentityDbContext<ApplicationUser>, IInventoryDatabaseService {
+    public partial class DatabaseService : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IInventoryDatabaseService {
         public DatabaseService () { }
         protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder) {
             if (!optionsBuilder.IsConfigured) {

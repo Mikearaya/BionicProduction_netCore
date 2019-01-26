@@ -13,11 +13,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Identity {
     public class AspNetRolesConfiguration : IEntityTypeConfiguration<AspNetRoles> {
         public void Configure (EntityTypeBuilder<AspNetRoles> builder) {
-    
+
             builder.HasIndex (e => e.NormalizedName)
                 .HasName ("RoleNameIndex")
                 .IsUnique ();
-
+            builder.Property (e => e.Access).HasColumnType ("text");
             builder.Property (e => e.Id).HasColumnType ("varchar(255)");
 
             builder.Property (e => e.ConcurrencyStamp).HasColumnType ("longtext");

@@ -8,10 +8,11 @@
  */
 namespace BionicInventory.Application.Models {
     public class MvcActionInfo {
-        public string Id => $"{ControllerId}:{Name}";
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-        public string ControllerId { get; set; }
-        public bool Checked { get; set; }
+        public string id => $"{controllerId}{name}";
+        public string name { get; set; }
+        public string displayName { get; set; }
+        public string controllerId { get; set; }
+        public bool selected { get; set; }
+        public string type { get; set; }
     }
 }

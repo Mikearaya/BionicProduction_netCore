@@ -33,6 +33,7 @@ using BionicInventory.Application.FinishedProducts.Commands;
 using BionicInventory.Application.FinishedProducts.Factories;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Queries;
+using BionicInventory.Application.Interfaces;
 using BionicInventory.Application.Invoices.Commands;
 using BionicInventory.Application.Invoices.Factories;
 using BionicInventory.Application.Invoices.Interfaces;
@@ -159,15 +160,19 @@ namespace BionicInventory.API {
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestPreProcessorBehavior<,>));
             services.AddTransient (typeof (IPipelineBehavior<,>), typeof (ReuquestPerformaceLogger<,>));
             // services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestValidationManager<,>));
+
             services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
+
             services.AddSwaggerDocument ();
 
+            services.AddSingleton<ISystemFunctionDiscovery, MvcControllerDiscovery> ();
             services.AddCors (options => {
                 options.AddPolicy ("AllowAllOrigins",
                     builder => builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             });
             services.AddMvc (
                     options => {
+                        options.Filters.Add (typeof (DynamicAuthorizationFilter));
                         // Self referencing loop detected for property entity framework solution
                         options.OutputFormatters.Clear ();
                         options.OutputFormatters.Add (new JsonOutputFormatter (new JsonSerializerSettings () {
