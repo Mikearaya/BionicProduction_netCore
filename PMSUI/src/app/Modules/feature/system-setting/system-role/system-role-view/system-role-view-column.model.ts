@@ -4,7 +4,7 @@ export const systemRoleColumnBluePrint = [
     key: 'id',
     humanReadable: 'ID',
     visable: false,
-    type: 'number',
+    type: 'string',
     width: '40',
   },
   {

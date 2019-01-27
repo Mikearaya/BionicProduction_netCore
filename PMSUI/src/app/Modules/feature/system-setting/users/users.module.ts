@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserViewComponent } from './user-view/user-view.component';
+import { SharedModule } from 'src/app/Modules/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import { UserViewComponent } from './user-view/user-view.component';
   ],
   imports: [
     CommonModule,
+    SharedModule,
     UsersRoutingModule
   ]
 })

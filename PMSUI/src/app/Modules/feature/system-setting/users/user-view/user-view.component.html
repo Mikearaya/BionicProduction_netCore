@@ -1,3 +1,13 @@
-<p>
-  user-view works!
-</p>
+<section>
+  <ejs-grid #grid [dataSource]='data' [editSettings]='editSettings' (dataBound)="dataBound()" [allowExcelExport]="true"
+    [toolbar]='toolbar' [allowPdfExport]="true" [allowPaging]="true" height="300" [showColumnChooser]=true
+    [allowReordering]="true" [allowResizing]="true" [allowFiltering]='true' [allowFiltering]='true' allowTextWrap='true'
+    [textWrapSettings]='wrapSettings' [filterSettings]='filterOptions' rowHeight="30" id="user" (toolbarClick)='toolbarClick($event)'>
+    <e-columns>
+      <e-column [customAttributes]="customAttributes" *ngFor="let col of columnBluePrint" [field]='col.key' [width]="col.width"
+        [visible]="col.visable" [headerText]='col.humanReadable' headerTextAlign="left" [type]="col.type"></e-column>
+      <e-column [commands]="commands" [customAttributes]="customAttributes" width="20"> </e-column>
+    </e-columns>
+  </ejs-grid>
+</section>
+<app-notification #notification></app-notification>
