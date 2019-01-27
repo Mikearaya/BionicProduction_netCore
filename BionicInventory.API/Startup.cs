@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 26, 2019 7:59 PM
+ * @Last Modified Time: Jan 27, 2019 9:49 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -82,11 +82,13 @@ using BionicInventory.Domain.Items;
 using MediatR;
 using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -193,9 +195,18 @@ namespace BionicInventory.API {
                 options.AddPolicy ("AllowAllOrigins",
                     builder => builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             });
+
+            var policy = new AuthorizationPolicyBuilder ()
+                .RequireAuthenticatedUser ()
+                .Build ();
+
             services.AddMvc (
                     options => {
+
+                        options.Filters.Add (new AuthorizeFilter (policy));
+
                         options.Filters.Add (typeof (DynamicAuthorizationFilter));
+
                         // Self referencing loop detected for property entity framework solution
                         options.OutputFormatters.Clear ();
                         options.OutputFormatters.Add (new JsonOutputFormatter (new JsonSerializerSettings () {
@@ -237,6 +248,7 @@ namespace BionicInventory.API {
             } else {
                 app.UseExceptionHandler ("/Error");
             }
+
             app.UseAuthentication ();
             app.UseCors ("AllowAllOrigins");
 

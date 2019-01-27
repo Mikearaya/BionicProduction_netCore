@@ -11,10 +11,11 @@ using BionicInventory.Commons;
 using BionicInventory.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 
 namespace BionicInventory.API.Controllers.Securities.Access {
     [InventoryAPI ("")]
@@ -29,6 +30,7 @@ namespace BionicInventory.API.Controllers.Securities.Access {
         }
 
         [HttpPost ("login")]
+        [AllowAnonymous]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         [ProducesResponseType (400)]

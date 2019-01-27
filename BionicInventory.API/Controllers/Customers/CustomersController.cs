@@ -9,9 +9,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using BionicInventory.Application.Customers.Interfaces;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
+using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Customers;
@@ -20,11 +22,12 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using BionicInventory.Application.Shared.Exceptions;
 
 namespace BionicInventory.API.Controllers.Customers {
 
     [InventoryAPI ("customers")]
+    [DisplayName ("Customers")]
+    [Authorize]
     public class CustomersController : Controller {
         private readonly ICustomersQuery _query;
         private readonly ICustomersCommand _command;
@@ -48,7 +51,11 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpGet]
+        [DisplayName ("View Customers List")]
+        [Authorize]
         [ProducesResponseType (200)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (500)]
         public ActionResult<IEnumerable<CustomerViewModel>> GetAllCustomers () {
 
@@ -58,8 +65,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpGet ("{id}")]
+        [DisplayName ("View Customer Detail")]
+        [Authorize]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public ActionResult<CustomerViewModel> GetCustomer (uint id) {
@@ -78,8 +89,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpPost]
+        [DisplayName ("Create Customer")]
+        [Authorize]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
         public ActionResult<CustomerViewModel> AddNewCustomer ([FromBody] NewCustomerDto data) {
@@ -114,10 +129,13 @@ namespace BionicInventory.API.Controllers.Customers {
 
         }
 
-        [HttpPut]
         [HttpPut ("{id}")]
+        [DisplayName ("Update Customer")]
+        [Authorize]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (422)]
         [ProducesResponseType (500)]
@@ -158,8 +176,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpDelete ("{id}")]
+        [DisplayName ("Delete Customer")]
+        [Authorize]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public ActionResult DeleteSingleCustomer (uint id) {
@@ -189,8 +211,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpDelete ("{customerId}/address/{id}")]
+        [DisplayName ("Delete Customer Address")]
+        [Authorize]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public ActionResult DeleteCustomerAddress (uint customerId, uint id) {
@@ -215,8 +241,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpDelete ("{customerId}/socialMedia/{id}")]
+        [DisplayName ("Delete Customer Social Media")]
+        [Authorize]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public ActionResult DeleteCustomerSocialMediaAddress (uint customerId, uint id) {
@@ -241,8 +271,12 @@ namespace BionicInventory.API.Controllers.Customers {
         }
 
         [HttpDelete ("{customerId}/phonenumber/{id}")]
+        [DisplayName ("Delete Customer Phonenumber")]
+        [Authorize]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
         [ProducesResponseType (404)]
         [ProducesResponseType (500)]
         public ActionResult DeleteCustomerPhoneNumber (uint customerId, uint id) {
