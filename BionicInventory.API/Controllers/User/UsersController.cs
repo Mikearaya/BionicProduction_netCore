@@ -58,6 +58,7 @@ namespace BionicInventory.API.Controllers.User {
         }
 
         [HttpGet]
+        [Authorize]
         [DisplayName ("View Users")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 25, 2019 9:31 PM
+ * @Last Modified Time: Jan 27, 2019 7:26 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -28,6 +28,10 @@ namespace BionicInventory.Application.Users.Models {
                 };
             }
 
+        }
+
+        public static UserViewModel Create (ApplicationUser user) {
+            return Projection.Compile ().Invoke (user);
         }
     }
 }
