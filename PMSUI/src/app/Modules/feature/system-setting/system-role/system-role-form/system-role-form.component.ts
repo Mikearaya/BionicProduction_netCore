@@ -46,7 +46,7 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
 
   onSubmit(): void {
-    ;
+
 
     const role = this.prepareFormData();
     if (role) {
@@ -57,7 +57,7 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
         },
         (error: CustomErrorResponse) => {
           this.notification.showMessage('Unable to create user role, pleace try again later');
-          this.handleError(error)
+          this.handleError(error);
         }
       );
     }

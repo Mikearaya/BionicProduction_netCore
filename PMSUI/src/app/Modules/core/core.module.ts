@@ -44,6 +44,7 @@ import { PurchaseTermApiService } from './services/purchase-terms/purchase-term-
 import { ItemApiService } from './services/item/item-api.service';
 import { ProductGroupApiService } from './services/product-group/product-group-api.service';
 import { StockBatchApiService } from './services/stock-batch/stock-batch-api.service';
+import { UserApiService } from './services/users/user-api.service';
 
 
 
@@ -86,7 +87,8 @@ import { StockBatchApiService } from './services/stock-batch/stock-batch-api.ser
     ProductGroupApiService,
     BomApiService,
     UnitOfMeasurmentApiService,
-    StockBatchApiService
+    StockBatchApiService,
+    UserApiService
   ],
 
 })
