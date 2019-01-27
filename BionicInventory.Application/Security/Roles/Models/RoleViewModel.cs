@@ -14,16 +14,16 @@ using BionicInventory.Application.Models;
 
 namespace BionicInventory.Application.Security.Roles.Models {
     public class RoleViewModel {
-        public string Id { get; set; }
-        public string Name { get; set; }
-        public string Access { get; set; }
+        public string id { get; set; }
+        public string name { get; set; }
+        public string access { get; set; }
 
         public static Expression<Func<ApplicationRole, RoleViewModel>> Projection {
             get {
                 return role => new RoleViewModel () {
-                    Id = role.Id,
-                    Name = role.Name,
-                    Access = role.Access
+                    id = role.Id,
+                    name = role.Name,
+                    access = role.Access
 
                 };
             }

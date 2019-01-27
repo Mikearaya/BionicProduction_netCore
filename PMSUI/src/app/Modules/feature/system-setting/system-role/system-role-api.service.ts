@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { RoleDetailViewModel, RoleListViewModel, SystemRoleModel } from './system-role-data.model';
+import { RoleDetailViewModel, RoleListViewModel, SystemRoleModel, SystemFunctionsModel } from './system-role-data.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -19,6 +19,11 @@ export class SystemRoleApiService {
     return this.httpClient.get<RoleListViewModel[]>(`${this.apiUrl}/${this.controller}`);
   }
 
+
+  getAllSystemFunctions(): Observable<SystemFunctionsModel[]> {
+    return this.httpClient.get<SystemFunctionsModel[]>(`${this.apiUrl}/${this.controller}/list`);
+  }
+
   createSystemRole(newRole: SystemRoleModel): Observable<RoleDetailViewModel> {
     return this.httpClient.post<RoleDetailViewModel>(`${this.apiUrl}/${this.controller}`, newRole);
   }
@@ -29,7 +34,7 @@ export class SystemRoleApiService {
   }
 
   deleteSystemRole(roleId: string): Observable<void> {
-    return this.httpClient.put<void>(`${this.apiUrl}/${this.controller}`, roleId);
+    return this.httpClient.delete<void>(`${this.apiUrl}/${this.controller}/${roleId}`);
   }
 
 }

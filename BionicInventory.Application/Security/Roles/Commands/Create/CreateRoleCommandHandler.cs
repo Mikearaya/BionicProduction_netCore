@@ -24,7 +24,7 @@ namespace BionicInventory.Application.Security.Roles.Commands.Create {
         public async Task<string> Handle (NewRoleDto request, CancellationToken cancellationToken) {
             ApplicationRole role = new ApplicationRole () {
                 Name = request.Name,
-                Access = request.Access
+                Access = request.Access.ToString ()
             };
 
             var result = await _roleManager.CreateAsync (role);

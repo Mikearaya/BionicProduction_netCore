@@ -6,7 +6,9 @@
  * @Last Modified Time: Jan 25, 2019 11:13 PM
  * @Description: Modify Here, Please 
  */
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using BionicInventory.Application.Models;
 using MediatR;
 
 namespace BionicInventory.Application.Security.Roles.Models {

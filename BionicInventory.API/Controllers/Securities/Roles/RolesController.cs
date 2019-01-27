@@ -3,12 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 26, 2019 8:50 PM
+ * @Last Modified Time: Jan 26, 2019 9:21 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using BionicInventory.Application.Interfaces;
+using BionicInventory.Application.Models;
 using BionicInventory.Application.Security.Roles.Models;
 using BionicInventory.Application.Security.Roles.Queries.Collections;
 using BionicInventory.Application.Security.Roles.Queries.Single;
@@ -21,9 +23,12 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
     [InventoryAPI ("settings/roles")]
     public class RolesController : Controller {
         private readonly IMediator _Mediator;
+        private readonly ISystemFunctionDiscovery _system;
 
-        public RolesController (IMediator mediator) {
+        public RolesController (IMediator mediator,
+            ISystemFunctionDiscovery system) {
             _Mediator = mediator;
+            _system = system;
         }
 
         [HttpGet]
@@ -46,6 +51,14 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
             var role = await _Mediator.Send (new GetRoleByIdQuery () { Id = id });
             return StatusCode (200, role);
 
+        }
+
+        [HttpGet ("list")]
+        [AllowAnonymous]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (500)]
+        public ActionResult<IEnumerable<MvcControllerInfo>> GetSystemFunctionsList () {
+            return StatusCode (200, _system.GetFunctions ());
         }
 
         [HttpPost]
