@@ -18,6 +18,8 @@ import { CoreHttpInterceptor } from './Modules/core/core-http-interceptor';
 import { EntryComponent } from './entry/entry.component';
 import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 import { ListViewModule } from '@syncfusion/ej2-angular-lists';
+import { AuthorizationModule } from './Modules/authorization/authorization.module';
+import { AuthrizationGuardGuard } from './authrization-guard.guard';
 
 
 
@@ -33,13 +35,15 @@ import { ListViewModule } from '@syncfusion/ej2-angular-lists';
     HttpClientModule,
     ReactiveFormsModule,
     ToolbarModule,
+    AuthorizationModule,
     AppRoutingModule,
     ListViewModule,
 
   ],
   providers: [
     { provide: 'BASE_URL', useValue: 'http://localhost:5000/api' },
-    { provide: HTTP_INTERCEPTORS, useClass: CoreHttpInterceptor, multi: true }],
+    { provide: HTTP_INTERCEPTORS, useClass: CoreHttpInterceptor, multi: true },
+    AuthrizationGuardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

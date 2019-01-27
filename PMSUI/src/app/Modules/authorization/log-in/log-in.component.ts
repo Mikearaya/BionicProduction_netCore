@@ -1,0 +1,66 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthrizationService } from '../authrization.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
+import { LogInModel } from '../authrization.model';
+
+@Component({
+  selector: 'app-log-in',
+  templateUrl: './log-in.component.html',
+  styleUrls: ['./log-in.component.css']
+})
+export class LogInComponent implements OnInit {
+  logInForm: FormGroup;
+
+  constructor(private formBuilder: FormBuilder,
+    private router: Router,
+    private authorizationService: AuthrizationService) {
+    this.createForm();
+  }
+
+  ngOnInit() {
+  }
+
+  createForm(): void {
+    this.logInForm = this.formBuilder.group({
+      userName: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  get userName(): FormControl {
+    return this.logInForm.get('userName') as FormControl;
+  }
+
+  get password(): FormControl {
+    return this.logInForm.get('password') as FormControl;
+  }
+
+  onSubmit(): void {
+    const logInModel = this.prepareFormData();
+
+    this.authorizationService.login(logInModel).subscribe(
+      (data: any) => {
+        localStorage.setItem('token', data.token);
+        this.router.navigate(['home']);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  prepareFormData(): LogInModel | null {
+
+    if (this.logInForm.valid) {
+      return {
+        userName: this.userName.value,
+        password: this.password.value
+      };
+    } else {
+      return null;
+    }
+  }
+
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthrizationService } from '../Modules/authorization/authrization.service';
 
 @Component({
   selector: 'app-entry',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./entry.component.css']
 })
 export class EntryComponent implements OnInit {
-
-  constructor() { }
+  logOutAlign = 'Right';
+  constructor(private authrizationService: AuthrizationService) { }
 
   ngOnInit() {
   }
 
+  isLogedIn(): boolean {
+    return this.authrizationService.isLoggedIn();
+  }
+  logOut(): void {
+    this.authrizationService.logout();
+  }
 }
