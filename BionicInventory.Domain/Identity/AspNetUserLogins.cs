@@ -8,14 +8,11 @@
  */
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+
 namespace BionicInventory.Domain.Identity {
-    public partial class AspNetUserLogins {
+    public partial class AspNetUserLogins : IdentityUserLogin<string> {
 
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string ProviderDisplayName { get; set; }
-        public string UserId { get; set; }
-
-        public AspNetUsers User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

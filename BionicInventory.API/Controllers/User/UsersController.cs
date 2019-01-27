@@ -19,7 +19,9 @@ using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.Users.Models;
 using BionicInventory.Application.Users.Queries.Collections;
 using BionicInventory.Application.Users.Queries.Single;
+using BionicInventory.API.Commons;
 using BionicInventory.Commons;
+using BionicInventory.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -79,6 +81,14 @@ namespace BionicInventory.API.Controllers.User {
         [ProducesResponseType (500)]
         public async Task<IActionResult> CreateUser ([FromBody] NewUserDto newUser) {
 
+            if (newUser == null) {
+                return StatusCode (400);
+            }
+
+            if (!ModelState.IsValid) {
+                return new InvalidInputResponse (ModelState);
+            }
+
             var result = await _Mediator.Send (newUser);
 
             var user = await _Mediator.Send (new GetUserViewByIdQuery () { Id = result });
@@ -112,6 +122,14 @@ namespace BionicInventory.API.Controllers.User {
         [ProducesResponseType (500)]
         public async Task<IActionResult> UpdateUser ([FromBody] UpdatedUserDto updatedUser) {
             try {
+
+                if (updatedUser == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
                 var asss = await _Mediator.Send (updatedUser);
 
                 return StatusCode (204);

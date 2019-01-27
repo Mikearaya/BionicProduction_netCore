@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SystemRoleApiService } from '../system-role-api.service';
+import { SystemRoleApiService } from '../../services/system-role-api.service';
 import { SystemFunctionsModel, SystemRoleModel, SystemActionsModel, RoleDetailViewModel } from '../system-role-data.model';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';

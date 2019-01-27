@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BionicInventory.DataStore.Identity {
-    public class AspNetRolesConfiguration : IEntityTypeConfiguration<AspNetRoles> {
-        public void Configure (EntityTypeBuilder<AspNetRoles> builder) {
+    public class AspNetRolesConfiguration : IEntityTypeConfiguration<ApplicationRole> {
+        public void Configure (EntityTypeBuilder<ApplicationRole> builder) {
 
             builder.HasIndex (e => e.NormalizedName)
                 .HasName ("RoleNameIndex")

@@ -1,3 +1,31 @@
-<p>
-  user-form works!
-</p>
+<section>
+  <h3></h3>
+  <form id="reactive" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <app-form-options [submitDisabled]="userForm.invalid"></app-form-options>
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-sm-12 col-md-6">
+          <label for="userName">Username</label>
+          <div>
+            <div class="e-input" [ngClass]="{'e-success': userName.valid}">
+              <input type="text" id="userName" name="userName" class="e-input" formControlName="userName">
+            </div>
+            <div class="e-error" *ngIf="userName.errors && userName.touched">
+              <div *ngIf="userName.errors['error']"> Username is required!</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+          <label for="phoneNumber">User Role</label>
+          <div>
+            <ejs-dropdownlist formControlName="roleId" [dataSource]='rolesList' [fields]='roleFields' width='200'>
+            </ejs-dropdownlist>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitDisabled]="userForm.invalid"></app-form-options>
+  </form>
+</section>
+<app-notification #notification> </app-notification>

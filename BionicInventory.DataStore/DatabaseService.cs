@@ -71,118 +71,123 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.DataStore {
-    public partial class DatabaseService : IdentityDbContext<ApplicationUser, ApplicationRole, string>, IInventoryDatabaseService {
-        public DatabaseService () { }
-        protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder) {
-            if (!optionsBuilder.IsConfigured) {
-                optionsBuilder.UseMySql ("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;",
-                    x => x.MigrationsAssembly ("DataStore.Migrations"));
+    public partial class DatabaseService : IdentityDbContext<ApplicationUser, ApplicationRole, string, AspNetUserClaims, 
+                            AspNetUserRoles, AspNetUserLogins, AspNetRoleClaims, AspNetUserTokens>, IInventoryDatabaseService {
+            public DatabaseService () { }
+            public DatabaseService (DbContextOptions<DatabaseService> options) : base (options) {
+                //   DataBase.SetInitializer(new AccountingDatabaseInitializer());
             }
+
+            protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder) {
+                if (!optionsBuilder.IsConfigured) {
+                    optionsBuilder.UseMySql ("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;",
+                        x => x.MigrationsAssembly ("DataStore.Migrations"));
+                }
+            }
+            public DbSet<Address> Address { get; set; }
+            public DbSet<Customer> Customer { get; set; }
+            public DbSet<Employee> Employee { get; set; }
+            public DbSet<Invoice> Invoice { get; set; }
+            public DbSet<Company> Company { get; set; }
+            public DbSet<InvoiceDetail> InvoiceDetail { get; set; }
+            public DbSet<InvoicePayments> InvoicePayments { get; set; }
+            public DbSet<Item> Item { get; set; }
+            public DbSet<PhoneNumber> PhoneNumber { get; set; }
+            public DbSet<ProductionOrderList> ProductionOrderList { get; set; }
+            public DbSet<CustomerOrder> CustomerOrder { get; set; }
+            public DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
+            public DbSet<SocialMedia> SocialMedia { get; set; }
+            public DbSet<FinishedProduct> FinishedProduct { get; set; }
+            public DbSet<ShipmentDetail> ShipmentDetail { get; set; }
+            public DbSet<Shipment> Shipment { get; set; }
+            public DbSet<BookedStockItems> BookedStockItems { get; set; }
+            public DbSet<Bom> Bom { get; set; }
+            public DbSet<BomItems> BomItems { get; set; }
+            public DbSet<ProductGroup> ProductGroup { get; set; }
+            public DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
+            public DbSet<Workstation> WorkStation { get; set; }
+            public DbSet<Routing> Routing { get; set; }
+            public DbSet<RoutingOperation> RoutingDetail { get; set; }
+            public DbSet<RoutingBoms> RoutingBoms { get; set; }
+            public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
+            public DbSet<StorageLocation> StorageLocation { get; set; }
+            public DbSet<WriteOff> WriteOff { get; set; }
+            public DbSet<WriteOffDetail> WriteOffDetail { get; set; }
+            public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
+            public DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+
+            public DbSet<Vendor> Vendor { get; set; }
+            public DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+            public DbSet<StockBatch> StockBatch { get; set; }
+            public DbSet<StockBatchStorage> StockBatchStorage { get; set; }
+            public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
+            public DbSet<SystemSettings> SystemSettings { get; set; }
+
+            public new DbSet<AspNetRoleClaims> RoleClaims { get; set; }
+            public new DbSet<ApplicationRole> Roles { get; set; }
+            public new DbSet<AspNetUserClaims> UserClaims { get; set; }
+            public new DbSet<AspNetUserLogins> UserLogins { get; set; }
+            public new DbSet<AspNetUserRoles> UserRoles { get; set; }
+            public new DbSet<ApplicationUser> Users { get; set; }
+            public new DbSet<AspNetUserTokens> UserTokens { get; set; }
+
+            protected override void OnModelCreating (ModelBuilder modelBuilder) {
+                base.OnModelCreating (modelBuilder);
+
+                modelBuilder.ApplyConfiguration (new ShipmentsConfiguration ());
+                modelBuilder.ApplyConfiguration (new ShipmentDetailsConfiguration ());
+                modelBuilder.ApplyConfiguration (new CompanyConfiguration ());
+                modelBuilder.ApplyConfiguration (new CustomerConfiguration ());
+                modelBuilder.ApplyConfiguration (new EmployeeConfiguration ());
+                modelBuilder.ApplyConfiguration (new ItemConfiguration ());
+                modelBuilder.ApplyConfiguration (new CustomerOrderConfiguration ());
+                modelBuilder.ApplyConfiguration (new CustomerOrderItemConfiguration ());
+                modelBuilder.ApplyConfiguration (new ProductionOrderListConfiguration ());
+                modelBuilder.ApplyConfiguration (new AddressConfiguration ());
+                modelBuilder.ApplyConfiguration (new SocialMediaConfiguration ());
+                modelBuilder.ApplyConfiguration (new PhoneNumberConfiguration ());
+                modelBuilder.ApplyConfiguration (new InvoiceConfiguration ());
+                modelBuilder.ApplyConfiguration (new InvoiceDetailConfiguration ());
+                modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
+                modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
+                modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
+                modelBuilder.ApplyConfiguration (new BillOfMaterialsConfigurations ());
+                modelBuilder.ApplyConfiguration (new ProductGroupsConfigurations ());
+                modelBuilder.ApplyConfiguration (new UnitOfMeasurmentsConfigurations ());
+                modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
+                modelBuilder.ApplyConfiguration (new WorkstationConfiguration ());
+                modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
+                modelBuilder.ApplyConfiguration (new RoutingOperationConfiguration ());
+                modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
+                modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
+                modelBuilder.ApplyConfiguration (new RoutingBomsConfiguration ());
+                modelBuilder.ApplyConfiguration (new VendorConfiguration ());
+                modelBuilder.ApplyConfiguration (new VendorPurchaseTermConfiguration ());
+                modelBuilder.ApplyConfiguration (new WriteOffConfiguration ());
+                modelBuilder.ApplyConfiguration (new WriteOffDetailConfiguration ());
+                modelBuilder.ApplyConfiguration (new StockBatchConfiguration ());
+                modelBuilder.ApplyConfiguration (new StockBatchStorageConfiguration ());
+                modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
+                modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
+                modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
+                modelBuilder.ApplyConfiguration (new SystemSettingsConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetUserConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetRoleClaimsConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetRolesConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetUserClaimsConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetUserLoginsConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetUserRolesConfiguration ());
+                modelBuilder.ApplyConfiguration (new AspNetUserTokensConfiguration ());
+
+            }
+
+            public void Save () {
+                this.SaveChanges ();
+            }
+
+            public Task SaveAsync () {
+                return this.SaveChangesAsync ();
+            }
+
         }
-        public DbSet<Address> Address { get; set; }
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<Employee> Employee { get; set; }
-        public DbSet<Invoice> Invoice { get; set; }
-        public DbSet<Company> Company { get; set; }
-        public DbSet<InvoiceDetail> InvoiceDetail { get; set; }
-        public DbSet<InvoicePayments> InvoicePayments { get; set; }
-        public DbSet<Item> Item { get; set; }
-        public DbSet<PhoneNumber> PhoneNumber { get; set; }
-        public DbSet<ProductionOrderList> ProductionOrderList { get; set; }
-        public DbSet<CustomerOrder> CustomerOrder { get; set; }
-        public DbSet<CustomerOrderItem> CustomerOrderItem { get; set; }
-        public DbSet<SocialMedia> SocialMedia { get; set; }
-        public DbSet<FinishedProduct> FinishedProduct { get; set; }
-        public DbSet<ShipmentDetail> ShipmentDetail { get; set; }
-        public DbSet<Shipment> Shipment { get; set; }
-        public DbSet<BookedStockItems> BookedStockItems { get; set; }
-        public DbSet<Bom> Bom { get; set; }
-        public DbSet<BomItems> BomItems { get; set; }
-        public DbSet<ProductGroup> ProductGroup { get; set; }
-        public DbSet<UnitOfMeasurment> UnitsOfMeasurment { get; set; }
-        public DbSet<Workstation> WorkStation { get; set; }
-        public DbSet<Routing> Routing { get; set; }
-        public DbSet<RoutingOperation> RoutingDetail { get; set; }
-        public DbSet<RoutingBoms> RoutingBoms { get; set; }
-        public DbSet<WorkstationGroup> WorkStationGroup { get; set; }
-        public DbSet<StorageLocation> StorageLocation { get; set; }
-        public DbSet<WriteOff> WriteOff { get; set; }
-        public DbSet<WriteOffDetail> WriteOffDetail { get; set; }
-        public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        public DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
-
-        public DbSet<Vendor> Vendor { get; set; }
-        public DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
-        public DbSet<StockBatch> StockBatch { get; set; }
-        public DbSet<StockBatchStorage> StockBatchStorage { get; set; }
-        public DbSet<BookedStockBatch> BookedStockBatch { get; set; }
-        public DbSet<SystemSettings> SystemSettings { get; set; }
-
-        public new DbSet<AspNetRoleClaims> RoleClaims { get; set; }
-        public new DbSet<AspNetRoles> Roles { get; set; }
-        public new DbSet<AspNetUserClaims> UserClaims { get; set; }
-        public new DbSet<AspNetUserLogins> UserLogins { get; set; }
-        public new DbSet<AspNetUserRoles> UserRoles { get; set; }
-        public new DbSet<AspNetUsers> Users { get; set; }
-        public new DbSet<AspNetUserTokens> UserTokens { get; set; }
-
-        protected override void OnModelCreating (ModelBuilder modelBuilder) {
-            base.OnModelCreating (modelBuilder);
-
-            modelBuilder.ApplyConfiguration (new ShipmentsConfiguration ());
-            modelBuilder.ApplyConfiguration (new ShipmentDetailsConfiguration ());
-            modelBuilder.ApplyConfiguration (new CompanyConfiguration ());
-            modelBuilder.ApplyConfiguration (new CustomerConfiguration ());
-            modelBuilder.ApplyConfiguration (new EmployeeConfiguration ());
-            modelBuilder.ApplyConfiguration (new ItemConfiguration ());
-            modelBuilder.ApplyConfiguration (new CustomerOrderConfiguration ());
-            modelBuilder.ApplyConfiguration (new CustomerOrderItemConfiguration ());
-            modelBuilder.ApplyConfiguration (new ProductionOrderListConfiguration ());
-            modelBuilder.ApplyConfiguration (new AddressConfiguration ());
-            modelBuilder.ApplyConfiguration (new SocialMediaConfiguration ());
-            modelBuilder.ApplyConfiguration (new PhoneNumberConfiguration ());
-            modelBuilder.ApplyConfiguration (new InvoiceConfiguration ());
-            modelBuilder.ApplyConfiguration (new InvoiceDetailConfiguration ());
-            modelBuilder.ApplyConfiguration (new InvoicePaymentsConfiguration ());
-            modelBuilder.ApplyConfiguration (new FinishedProductConfiguration ());
-            modelBuilder.ApplyConfiguration (new BookedStockItemConfiguration ());
-            modelBuilder.ApplyConfiguration (new BillOfMaterialsConfigurations ());
-            modelBuilder.ApplyConfiguration (new ProductGroupsConfigurations ());
-            modelBuilder.ApplyConfiguration (new UnitOfMeasurmentsConfigurations ());
-            modelBuilder.ApplyConfiguration (new BillOfMaterialItemsConfigurations ());
-            modelBuilder.ApplyConfiguration (new WorkstationConfiguration ());
-            modelBuilder.ApplyConfiguration (new RoutingConfiguration ());
-            modelBuilder.ApplyConfiguration (new RoutingOperationConfiguration ());
-            modelBuilder.ApplyConfiguration (new WorkstationGroupConfiguration ());
-            modelBuilder.ApplyConfiguration (new StorageLocationConfiguration ());
-            modelBuilder.ApplyConfiguration (new RoutingBomsConfiguration ());
-            modelBuilder.ApplyConfiguration (new VendorConfiguration ());
-            modelBuilder.ApplyConfiguration (new VendorPurchaseTermConfiguration ());
-            modelBuilder.ApplyConfiguration (new WriteOffConfiguration ());
-            modelBuilder.ApplyConfiguration (new WriteOffDetailConfiguration ());
-            modelBuilder.ApplyConfiguration (new StockBatchConfiguration ());
-            modelBuilder.ApplyConfiguration (new StockBatchStorageConfiguration ());
-            modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
-            modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
-            modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
-            modelBuilder.ApplyConfiguration (new SystemSettingsConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetUserConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetRoleClaimsConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetRolesConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetUserClaimsConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetUserLoginsConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetUserRolesConfiguration ());
-            modelBuilder.ApplyConfiguration (new AspNetUserTokensConfiguration ());
-
-        }
-
-        public void Save () {
-            this.SaveChanges ();
-        }
-
-        public Task SaveAsync () {
-            return this.SaveChangesAsync ();
-        }
-
-    }
 }

@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace BionicInventory.DataStore.Identity {
     public class AspNetUserClaimsConfiguration : IEntityTypeConfiguration<AspNetUserClaims> {
         public void Configure (EntityTypeBuilder<AspNetUserClaims> builder) {
-    
+
             builder.HasIndex (e => e.UserId);
 
             builder.Property (e => e.Id).HasColumnType ("int(11)");

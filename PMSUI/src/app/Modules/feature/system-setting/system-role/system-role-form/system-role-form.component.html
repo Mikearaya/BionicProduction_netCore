@@ -1,13 +1,14 @@
 <section>
+  <div>
+    <button (click)="selectAll()" type="button" ejs-button class="e-primary e-small">Select All</button>
+  </div>
   <form (ngSubmit)="onSubmit()" [formGroup]="userRoleForm">
     <app-form-options [submitDisabled]="userRoleForm.invalid"></app-form-options>
 
     <div class="e-card">
       <label>Role Name</label>
       <input class="e-input" placeholder="Role Name" formControlName="roleName" />
-      <div>
-        <button (click)="selectAll()" ejs-button class="e-primary e-small">Select All</button>
-      </div>
+
       <ul>
         <div *ngFor="let feature of systemFearutes; let i=index;">
           <li>

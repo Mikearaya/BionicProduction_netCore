@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using BionicInventory.Application.Models;
+using BionicInventory.Domain.Identity;
 
 namespace BionicInventory.Application.Security.Roles.Models {
     public class RoleViewModel {

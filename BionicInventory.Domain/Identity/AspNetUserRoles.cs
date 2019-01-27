@@ -8,13 +8,12 @@
  */
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
 
 namespace BionicInventory.Domain.Identity {
-    public partial class AspNetUserRoles {
-        public string UserId { get; set; }
-        public string RoleId { get; set; }
+    public partial class AspNetUserRoles : IdentityUserRole<string> {
 
-        public AspNetRoles Role { get; set; }
-        public AspNetUsers User { get; set; }
+        public ApplicationRole Role { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

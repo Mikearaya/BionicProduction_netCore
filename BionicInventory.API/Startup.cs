@@ -77,6 +77,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
 using BionicInventory.DataStore;
+using BionicInventory.Domain.Identity;
 using BionicInventory.Domain.Items;
 using MediatR;
 using MediatR.Pipeline;
@@ -170,6 +171,7 @@ namespace BionicInventory.API {
                     options.RequireHttpsMetadata = true;
                 });
 
+            services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
             //add identity and create the db
             services.AddIdentityCore<ApplicationUser> (options => { });
             new IdentityBuilder (typeof (ApplicationUser), typeof (ApplicationRole), services)
@@ -183,7 +185,6 @@ namespace BionicInventory.API {
             // services.AddTransient (typeof (IPipelineBehavior<,>), typeof (RequestValidationManager<,>));
 
             // Add MediatR
-            services.AddMediatR (typeof (DeleteProductGroupCommandHandler).GetTypeInfo ().Assembly);
 
             services.AddSwaggerDocument ();
 

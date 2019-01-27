@@ -16,9 +16,6 @@ namespace BionicInventory.Application.Users.Models {
         public string userName { get; set; }
 
         [Required]
-        public string password { get; set; }
-
-        [Required]
-        public string role { get; set; }
+        public string roleId { get; set; }
     }
 }

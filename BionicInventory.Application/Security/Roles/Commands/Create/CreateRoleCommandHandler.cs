@@ -10,6 +10,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using BionicInventory.Application.Security.Roles.Models;
+using BionicInventory.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 

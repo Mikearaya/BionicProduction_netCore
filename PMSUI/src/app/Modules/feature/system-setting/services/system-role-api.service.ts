@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { RoleDetailViewModel, RoleListViewModel, SystemRoleModel, SystemFunctionsModel } from './system-role-data.model';
+import { RoleDetailViewModel, RoleListViewModel, SystemRoleModel, SystemFunctionsModel } from '../system-role/system-role-data.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 

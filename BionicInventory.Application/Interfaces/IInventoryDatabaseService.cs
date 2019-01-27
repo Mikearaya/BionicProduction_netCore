@@ -81,11 +81,11 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
         DbSet<SystemSettings> SystemSettings { get; set; }
         DbSet<AspNetRoleClaims> RoleClaims { get; set; }
-        DbSet<AspNetRoles> Roles { get; set; }
+        DbSet<ApplicationRole> Roles { get; set; }
         DbSet<AspNetUserClaims> UserClaims { get; set; }
         DbSet<AspNetUserLogins> UserLogins { get; set; }
         DbSet<AspNetUserRoles> UserRoles { get; set; }
-        DbSet<AspNetUsers> Users { get; set; }
+        DbSet<ApplicationUser> Users { get; set; }
         DbSet<AspNetUserTokens> UserTokens { get; set; }
 
         void Save ();

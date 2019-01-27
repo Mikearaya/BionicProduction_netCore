@@ -18,7 +18,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { RoleListViewModel } from '../system-role-data.model';
-import { SystemRoleApiService } from '../system-role-api.service';
+import { SystemRoleApiService } from '../../services/system-role-api.service';
 import { systemRoleColumnBluePrint } from './system-role-view-column.model';
 
 @Component({

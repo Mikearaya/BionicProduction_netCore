@@ -8,12 +8,15 @@
  */
 using System;
 using System.Linq.Expressions;
+using BionicInventory.Domain.Identity;
 
 namespace BionicInventory.Application.Users.Models {
     public class UserViewModel {
         public string userName { get; set; }
         public string phoneNumber { get; set; }
         public string id { get; set; }
+        public string role { get; set; }
+        public string roleId { get; set; }
 
         public static Expression<Func<ApplicationUser, UserViewModel>> Projection {
 
@@ -21,7 +24,7 @@ namespace BionicInventory.Application.Users.Models {
                 return user => new UserViewModel () {
                     userName = user.UserName,
                     phoneNumber = user.PhoneNumber,
-                    id = user.Id
+                    id = user.Id,
                 };
             }
 

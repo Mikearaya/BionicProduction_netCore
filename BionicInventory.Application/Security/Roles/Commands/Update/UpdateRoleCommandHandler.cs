@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using BionicInventory.Application.Security.Roles.Models;
 using BionicInventory.Application.Shared.Exceptions;
+using BionicInventory.Domain.Identity;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

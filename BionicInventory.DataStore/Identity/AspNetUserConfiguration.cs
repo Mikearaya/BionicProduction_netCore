@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BionicInventory.DataStore.Identity {
-    public class AspNetUserConfiguration : IEntityTypeConfiguration<AspNetUsers> {
-        public void Configure (EntityTypeBuilder<AspNetUsers> builder) {
+    public class AspNetUserConfiguration : IEntityTypeConfiguration<ApplicationUser> {
+        public void Configure (EntityTypeBuilder<ApplicationUser> builder) {
 
             builder.HasIndex (e => e.NormalizedEmail)
                 .HasName ("EmailIndex");
