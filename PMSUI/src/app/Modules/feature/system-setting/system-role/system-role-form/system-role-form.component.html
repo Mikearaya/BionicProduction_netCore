@@ -8,7 +8,11 @@
     <div class="e-card">
       <label>Role Name</label>
       <input class="e-input" placeholder="Role Name" formControlName="roleName" />
-
+      <div id='treeparent' >
+<ejs-treeview id='treeelement' #rolesTree [showCheckBox]='true'  (nodeClicked)='nodeCheck($event)' (nodeChecked)="nodeChecked($event)"
+  [fields]='field'></ejs-treeview>
+      </div>
+      <!--
       <ul>
         <div *ngFor="let feature of systemFearutes; let i=index;">
           <li>
@@ -28,7 +32,8 @@
         </div>
       </ul>
     </div>
-
+ -->
+    </div>
     <app-form-options [submitDisabled]="userRoleForm.invalid"></app-form-options>
   </form>
 </section>

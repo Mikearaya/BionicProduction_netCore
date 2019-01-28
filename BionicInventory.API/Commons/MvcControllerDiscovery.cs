@@ -38,34 +38,34 @@ namespace BionicInventory.API.Commons {
                 var actionDescriptor = actionDescriptors.First ();
                 var controllerTypeInfo = actionDescriptor.ControllerTypeInfo;
                 var currentController = new MvcControllerInfo {
-                    AreaName = controllerTypeInfo.GetCustomAttribute<AreaAttribute> ()?.RouteValue,
-                    DisplayName =
+                    areaName = controllerTypeInfo.GetCustomAttribute<AreaAttribute> ()?.RouteValue,
+                    displayName =
                     controllerTypeInfo.GetCustomAttribute<DisplayNameAttribute> ()?.DisplayName,
-                    Name = actionDescriptor.ControllerName,
+                    name = actionDescriptor.ControllerName,
                 };
 
                 var actions = new List<MvcActionInfo> ();
                 foreach (var descriptor in actionDescriptors.GroupBy (a => a.ActionName).Select (g => g.First ())) {
                     var methodInfo = descriptor.MethodInfo;
-                   // var r = methodInfo.GetCustomAttribute<HttpPostAttribute> ();
+                    // var r = methodInfo.GetCustomAttribute<HttpPostAttribute> ();
 
                     MvcActionInfo actionInfo = new MvcActionInfo () {
-                    
-                        controllerId = currentController.Id,
+
+                        controllerId = currentController.id,
                         name = descriptor.ActionName,
                         displayName =
                         methodInfo.GetCustomAttribute<DisplayNameAttribute> ()?.DisplayName,
                     };
 
-     /*                if (methodInfo.GetCustomAttribute<HttpPostAttribute> () != null) {
-                        actionInfo.type = "Create";
-                    } else if (methodInfo.GetCustomAttribute<HttpGetAttribute> () != null) {
-                        actionInfo.type = "Read";
-                    } else if (methodInfo.GetCustomAttribute<HttpPutAttribute> () != null) {
-                        actionInfo.type = "Update";
-                    } else if (methodInfo.GetCustomAttribute<HttpDeleteAttribute> () != null) {
-                        actionInfo.type = "Delete";
-                    } */
+                    /*                if (methodInfo.GetCustomAttribute<HttpPostAttribute> () != null) {
+                                       actionInfo.type = "Create";
+                                   } else if (methodInfo.GetCustomAttribute<HttpGetAttribute> () != null) {
+                                       actionInfo.type = "Read";
+                                   } else if (methodInfo.GetCustomAttribute<HttpPutAttribute> () != null) {
+                                       actionInfo.type = "Update";
+                                   } else if (methodInfo.GetCustomAttribute<HttpDeleteAttribute> () != null) {
+                                       actionInfo.type = "Delete";
+                                   } */
                     actions.Add (actionInfo);
 
                 }

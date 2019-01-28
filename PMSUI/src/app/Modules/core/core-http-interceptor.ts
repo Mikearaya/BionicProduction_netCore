@@ -11,18 +11,27 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError, retry, debounceTime } from 'rxjs/operators';
 import { CustomErrorResponse } from './DataModels/system-data-models';
+import { AuthrizationService } from '../authorization/authrization.service';
 
 @Injectable()
 export class CoreHttpInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    return next.handle(req).pipe(
-      debounceTime(1000),
-      retry(3),
+  constructor(private authorizationService: AuthrizationService) {
+
+  }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const modifiedRequest = req.clone({
+      setHeaders: {
+        'Authorization': `Bearer ${this.authorizationService.getToken()}`,
+      }
+    });
+
+    return next.handle(modifiedRequest).pipe(
+      // debounceTime(1000),
+      // retry(3),
       tap(event => {
         if (event.type === HttpEventType.Response) {
           catchError(this.handleError);
-
         }
 
       })

@@ -50,8 +50,8 @@ namespace BionicInventory.API.Commons {
                     continue;
                 }
 
-                var accessList = JsonConvert.DeserializeObject<IEnumerable<MvcControllerInfo>> (role.Access);
-                if (accessList.SelectMany (c => c.Actions).Any (a => a.id.Trim ().ToLower () == $"{actionId.Trim().ToLower()}")) {
+                var accessList = JsonConvert.DeserializeObject<IEnumerable<string>> (role.Access);
+                if (accessList.Any (c => c.Trim ().ToLower() == $"{actionId.Trim().ToLower()}")) {
 
                     return;
                 }
@@ -66,18 +66,17 @@ namespace BionicInventory.API.Commons {
 
             if (context.Filters.Any (item => item is IAllowAnonymousFilter))
                 return false;
-/* 
-            var controllerTypeInfo = controllerActionDescriptor.ControllerTypeInfo;
-            var actionMethodInfo = controllerActionDescriptor.MethodInfo;
-            var authorizeAttribute = controllerTypeInfo.GetCustomAttribute<AuthorizeAttribute> ();
-            if (authorizeAttribute != null)
-                return true;
+            /* 
+                        var controllerTypeInfo = controllerActionDescriptor.ControllerTypeInfo;
+                        var actionMethodInfo = controllerActionDescriptor.MethodInfo;
+                        var authorizeAttribute = controllerTypeInfo.GetCustomAttribute<AuthorizeAttribute> ();
+                        if (authorizeAttribute != null)
+                            return true;
 
-            authorizeAttribute = actionMethodInfo.GetCustomAttribute<AuthorizeAttribute> ();
-            if (authorizeAttribute != null) */
-                return true;
+                        authorizeAttribute = actionMethodInfo.GetCustomAttribute<AuthorizeAttribute> ();
+                        if (authorizeAttribute != null) */
+            return true;
 
-            
         }
 
         private bool IsUserAuthenticated (AuthorizationFilterContext context) {
@@ -92,7 +91,7 @@ namespace BionicInventory.API.Commons {
             var controller = controllerActionDescriptor.ControllerName;
             var action = controllerActionDescriptor.ActionName;
 
-            return $":{controller}{action}";
+            return $"{controller}{action}";
         }
     }
 }

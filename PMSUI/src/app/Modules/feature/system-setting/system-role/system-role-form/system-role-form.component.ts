@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { NodeKeyPressEventArgs, NodeClickEventArgs } from '@syncfusion/ej2-angular-navigations';
 
 @Component({
   selector: 'app-system-role-form',
@@ -15,23 +17,36 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   @ViewChild('notification')
   public notification: NotificationComponent;
+  @ViewChild('rolesTree')
+  rolesTree: TreeViewComponent;
+
   public allSelected: Boolean;
   public userRoleForm: FormGroup;
   public systemFearutes: SystemFunctionsModel[] = [];
   public selectedFeatures: SystemFunctionsModel[] = [];
+  public field: { dataSource: Object[], id: string, text: string, child: string };
+
+
   constructor(private roleApi: SystemRoleApiService,
     private formBuilder: FormBuilder) {
     super();
+
     this.createForm();
   }
 
   ngOnInit() {
-
+    this.rolesTree.sortOrder = 'Ascending';
+    this.rolesTree.expandOn = 'Click';
 
     this.roleApi.getAllSystemFunctions().subscribe(
-      (data: SystemFunctionsModel[]) => this.systemFearutes = data,
+      (data: SystemFunctionsModel[]) => this.field = { dataSource: data, id: 'id', text: 'name', child: 'Actions' },
       this.handleError
     );
+
+  }
+  public nodeChecked(args): void {
+    console.log(`The checked node's id is:  + ${this.rolesTree.checkedNodes}`);
+
   }
 
   createForm(): void {
@@ -64,13 +79,33 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
   }
 
   selectAll(): void {
-    this.allSelected = !this.allSelected;
+    /*  ;
     this.systemFearutes.forEach(element => {
       this.featureChecked(element, this.allSelected);
-    });
+    }); */
+
+    this.allSelected = !this.allSelected;
+    if (this.allSelected) {
+      this.rolesTree.expandAll();
+      this.rolesTree.checkAll();
+    } else {
+      this.rolesTree.uncheckAll();
+      this.rolesTree.collapseAll();
+    }
+
   }
 
-
+  public nodeCheck(args: NodeKeyPressEventArgs | NodeClickEventArgs): void {
+    const checkedNode: any = [args.node];
+    if (args.event.target['classList'].contains('e-fullrow') || args.event['key'] === 'Enter') {
+      const getNodeDetails: any = this.rolesTree.getNode(args.node);
+      if (getNodeDetails.isChecked === 'true') {
+        this.rolesTree.uncheckAll(checkedNode);
+      } else {
+        this.rolesTree.checkAll(checkedNode);
+      }
+    }
+  }
   featureChecked(feature: SystemFunctionsModel, active): void {
     const currentFeature = this.systemFearutes[this.systemFearutes.indexOf(feature)];
 
@@ -109,7 +144,7 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
         actions.push(feature);
       });
-      roleModel.access = JSON.stringify(actions);
+      roleModel.access = JSON.stringify(this.rolesTree.checkedNodes);
       return roleModel;
     } else {
       return null;

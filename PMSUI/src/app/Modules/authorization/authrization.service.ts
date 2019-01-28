@@ -28,4 +28,8 @@ export class AuthrizationService {
   isLoggedIn(): boolean {
     return !!localStorage.getItem('token');
   }
+
+  getToken(): string {
+    return localStorage.getItem('token');
+  }
 }

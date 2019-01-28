@@ -10,10 +10,10 @@ using System.Collections.Generic;
 
 namespace BionicInventory.Application.Models {
     public class MvcControllerInfo {
-        public string Id => $"{AreaName}{Name}";
-        public string Name { get; set; }
-        public string DisplayName { get; set; }
-        public string AreaName { get; set; }
+        public string id => $"{areaName}{name}";
+        public string name { get; set; }
+        public string displayName { get; set; }
+        public string areaName { get; set; }
         public IEnumerable<MvcActionInfo> Actions { get; set; }
 
         public bool Checked { get; set; }

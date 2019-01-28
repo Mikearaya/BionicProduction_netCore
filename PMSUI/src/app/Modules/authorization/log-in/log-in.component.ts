@@ -4,18 +4,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LogInModel } from '../authrization.model';
+import { CommonProperties } from '../../core/DataModels/common-properties.class';
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
-export class LogInComponent implements OnInit {
-  logInForm: FormGroup;
+export class LogInComponent extends CommonProperties implements OnInit {
+  public logInForm: FormGroup;
+  public errorMessage: string;
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
     private authorizationService: AuthrizationService) {
+    super();
     this.createForm();
   }
 
@@ -45,8 +48,8 @@ export class LogInComponent implements OnInit {
         localStorage.setItem('token', data.token);
         this.router.navigate(['home']);
       },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
+      (error) => {
+        this.errorMessage = 'Invalid username or password';
       }
     );
   }
