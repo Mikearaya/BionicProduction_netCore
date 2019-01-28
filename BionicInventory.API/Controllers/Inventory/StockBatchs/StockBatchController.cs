@@ -19,10 +19,12 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
     [InventoryAPI ("inventory/stock-lots")]
+    [DisplayName("Stock lot")]
     public class StockBatchController : Controller {
         private readonly IMediator _Mediator;
 
@@ -32,6 +34,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
         // api/inventory/stock-lots
         [HttpGet]
+        [DisplayName("View stock lots list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<StockBatchListView>>> GetAllStockBatchs () {
@@ -44,6 +47,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
         // api/inventory/stock-lots/2
         [HttpGet ("{id}")]
+        [DisplayName("View stock lot detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -66,6 +70,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
         // api/inventory/stock-lots/items/2
         [HttpGet ("items/{itemId}")]
+        [AllowAnonymous]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (500)]
@@ -86,6 +91,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
 
         // api/inventory/stock-lots/items/2
         [HttpGet ("{lotId}/storages")]
+        [AllowAnonymous]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (500)]
@@ -110,6 +116,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         /// <returns></returns>
         ///  api/inventory/stock-lots/count
         [HttpGet ("count")]
+        [DisplayName("View inventory report")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (500)]
@@ -132,6 +139,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         /// <returns></returns>
         ///   api/inventory/stock-lots
         [HttpPost]
+        [DisplayName("Create new stock lot")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -174,6 +182,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         /// <returns></returns>
         ///   api/inventory/stock-lots/2
         [HttpPut ("{id}")]
+        [DisplayName("Update stock lot")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -207,7 +216,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         /// <returns></returns>
         ///   api/inventory/stock-lots/count
         [HttpDelete ("{id}")]
-        [DisplayName ("Delete Lot")]
+        [DisplayName ("Delete stock lot")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -228,7 +237,7 @@ namespace BionicInventory.API.Controllers.Inventory.StockBatchs {
         }
 
         [HttpPost ("movements")]
-        [DisplayName ("Create Lot Movement")]
+        [DisplayName ("Movement Stock lot")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

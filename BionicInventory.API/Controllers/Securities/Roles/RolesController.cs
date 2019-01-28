@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Securities.Roles {
     [InventoryAPI ("settings/roles")]
+    [DisplayName ("User Role")]
     public class RolesController : Controller {
         private readonly IMediator _Mediator;
         private readonly ISystemFunctionDiscovery _system;
@@ -32,8 +33,7 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        [DisplayName ("View System Role")]
+        [DisplayName ("View system roles list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<RoleViewModel>>> GetAllUserRoles () {
@@ -43,8 +43,7 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
         }
 
         [HttpGet ("{id}")]
-        [AllowAnonymous]
-        [DisplayName ("View System Role")]
+        [DisplayName ("View system role detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<RoleViewModel>> GetRoleById (string id) {
@@ -62,7 +61,7 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
         }
 
         [HttpPost]
-        [DisplayName ("Create Role")]
+        [DisplayName ("Create role")]
         [ProducesResponseType (201)]
         [ProducesResponseType (422)]
         [ProducesResponseType (400)]
@@ -84,7 +83,7 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
         }
 
         [HttpPut ("{id}")]
-        [DisplayName ("Delete Role")]
+        [DisplayName ("Update role")]
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (400)]
@@ -104,7 +103,7 @@ namespace BionicInventory.API.Controllers.Securities.Roles {
         }
 
         [HttpDelete ("{id}")]
-        [DisplayName ("Delete Role")]
+        [DisplayName ("Delete role")]
         [ProducesResponseType (204)]
         [ProducesResponseType (422)]
         [ProducesResponseType (400)]

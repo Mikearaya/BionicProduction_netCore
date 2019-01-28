@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace BionicInventory.Application.Models {
     public class MvcControllerInfo {
-        public string Id => $"{AreaName}:{Name}";
+        public string Id => $"{AreaName}{Name}";
         public string Name { get; set; }
         public string DisplayName { get; set; }
         public string AreaName { get; set; }

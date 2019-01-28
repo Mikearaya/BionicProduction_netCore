@@ -42,9 +42,7 @@ namespace BionicInventory.API.Commons {
 
             var actionId = GetActionId (context);
             var userName = context.HttpContext.User.Identity.Name;
-            var roles = await (from user in _database.Users join userRole in _database.UserRoles on user.Id equals userRole.UserId join role in _database.Roles on userRole.RoleId equals role.Id where user.UserName == "appdiv8"
-                    select role
-                )
+            var roles = await (from user in _database.Users join userRole in _database.UserRoles on user.Id equals userRole.UserId join role in _database.Roles on userRole.RoleId equals role.Id where user.UserName == userName select role)
                 .ToListAsync ();
 
             foreach (var role in roles) {
@@ -63,22 +61,23 @@ namespace BionicInventory.API.Commons {
         }
 
         private bool IsProtectedAction (AuthorizationFilterContext context) {
-            if (context.Filters.Any (item => item is IAllowAnonymousFilter))
-                return false;
 
             var controllerActionDescriptor = (ControllerActionDescriptor) context.ActionDescriptor;
+
+            if (context.Filters.Any (item => item is IAllowAnonymousFilter))
+                return false;
+/* 
             var controllerTypeInfo = controllerActionDescriptor.ControllerTypeInfo;
             var actionMethodInfo = controllerActionDescriptor.MethodInfo;
-
             var authorizeAttribute = controllerTypeInfo.GetCustomAttribute<AuthorizeAttribute> ();
             if (authorizeAttribute != null)
                 return true;
 
             authorizeAttribute = actionMethodInfo.GetCustomAttribute<AuthorizeAttribute> ();
-            if (authorizeAttribute != null)
+            if (authorizeAttribute != null) */
                 return true;
 
-            return false;
+            
         }
 
         private bool IsUserAuthenticated (AuthorizationFilterContext context) {
@@ -93,7 +92,7 @@ namespace BionicInventory.API.Commons {
             var controller = controllerActionDescriptor.ControllerName;
             var action = controllerActionDescriptor.ActionName;
 
-            return $"{controller}:{action}";
+            return $":{controller}{action}";
         }
     }
 }

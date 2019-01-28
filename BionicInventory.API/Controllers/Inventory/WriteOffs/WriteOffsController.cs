@@ -17,6 +17,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 
 namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
     /// <summary>
@@ -24,6 +25,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
     /// </summary>
     /// 
     [InventoryAPI ("inventory/write-offs")]
+    [DisplayName("Write-off")]
     public class WriteOffsController : Controller {
         private readonly IMediator _Mediator;
 
@@ -36,6 +38,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [DisplayName("View write-offs list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<WriteOffListView>>> GetWriteOffItemsList () {
@@ -46,6 +49,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         }
 
         [HttpGet ("{id}")]
+        [DisplayName("View write-off detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -67,6 +71,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         }
 
         [HttpPost]
+        [DisplayName("Create stock write-off")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -100,6 +105,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         }
 
         [HttpPut ("{id}")]
+        [DisplayName("Update write-off")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -125,6 +131,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         }
 
         [HttpDelete ("{id}")]
+        [DisplayName("Delete write-off")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -146,6 +153,7 @@ namespace BionicInventory.API.Controllers.Inventory.WriteOffs {
         }
 
         [HttpDelete ("{id}/detail/")]
+        [DisplayName("Delete write-off detail")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

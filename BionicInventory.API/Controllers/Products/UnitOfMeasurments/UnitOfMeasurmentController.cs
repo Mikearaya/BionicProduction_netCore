@@ -7,6 +7,7 @@
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.UnitOfMeasurments.Commands.Create;
@@ -16,12 +17,13 @@ using BionicInventory.Application.UnitOfMeasurments.Models;
 using BionicInventory.Application.UnitOfMeasurments.Queries;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
-using Microsoft.AspNetCore.Mvc;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
     // api/products/uom
     [InventoryAPI ("products/uom")]
+    [DisplayName ("Unit of measurment")]
     public class UnitOfMeasurmentController : Controller {
         private readonly IMediator _Mediator;
 
@@ -31,6 +33,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
 
         // api/products/uom/
         [HttpGet]
+        [DisplayName ("View unit of measurments list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<UnitOfMeasurmentView>>> GetAllUnitOfMeasurments () {
@@ -43,6 +46,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
 
         // api/products/uom/1
         [HttpGet ("{id}")]
+        [DisplayName ("View unit of measurment detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -62,6 +66,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
 
         // api/products/uom
         [HttpPost]
+        [DisplayName ("Create unit of measurment")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
@@ -84,6 +89,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
 
         // api/products/uom/1
         [HttpPut ("{id}")]
+        [DisplayName ("Update unit of measurment")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (400)]
@@ -112,6 +118,7 @@ namespace BionicInventory.API.Controllers.Products.UnitOfMeasurments {
 
         // api/products/uom/1
         [HttpDelete ("{id}")]
+        [DisplayName ("Delete unit of measurment")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

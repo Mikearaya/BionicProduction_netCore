@@ -7,6 +7,7 @@
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.StorageLocations.Commands.Create;
@@ -23,6 +24,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BionicInventory.API.Controllers.StorageLocations {
 
     [InventoryAPI ("storages")]
+    [DisplayName ("Storage location")]
     public class StorageLocationsController : Controller {
         private readonly IMediator _Mediator;
 
@@ -32,6 +34,7 @@ namespace BionicInventory.API.Controllers.StorageLocations {
 
         // api/storages
         [HttpGet]
+        [DisplayName ("View storage locations list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<StorageLocationView>>> GetAllStorageLocations () {
@@ -43,6 +46,7 @@ namespace BionicInventory.API.Controllers.StorageLocations {
 
         // api/storages/1
         [HttpGet ("{id}")]
+        [DisplayName ("View storage location detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -60,6 +64,7 @@ namespace BionicInventory.API.Controllers.StorageLocations {
 
         // api/storages
         [HttpPost]
+        [DisplayName ("Create storage location")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
@@ -81,6 +86,7 @@ namespace BionicInventory.API.Controllers.StorageLocations {
 
         // api/storages/1
         [HttpPut ("{id}")]
+        [DisplayName ("Update storage location")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -107,6 +113,7 @@ namespace BionicInventory.API.Controllers.StorageLocations {
 
         // api/storages/1
         [HttpDelete ("{id}")]
+        [DisplayName ("Delete storage location")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]

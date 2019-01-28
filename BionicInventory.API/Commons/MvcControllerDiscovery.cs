@@ -47,9 +47,10 @@ namespace BionicInventory.API.Commons {
                 var actions = new List<MvcActionInfo> ();
                 foreach (var descriptor in actionDescriptors.GroupBy (a => a.ActionName).Select (g => g.First ())) {
                     var methodInfo = descriptor.MethodInfo;
-                    var r = methodInfo.GetCustomAttribute<HttpPostAttribute> ();
+                   // var r = methodInfo.GetCustomAttribute<HttpPostAttribute> ();
 
                     MvcActionInfo actionInfo = new MvcActionInfo () {
+                    
                         controllerId = currentController.Id,
                         name = descriptor.ActionName,
                         displayName =

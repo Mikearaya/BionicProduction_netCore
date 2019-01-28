@@ -8,6 +8,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.Workstations.Commands.Create;
@@ -24,6 +25,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace BionicInventory.API.Controllers.Workstations {
 
     [InventoryAPI ("productions/workstations")]
+    [DisplayName ("Work Station")]
     public class WorkstationsController : Controller {
         private readonly IMediator _Mediator;
 
@@ -33,6 +35,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations
         [HttpGet]
+        [DisplayName ("View work station group list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<WorkstationGroupView>>> GetAllWorkstationGroups () {
@@ -44,6 +47,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/1
         [HttpGet ("{id}")]
+        [DisplayName ("View work station group detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -72,6 +76,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/stations
         [HttpGet ("stations")]
+        [DisplayName ("View work stations list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
         public async Task<ActionResult<IEnumerable<WorkstationView>>> GetWorkstation () {
@@ -83,6 +88,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/stations/13
         [HttpGet ("stations/{id}")]
+        [DisplayName ("View work station detail")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -105,6 +111,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations
         [HttpPost]
+        [DisplayName ("Create work station group")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
@@ -126,6 +133,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/1
         [HttpPut ("{id}")]
+        [DisplayName ("Update work station group")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -154,6 +162,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/1
         [HttpDelete ("{id}")]
+        [DisplayName ("Delete work station group")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -177,6 +186,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/1/stations
         [HttpPost ("{id}/stations")]
+        [DisplayName ("Create work station")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (422)]
@@ -204,6 +214,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/workstations/1/stations/13
         [HttpPut ("{id}/stations/{stationId}")]
+        [DisplayName ("Update work station")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -232,6 +243,7 @@ namespace BionicInventory.API.Controllers.Workstations {
 
         // api/productions/1/stations/13
         [HttpDelete ("stations/{stationId}")]
+        [DisplayName ("Delete work station")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -239,7 +251,7 @@ namespace BionicInventory.API.Controllers.Workstations {
         public async Task<ActionResult> DeleteWorkstation (uint stationId) {
 
             try {
-                if ( stationId == 0) {
+                if (stationId == 0) {
                     return StatusCode (400);
                 }
 

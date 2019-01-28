@@ -196,15 +196,12 @@ namespace BionicInventory.API {
                     builder => builder.AllowAnyOrigin ().AllowAnyMethod ().AllowAnyHeader ());
             });
 
-            var policy = new AuthorizationPolicyBuilder ()
-                .RequireAuthenticatedUser ()
-                .Build ();
-
             services.AddMvc (
                     options => {
-
+                        var policy = new AuthorizationPolicyBuilder ()
+                            .RequireAuthenticatedUser ()
+                            .Build ();
                         options.Filters.Add (new AuthorizeFilter (policy));
-
                         options.Filters.Add (typeof (DynamicAuthorizationFilter));
 
                         // Self referencing loop detected for property entity framework solution
