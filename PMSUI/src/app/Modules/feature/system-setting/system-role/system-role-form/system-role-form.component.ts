@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { SystemRoleApiService } from '../../services/system-role-api.service';
 import { SystemFunctionsModel, SystemRoleModel, SystemActionsModel, RoleDetailViewModel } from '../system-role-data.model';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -6,7 +7,8 @@ import { NotificationComponent } from 'src/app/Modules/shared/notification/notif
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
-import { NodeKeyPressEventArgs, NodeClickEventArgs } from '@syncfusion/ej2-angular-navigations';
+import { NodeClickEventArgs } from '@syncfusion/ej2-angular-navigations';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-system-role-form',
@@ -22,13 +24,20 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   public allSelected: Boolean;
   public userRoleForm: FormGroup;
+  private roleId: string;
+  public title: string;
+  public isUpdate: Boolean;
+
   public systemFearutes: SystemFunctionsModel[] = [];
   public selectedFeatures: SystemFunctionsModel[] = [];
   public field: { dataSource: Object[], id: string, text: string, child: string };
 
 
   constructor(private roleApi: SystemRoleApiService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private location: Location) {
     super();
 
     this.createForm();
@@ -36,7 +45,22 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   ngOnInit() {
     this.rolesTree.sortOrder = 'Ascending';
-    this.rolesTree.expandOn = 'Click';
+    this.rolesTree.expandAll();
+
+    this.roleId = this.activatedRoute.snapshot.paramMap.get('roleId');
+
+    if (this.roleId) {
+      this.isUpdate = true;
+      this.roleApi.getSystemRoleById(this.roleId).subscribe(
+        (data: RoleDetailViewModel) => {
+          this.roleName.setValue(data.name);
+
+          this.rolesTree.checkedNodes = JSON.parse(data.access);
+          this.rolesTree.refresh();
+          console.log(this.rolesTree.checkedNodes);
+        }
+      );
+    }
 
     this.roleApi.getAllSystemFunctions().subscribe(
       (data: SystemFunctionsModel[]) => this.field = { dataSource: data, id: 'id', text: 'name', child: 'Actions' },
@@ -49,6 +73,17 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   }
 
+  deleteRole(): void {
+    this.roleApi.deleteSystemRole(this.roleId).subscribe(
+      () => {
+        this.notification.showMessage('Role deleted successfuly');
+        this.location.back();
+      },
+      (error: CustomErrorResponse) => {
+        this.notification.showMessage('Failed while attempting to delete system role, Try again later!', 'error');
+      }
+    );
+  }
   createForm(): void {
     this.userRoleForm = this.formBuilder.group({
       roleName: ['', Validators.required],
@@ -65,16 +100,31 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
     const role = this.prepareFormData();
     if (role) {
-      this.roleApi.createSystemRole(role).subscribe(
-        (data: RoleDetailViewModel) => {
-          this.userRoleForm.reset();
-          this.notification.showMessage('Role Created Successfully');
-        },
-        (error: CustomErrorResponse) => {
-          this.notification.showMessage('Unable to create user role, pleace try again later');
-          this.handleError(error);
-        }
-      );
+      if (this.isUpdate) {
+        this.roleApi.updateSystemRole(role).subscribe(
+          () => {
+            this.notification.showMessage('Role Updated Successfully');
+          },
+          (error: CustomErrorResponse) => {
+            this.notification.showMessage('Unable to update user role, pleace try again later');
+            this.handleError(error);
+          },
+          () => this.rolesTree.collapseAll()
+        );
+
+      } else {
+        this.roleApi.createSystemRole(role).subscribe(
+          (data: RoleDetailViewModel) => {
+            this.userRoleForm.reset();
+            this.notification.showMessage('Role Created Successfully');
+          },
+          (error: CustomErrorResponse) => {
+            this.notification.showMessage('Unable to create user role, pleace try again later');
+            this.handleError(error);
+          },
+          () => this.rolesTree.collapseAll()
+        );
+      }
     }
   }
 
@@ -95,16 +145,16 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   }
 
-  public nodeCheck(args: NodeKeyPressEventArgs | NodeClickEventArgs): void {
-    const checkedNode: any = [args.node];
-    if (args.event.target['classList'].contains('e-fullrow') || args.event['key'] === 'Enter') {
-      const getNodeDetails: any = this.rolesTree.getNode(args.node);
-      if (getNodeDetails.isChecked === 'true') {
-        this.rolesTree.uncheckAll(checkedNode);
-      } else {
-        this.rolesTree.checkAll(checkedNode);
-      }
-    }
+  public nodeCheck(args: NodeClickEventArgs): void {
+    /*     const checkedNode: any = [args.node];
+        if (args.event.target['classList'].contains('e-fullrow')) {
+          const getNodeDetails: any = this.rolesTree.getNode(args.node);
+          if (getNodeDetails.isChecked === 'true') {
+            this.rolesTree.uncheckAll(checkedNode);
+          } else {
+            this.rolesTree.checkAll(checkedNode);
+          }
+        } */
   }
   featureChecked(feature: SystemFunctionsModel, active): void {
     const currentFeature = this.systemFearutes[this.systemFearutes.indexOf(feature)];
@@ -123,9 +173,14 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
   }
 
   prepareFormData(): SystemRoleModel | null {
+    this.rolesTree.expandAll();
 
     const roleModel = new SystemRoleModel();
     if (this.userRoleForm.valid) {
+      if (this.isUpdate) {
+        roleModel.id = this.roleId;
+      }
+
 
       roleModel.name = this.roleName.value;
       const actions = new Array();

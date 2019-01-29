@@ -1,38 +1,18 @@
 <section>
   <div>
-    <button (click)="selectAll()" type="button" ejs-button class="e-primary e-small">Select All</button>
+
   </div>
   <form (ngSubmit)="onSubmit()" [formGroup]="userRoleForm">
-    <app-form-options [submitDisabled]="userRoleForm.invalid"></app-form-options>
+    <app-form-options [submitDisabled]="userRoleForm.invalid" [showDelete]='isUpdate' (deleted)="deleteRole()"></app-form-options>
 
     <div class="e-card">
       <label>Role Name</label>
       <input class="e-input" placeholder="Role Name" formControlName="roleName" />
-      <div id='treeparent' >
-<ejs-treeview id='treeelement' #rolesTree [showCheckBox]='true'  (nodeClicked)='nodeCheck($event)' (nodeChecked)="nodeChecked($event)"
-  [fields]='field'></ejs-treeview>
+      <div id='treeparent'>
+        <button (click)="selectAll()" type="button" ejs-button class="e-primary e-small">Select All</button>
+        <ejs-treeview id='treeelement' #rolesTree [showCheckBox]='true' (nodeClicked)='nodeCheck($event)' (nodeChecked)="nodeChecked($event)"
+          [fields]='field'></ejs-treeview>
       </div>
-      <!--
-      <ul>
-        <div *ngFor="let feature of systemFearutes; let i=index;">
-          <li>
-            {{feature.Name}}
-            <ejs-switch type="checkbox" name="featureGrants[]" [checked]='feature.Checked' [value]="feature.Id"
-              #featCheck (change)="featureChecked(feature, featCheck.checked)"> </ejs-switch>
-            <ul>
-              <div *ngFor="let action of feature.Actions">
-                <li>
-                  {{action.name}}
-                  <input type="checkbox" name="actiongrants[]" [checked]='action.selected' #checssk (change)="actionChecked(feature, action, checssk.checked)"
-                    [value]="action.ControllerId">
-                </li>
-              </div>
-            </ul>
-          </li>
-        </div>
-      </ul>
-    </div>
- -->
     </div>
     <app-form-options [submitDisabled]="userRoleForm.invalid"></app-form-options>
   </form>
