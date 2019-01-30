@@ -13,7 +13,7 @@ export abstract class CommonProperties {
   protected errorDescription: any;
 
   protected handleError(errorResponse: CustomErrorResponse): void {
-
+    console.log(errorResponse.errorNumber);
     switch (errorResponse.errorNumber) {
       case 400:
         console.error(`${errorResponse.message}`);

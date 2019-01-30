@@ -8,7 +8,9 @@ const routes: Routes = [
   {
     path: 'home', canActivate: [AuthrizationGuardGuard], component: EntryComponent
   },
+  { path: 'error', loadChildren: './Modules/system/system.module#SystemModule' },
   { path: '', canActivate: [AuthrizationGuardGuard], loadChildren: './Modules/pms-navigation/pms-navigation.module#PmsNavigationModule' },
+
 
 
 ];

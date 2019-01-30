@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 10, 2019 10:22 PM
+ * @Last Modified Time: Jan 30, 2019 8:58 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -12,9 +12,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
-using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Application.Procurments.PurchaseOrders.Models;
 using BionicInventory.Application.Shared.Exceptions;
+using BionicInventory.Application.Stocks.StockLots.Models;
 using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicInventory.Domain.Procurment.Vendors;
 using MediatR;

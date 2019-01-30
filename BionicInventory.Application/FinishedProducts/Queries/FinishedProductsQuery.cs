@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 14, 2018 11:32 PM
+ * @Last Modified Time: Jan 30, 2019 8:59 PM
  * @Description: FinishedProducts database Query Class
  */
 using System;
@@ -12,7 +12,6 @@ using System.Linq;
 using Bionic_inventory.Application.Interfaces;
 using BionicInventory.Application.FinishedProducts.Interfaces;
 using BionicInventory.Application.FinishedProducts.Models;
-using BionicInventory.Application.Inventory.StockBatchs.Models;
 using BionicInventory.Domain.FinishedProducts;
 using BionicInventory.Domain.ProductionOrders;
 using Microsoft.EntityFrameworkCore;

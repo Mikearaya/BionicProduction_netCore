@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 2, 2018 8:36 PM
+ * @Last Modified Time: Jan 30, 2019 8:59 PM
  * @Description: Modify Here, Please 
  */
 
@@ -21,14 +21,11 @@ using Microsoft.Extensions.Logging;
 namespace BionicInventory.Application.FinishedProducts.Factories {
     public class FinishedProductsFactory : IFinishedProductsFactories {
         private readonly ILogger<FinishedProductsFactory> _logger;
-        private readonly IProductsQuery _productsQuery;
         private readonly IEmployeesQuery _employeeQuery;
 
         public FinishedProductsFactory (IEmployeesQuery employeesQuery,
-            IProductsQuery productsQuery,
             ILogger<FinishedProductsFactory> logger) {
             _logger = logger;
-            _productsQuery = productsQuery;
             _employeeQuery = employeesQuery;
         }
         public FinishedProduct NewFinishedProduct (ProductionOrderList order, Employee submited, Employee recieved, int quantity) {

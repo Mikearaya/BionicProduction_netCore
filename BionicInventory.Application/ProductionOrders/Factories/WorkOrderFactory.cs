@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Oct 21, 2018 2:30 AM
+ * @Last Modified Time: Jan 30, 2019 8:34 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,24 +18,17 @@ using BionicInventory.Domain.ProductionOrders;
 namespace BionicInventory.Application.ProductionOrders.Factories {
     public class WorkOrderFactory : IWorkOrdersFactory {
         private readonly IEmployeesQuery _employeeQuery;
-
-        public IProductsQuery _productsQuery { get; }
-
-        public WorkOrderFactory (IEmployeesQuery employeeQuery, IProductsQuery productsQuery) {
+        public WorkOrderFactory (IEmployeesQuery employeeQuery) {
             _employeeQuery = employeeQuery;
-            _productsQuery = productsQuery;
         }
         public ProductionOrderList CreateNewWorkOrder (NewWorkOrderDto newOrder) {
 
             try {
 
-                var product = _productsQuery.GetProductById (newOrder.ItemId);
-
                 ProductionOrderList productionOrder = new ProductionOrderList () {
                     Description = newOrder.Description,
                     OrderedBy = newOrder.OrderedBy,
                     ItemId = newOrder.ItemId,
-                    CostPerItem = product.UnitCost,
                     Quantity = newOrder.Quantity,
                     DueDate = newOrder.DueDate,
                     Start = newOrder.Start
@@ -55,14 +48,11 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
         public ProductionOrderList CreateUpdatedWorkOrder (UpdatedWorkOrderDto newOrder) {
 
-            var product = _productsQuery.GetProductById (newOrder.ItemId);
-
             ProductionOrderList productionOrder = new ProductionOrderList () {
                 Description = newOrder.Description,
                 OrderedBy = newOrder.OrderedBy,
                 Id = newOrder.Id,
                 ItemId = newOrder.ItemId,
-                CostPerItem = product.UnitCost,
                 Quantity = newOrder.Quantity,
                 DueDate = newOrder.DueDate,
                 Start = newOrder.Start,
@@ -80,12 +70,10 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
         public WorkOrderView CreateWorkOrderView (ProductionOrderList workOrder) {
 
             var employee = _employeeQuery.GetEmployeeById (workOrder.OrderedBy);
-            var item = _productsQuery.GetProductById (workOrder.ItemId);
             ManufactureOrderView workorderView = new ManufactureOrderView () {
                 id = workOrder.Id,
                 description = workOrder.Description,
                 orderedBy = employee.FullName (),
-                product = item.Code,
                 start = workOrder.Start,
                 orderDate = workOrder.DateAdded,
                 dueDate = workOrder.DueDate,
@@ -101,7 +89,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
             List<ManufactureOrderView> workorderView = new List<ManufactureOrderView> ();
             foreach (var order in workOrder) {
                 var employee = _employeeQuery.GetEmployeeById (order.OrderedBy);
-                var product = _productsQuery.GetProductById (order.ItemId);
 
                 ManufactureOrderView view = new ManufactureOrderView ();
                 view.id = order.Id;
@@ -111,7 +98,6 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                 view.quantity = (int) order.Quantity;
                 view.start = order.Start;
                 view.dueDate = order.DueDate;
-                view.product = product.Code;
                 workorderView.Add (view);
 
             }

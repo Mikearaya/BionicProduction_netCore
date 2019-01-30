@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 27, 2019 9:49 PM
+ * @Last Modified Time: Jan 30, 2019 8:59 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -116,9 +116,6 @@ namespace BionicInventory.API {
             services.AddScoped<ICustomersQuery, CustomersQuery> ();
             services.AddScoped<ICustomersCommand, CustomersCommand> ();
             services.AddScoped<ICustomersFactory, CustomerFactories> ();
-            services.AddScoped<IProductsQuery, ProductsQuery> ();
-            services.AddScoped<IProductsCommand, ProductsCommand> ();
-            services.AddScoped<IProductsFactory, ProductsFactory> ();
             services.AddScoped<IEmployeesQuery, EmployeesQuery> ();
             services.AddScoped<IEmployeesCommand, EmployeesCommand> ();
             services.AddScoped<IEmployeesFactory, EmployeesFactory> ();
@@ -202,7 +199,7 @@ namespace BionicInventory.API {
                             .RequireAuthenticatedUser ()
                             .Build ();
                         options.Filters.Add (new AuthorizeFilter (policy));
-                        options.Filters.Add (typeof (DynamicAuthorizationFilter));
+                     //   options.Filters.Add (typeof (DynamicAuthorizationFilter));
 
                         // Self referencing loop detected for property entity framework solution
                         options.OutputFormatters.Clear ();

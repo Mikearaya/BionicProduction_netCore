@@ -45,7 +45,6 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
   ngOnInit() {
     this.rolesTree.sortOrder = 'Ascending';
-    this.rolesTree.expandAll();
 
     this.roleId = this.activatedRoute.snapshot.paramMap.get('roleId');
 
@@ -57,7 +56,6 @@ export class SystemRoleFormComponent extends CommonProperties implements OnInit 
 
           this.rolesTree.checkedNodes = JSON.parse(data.access);
           this.rolesTree.refresh();
-          console.log(this.rolesTree.checkedNodes);
         }
       );
     }

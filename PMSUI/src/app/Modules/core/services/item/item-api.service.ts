@@ -30,6 +30,7 @@ export class ItemApiService {
   getItemById(itemId: number): Observable<ItemView> {
     return this.httpClient.get<ItemView>(`${this.apiUrl}/${this.controller}/${itemId}`);
   }
+  
 
   getAllItems(): Observable<ItemView[]> {
     return this.httpClient.get<ItemView[]>(`${this.apiUrl}/${this.controller}`);

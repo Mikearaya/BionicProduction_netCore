@@ -28,7 +28,6 @@ namespace BionicInventory.API.Controllers.SalesOrders {
         private readonly ISalesOrderCommand _command;
         private readonly ISalesOrderQuery _query;
         private readonly ICustomersQuery _customerQuery;
-        private readonly IProductsQuery _itemQuery;
         private readonly IEmployeesQuery _employeeQuery;
         private readonly ISalesOrderReportQuery _salesReportQuery;
 
@@ -38,14 +37,12 @@ namespace BionicInventory.API.Controllers.SalesOrders {
             ILogger<SalesOrderController> logger,
             ICustomersQuery customerQuery,
             IEmployeesQuery employeeQuery,
-            IProductsQuery productQuery,
             ISalesOrderReportQuery salesReportQuery) {
 
             _factory = factory;
             _command = command;
             _query = query;
             _customerQuery = customerQuery;
-            _itemQuery = productQuery;
             _employeeQuery = employeeQuery;
             _salesReportQuery = salesReportQuery;
         }
@@ -109,17 +106,6 @@ namespace BionicInventory.API.Controllers.SalesOrders {
                 ModelState.AddModelError ("CreatedBy", $"Employee with id: {newOrder.CreatedBy} Not Found");
             }
 
-            foreach (var orderDetail in newOrder.purchaseOrderDetail) {
-                var product = _itemQuery.GetProductById (orderDetail.ItemId);
-                if (product == null) {
-                    ModelState.AddModelError ("ItemId", $"Product With id: {orderDetail.ItemId} Not Found");
-                }
-
-                if (!ModelState.IsValid) {
-                    return new InvalidInputResponse (ModelState);
-                }
-
-            }
             var salesOrder = _factory.CreateNewSaleOrder (newOrder);
 
             var result = _command.CreateSalesOrder (salesOrder);
