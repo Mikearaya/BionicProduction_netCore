@@ -114,6 +114,21 @@ export class UnitOfMeasurmentFormComponent extends CommonProperties implements O
     }
   }
 
+  deleteUnitOfMeasure(): void {
+    if (this.isUpdate && this.uomId) {
+      this.unitOfMeasureApi.deleteUnitOfMeasurment(this.uomId).subscribe(
+        () => {
+          this.notification.showMessage('Unit of measure deleted successfuly!');
+          this.location.back();
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed while attempting to delete unit of measurment, try again later', 'error');
+          this.handleError(error);
+        }
+      );
+    }
+  }
+
   private prepareFormData(formData: any): UnitOfMeasure {
 
     return {

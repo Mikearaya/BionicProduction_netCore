@@ -145,10 +145,6 @@ export class StockBatchFormComponent extends CommonProperties implements OnInit 
   }
 
 
-  moveStockLot(index: number): void {
-    this.router.navigate([`stocks/stock-lots/${this.stockBatchId}/movements`]);
-  }
-
 
   get availableFrom(): FormControl {
     return this.stockBatchForm.get('availableFrom') as FormControl;
@@ -165,6 +161,10 @@ export class StockBatchFormComponent extends CommonProperties implements OnInit 
     return this.stockBatchForm.get('storageLocation') as FormArray;
   }
 
+
+  moveStockLot(index: number): void {
+    this.router.navigate([`stocks/stock-lots/${this.stockBatchId}/movements`]);
+  }
 
   onSubmit(): void {
 

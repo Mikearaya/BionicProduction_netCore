@@ -1,26 +1,33 @@
+import {
+  CriticalItemModel,
+  ItemModel,
+  ItemReportModel,
+  ItemView,
+  LowStockItemsView,
+  VendorItemViewModel
+} from '../../DataModels/item-data-models';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 /*
  * @CreateTime: Nov 11, 2018 12:12 AM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 15, 2019 12:51 AM
+ * @Last Modified Time: Jan 31, 2019 8:22 PM
  * @Description: Modify Here, Please
  */
-import { Injectable, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { LowStockItemsView, ItemModel, ItemView, VendorItemViewModel } from '../../DataModels/item-data-models';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class ItemApiService {
-  private controller = 'products';
+  private controller = 'stocks/items';
 
   constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private apiUrl: string) {
   }
 
-  getLowInventoryItems(): Observable<LowStockItemsView[]> {
-    return this.httpClient.get<LowStockItemsView[]>(`${this.apiUrl}/${this.controller}?type=low`);
+  getLowInventoryItems(): Observable<CriticalItemModel[]> {
+    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical`);
   }
 
   getVendorItems(vendorId: number): Observable<VendorItemViewModel[]> {
@@ -30,7 +37,11 @@ export class ItemApiService {
   getItemById(itemId: number): Observable<ItemView> {
     return this.httpClient.get<ItemView>(`${this.apiUrl}/${this.controller}/${itemId}`);
   }
-  
+
+  getItemReport(): Observable<ItemReportModel[]> {
+    return this.httpClient.get<ItemReportModel[]>(`${this.apiUrl}/${this.controller}/reports`);
+  }
+
 
   getAllItems(): Observable<ItemView[]> {
     return this.httpClient.get<ItemView[]>(`${this.apiUrl}/${this.controller}`);
@@ -38,12 +49,12 @@ export class ItemApiService {
 
 
 
-  getCriticalProductById(id: number): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/products/${id}?type=low`);
+  getCriticalProductById(id: number): Observable<CriticalItemModel> {
+    return this.httpClient.get<CriticalItemModel>(`${this.apiUrl}/${this.controller}/${id}/critical`);
   }
 
-  getAllCriticalProduct(id: number): Observable<any> {
-    return this.httpClient.get(`${this.apiUrl}/products/${id}`);
+  getAllCriticalProduct(): Observable<CriticalItemModel[]> {
+    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical`);
   }
 
 

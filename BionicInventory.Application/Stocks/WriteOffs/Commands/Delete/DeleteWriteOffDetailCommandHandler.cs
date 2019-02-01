@@ -13,6 +13,7 @@ using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.Stocks.WriteOffs.Models;
 using BionicProduction.Domain.WriteOffs;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BionicInventory.Application.Stocks.WriteOffs.Commands.Delete {
     public class DeleteWriteOffDetailCommandHandler : IRequestHandler<DeleteWriteOffDetailDto, Unit> {
@@ -29,8 +30,11 @@ namespace BionicInventory.Application.Stocks.WriteOffs.Commands.Delete {
                 throw new NotFoundException (nameof (WriteOffDetail), request.WriteOffDetailId);
             }
 
-            var storage = await _database.StockBatchStorage.FindAsync (writeOff.BatchStorageId);
+            var storage = await _database.StockBatchStorage.
+            Include (s => s.Batch)
+                .FirstOrDefaultAsync (s => s.Id == writeOff.BatchStorageId);
 
+            storage.Quantity += writeOff.Quantity;
             storage.Quantity += writeOff.Quantity;
             _database.StockBatchStorage.Update (storage);
             _database.WriteOffDetail.Remove (writeOff);

@@ -2,7 +2,8 @@
   <app-notification #notification></app-notification>
   <h3>{{title}}</h3>
   <form [formGroup]="stockBatchForm" (ngSubmit)="onSubmit()">
-    <app-form-options [submitButtonText]='submitButtonText' [submitDisabled]='stockBatchForm.invalid'></app-form-options>
+    <app-form-options [submitButtonText]='submitButtonText' [showDelete]='isUpdate' (deleted)='deleteBatch()'
+      [submitDisabled]='stockBatchForm.invalid'></app-form-options>
     <div class='e-card'>
       <div class="container">
         <div class="row">

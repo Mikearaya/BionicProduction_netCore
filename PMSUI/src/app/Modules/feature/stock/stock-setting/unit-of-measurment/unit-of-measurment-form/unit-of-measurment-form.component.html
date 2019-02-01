@@ -2,7 +2,8 @@
   <app-notification #notification></app-notification>
   <h6>{{title}}</h6>
   <form [formGroup]="uomForm" (ngSubmit)="onSubmit()">
-    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="uomForm.invalid"></app-form-options>
+    <app-form-options [submitButtonText]="submitButtonText" [showDelete]='isUpdate' (deleted)='deleteUnitOfMeasure()'
+      [submitDisabled]="uomForm.invalid"></app-form-options>
 
     <div class="container e-card">
       <div class="row">

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:59 PM
+ * @Last Modified Time: Jan 31, 2019 8:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -198,8 +198,8 @@ namespace BionicInventory.API {
                         var policy = new AuthorizationPolicyBuilder ()
                             .RequireAuthenticatedUser ()
                             .Build ();
-                        options.Filters.Add (new AuthorizeFilter (policy));
-                     //   options.Filters.Add (typeof (DynamicAuthorizationFilter));
+                      options.Filters.Add (new AuthorizeFilter (policy));
+                        options.Filters.Add (typeof (DynamicAuthorizationFilter));
 
                         // Self referencing loop detected for property entity framework solution
                         options.OutputFormatters.Clear ();

@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Jan 31, 2019 8:07 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Jan 31, 2019 8:07 PM
+ * @Description: Modify Here, Please 
+ */
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,7 +38,7 @@ namespace BionicInventory.Application.Stocks.Items.Commands.Create {
 
             var itemGroup = await _database.ProductGroup
                 .AsNoTracking ()
-                .FirstOrDefaultAsync (u => u.Id == request.primaryUomId);
+                .FirstOrDefaultAsync (u => u.Id == request.groupId);
 
             if (itemGroup == null) {
                 throw new NotFoundException (nameof (ProductGroup), request.groupId);

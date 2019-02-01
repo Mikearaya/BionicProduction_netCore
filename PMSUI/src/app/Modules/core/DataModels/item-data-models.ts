@@ -99,3 +99,34 @@ export interface ItemView {
   dateUpdated: Date | string | null;
   dateAdded: Date | string | null;
 }
+
+export class ItemReportModel {
+  id: number;
+  item: string;
+  itemCode: string;
+  inStock: number;
+  available: number;
+  booked: number;
+  totalExpected: number;
+  totalWriteOff: number;
+  expectedAvailable: number;
+  expectedBooked: number;
+  minimumQuantity: number | null;
+  primaryUom: string;
+  primaryUomId: number;
+  totalCost: number;
+  averageCost: number;
+}
+
+
+export interface CriticalItemModel {
+  id: number;
+  itemName: string;
+  itemCode: string;
+  required: number;
+  minimumQuantity: number;
+  availableQuantity: number;
+  expectedAvailableQuantity: number;
+  uom: string;
+  inStock: number;
+}

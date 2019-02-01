@@ -47,6 +47,7 @@ namespace BionicInventory.Application.Stocks.WriteOffs.Commands.Create {
 
             foreach (var data in request.WriteOffBatchs) {
                 var batch = await _database.StockBatchStorage
+                    .Include (s => s.Batch)
                     .Where (b => b.Id == data.BatchStorageId)
                     .FirstOrDefaultAsync ();
 
@@ -60,6 +61,7 @@ namespace BionicInventory.Application.Stocks.WriteOffs.Commands.Create {
                 }
 
                 batch.Quantity = batch.Quantity - data.Quantity;
+                batch.Batch.Quantity = batch.Batch.Quantity - data.Quantity;
 
                 newWriteOff.WriteOffDetail.Add (new WriteOffDetail () {
                     BatchStorageId = data.BatchStorageId,

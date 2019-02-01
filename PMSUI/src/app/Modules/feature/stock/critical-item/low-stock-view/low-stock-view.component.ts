@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 23, 2019 9:14 PM
+ * @Last Modified Time: Jan 31, 2019 8:23 PM
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -17,7 +17,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { lowStockViewBluePrint } from './low-stock-column-blue-print';
 import { closest } from '@syncfusion/ej2-base';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
-import { LowStockItemsView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { LowStockItemsView, CriticalItemModel } from 'src/app/Modules/core/DataModels/item-data-models';
 
 @Component({
   selector: 'app-low-stock-view',
@@ -30,7 +30,7 @@ export class LowStockViewComponent implements OnInit {
   public grid: GridComponent;
   public customAttributes: Object;
 
-  public data: Object;
+  public data: CriticalItemModel[];
   public pageSettings: PageSettingsModel;
   public allowResizing = true;
   public showColumnChooser = true;
@@ -59,14 +59,14 @@ export class LowStockViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.data = this.itemApiService.getLowInventoryItems()
-      .subscribe((data: LowStockItemsView[]) => this.data = data);
+    this.itemApiService.getLowInventoryItems()
+      .subscribe((data: CriticalItemModel[]) => this.data = data);
 
     this.customAttributes = { class: 'custom-grid-header' };
 
     this.pageSettings = { pageSize: 6 };
     this.toolbar = ['Print', 'Search', 'ExcelExport', 'PdfExport'];
-    this.sortSetting = { columns: [{ direction: 'Ascending'}] };
+    this.sortSetting = { columns: [{ direction: 'Ascending' }] };
     this.groupOptions = {
       showDropArea: true,
     };

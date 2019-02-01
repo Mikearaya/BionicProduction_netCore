@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 8:03 PM
+ * @Last Modified Time: Jan 31, 2019 8:12 PM
  * @Description: Modify Here, Please
  */
 
@@ -23,6 +23,7 @@ import { NotificationComponent } from 'src/app/Modules/shared/notification/notif
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { ItemReportModel } from 'src/app/Modules/core/DataModels/item-data-models';
 
 
 @Component({
@@ -39,7 +40,7 @@ export class StockViewComponent extends CommonProperties implements OnInit {
   public notification: NotificationComponent;
   public customAttributes: Object;
 
-  public data: DataManager;
+  public data: ItemReportModel[] = [];
   public pageSettings: PageSettingsModel;
   public allowResizing = true;
   public showColumnChooser = true;
@@ -58,7 +59,6 @@ export class StockViewComponent extends CommonProperties implements OnInit {
   public wrapSettings: TextWrapSettingsModel;
 
   constructor(
-    @Inject('BASE_URL') private apiUrl: string,
     private itemApi: ItemApiService,
     private activatedRoute: ActivatedRoute,
     private route: Router) {
@@ -73,18 +73,13 @@ export class StockViewComponent extends CommonProperties implements OnInit {
 
   columnBluePrint = stockViewColumnBluePrint;
 
-  // TODO: change to service
-
-  public dataManager: DataManager = new DataManager({
-    url: `${this.apiUrl}/finished_products`,
-    adaptor: new WebApiAdaptor,
-    offline: true
-  });
-
 
   ngOnInit(): void {
 
-    this.data = this.dataManager;
+    this.itemApi.getItemReport().subscribe(
+      (data: ItemReportModel[]) => this.data = data,
+      this.handleError
+    );
     this.customAttributes = { class: 'custom-grid-header' };
 
     this.editSettings = { showDeleteConfirmDialog: true, allowEditing: true, allowAdding: true, allowDeleting: true };

@@ -58,6 +58,11 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
         title: 'Edit Write-Off',
         buttonOption:
           { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editWriteOff.bind(this) }
+      },
+      {
+        title: 'Delete Write-Off',
+        buttonOption:
+          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteWriteOff.bind(this) }
       }
 
     ];
@@ -98,7 +103,7 @@ export class WriteOffViewComponent extends CommonProperties implements OnInit {
 
   deleteWriteOff(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.writeOffApi.deleteWriteOff(rowObj.data['writeOffId']).subscribe(
+    this.writeOffApi.deleteWriteOff(rowObj.data['id']).subscribe(
       () => this.notification.showMessage('Wite off Deleted'),
       (error: CustomErrorResponse) => {
         this.notification.showMessage('Unable to Delete Write off', 'error');

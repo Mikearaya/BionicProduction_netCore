@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 9:19 PM
+ * @Last Modified Time: Jan 31, 2019 7:12 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -26,7 +26,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Stock.Items {
-    [InventoryAPI ("Products")]
+    [InventoryAPI ("stocks/items")]
     [DisplayName ("Items")]
     public class ItemsController : Controller {
 
@@ -68,6 +68,23 @@ namespace BionicInventory.API.Controllers.Stock.Items {
             try {
 
                 var itemsList = await _Mediator.Send (new GetItemsLIstQuery ());
+                return StatusCode (200, itemsList);
+
+            } catch (Exception e) {
+
+                return StatusCode (500, e.Message);
+            }
+        }
+
+        [HttpGet ("reports")]
+        [DisplayName ("View items report")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<ItemReportListView>>> GetAllItemsReport () {
+
+            try {
+
+                var itemsList = await _Mediator.Send (new GetItemsReportQuery ());
                 return StatusCode (200, itemsList);
 
             } catch (Exception e) {

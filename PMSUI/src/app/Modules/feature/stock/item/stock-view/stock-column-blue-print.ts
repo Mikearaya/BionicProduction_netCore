@@ -3,7 +3,7 @@
 export const stockViewColumnBluePrint = [
 
   {
-    key: 'itemId',
+    key: 'id',
     humanReadable: 'ID',
     visable: false,
     type: 'number',
@@ -23,11 +23,11 @@ export const stockViewColumnBluePrint = [
     allowGrouping: false,
     allowFiltering: true,
     editable: false,
-    width: '30',
+    width: '50',
     isIdentity: false,
   },
   {
-    key: 'itemName',
+    key: 'item',
     humanReadable: 'Name',
     visable: true,
     type: 'string',

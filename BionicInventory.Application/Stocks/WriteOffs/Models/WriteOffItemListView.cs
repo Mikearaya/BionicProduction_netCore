@@ -43,7 +43,7 @@ namespace BionicInventory.Application.Stocks.WriteOffs.Models {
 
         public float batchQuantity {
             get {
-                return _batchQuantity - quantity;
+                return _batchQuantity;
             }
             set {
                 _batchQuantity = value;
