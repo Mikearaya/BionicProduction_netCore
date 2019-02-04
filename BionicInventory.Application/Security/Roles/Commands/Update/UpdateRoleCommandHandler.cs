@@ -32,7 +32,7 @@ namespace BionicInventory.Application.Security.Roles.Commands.Update {
             }
 
             role.Name = request.Name;
-            role.Access = request.Access;
+            role.Access = request.Access.ToString ();
 
             await _roleManager.UpdateAsync (role);
 

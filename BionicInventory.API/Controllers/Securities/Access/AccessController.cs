@@ -60,7 +60,12 @@ namespace BionicInventory.API.Controllers.Securities.Access {
                     claims,
                     expires : DateTime.Now.AddMinutes (30),
                     signingCredentials : creds);
-                var serializedToken = new { token = new JwtSecurityTokenHandler ().WriteToken (token) };
+                var serializedToken = new {
+                    userId = user.id,
+                    userName = user.userName,
+                    role = user.role,
+                    token = new JwtSecurityTokenHandler ().WriteToken (token)
+                };
 
                 return StatusCode (200, serializedToken);
 

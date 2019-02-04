@@ -32,7 +32,7 @@ export class CoreHttpInterceptor implements HttpInterceptor {
     return next.handle(modifiedRequest).pipe(
 
       tap(event => {
-   
+
         if (event instanceof HttpErrorResponse) {
 
           switch (event.status) {

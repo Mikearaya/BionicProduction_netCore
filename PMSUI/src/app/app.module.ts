@@ -20,7 +20,7 @@ import { ToolbarModule } from '@syncfusion/ej2-angular-navigations';
 import { ListViewModule } from '@syncfusion/ej2-angular-lists';
 import { AuthorizationModule } from './Modules/authorization/authorization.module';
 import { AuthrizationGuardGuard } from './authrization-guard.guard';
-
+import { SharedModule } from './Modules/shared/shared.module';
 
 
 
@@ -38,6 +38,7 @@ import { AuthrizationGuardGuard } from './authrization-guard.guard';
     AuthorizationModule,
     AppRoutingModule,
     ListViewModule,
+    SharedModule
 
   ],
   providers: [

@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthrizationService } from '../Modules/authorization/authrization.service';
+import { MenuAnimationSettings, MenuEventArgs } from '@syncfusion/ej2-navigations';
+import { ToolbarComponent } from '@syncfusion/ej2-angular-navigations';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-entry',
@@ -8,7 +11,11 @@ import { AuthrizationService } from '../Modules/authorization/authrization.servi
 })
 export class EntryComponent implements OnInit {
   logOutAlign = 'Right';
-  constructor(private authrizationService: AuthrizationService) { }
+
+
+
+  constructor(private authrizationService: AuthrizationService,
+    private router: Router) { }
 
   ngOnInit() {
   }
@@ -18,5 +25,18 @@ export class EntryComponent implements OnInit {
   }
   logOut(): void {
     this.authrizationService.logout();
+  }
+
+  changePassword(): void {
+    this.router.navigate([`/settings/users/${this.authrizationService.getUserId()}/password`]);
+  }
+
+
+  updateProfile(): void {
+
+  }
+
+  private select(args: MenuEventArgs): void {
+    console.log(args.item.id);
   }
 }

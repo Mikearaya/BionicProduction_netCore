@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { UserViewModel, UserModel } from '../../DataModels/user.model';
+import { UserViewModel, UserModel, PasswordChangeModel } from '../../DataModels/user.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -31,5 +31,8 @@ export class UserApiService {
     return this.httpClient.delete<void>(`${this.apiUrl}/${this.controller}/${userId}`);
   }
 
+  updateUserPassword(user: PasswordChangeModel): Observable<void> {
+    return this.httpClient.put<void>(`${this.apiUrl}/${this.controller}/${user.id}/password`, user);
+  }
 
 }

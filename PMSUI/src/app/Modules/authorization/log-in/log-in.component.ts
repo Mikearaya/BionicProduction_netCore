@@ -45,7 +45,6 @@ export class LogInComponent extends CommonProperties implements OnInit {
 
     this.authorizationService.login(logInModel).subscribe(
       (data: any) => {
-        localStorage.setItem('token', data.token);
         this.router.navigate(['home']);
       },
       (error) => {

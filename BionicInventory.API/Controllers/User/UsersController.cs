@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 26, 2019 8:00 PM
+ * @Last Modified Time: Feb 3, 2019 9:07 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -135,6 +135,32 @@ namespace BionicInventory.API.Controllers.User {
                 return StatusCode (204);
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpPut ("{id}/password")]
+        [DisplayName ("Change account password")]
+        [ProducesResponseType (204)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<IActionResult> UpdateUserPassword (string id, [FromBody] PasswordUpdateDto updatedUserPassword) {
+            try {
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                var asss = await _Mediator.Send (updatedUserPassword);
+
+                return StatusCode (204);
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            } catch (Exception e) {
+                return StatusCode (500, e.Message);
             }
         }
 
