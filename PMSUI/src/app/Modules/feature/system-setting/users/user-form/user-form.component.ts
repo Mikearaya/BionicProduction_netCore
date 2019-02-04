@@ -104,28 +104,17 @@ export class UserFormComponent extends CommonProperties implements OnInit {
     const data = this.prepareFormData();
 
     if (data) {
-      if (this.userId && data != null) {
 
-        this.userApi.updateUser(data).subscribe(
-          () => {
-            this.notification.showMessage('User Updated Successfuly!!!');
-            this.userForm.reset();
-          }, (error: CustomErrorResponse) => {
-            this.notification.showMessage('Error Occured while attempting to create user try again later!!!', 'error');
-            this.handleError(error);
-          }
-        );
-      } else {
-        this.userApi.createUser(data).subscribe(
-          () => {
-            this.notification.showMessage('User Created Successfuly!!!');
-            this.userForm.reset();
-          },
-          (error: CustomErrorResponse) => {
-            this.notification.showMessage('Unknown Error Occured while updating user data, try again later');
-            this.handleError(error);
-          });
-      }
+      this.userApi.createUser(data).subscribe(
+        () => {
+          this.notification.showMessage('User Created Successfuly!!!');
+          this.userForm.reset();
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Unknown Error Occured while updating user data, try again later');
+          this.handleError(error);
+        });
+
 
     }
 

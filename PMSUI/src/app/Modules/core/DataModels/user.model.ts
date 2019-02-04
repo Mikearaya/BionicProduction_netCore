@@ -22,3 +22,12 @@ export class PasswordChangeModel {
   confirmedPassword: string;
 }
 
+
+export class UpdatedUserModel {
+  id: string;
+  userName: string;
+  email: string;
+  phoneNumber: string;
+  fullName: string;
+  roleId: string;
+}

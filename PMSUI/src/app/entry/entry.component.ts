@@ -33,7 +33,7 @@ export class EntryComponent implements OnInit {
 
 
   updateProfile(): void {
-
+    this.router.navigate([`/settings/users/${this.authrizationService.getUserId()}/update`]);
   }
 
   private select(args: MenuEventArgs): void {

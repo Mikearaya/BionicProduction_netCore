@@ -14,6 +14,7 @@ namespace BionicInventory.Application.Users.Models {
     public class UserViewModel {
         public string userName { get; set; }
         public string phoneNumber { get; set; }
+        public string email { get; set; }
         public string id { get; set; }
         public string role { get; set; }
         public string roleId { get; set; }
@@ -24,6 +25,7 @@ namespace BionicInventory.Application.Users.Models {
                 return user => new UserViewModel () {
                     userName = user.UserName,
                     phoneNumber = user.PhoneNumber,
+                    email = user.Email,
                     id = user.Id,
                 };
             }

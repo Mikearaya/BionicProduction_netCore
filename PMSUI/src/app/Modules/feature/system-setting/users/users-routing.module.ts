@@ -11,11 +11,12 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserViewComponent } from './user-view/user-view.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { PasswordChangeFormComponent } from './password-change-form/password-change-form.component';
+import { ProfileUpdateFormComponent } from './profile-update-form/profile-update-form.component';
 
 const routes: Routes = [
   { path: '', component: UserViewComponent, data: { title: 'Users', breadcrum: 'system-setting/users' } },
   { path: 'new', component: UserFormComponent, data: { title: 'Create user', breadcrum: '/system-setting/users/new' } },
-  { path: ':userId/update', component: UserFormComponent, data: { title: 'Update user', breadcrum: '/system-setting/users' } },
+  { path: ':userId/update', component: ProfileUpdateFormComponent, data: { title: 'Update user', breadcrum: '/system-setting/users' } },
   {
     path: ':userId/password', component: PasswordChangeFormComponent,
     data: {

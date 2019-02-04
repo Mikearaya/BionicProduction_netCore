@@ -34,7 +34,10 @@ namespace BionicInventory.Application.Users.Commands.Update {
                 throw new NotFoundException ("User", request.Id);
             }
 
-            user.UserName = request.userName;
+            user.UserName = request.UserName;
+            user.Email = request.Email;
+            user.PhoneNumber = request.PhoneNumber;
+
             await _userManager.UpdateAsync (user);
 
             return Unit.Value;

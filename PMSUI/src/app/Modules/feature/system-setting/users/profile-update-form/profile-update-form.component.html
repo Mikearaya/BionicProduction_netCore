@@ -1,0 +1,47 @@
+<section>
+  <app-notification #notification></app-notification>
+  <form [formGroup]='userProfileForm' (ngSubmit)='onSubmit()'>
+    <app-form-options [submitDisabled]='userProfileForm.invalid'></app-form-options>
+    <div class="container e-card">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <label for="userName" i18n="@@username">Username</label>
+          <div>
+            <input type='text' width='200' class="e-input" placeholder='username' formControlName="userName" id="userName" i18n="@@userName" />
+            <div class="e-error" *ngIf="userName.errors">
+              <div *ngIf="userName.errors['required']" i18n>Username is required</div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label for="fullName" i18n="@@fullName">FullName</label>
+          <div>
+            <input type='text' width='200' class="e-input" placeholder='fullName' formControlName="fullName" id="fullName" i18n="@@fullName" />
+            <div class="e-error" *ngIf="fullName.errors">
+              <div *ngIf="fullName.errors['required']" i18n>Fullname is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <label for="phoneNumber" i18n="@@phoneNumber">Phone number</label>
+          <div>
+            <ejs-numerictextbox width='200' format="##" class="e-input" placeholder='Phone number' formControlName="phoneNumber" id="phoneNumber"
+              i18n="@@phoneNumber">
+            </ejs-numerictextbox>
+          </div>
+
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <label for="email" i18n="@@email">Email address</label>
+          <div>
+            <input type='email' width='200' class="e-input" placeholder='Email Address' formControlName="email" id="email" i18n="@@email" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [submitDisabled]='userProfileForm.invalid'></app-form-options>
+  </form>
+</section>
