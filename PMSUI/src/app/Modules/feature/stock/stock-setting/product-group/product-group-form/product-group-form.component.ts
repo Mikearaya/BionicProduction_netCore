@@ -36,7 +36,7 @@ export class ProductGroupFormComponent extends CommonProperties implements OnIni
   }
 
   ngOnInit() {
-    this.groupId = + this.activatedRoute.snapshot.paramMap.get('groupId');
+    this.groupId = + this.activatedRoute.snapshot.paramMap.get('productGroupId');
 
     this.productGroupApi.getAllProductGroups().subscribe(
       (data: ProductGroupView[]) => this.productGroupsList = data,
@@ -133,6 +133,19 @@ export class ProductGroupFormComponent extends CommonProperties implements OnIni
     };
   }
 
-
+  deleteProductGroup(): void {
+    if (this.isUpdate && this.groupId) {
+      this.productGroupApi.deleteProductGroup(this.groupId).subscribe(
+        () => {
+          this.notification.showMessage('Product group deleted successfuly');
+          this.location.back();
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed while attempting to delete product group, try again later', 'error');
+          this.handleError(error);
+        }
+      );
+    }
+  }
 
 }

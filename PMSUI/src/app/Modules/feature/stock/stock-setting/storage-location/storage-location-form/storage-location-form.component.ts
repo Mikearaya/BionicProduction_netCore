@@ -6,6 +6,7 @@ import { StorageLocationView, StorageLocation } from 'src/app/Modules/core/DataM
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-storage-location-form',
@@ -23,7 +24,8 @@ export class StorageLocationFormComponent extends CommonProperties implements On
   private storageId: number;
   constructor(private formBuilder: FormBuilder,
     private storageApi: StorageLocationApiService,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private location: Location) {
     super();
     this.createForm();
   }
@@ -98,6 +100,22 @@ export class StorageLocationFormComponent extends CommonProperties implements On
         }
       );
 
+    }
+  }
+
+  deleteStorageLocation(): void {
+
+    if (this.isUpdate && this.storageId) {
+      this.storageApi.deleteStorageLocation(this.storageId).subscribe(
+        () => {
+          this.notification.showMessage('Storage location deleted successfully');
+          this.location.back();
+        },
+        (error: CustomErrorResponse) => {
+          this.notification.showMessage('Failed while attempting to delete storage location, try again later!', 'error');
+          this.handleError(error);
+        }
+      );
     }
   }
 

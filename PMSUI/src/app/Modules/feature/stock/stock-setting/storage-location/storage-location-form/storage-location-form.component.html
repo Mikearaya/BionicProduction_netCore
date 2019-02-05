@@ -3,7 +3,8 @@
   <app-notification #notification></app-notification>
 
   <form [formGroup]="storageForm" (ngSubmit)="onSubmit()">
-    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="storageForm.invalid"></app-form-options>
+    <app-form-options [submitButtonText]="submitButtonText" [showDelete]='isUpdate' (deleted)='deleteStorageLocation()'
+      [submitDisabled]="storageForm.invalid"></app-form-options>
     <div class="container e-card">
       <div class="row">
         <div class="col-6">
@@ -34,7 +35,8 @@
         </div>
       </div>
     </div>
-    <app-form-options [submitButtonText]="submitButtonText" [submitDisabled]="storageForm.invalid"></app-form-options>
+    <app-form-options [submitButtonText]="submitButtonText" [showDelete]='isUpdate' (deleted)='deleteStorageLocation()'
+      [submitDisabled]="storageForm.invalid"></app-form-options>
   </form>
 
 </section>
