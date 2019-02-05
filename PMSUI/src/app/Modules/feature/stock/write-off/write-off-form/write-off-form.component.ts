@@ -99,7 +99,7 @@ export class WriteOffFormComponent extends CommonProperties implements OnInit {
 
     this.itemId.valueChanges.subscribe(
       (data) => {
-        console.log(data);
+
         if (data != null) {
           this.stockBatchApi.getItemStockBatchById(data).subscribe(
             (batch: StockBatchListView[]) => this.resetBatchItems(batch)
@@ -113,7 +113,7 @@ export class WriteOffFormComponent extends CommonProperties implements OnInit {
   private createWriteOffBatchArea(batch: StockBatchListView): FormGroup {
     return this.formBuilder.group({
       storageId: [batch.id, Validators.required],
-      quantity: ['', [Validators.required]]
+      quantity: [0, Validators.required]
     });
   }
 

@@ -46,6 +46,7 @@ namespace BionicInventory.Application.Users.Commands.Create {
             var userModel = new ApplicationUser () {
                 UserName = request.userName,
                 PasswordHash = "000000",
+                
             };
             var result = await _userManager.CreateAsync (userModel, "000000");
 

@@ -9,7 +9,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Dynamic.Core;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Customers.Commandes;
 using BionicInventory.Application.Customers.Interfaces.Query;
 using BionicInventory.Application.Customers.Models;
 using BionicInventory.Application.Customers.Models.Addresses;
@@ -23,7 +25,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace BionicInventory.Application.Customers.Queries {
-    public class CustomersQuery : ICustomersQuery {
+    public class CustomersQuery : GeneralQuery<Customer, CustomerViewModel>, ICustomersQuery {
         private readonly IInventoryDatabaseService _database;
         private readonly ILogger<CustomersQuery> _logger;
 
@@ -130,33 +132,34 @@ namespace BionicInventory.Application.Customers.Queries {
         List<CustomerViewModel> ICustomersQuery.GetCustomerView () {
 
             return _database.Customer.Select (cus => new CustomerViewModel () {
-                id = cus.Id,
-                    fullName = cus.FullName,
-                    email = cus.Email,
-                    type = cus.Type,
-                    tin = cus.Tin,
-                    DateAdded = cus.DateAdded,
-                    DateUpdated = cus.DateUpdated,
-                    telephones = cus.PhoneNumber.Select (p => new CustomerPhoneView () {
-                        id = p.Id,
-                            type = p.Type,
-                            number = p.Number
-                    }).ToList (),
-                    addresses = cus.Address.Select (a => new CustomerAddressView () {
-                        id = a.Id,
-                            location = a.Location,
-                            subCity = a.SubCity,
-                            phoneNumber = a.PhoneNumber,
-                            country = a.Country,
-                            city = a.City,
-                    }).ToList (),
-                    socialMedias = cus.SocialMedia.Select (s => new CustomerSocialMediaView () {
-                        id = s.Id,
-                            site = s.Site,
-                            address = s.Address
-                    }).ToList ()
+                    id = cus.Id,
+                        fullName = cus.FullName,
+                        email = cus.Email,
+                        type = cus.Type,
+                        tin = cus.Tin,
+                        DateAdded = cus.DateAdded,
+                        DateUpdated = cus.DateUpdated,
+                        telephones = cus.PhoneNumber.Select (p => new CustomerPhoneView () {
+                            id = p.Id,
+                                type = p.Type,
+                                number = p.Number
+                        }).ToList (),
+                        addresses = cus.Address.Select (a => new CustomerAddressView () {
+                            id = a.Id,
+                                location = a.Location,
+                                subCity = a.SubCity,
+                                phoneNumber = a.PhoneNumber,
+                                country = a.Country,
+                                city = a.City,
+                        }).ToList (),
+                        socialMedias = cus.SocialMedia.Select (s => new CustomerSocialMediaView () {
+                            id = s.Id,
+                                site = s.Site,
+                                address = s.Address
+                        }).ToList ()
 
-            }).ToList ();
+                })
+                .Where ("fullname = @0", "abebe").ToList ();
         }
 
     }
