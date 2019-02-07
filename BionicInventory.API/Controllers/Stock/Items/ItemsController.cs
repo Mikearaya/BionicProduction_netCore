@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 31, 2019 7:12 PM
+ * @Last Modified Time: Feb 7, 2019 3:01 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -23,6 +23,7 @@ using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using BionicInventory.Domain.Items;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BionicInventory.API.Controllers.Stock.Items {
@@ -133,6 +134,27 @@ namespace BionicInventory.API.Controllers.Stock.Items {
 
         }
 
+        [HttpGet ("{itemCode}/unique")]
+        [DisplayName ("Check item code uniqueness")]
+        [AllowAnonymous]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<CriticalItemsView>> CheckItemCodeUniqueness (IsItemCodeUniqueQuery query) {
+
+            if (query == null) {
+                return StatusCode (400);
+            }
+
+            if (!ModelState.IsValid) {
+                return new InvalidInputResponse (ModelState);
+            }
+
+            return StatusCode (200, await _Mediator.Send (query));
+
+        }
+
         // api/id/boms
         [HttpGet ("{id}/boms")]
         [DisplayName ("View item bom list")]
@@ -203,6 +225,9 @@ namespace BionicInventory.API.Controllers.Stock.Items {
 
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);
+            } catch (DuplicateKeyException e) {
+                ModelState.AddModelError ("Code", e.Message);
+                return new InvalidInputResponse (ModelState);
             } catch (Exception) {
                 return StatusCode (500, "Server Error, Try Again Later");
             }

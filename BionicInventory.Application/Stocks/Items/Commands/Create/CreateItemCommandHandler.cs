@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 31, 2019 8:07 PM
+ * @Last Modified Time: Feb 7, 2019 2:46 AM
  * @Description: Modify Here, Please 
  */
 using System.Linq;
@@ -34,6 +34,13 @@ namespace BionicInventory.Application.Stocks.Items.Commands.Create {
 
             if (uom == null) {
                 throw new NotFoundException (nameof (UnitOfMeasurment), request.primaryUomId);
+            }
+
+            var itemCodeUnique = await _database.Item
+                .AnyAsync (i => i.Code.Trim ().ToUpper () == request.code.Trim ().ToUpper ());
+
+            if (!itemCodeUnique) {
+                throw new DuplicateKeyException ("Item code", request.code);
             }
 
             var itemGroup = await _database.ProductGroup
