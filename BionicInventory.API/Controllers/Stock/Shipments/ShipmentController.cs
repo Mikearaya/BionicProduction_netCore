@@ -3,14 +3,16 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 15, 2019 9:40 PM
+ * @Last Modified Time: Feb 15, 2019 10:43 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using BionicInventory.Application.Shared.Exceptions;
 using BionicInventory.Application.Stocks.Shipments.Models;
 using BionicInventory.Application.Stocks.Shipments.Queries.Collection;
+using BionicInventory.Application.Stocks.Shipments.Queries.Single;
 using BionicInventory.API.Commons;
 using BionicInventory.Commons;
 using MediatR;
@@ -28,6 +30,7 @@ namespace BionicInventory.API.Controllers.Stock.Shipments {
 
         [HttpGet]
         [Authorize]
+        [DisplayName ("View shipments list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (400)]
         [ProducesResponseType (401)]
@@ -40,8 +43,33 @@ namespace BionicInventory.API.Controllers.Stock.Shipments {
             return StatusCode (200, shipments);
         }
 
+        [HttpGet ("{id}")]
+        [Authorize]
+        [DisplayName ("View shipment detail")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<ShipmentsListModel>>> GetShipmentById (uint id) {
+
+            if (id == 0) {
+                return StatusCode (400);
+            }
+            try {
+                var shipments = await _Mediator.Send (new GetShipmentDetailQuery () { Id = id });
+
+                return StatusCode (200, shipments);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize]
+        [DisplayName ("Create shipment")]
         [ProducesResponseType (201)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -70,6 +98,7 @@ namespace BionicInventory.API.Controllers.Stock.Shipments {
 
         [HttpPut ("{id}")]
         [Authorize]
+        [DisplayName ("Update shipment")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
@@ -98,6 +127,7 @@ namespace BionicInventory.API.Controllers.Stock.Shipments {
 
         [HttpDelete ("{id}")]
         [Authorize]
+        [DisplayName ("Delete shipment")]
         [ProducesResponseType (204)]
         [ProducesResponseType (400)]
         [ProducesResponseType (404)]
