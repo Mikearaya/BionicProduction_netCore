@@ -14,8 +14,8 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public uint BomId { get; set; }
 
-        public Bom Bom { get; set; }
-        public Item Item { get; set; }
-        public UnitOfMeasurment Uom { get; set; }
+        public virtual Bom Bom { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual UnitOfMeasurment Uom { get; set; }
     }
 }

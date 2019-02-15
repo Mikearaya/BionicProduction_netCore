@@ -60,7 +60,6 @@ using BionicInventory.Application.Products.ProductGroups.Factories;
 using BionicInventory.Application.Products.ProductGroups.Interfaces;
 using BionicInventory.Application.Products.ProductGroups.Queries;
 using BionicInventory.Application.Products.Queries;
-using BionicInventory.Application.Products.Queries.booking;
 using BionicInventory.Application.SalesOrders.Commands;
 using BionicInventory.Application.SalesOrders.Factory;
 using BionicInventory.Application.SalesOrders.Interfaces;
@@ -68,10 +67,6 @@ using BionicInventory.Application.SalesOrders.Queries;
 using BionicInventory.Application.SalesOrders.Queries.Report;
 using BionicInventory.Application.Security.Roles.Models;
 using BionicInventory.Application.Shared.Infrastructure;
-using BionicInventory.Application.Shipments.Commands;
-using BionicInventory.Application.Shipments.Factories;
-using BionicInventory.Application.Shipments.Interfaces;
-using BionicInventory.Application.Shipments.Queries;
 using BionicInventory.Application.Users.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
@@ -133,7 +128,6 @@ namespace BionicInventory.API {
             services.AddScoped<ICompanyProfileFactories, CompanyProfileFactories> ();
             services.AddScoped<ICompanyProfileQueries, CompanyProfileQueries> ();
             services.AddScoped<ICompanyProfileCommands, CompanyProfileCommands> ();
-            services.AddScoped<IStockBookingQuery, StockBookingQuery> ();
             services.AddScoped<IStockBookingCommand, StockBookingCommand> ();
             services.AddScoped<IStockBookingFactory, StockBookingFactory> ();
             services.AddScoped<IInvoicesQuery, InvoicesQuery> ();
@@ -143,9 +137,6 @@ namespace BionicInventory.API {
             services.AddScoped<IInvoicePaymentFactory, InvoicePaymentFactory> ();
             services.AddScoped<IInvoicePaymentQuery, InvoicePaymentQuery> ();
             services.AddScoped<IWorkOrder, WorkOrdersController> ();
-            services.AddScoped<IShipmentQuery, ShipmentQuery> ();
-            services.AddScoped<IShipmentCommand, ShipmentCommand> ();
-            services.AddScoped<IShipmentFactory, ShipmentFactory> ();
             services.AddScoped<IDashboardQuery, DashboardQuery> ();
             services.AddScoped<IProductGroupQuery, ProductGroupQuery> ();
             services.AddScoped<IProductGroupCommand, ProductGroupCommand> ();
@@ -198,7 +189,7 @@ namespace BionicInventory.API {
                         var policy = new AuthorizationPolicyBuilder ()
                             .RequireAuthenticatedUser ()
                             .Build ();
-                      options.Filters.Add (new AuthorizeFilter (policy));
+                        options.Filters.Add (new AuthorizeFilter (policy));
                         options.Filters.Add (typeof (DynamicAuthorizationFilter));
 
                         // Self referencing loop detected for property entity framework solution

@@ -35,17 +35,17 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdate { get; set; }
         public uint DefaultStorageId { get; set; }
 
-        public StorageLocation DefaultStorage { get; set; }
-        public ProductGroup Group { get; set; }
-        public UnitOfMeasurment PrimaryUom { get; set; }
-        public ICollection<Bom> Bom { get; set; }
-        public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
-        public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
-        public ICollection<Routing> Routing { get; set; }
-        public ICollection<StockBatch> StockBatch { get; set; }
-        public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
-        public ICollection<WriteOff> WriteOff { get; set; }
+        public virtual StorageLocation DefaultStorage { get; set; }
+        public virtual ProductGroup Group { get; set; }
+        public virtual UnitOfMeasurment PrimaryUom { get; set; }
+        public virtual ICollection<Bom> Bom { get; set; }
+        public virtual ICollection<BomItems> BomItems { get; set; }
+        public virtual ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
+        public virtual ICollection<ProductionOrderList> ProductionOrderList { get; set; }
+        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public virtual ICollection<Routing> Routing { get; set; }
+        public virtual ICollection<StockBatch> StockBatch { get; set; }
+        public virtual ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public virtual ICollection<WriteOff> WriteOff { get; set; }
     }
 }

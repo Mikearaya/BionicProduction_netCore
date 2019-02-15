@@ -15,7 +15,7 @@ using BionicInventory.Domain.Shipments;
 using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Domain.CustomerOrders {
-    public class CustomerOrder {
+    public partial class CustomerOrder {
         public CustomerOrder () {
             CustomerOrderItem = new HashSet<CustomerOrderItem> ();
             Invoice = new HashSet<Invoice> ();

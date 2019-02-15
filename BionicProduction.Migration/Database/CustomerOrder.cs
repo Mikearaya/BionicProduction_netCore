@@ -20,9 +20,9 @@ namespace BionicProduction.Migration.Database
         public string OrderStatus { get; set; }
         public DateTime? DueDate { get; set; }
 
-        public Customer Client { get; set; }
-        public Employee CreatedByNavigation { get; set; }
-        public ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
-        public ICollection<Invoice> Invoice { get; set; }
+        public virtual Customer Client { get; set; }
+        public virtual Employee CreatedByNavigation { get; set; }
+        public virtual ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
+        public virtual ICollection<Invoice> Invoice { get; set; }
     }
 }

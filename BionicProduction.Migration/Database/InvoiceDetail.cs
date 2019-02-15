@@ -16,7 +16,7 @@ namespace BionicProduction.Migration.Database
         public float UnitPrice { get; set; }
         public float? Tax { get; set; }
 
-        public Invoice InvoiceNoNavigation { get; set; }
-        public CustomerOrderItem SalesOrder { get; set; }
+        public virtual Invoice InvoiceNoNavigation { get; set; }
+        public virtual CustomerOrderItem SalesOrder { get; set; }
     }
 }

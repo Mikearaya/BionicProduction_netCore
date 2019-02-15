@@ -34,10 +34,10 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
                     Start = newOrder.Start
 
                 };
-
+/* 
                 if (newOrder.PurchaseOrderItemId != 0) {
                     productionOrder.CustomerOrderItemId = newOrder.PurchaseOrderItemId;
-                }
+                } */
 
                 return productionOrder;
 
@@ -59,9 +59,9 @@ namespace BionicInventory.Application.ProductionOrders.Factories {
 
             };
 
-            if (newOrder.PurchaseOrderItemId != 0) {
+     /*        if (newOrder.PurchaseOrderItemId != 0) {
                 productionOrder.CustomerOrderItemId = newOrder.PurchaseOrderItemId;
-            }
+            } */
 
             return productionOrder;
 

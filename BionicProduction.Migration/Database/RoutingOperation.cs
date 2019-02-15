@@ -17,7 +17,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public Routing Routing { get; set; }
-        public WorkstationGroup Workstation { get; set; }
+        public virtual Routing Routing { get; set; }
+        public virtual WorkstationGroup Workstation { get; set; }
     }
 }

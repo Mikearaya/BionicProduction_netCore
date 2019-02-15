@@ -24,10 +24,10 @@ namespace BionicProduction.Migration.Database
         public uint OrderedBy { get; set; }
         public string Description { get; set; }
 
-        public Item Item { get; set; }
-        public Employee OrderedByNavigation { get; set; }
-        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
-        public ICollection<FinishedProduct> FinishedProduct { get; set; }
-        public ICollection<StockBatch> StockBatch { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual Employee OrderedByNavigation { get; set; }
+        public virtual ICollection<BookedStockBatch> BookedStockBatch { get; set; }
+        public virtual ICollection<FinishedProduct> FinishedProduct { get; set; }
+        public virtual ICollection<StockBatch> StockBatch { get; set; }
     }
 }

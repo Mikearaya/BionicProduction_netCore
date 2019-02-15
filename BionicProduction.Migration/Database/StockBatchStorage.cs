@@ -20,11 +20,11 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public StockBatch Batch { get; set; }
-        public StockBatchStorage PreviousStorage { get; set; }
-        public StorageLocation Storage { get; set; }
-        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
-        public ICollection<StockBatchStorage> InversePreviousStorage { get; set; }
-        public ICollection<WriteOffDetail> WriteOffDetail { get; set; }
+        public virtual StockBatch Batch { get; set; }
+        public virtual StockBatchStorage PreviousStorage { get; set; }
+        public virtual StorageLocation Storage { get; set; }
+        public virtual ICollection<BookedStockBatch> BookedStockBatch { get; set; }
+        public virtual ICollection<StockBatchStorage> InversePreviousStorage { get; set; }
+        public virtual ICollection<WriteOffDetail> WriteOffDetail { get; set; }
     }
 }

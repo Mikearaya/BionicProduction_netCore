@@ -10,7 +10,6 @@ namespace BionicProduction.Migration.Database
             BookedStockBatch = new HashSet<BookedStockBatch>();
             BookedStockItems = new HashSet<BookedStockItems>();
             InvoiceDetail = new HashSet<InvoiceDetail>();
-            ShipmentDetail = new HashSet<ShipmentDetail>();
         }
 
         public uint Id { get; set; }
@@ -22,11 +21,10 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public DateTime DueDate { get; set; }
 
-        public CustomerOrder CustomerOrder { get; set; }
-        public Item Item { get; set; }
-        public ICollection<BookedStockBatch> BookedStockBatch { get; set; }
-        public ICollection<BookedStockItems> BookedStockItems { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-        public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
+        public virtual CustomerOrder CustomerOrder { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual ICollection<BookedStockBatch> BookedStockBatch { get; set; }
+        public virtual ICollection<BookedStockItems> BookedStockItems { get; set; }
+        public virtual ICollection<InvoiceDetail> InvoiceDetail { get; set; }
     }
 }

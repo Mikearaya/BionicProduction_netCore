@@ -7,14 +7,13 @@ namespace BionicProduction.Migration.Database
     {
         public uint Id { get; set; }
         public uint ShipmentId { get; set; }
-        public uint StockId { get; set; }
-        public uint OrderItemId { get; set; }
+        public uint LotBookingId { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
-        public sbyte? Picked { get; set; }
+        public float? PickedQuantity { get; set; }
+        public float BookedQuantity { get; set; }
 
-        public CustomerOrderItem OrderItem { get; set; }
-        public Shipment Shipment { get; set; }
-        public FinishedProduct Stock { get; set; }
+        public virtual BookedStockBatch LotBooking { get; set; }
+        public virtual Shipment Shipment { get; set; }
     }
 }

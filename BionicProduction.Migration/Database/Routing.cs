@@ -21,8 +21,8 @@ namespace BionicProduction.Migration.Database
         public uint? Quantity { get; set; }
         public uint ItemId { get; set; }
 
-        public Item Item { get; set; }
-        public ICollection<RoutingBoms> RoutingBoms { get; set; }
-        public ICollection<RoutingOperation> RoutingOperation { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual ICollection<RoutingBoms> RoutingBoms { get; set; }
+        public virtual ICollection<RoutingOperation> RoutingOperation { get; set; }
     }
 }

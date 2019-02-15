@@ -18,7 +18,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateUpdated { get; set; }
         public sbyte? Active { get; set; }
 
-        public ICollection<RoutingOperation> RoutingOperation { get; set; }
-        public ICollection<Workstation> Workstation { get; set; }
+        public virtual ICollection<RoutingOperation> RoutingOperation { get; set; }
+        public virtual ICollection<Workstation> Workstation { get; set; }
     }
 }

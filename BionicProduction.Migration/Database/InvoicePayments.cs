@@ -14,7 +14,7 @@ namespace BionicProduction.Migration.Database
         public int? PrintCount { get; set; }
         public string Note { get; set; }
 
-        public Employee Cashier { get; set; }
-        public Invoice InvoiceNoNavigation { get; set; }
+        public virtual Employee Cashier { get; set; }
+        public virtual Invoice InvoiceNoNavigation { get; set; }
     }
 }

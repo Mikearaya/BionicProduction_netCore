@@ -12,6 +12,6 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public Customer Client { get; set; }
+        public virtual Customer Client { get; set; }
     }
 }

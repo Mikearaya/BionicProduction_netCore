@@ -18,7 +18,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public Item Item { get; set; }
-        public ICollection<WriteOffDetail> WriteOffDetail { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual ICollection<WriteOffDetail> WriteOffDetail { get; set; }
     }
 }

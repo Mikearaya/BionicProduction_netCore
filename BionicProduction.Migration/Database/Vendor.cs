@@ -20,7 +20,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public ICollection<PurchaseOrder> PurchaseOrder { get; set; }
-        public ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
+        public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public virtual ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
     }
 }

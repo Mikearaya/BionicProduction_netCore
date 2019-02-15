@@ -25,9 +25,9 @@ namespace BionicProduction.Migration.Database
         public string Fax { get; set; }
         public string PoBox { get; set; }
 
-        public ICollection<Address> Address { get; set; }
-        public ICollection<CustomerOrder> CustomerOrder { get; set; }
-        public ICollection<PhoneNumber> PhoneNumber { get; set; }
-        public ICollection<SocialMedia> SocialMedia { get; set; }
+        public virtual ICollection<Address> Address { get; set; }
+        public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
+        public virtual ICollection<PhoneNumber> PhoneNumber { get; set; }
+        public virtual ICollection<SocialMedia> SocialMedia { get; set; }
     }
 }

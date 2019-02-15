@@ -25,9 +25,9 @@ namespace BionicProduction.Migration.Database
         public DateTime? CreatedOn { get; set; }
         public string PaymentMethod { get; set; }
 
-        public Employee PreparedByNavigation { get; set; }
-        public CustomerOrder PurchaseOrder { get; set; }
-        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
-        public ICollection<InvoicePayments> InvoicePayments { get; set; }
+        public virtual Employee PreparedByNavigation { get; set; }
+        public virtual CustomerOrder PurchaseOrder { get; set; }
+        public virtual ICollection<InvoiceDetail> InvoiceDetail { get; set; }
+        public virtual ICollection<InvoicePayments> InvoicePayments { get; set; }
     }
 }

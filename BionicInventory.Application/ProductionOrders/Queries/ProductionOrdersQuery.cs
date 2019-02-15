@@ -54,8 +54,8 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                                 orderDate = pro.DateAdded,
                                 dueDate = pro.DueDate,
                                 total = pro.Quantity,
-                                customer = (pro.CustomerOrderItem != null) ? pro.CustomerOrderItem.CustomerOrder.Client.FullName : "",
-                                type = (pro.CustomerOrderItemId == null) ? "Work-to-Stock" : "Work-to-Order"
+                                /*               customer = (pro.CustomerOrderItem != null) ? pro.CustomerOrderItem.CustomerOrder.Client.FullName : "",
+                                              type = (pro.CustomerOrderItemId == null) ? "Work-to-Stock" : "Work-to-Order" */
                         })
                 })
 
@@ -89,9 +89,9 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                     v.product = r.product;
                     v.productName = r.productName;
                     v.quantity = (int) r.total;
-                    v.customer = r.customer;
+                    //     v.customer = r.customer;
                     v.orderedBy = r.orderedBy;
-                    v.type = r.type;
+                    //    v.type = r.type;
                 }
 
                 view.Add (v);
@@ -144,8 +144,8 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
                         dueDate = order.DueDate,
                         orderDate = order.DateAdded,
                         quantity = (int) order.Quantity,
-                        customer = (order.CustomerOrderItem != null) ? order.CustomerOrderItem.CustomerOrder.Client.FullName : "",
-                        salesOrderItemId = order.CustomerOrderItemId
+                        /*  customer = (order.CustomerOrderItem != null) ? order.CustomerOrderItem.CustomerOrder.Client.FullName : "",
+                         salesOrderItemId = order.CustomerOrderItemId */
 
                 }).FirstOrDefault ();
 
@@ -153,7 +153,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
         public WorkOrderView GetPendingWorkOrder (uint manufactureRequestId = 0) {
 
-            return _database.CustomerOrderItem.Where (pOrder => pOrder.ProductionOrderList == null)
+            return _database.CustomerOrderItem
                 .Where (request => request.Id == manufactureRequestId && request.CustomerOrder.OrderStatus.ToUpper () == "CONFIRMED")
                 .OrderByDescending (req => req.Id)
                 .Select (po => new PendingOrdersView () {
@@ -178,7 +178,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
 
         public IEnumerable<WorkOrderView> GetPendingWorkOrders () {
             var workRequests = _database.CustomerOrderItem
-                .Where (pOrder => pOrder.CustomerOrder.OrderStatus.ToUpper () == "CONFIRMED" && pOrder.ProductionOrderList == null &&
+                .Where (pOrder => pOrder.CustomerOrder.OrderStatus.ToUpper () == "CONFIRMED" &&
                     (pOrder.BookedStockItems == null || pOrder.BookedStockItems.Count () < pOrder.Quantity))
                 .GroupBy (request => request.CustomerOrder.Id)
 
@@ -213,7 +213,7 @@ namespace BionicInventory.Application.ProductionOrders.Queries {
         }
 
         public bool saleOrderProductionExits (uint id) {
-            var order = _database.ProductionOrderList.Where (orders => orders.CustomerOrderItemId == id)
+            var order = _database.ProductionOrderList
                 .Select (result => new ProductionOrderList () {
                     Id = result.Id
                 }).FirstOrDefault ();

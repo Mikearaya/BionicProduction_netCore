@@ -13,6 +13,6 @@ namespace BionicProduction.Migration.Database
         public string PhoneNumber { get; set; }
         public string Location { get; set; }
 
-        public Customer Client { get; set; }
+        public virtual Customer Client { get; set; }
     }
 }

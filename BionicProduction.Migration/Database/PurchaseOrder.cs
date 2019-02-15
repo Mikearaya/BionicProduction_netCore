@@ -26,7 +26,7 @@ namespace BionicProduction.Migration.Database
         public string InvoiceId { get; set; }
         public DateTime? InvoiceDate { get; set; }
 
-        public Vendor Vendor { get; set; }
-        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public virtual Vendor Vendor { get; set; }
+        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
     }
 }

@@ -11,13 +11,16 @@ namespace BionicProduction.Migration.Database
         }
 
         public uint Id { get; set; }
-        public uint BookedBy { get; set; }
+        public uint? BookedBy { get; set; }
         public string ShipmentNote { get; set; }
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateAdded { get; set; }
-        public uint CustomerOrderId { get; set; }
         public DateTime DeliveryDate { get; set; }
+        public string DeliveryAddress { get; set; }
+        public string WaybillNote { get; set; }
+        public string PickingListNote { get; set; }
+        public string Status { get; set; }
 
-        public ICollection<ShipmentDetail> ShipmentDetail { get; set; }
+        public virtual ICollection<ShipmentDetail> ShipmentDetail { get; set; }
     }
 }

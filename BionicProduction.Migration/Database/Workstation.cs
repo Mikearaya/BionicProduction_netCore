@@ -19,6 +19,6 @@ namespace BionicProduction.Migration.Database
         public float? MaintenanceHours { get; set; }
         public uint? MaintenanceItems { get; set; }
 
-        public WorkstationGroup Group { get; set; }
+        public virtual WorkstationGroup Group { get; set; }
     }
 }

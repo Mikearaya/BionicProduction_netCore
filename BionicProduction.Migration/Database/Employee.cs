@@ -22,12 +22,12 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public ICollection<BookedStockItems> BookedStockItems { get; set; }
-        public ICollection<CustomerOrder> CustomerOrder { get; set; }
-        public ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
-        public ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
-        public ICollection<Invoice> Invoice { get; set; }
-        public ICollection<InvoicePayments> InvoicePayments { get; set; }
-        public ICollection<ProductionOrderList> ProductionOrderList { get; set; }
+        public virtual ICollection<BookedStockItems> BookedStockItems { get; set; }
+        public virtual ICollection<CustomerOrder> CustomerOrder { get; set; }
+        public virtual ICollection<FinishedProduct> FinishedProductRecievedByNavigation { get; set; }
+        public virtual ICollection<FinishedProduct> FinishedProductSubmittedByNavigation { get; set; }
+        public virtual ICollection<Invoice> Invoice { get; set; }
+        public virtual ICollection<InvoicePayments> InvoicePayments { get; set; }
+        public virtual ICollection<ProductionOrderList> ProductionOrderList { get; set; }
     }
 }

@@ -22,11 +22,11 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
 
                 builder.HasIndex (e => e.ItemId)
                     .HasName ("fk_IN_ORDER_LIST_item_idx");
-                
+
                 builder.HasIndex (e => e.OrderedBy)
                     .HasName ("fk_PRODUCTION_ORDER_ordered_by_idx");
 
-                builder.HasIndex (e => e.CustomerOrderItemId)
+                builder.HasIndex (e => e.PurchaseOrderId)
                     .HasName ("PURCHASE_ORDER_ID_UNIQUE")
                     .IsUnique ();
 
@@ -45,41 +45,31 @@ namespace BionicInventory.DataStore.ProductionOrders.ProductionOrderLists {
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
 
+                builder.Property (e => e.Description)
+                    .HasColumnName ("description")
+                    .HasColumnType ("varchar(255)");
+
                 builder.Property (e => e.DueDate)
-                .IsRequired()
                     .HasColumnName ("due_date")
                     .HasColumnType ("datetime");
-            
-            builder.Property (e => e.Start)
-                .IsRequired()
-                    .HasColumnName ("start")
-                    .HasColumnType ("datetime");
-                
-                builder.Property (e => e.OrderedBy).HasColumnName ("ordered_by");
 
                 builder.Property (e => e.ItemId).HasColumnName ("ITEM_ID");
 
+                builder.Property (e => e.OrderedBy).HasColumnName ("ordered_by");
 
-                builder.Property (e => e.CustomerOrderItemId).HasColumnName ("PURCHASE_ORDER_ID");
+                builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
 
                 builder.Property (e => e.Quantity).HasColumnName ("quantity");
+
+                builder.Property (e => e.Start)
+                    .HasColumnName ("start")
+                    .HasColumnType ("datetime")
+                    .HasDefaultValueSql ("'CURRENT_TIMESTAMP'");
 
                 builder.HasOne (d => d.Item)
                     .WithMany (p => p.ProductionOrderList)
                     .HasForeignKey (d => d.ItemId)
                     .HasConstraintName ("fk_IN_ORDER_LIST_item");
-
-
-                builder.HasOne (d => d.CustomerOrderItem)
-                    .WithOne (p => p.ProductionOrderList)
-                    .HasForeignKey<ProductionOrderList> (d => d.CustomerOrderItemId)
-                    .OnDelete (DeleteBehavior.Cascade)
-                    .HasConstraintName ("fk_PRODUCTION_ORDER_LIST_sales_id");
-    
-                builder.Property (e => e.Description)
-                    .IsRequired ()
-                    .HasColumnName ("description")
-                    .HasColumnType ("varchar(255)");
 
                 builder.HasOne (d => d.OrderedByNavigation)
                     .WithMany (p => p.ProductionOrderList)

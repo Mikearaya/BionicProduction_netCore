@@ -21,8 +21,8 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUserRoles> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<AspNetUserTokens> AspNetUserTokens { get; set; }
+        public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Bom> Bom { get; set; }
         public virtual DbSet<BomItems> BomItems { get; set; }
         public virtual DbSet<BookedStockBatch> BookedStockBatch { get; set; }
@@ -67,7 +67,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
             }
         }
 
@@ -140,6 +140,10 @@ namespace BionicProduction.Migration.Database
 
                 entity.Property(e => e.Id).HasColumnType("varchar(255)");
 
+                entity.Property(e => e.Access)
+                    .IsRequired()
+                    .HasColumnType("text");
+
                 entity.Property(e => e.ConcurrencyStamp).HasColumnType("longtext");
 
                 entity.Property(e => e.Name).HasColumnType("varchar(256)");
@@ -168,7 +172,8 @@ namespace BionicProduction.Migration.Database
 
             modelBuilder.Entity<AspNetUserLogins>(entity =>
             {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey })
+                    .HasName("PRIMARY");
 
                 entity.HasIndex(e => e.UserId);
 
@@ -189,7 +194,8 @@ namespace BionicProduction.Migration.Database
 
             modelBuilder.Entity<AspNetUserRoles>(entity =>
             {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
+                entity.HasKey(e => new { e.UserId, e.RoleId })
+                    .HasName("PRIMARY");
 
                 entity.HasIndex(e => e.RoleId);
 
@@ -203,6 +209,24 @@ namespace BionicProduction.Migration.Database
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserTokens>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name })
+                    .HasName("PRIMARY");
+
+                entity.Property(e => e.UserId).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.LoginProvider).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Name).HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Value).HasColumnType("longtext");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserTokens)
                     .HasForeignKey(d => d.UserId);
             });
 
@@ -242,23 +266,6 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.TwoFactorEnabled).HasColumnType("bit(1)");
 
                 entity.Property(e => e.UserName).HasColumnType("varchar(256)");
-            });
-
-            modelBuilder.Entity<AspNetUserTokens>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-                entity.Property(e => e.UserId).HasColumnType("varchar(255)");
-
-                entity.Property(e => e.LoginProvider).HasColumnType("varchar(255)");
-
-                entity.Property(e => e.Name).HasColumnType("varchar(255)");
-
-                entity.Property(e => e.Value).HasColumnType("longtext");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
-                    .HasForeignKey(d => d.UserId);
             });
 
             modelBuilder.Entity<Bom>(entity =>
@@ -672,7 +679,8 @@ namespace BionicProduction.Migration.Database
 
             modelBuilder.Entity<EfmigrationsHistory>(entity =>
             {
-                entity.HasKey(e => e.MigrationId);
+                entity.HasKey(e => e.MigrationId)
+                    .HasName("PRIMARY");
 
                 entity.ToTable("__EFMigrationsHistory");
 
@@ -1443,14 +1451,9 @@ namespace BionicProduction.Migration.Database
                 entity.HasIndex(e => e.BookedBy)
                     .HasName("fk_SALE_store_keeper_idx");
 
-                entity.HasIndex(e => e.CustomerOrderId)
-                    .HasName("fk_SHIPMENT_CO_ID_idx");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.BookedBy).HasColumnName("BOOKED_BY");
-
-                entity.Property(e => e.CustomerOrderId).HasColumnName("CUSTOMER_ORDER_ID");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -1463,30 +1466,46 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
+                entity.Property(e => e.DeliveryAddress)
+                    .HasColumnName("delivery_address")
+                    .HasColumnType("varchar(100)");
+
                 entity.Property(e => e.DeliveryDate)
                     .HasColumnName("delivery_date")
                     .HasColumnType("datetime");
 
+                entity.Property(e => e.PickingListNote)
+                    .HasColumnName("picking_list_note")
+                    .HasColumnType("varchar(100)");
+
                 entity.Property(e => e.ShipmentNote)
                     .HasColumnName("shipment_note")
                     .HasColumnType("varchar(255)");
+
+                entity.Property(e => e.Status)
+                    .IsRequired()
+                    .HasColumnName("status")
+                    .HasColumnType("varchar(45)")
+                    .HasDefaultValueSql("'New'");
+
+                entity.Property(e => e.WaybillNote)
+                    .HasColumnName("waybill_note")
+                    .HasColumnType("varchar(100)");
             });
 
             modelBuilder.Entity<ShipmentDetail>(entity =>
             {
                 entity.ToTable("SHIPMENT_DETAIL");
 
-                entity.HasIndex(e => e.OrderItemId)
-                    .HasName("fk_SHIPMENT_DETAIL_order_item_idx");
+                entity.HasIndex(e => e.LotBookingId)
+                    .HasName("fk_SHIPMENT_DETAIL_stock_idx");
 
                 entity.HasIndex(e => e.ShipmentId)
                     .HasName("fk_SHIPMENT_DETAIL_1_idx");
 
-                entity.HasIndex(e => e.StockId)
-                    .HasName("STOCK_ID_UNIQUE")
-                    .IsUnique();
-
                 entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.BookedQuantity).HasColumnName("booked_quantity");
 
                 entity.Property(e => e.DateAdded)
                     .HasColumnName("date_added")
@@ -1499,32 +1518,23 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.OrderItemId).HasColumnName("ORDER_ITEM_ID");
+                entity.Property(e => e.LotBookingId).HasColumnName("LOT_BOOKING_ID");
 
-                entity.Property(e => e.Picked)
-                    .HasColumnName("picked")
-                    .HasColumnType("tinyint(4)")
+                entity.Property(e => e.PickedQuantity)
+                    .HasColumnName("picked_quantity")
                     .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.ShipmentId).HasColumnName("SHIPMENT_ID");
 
-                entity.Property(e => e.StockId).HasColumnName("STOCK_ID");
-
-                entity.HasOne(d => d.OrderItem)
+                entity.HasOne(d => d.LotBooking)
                     .WithMany(p => p.ShipmentDetail)
-                    .HasForeignKey(d => d.OrderItemId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_SHIPMENT_DETAIL_order_item");
+                    .HasForeignKey(d => d.LotBookingId)
+                    .HasConstraintName("fk_SHIPMENT_DETAIL_stock");
 
                 entity.HasOne(d => d.Shipment)
                     .WithMany(p => p.ShipmentDetail)
                     .HasForeignKey(d => d.ShipmentId)
                     .HasConstraintName("fk_SHIPMENT_DETAIL_shipment");
-
-                entity.HasOne(d => d.Stock)
-                    .WithOne(p => p.ShipmentDetail)
-                    .HasForeignKey<ShipmentDetail>(d => d.StockId)
-                    .HasConstraintName("fk_SHIPMENT_DETAIL_stock");
             });
 
             modelBuilder.Entity<SocialMedia>(entity =>

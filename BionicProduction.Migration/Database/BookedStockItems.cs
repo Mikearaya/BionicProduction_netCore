@@ -14,8 +14,8 @@ namespace BionicProduction.Migration.Database
         public uint BookedFor { get; set; }
         public string Note { get; set; }
 
-        public Employee BookedByNavigation { get; set; }
-        public CustomerOrderItem BookedForNavigation { get; set; }
-        public FinishedProduct Stock { get; set; }
+        public virtual Employee BookedByNavigation { get; set; }
+        public virtual CustomerOrderItem BookedForNavigation { get; set; }
+        public virtual FinishedProduct Stock { get; set; }
     }
 }

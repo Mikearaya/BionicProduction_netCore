@@ -34,8 +34,7 @@ namespace BionicInventory.Application.SalesOrders.Queries.Report {
 
                     month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName (d.Key),
                         amount = d.Sum (prof => (double?) prof.CustomerOrderItem
-                            .Sum (er => (double?) er.PricePerItem * (double?) er.Quantity) - (double?) prof.CustomerOrderItem
-                            .Sum (wo => (double?) wo.ProductionOrderList.CostPerItem * (double?) wo.ProductionOrderList.Quantity)),
+                            .Sum (er => (double?) er.PricePerItem * (double?) er.Quantity)),
                 });
         }
 

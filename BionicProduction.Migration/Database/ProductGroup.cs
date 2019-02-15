@@ -18,8 +18,8 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public ProductGroup ParentGroupNavigation { get; set; }
-        public ICollection<ProductGroup> InverseParentGroupNavigation { get; set; }
-        public ICollection<Item> Item { get; set; }
+        public virtual ProductGroup ParentGroupNavigation { get; set; }
+        public virtual ICollection<ProductGroup> InverseParentGroupNavigation { get; set; }
+        public virtual ICollection<Item> Item { get; set; }
     }
 }

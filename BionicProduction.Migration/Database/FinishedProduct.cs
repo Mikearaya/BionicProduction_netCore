@@ -13,10 +13,9 @@ namespace BionicProduction.Migration.Database
         public uint RecievedBy { get; set; }
         public int? Quantity { get; set; }
 
-        public ProductionOrderList Order { get; set; }
-        public Employee RecievedByNavigation { get; set; }
-        public Employee SubmittedByNavigation { get; set; }
-        public BookedStockItems BookedStockItems { get; set; }
-        public ShipmentDetail ShipmentDetail { get; set; }
+        public virtual ProductionOrderList Order { get; set; }
+        public virtual Employee RecievedByNavigation { get; set; }
+        public virtual Employee SubmittedByNavigation { get; set; }
+        public virtual BookedStockItems BookedStockItems { get; set; }
     }
 }

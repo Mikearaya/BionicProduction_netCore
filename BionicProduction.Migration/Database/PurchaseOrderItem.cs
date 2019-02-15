@@ -19,8 +19,8 @@ namespace BionicProduction.Migration.Database
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
 
-        public Item Item { get; set; }
-        public PurchaseOrder PurchaseOrder { get; set; }
-        public ICollection<StockBatch> StockBatch { get; set; }
+        public virtual Item Item { get; set; }
+        public virtual PurchaseOrder PurchaseOrder { get; set; }
+        public virtual ICollection<StockBatch> StockBatch { get; set; }
     }
 }

@@ -55,7 +55,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                                 quantity = CO.Quantity,
                                 productName = CO.Item.Name,
                                 dueDate = CO.DueDate,
-                                manufactureId = (uint?) CO.ProductionOrderList.Id,
+                                //           manufactureId = (uint?) CO.ProductionOrderList.Id,
                                 productCode = CO.Item.Code
 
                         }),
@@ -93,7 +93,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                         dateAdded = orders.dateAdded,
                         dateUpdated = orders.dateUpdated,
                         dueDate = orders.dueDate,
-                        manufacturingOrderId = orders.manufactureId,
+                        //       manufacturingOrderId = orders.manufactureId,
                         status = status
 
                 });
@@ -112,12 +112,12 @@ namespace BionicInventory.Application.SalesOrders.Queries {
                     ID = order.Key,
                         itemCount = order.Count (),
                         totalPrice = order.Sum (price => price.CustomerOrderItem.Sum (d => d.PricePerItem * (double?) d.Quantity)),
-                        totalCost = order.Sum (itemCost => itemCost.CustomerOrderItem.Sum (c => c.ProductionOrderList.CostPerItem * (double?) c.Quantity)),
+                        //         totalCost = order.Sum (itemCost => itemCost.CustomerOrderItem.Sum (c => c.ProductionOrderList.CostPerItem * (double?) c.Quantity)),
                         totalQuantity = order.Sum (q => q.CustomerOrderItem.Sum (itemQuantity => itemQuantity.Quantity)),
                         invoicedAmount = order.Sum (i => i.Invoice.Sum (o => o.InvoiceDetail.Sum (id => (double?) id.Quantity * id.UnitPrice))),
                         invoicePaid = order.Sum (i => i.Invoice.Sum (o => o.InvoicePayments.Sum (id => id.Amount))),
                         totalShipment = order.Sum (p => p.Shipment.Sum (s => s.ShipmentDetail.Count ())),
-                        inProductionAmount = order.Sum (o => o.CustomerOrderItem.Sum (d => d.ProductionOrderList.Quantity)),
+                        //       inProductionAmount = order.Sum (o => o.CustomerOrderItem.Sum (d => d.ProductionOrderList.Quantity)),
                         bookedQuantity = order.Sum (o => o.CustomerOrderItem.Sum (b => b.BookedStockItems.Count ())),
                         detail = order.Select (CO => new {
                             customerName = CO.Client.FullName,
@@ -135,15 +135,15 @@ namespace BionicInventory.Application.SalesOrders.Queries {
             foreach (var order in salesOrders) {
                 CustomerOrdersView salesOrder = new CustomerOrdersView () {
                     id = order.ID,
-                    totalCost = order.totalCost,
+                    //   totalCost = order.totalCost,
                     totalPrice = order.totalPrice,
                     totalQuantity = (uint) order.totalQuantity,
                     totalProducts = (uint) order.itemCount,
-                    profit = order.totalPrice - order.totalCost,
+                    //     profit = order.totalPrice - order.totalCost,
                     invoiceStatus = IdentifyInvoiceStatus (order.totalQuantity, order.invoicedAmount),
                     paymentStatus = IdentityPaymentStatus (order.totalPrice, order.invoicePaid)
                 };
-                var sum = order.bookedQuantity + order.inProductionAmount;
+                //            var sum = order.bookedQuantity + order.inProductionAmount;
                 var orderStatus = "";
 
                 foreach (var item in order.detail) {
@@ -157,7 +157,7 @@ namespace BionicInventory.Application.SalesOrders.Queries {
 
                 }
 
-                salesOrder.status = IdentifyOrderStatus (orderStatus, sum, order.totalQuantity);
+         //       salesOrder.status = IdentifyOrderStatus (orderStatus, sum, order.totalQuantity);
 
                 salesView.Add (salesOrder);
             }

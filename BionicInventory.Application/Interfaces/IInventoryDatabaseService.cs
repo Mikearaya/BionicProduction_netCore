@@ -29,7 +29,6 @@ using BionicInventory.Domain.ProductionOrders;
 using BionicInventory.Domain.Routings;
 using BionicInventory.Domain.Settings;
 using BionicInventory.Domain.Shipments;
-using BionicInventory.Domain.Shipments.ShipmentDetails;
 using BionicInventory.Domain.Storages;
 using BionicInventory.Domain.UnitOfMeasurments;
 using BionicInventory.Domain.Workstations;
