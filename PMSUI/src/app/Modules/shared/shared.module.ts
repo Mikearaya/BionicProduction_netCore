@@ -17,6 +17,11 @@ import { DialogModule } from '@syncfusion/ej2-angular-popups';
 import { TabModule, ToolbarModule, SidebarModule, TreeViewAllModule, MenuModule } from '@syncfusion/ej2-angular-navigations';
 import { DocumentCreatorModule } from './document-creator/document-creator.module';
 import { ListViewModule } from '@syncfusion/ej2-angular-lists';
+import { BreadCrumbComponent } from './bread-crumb/bread-crumb.component';
+import { RouterModule } from '@angular/router';
+
+import { PageTitleComponent } from './page-title/page-title.component';
+import { PageIdentityComponent } from './page-itentity/page-identity.component';
 
 
 @NgModule({
@@ -37,9 +42,14 @@ import { ListViewModule } from '@syncfusion/ej2-angular-lists';
     DocumentEditorAllModule,
     DialogModule,
     DocumentCreatorModule,
+    RouterModule
 
   ],
-  declarations: [FormOptionsComponent, NotificationComponent, ToastComponent, BionicDialogComponent],
+  declarations: [FormOptionsComponent,
+    NotificationComponent,
+    ToastComponent,
+    BionicDialogComponent,
+    PageIdentityComponent, PageTitleComponent, BreadCrumbComponent],
   exports: [
     // angular
     ReactiveFormsModule,
@@ -52,6 +62,7 @@ import { ListViewModule } from '@syncfusion/ej2-angular-lists';
     CheckBoxModule,
     NotificationComponent,
     ToolbarModule,
+    PageIdentityComponent,
     // syncfusion
     BionicDialogComponent,
     RadioButtonModule,

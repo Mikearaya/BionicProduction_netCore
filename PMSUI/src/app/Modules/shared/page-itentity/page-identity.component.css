@@ -1,0 +1,17 @@
+div {
+  background: rgb(238, 238, 241);
+  display: flex;
+
+  height: 2em;
+}
+
+
+.title {
+  width: 50%;
+  float: left;
+}
+
+.bread-crumb {
+  width: 50%;
+  float: left;
+}

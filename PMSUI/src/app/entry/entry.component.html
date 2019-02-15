@@ -1,11 +1,15 @@
 <ejs-toolbar>
   <e-items>
     <e-item text="Bionic ERP Solutions"></e-item>
-    <e-item prefixIcon='e-icons e-menu-icon' [align]='logOutAlign' (click)="updateProfile()"  *ngIf="isLogedIn" text="Update profile"></e-item>
+    <e-item prefixIcon='e-icons e-menu-icon' [align]='logOutAlign' (click)="updateProfile()" *ngIf="isLogedIn" text="Update profile"></e-item>
     <e-item prefixIcon='e-icons e-menu-icon' [align]='logOutAlign' (click)="changePassword()" *ngIf="isLogedIn" text="Change Password"></e-item>
     <e-item prefixIcon='e-icons e-menu-icon' [align]='logOutAlign' (click)="logOut()" *ngIf="isLogedIn" text="Log out"></e-item>
   </e-items>
 </ejs-toolbar>
+
+<app-page-identity></app-page-identity>
+
+
 <section class="container-fluid ">
   <div class="row">
     <div class="feature-boxes e-card">

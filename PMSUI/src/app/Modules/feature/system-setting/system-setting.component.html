@@ -1,9 +1,14 @@
 <ejs-toolbar>
   <e-items>
-    <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings/employees" text="Employees"></e-item>
-    <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings/company-profile" text="Company"></e-item>
-    <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings/users" text="Users"></e-item>
-    <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings/roles" text="User Roles"></e-item>
+    <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/settings/employees"
+      text="Employees"></e-item>
+    <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/settings/company-profile"
+      text="Company"></e-item>
+    <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/settings/users"
+      text="Users"></e-item>
+    <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/settings/roles"
+      text="User Roles"></e-item>
   </e-items>
 </ejs-toolbar>
+<app-page-identity></app-page-identity>
 <router-outlet></router-outlet>

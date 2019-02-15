@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 26, 2019 8:26 PM
+ * @Last Modified Time: Feb 8, 2019 12:36 AM
  * @Description: Modify Here, Please
  */
 import { BrowserModule } from '@angular/platform-browser';
@@ -27,7 +27,7 @@ import { SharedModule } from './Modules/shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
-    EntryComponent
+    EntryComponent,
   ],
   imports: [
     BrowserModule,

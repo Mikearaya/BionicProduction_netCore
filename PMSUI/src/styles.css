@@ -76,7 +76,7 @@ dt {
 }
 
 body {
-  background: lightblue !important;
+  background: #F8F8F8 !important;
 }
 
 .label-area,
@@ -108,4 +108,15 @@ ejs-numerictextbox span.e-spin-down {
 
 .e-btn-icon.e-delete.e-icons {
   color: red;
+}
+
+
+.active-link {
+  color: blue !important;
+  background: white !important;
+}
+
+.inactive-link {
+  color: red !important;
+  background: white !important;
 }

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:41 PM
+ * @Last Modified Time: Feb 7, 2019 11:10 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Bionic_inventory.Application.Interfaces;
+using BionicInventory.Application.Stocks.Items.Models;
 using BionicInventory.Application.Stocks.StockLots.Models;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace BionicInventory.Application.Stocks.StockLots.Queries.Collection {
         }
 
         public Task<IEnumerable<InventoryView>> Handle (GetInventoryViewQuery request, CancellationToken cancellationToken) {
-            var result = _database.Item.Include (u => u.Group)
+            /* var result = _database.Item.Include (u => u.Group)
                 .Include (u => u.PrimaryUom)
                 .GroupJoin (_database.StockBatchStorage, product => product.Id,
                     manufOrder => manufOrder.Batch.ItemId,
@@ -51,6 +52,21 @@ namespace BionicInventory.Application.Stocks.StockLots.Queries.Collection {
                         dateUpdated = i.Key.DateUpdate
 
                 }).ToList ();
+
+            return Task.FromResult<IEnumerable<InventoryView>> (result); */
+
+            var result = _database.Item
+                .Include (i => i.PrimaryUom)
+                .GroupJoin (_database.StockBatchStorage, item => item.Id,
+                    lot => lot.Batch.ItemId,
+                    (product, lot) => new ItemLotJoin () {
+                        Item = product,
+                            Lot = lot,
+                            uom = product.PrimaryUom.Abrivation,
+                            group = product.Group.GroupName
+                    }).GroupBy (i => i.Item)
+                .Select (InventoryView.Projection)
+                .ToList ();
 
             return Task.FromResult<IEnumerable<InventoryView>> (result);
 

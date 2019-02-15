@@ -157,6 +157,7 @@ namespace BionicInventory.API.Controllers.Stock.Items {
 
         // api/id/boms
         [HttpGet ("{id}/boms")]
+        [AllowAnonymous]
         [DisplayName ("View item bom list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (404)]

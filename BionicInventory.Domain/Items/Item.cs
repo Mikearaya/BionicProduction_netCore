@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 9:44 PM
+ * @Last Modified Time: Feb 7, 2019 11:06 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -20,7 +20,7 @@ using BionicProduction.Domain.StockBatchs;
 using BionicProduction.Domain.WriteOffs;
 
 namespace BionicInventory.Domain.Items {
-    public class Item {
+    public partial class Item {
         public Item () {
             Bom = new HashSet<Bom> ();
             BomItems = new HashSet<BomItems> ();

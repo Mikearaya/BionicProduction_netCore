@@ -14,7 +14,7 @@ import { Observable } from 'rxjs';
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 7, 2019 2:58 AM
+ * @Last Modified Time: Feb 7, 2019 11:01 PM
  * @Description: Modify Here, Please
  */
 
@@ -47,8 +47,8 @@ export class ItemApiService {
     return this.httpClient.get<ItemView[]>(`${this.apiUrl}/${this.controller}`);
   }
 
-    ItemCodeUnique(code: string): Observable<bool> {
-    return this.httpClient.get<bool>(`${this.apiUrl}/${this.controller}/${code}/unique`);
+  ItemCodeUnique(code: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.apiUrl}/${this.controller}/${code}/unique`);
   }
 
 

@@ -9,16 +9,23 @@
   <div id="head">
     <ejs-toolbar>
       <e-items>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/home" text="Home"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/dashboard" text="Dashboard"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/stocks" text="Stocks"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/crm" text="CRM"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/productions" text="Production"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/procurments" text="Procurment"></e-item>
-        <e-item prefixIcon='e-icons e-menu-icon' routerLink="/settings" text="Settings"></e-item>
-
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/home"
+          text="Home"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/dashboard"
+          text="Dashboard"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/stocks"
+          text="Stocks"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/crm"
+          text="CRM"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/productions"
+          text="Production"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/procurments"
+          text="Procurment"></e-item>
+        <e-item prefixIcon='e-icons e-menu-icon' [routerLinkActive]="'active-link inactive-link'" routerLink="/settings"
+          text="Settings"></e-item>
       </e-items>
     </ejs-toolbar>
+
     <div class="main-content">
       <router-outlet></router-outlet>
     </div>
