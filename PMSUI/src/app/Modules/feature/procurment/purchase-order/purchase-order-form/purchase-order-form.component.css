@@ -1,4 +1,5 @@
-th {
+th,
+td {
   text-align: center;
 }
 
@@ -10,4 +11,9 @@ td {
 
 tfoot {
   background: #e0d9d9f8;
+}
+
+
+td.item-box {
+  width: 40%;
 }

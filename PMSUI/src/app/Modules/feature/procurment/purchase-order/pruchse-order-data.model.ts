@@ -77,7 +77,7 @@ export class NewPurchaseOrderModel {
   PaymentDate: Date | string | null;
   InvoiceId: string;
   InvoiceDate: Date | string | null;
-
+ArivalDate: Date | string | null;
   PurchaseOrderItems: PurchaseOrderItemModel[] = [];
 
 }

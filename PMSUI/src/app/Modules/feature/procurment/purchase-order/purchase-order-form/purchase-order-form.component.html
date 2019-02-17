@@ -1,7 +1,5 @@
 <section>
   <app-notification #notification></app-notification>
-  <h3>{{title}} </h3>
-
   <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
     <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
     <div class="e-card">
@@ -22,8 +20,8 @@
             <div class="row">
               <label for="status" class="col-md-3 col-sm-12" i18n>Status</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-dropdownlist [dataSource]='purchaseOrderStatus' formControlName="status" id="status" name="status"
-                  i18n-placeholder placeholder="Select Status"></ejs-dropdownlist>
+                <ejs-dropdownlist [width]='200' [dataSource]='purchaseOrderStatus' formControlName="status" id="status"
+                  name="status" i18n-placeholder placeholder="Select Status"></ejs-dropdownlist>
                 <div class="e-error" *ngIf="status.errors">
                   <div *ngIf="status.errors['required']" i18n>Status is Required</div>
                 </div>
@@ -32,7 +30,8 @@
             <div class="row">
               <label for="expectedDate" class="col-md-3 col-sm-12" i18n>Expected Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="expectedDate" id="expectedDate" name="expectedDate" placeholder="Selected Expected Date"></ejs-datepicker>
+                <ejs-datepicker [width]='200' formControlName="expectedDate" id="expectedDate" name="expectedDate"
+                  placeholder="Selected Expected Date"></ejs-datepicker>
                 <div class="e-error" *ngIf="expectedDate.errors">
                   <div *ngIf="expectedDate.errors['required']" i18n>Expected Date is Required</div>
                 </div>
@@ -57,24 +56,35 @@
               </thead>
               <tbody formArrayName="purchaseOrderItems">
                 <tr *ngFor="let purchaseItem of purchaseOrderItems.controls; let i=index; let last=last;" [formGroup]="purchaseItem">
-                  <td>
-                    <ejs-dropdownlist [dataSource]="itemsList" [fields]='itemFields' formControlName="itemId" [attr.id]="'itemId'+i"
-                      [attr.name]="'itemId'+i">
+                  <td class='item-box'>
+                    <ejs-dropdownlist [dataSource]="itemsList" (change)='itemChanged($event, i)' [fields]='itemFields'
+                      formControlName="itemId" [attr.id]="'itemId'+i" [attr.name]="'itemId'+i">
                     </ejs-dropdownlist>
-                  </td>
-                  <td>
-                    <ejs-numerictextbox formControlName="quantity" [attr.id]="'quantity'+i" [attr.name]="'quantity'+i"
-                      format="##"></ejs-numerictextbox>
-                  </td>
-                  <td>
-                    <ejs-numerictextbox formControlName="unitPrice" [attr.id]="'unitPrice'+i" [attr.name]="'unitPrice'+i"
-                      format="##"></ejs-numerictextbox>
-                  </td>
-                  <td>
+                    <div class="col-md-9 col-sm-12">
 
+                      <div class="e-error" *ngIf="selectedItemId(i).errors">
+                        <div *ngIf="selectedItemId(i).errors['required']" i18n>Item is Required</div>
+                      </div>
+                    </div>
                   </td>
                   <td>
-                    <ejs-datepicker formControlName="expectedDate" [attr.name]="'expectedDate'+i" [attr.id]="'expectedDate'+i"></ejs-datepicker>
+                    <ejs-numerictextbox formControlName="quantity" #quant [width]='100' [attr.id]="'quantity'+i"
+                      [attr.name]="'quantity'+i" format="##"></ejs-numerictextbox>
+                    <div class="e-error" *ngIf="selectedItemQuantity(i).errors">
+                      <div *ngIf="selectedItemQuantity(i).errors['required']" i18n>Quantity is Required</div>
+                      <div *ngIf="selectedItemQuantity(i).errors['min']" i18n>item minimum order quantity not met</div>
+                    </div>
+                  </td>
+                  <td>
+                    <ejs-numerictextbox #price formControlName="unitPrice" [readonly]='true' [width]='100' [attr.id]="'unitPrice'+i"
+                      [attr.name]="'unitPrice'+i" format="##"></ejs-numerictextbox>
+                  </td>
+                  <td>
+                    {{quant.value * price.value}}
+                  </td>
+                  <td>
+                    <ejs-datepicker [width]='150' formControlName="expectedDate" [attr.name]="'expectedDate'+i"
+                      [attr.id]="'expectedDate'+i"></ejs-datepicker>
                   </td>
                   <td>
                     <button ejs-button class="e-small e-primary e-round e-danger" iconCss="e-icons e-delete-icon"
@@ -84,37 +94,37 @@
               </tbody>
               <tfoot>
                 <tr>
-                  <th>Discount</th>
+                  <th class='text-right'>Discount %</th>
                   <td>&nbsp;</td>
                   <td>
-                    <ejs-numerictextbox formControlName="discount" id="discount" name="discount" format="##">
+                    <ejs-numerictextbox formControlName="discount" [width]='100' id="discount" name="discount" format="##">
                     </ejs-numerictextbox>
                   </td>
                   <td colspan="3">&nbsp;</td>
                 </tr>
                 <tr>
-                  <th>Total</th>
+                  <th class='text-right'>Total</th>
                   <td colspan="2">&nbsp;</td>
                   <td>
-                    9
+                    {{totalBeforeDiscount}}
                   </td>
 
                   <td colspan="2">&nbsp;</td>
                 </tr>
                 <tr>
-                  <th>Tax</th>
+                  <th class='text-right'>Tax %</th>
                   <td>&nbsp;</td>
                   <td>
-                    <ejs-numerictextbox formControlName="tax" id="tax" name="tax" format="##">
+                    <ejs-numerictextbox formControlName="tax" id="tax" name="tax" [width]='100' format="##">
                     </ejs-numerictextbox>
                   </td>
                   <td colspan="3">&nbsp;</td>
                 </tr>
                 <tr>
-                  <th>Additional Fees</th>
+                  <th class='text-right'>Additional Fees</th>
                   <td colspan="2">&nbsp;</td>
                   <td>
-                    <ejs-numerictextbox formControlName="additionalFees" id="additionalFees" name="additionalFees"
+                    <ejs-numerictextbox formControlName="additionalFees" id="additionalFees" [width]='100' name="additionalFees"
                       format="##">
                     </ejs-numerictextbox>
                   </td>
@@ -122,10 +132,10 @@
                   <td colspan="2">&nbsp;</td>
                 </tr>
                 <tr>
-                  <th>Grand Total</th>
+                  <th class='text-right'>Grand Total</th>
                   <td colspan="2">&nbsp;</td>
                   <td>
-                    3000
+                    {{totalAfterAdditionalFee}}
                   </td>
 
                   <td colspan="2">&nbsp;</td>
@@ -145,13 +155,13 @@
             <div class="row">
               <label for="orderId" class="col-md-3 col-sm-12">Order ID</label>
               <div class="col-md-9 col-sm-12">
-                <input formControlName="orderId" name="orderId" id="orderId" placeholder="Order Id" class="e-input">
+                <input formControlName="orderId" [width]='100' name="orderId" id="orderId" placeholder="Order Id" class="e-input">
               </div>
             </div>
             <div class="row">
               <label for="orderDate" class="col-md-3 col-sm-12">Order Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="orderDate" name="orderDate" id="orderDate" placeholder="Order Date"
+                <ejs-datepicker formControlName="orderDate" [width]='200' name="orderDate" id="orderDate" placeholder="Order Date"
                   class="e-input">
                 </ejs-datepicker>
               </div>
@@ -165,23 +175,23 @@
             <div class="row">
               <label for="invoiceDate" class="col-md-3 col-sm-12">Invoice Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="invoiceDate" name="invoiceDate" id="invoiceDate" placeholder="Invoice Date"
-                  class="e-input">
+                <ejs-datepicker formControlName="invoiceDate" [width]='200' name="invoiceDate" id="invoiceDate"
+                  placeholder="Invoice Date" class="e-input">
                 </ejs-datepicker>
               </div>
             </div>
             <div class="row">
               <label for="paymentDate" class="col-md-3 col-sm-12">Payment Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="paymentDate" name="paymentDate" id="paymentDate" placeholder="Payment Date"
-                  class="e-input">
+                <ejs-datepicker formControlName="paymentDate" [width]='200' name="paymentDate" id="paymentDate"
+                  placeholder="Payment Date" class="e-input">
                 </ejs-datepicker>
               </div>
             </div>
             <div class="row">
               <label for="shippedOn" class="col-md-3 col-sm-12">Shipped Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="shippedOn" name="shippedOn" id="shippedOn" placeholder="Shipped Date"
+                <ejs-datepicker formControlName="shippedOn" name="shippedOn" [width]='200' id="shippedOn" placeholder="Shipped Date"
                   class="e-input">
                 </ejs-datepicker>
               </div>
@@ -189,8 +199,8 @@
             <div class="row">
               <label for="arrivalDate" class="col-md-3 col-sm-12">Arrival Date</label>
               <div class="col-md-9 col-sm-12">
-                <ejs-datepicker formControlName="arrivalDate" name="arrivalDate" id="arrivalDate" placeholder="Arrival Date"
-                  class="e-input">
+                <ejs-datepicker formControlName="arrivalDate" [width]='200' name="arrivalDate" id="arrivalDate"
+                  placeholder="Arrival Date" class="e-input">
                 </ejs-datepicker>
               </div>
             </div>

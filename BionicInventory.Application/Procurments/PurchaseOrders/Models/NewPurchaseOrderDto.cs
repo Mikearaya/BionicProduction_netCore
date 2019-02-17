@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 10, 2019 10:23 PM
+ * @Last Modified Time: Feb 16, 2019 5:23 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -28,7 +28,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public float? AdditionalFee { get; set; }
         public float? Discount { get; set; }
         public string OrderId { get; set; }
-        public DateTime? ArrivalDate { get; set; }
+        public DateTime? ArivalDate { get; set; }
         public DateTime? PaymentDate { get; set; }
         public string InvoiceId { get; set; }
         public DateTime? InvoiceDate { get; set; }

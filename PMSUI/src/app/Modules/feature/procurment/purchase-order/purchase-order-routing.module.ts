@@ -6,15 +6,15 @@ import { PurchaseOrderFormComponent } from './purchase-order-form/purchase-order
 const routes: Routes = [
   {
     path: '', component: PurchaseOrderViewComponent,
-    data: { title: 'Purchase Orders', breadcrum: 'procurments/purchase-orders' }
+    data: { title: 'Purchase Orders', breadCrum: '' }
   },
   {
     path: 'new', component: PurchaseOrderFormComponent,
-    data: { title: 'Create a purchase order', breadcrum: 'procuments/purchase-orders/new' }
+    data: { title: 'Create a purchase order', breadCrum: 'new' }
   },
   {
     path: ':purchaseOrderId/update', component: PurchaseOrderFormComponent,
-    data: { title: 'Update purchase order', breadcrum: 'procuments/purchase-orders/update' }
+    data: { title: 'Update purchase order', breadCrum: 'update' }
   }
 ];
 

@@ -6,9 +6,18 @@ const routes: Routes = [
   {
     path: '', component: ProcurmentComponent, children: [
       { path: '', redirectTo: 'purchase-orders', pathMatch: 'full' },
-      { path: 'vendors', loadChildren: './vendor/vendor.module#VendorModule' },
-      { path: 'purchase-terms', loadChildren: './purchase-term/purchase-term.module#PurchaseTermModule' },
-      { path: 'purchase-orders', loadChildren: './purchase-order/purchase-order.module#PurchaseOrderModule' }
+      {
+        path: 'vendors', loadChildren: './vendor/vendor.module#VendorModule',
+        data: { title: 'Vendors', breadCrum: 'vendors' }
+      },
+      {
+        path: 'purchase-terms', loadChildren: './purchase-term/purchase-term.module#PurchaseTermModule',
+        data: { title: 'Purchase terms', breadCrum: 'Purchase terms' }
+      },
+      {
+        path: 'purchase-orders', loadChildren: './purchase-order/purchase-order.module#PurchaseOrderModule',
+        data: { title: 'Purchase orders', breadCrum: 'Purchase orders' }
+      }
     ]
   }];
 

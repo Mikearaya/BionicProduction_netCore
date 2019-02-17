@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:38 PM
+ * @Last Modified Time: Feb 17, 2019 12:32 AM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -64,12 +64,12 @@ namespace BionicInventory.Application.Stocks.StockLots.Commands.Create {
             Object purchaseOrder;
             // check if purchase order id is defined
             if (request.PurchaseOrderId != null && request.PurchaseOrderId != 0) {
-                purchaseOrder = await _database.PurchaseOrder
+                purchaseOrder = await _database.PurchaseOrderItem
                     .AsNoTracking ()
                     .FirstOrDefaultAsync (p => p.Id == request.PurchaseOrderId);
 
                 if (purchaseOrder == null) {
-                    throw new NotFoundException (nameof (PurchaseOrder), request.PurchaseOrderId);
+                    throw new NotFoundException (nameof (PurchaseOrderItem), request.PurchaseOrderId);
                 }
                 batch.Source = "Procured";
                 batch.PurchaseOrderId = request.PurchaseOrderId;

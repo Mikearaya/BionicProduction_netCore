@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:58 PM
+ * @Last Modified Time: Feb 16, 2019 5:22 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -41,6 +41,8 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 throw new NotFoundException (nameof (Vendor), request.VendorId);
             }
 
+            bool Recieved = false;
+
             PurchaseOrder purchaseOrder = new PurchaseOrder () {
                 VendorId = request.VendorId,
                 AdditionalFee = request.AdditionalFee,
@@ -53,12 +55,26 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 Status = request.Status,
                 ShippedDate = request.ShippedDate,
                 PaymentDate = request.PaymentDate,
-                OrderedDate = request.OrderedDate
+                OrderedDate = request.OrderedDate,
+    
             };
+
+            if (request.OrderedDate != null) {
+                purchaseOrder.Status = "Ordered";
+            }
+
+            if (request.ShippedDate != null) {
+                purchaseOrder.Status = "Shipped";
+            }
+
+            if (request.ArivalDate != null) {
+                purchaseOrder.Status = "Recieved";
+                Recieved = true;
+            }
 
             IList<NewStockBatchDto> newStockLotList = new List<NewStockBatchDto> ();
             foreach (var item in request.PurchaseOrderItems) {
-
+                // check if the selected vendor item exists
                 var vendorItem = await _database.VendorPurchaseTerm
                     .Include (v => v.Item)
                     .AsNoTracking ()
@@ -97,7 +113,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                     PurchaseOrderId = purchaseItem.Id,
                         ItemId = purchaseItem.ItemId,
                         Quantity = purchaseItem.Quantity,
-                        Status = request.ArrivalDate != null ? "Recieved" : "Planed",
+                        Status = Recieved ? "Recieved" : "Planed",
                         UnitCost = purchaseItem.UnitPrice,
                         AvailableFrom = (purchaseItem.ExpectedDate == null) ? request.ExpectedDate : (DateTime) purchaseItem.ExpectedDate,
                         StorageLocation = new List<NewStockBatchStorageDto> () {

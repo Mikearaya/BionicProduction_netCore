@@ -3,9 +3,10 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 7, 2019 2:46 AM
+ * @Last Modified Time: Feb 16, 2019 5:07 PM
  * @Description: Modify Here, Please 
  */
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -38,8 +39,8 @@ namespace BionicInventory.Application.Stocks.Items.Commands.Create {
 
             var itemCodeUnique = await _database.Item
                 .AnyAsync (i => i.Code.Trim ().ToUpper () == request.code.Trim ().ToUpper ());
-
-            if (!itemCodeUnique) {
+            Console.WriteLine (itemCodeUnique);
+            if (itemCodeUnique) {
                 throw new DuplicateKeyException ("Item code", request.code);
             }
 

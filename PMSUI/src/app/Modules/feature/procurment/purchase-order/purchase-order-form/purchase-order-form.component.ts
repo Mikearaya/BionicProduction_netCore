@@ -7,7 +7,7 @@ import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';
 import { VendorViewModel } from 'src/app/Modules/core/DataModels/vendor-data.model';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
-import { NewPurchaseOrderModel, PurchaseOrderDetailView, PurchaseOrderItemModel, PurchaseOrderItemView } from '../pruchse-order-data.model';
+import { NewPurchaseOrderModel, PurchaseOrderDetailView, PurchaseOrderItemView } from '../pruchse-order-data.model';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 
 
@@ -32,6 +32,10 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
   public vendorFields: { text: string, value: string };
 
   private purchaseOrderId: number;
+  totalBeforeDiscount: number;
+  total: number;
+  totalAfterTax: number;
+  totalAfterAdditionalFee: number;
 
   constructor(private formBuilder: FormBuilder,
     private activatedRoute: ActivatedRoute,
@@ -88,8 +92,31 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
       purchaseOrderItems: this.formBuilder.array([this.createPurchaseOrderItems()])
 
     });
+
+    this.purchaseOrderItems.valueChanges.subscribe(
+      (e) => this.calculatePrices(e)
+    );
+    this.discount.valueChanges.subscribe(
+      () => this.purchaseOrderItems.updateValueAndValidity()
+    );
+    this.tax.valueChanges.subscribe(
+      () => this.purchaseOrderItems.updateValueAndValidity()
+    );
   }
 
+
+  calculatePrices(e: any[]) {
+    this.totalBeforeDiscount = 0;
+    this.totalAfterTax = 0;
+    this.totalAfterAdditionalFee = 0;
+    let subTotals = 0;
+    e.forEach((item) => {
+      subTotals = subTotals + item.quantity * item.unitPrice;
+    });
+    this.totalBeforeDiscount = subTotals - (subTotals * (this.discount.value / 100));
+    this.totalAfterTax = this.totalBeforeDiscount - (this.totalBeforeDiscount * (this.tax.value / 100));
+    this.totalAfterAdditionalFee = this.totalAfterTax + this.additionalFees.value;
+  }
   private initializeForm(data: PurchaseOrderDetailView): void {
 
     const vendor = { value: data.vendorId };
@@ -114,6 +141,17 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
       purchaseOrderItems: this.formBuilder.array(data.OrderItems.map(i => this.initializePurchaseOrderItems(i)))
 
     });
+    this.purchaseOrderItems.valueChanges.subscribe(
+      (e) => this.calculatePrices(e)
+    );
+
+    this.discount.valueChanges.subscribe(
+      () => this.purchaseOrderItems.updateValueAndValidity()
+    );
+    this.tax.valueChanges.subscribe(
+      () => this.purchaseOrderItems.updateValueAndValidity()
+    );
+    this.purchaseOrderItems.updateValueAndValidity();
   }
 
   get vendorId(): FormControl {
@@ -181,6 +219,21 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
       expectedDate: [data.expectedDate]
     });
   }
+  selectedItemUnitPrice(index: number): FormControl {
+    return this.purchaseOrderItems.controls[index].get('unitPrice') as FormControl;
+  }
+
+  selectedItemId(index: number): FormControl {
+    return this.purchaseOrderItems.controls[index].get('itemId') as FormControl;
+  }
+
+  selectedItemQuantity(index: number): FormControl {
+    return this.purchaseOrderItems.controls[index].get('quantity') as FormControl;
+  }
+
+  selectedItemExpectedDate(index: number): FormControl {
+    return this.purchaseOrderItems.controls[index].get('expectedDate') as FormControl;
+  }
 
   private createPurchaseOrderItems(): FormGroup {
     return this.formBuilder.group({
@@ -229,6 +282,7 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
     newPurchaseOrder.InvoiceDate = this.invoiceDate.value;
     newPurchaseOrder.PaymentDate = this.paymentDate.value;
     newPurchaseOrder.ShippedDate = this.shippedOn.value;
+    newPurchaseOrder.ArivalDate = this.arrivalDate.value;
 
     this.purchaseOrderItems.controls.forEach(element => {
       newPurchaseOrder.PurchaseOrderItems.push(
@@ -245,6 +299,17 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
     return newPurchaseOrder;
 
   }
+  itemChanged(event, i) {
 
+    if (event.itemData) {
+      this.selectedItemUnitPrice(i).setValue(event.itemData.price);
+
+      this.selectedItemQuantity(i).clearValidators();
+      this.selectedItemQuantity(i).setValidators([Validators.min(event.itemData.minimumQuantity), Validators.required]);
+      this.selectedItemQuantity(i).setValue(event.itemData.minimumQuantity);
+    }
+
+
+  }
 
 }

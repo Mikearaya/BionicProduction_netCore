@@ -4,8 +4,14 @@ import { VendorViewComponent } from './vendor-view/vendor-view.component';
 import { VendorFormComponent } from './vendor-form/vendor-form.component';
 
 const routes: Routes = [
-  { path: '', component: VendorViewComponent },
-  { path: 'new', component: VendorFormComponent },
+  {
+    path: '', component: VendorViewComponent,
+    data: { title: 'Vendors', breadCrum: 'Vendors' }
+  },
+  {
+    path: 'new', component: VendorFormComponent,
+    data: { title: 'New vendor', breadCrum: 'Vendors/New' }
+  },
   { path: ':vendorId/update', component: VendorFormComponent },
 ];
 
