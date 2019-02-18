@@ -3,7 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { InventoryViewComponent } from './inventory-view/inventory-view.component';
 
 const routes: Routes = [
-  { path: '', component: InventoryViewComponent, data: { title: 'Inventory' } }
+  {
+    path: '', component: InventoryViewComponent,
+    data: { title: 'Inventory', breadCrum: 'Inventory' }
+  }
 ];
 
 @NgModule({

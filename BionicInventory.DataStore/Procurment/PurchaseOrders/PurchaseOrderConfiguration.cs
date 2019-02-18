@@ -1,3 +1,11 @@
+/*
+ * @CreateTime: Feb 18, 2019 8:16 PM
+ * @Author:  Mikael Araya
+ * @Contact: MikaelAraya12@gmail.com
+ * @Last Modified By:  Mikael Araya
+ * @Last Modified Time: Feb 18, 2019 9:39 PM
+ * @Description: Modify Here, Please 
+ */
 using BionicInventory.Domain.Procurment.PurchaseOrders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,7 +35,9 @@ namespace BionicInventory.DataStore.Procurment.PurchaseOrders {
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                 .ValueGeneratedOnAddOrUpdate ();
 
-            builder.Property (e => e.Discount).HasColumnName ("discount");
+            builder.Property (e => e.Discount)
+                .HasColumnName ("discount")
+                .HasDefaultValueSql ("'0'");
 
             builder.Property (e => e.ExpectedDate)
                 .HasColumnName ("expected_date")

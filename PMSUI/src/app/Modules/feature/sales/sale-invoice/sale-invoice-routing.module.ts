@@ -6,11 +6,26 @@ import { InvoicePaymentComponent } from './invoice-payment/invoice-payment.compo
 
 
 const routes: Routes = [
-  { path: '', component: SalesInvoiceViewComponent },
-  { path: ':invoiceId/payments', component: InvoicePaymentComponent },
-  { path: 'create', component: SaleInvoiceFormComponent },
-  { path: 'customerorder/:customerOrderId', component: SaleInvoiceFormComponent },
-  { path: ':invoiceId', component: SaleInvoiceFormComponent },
+  {
+    path: '', component: SalesInvoiceViewComponent,
+    data: { title: 'Invoices', breadCrum: 'Invoices' }
+  },
+  {
+    path: ':invoiceId/payments', component: InvoicePaymentComponent,
+    data: { title: 'Invoices payment', breadCrum: 'invoice payments' }
+  },
+  {
+    path: 'create', component: SaleInvoiceFormComponent,
+    data: { title: 'Create invoice', breadCrum: 'New' }
+  },
+  {
+    path: 'customerorder/:customerOrderId', component: SaleInvoiceFormComponent,
+    data: { title: 'Customer order invoice', breadCrum: 'Customer order invoice' }
+  },
+  {
+    path: ':invoiceId/update', component: SaleInvoiceFormComponent,
+    data: { title: 'Update invoice', breadCrum: 'Update' }
+  },
 
 ];
 

@@ -8,7 +8,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'purchase-orders', pathMatch: 'full' },
       {
         path: 'vendors', loadChildren: './vendor/vendor.module#VendorModule',
-        data: { title: 'Vendors', breadCrum: 'vendors' }
+        data: { title: 'Vendors', breadCrum: 'Vendors' }
       },
       {
         path: 'purchase-terms', loadChildren: './purchase-term/purchase-term.module#PurchaseTermModule',

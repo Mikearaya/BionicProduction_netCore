@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 10, 2019 10:48 PM
+ * @Last Modified Time: Feb 18, 2019 9:56 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -152,6 +152,38 @@ namespace BionicInventory.API.Controllers.Procurments.PurchaseOrders {
                 await _Mediator.Send (new DeletedPurchaseOrderDto () { Id = id });
 
                 return StatusCode (204);
+
+            } catch (NotFoundException e) {
+                return StatusCode (404, e.Message);
+            }
+        }
+
+        [HttpPost ("quotations")]
+        [DisplayName ("Create Purchase Order")]
+        [ProducesResponseType (201)]
+        [ProducesResponseType (400)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
+        [ProducesResponseType (404)]
+        [ProducesResponseType (422)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<PurchaseOrderDetailView>> CreateNewPurchaseQuotation ([FromBody] NewPurchaseQuotationDto newPurchaseOrder) {
+
+            try {
+
+                if (newPurchaseOrder == null) {
+                    return StatusCode (400);
+                }
+
+                if (!ModelState.IsValid) {
+                    return new InvalidInputResponse (ModelState);
+                }
+
+                var purchaseOrderId = await _Mediator.Send (newPurchaseOrder);
+
+                var purchaseOrderDetail = await _Mediator.Send (new GetPurchaseOrderDetailQuery () { Id = purchaseOrderId });
+
+                return StatusCode (201, purchaseOrderDetail);
 
             } catch (NotFoundException e) {
                 return StatusCode (404, e.Message);

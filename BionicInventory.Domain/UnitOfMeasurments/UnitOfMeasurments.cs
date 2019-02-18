@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 3, 2018 8:42 PM
+ * @Last Modified Time: Feb 18, 2019 8:18 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -13,21 +13,20 @@ using BionicInventory.Domain.Items.BOMs;
 
 namespace BionicInventory.Domain.UnitOfMeasurments {
     public class UnitOfMeasurment {
-
         public UnitOfMeasurment () {
             BomItems = new HashSet<BomItems> ();
-            ItemPrimaryUom = new HashSet<Item> ();
+            Item = new HashSet<Item> ();
         }
 
         public uint Id { get; set; }
         public string Abrivation { get; set; }
         public string Name { get; set; }
-        public sbyte? Active { get; set; }
         public DateTime? DateAdded { get; set; }
         public DateTime? DateUpdated { get; set; }
+        public sbyte? Active { get; set; }
 
-        public ICollection<BomItems> BomItems { get; set; }
-        public ICollection<Item> ItemPrimaryUom { get; set; }
+        public virtual ICollection<BomItems> BomItems { get; set; }
+        public virtual ICollection<Item> Item { get; set; }
 
     }
 }

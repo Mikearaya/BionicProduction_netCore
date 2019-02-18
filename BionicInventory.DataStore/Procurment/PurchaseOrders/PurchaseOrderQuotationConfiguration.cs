@@ -1,17 +1,9 @@
 /*
- * @CreateTime: Dec 29, 2018 10:01 PM
+ * @CreateTime: Feb 18, 2019 9:41 PM
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 10:01 PM
- * @Description: Modify Here, Please 
- */
-/*
- * @CreateTime: Dec 29, 2018 10:00 PM
- * @Author:  Mikael Araya
- * @Contact: MikaelAraya12@gmail.com
- * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 10:01 PM
+ * @Last Modified Time: Feb 18, 2019 9:42 PM
  * @Description: Modify Here, Please 
  */
 using BionicInventory.Domain.Procurment.PurchaseOrders;
@@ -19,15 +11,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BionicInventory.DataStore.Procurment.PurchaseOrders {
-    public class PurchaseOrderItemConfiguration : IEntityTypeConfiguration<PurchaseOrderItem> {
-        public void Configure (EntityTypeBuilder<PurchaseOrderItem> builder) {
-            builder.ToTable ("PURCHASE_ORDER_ITEM");
+    public class PurchaseOrderQuotationConfiguration : IEntityTypeConfiguration<PurchaseOrderQuotation> {
+        public void Configure (EntityTypeBuilder<PurchaseOrderQuotation> builder) {
+            builder.ToTable ("PURCHASE_ORDER_QUOTATION");
 
             builder.HasIndex (e => e.ItemId)
-                .HasName ("fk_PURCHASE_ORDER_ITEM_id_idx");
+                .HasName ("fk_PURCHASE_ORDER_QUOTATION_item_idx");
 
             builder.HasIndex (e => e.PurchaseOrderId)
-                .HasName ("fk_PURCHASE_ORDER_ITEM_po_idx");
+                .HasName ("fk_PURCHASE_ORDER_QUOTATION_purchase_order_idx");
 
             builder.Property (e => e.Id).HasColumnName ("ID");
 
@@ -55,14 +47,14 @@ namespace BionicInventory.DataStore.Procurment.PurchaseOrders {
             builder.Property (e => e.UnitPrice).HasColumnName ("unit_price");
 
             builder.HasOne (d => d.Item)
-                .WithMany (p => p.PurchaseOrderItem)
+                .WithMany (p => p.PurchaseOrderQuotation)
                 .HasForeignKey (d => d.ItemId)
-                .HasConstraintName ("fk_PURCHASE_ORDER_ITEM_id");
+                .HasConstraintName ("fk_PURCHASE_ORDER_QUOTATION_item");
 
             builder.HasOne (d => d.PurchaseOrder)
-                .WithMany (p => p.PurchaseOrderItem)
+                .WithMany (p => p.PurchaseOrderQuotation)
                 .HasForeignKey (d => d.PurchaseOrderId)
-                .HasConstraintName ("fk_PURCHASE_ORDER_ITEM_po");
+                .HasConstraintName ("fk_PURCHASE_ORDER_QUOTATION_purchase_order");
         }
     }
 }

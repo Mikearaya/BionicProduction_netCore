@@ -5,10 +5,22 @@ import { SaleOrderFormComponent } from './sale-order-form/sale-order-form.compon
 import { SalesOrderDetailComponent } from './sales-order-detail/sales-order-detail.component';
 
 const routes: Routes = [
-  { path: '', component: SaleOrderViewComponent },
-  { path: 'new', component: SaleOrderFormComponent },
-  { path: ':customerOrderId', component: SalesOrderDetailComponent },
-  { path: ':customerOrderId/update', component: SaleOrderFormComponent },
+  {
+    path: '', component: SaleOrderViewComponent,
+    data: { title: '', breadCrum: '' }
+  },
+  {
+    path: 'new', component: SaleOrderFormComponent,
+    data: { title: 'New customer order', breadCrum: 'New' }
+  },
+  {
+    path: ':customerOrderId', component: SalesOrderDetailComponent,
+    data: { title: 'Customer order detail', breadCrum: 'Detail' }
+  },
+  {
+    path: ':customerOrderId/update', component: SaleOrderFormComponent,
+    data: { title: 'Update customer order', breadCrum: 'Update' }
+  },
 ];
 
 @NgModule({

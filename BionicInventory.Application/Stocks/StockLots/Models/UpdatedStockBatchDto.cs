@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:38 PM
+ * @Last Modified Time: Feb 18, 2019 8:39 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -18,5 +18,6 @@ namespace BionicInventory.Application.Stocks.StockLots.Models {
         public string status { get; set; }
         public DateTime AvailableFrom { get; set; }
         public DateTime? ExpiryDate { get; set; }
+        public DateTime? ArivalDate { get; set; }
     }
 }

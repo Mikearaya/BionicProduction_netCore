@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 24, 2019 8:36 PM
+ * @Last Modified Time: Feb 18, 2019 10:04 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -77,7 +77,7 @@ namespace Bionic_inventory.Application.Interfaces {
         DbSet<BookedStockBatch> BookedStockBatch { get; set; }
 
         DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        DbSet<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
         DbSet<SystemSettings> SystemSettings { get; set; }
         DbSet<AspNetRoleClaims> RoleClaims { get; set; }
         DbSet<ApplicationRole> Roles { get; set; }

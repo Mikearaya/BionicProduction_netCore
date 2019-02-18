@@ -11,7 +11,7 @@ namespace BionicProduction.Migration.Database
             BomItems = new HashSet<BomItems>();
             CustomerOrderItem = new HashSet<CustomerOrderItem>();
             ProductionOrderList = new HashSet<ProductionOrderList>();
-            PurchaseOrderItem = new HashSet<PurchaseOrderItem>();
+            PurchaseOrderQuotation = new HashSet<PurchaseOrderQuotation>();
             Routing = new HashSet<Routing>();
             StockBatch = new HashSet<StockBatch>();
             VendorPurchaseTerm = new HashSet<VendorPurchaseTerm>();
@@ -42,7 +42,7 @@ namespace BionicProduction.Migration.Database
         public virtual ICollection<BomItems> BomItems { get; set; }
         public virtual ICollection<CustomerOrderItem> CustomerOrderItem { get; set; }
         public virtual ICollection<ProductionOrderList> ProductionOrderList { get; set; }
-        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public virtual ICollection<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
         public virtual ICollection<Routing> Routing { get; set; }
         public virtual ICollection<StockBatch> StockBatch { get; set; }
         public virtual ICollection<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }

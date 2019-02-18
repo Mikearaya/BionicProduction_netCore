@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 17, 2019 12:32 AM
+ * @Last Modified Time: Feb 18, 2019 8:42 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -45,6 +45,10 @@ namespace BionicInventory.Application.Stocks.StockLots.Commands.Create {
                 AvailableFrom = request.AvailableFrom,
                 Status = request.Status
             };
+
+            if (request.Status.ToUpper () == "RECIEVED" || request.ArivalDate != null) {
+                batch.ArrivalDate = (request.ArivalDate == null) ? DateTime.Now : request.ArivalDate;
+            }
             batch.Source = "Manual";
 
             Object manufacture;
@@ -64,12 +68,12 @@ namespace BionicInventory.Application.Stocks.StockLots.Commands.Create {
             Object purchaseOrder;
             // check if purchase order id is defined
             if (request.PurchaseOrderId != null && request.PurchaseOrderId != 0) {
-                purchaseOrder = await _database.PurchaseOrderItem
+                purchaseOrder = await _database.PurchaseOrder
                     .AsNoTracking ()
                     .FirstOrDefaultAsync (p => p.Id == request.PurchaseOrderId);
 
                 if (purchaseOrder == null) {
-                    throw new NotFoundException (nameof (PurchaseOrderItem), request.PurchaseOrderId);
+                    throw new NotFoundException (nameof (PurchaseOrder), request.PurchaseOrderId);
                 }
                 batch.Source = "Procured";
                 batch.PurchaseOrderId = request.PurchaseOrderId;

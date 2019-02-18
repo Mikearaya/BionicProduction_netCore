@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 16, 2019 5:22 PM
+ * @Last Modified Time: Feb 18, 2019 8:28 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -56,7 +56,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 ShippedDate = request.ShippedDate,
                 PaymentDate = request.PaymentDate,
                 OrderedDate = request.OrderedDate,
-    
+
             };
 
             if (request.OrderedDate != null) {
@@ -72,7 +72,9 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                 Recieved = true;
             }
 
-            IList<NewStockBatchDto> newStockLotList = new List<NewStockBatchDto> ();
+            _database.PurchaseOrder.Add (purchaseOrder);
+            await _database.SaveAsync ();
+
             foreach (var item in request.PurchaseOrderItems) {
                 // check if the selected vendor item exists
                 var vendorItem = await _database.VendorPurchaseTerm
@@ -86,46 +88,25 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Commands.Create
                     throw new NotFoundException ("Vendor Item", item.ItemId);
                 }
 
-                purchaseOrder.PurchaseOrderItem.Add (new PurchaseOrderItem () {
-                    ItemId = vendorItem.ItemId,
-                        Quantity = item.Quantity,
-                        ExpectedDate = (item.ExpectedDate == null) ? request.ExpectedDate : (DateTime) item.ExpectedDate,
-                        UnitPrice = item.UnitPrice,
-                });
-
-            }
-
-            _database.PurchaseOrder.Add (purchaseOrder);
-
-            await _database.SaveAsync ();
-
-            // Create new lot  for each purchase order item
-
-            foreach (var purchaseItem in purchaseOrder.PurchaseOrderItem) {
-
-                var item = await _database.Item
-                    .Where (i => i.Id == purchaseItem.ItemId)
-                    .AsNoTracking ()
-                    .FirstOrDefaultAsync ();
-
                 await _Mediator.Send (new NewStockBatchDto () {
 
-                    PurchaseOrderId = purchaseItem.Id,
-                        ItemId = purchaseItem.ItemId,
-                        Quantity = purchaseItem.Quantity,
+                    PurchaseOrderId = purchaseOrder.Id,
+                        ItemId = vendorItem.ItemId,
+                        Quantity = item.Quantity,
                         Status = Recieved ? "Recieved" : "Planed",
-                        UnitCost = purchaseItem.UnitPrice,
-                        AvailableFrom = (purchaseItem.ExpectedDate == null) ? request.ExpectedDate : (DateTime) purchaseItem.ExpectedDate,
+                        UnitCost = item.UnitPrice,
+                        AvailableFrom = (item.ExpectedDate == null) ? request.ExpectedDate : (DateTime) item.ExpectedDate,
                         StorageLocation = new List<NewStockBatchStorageDto> () {
                             new NewStockBatchStorageDto () {
-                                Quantity = purchaseItem.Quantity,
-                                    StorageId = item.DefaultStorageId
+                                Quantity = item.Quantity,
+                                    StorageId = vendorItem.Item.DefaultStorageId
                             }
                         }
 
                 });
 
             }
+
 
             return purchaseOrder.Id;
         }

@@ -12,8 +12,14 @@ import { StorageLocationViewComponent } from './storage-location-view/storage-lo
 import { StorageLocationFormComponent } from './storage-location-form/storage-location-form.component';
 
 const routes: Routes = [
-  { path: '', component: StorageLocationViewComponent },
-  { path: 'new', component: StorageLocationFormComponent },
+  {
+    path: '', component: StorageLocationViewComponent,
+    data: { title: 'Storage locations', breadCrum: '' }
+  },
+  {
+    path: 'new', component: StorageLocationFormComponent,
+    data: { title: 'Create storage location', breadCrum: 'New' }
+  },
   { path: ':storageId/update', component: StorageLocationFormComponent }
 ];
 

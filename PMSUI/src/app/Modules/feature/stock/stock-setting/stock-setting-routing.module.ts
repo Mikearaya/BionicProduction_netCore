@@ -5,9 +5,18 @@ import { StockSettingComponent } from './stock-setting.component';
 const routes: Routes = [
   {
     path: '', component: StockSettingComponent, children: [
-      { path: 'unit-of-measure', loadChildren: './unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule' },
-      { path: 'product-groups', loadChildren: './product-group/product-group.module#ProductGroupModule' },
-      { path: 'storages', loadChildren: './storage-location/storage-location.module#StorageLocationModule' },
+      {
+        path: 'unit-of-measure', loadChildren: './unit-of-measurment/unit-of-measurment.module#UnitOfMeasurmentModule',
+        data: { title: 'Unit of measurments', breadCrum: 'UOMs' }
+      },
+      {
+        path: 'product-groups', loadChildren: './product-group/product-group.module#ProductGroupModule',
+        data: { title: 'Product groups', breadCrum: 'Product group' }
+      },
+      {
+        path: 'storages', loadChildren: './storage-location/storage-location.module#StorageLocationModule',
+        data: { title: 'Storage locetions', breadCrum: 'storage locations' }
+      },
 
     ]
   },
@@ -18,3 +27,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class StockSettingRoutingModule { }
+

@@ -16,6 +16,7 @@ export class PageTitleComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(event => {
       this.title = this.route.root.data['title'];
+      console.log(this.route.root);
 
     });
   }

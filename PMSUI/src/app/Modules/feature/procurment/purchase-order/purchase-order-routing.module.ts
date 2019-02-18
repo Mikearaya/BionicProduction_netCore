@@ -10,11 +10,11 @@ const routes: Routes = [
   },
   {
     path: 'new', component: PurchaseOrderFormComponent,
-    data: { title: 'Create a purchase order', breadCrum: 'new' }
+    data: { title: 'Create a purchase order', breadCrum: 'New' }
   },
   {
     path: ':purchaseOrderId/update', component: PurchaseOrderFormComponent,
-    data: { title: 'Update purchase order', breadCrum: 'update' }
+    data: { title: 'Update purchase order', breadCrum: 'Update' }
   }
 ];
 

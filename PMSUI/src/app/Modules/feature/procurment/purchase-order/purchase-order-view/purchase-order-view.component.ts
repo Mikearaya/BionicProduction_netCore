@@ -19,7 +19,7 @@ import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { PurchaseOrderApiService } from '../purchase-order-api.service';
 import { purchaseOrderColumnBluePrint } from './purchase-order-view-column.model';
-import { PurchaseOrderDetailView } from '../pruchse-order-data.model';
+import { PurchaseOrderDetailView, PurchaseOrderListView } from '../pruchse-order-data.model';
 
 @Component({
   selector: 'app-purchase-order-view',
@@ -35,7 +35,7 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
   @ViewChild('notification')
   private notification: NotificationComponent;
 
-  public data: PurchaseOrderDetailView[];
+  public data: PurchaseOrderListView[];
   public pageSettings: PageSettingsModel;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
@@ -91,7 +91,7 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
     this.wrapSettings = { wrapMode: 'Header' };
 
     this.purchaseOrderApi.getAllPurchaseOrders().subscribe(
-      (data: PurchaseOrderDetailView[]) => this.data = data,
+      (data: PurchaseOrderListView[]) => this.data = data,
       this.handleError
     );
   }

@@ -14,12 +14,16 @@ import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 const routes: Routes = [
   {
-    path: '', component: CustomerViewComponent, data: { title: 'Customers List', customerSelfContained: true },
+    path: '', component: CustomerViewComponent,
+    data: { title: 'Customers', customerSelfContained: true, breadCrum: '' },
   },
-  { path: 'new', component: CustomerFormComponent, data: { title: 'Add New Customer', customerSelfContained: true } },
+  {
+    path: 'new', component: CustomerFormComponent,
+    data: { title: 'Add New Customer', customerSelfContained: true, breadCrum: 'New' }
+  },
   {
     path: ':customerId/update', component: CustomerFormComponent,
-    data: { title: 'Update Customer', customerSelfContained: true }
+    data: { title: 'Update Customer', customerSelfContained: true, breadCrum: 'Update' }
   }
 ];
 

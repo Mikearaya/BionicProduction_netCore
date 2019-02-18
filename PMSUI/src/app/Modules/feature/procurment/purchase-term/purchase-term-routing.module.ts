@@ -5,7 +5,7 @@ import { PurchaseTermFormComponent } from './purchase-term-form/purchase-term-fo
 const routes: Routes = [
   {
     path: '', component: PurchaseTermFormComponent,
-    data: { title: 'Vendor purchase terms', breadCrum: 'Purchase terms' }
+    data: { title: '', breadCrum: 'Purchase terms' }
   },
   {
     path: ':purchaseTermId/update', component: PurchaseTermFormComponent,

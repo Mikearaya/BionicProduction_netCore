@@ -24,7 +24,7 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
   public purchaseOrderForm: FormGroup;
   public title: string;
   public isUpdate: Boolean;
-  public purchaseOrderStatus = ['New', 'RFQ'];
+  public purchaseOrderStatus = ['New', 'RFQ', 'Ordered', 'Shipped', 'Recieved', 'Canceled'];
   public itemsList: ItemView[];
   public itemFields: { text: string, value: string };
 
@@ -257,13 +257,23 @@ export class PurchaseOrderFormComponent extends CommonProperties implements OnIn
       if (!this.isUpdate) {
         const purchaseOrder = this.prepareNewPurchaseOrderData();
 
-        this.purchaseOrderApi.createPurchaseOrder(purchaseOrder).subscribe(
-          (data: PurchaseOrderDetailView) => {
-            this.notification.showMessage('Purchase order created successfully');
-            this.isUpdate = true;
-            this.purchaseOrderId = data.id;
-          }
-        );
+        if (purchaseOrder.Status !== 'RFQ') {
+          this.purchaseOrderApi.createPurchaseOrder(purchaseOrder).subscribe(
+            (data: PurchaseOrderDetailView) => {
+              this.notification.showMessage('Purchase order created successfully');
+              this.isUpdate = true;
+              this.purchaseOrderId = data.id;
+            }
+          );
+        } else {
+          this.purchaseOrderApi.createPurchaseQuotation(purchaseOrder).subscribe(
+            (data: PurchaseOrderDetailView) => {
+              this.notification.showMessage('Quotation created successfully');
+              this.isUpdate = true;
+              this.purchaseOrderId = data.id;
+            }
+          );
+        }
       }
     }
   }

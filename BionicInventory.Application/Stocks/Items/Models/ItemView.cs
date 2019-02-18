@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 7:45 PM
+ * @Last Modified Time: Feb 18, 2019 8:29 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -51,7 +51,7 @@ namespace BionicInventory.Application.Stocks.Items.Models {
                     primaryUom = item.PrimaryUom.Abrivation,
                     primaryUomId = item.PrimaryUomId,
                     photo = item.Photo,
-                    defaultStorage = item.StorageLocation.Name,
+                    defaultStorage = item.DefaultStorage.Name,
                     defaultStorageId = item.DefaultStorageId,
                     isInventoryItem = (item.IsInventory == 1) ? true : false,
                     isProcured = (item.IsProcured == 1) ? true : false,

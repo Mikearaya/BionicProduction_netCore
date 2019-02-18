@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:37 PM
+ * @Last Modified Time: Feb 18, 2019 8:48 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -35,6 +35,7 @@ namespace BionicInventory.Application.Stocks.StockLots.Models {
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
         public DateTime availableFrom { get; set; }
+        public DateTime? arivalDate { get; set; }
         public DateTime? expiryDate { get; set; }
         public string item { get; set; }
         public string itemGroup { get; set; }
@@ -62,6 +63,7 @@ namespace BionicInventory.Application.Stocks.StockLots.Models {
                     totalBooked = batch.BookedStockBatch.Sum (b => b.Quantity),
                     manufactureOrderId = batch.Batch.ManufactureOrderId,
                     purchaseOrderId = batch.Batch.PurchaseOrderId,
+                    arivalDate = batch.Batch.ArrivalDate,
                     availableFrom = batch.Batch.AvailableFrom,
                     dateAdded = batch.DateAdded,
                     dateUpdated = batch.DateUpdated,

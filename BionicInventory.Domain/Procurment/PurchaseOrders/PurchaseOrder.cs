@@ -3,17 +3,19 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 9:43 PM
+ * @Last Modified Time: Feb 18, 2019 10:24 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Collections.Generic;
 using BionicInventory.Domain.Procurment.Vendors;
+using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Domain.Procurment.PurchaseOrders {
     public class PurchaseOrder {
         public PurchaseOrder () {
-            PurchaseOrderItem = new HashSet<PurchaseOrderItem> ();
+            PurchaseOrderQuotation = new HashSet<PurchaseOrderQuotation> ();
+            StockBatch = new HashSet<StockBatch> ();
         }
 
         public uint Id { get; set; }
@@ -33,7 +35,8 @@ namespace BionicInventory.Domain.Procurment.PurchaseOrders {
         public DateTime? InvoiceDate { get; set; }
 
         public Vendor Vendor { get; set; }
-        public ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public ICollection<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
+        public ICollection<StockBatch> StockBatch { get; set; }
 
     }
 }

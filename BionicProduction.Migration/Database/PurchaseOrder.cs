@@ -7,7 +7,8 @@ namespace BionicProduction.Migration.Database
     {
         public PurchaseOrder()
         {
-            PurchaseOrderItem = new HashSet<PurchaseOrderItem>();
+            PurchaseOrderQuotation = new HashSet<PurchaseOrderQuotation>();
+            StockBatch = new HashSet<StockBatch>();
         }
 
         public uint Id { get; set; }
@@ -27,6 +28,7 @@ namespace BionicProduction.Migration.Database
         public DateTime? InvoiceDate { get; set; }
 
         public virtual Vendor Vendor { get; set; }
-        public virtual ICollection<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public virtual ICollection<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
+        public virtual ICollection<StockBatch> StockBatch { get; set; }
     }
 }

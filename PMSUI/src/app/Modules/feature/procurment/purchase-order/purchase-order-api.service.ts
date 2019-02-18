@@ -30,6 +30,10 @@ export class PurchaseOrderApiService {
     return this.httpClient.post<PurchaseOrderDetailView>(`${this.apiUrl}/${this.controller}`, purchaseOrder);
   }
 
+  createPurchaseQuotation(purchaseOrder: NewPurchaseOrderModel): Observable<PurchaseOrderDetailView> {
+    return this.httpClient.post<PurchaseOrderDetailView>(`${this.apiUrl}/${this.controller}/quotations`, purchaseOrder);
+  }
+
   updatePurchaseOrder(purchaseOrder: UpdatedPurchaseOrderModel): Observable<void> {
     return this.httpClient.put<void>(`${this.apiUrl}/${this.controller}/${purchaseOrder.Id}`, purchaseOrder);
   }

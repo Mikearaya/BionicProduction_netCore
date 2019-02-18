@@ -100,7 +100,15 @@ export const purchaseOrderColumnBluePrint = [
   },
   {
     key: 'paymentDate',
-    humanReadable: 'Payment Date',
+    humanReadable: 'Payment date',
+    visable: false,
+    type: 'date',
+    width: '30',
+    format: 'yMd'
+  },
+    {
+    key: 'arivalDate',
+    humanReadable: 'Recieved on',
     visable: false,
     type: 'date',
     width: '30',
@@ -115,6 +123,7 @@ export const purchaseOrderColumnBluePrint = [
     width: '30',
     format: 'yMd'
   },
+
 
   {
     key: 'dateUpdated',

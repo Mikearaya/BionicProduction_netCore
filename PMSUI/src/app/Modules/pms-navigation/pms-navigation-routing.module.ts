@@ -17,10 +17,8 @@ const routes: Routes = [{
     { path: 'productions', loadChildren: '../feature/work-order/work-order.module#WorkOrderModule' },
     { path: 'stocks', loadChildren: '../feature/stock/stock.module#StockModule' },
     { path: 'crm', loadChildren: '../feature/sales/sales.module#SalesModule' },
-    {
-      path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule',
-      data: { title: 'Procurments', breadCrum: 'Procurments' }
-    },
+    { path: 'procurments', loadChildren: '../feature/procurment/procurment.module#ProcurmentModule',
+    data: {title: 'Procurments', breadCrum: 'Procurments'} },
     { path: 'settings', loadChildren: '../feature/system-setting/system-setting.module#SystemSettingModule' },
     { path: '', redirectTo: '/home' }
   ]

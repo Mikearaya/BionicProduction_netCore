@@ -9,11 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'new', component: WriteOffFormComponent,
-    data: { title: 'Create new write off', breadcrum: '/inventory/write-offs' }
+    data: { title: 'Create new write off', breadcrum: 'New' }
   },
   {
     path: ':writeoffId/update', component: WriteOffFormComponent,
-    data: { title: 'Update write off', breadcrum: '/inventory/write-offs' }
+    data: { title: 'Update write off', breadcrum: 'Detail' }
   }
 ];
 

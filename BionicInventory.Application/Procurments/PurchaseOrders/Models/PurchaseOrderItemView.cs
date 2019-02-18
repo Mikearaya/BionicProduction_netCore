@@ -3,12 +3,13 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 12:02 AM
+ * @Last Modified Time: Feb 18, 2019 10:00 PM
  * @Description: Modify Here, Please 
  */
 using System;
 using System.Linq.Expressions;
 using BionicInventory.Domain.Procurment.PurchaseOrders;
+using BionicProduction.Domain.StockBatchs;
 
 namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
     public class PurchaseOrderItemView {
@@ -26,12 +27,32 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
 
-        public static Expression<Func<PurchaseOrderItem, PurchaseOrderItemView>> Projection {
+        public static Expression<Func<StockBatch, PurchaseOrderItemView>> Projection {
 
             get {
                 return po_item => new PurchaseOrderItemView () {
                     id = po_item.Id,
-                    purchaseOrderId = po_item.PurchaseOrderId,
+                    purchaseOrderId = (uint) po_item.PurchaseOrderId,
+                    itemId = po_item.ItemId,
+                    item = po_item.Item.Name,
+                    itemGroupId = po_item.Item.GroupId,
+                    itemGroup = po_item.Item.Group.GroupName,
+                    quantity = po_item.Quantity,
+                    unitPrice = po_item.UnitCost,
+                    subTotal = (double) po_item.Quantity * po_item.UnitCost,
+                    expectedDate = po_item.AvailableFrom,
+                    dateAdded = po_item.DateAdded,
+                    dateUpdated = po_item.DateUpdated
+                };
+            }
+        }
+
+        public static Expression<Func<PurchaseOrderQuotation, PurchaseOrderItemView>> QuotProjection {
+
+            get {
+                return po_item => new PurchaseOrderItemView () {
+                    id = po_item.Id,
+                    purchaseOrderId = (uint) po_item.PurchaseOrderId,
                     itemId = po_item.ItemId,
                     item = po_item.Item.Name,
                     itemGroupId = po_item.Item.GroupId,
@@ -46,7 +67,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
             }
         }
 
-        public static PurchaseOrderItemView Create (PurchaseOrderItem po_item) {
+        public static PurchaseOrderItemView Create (StockBatch po_item) {
             return Projection.Compile ().Invoke (po_item);
         }
     }

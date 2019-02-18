@@ -5,11 +5,26 @@ import { ShipmentFormComponent } from './shipment-form/shipment-form.component';
 import { ShipmentDetailViewComponent } from './shipment-detail-view/shipment-detail-view.component';
 
 const routes: Routes = [
-  { path: '', component: ShipmentViewComponent },
-  { path: 'new', component: ShipmentFormComponent },
-  { path: ':shipmentId/update', component: ShipmentFormComponent },
-  { path: 'customerorder/:customerOrderId', component: ShipmentFormComponent },
-  { path: ':shipmentId', component: ShipmentDetailViewComponent },
+  {
+    path: '', component: ShipmentViewComponent,
+    data: { title: 'Shipments List', breadCrum: 'Shipments' }
+  },
+  {
+    path: 'new', component: ShipmentFormComponent,
+    data: { title: 'Create new shipment', breadCrum: 'New' }
+  },
+  {
+    path: ':shipmentId/update', component: ShipmentFormComponent,
+    data: { title: 'Update shipment', breadCrum: 'Update' }
+  },
+  {
+    path: 'customerorder/:customerOrderId', component: ShipmentFormComponent,
+    data: { title: 'Customer order shipment', breadCrum: 'Customer order shipment' }
+  },
+  {
+    path: ':shipmentId', component: ShipmentDetailViewComponent,
+    data: { title: 'Shipment detail', breadCrum: 'Shipments detail' }
+  },
 
 ];
 

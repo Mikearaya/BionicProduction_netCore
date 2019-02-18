@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:37 PM
+ * @Last Modified Time: Feb 18, 2019 8:39 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -23,6 +23,7 @@ namespace BionicInventory.Application.Stocks.StockLots.Models {
         public uint? PurchaseOrderId { get; set; }
 
         public uint? ManufactureOrderId { get; set; }
+        public DateTime? ArivalDate { get; set; }
 
         [Required]
         public DateTime AvailableFrom { get; set; }

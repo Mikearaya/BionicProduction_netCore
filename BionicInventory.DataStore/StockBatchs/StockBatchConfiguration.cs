@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Dec 29, 2018 10:02 PM
+ * @Last Modified Time: Feb 18, 2019 8:19 PM
  * @Description: Modify Here, Please 
  */
 using BionicProduction.Domain.StockBatchs;
@@ -45,10 +45,6 @@ namespace BionicInventory.DataStore.StockBatchs {
                 .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                 .ValueGeneratedOnAddOrUpdate ();
 
-            builder.Property (e => e.Source)
-                .HasColumnName ("source")
-                .HasColumnType ("varchar(45)");
-
             builder.Property (e => e.ExpiryDate)
                 .HasColumnName ("expiry_date")
                 .HasColumnType ("datetime");
@@ -60,6 +56,10 @@ namespace BionicInventory.DataStore.StockBatchs {
             builder.Property (e => e.PurchaseOrderId).HasColumnName ("PURCHASE_ORDER_ID");
 
             builder.Property (e => e.Quantity).HasColumnName ("quantity");
+
+            builder.Property (e => e.Source)
+                .HasColumnName ("source")
+                .HasColumnType ("varchar(45)");
 
             builder.Property (e => e.Status)
                 .HasColumnName ("status")

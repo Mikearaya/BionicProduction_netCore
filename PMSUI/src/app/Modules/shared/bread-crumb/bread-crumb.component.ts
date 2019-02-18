@@ -16,7 +16,7 @@ export class BreadCrumbComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(event => {
       this.breadcrumbs = [];
-      let currentRoute = this.route.root,
+      let currentRoute = this.route.root.firstChild,
         url = '';
       do {
         const childrenRoutes = currentRoute.children;

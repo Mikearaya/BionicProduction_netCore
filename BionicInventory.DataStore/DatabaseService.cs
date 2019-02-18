@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 25, 2019 9:32 PM
+ * @Last Modified Time: Feb 18, 2019 10:05 PM
  * @Description: Modify Here, Please 
  */
 using System.Threading.Tasks;
@@ -111,7 +111,6 @@ namespace BionicInventory.DataStore {
         public DbSet<WriteOff> WriteOff { get; set; }
         public DbSet<WriteOffDetail> WriteOffDetail { get; set; }
         public DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        public DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
 
         public DbSet<Vendor> Vendor { get; set; }
         public DbSet<VendorPurchaseTerm> VendorPurchaseTerm { get; set; }
@@ -127,6 +126,7 @@ namespace BionicInventory.DataStore {
         public new DbSet<AspNetUserRoles> UserRoles { get; set; }
         public new DbSet<ApplicationUser> Users { get; set; }
         public new DbSet<AspNetUserTokens> UserTokens { get; set; }
+        public DbSet<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
 
         protected override void OnModelCreating (ModelBuilder modelBuilder) {
             base.OnModelCreating (modelBuilder);
@@ -166,7 +166,7 @@ namespace BionicInventory.DataStore {
             modelBuilder.ApplyConfiguration (new StockBatchStorageConfiguration ());
             modelBuilder.ApplyConfiguration (new BookedStockBatchConfiguration ());
             modelBuilder.ApplyConfiguration (new PurchaseOrderConfiguration ());
-            modelBuilder.ApplyConfiguration (new PurchaseOrderItemConfiguration ());
+            modelBuilder.ApplyConfiguration (new PurchaseOrderQuotationConfiguration ());
             modelBuilder.ApplyConfiguration (new SystemSettingsConfiguration ());
             modelBuilder.ApplyConfiguration (new AspNetUserConfiguration ());
             modelBuilder.ApplyConfiguration (new AspNetRoleClaimsConfiguration ());

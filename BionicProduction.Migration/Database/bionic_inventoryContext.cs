@@ -42,7 +42,7 @@ namespace BionicProduction.Migration.Database
         public virtual DbSet<ProductGroup> ProductGroup { get; set; }
         public virtual DbSet<ProductionOrderList> ProductionOrderList { get; set; }
         public virtual DbSet<PurchaseOrder> PurchaseOrder { get; set; }
-        public virtual DbSet<PurchaseOrderItem> PurchaseOrderItem { get; set; }
+        public virtual DbSet<PurchaseOrderQuotation> PurchaseOrderQuotation { get; set; }
         public virtual DbSet<Routing> Routing { get; set; }
         public virtual DbSet<RoutingBoms> RoutingBoms { get; set; }
         public virtual DbSet<RoutingOperation> RoutingOperation { get; set; }
@@ -67,7 +67,7 @@ namespace BionicProduction.Migration.Database
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;user=admin;password=admin;port=3306;");
+                optionsBuilder.UseMySql("server=localhost;database=bionic_inventory;port=3306;user=admin;password=admin;");
             }
         }
 
@@ -1214,7 +1214,9 @@ namespace BionicProduction.Migration.Database
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate();
 
-                entity.Property(e => e.Discount).HasColumnName("discount");
+                entity.Property(e => e.Discount)
+                    .HasColumnName("discount")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.ExpectedDate)
                     .HasColumnName("expected_date")
@@ -1261,15 +1263,15 @@ namespace BionicProduction.Migration.Database
                     .HasConstraintName("fk_PURCHASE_ORDER_vendor");
             });
 
-            modelBuilder.Entity<PurchaseOrderItem>(entity =>
+            modelBuilder.Entity<PurchaseOrderQuotation>(entity =>
             {
-                entity.ToTable("PURCHASE_ORDER_ITEM");
+                entity.ToTable("PURCHASE_ORDER_QUOTATION");
 
                 entity.HasIndex(e => e.ItemId)
-                    .HasName("fk_PURCHASE_ORDER_ITEM_id_idx");
+                    .HasName("fk_PURCHASE_ORDER_QUOTATION_item_idx");
 
                 entity.HasIndex(e => e.PurchaseOrderId)
-                    .HasName("fk_PURCHASE_ORDER_ITEM_po_idx");
+                    .HasName("fk_PURCHASE_ORDER_QUOTATION_purchase_order_idx");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
@@ -1297,14 +1299,14 @@ namespace BionicProduction.Migration.Database
                 entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
 
                 entity.HasOne(d => d.Item)
-                    .WithMany(p => p.PurchaseOrderItem)
+                    .WithMany(p => p.PurchaseOrderQuotation)
                     .HasForeignKey(d => d.ItemId)
-                    .HasConstraintName("fk_PURCHASE_ORDER_ITEM_id");
+                    .HasConstraintName("fk_PURCHASE_ORDER_QUOTATION_item");
 
                 entity.HasOne(d => d.PurchaseOrder)
-                    .WithMany(p => p.PurchaseOrderItem)
+                    .WithMany(p => p.PurchaseOrderQuotation)
                     .HasForeignKey(d => d.PurchaseOrderId)
-                    .HasConstraintName("fk_PURCHASE_ORDER_ITEM_po");
+                    .HasConstraintName("fk_PURCHASE_ORDER_QUOTATION_purchase_order");
             });
 
             modelBuilder.Entity<Routing>(entity =>

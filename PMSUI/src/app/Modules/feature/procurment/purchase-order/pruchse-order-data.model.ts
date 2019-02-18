@@ -49,6 +49,7 @@ export class PurchaseOrderListView {
   expectedDate: Date | string;
   orderedDate: Date | string | null;
   shippedDate: Date | string | null;
+  arivalDate: Date | string | null;
   tax: number | null;
   totalCost: number;
   additionalFee: number | null;

@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Nov 29, 2018 3:11 PM
+ * @Last Modified Time: Feb 18, 2019 9:40 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -23,6 +23,9 @@ namespace BionicInventory.DataStore.Items {
                     .HasName ("code_UNIQUE")
                     .IsUnique ();
 
+                builder.HasIndex (e => e.DefaultStorageId)
+                    .HasName ("fk_ITEM_storage_location_idx");
+
                 builder.HasIndex (e => e.GroupId)
                     .HasName ("fk_ITEM_group_idx");
 
@@ -30,9 +33,6 @@ namespace BionicInventory.DataStore.Items {
                     .HasName ("fk_ITEM_storing_uom_idx");
 
                 builder.Property (e => e.Id).HasColumnName ("ID");
-
-                builder.HasIndex (e => e.DefaultStorageId)
-                    .HasName ("fk_ITEM_storage_location_idx");
 
                 builder.Property (e => e.Code)
                     .IsRequired ()
@@ -50,6 +50,10 @@ namespace BionicInventory.DataStore.Items {
                     .HasDefaultValueSql ("'CURRENT_TIMESTAMP'")
                     .ValueGeneratedOnAddOrUpdate ();
 
+                builder.Property (e => e.DefaultStorageId)
+                    .HasColumnName ("DEFAULT_STORAGE_ID")
+                    .HasDefaultValueSql ("'1'");
+
                 builder.Property (e => e.GroupId)
                     .HasColumnName ("GROUP_ID")
                     .HasDefaultValueSql ("'1'");
@@ -65,10 +69,8 @@ namespace BionicInventory.DataStore.Items {
                     .HasDefaultValueSql ("'0'");
 
                 builder.Property (e => e.MinimumQuantity)
-                    .HasColumnName ("minimum_quantity");
-
-                builder.Property (e => e.DefaultStorageId)
-                    .HasColumnName ("DEFAULT_STORAGE_ID");
+                    .HasColumnName ("minimum_quantity")
+                    .HasDefaultValueSql ("'0'");
 
                 builder.Property (e => e.Name)
                     .IsRequired ()
@@ -81,33 +83,29 @@ namespace BionicInventory.DataStore.Items {
 
                 builder.Property (e => e.Price).HasColumnName ("price");
 
+                builder.Property (e => e.PrimaryUomId).HasColumnName ("primary_UOM_ID");
+
                 builder.Property (e => e.ShelfLife)
                     .HasColumnName ("shelf_life")
                     .HasDefaultValueSql ("'0'");
 
-                builder.Property (e => e.PrimaryUomId)
-                    .IsRequired ()
-                    .HasColumnName ("primary_UOM_ID");
-
                 builder.Property (e => e.UnitCost).HasColumnName ("unit_cost");
 
                 builder.Property (e => e.Weight).HasColumnName ("weight");
+
+                builder.HasOne (d => d.DefaultStorage)
+                    .WithMany (p => p.Item)
+                    .HasForeignKey (d => d.DefaultStorageId)
+                    .HasConstraintName ("fk_ITEM_storage_location");
 
                 builder.HasOne (d => d.Group)
                     .WithMany (p => p.Item)
                     .HasForeignKey (d => d.GroupId)
                     .HasConstraintName ("fk_ITEM_group");
 
-                builder.HasOne (d => d.StorageLocation)
-                    .WithMany (p => p.Item)
-                    .HasForeignKey (d => d.DefaultStorageId)
-                    .OnDelete (DeleteBehavior.ClientSetNull)
-                    .HasConstraintName ("fk_ITEM_storage_location");
-
                 builder.HasOne (d => d.PrimaryUom)
-                    .WithMany (p => p.ItemPrimaryUom)
+                    .WithMany (p => p.Item)
                     .HasForeignKey (d => d.PrimaryUomId)
-                    .OnDelete (DeleteBehavior.ClientSetNull)
                     .HasConstraintName ("fk_ITEM_storing_uom");
             }
         }

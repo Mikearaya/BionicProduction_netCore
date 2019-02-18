@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 1, 2019 12:21 AM
+ * @Last Modified Time: Feb 18, 2019 10:16 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -25,6 +25,8 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Queries.Collect
 
         public async Task<IEnumerable<PurchaseOrderListView>> Handle (GetPurchaseOrderListQuery request, CancellationToken cancellationToken) {
             return await _database.PurchaseOrder
+                .Include (p => p.PurchaseOrderQuotation)
+                .Include (p => p.StockBatch)
                 .Select (PurchaseOrderListView.Projection)
                 .ToListAsync ();
         }
