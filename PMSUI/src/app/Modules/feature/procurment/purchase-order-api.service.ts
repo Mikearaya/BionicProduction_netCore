@@ -5,7 +5,7 @@ import {
   PurchaseOrderDetailView,
   PurchaseOrderListView,
   UpdatedPurchaseOrderModel
-} from './pruchse-order-data.model';
+} from './purchase-order/pruchse-order-data.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
@@ -25,7 +25,9 @@ export class PurchaseOrderApiService {
     return this.httpClient.get<PurchaseOrderDetailView>(`${this.apiUrl}/${this.controller}/${purchaseOrderId}`);
   }
 
-
+  getShippedPurchaseOrders(): Observable<PurchaseOrderListView[]> {
+    return this.httpClient.get<PurchaseOrderListView[]>(`${this.apiUrl}/${this.controller}/shipped`);
+  }
   createPurchaseOrder(purchaseOrder: NewPurchaseOrderModel): Observable<PurchaseOrderDetailView> {
     return this.httpClient.post<PurchaseOrderDetailView>(`${this.apiUrl}/${this.controller}`, purchaseOrder);
   }

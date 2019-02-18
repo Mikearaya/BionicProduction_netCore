@@ -15,25 +15,19 @@ import {
 } from '@syncfusion/ej2-angular-grids';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CustomErrorResponse } from 'src/app/Modules/core/DataModels/system-data-models';
-import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 import { PurchaseOrderApiService } from '../../purchase-order-api.service';
-import { purchaseOrderColumnBluePrint } from './purchase-order-view-column.model';
-import { PurchaseOrderListView } from '../pruchse-order-data.model';
+import { PurchaseOrderListView } from '../../purchase-order/pruchse-order-data.model';
+import { purchaseRecievingColumnBluePrint } from './purchase-recieving-view-column.model';
 
 @Component({
-  selector: 'app-purchase-order-view',
-  templateUrl: './purchase-order-view.component.html',
-  styleUrls: ['./purchase-order-view.component.css']
+  selector: 'app-purchase-recieving-view',
+  templateUrl: './purchase-recieving-view.component.html',
+  styleUrls: ['./purchase-recieving-view.component.css']
 })
-export class PurchaseOrderViewComponent extends CommonProperties implements OnInit {
-
+export class PurchaseRecievingViewComponent extends CommonProperties implements OnInit {
 
   @ViewChild('grid')
   public grid: GridComponent;
-
-  @ViewChild('notification')
-  private notification: NotificationComponent;
 
   public data: PurchaseOrderListView[];
   public pageSettings: PageSettingsModel;
@@ -45,7 +39,7 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
   public printMode: 'CurrentPage';
   public wrapSettings: TextWrapSettingsModel;
 
-  public columnBluePrint = purchaseOrderColumnBluePrint;
+  public columnBluePrint = purchaseRecievingColumnBluePrint;
   public customAttributes: { class: string; };
   public filterOptions: { type: string; };
 
@@ -59,11 +53,7 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
       {
         title: 'Open purchase order',
         buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.editVendor.bind(this) }
-      }, {
-        title: 'Delete purchase order',
-        buttonOption:
-          { cssClass: 'e-flat', iconCss: 'e-delete e-icons', click: this.deleteVendor.bind(this) }
+          { cssClass: 'e-flat', iconCss: 'e-edit e-icons', click: this.viewPurchaseOrder.bind(this) }
       }];
 
     this.customAttributes = { class: 'custom-grid-header' };
@@ -72,7 +62,6 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
     this.pageSettings = { pageSize: 10 };
     this.editSettings = { allowEditing: false, allowAdding: true, allowDeleting: false };
     this.toolbar = [
-      'Add',
       'Print',
       'ExcelExport',
       'PdfExport',
@@ -90,37 +79,22 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
   ngOnInit(): void {
     this.wrapSettings = { wrapMode: 'Header' };
 
-    this.purchaseOrderApi.getAllPurchaseOrders().subscribe(
+    this.purchaseOrderApi.getShippedPurchaseOrders().subscribe(
       (data: PurchaseOrderListView[]) => this.data = data,
       this.handleError
     );
   }
 
-  editVendor(args: Event): void {
+  viewPurchaseOrder(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
     this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
 
   }
 
-  deleteVendor(args: Event): void {
-    const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.purchaseOrderApi.deletePurchaseOrder(rowObj.data['id']).subscribe(
-      () => this.notification.showMessage('Purchase Order Deleted'),
-      (error: CustomErrorResponse) => {
-        this.notification.showMessage('Unable to Delete Stock Batch', 'error');
-        this.handleError(error);
-      }
-    );
-  }
-
-
 
   toolbarClick(args: ClickEventArgs): void {
 
     switch (args.item.id) {
-      case 'purchaseorder_add':
-        this.route.navigate(['new'], { relativeTo: this.activatedRoute });
-        break;
       case 'purchaseorder_pdfexport':
         this.grid.pdfExport();
         break;
@@ -133,4 +107,5 @@ export class PurchaseOrderViewComponent extends CommonProperties implements OnIn
     }
 
   }
+
 }

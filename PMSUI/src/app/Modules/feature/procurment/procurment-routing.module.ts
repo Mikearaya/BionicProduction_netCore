@@ -17,6 +17,10 @@ const routes: Routes = [
       {
         path: 'purchase-orders', loadChildren: './purchase-order/purchase-order.module#PurchaseOrderModule',
         data: { title: 'Purchase orders', breadCrum: 'Purchase orders' }
+      },
+      {
+        path: 'purchase-recievings', loadChildren: './purchase-recieving/purchase-recieving.module#PurchaseRecievingModule',
+        data: { title: 'Purchase recievings', breadCrum: 'Purchase recievings' }
       }
     ]
   }];

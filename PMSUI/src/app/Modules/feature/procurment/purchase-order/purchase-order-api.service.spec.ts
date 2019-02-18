@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PurchaseOrderApiService } from './purchase-order-api.service';
+import { PurchaseOrderApiService } from '../purchase-order-api.service';
 
 describe('PurchaseOrderApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

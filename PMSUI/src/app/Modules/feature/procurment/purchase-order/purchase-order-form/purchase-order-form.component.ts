@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { PurchaseOrderApiService } from '../purchase-order-api.service';
+import { PurchaseOrderApiService } from '../../purchase-order-api.service';
 import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
 import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
 import { VendorApiService } from 'src/app/Modules/core/services/vendor/vendor-api.service';

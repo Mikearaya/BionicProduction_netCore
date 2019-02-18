@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 18, 2019 9:56 PM
+ * @Last Modified Time: Feb 18, 2019 11:32 PM
  * @Description: Modify Here, Please 
  */
 using System.Collections.Generic;
@@ -39,6 +39,19 @@ namespace BionicInventory.API.Controllers.Procurments.PurchaseOrders {
         public async Task<ActionResult<IEnumerable<PurchaseOrderListView>>> GetAllPurchaseOrders () {
 
             var purchaseOrdersList = await _Mediator.Send (new GetPurchaseOrderListQuery ());
+
+            return StatusCode (200, purchaseOrdersList);
+        }
+
+        [HttpGet ("shipped")]
+        [DisplayName ("View pending purchase orders")]
+        [ProducesResponseType (200)]
+        [ProducesResponseType (401)]
+        [ProducesResponseType (403)]
+        [ProducesResponseType (500)]
+        public async Task<ActionResult<IEnumerable<PurchaseOrderListView>>> GetAllShippedOrders () {
+
+            var purchaseOrdersList = await _Mediator.Send (new GetShippedPurchaseOrdersListQuery ());
 
             return StatusCode (200, purchaseOrdersList);
         }

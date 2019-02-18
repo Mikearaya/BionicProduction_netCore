@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 15, 2019 11:37 PM
+ * @Last Modified Time: Feb 18, 2019 11:39 PM
  * @Description: Modify Here, Please
  */
 import { NgModule } from '@angular/core';
