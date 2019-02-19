@@ -87,7 +87,7 @@ export class PurchaseRecievingViewComponent extends CommonProperties implements 
 
   viewPurchaseOrder(args: Event): void {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.route.navigate([`${rowObj.data['id']}/update`], { relativeTo: this.activatedRoute });
+    this.route.navigate([`${rowObj.data['id']}/new`], { relativeTo: this.activatedRoute });
 
   }
 

@@ -98,11 +98,10 @@ namespace BionicInventory.API.Controllers.Stock.Items {
         [DisplayName ("View critical items list")]
         [ProducesResponseType (200)]
         [ProducesResponseType (500)]
-        public async Task<ActionResult<IEnumerable<CriticalItemsView>>> GetAllCriticslItemsList () {
+        public async Task<ActionResult<IEnumerable<CriticalItemsView>>> GetAllCriticslItemsList (string type = "ALL") {
 
             try {
-
-                var itemsList = await _Mediator.Send (new GetCriticalItemsListQuery ());
+                var itemsList = await _Mediator.Send (new GetCriticalItemsListQuery () { Type = type });
                 return StatusCode (200, itemsList);
 
             } catch (Exception e) {

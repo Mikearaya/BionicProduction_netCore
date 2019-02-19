@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 30, 2019 8:37 PM
+ * @Last Modified Time: Feb 19, 2019 9:38 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -36,6 +36,13 @@ namespace BionicInventory.Application.Stocks.StockLots.Models {
                     dateAdded = storage.DateAdded,
                     dateUpdated = storage.DateUpdated
                 };
+            }
+        }
+
+        public static Expression<Func<StockBatchStorage, string>> StoragesProjection {
+
+            get {
+                return storage => storage.Storage.Name;
             }
         }
 

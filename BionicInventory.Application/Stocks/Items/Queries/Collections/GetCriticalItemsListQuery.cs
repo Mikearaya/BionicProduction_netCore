@@ -12,6 +12,6 @@ using MediatR;
 
 namespace BionicInventory.Application.Stocks.Items.Queries.Collections {
     public class GetCriticalItemsListQuery : IRequest<IEnumerable<CriticalItemsView>> {
-
+        public string Type { get; set; } = "ALL";
     }
 }

@@ -1,0 +1,19 @@
+th,
+td {
+  text-align: center;
+}
+
+th,
+td {
+  padding: 0;
+}
+
+
+tfoot {
+  background: #e0d9d9f8;
+}
+
+
+td.item-box {
+  width: 40%;
+}

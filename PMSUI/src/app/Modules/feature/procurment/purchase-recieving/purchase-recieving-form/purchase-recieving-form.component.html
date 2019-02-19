@@ -1,0 +1,67 @@
+<section>
+  <app-notification #notification></app-notification>
+  <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()">
+    <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
+    <div class="e-card">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <div class="row">
+              <label for="vendorId" class="col-md-3 col-sm-12" i18n>Vendor</label>
+              <div class="col-md-9 col-sm-12">
+                {{purchaseOrder?.vendor}}
+              </div>
+            </div>
+            <div class="row">
+              <label for="expectedDate" class="col-md-3 col-sm-12" i18n>Expected Date</label>
+              <div class="col-md-9 col-sm-12">
+                {{purchaseOrder?.expectedDate}}
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table-striped table">
+              <thead>
+                <tr>
+                  <th i18n>Item</th>
+                  <th i18n>Order Quantity</th>
+                  <th i18n>Price</th>
+                  <th i18n>Subtotal</th>
+                  <th i18n>Expected Date</th>
+                  <th i18n>Recieved</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="purchaseOrderItems">
+                <tr *ngFor="let purchaseItem of purchaseOrderItems.controls; let i=index; let last=last;" [formGroup]="purchaseItem">
+                  <td class='item-box'>
+                    {{purchaseOrder?.OrderItems[i].item}}
+                  </td>
+                  <td>
+                    {{purchaseOrder?.OrderItems[i].quantity}}
+                  </td>
+                  <td>
+                    {{purchaseOrder?.OrderItems[i].unitPrice}}
+                  </td>
+                  <td>
+                    {{purchaseOrder?.OrderItems[i].subTotal}}
+                  </td>
+                  <td>
+                    {{purchaseOrder?.expectedDate}}
+                  </td>
+                  <td>
+                    <ejs-numerictextbox formControlName="recieved" id="recievedAmount" name="recievedAmount" [width]='200'>
+                    </ejs-numerictextbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-form-options [showDelete]='isUpdate' [submitDisabled]='purchaseOrderForm.invalid'></app-form-options>
+  </form>
+</section>

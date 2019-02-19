@@ -35,6 +35,7 @@ namespace BionicInventory.Application.Products.Models {
         public float expectedAvailableQuantity { get; set; }
 
         public string uom { get; set; }
+        public string type { get; set; }
 
         public float inStock { get; set; }
 
@@ -46,6 +47,7 @@ namespace BionicInventory.Application.Products.Models {
                     itemName = critical.Key.Name,
                     itemCode = critical.Key.Code,
                     minimumQuantity = (float) critical.Key.MinimumQuantity,
+                    type = (critical.Key.IsProcured == 1) ? "Purchased" : "Manufactured",
                     inStock = critical
                     .Sum (l =>
                     l.Lot.Where (i =>
@@ -56,7 +58,7 @@ namespace BionicInventory.Application.Products.Models {
                     l.Lot.Where (i =>
                     i.Batch.Status.ToUpper () == "PLANED"
                     ).Sum (q => q.Quantity)),
-                 //   uom = critical.Key.PrimaryUom.Abrivation,
+                    //   uom = critical.Key.PrimaryUom.Abrivation,
                     availableQuantity = critical
                     .Sum (l =>
                     l.Lot.Where (i =>

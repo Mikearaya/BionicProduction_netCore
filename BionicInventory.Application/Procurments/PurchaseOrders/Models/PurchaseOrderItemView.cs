@@ -3,11 +3,14 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 18, 2019 10:00 PM
+ * @Last Modified Time: Feb 19, 2019 9:41 PM
  * @Description: Modify Here, Please 
  */
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using BionicInventory.Application.Stocks.StockLots.Models;
 using BionicInventory.Domain.Procurment.PurchaseOrders;
 using BionicProduction.Domain.StockBatchs;
 
@@ -17,6 +20,9 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public uint id { get; set; }
         public uint purchaseOrderId { get; set; }
         public uint itemId { get; set; }
+        public IEnumerable<string> storageLocation { get; set; }
+        public uint lotId { get; set; }
+        public uint storageId { get; set; }
         public string item { get; set; }
         public uint itemGroupId { get; set; }
         public string itemGroup { get; set; }
@@ -31,7 +37,9 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
 
             get {
                 return po_item => new PurchaseOrderItemView () {
-                    id = po_item.Id,
+                    lotId = po_item.Id,
+                    storageLocation = po_item.StockBatchStorage.AsQueryable ().Select (StockLotStorageView.StoragesProjection),
+                    storageId = po_item.Item.DefaultStorageId,
                     purchaseOrderId = (uint) po_item.PurchaseOrderId,
                     itemId = po_item.ItemId,
                     item = po_item.Item.Name,

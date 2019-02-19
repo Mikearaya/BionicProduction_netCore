@@ -25,7 +25,7 @@ export class PurchaseOrderDetailView {
 
 export class PurchaseOrderItemView {
 
-  id: number;
+  lotId: number;
   purchaseOrderId: number;
   itemId: number;
   item: string;
@@ -78,7 +78,7 @@ export class NewPurchaseOrderModel {
   PaymentDate: Date | string | null;
   InvoiceId: string;
   InvoiceDate: Date | string | null;
-ArivalDate: Date | string | null;
+  ArivalDate: Date | string | null;
   PurchaseOrderItems: PurchaseOrderItemModel[] = [];
 
 }

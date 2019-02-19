@@ -27,7 +27,7 @@ export class ItemApiService {
   }
 
   getLowInventoryItems(): Observable<CriticalItemModel[]> {
-    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical`);
+    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical?type=purchased`);
   }
 
   getVendorItems(vendorId: number): Observable<VendorItemViewModel[]> {
@@ -58,7 +58,7 @@ export class ItemApiService {
   }
 
   getAllCriticalProduct(): Observable<CriticalItemModel[]> {
-    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical`);
+    return this.httpClient.get<CriticalItemModel[]>(`${this.apiUrl}/${this.controller}/critical?type=purchased`);
   }
 
 

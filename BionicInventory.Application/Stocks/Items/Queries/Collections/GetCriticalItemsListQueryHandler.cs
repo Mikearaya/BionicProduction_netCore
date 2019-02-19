@@ -33,9 +33,13 @@ namespace BionicInventory.Application.Stocks.Items.Queries.Collections {
                         Item = product,
                             Lot = slot
                     }).GroupBy (i => i.Item)
-                .Select (CriticalItemsView.Projection)
-                .Where (k => k.required > 0)
-                .ToList ();
+                .Select (CriticalItemsView.Projection);
+
+            if (request.Type.ToUpper () == "ALL") {
+                result = result.Where (k => k.required > 0).AsQueryable ();
+            } else {
+                result = result.Where (k => k.required > 0 && k.type.ToUpper () == "PURCHASED").AsQueryable ();
+            }
 
             return Task.FromResult<IEnumerable<CriticalItemsView>> (result);
         }
