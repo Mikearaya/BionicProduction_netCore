@@ -35,6 +35,8 @@ namespace BionicInventory.Application.Stocks.StockLots.Commands.Update {
 
             if (request.status.Trim ().ToUpper () == "RECIEVED" && batch.Status.Trim ().ToUpper () != "RECIEVED") {
                 batch.Status = "Recieved";
+            } else if (request.status.Trim ().ToUpper () == "PLANED" && batch.Status.Trim ().ToUpper () == "RECIEVED") {
+                batch.Status = "Planed";
             }
 
             _database.StockBatch.Update (batch);

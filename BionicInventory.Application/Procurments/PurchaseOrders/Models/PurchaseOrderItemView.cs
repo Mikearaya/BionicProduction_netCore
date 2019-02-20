@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Feb 19, 2019 9:41 PM
+ * @Last Modified Time: Feb 20, 2019 7:22 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -32,6 +32,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
         public DateTime expectedDate { get; set; }
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
+        public string status { get; set; }
 
         public static Expression<Func<StockBatch, PurchaseOrderItemView>> Projection {
 
@@ -43,6 +44,7 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
                     purchaseOrderId = (uint) po_item.PurchaseOrderId,
                     itemId = po_item.ItemId,
                     item = po_item.Item.Name,
+                    status = po_item.Status,
                     itemGroupId = po_item.Item.GroupId,
                     itemGroup = po_item.Item.Group.GroupName,
                     quantity = po_item.Quantity,

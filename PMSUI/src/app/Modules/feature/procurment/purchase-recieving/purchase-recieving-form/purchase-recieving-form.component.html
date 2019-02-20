@@ -52,7 +52,11 @@
                     {{purchaseOrder?.expectedDate}}
                   </td>
                   <td>
-                    <ejs-numerictextbox formControlName="recieved" id="recievedAmount" name="recievedAmount" [width]='200'>
+                    <span *ngIf="purchaseOrder?.OrderItems[i].status.toUpperCase() == 'RECIEVED'">
+                      {{purchaseOrder?.OrderItems[i].status}}
+                    </span>
+                    <ejs-numerictextbox *ngIf="purchaseOrder?.OrderItems[i].status.toUpperCase() != 'RECIEVED'"
+                      formControlName="recieved" id="recievedAmount" name="recievedAmount" [width]='200'>
                     </ejs-numerictextbox>
                   </td>
                 </tr>

@@ -87,7 +87,7 @@ export class PurchaseRecievingFormComponent extends CommonProperties implements 
   initializePurchaseOrderItems(data: PurchaseOrderItemView): FormGroup {
     return this.formBuilder.group({
       lotId: [data.lotId, Validators.required],
-      recieved: [data.quantity, Validators.required]
+      recieved: [(data.status.toUpperCase() === 'RECIEVED') ? 0 : data.quantity, Validators.required]
     });
   }
   selectedItemUnitPrice(index: number): FormControl {
@@ -124,12 +124,12 @@ export class PurchaseRecievingFormComponent extends CommonProperties implements 
   onSubmit(): void {
     if (this.purchaseOrderForm.valid) {
       const purchaseOrder = this.prepareNewPurchaseOrderData();
-
       this.purchaseOrderApi.addNewPurchaseRecieving(purchaseOrder).subscribe(
         (data: PurchaseOrderDetailView) => {
-          this.notification.showMessage('Purchase order created successfully');
+          this.notification.showMessage('Purchase order items recieved successfully');
           this.isUpdate = true;
           this.purchaseOrderId = data.id;
+          this.initializeForm(data);
         }
       );
     }

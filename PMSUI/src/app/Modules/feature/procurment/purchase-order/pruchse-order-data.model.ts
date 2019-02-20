@@ -28,6 +28,7 @@ export class PurchaseOrderItemView {
   lotId: number;
   purchaseOrderId: number;
   itemId: number;
+  status: string;
   item: string;
   itemGroupId: number;
   itemGroup: string;

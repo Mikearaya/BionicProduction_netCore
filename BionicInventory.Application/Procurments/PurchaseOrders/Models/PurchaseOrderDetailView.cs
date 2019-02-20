@@ -54,7 +54,6 @@ namespace BionicInventory.Application.Procurments.PurchaseOrders.Models {
                 _discount = value == null ? 0 : value;
             }
         }
-
         public DateTime? dateAdded { get; set; }
         public DateTime? dateUpdated { get; set; }
         public string orderId { get; set; }
