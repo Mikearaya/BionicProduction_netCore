@@ -3,7 +3,7 @@
  * @Author:  Mikael Araya
  * @Contact: MikaelAraya12@gmail.com
  * @Last Modified By:  Mikael Araya
- * @Last Modified Time: Jan 31, 2019 8:42 PM
+ * @Last Modified Time: Feb 21, 2019 11:56 PM
  * @Description: Modify Here, Please 
  */
 using System;
@@ -71,6 +71,7 @@ using BionicInventory.Application.Users.Models;
 using BionicInventory.API.Commons;
 using BionicInventory.API.Controllers.WorkOrders;
 using BionicInventory.API.Controllers.WorkOrders.Interface;
+using BionicInventory.API.Settings;
 using BionicInventory.DataStore;
 using BionicInventory.Domain.Identity;
 using BionicInventory.Domain.Items;
@@ -191,6 +192,7 @@ namespace BionicInventory.API {
                             .Build ();
                         options.Filters.Add (new AuthorizeFilter (policy));
                         options.Filters.Add (typeof (DynamicAuthorizationFilter));
+                        options.Filters.Add (new ModelValidationFilter ());
 
                         // Self referencing loop detected for property entity framework solution
                         options.OutputFormatters.Clear ();
