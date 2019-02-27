@@ -1,3 +1,38 @@
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import {
+  Component,
+  Inject,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import { Customer } from 'src/app/Modules/core/DataModels/customer-data.model';
+import { CustomerOrderApiService } from '../customer-order-api.service';
+import {
+  CustomerOrderDetailView,
+  CustomerOrderItemModel,
+  CustomerOrderItemView,
+  NewCustomerOrderModel
+} from 'src/app/Modules/core/DataModels/customer-order-data-models';
+import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';
+import {
+  DataManager,
+  Query,
+  ReturnOption,
+  WebApiAdaptor
+} from '@syncfusion/ej2-data';
+import { Employee, EmployeeApiService } from 'src/app/Modules/core/services/employees/employee-api.service';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
+import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
+import { Location } from '@angular/common';
+import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
 /*
  * @CreateTime: Nov 9, 2018 1:35 AM
  * @Author:  Mikael Araya
@@ -6,20 +41,6 @@
  * @Last Modified Time: Nov 29, 2018 12:26 AM
  * @Description: Modify Here, Please
  */
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { Location } from '@angular/common';
-import { Validators, FormControl, FormGroup, FormBuilder, FormArray } from '@angular/forms';
-import { SaleOrderApiService } from '../sale-order-api.service';
-import { Query, WebApiAdaptor, ReturnOption, DataManager } from '@syncfusion/ej2-data';
-import { Router, ActivatedRoute } from '@angular/router';
-import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
-import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { SalesOrder } from '../../sales-data-model';
-import { EmployeeApiService, Employee } from 'src/app/Modules/core/services/employees/employee-api.service';
-import { ItemApiService } from 'src/app/Modules/core/services/item/item-api.service';
-import { CustomerService } from 'src/app/Modules/core/services/customers/customer.service';
-import { ItemView } from 'src/app/Modules/core/DataModels/item-data-models';
-import { Customer } from 'src/app/Modules/core/DataModels/customer-data.model';
 
 @Component({
   selector: 'app-sale-order-form',
@@ -27,14 +48,17 @@ import { Customer } from 'src/app/Modules/core/DataModels/customer-data.model';
   styleUrls: ['./sale-order-form.component.css']
 })
 export class SaleOrderFormComponent extends CommonProperties implements OnInit {
+
   @ViewChild('notification') notification: NotificationComponent;
-  public idVisable: Boolean = false;
-  private orderData: SalesOrder;
+
+  public isVisable: Boolean = false;
+  private customerOrderId: number;
+  public isUpdate: Boolean;
+
+  private orderData: CustomerOrderDetailView;
   public salesOrderForm: FormGroup;
   public itemId: FormControl;
   public errors: Object[] = [];
-  public employeeQuery: Query;
-  public employeeFields: Object;
   public customersQuery: Query;
   public customerFields: Object;
   public itemQuery: Query;
@@ -47,10 +71,8 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
   public errorDescription: any;
 
   constructor(
-    @Inject('BASE_URL') private apiUrl: string,
-    private salesOrderApi: SaleOrderApiService,
+    private customerOrderApi: CustomerOrderApiService,
     private formBuilder: FormBuilder,
-    private employeeApi: EmployeeApiService,
     private itemApi: ItemApiService,
     private customerApi: CustomerService,
     private activatedRoute: ActivatedRoute,
@@ -62,19 +84,21 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     this.today = new Date();
     this.customersQuery = new Query().select(['fullName', 'id']);
     this.customerFields = { text: 'fullName', value: 'id' };
-    this.employeeQuery = new Query().select(['firstName', 'id']);
-    this.employeeFields = { text: 'firstName', value: 'id' };
     this.itemQuery = new Query().select(['name', 'id']);
     this.itemFields = { text: 'name', value: 'id' };
 
   }
 
   ngOnInit(): void {
+    this.customerOrderId = + this.activatedRoute.snapshot.paramMap.get('customerOrderId');
 
-    this.employeeApi.getAllEmployees().subscribe(
-      (data: Employee[]) => this.employeesList = data
-    );
-
+    if (this.customerOrderId) {
+      this.isUpdate = true;
+      this.customerOrderApi.getCustomerOrderById(this.customerOrderId).subscribe(
+        (data: CustomerOrderDetailView) => this.orderData = data,
+        this.handleError
+      );
+    }
 
     this.itemApi.getAllItems().subscribe(
       (data: ItemView[]) => this.itemsList = data,
@@ -92,7 +116,6 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
 
   createForm(): void {
     this.salesOrderForm = this.formBuilder.group({
-      orderedBy: ['', Validators.required],
       client: ['', Validators.required],
       deliveryDate: ['', Validators.required],
       status: ['Quotation', Validators.required],
@@ -108,6 +131,17 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     });
   }
 
+  initializeForm(data: CustomerOrderDetailView): void {
+    this.salesOrderForm = this.formBuilder.group({
+      client: [data.CustomerId, Validators.required],
+      deliveryDate: [data.DeliveryDate, Validators.required],
+      status: [data.Status, Validators.required],
+      description: [data.Description],
+      orders: this.formBuilder.array(data.CustomerOrderItems.map(order => this.initializeOrderItems(order)))
+    });
+
+  }
+
   get orderedBy(): FormControl {
     return this.salesOrderForm.get('orderedBy') as FormControl;
   }
@@ -121,7 +155,7 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
   }
 
   get client(): FormControl {
-    return this.salesOrderForm.get('orderedBy') as FormControl;
+    return this.salesOrderForm.get('client') as FormControl;
   }
   get orders(): FormArray {
     return this.salesOrderForm.get('orders') as FormArray;
@@ -136,37 +170,49 @@ export class SaleOrderFormComponent extends CommonProperties implements OnInit {
     }));
   }
 
+  initializeOrderItems(data: CustomerOrderItemView): FormGroup {
+    return this.formBuilder.group({
+      id: [data.Id, Validators.required],
+      itemId: [data.ItemId, Validators.required],
+      unitPrice: [data.UnitPrice, [Validators.required]],
+      quantity: [data.Quantity, [Validators.required, Validators.min(0)]],
+      dueDate: [data.DeliveryDate, Validators.required]
+    });
+  }
+
 
 
 
   onSubmit() {
     const form = this.salesOrderForm.value;
-    const order = this.prepareFormData(form);
 
 
-    this.salesOrderApi.createSalesOrder(order).subscribe(
-      (co: SalesOrder) => {
-        this.notification.showMessage('Customer order Created Successfuly');
-        this.route.navigate([`../${co.Id}/booking`], { relativeTo: this.activatedRoute });
+    if (!this.isUpdate) {
+      const order = this.prepareNewFormData(form);
+      this.customerOrderApi.createSalesOrder(order).subscribe(
+        (co: CustomerOrderDetailView) => {
+          this.notification.showMessage('Customer order Created Successfuly');
+          this.route.navigate([`../${co.Id}/booking`], { relativeTo: this.activatedRoute });
+        },
+        this.handleError
+      );
+    } else {
 
-      },
-      this.handleError
-    );
+    }
   }
 
-  prepareFormData(form: any): SalesOrder {
-    const order = new SalesOrder();
-    order.createdBy = (form.orderedBy) ? form.orderedBy : null;
-    order.clientId = (form.client) ? form.client : null;
-    order.description = form.description;
-    order.status = form.status;
-    order.deliveryDate = form.deliveryDate;
+  prepareNewFormData(form: any): NewCustomerOrderModel {
+    const order = new NewCustomerOrderModel();
+    order.ClientId = (form.client) ? form.client : null;
+    order.Description = form.description;
+    order.Status = form.status;
+    order.DeliveryDate = form.deliveryDate;
     form.orders.forEach(element => {
-      order.PurchaseOrderDetail.push({
-        itemId: element.itemId,
-        quantity: element.quantity,
-        dueDate: element.dueDate,
-        unitPrice: element.unitPrice
+      order.CustomerOrderDetail.push({
+        ItemId: element.itemId,
+        Quantity: element.quantity,
+        DueDate: element.dueDate,
+        UnitPrice: element.unitPrice
       });
     });
 

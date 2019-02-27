@@ -10,15 +10,15 @@ import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { GridComponent, CommandModel, Column, IRow } from '@syncfusion/ej2-angular-grids';
-import { SaleOrderApiService } from '../sale-order-api.service';
+import { CustomerOrderApiService } from '../customer-order-api.service';
 import { customerOrderDetailBluePrint, invoiceColumnBluePrint, shipmentColumnBluePrint } from './sales-order-detail-blue-print';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
 import { closest } from '@syncfusion/ej2-base';
 import { ShipmentSummary } from 'src/app/Modules/core/DataModels/shipment-data.model';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationComponent } from 'src/app/Modules/shared/notification/notification.component';
-import { CustomerOrderDetailView } from '../../sales-data-model';
 import { InvoiceSummary } from 'src/app/Modules/core/DataModels/invoice-data-model';
+import { CustomerOrderDetailView } from 'src/app/Modules/core/DataModels/customer-order-data-models';
 
 @Component({
   selector: 'app-customer-order-detail',
@@ -53,7 +53,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   private customerOrderId: number;
 
   constructor(
-    private salesOrderApi: SaleOrderApiService,
+    private customerOrderApi: CustomerOrderApiService,
     private activatedRoute: ActivatedRoute,
     private route: Router,
     private formBuilder: FormBuilder
@@ -93,7 +93,7 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
   // used to show order status dropdown based on the status of customer order
   showDrobbox() {
 
-    switch (this.customerOrder.status.toUpperCase()) {
+    switch (this.customerOrder.Status.toUpperCase()) {
       case 'CONFIRMED':
         return false;
       case 'QUOTATION':
@@ -119,20 +119,20 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
     this.customerOrderId = +this.activatedRoute.snapshot.paramMap.get('customerOrderId');
 
     if (this.customerOrderId) {
-      this.salesOrderApi.getSalesOrderById(this.customerOrderId).subscribe(
+      this.customerOrderApi.getCustomerOrderById(this.customerOrderId).subscribe(
         (data: CustomerOrderDetailView) => {
           this.customerOrder = data;
-          this.initializeOrderStatus(data.status);
+          this.initializeOrderStatus(data.Status);
         },
         this.handleError
       );
 
-      this.salesOrderApi.getSalesOrderInvoices(this.customerOrderId).subscribe(
+      this.customerOrderApi.getSalesOrderInvoices(this.customerOrderId).subscribe(
         (data: InvoiceSummary[]) => this.customerOrderInvoices = data,
         this.handleError
       );
 
-      this.salesOrderApi.getCustomerOrderShipmentsSummary(this.customerOrderId).subscribe(
+      this.customerOrderApi.getCustomerOrderShipmentsSummary(this.customerOrderId).subscribe(
         (data: ShipmentSummary[]) => this.customerOrderShipments = data,
         this.handleError
       );
@@ -168,13 +168,13 @@ export class SalesOrderDetailComponent extends CommonProperties implements OnIni
 
   deleteOrder(id: number): void {
 
-    this.salesOrderApi.deleteSalesOrder(id).subscribe(
+    this.customerOrderApi.deleteSalesOrder(id).subscribe(
       (_) => this.notification.showMessage('Customer order Deleted Successfuly'),
       this.handleError
     );
   }
   updateOrderStatus() {
-    this.salesOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
+    this.customerOrderApi.updateCustomerOrderStatus(this.customerOrderId, this.statusInput.value).subscribe(
       (_) => this.notification.showMessage('Customer order Updated Successfuly'),
       this.handleError
     );

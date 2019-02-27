@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { SalesRoutingModule } from './sales-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { SaleOrderApiService } from './customer-order/sale-order-api.service';
 import { CustomerOrderComponent } from './customer-order.component';
 
 @NgModule({
@@ -13,6 +12,6 @@ import { CustomerOrderComponent } from './customer-order.component';
     SharedModule
   ],
   declarations: [CustomerOrderComponent],
-  providers: [SaleOrderApiService]
+  providers: []
 })
 export class SalesModule { }

@@ -24,4 +24,6 @@ export class CustomerOrderGetterApiService {
   getCustomerOrder(customerOrderId: number): Observable<CustomerOrder> {
     return this.httpClient.get<CustomerOrder>(`${this.apiUrl}/salesorders/${customerOrderId}?type=raw`);
   }
+
+
 }

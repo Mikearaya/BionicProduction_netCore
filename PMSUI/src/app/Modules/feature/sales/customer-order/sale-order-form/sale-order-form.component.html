@@ -36,16 +36,6 @@
         <div class="col-sm-6 col-xs-12">
           <div class="row">
             <div class="col-12">
-              <ejs-dropdownlist [allowFiltering]="true" name="orderedBy" formControlName="orderedBy" id='orderedBy'
-                placeholder="Ordered By" floatLabelType="Auto" [query]="employeeQuery" [fields]="employeeFields"
-                [dataSource]="employeesList" i18n-placeholder="order giving employee name @@ordererGivenBy">
-              </ejs-dropdownlist>
-              <div class="e-error" *ngIf="orderedBy.errors">
-                <div class="div" *ngIf="orderedBy.errors['required']" i18n="@@orderedByRequired">Ordered By is required
-                  is Required</div>
-              </div>
-            </div>
-            <div class="col-12">
               <ejs-datepicker floatLabelType="Auto" placeholder="Select Due Date" formControlName="deliveryDate" [min]="today"
                 id="deliveryDate" name="deliveryDate" format="yyyy-MM-dd hh:ss" i18n-placeholder="Final order delivery date input @@orderDeliveryDate"></ejs-datepicker>
               <div class="e-error" *ngIf="deliveryDate.errors">

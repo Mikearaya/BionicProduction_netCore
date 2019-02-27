@@ -7,7 +7,7 @@
  * @Description: Modify Here, Please
  */
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { SaleOrderApiService } from '../sale-order-api.service';
+import { CustomerOrderApiService } from '../customer-order-api.service';
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import {
@@ -19,6 +19,7 @@ import { ClickEventArgs } from '@syncfusion/ej2-navigations';
 import { salesOrderBluePrint } from './sale-order-view-blue-print';
 import { closest } from '@syncfusion/ej2-base';
 import { CommonProperties } from 'src/app/Modules/core/DataModels/common-properties.class';
+import { CustomerOrderListView } from 'src/app/Modules/core/DataModels/customer-order-data-models';
 
 @Component({
   selector: 'app-sale-order-view',
@@ -29,7 +30,7 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
   @ViewChild('grid')
   public grid: GridComponent;
 
-  public data: DataManager;
+  public data: CustomerOrderListView[];
   public pageSettings: PageSettingsModel;
   public sortSetting: SortSettingsModel;
   public filterSetting: FilterSettingsModel;
@@ -57,8 +58,7 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
 
 
   constructor(
-    @Inject('BASE_URL') private apiUrl: string,
-    private salesOrderApi: SaleOrderApiService,
+    private customerOrderApi: CustomerOrderApiService,
     private activatedRoute: ActivatedRoute,
     private route: Router) {
     super();
@@ -95,17 +95,12 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
   }
 
 
-  public dataManager: DataManager = new DataManager({
-    url: `${this.apiUrl}/salesorders`,
-    adaptor: new WebApiAdaptor,
-    offline: true
-  });
-
 
   ngOnInit(): void {
 
-    this.data = this.dataManager;
-
+    this.customerOrderApi.getAllCustomerOrders().subscribe(
+      (data: CustomerOrderListView[]) => this.data = data
+    );
   }
 
   viewOrder(args: Event) {
@@ -116,7 +111,7 @@ export class SaleOrderViewComponent extends CommonProperties implements OnInit {
 
   deleteOrder(args: any) {
     const rowObj: IRow<Column> = this.grid.getRowObjectFromUID(closest(<Element>args.target, '.e-row').getAttribute('data-uid'));
-    this.salesOrderApi.deleteSalesOrder(rowObj.data['id']).subscribe(
+    this.customerOrderApi.deleteSalesOrder(rowObj.data['id']).subscribe(
       succ => this.grid.refresh(),
       err => this.handleError
     );

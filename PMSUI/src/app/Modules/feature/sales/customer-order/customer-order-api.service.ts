@@ -6,25 +6,31 @@
  * @Last Modified Time: Nov 17, 2018 9:43 PM
  * @Description: Modify Here, Please
  */
-import { Injectable, Inject } from '@angular/core';
+
+import {
+  CustomerOrderDetailView,
+  CustomerOrderListView,
+  NewCustomerOrderModel
+} from 'src/app/Modules/core/DataModels/customer-order-data-models';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { CustomerOrderDetailView, SalesOrderView, SalesOrder } from '../sales-data-model';
+import { Inject, Injectable } from '@angular/core';
 import { InvoiceSummary } from '../../../core/DataModels/invoice-data-model';
+import { Observable } from 'rxjs';
 import { ShipmentSummary } from '../../../core/DataModels/shipment-data.model';
 
-@Injectable()
-export class SaleOrderApiService {
 
-  private url = 'salesorders';
+@Injectable()
+export class CustomerOrderApiService {
+
+  private url = 'crm/customer-orders';
 
   constructor(@Inject('BASE_URL') private apiUrl: string, private httpClient: HttpClient) { }
 
-  getAllSalesOrder(): Observable<SalesOrderView[]> {
-    return this.httpClient.get<SalesOrderView[]>(`${this.apiUrl}/${this.url}`);
+  getAllCustomerOrders(): Observable<CustomerOrderListView[]> {
+    return this.httpClient.get<CustomerOrderListView[]>(`${this.apiUrl}/${this.url}`);
   }
 
-  getSalesOrderById(id: number): Observable<CustomerOrderDetailView> {
+  getCustomerOrderById(id: number): Observable<CustomerOrderDetailView> {
     return this.httpClient.get<CustomerOrderDetailView>(`${this.apiUrl}/${this.url}/${id}`);
   }
 
@@ -36,11 +42,11 @@ export class SaleOrderApiService {
     return this.httpClient.get<InvoiceSummary[]>(`${this.apiUrl}/${this.url}/${id}/invoices?type=summary`);
   }
 
-  createSalesOrder(finishedProduct: SalesOrder): Observable<SalesOrder> {
-    return this.httpClient.post<SalesOrder>(`${this.apiUrl}/${this.url}`, finishedProduct);
+  createSalesOrder(customerOrder: NewCustomerOrderModel): Observable<CustomerOrderDetailView> {
+    return this.httpClient.post<CustomerOrderDetailView>(`${this.apiUrl}/${this.url}`, customerOrder);
   }
 
-  updateSalesOrder(id: number, finishedProduct: SalesOrder): Observable<Boolean> {
+  updateSalesOrder(id: number, finishedProduct: NewCustomerOrderModel): Observable<Boolean> {
     return this.httpClient.put<Boolean>(`${this.apiUrl}/${this.url}/${id}`, finishedProduct);
   }
 
