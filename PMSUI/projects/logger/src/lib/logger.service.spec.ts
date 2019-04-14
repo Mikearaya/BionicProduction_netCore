@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BomApiService } from '../../../core/services/bom/bom-api.service';
+import { LoggerService } from './logger.service';
 
-describe('BomApiService', () => {
+describe('LoggerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: BomApiService = TestBed.get(BomApiService);
+    const service: LoggerService = TestBed.get(LoggerService);
     expect(service).toBeTruthy();
   });
 });

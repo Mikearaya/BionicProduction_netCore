@@ -1,7 +1,7 @@
 <div>
   breadcrumbs:
   <span *ngFor="let breadCrum of breadcrumbs; let last = last">
-    <a [routerLink]="breadCrum.url">{{breadCrum.label}}</a>
+    <a [routerLink]="breadCrum.url">{{breadCrum.label}} ka</a>
     <span *ngIf="!last">/</span>
   </span>
 </div>`

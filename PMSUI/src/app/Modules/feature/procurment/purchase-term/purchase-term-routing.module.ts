@@ -4,26 +4,29 @@ import { PurchaseTermFormComponent } from './purchase-term-form/purchase-term-fo
 
 const routes: Routes = [
   {
-    path: '', component: PurchaseTermFormComponent,
+    path: '',
+    component: PurchaseTermFormComponent,
     data: { title: '', breadCrum: 'Purchase terms' }
   },
   {
-    path: ':purchaseTermId/update', component: PurchaseTermFormComponent,
+    path: ':purchaseTermId/update',
+    component: PurchaseTermFormComponent,
     data: { title: 'Update purchase term', breadCrum: 'Update' }
   },
   {
-    path: 'item/:itemId', component: PurchaseTermFormComponent,
+    path: 'item/:itemId',
+    component: PurchaseTermFormComponent,
     data: { title: 'Item purchase term', breadCrum: 'New' }
   },
   {
-    path: 'vendor/:vendorId', component: PurchaseTermFormComponent,
+    path: 'vendor/:vendorId',
+    component: PurchaseTermFormComponent,
     data: { title: 'Vendor purchase term', breadCrum: 'New' }
-  },
-
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PurchaseTermRoutingModule { }
+export class PurchaseTermRoutingModule {}
